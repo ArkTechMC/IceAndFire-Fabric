@@ -1,0 +1,85 @@
+package com.github.alexthe666.iceandfire.entity.ai;
+
+import com.github.alexthe666.iceandfire.entity.EntitySeaSerpent;
+import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
+    public SeaSerpentAIRandomSwimming(PathAwareEntity creature, double speed, int chance) {
+        super(creature, speed, chance, false);
+    }
+
+    @Override
+    public boolean canStart() {
+        if (this.mob.hasPassengers() || this.mob.getTarget() != null) {
+            return false;
+        } else {
+            if (!this.ignoringChance) {
+                if (this.mob.getRandom().nextInt(this.chance) != 0) {
+                    return false;
+                }
+            }
+            Vec3d vector3d = this.getWanderTarget();
+            if (vector3d == null) {
+                return false;
+            } else {
+                this.targetX = vector3d.x;
+                this.targetY = vector3d.y;
+                this.targetZ = vector3d.z;
+                this.ignoringChance = false;
+                return true;
+            }
+        }
+    }
+
+    @Override
+    protected Vec3d getWanderTarget() {
+        if (((EntitySeaSerpent) this.mob).jumpCooldown <= 0) {
+            Vec3d vector3d = findSurfaceTarget(this.mob, 32, 16);
+            if (vector3d != null) {
+                return vector3d.add(0, 1, 0);
+            }
+        } else {
+            BlockPos blockpos = null;
+            final Random random = ThreadLocalRandom.current();
+            final int range = 16;
+            for (int i = 0; i < 15; i++) {
+                BlockPos blockpos1 = this.mob.getBlockPos().add(random.nextInt(range) - range / 2, random.nextInt(range) - range / 2, random.nextInt(range) - range / 2);
+                while (this.mob.getWorld().isAir(blockpos1) && this.mob.getWorld().getFluidState(blockpos1).isEmpty() && blockpos1.getY() > 1) {
+                    blockpos1 = blockpos1.down();
+                }
+                if (this.mob.getWorld().getFluidState(blockpos1).isIn(FluidTags.WATER)) {
+                    blockpos = blockpos1;
+                }
+            }
+            return blockpos == null ? null : new Vec3d(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D);
+        }
+        return null;
+    }
+
+    private boolean canJumpTo(BlockPos pos, int dx, int dz, int scale) {
+        BlockPos blockpos = pos.add(dx * scale, 0, dz * scale);
+        return this.mob.getWorld().getFluidState(blockpos).isIn(FluidTags.WATER) && !this.mob.getWorld().getBlockState(blockpos).blocksMovement();
+    }
+
+    private boolean isAirAbove(BlockPos pos, int dx, int dz, int scale) {
+        return this.mob.getWorld().getBlockState(pos.add(dx * scale, 1, dz * scale)).isAir() && this.mob.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();
+    }
+
+    private Vec3d findSurfaceTarget(PathAwareEntity creature, int i, int i1) {
+        BlockPos upPos = creature.getBlockPos();
+        while (creature.getWorld().getFluidState(upPos).isIn(FluidTags.WATER)) {
+            upPos = upPos.up();
+        }
+        if (isAirAbove(upPos.down(), 0, 0, 0) && canJumpTo(upPos.down(), 0, 0, 0)) {
+            return new Vec3d(upPos.getX() + 0.5F, upPos.getY() + 3.5F, upPos.getZ() + 0.5F);
+        }
+        return null;
+    }
+}

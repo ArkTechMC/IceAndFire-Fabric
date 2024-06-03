@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D",
+    "W",
+    "B"
+  ],
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "W": {
+      "item": "iceandfire:pixie_wings"
+    }
+  },
+  "result": {
+    "item": "iceandfire:pixie_wand"
+  }
+}

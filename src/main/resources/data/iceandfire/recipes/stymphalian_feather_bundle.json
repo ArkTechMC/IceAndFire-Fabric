@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FFF",
+    "FSF",
+    "FFF"
+  ],
+  "key": {
+    "S": {
+      "tag": "forge:string"
+    },
+    "F": {
+      "item": "iceandfire:stymphalian_bird_feather"
+    }
+  },
+  "result": {
+    "item": "iceandfire:stymphalian_feather_bundle"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WLW"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather_helmet"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "item": "iceandfire:sheep_helmet"
+  }
+}

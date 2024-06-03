@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W W",
+    "WLW",
+    "WWW"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather_chestplate"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "item": "iceandfire:sheep_chestplate"
+  }
+}

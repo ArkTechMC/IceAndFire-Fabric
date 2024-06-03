@@ -1,0 +1,52 @@
+{
+  "pools": [
+    {
+      "name": "hippocampus",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "iceandfire:shiny_scales",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            },
+            {
+              "function": "looting_enchant",
+              "count": {
+                "min": 0,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hippocampus",
+      "conditions": [
+        {
+          "condition": "killed_by_player"
+        },
+        {
+          "condition": "random_chance_with_looting",
+          "chance": 0.025,
+          "looting_multiplier": 0.01
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "iceandfire:hippocampus_fin",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

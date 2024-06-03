@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "iceandfire",
+  "version": "${version}",
+  "name": "IceAndFire Fabric",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/IAFEnvoy/IceAndFire-Fabric"
+  },
+  "license": "LGPL-3.0",
+  "icon": "assets/iceandfire/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.iafenvoy.iceandfire.client.IceAndFireFabricClient"
+    ],
+    "main": [
+      "com.iafenvoy.iceandfire.IceAndFireFabric"
+    ]
+  },
+  "mixins": [
+    "iceandfire.mixins.json"
+  ],
+  "accessWidener": "iceandfire.accesswidener",
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

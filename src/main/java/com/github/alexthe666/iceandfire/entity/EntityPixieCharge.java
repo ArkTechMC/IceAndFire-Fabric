@@ -1,0 +1,157 @@
+package com.github.alexthe666.iceandfire.entity;
+
+import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.enums.EnumParticles;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.AbstractFireballEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.item.ItemStack;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
+import org.jetbrains.annotations.NotNull;
+
+public class EntityPixieCharge extends AbstractFireballEntity {
+
+    public int ticksInAir;
+    private final float[] rgb;
+
+    public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn) {
+        super(t, worldIn);
+        rgb = EntityPixie.PARTICLE_RGB[random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
+    }
+
+
+    public EntityPixieCharge(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
+        this(IafEntityRegistry.PIXIE_CHARGE.get(), worldIn);
+    }
+
+    public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn, double posX, double posY,
+                             double posZ, double accelX, double accelY, double accelZ) {
+        super(t, posX, posY, posZ, accelX, accelY, accelZ, worldIn);
+        double d0 = Math.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+        this.powerX = accelX / d0 * 0.07D;
+        this.powerY = accelY / d0 * 0.07D;
+        this.powerZ = accelZ / d0 * 0.07D;
+        rgb = EntityPixie.PARTICLE_RGB[random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
+    }
+
+    public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn, PlayerEntity shooter,
+                             double accelX, double accelY, double accelZ) {
+        super(t, shooter, accelX, accelY, accelZ, worldIn);
+        double d0 = Math.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+        this.powerX = accelX / d0 * 0.07D;
+        this.powerY = accelY / d0 * 0.07D;
+        this.powerZ = accelZ / d0 * 0.07D;
+        rgb = EntityPixie.PARTICLE_RGB[random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
+    }
+
+    @Override
+    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    protected boolean isBurning() {
+        return false;
+    }
+
+    @Override
+    public boolean canHit() {
+        return false;
+    }
+
+    @Override
+    public void tick() {
+        Entity shootingEntity = this.getOwner();
+        if (this.getWorld().isClient) {
+            for (int i = 0; i < 5; ++i) {
+                IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), rgb[0], rgb[1], rgb[2]);
+            }
+        }
+        this.extinguish();
+        if (this.age > 30) {
+            this.remove(RemovalReason.DISCARDED);
+        }
+        if (this.getWorld().isClient || (shootingEntity == null || shootingEntity.isAlive()) && this.getWorld().isChunkLoaded(this.getBlockPos())) {
+            this.baseTick();
+            if (this.isBurning()) {
+                this.setOnFireFor(1);
+            }
+
+            ++this.ticksInAir;
+            HitResult raytraceresult = ProjectileUtil.getCollision(this, this::canHit);
+            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+                this.onCollision(raytraceresult);
+            }
+
+            Vec3d vector3d = this.getVelocity();
+            double d0 = this.getX() + vector3d.x;
+            double d1 = this.getY() + vector3d.y;
+            double d2 = this.getZ() + vector3d.z;
+            ProjectileUtil.setRotationFromVelocity(this, 0.2F);
+            float f = this.getDrag();
+            this.setVelocity(vector3d.add(this.powerX, this.powerY, this.powerZ).multiply(f));
+
+            this.powerX *= 0.95F;
+            this.powerY *= 0.95F;
+            this.powerZ *= 0.95F;
+            this.addVelocity(this.powerX, this.powerY, this.powerZ);
+            ++this.ticksInAir;
+
+            if (this.isTouchingWater()) {
+                for (int i = 0; i < 4; ++i) {
+                    this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX() - this.getVelocity().x * 0.25D, this.getY() - this.getVelocity().y * 0.25D, this.getZ() - this.getVelocity().z * 0.25D, this.getVelocity().x, this.getVelocity().y, this.getVelocity().z);
+                }
+            }
+            this.setPosition(d0, d1, d2);
+            this.setPosition(this.getX(), this.getY(), this.getZ());
+        }
+    }
+
+    @Override
+    protected void onCollision(@NotNull HitResult movingObject) {
+        boolean flag = false;
+        Entity shootingEntity = this.getOwner();
+        if (!this.getWorld().isClient) {
+            if (movingObject.getType() == HitResult.Type.ENTITY && !((EntityHitResult) movingObject).getEntity().isPartOf(shootingEntity)) {
+                Entity entity = ((EntityHitResult) movingObject).getEntity();
+                if (shootingEntity != null && shootingEntity.equals(entity)) {
+                    flag = true;
+                } else {
+                    if (entity instanceof LivingEntity) {
+                        ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 100, 0));
+                        ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
+                        entity.damage(getWorld().getDamageSources().indirectMagic(shootingEntity, null), 5.0F);
+                    }
+                    if (this.getWorld().isClient) {
+                        for (int i = 0; i < 20; ++i) {
+                            IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), rgb[0], rgb[1], rgb[2]);
+                        }
+                    }
+                    if (shootingEntity == null || !(shootingEntity instanceof PlayerEntity) || !((PlayerEntity) shootingEntity).isCreative()) {
+                        if (random.nextInt(3) == 0) {
+                            this.dropStack(new ItemStack(IafItemRegistry.PIXIE_DUST.get(), 1), 0.45F);
+                        }
+                    }
+                }
+                if (!flag && this.age > 4) {
+                    this.remove(RemovalReason.DISCARDED);
+                }
+            }
+
+        }
+    }
+}

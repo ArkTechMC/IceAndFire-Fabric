@@ -1,0 +1,50 @@
+{
+  "display": {
+    "icon": {
+      "item": "iceandfire:dragonsteel_ice_sword"
+    },
+    "title": {
+      "translate": "advancements.iceandfire.dragonsteel_weapon.title"
+    },
+    "description": {
+      "translate": "advancements.iceandfire.dragonsteel_weapon.description"
+    }
+  },
+  "parent": "iceandfire:iceandfire/dragonsteel",
+  "criteria": {
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragonsteel_fire_sword",
+              "iceandfire:dragonsteel_ice_sword",
+              "iceandfire:dragonsteel_lightning_sword"
+            ]
+          }
+        ]
+      }
+    },
+    "axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "iceandfire:dragonsteel_fire_axe",
+              "iceandfire:dragonsteel_ice_axe",
+              "iceandfire:dragonsteel_lightning_axe"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "sword",
+      "axe"
+    ]
+  ]
+}
