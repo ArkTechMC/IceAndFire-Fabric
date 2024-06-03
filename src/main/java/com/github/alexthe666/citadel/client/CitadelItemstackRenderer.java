@@ -2,14 +2,8 @@ package com.github.alexthe666.citadel.client;
 
 import com.github.alexthe666.citadel.Citadel;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.Sprite;
@@ -19,12 +13,13 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Matrix4f;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +47,7 @@ public class CitadelItemstackRenderer extends BuiltinModelItemRenderer {
             ItemStack toRender = null;
             if (stack.getNbt() != null && stack.getNbt().contains("DisplayItem")) {
                 String displayID = stack.getNbt().getString("DisplayItem");
-                toRender = new ItemStack(ForgeRegistries.ITEMS.getValue(new Identifier(displayID)));
+                toRender = new ItemStack(Registries.ITEM.get(new Identifier(displayID)));
                 if (stack.getNbt().contains("DisplayItemNBT")) {
                     try {
                         toRender.setNbt(stack.getNbt().getCompound("DisplayItemNBT"));
@@ -67,20 +62,20 @@ public class CitadelItemstackRenderer extends BuiltinModelItemRenderer {
             }
             matrixStack.push();
             matrixStack.translate(0.5F, 0.5f, 0.5f);
-            if(stack.getNbt() != null && stack.getNbt().contains("DisplayShake") && stack.getNbt().getBoolean("DisplayShake")) {
+            if (stack.getNbt() != null && stack.getNbt().contains("DisplayShake") && stack.getNbt().getBoolean("DisplayShake")) {
                 matrixStack.translate((random.nextFloat() - 0.5F) * 0.1F, (random.nextFloat() - 0.5F) * 0.1F, (random.nextFloat() - 0.5F) * 0.1F);
             }
-            if(animateAnyways || stack.getNbt() != null && stack.getNbt().contains("DisplayBob") && stack.getNbt().getBoolean("DisplayBob")){
+            if (animateAnyways || stack.getNbt() != null && stack.getNbt().contains("DisplayBob") && stack.getNbt().getBoolean("DisplayBob")) {
                 matrixStack.translate(0, 0.05F + 0.1F * MathHelper.sin(0.3F * ticksExisted), 0);
             }
-            if(stack.getNbt() != null && stack.getNbt().contains("DisplaySpin") && stack.getNbt().getBoolean("DisplaySpin")){
+            if (stack.getNbt() != null && stack.getNbt().contains("DisplaySpin") && stack.getNbt().getBoolean("DisplaySpin")) {
                 matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(6 * ticksExisted));
             }
-            if(animateAnyways || stack.getNbt() != null && stack.getNbt().contains("DisplayZoom") && stack.getNbt().getBoolean("DisplayZoom")) {
+            if (animateAnyways || stack.getNbt() != null && stack.getNbt().contains("DisplayZoom") && stack.getNbt().getBoolean("DisplayZoom")) {
                 float scale = (float) (1F + 0.15F * (Math.sin(ticksExisted * 0.3F) + 1F));
                 matrixStack.scale(scale, scale, scale);
             }
-            if(stack.getNbt() != null && stack.getNbt().contains("DisplayScale") && stack.getNbt().getFloat("DisplayScale") != 1.0F){
+            if (stack.getNbt() != null && stack.getNbt().contains("DisplayScale") && stack.getNbt().getFloat("DisplayScale") != 1.0F) {
                 float scale = stack.getNbt().getFloat("DisplayScale");
                 matrixStack.scale(scale, scale, scale);
             }
@@ -91,15 +86,15 @@ public class CitadelItemstackRenderer extends BuiltinModelItemRenderer {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.disableCull();
-           // RenderSystem.enableAlphaTest();
+            // RenderSystem.enableAlphaTest();
             RenderSystem.enableDepthTest();
             StatusEffect effect;
             if (stack.getNbt() != null && stack.getNbt().contains("DisplayEffect")) {
                 String displayID = stack.getNbt().getString("DisplayEffect");
-                effect = ForgeRegistries.MOB_EFFECTS.getValue(new Identifier(displayID));
+                effect = Registries.STATUS_EFFECT.get(new Identifier(displayID));
             } else {
-                if(mobEffectList == null){
-                    mobEffectList = ForgeRegistries.MOB_EFFECTS.getValues().stream().toList();
+                if (mobEffectList == null) {
+                    mobEffectList = Registries.STATUS_EFFECT.stream().toList();
                 }
                 int size = mobEffectList.size();
                 int time = (int) (Util.getMeasuringTimeMs() / 500);
@@ -134,9 +129,9 @@ public class CitadelItemstackRenderer extends BuiltinModelItemRenderer {
             Identifier texture = DEFAULT_ICON_TEXTURE;
             if (stack.getNbt() != null && stack.getNbt().contains("IconLocation")) {
                 String iconLocationStr = stack.getNbt().getString("IconLocation");
-                if(LOADED_ICONS.containsKey(iconLocationStr)){
+                if (LOADED_ICONS.containsKey(iconLocationStr)) {
                     texture = LOADED_ICONS.get(iconLocationStr);
-                }else{
+                } else {
                     texture = new Identifier(iconLocationStr);
                     LOADED_ICONS.put(iconLocationStr, texture);
                 }

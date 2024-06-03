@@ -3,10 +3,10 @@ package com.github.alexthe666.citadel.client.model;
 import com.github.alexthe666.citadel.client.model.basic.BasicEntityModel;
 import com.github.alexthe666.citadel.client.model.container.TextureOffset;
 import com.google.common.collect.Maps;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
 
@@ -22,15 +22,13 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
     private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
     public int texWidth = 32;
     public int texHeight = 32;
-    public AdvancedEntityModel(){
+
+    public AdvancedEntityModel() {
         super();
     }
 
     public void updateDefaultPose() {
-        this.getAllParts().forEach(modelRenderer -> {
-            AdvancedModelBox advancedRendererModel = modelRenderer;
-            advancedRendererModel.updateDefaultPose();
-        });
+        this.getAllParts().forEach(AdvancedModelBox::updateDefaultPose);
     }
 
     protected void setTextureOffset(String partName, int x, int y) {
@@ -45,10 +43,7 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
      * Sets the current pose to the previously set default pose
      */
     public void resetToDefaultPose() {
-        this.getAllParts().forEach(modelRenderer -> {
-            AdvancedModelBox advancedRendererModel = modelRenderer;
-            advancedRendererModel.resetToDefaultPose();
-        });
+        this.getAllParts().forEach(AdvancedModelBox::resetToDefaultPose);
     }
 
     /**

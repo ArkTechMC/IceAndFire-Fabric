@@ -5,9 +5,9 @@ import com.github.alexthe666.citadel.client.model.container.TabulaCubeContainer;
 import com.github.alexthe666.citadel.client.model.container.TabulaCubeGroupContainer;
 import com.github.alexthe666.citadel.client.model.container.TabulaModelContainer;
 import com.google.common.collect.ImmutableList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -2,7 +2,6 @@ package com.github.alexthe666.citadel.client.render;
 
 import com.github.alexthe666.citadel.server.block.CitadelLecternBlockEntity;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
-import org.joml.Vector3f;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.client.render.RenderLayer;
@@ -13,15 +12,16 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.entity.model.BookModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class CitadelLecternRenderer implements BlockEntityRenderer<CitadelLecternBlockEntity> {
     private final BookModel bookModel;
-    public static final Identifier BOOK_PAGE_TEXTURE =  new Identifier("citadel:textures/entity/lectern_book_pages.png");
+    public static final Identifier BOOK_PAGE_TEXTURE = new Identifier("citadel:textures/entity/lectern_book_pages.png");
     public static final Identifier BOOK_BINDING_TEXTURE = new Identifier("citadel:textures/entity/lectern_book_binding.png");
     private static final LecternBooks.BookData EMPTY_BOOK_DATA = new LecternBooks.BookData(0XC58439, 0XF4E9BF);
+
     public CitadelLecternRenderer(BlockEntityRendererFactory.Context context) {
         this.bookModel = new BookModel(context.getLayerModelPart(EntityModelLayers.BOOK));
     }
@@ -29,7 +29,7 @@ public class CitadelLecternRenderer implements BlockEntityRenderer<CitadelLecter
     public void render(CitadelLecternBlockEntity blockEntity, float partialTicks, MatrixStack poseStack, VertexConsumerProvider bufferSource, int i, int j) {
         BlockState blockstate = blockEntity.getCachedState();
         if (blockstate.get(LecternBlock.HAS_BOOK)) {
-            LecternBooks.BookData bookData = LecternBooks.BOOKS.getOrDefault(ForgeRegistries.ITEMS.getKey(blockEntity.getBook().getItem()), EMPTY_BOOK_DATA);
+            LecternBooks.BookData bookData = LecternBooks.BOOKS.getOrDefault(Registries.ITEM.getId(blockEntity.getBook().getItem()), EMPTY_BOOK_DATA);
             poseStack.push();
             poseStack.translate(0.5D, 1.0625D, 0.5D);
             float f = blockstate.get(LecternBlock.FACING).rotateYClockwise().asRotation();

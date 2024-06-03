@@ -3,7 +3,6 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import javax.annotation.Nullable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.mob.MobEntity;
@@ -22,10 +21,8 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
 
     //  Parent class private members
     protected final MobEntity ourEntity;
-    @Nullable
     protected BlockPos destination;
     protected double walkSpeedFactor = 1.0D;
-    @Nullable
     protected BlockPos originalDestination;
 
     /**
@@ -34,8 +31,8 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
     private final PathingOptions pathingOptions = new PathingOptions();
 
     public AbstractAdvancedPathNavigate(
-        final MobEntity entityLiving,
-        final World worldIn) {
+            final MobEntity entityLiving,
+            final World worldIn) {
         super(entityLiving, worldIn);
         this.ourEntity = entity;
     }
@@ -45,7 +42,6 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      *
      * @return the destination position.
      */
-    @Nullable
     public BlockPos getDestination() {
         return destination;
     }
@@ -54,8 +50,8 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      * Used to path away from a position.
      *
      * @param currentPosition the position to avoid.
-     * @param range the range he should move out of.
-     * @param speed the speed to run at.
+     * @param range           the range he should move out of.
+     * @param speed           the speed to run at.
      * @param safeDestination if the destination is save and should be set.
      * @return the result of the pathing.
      */
@@ -105,7 +101,7 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      *
      * @param range the range he should move out of.
      * @param speed the speed to run at.
-     * @param pos the pos to circle around.
+     * @param pos   the pos to circle around.
      * @return the result of the pathing.
      */
     public abstract PathResult moveToRandomPosAroundX(final int range, final double speed, final BlockPos pos);
@@ -113,8 +109,8 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
     /**
      * Used to path towards a random pos within some restrictions
      *
-     * @param range the range he should move out of.
-     * @param speed the speed to run at.
+     * @param range   the range he should move out of.
+     * @param speed   the speed to run at.
      * @param corners the corners they can't leave.
      * @return the result of the pathing.
      */

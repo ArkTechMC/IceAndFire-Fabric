@@ -14,11 +14,11 @@ import net.minecraft.util.Identifier;
 
 public class VillageHouseManager {
     public static final List<Identifier> VILLAGE_REPLACEMENT_POOLS = List.of(
-            new Identifier("minecraft:village/plains/houses"),
-            new Identifier("minecraft:village/desert/houses"),
-            new Identifier("minecraft:village/savanna/houses"),
-            new Identifier("minecraft:village/snowy/houses"),
-            new Identifier("minecraft:village/taiga/houses"));
+            new Identifier("village/plains/houses"),
+            new Identifier("village/desert/houses"),
+            new Identifier("village/savanna/houses"),
+            new Identifier("village/snowy/houses"),
+            new Identifier("village/taiga/houses"));
     private static final List<Pair<Identifier, Consumer<StructurePool>>> REGISTRY = new ArrayList<>();
 
     public static void register(Identifier pool, Consumer<StructurePool> addToPool) {

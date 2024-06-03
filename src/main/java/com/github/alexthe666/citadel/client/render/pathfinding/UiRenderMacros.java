@@ -616,7 +616,7 @@ public class UiRenderMacros
         // INLINE: vanilla from InventoryScreen
         final LivingEntity livingEntity = (entity instanceof LivingEntity) ? (LivingEntity) entity : null;
         final MinecraftClient mc = MinecraftClient.getInstance();
-        if (entity.method_48926() == null) return; // this was entity.setLevel, not sure why cuz sus, dont care if entity has no level
+        if (entity.getWorld() == null) return; // this was entity.setLevel, not sure why cuz sus, dont care if entity has no level
         poseStack.push();
         poseStack.translate((float) x, (float) y, 1050.0F);
         poseStack.scale(1.0F, 1.0F, -1.0F);

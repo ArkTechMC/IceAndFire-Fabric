@@ -6,6 +6,8 @@ import com.github.alexthe666.citadel.client.rewards.CitadelCapes;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
 import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -21,16 +23,10 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
-
-import javax.annotation.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class GuiCitadelCapesConfig extends GameOptionsScreen {
-
-    @Nullable
     private String capeType;
     private ButtonWidget button;
 
@@ -65,7 +61,7 @@ public class GuiCitadelCapesConfig extends GameOptionsScreen {
         RenderSystem.applyModelViewMatrix();
         MatrixStack posestack1 = new MatrixStack();
         posestack1.translate(0.0D, 0.0D, 1000.0D);
-        posestack1.scale((float)size, (float)size, (float)size);
+        posestack1.scale((float) size, (float) size, (float) size);
         Quaternionf quaternion = RotationAxis.POSITIVE_Z.rotationDegrees(180.0F);
         Quaternionf quaternion1 = RotationAxis.POSITIVE_X.rotationDegrees(f1 * 20.0F);
         quaternion.mul(quaternion1);
@@ -109,22 +105,20 @@ public class GuiCitadelCapesConfig extends GameOptionsScreen {
         int j = this.height / 6;
         ButtonWidget doneButton = ButtonWidget.builder(ScreenTexts.DONE, (p_213079_1_) -> {
             this.client.setScreen(this.parent);
-        }).size(200, 20).position(i - 100, j+ 160).build();
+        }).size(200, 20).position(i - 100, j + 160).build();
         this.addDrawableChild(doneButton);
         button = ButtonWidget.builder(getTypeText(), (p_213079_1_) -> {
             CitadelCapes.Cape nextCape = CitadelCapes.getNextCape(capeType, MinecraftClient.getInstance().player.getUuid());
             this.capeType = nextCape == null ? null : nextCape.getIdentifier();
             NbtCompound tag = CitadelEntityData.getOrCreateCitadelTag(MinecraftClient.getInstance().player);
-            if(tag != null){
-                if(capeType == null){
-                    tag.putString("CitadelCapeType", "");
-                    tag.putBoolean("CitadelCapeDisabled", true);
-                }else{
-                    tag.putString("CitadelCapeType", capeType);
-                    tag.putBoolean("CitadelCapeDisabled", false);
-                }
-                CitadelEntityData.setCitadelTag(MinecraftClient.getInstance().player, tag);
+            if (capeType == null) {
+                tag.putString("CitadelCapeType", "");
+                tag.putBoolean("CitadelCapeDisabled", true);
+            } else {
+                tag.putString("CitadelCapeType", capeType);
+                tag.putBoolean("CitadelCapeDisabled", false);
             }
+            CitadelEntityData.setCitadelTag(MinecraftClient.getInstance().player, tag);
             Citadel.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, MinecraftClient.getInstance().player.getId()));
             button.setMessage(getTypeText());
         }).size(200, 20).position(i - 100, j).build();
@@ -132,17 +126,16 @@ public class GuiCitadelCapesConfig extends GameOptionsScreen {
 
     }
 
-    private Text getTypeText(){
+    private Text getTypeText() {
         Text suffix;
 
-        if(capeType == null){
+        if (capeType == null) {
             suffix = Text.translatable("citadel.gui.no_cape");
-        }else{
-
+        } else {
             CitadelCapes.Cape cape = CitadelCapes.getById(capeType);
-            if(cape == null){
+            if (cape == null) {
                 suffix = Text.translatable("citadel.gui.no_cape");
-            }else{
+            } else {
                 suffix = Text.translatable("cape." + cape.getIdentifier());
             }
         }

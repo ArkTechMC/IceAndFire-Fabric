@@ -1,8 +1,8 @@
 package com.github.alexthe666.citadel.client.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 @Environment(EnvType.CLIENT)
 @FunctionalInterface

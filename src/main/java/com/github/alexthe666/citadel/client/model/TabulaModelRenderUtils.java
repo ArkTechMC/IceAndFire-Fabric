@@ -1,12 +1,11 @@
 package com.github.alexthe666.citadel.client.model;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.joml.Vector3f;
 
 public class TabulaModelRenderUtils {
-
     @Environment(EnvType.CLIENT)
     static class PositionTextureVertex {
         public final Vector3f position;
@@ -44,7 +43,7 @@ public class TabulaModelRenderUtils {
             if (p_i225951_8_) {
                 int lvt_12_1_ = p_i225951_1_.length;
 
-                for(int lvt_13_1_ = 0; lvt_13_1_ < lvt_12_1_ / 2; ++lvt_13_1_) {
+                for (int lvt_13_1_ = 0; lvt_13_1_ < lvt_12_1_ / 2; ++lvt_13_1_) {
                     PositionTextureVertex lvt_14_1_ = p_i225951_1_[lvt_13_1_];
                     p_i225951_1_[lvt_13_1_] = p_i225951_1_[lvt_12_1_ - 1 - lvt_13_1_];
                     p_i225951_1_[lvt_12_1_ - 1 - lvt_13_1_] = lvt_14_1_;
@@ -100,15 +99,15 @@ public class TabulaModelRenderUtils {
             PositionTextureVertex lvt_23_1_ = new PositionTextureVertex(lvt_15_1_, p_i225950_4_, lvt_17_1_, 0.0F, 8.0F);
             PositionTextureVertex lvt_24_1_ = new PositionTextureVertex(lvt_15_1_, lvt_16_1_, lvt_17_1_, 8.0F, 8.0F);
             PositionTextureVertex lvt_25_1_ = new PositionTextureVertex(p_i225950_3_, lvt_16_1_, lvt_17_1_, 8.0F, 0.0F);
-            float lvt_26_1_ = (float)p_i225950_1_;
-            float lvt_27_1_ = (float)p_i225950_1_ + p_i225950_8_;
-            float lvt_28_1_ = (float)p_i225950_1_ + p_i225950_8_ + p_i225950_6_;
-            float lvt_29_1_ = (float)p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_6_;
-            float lvt_30_1_ = (float)p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_8_;
-            float lvt_31_1_ = (float)p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_8_ + p_i225950_6_;
-            float lvt_32_1_ = (float)p_i225950_2_;
-            float lvt_33_1_ = (float)p_i225950_2_ + p_i225950_8_;
-            float lvt_34_1_ = (float)p_i225950_2_ + p_i225950_8_ + p_i225950_7_;
+            float lvt_26_1_ = (float) p_i225950_1_;
+            float lvt_27_1_ = (float) p_i225950_1_ + p_i225950_8_;
+            float lvt_28_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_;
+            float lvt_29_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_6_;
+            float lvt_30_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_8_;
+            float lvt_31_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_8_ + p_i225950_6_;
+            float lvt_32_1_ = (float) p_i225950_2_;
+            float lvt_33_1_ = (float) p_i225950_2_ + p_i225950_8_;
+            float lvt_34_1_ = (float) p_i225950_2_ + p_i225950_8_ + p_i225950_7_;
             this.quads[2] = new TexturedQuad(new PositionTextureVertex[]{lvt_23_1_, lvt_22_1_, lvt_18_2_, lvt_19_1_}, lvt_27_1_, lvt_32_1_, lvt_28_1_, lvt_33_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.DOWN);
             this.quads[3] = new TexturedQuad(new PositionTextureVertex[]{lvt_20_1_, lvt_21_1_, lvt_25_1_, lvt_24_1_}, lvt_28_1_, lvt_33_1_, lvt_29_1_, lvt_32_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.UP);
             this.quads[1] = new TexturedQuad(new PositionTextureVertex[]{lvt_18_2_, lvt_22_1_, lvt_25_1_, lvt_21_1_}, lvt_26_1_, lvt_33_1_, lvt_27_1_, lvt_34_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.WEST);

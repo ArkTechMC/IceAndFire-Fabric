@@ -2,23 +2,19 @@ package com.github.alexthe666.citadel.client.model.container;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.util.Pair;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.Baker;
 import net.minecraft.client.render.model.ModelBakeSettings;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.resources.model.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.AffineTransformation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -237,7 +233,6 @@ public class VanillaTabulaModel implements UnbakedModel {
         }
     }
 
-    @Nullable
     @Override
     public IBakedModel bake(ModelBakery bakery, Function spriteGetter, ISprite sprite, VertexFormat format) {
         TextureAtlasSprite spriteA = (TextureAtlasSprite) spriteGetter.apply(this.textures.isEmpty() ? new ResourceLocation("missingno") : this.textures.get(0));

@@ -21,7 +21,7 @@ public enum AnimationHandler {
      * @param <T>       the entity type
      */
     public <T extends Entity & IAnimatedEntity> void sendAnimationMessage(T entity, Animation animation) {
-        if (entity.method_48926().isClient) {
+        if (entity.getWorld().isClient) {
             return;
         }
         entity.setAnimation(animation);

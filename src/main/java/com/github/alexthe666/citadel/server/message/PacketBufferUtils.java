@@ -170,7 +170,6 @@ public class PacketBufferUtils {
      * @param from The buffer to read from
      * @return The read tag
      */
-    @Nullable
     public static NbtCompound readTag(ByteBuf from) {
         PacketByteBuf pb = new PacketByteBuf(from);
         try {

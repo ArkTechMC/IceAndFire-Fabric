@@ -78,7 +78,7 @@ public abstract class TickRateTracker {
     public float getEntityTickLengthModifier(Entity entity) {
         float f = 1.0F;
         for (TickRateModifier modifier : tickRateModifierList) {
-            if (modifier.getType().isLocal() && modifier.appliesTo(entity.method_48926(), entity.getX(), entity.getY(), entity.getZ())) {
+            if (modifier.getType().isLocal() && modifier.appliesTo(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ())) {
                 f *= modifier.getTickRateMultiplier();
             }
         }

@@ -5,11 +5,11 @@ import com.github.alexthe666.citadel.client.model.container.TabulaCubeGroupConta
 import com.github.alexthe666.citadel.client.model.container.TabulaModelBlock;
 import com.github.alexthe666.citadel.client.model.container.TabulaModelContainer;
 import com.google.gson.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.resource.ResourceManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.io.IOException;
 import java.io.InputStream;

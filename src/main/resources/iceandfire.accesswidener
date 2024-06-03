@@ -11,3 +11,8 @@ accessible field net/minecraft/structure/pool/StructurePool elements Lit/unimi/d
 accessible field net/minecraft/structure/pool/StructurePool elementCounts Ljava/util/List;
 accessible field net/minecraft/world/World damageSources Lnet/minecraft/entity/damage/DamageSources;
 accessible method net/minecraft/entity/LivingEntity knockback (Lnet/minecraft/entity/LivingEntity;)V
+accessible field net/minecraft/client/MinecraftClient renderTickCounter Lnet/minecraft/client/render/RenderTickCounter;
+accessible field net/minecraft/client/render/RenderTickCounter tickTime F
+accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockXSize I
+accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockYSize I
+accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockZSize I

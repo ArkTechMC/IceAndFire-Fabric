@@ -1,11 +1,9 @@
 package com.github.alexthe666.citadel.server.block;
 
 import com.github.alexthe666.citadel.Citadel;
-import javax.annotation.Nullable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LecternBlock;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -120,7 +118,7 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
         LecternBlock.setHasBook(null, this.getWorld(), this.getPos(), this.getCachedState(), false);
     }
 
-    public void setBook(ItemStack itemStack, @Nullable PlayerEntity player) {
+    public void setBook(ItemStack itemStack, PlayerEntity player) {
         this.book = itemStack;
         this.markDirty();
     }

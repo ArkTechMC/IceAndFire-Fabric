@@ -6,7 +6,6 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs
 import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.Pathfinding;
-import javax.annotation.Nullable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.util.math.BlockPos;
@@ -45,7 +44,6 @@ public class PathJobMoveToLocation extends AbstractPathJob {
      *
      * @return Path of a path to the given location, a best-effort, or null.
      */
-    @Nullable
     @Override
     protected Path search() {
         if (Pathfinding.isDebug()) {
@@ -81,8 +79,8 @@ public class PathJobMoveToLocation extends AbstractPathJob {
     protected boolean isAtDestination(final MNode n) {
         if (destinationSlack <= DESTINATION_SLACK_NONE) {
             return n.pos.getX() == destination.getX()
-                && n.pos.getY() == destination.getY()
-                && n.pos.getZ() == destination.getZ();
+                    && n.pos.getY() == destination.getY()
+                    && n.pos.getZ() == destination.getZ();
         }
 
         if (n.pos.getY() == destination.getY() - 1) {

@@ -5,7 +5,6 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -52,14 +51,13 @@ public class SpawnBiomeConfig {
     }
 
     private File getConfigDirFile() {
-        Path configPath = FMLPaths.CONFIGDIR.get();
+        Path configPath = Path.of("./config/");
         Path jsonPath = Paths.get(configPath.toAbsolutePath().toString(), fileName.getNamespace());
         return jsonPath.toFile();
     }
 
     private SpawnBiomeData getConfigData(SpawnBiomeData defaultConfigData) {
-        SpawnBiomeData configData = getOrCreateConfigFile(getConfigDirFile(), fileName.getPath(), defaultConfigData, new TypeToken<SpawnBiomeData>() {
+        return getOrCreateConfigFile(getConfigDirFile(), fileName.getPath(), defaultConfigData, new TypeToken<SpawnBiomeData>() {
         }.getType());
-        return configData;
     }
 }

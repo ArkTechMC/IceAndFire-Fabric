@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.server.entity.collision;
 
-import javax.annotation.Nullable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
@@ -15,13 +14,14 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.CollisionView;
 import net.minecraft.world.border.WorldBorder;
+
 import java.util.Objects;
+import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
 public class CitadelVoxelShapeSpliterator extends Spliterators.AbstractSpliterator<VoxelShape> {
-    @Nullable
     private final Entity entity;
     private final Box aabb;
     private final ShapeContext context;
@@ -32,14 +32,14 @@ public class CitadelVoxelShapeSpliterator extends Spliterators.AbstractSpliterat
     private final BiPredicate<BlockState, BlockPos> statePositionPredicate;
     private boolean needsBorderCheck;
 
-    public CitadelVoxelShapeSpliterator(CollisionView reader, @Nullable Entity entity, Box aabb) {
+    public CitadelVoxelShapeSpliterator(CollisionView reader, Entity entity, Box aabb) {
         this(reader, entity, aabb, (p_241459_0_, p_241459_1_) -> {
             return true;
         });
     }
 
-    public CitadelVoxelShapeSpliterator(CollisionView reader, @Nullable Entity entity, Box aabb, BiPredicate<BlockState, BlockPos> statePositionPredicate) {
-        super(Long.MAX_VALUE, 1280);
+    public CitadelVoxelShapeSpliterator(CollisionView reader, Entity entity, Box aabb, BiPredicate<BlockState, BlockPos> statePositionPredicate) {
+        super(Long.MAX_VALUE, Spliterator.NONNULL | Spliterator.IMMUTABLE);
         this.context = entity == null ? ShapeContext.absent() : ShapeContext.of(entity);
         this.mutablePos = new BlockPos.Mutable();
         this.shape = VoxelShapes.cuboid(aabb);
@@ -124,7 +124,6 @@ public class CitadelVoxelShapeSpliterator extends Spliterators.AbstractSpliterat
         }
     }
 
-    @Nullable
     private BlockView getChunk(int p_234876_1_, int p_234876_2_) {
         int i = p_234876_1_ >> 4;
         int j = p_234876_2_ >> 4;

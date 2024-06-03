@@ -2,7 +2,6 @@ package com.github.alexthe666.citadel.client.texture;
 
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.platform.TextureUtil;
-import javax.annotation.Nullable;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.ResourceTexture;
 import net.minecraft.resource.Resource;
@@ -11,6 +10,7 @@ import net.minecraft.resource.metadata.ResourceMetadataReader;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.math.ColorHelper;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,13 +25,13 @@ public class ColorMappedTexture extends ResourceTexture {
 
     public void load(ResourceManager resourceManager) throws IOException {
         NativeImage nativeimage = getNativeImage(resourceManager, location);
-        if(nativeimage != null){
-            if(resourceManager.getResource(location).isPresent()){
+        if (nativeimage != null) {
+            if (resourceManager.getResource(location).isPresent()) {
                 Resource resource = resourceManager.getResource(location).get();
                 try {
                     ColorsMetadataSection section = resource.getMetadata().decode(ColorsMetadataSection.SERIALIZER).orElse(new ColorsMetadataSection(null));
                     NativeImage nativeimage2 = getNativeImage(resourceManager, section.getColorRamp());
-                    if(nativeimage2 != null){
+                    if (nativeimage2 != null) {
                         processColorMap(nativeimage, nativeimage2);
                     }
                 } catch (Exception e) {
@@ -44,9 +44,9 @@ public class ColorMappedTexture extends ResourceTexture {
         }
     }
 
-    private NativeImage getNativeImage(ResourceManager resourceManager, @Nullable Identifier resourceLocation) {
+    private NativeImage getNativeImage(ResourceManager resourceManager, Identifier resourceLocation) {
         Resource resource = null;
-        if(resourceLocation == null){
+        if (resourceLocation == null) {
             return null;
         }
         try {
@@ -57,25 +57,25 @@ public class ColorMappedTexture extends ResourceTexture {
                 inputstream.close();
             }
             return nativeimage;
-        }catch (Throwable throwable1) {
+        } catch (Throwable throwable1) {
             return null;
         }
     }
 
     private void processColorMap(NativeImage nativeImage, NativeImage colorMap) {
         int[] fromColorMap = new int[colorMap.getHeight()];
-        for(int i = 0; i < fromColorMap.length; i++){
+        for (int i = 0; i < fromColorMap.length; i++) {
             fromColorMap[i] = colorMap.getColor(0, i);
         }
         for (int i = 0; i < nativeImage.getWidth(); i++) {
             for (int j = 0; j < nativeImage.getHeight(); j++) {
                 int colorAt = nativeImage.getColor(i, j);
-                if(ColorHelper.Abgr.getAlpha(colorAt) == 0){
+                if (ColorHelper.Abgr.getAlpha(colorAt) == 0) {
                     continue;
                 }
                 int replaceIndex = -1;
-                for(int k = 0; k < fromColorMap.length; k++){
-                    if(colorAt == fromColorMap[k]){
+                for (int k = 0; k < fromColorMap.length; k++) {
+                    if (colorAt == fromColorMap[k]) {
                         replaceIndex = k;
                     }
                 }
@@ -94,11 +94,12 @@ public class ColorMappedTexture extends ResourceTexture {
         public static final ColorsMetadataSectionSerializer SERIALIZER = new ColorsMetadataSectionSerializer();
 
         private final Identifier colorRamp;
+
         public ColorsMetadataSection(Identifier colorRamp) {
             this.colorRamp = colorRamp;
         }
 
-        private boolean areColorsEqual(int color1, int color2){
+        private boolean areColorsEqual(int color1, int color2) {
             int r1 = color1 >> 16 & 255;
             int g1 = color1 >> 8 & 255;
             int b1 = color1 & 255;
@@ -108,7 +109,7 @@ public class ColorMappedTexture extends ResourceTexture {
             return r1 == r2 && g1 == g2 && b1 == b2;
         }
 
-        public Identifier getColorRamp(){
+        public Identifier getColorRamp() {
             return colorRamp;
         }
     }

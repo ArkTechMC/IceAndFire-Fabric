@@ -8,18 +8,11 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.CuboidBlockIterator;
 import net.minecraft.util.function.BooleanBiFunction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.ChunkSectionPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.CollisionView;
-import net.minecraft.world.phys.shapes.*;
-
-import javax.annotation.Nullable;
 
 public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape> {
     private final Box box;
@@ -29,15 +22,14 @@ public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape
     private final VoxelShape entityShape;
     private final CollisionView collisionGetter;
     private final boolean onlySuffocatingBlocks;
-    @Nullable
     private BlockView cachedBlockGetter;
     private long cachedBlockGetterPos;
 
-    public CustomCollisionsBlockCollisions(CollisionView p_186402_, @Nullable Entity p_186403_, Box p_186404_) {
+    public CustomCollisionsBlockCollisions(CollisionView p_186402_, Entity p_186403_, Box p_186404_) {
         this(p_186402_, p_186403_, p_186404_, false);
     }
 
-    public CustomCollisionsBlockCollisions(CollisionView p_186406_, @Nullable Entity p_186407_, Box p_186408_, boolean p_186409_) {
+    public CustomCollisionsBlockCollisions(CollisionView p_186406_, Entity p_186407_, Box p_186408_, boolean p_186409_) {
         this.context = p_186407_ == null ? ShapeContext.absent() : ShapeContext.of(p_186407_);
         this.pos = new BlockPos.Mutable();
         this.entityShape = VoxelShapes.cuboid(p_186408_);
@@ -53,7 +45,6 @@ public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape
         this.cursor = new CuboidBlockIterator(i, k, i1, j, l, j1);
     }
 
-    @Nullable
     private BlockView getChunk(int p_186412_, int p_186413_) {
         int i = ChunkSectionPos.getSectionCoord(p_186412_);
         int j = ChunkSectionPos.getSectionCoord(p_186413_);
@@ -92,10 +83,10 @@ public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape
                 }
 
                 VoxelShape voxelshape = blockstate.getCollisionShape(this.collisionGetter, this.pos, this.context);
-                if(context instanceof EntityShapeContext){
-                    Entity entity = ((EntityShapeContext)context).getEntity();
-                    if(entity instanceof ICustomCollisions){
-                        if(((ICustomCollisions) entity).canPassThrough(pos, blockstate, voxelshape)){
+                if (context instanceof EntityShapeContext) {
+                    Entity entity = ((EntityShapeContext) context).getEntity();
+                    if (entity instanceof ICustomCollisions) {
+                        if (((ICustomCollisions) entity).canPassThrough(pos, blockstate, voxelshape)) {
                             continue;
                         }
                     }

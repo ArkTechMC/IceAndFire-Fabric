@@ -61,8 +61,8 @@ public class MovementControllerCustomCollisions extends MoveControl {
             this.entity.setYaw(this.wrapDegrees(this.entity.getYaw(), f9, 90.0F));
             this.entity.setMovementSpeed((float) (this.speed * this.entity.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED)));
             BlockPos blockpos = this.entity.getBlockPos();
-            BlockState blockstate = this.entity.method_48926().getBlockState(blockpos);
-            VoxelShape voxelshape = blockstate.getSidesShape(this.entity.method_48926(), blockpos);
+            BlockState blockstate = this.entity.getWorld().getBlockState(blockpos);
+            VoxelShape voxelshape = blockstate.getSidesShape(this.entity.getWorld(), blockpos);
             if (!(entity instanceof ICustomCollisions && ((ICustomCollisions) entity).canPassThrough(blockpos, blockstate, voxelshape))) {
                 if (d2 > (double) this.entity.getStepHeight() && d0 * d0 + d1 * d1 < (double) Math.max(1.0F, this.entity.getWidth()) || !voxelshape.isEmpty() && this.entity.getY() < voxelshape.getMax(Direction.Axis.Y) + (double) blockpos.getY() && !blockstate.isIn(BlockTags.DOORS) && !blockstate.isIn(BlockTags.FENCES)) {
                     this.entity.getJumpControl().setActive();
@@ -84,7 +84,7 @@ public class MovementControllerCustomCollisions extends MoveControl {
         EntityNavigation pathnavigator = this.entity.getNavigation();
         if (pathnavigator != null) {
             PathNodeMaker nodeprocessor = pathnavigator.getNodeMaker();
-            return nodeprocessor == null || nodeprocessor.getDefaultNodeType(this.entity.method_48926(), MathHelper.floor(this.entity.getX() + (double) p_234024_1_), MathHelper.floor(this.entity.getY()), MathHelper.floor(this.entity.getZ() + (double) p_234024_2_)) == PathNodeType.WALKABLE;
+            return nodeprocessor == null || nodeprocessor.getDefaultNodeType(this.entity.getWorld(), MathHelper.floor(this.entity.getX() + (double) p_234024_1_), MathHelper.floor(this.entity.getY()), MathHelper.floor(this.entity.getZ() + (double) p_234024_2_)) == PathNodeType.WALKABLE;
         }
 
         return true;

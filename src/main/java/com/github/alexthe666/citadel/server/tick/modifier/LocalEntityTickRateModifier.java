@@ -4,11 +4,11 @@ import com.github.alexthe666.citadel.server.entity.IModifiesTime;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class LocalEntityTickRateModifier extends LocalTickRateModifier {
 
@@ -25,14 +25,13 @@ public class LocalEntityTickRateModifier extends LocalTickRateModifier {
     public LocalEntityTickRateModifier(NbtCompound tag) {
         super(tag);
         this.entityId = tag.getInt("EntityId");
-        EntityType type = ForgeRegistries.ENTITY_TYPES.getValue(new Identifier(tag.getString("EntityType")));
-        this.expectedEntityType = type == null ? EntityType.PIG : type;
+        this.expectedEntityType = Registries.ENTITY_TYPE.get(new Identifier(tag.getString("EntityType")));
     }
 
     @Override
     public Vec3d getCenter(World level) {
         Entity entity = level.getEntityById(this.entityId);
-        if(isEntityValid(level) && entity != null){
+        if (isEntityValid(level) && entity != null) {
             return entity.getPos();
         }
         return Vec3d.ZERO;
@@ -43,19 +42,17 @@ public class LocalEntityTickRateModifier extends LocalTickRateModifier {
         return super.appliesTo(level, x, y, z) && isEntityValid(level);
     }
 
-    public boolean isEntityValid(World level){
+    public boolean isEntityValid(World level) {
         Entity entity = level.getEntityById(this.entityId);
-        return entity != null && entity.getType().equals(expectedEntityType) && entity.isAlive() && (!(entity instanceof IModifiesTime) || ((IModifiesTime)entity).isTimeModificationValid(this));
+        return entity != null && entity.getType().equals(expectedEntityType) && entity.isAlive() && (!(entity instanceof IModifiesTime) || ((IModifiesTime) entity).isTimeModificationValid(this));
     }
 
     @Override
     public NbtCompound toTag() {
         NbtCompound tag = super.toTag();
         tag.putInt("EntityId", entityId);
-        Identifier resourcelocation = ForgeRegistries.ENTITY_TYPES.getKey(this.expectedEntityType);
-        if (resourcelocation != null) {
-            tag.putString("EntityType", resourcelocation.toString());
-        }
+        Identifier resourcelocation = Registries.ENTITY_TYPE.getId(this.expectedEntityType);
+        tag.putString("EntityType", resourcelocation.toString());
         return tag;
     }
 

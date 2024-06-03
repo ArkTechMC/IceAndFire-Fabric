@@ -2,11 +2,11 @@ package com.github.alexthe666.citadel.config.biome;
 
 import com.github.alexthe666.citadel.Citadel;
 import com.google.gson.*;
-import javax.annotation.Nullable;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.biome.Biome;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +34,7 @@ public class SpawnBiomeData {
         return this;
     }
 
-    public boolean matches(@Nullable RegistryEntry<Biome> biomeHolder, Identifier registryName) {
+    public boolean matches(RegistryEntry<Biome> biomeHolder, Identifier registryName) {
         for (List<SpawnBiomeEntry> all : biomes) {
             boolean overall = true;
             for (SpawnBiomeEntry cond : all) {
@@ -77,13 +77,13 @@ public class SpawnBiomeData {
             this.value = value;
         }
 
-        public boolean matches(@Nullable RegistryEntry<Biome> biomeHolder, Identifier registryName) {
-            if(type.isDepreciated()){
+        public boolean matches(RegistryEntry<Biome> biomeHolder, Identifier registryName) {
+            if (type.isDepreciated()) {
                 Citadel.LOGGER.warn("biome config: BIOME_DICT and BIOME_CATEGORY are no longer valid in 1.19+. Please use BIOME_TAG instead.");
                 return false;
-            }else{
-                if(type == BiomeEntryType.BIOME_TAG){
-                    if(biomeHolder.getTagKeys().anyMatch((biomeTagKey -> biomeTagKey.location() != null && biomeTagKey.location().toString().equals(value)))){
+            } else {
+                if (type == BiomeEntryType.BIOME_TAG) {
+                    if (biomeHolder.getTagKeys().anyMatch((biomeTagKey -> biomeTagKey.location() != null && biomeTagKey.location().toString().equals(value)))) {
                         return !negate;
                     }
                     return negate;

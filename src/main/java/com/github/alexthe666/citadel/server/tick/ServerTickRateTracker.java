@@ -36,8 +36,8 @@ public class ServerTickRateTracker extends TickRateTracker {
     }
     @Override
     public void tickEntityAtCustomRate(Entity entity) {
-        if(!entity.method_48926().isClient && entity.method_48926() instanceof ServerWorld){
-            ((ServerWorld)entity.method_48926()).tickEntity(entity);
+        if(!entity.getWorld().isClient && entity.getWorld() instanceof ServerWorld){
+            ((ServerWorld)entity.getWorld()).tickEntity(entity);
         }
     }
 

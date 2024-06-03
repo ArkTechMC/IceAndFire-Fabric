@@ -219,7 +219,7 @@ public class PathingStuckHandler implements IStuckHandler
      */
     private void completeStuckAction(final AbstractAdvancedPathNavigate navigator) {
         final BlockPos desired = navigator.getDesiredPos();
-        final World world = navigator.getOurEntity().method_48926();
+        final World world = navigator.getOurEntity().getWorld();
         final MobEntity entity = navigator.getOurEntity();
 
         if (canTeleportGoal) {
@@ -232,7 +232,7 @@ public class PathingStuckHandler implements IStuckHandler
             }
         }
         if (takeDamageOnCompleteStuck) {
-            entity.damage(new DamageSource(entity.method_48926().getDamageSources().inWall().getTypeRegistryEntry(), entity), entity.getMaxHealth() * damagePct);
+            entity.damage(new DamageSource(entity.getWorld().getDamageSources().inWall().getTypeRegistryEntry(), entity), entity.getMaxHealth() * damagePct);
         }
 
         if (completeStuckBlockBreakRange > 0)
@@ -390,7 +390,7 @@ public class PathingStuckHandler implements IStuckHandler
      * @param navigator navigator to use
      */
     private void placeLadders(final AbstractAdvancedPathNavigate navigator) {
-        final World world = navigator.getOurEntity().method_48926();
+        final World world = navigator.getOurEntity().getWorld();
         final MobEntity entity = navigator.getOurEntity();
 
         BlockPos entityPos = entity.getBlockPos();
@@ -410,7 +410,7 @@ public class PathingStuckHandler implements IStuckHandler
      * @param navigator navigator to use
      */
     private void placeLeaves(final AbstractAdvancedPathNavigate navigator) {
-        final World world = navigator.getOurEntity().method_48926();
+        final World world = navigator.getOurEntity().getWorld();
         final MobEntity entity = navigator.getOurEntity();
 
         final Direction badFacing = getFacing(entity.getBlockPos(), navigator.getDesiredPos()).getOpposite();
@@ -438,7 +438,7 @@ public class PathingStuckHandler implements IStuckHandler
      * @param navigator navigator to use
      */
     private void breakBlocks(final AbstractAdvancedPathNavigate navigator) {
-        final World world = navigator.getOurEntity().method_48926();
+        final World world = navigator.getOurEntity().getWorld();
         final MobEntity entity = navigator.getOurEntity();
 
         final Direction facing = getFacing(entity.getBlockPos(), navigator.getDesiredPos());

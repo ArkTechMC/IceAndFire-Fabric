@@ -5,21 +5,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.*;
-import net.minecraft.client.render.model.json.ModelElement;
-import net.minecraft.client.render.model.json.ModelElementFace;
-import net.minecraft.client.render.model.json.ModelElementTexture;
-import net.minecraft.client.render.model.json.ModelOverride;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.render.model.json.Transformation;
-import net.minecraft.client.renderer.block.model.*;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.model.json.*;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.annotation.Nullable;
 import java.io.Reader;
 import java.io.StringReader;
 import java.lang.reflect.Type;
@@ -29,8 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Environment(EnvType.CLIENT)
-public class TabulaModelBlock
-{
+public class TabulaModelBlock {
     private static final Logger LOGGER = LogManager.getLogger();
     @VisibleForTesting
     static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(TabulaModelBlock.class, new Deserializer()).registerTypeAdapter(ModelElement.class, new ModelElement.Deserializer()).registerTypeAdapter(ModelElementFace.class, new ModelElementFace.Deserializer()).registerTypeAdapter(ModelElementTexture.class, new ModelElementTexture.Deserializer()).registerTypeAdapter(Transformation.class, new Transformation.Deserializer()).registerTypeAdapter(ModelTransformation.class, new ModelTransformation.Deserializer()).registerTypeAdapter(ModelOverride.class, new ModelOverride.Deserializer()).create();
@@ -47,18 +38,15 @@ public class TabulaModelBlock
     @VisibleForTesting
     protected Identifier parentLocation;
 
-    public static TabulaModelBlock deserialize(Reader readerIn)
-    {
+    public static TabulaModelBlock deserialize(Reader readerIn) {
         return JsonUtils.gsonDeserialize(SERIALIZER, readerIn, TabulaModelBlock.class, false);
     }
 
-    public static TabulaModelBlock deserialize(String jsonString)
-    {
+    public static TabulaModelBlock deserialize(String jsonString) {
         return deserialize(new StringReader(jsonString));
     }
 
-    public TabulaModelBlock(@Nullable Identifier parentLocationIn, List<ModelElement> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ModelTransformation cameraTransformsIn, List<ModelOverride> overridesIn)
-    {
+    public TabulaModelBlock(Identifier parentLocationIn, List<ModelElement> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ModelTransformation cameraTransformsIn, List<ModelOverride> overridesIn) {
         this.elements = elementsIn;
         this.ambientOcclusion = ambientOcclusionIn;
         this.gui3d = gui3dIn;
@@ -68,123 +56,96 @@ public class TabulaModelBlock
         this.overrides = overridesIn;
     }
 
-    public List<ModelElement> getElements()
-    {
+    public List<ModelElement> getElements() {
         return this.elements.isEmpty() && this.hasParent() ? this.parent.getElements() : this.elements;
     }
 
-    private boolean hasParent()
-    {
+    private boolean hasParent() {
         return this.parent != null;
     }
 
-    public boolean isAmbientOcclusion()
-    {
+    public boolean isAmbientOcclusion() {
         return this.hasParent() ? this.parent.isAmbientOcclusion() : this.ambientOcclusion;
     }
 
-    public boolean isGui3d()
-    {
+    public boolean isGui3d() {
         return this.gui3d;
     }
 
-    public boolean isResolved()
-    {
+    public boolean isResolved() {
         return this.parentLocation == null || this.parent != null && this.parent.isResolved();
     }
 
-    public void getParentFromMap(Map<Identifier, TabulaModelBlock> p_178299_1_)
-    {
-        if (this.parentLocation != null)
-        {
+    public void getParentFromMap(Map<Identifier, TabulaModelBlock> p_178299_1_) {
+        if (this.parentLocation != null) {
             this.parent = p_178299_1_.get(this.parentLocation);
         }
     }
 
-    public Collection<Identifier> getOverrideLocations()
-    {
+    public Collection<Identifier> getOverrideLocations() {
         Set<Identifier> set = Sets.newHashSet();
 
-        for (ModelOverride itemoverride : this.overrides)
-        {
+        for (ModelOverride itemoverride : this.overrides) {
             set.add(itemoverride.getModelId());
         }
 
         return set;
     }
 
-    public List<ModelOverride> getOverrides()
-    {
+    public List<ModelOverride> getOverrides() {
         return this.overrides;
     }
 
-    public boolean isTexturePresent(String textureName)
-    {
+    public boolean isTexturePresent(String textureName) {
         return !"missingno".equals(this.resolveTextureName(textureName));
     }
 
-    public String resolveTextureName(String textureName)
-    {
-        if (!this.startsWithHash(textureName))
-        {
+    public String resolveTextureName(String textureName) {
+        if (!this.startsWithHash(textureName)) {
             textureName = '#' + textureName;
         }
 
         return this.resolveTextureName(textureName, new Bookkeep(this));
     }
 
-    private String resolveTextureName(String textureName, Bookkeep p_178302_2_)
-    {
-        if (this.startsWithHash(textureName))
-        {
-            if (this == p_178302_2_.modelExt)
-            {
+    private String resolveTextureName(String textureName, Bookkeep p_178302_2_) {
+        if (this.startsWithHash(textureName)) {
+            if (this == p_178302_2_.modelExt) {
                 LOGGER.warn("Unable to resolve texture due to upward reference: {} in {}", textureName, this.name);
                 return "missingno";
-            }
-            else
-            {
+            } else {
                 String s = this.textures.get(textureName.substring(1));
 
-                if (s == null && this.hasParent())
-                {
+                if (s == null && this.hasParent()) {
                     s = this.parent.resolveTextureName(textureName, p_178302_2_);
                 }
 
                 p_178302_2_.modelExt = this;
 
-                if (s != null && this.startsWithHash(s))
-                {
+                if (s != null && this.startsWithHash(s)) {
                     s = p_178302_2_.model.resolveTextureName(s, p_178302_2_);
                 }
 
                 return s != null && !this.startsWithHash(s) ? s : "missingno";
             }
-        }
-        else
-        {
+        } else {
             return textureName;
         }
     }
 
-    private boolean startsWithHash(String hash)
-    {
+    private boolean startsWithHash(String hash) {
         return hash.charAt(0) == '#';
     }
 
-    @Nullable
-    public Identifier getParentLocation()
-    {
+    public Identifier getParentLocation() {
         return this.parentLocation;
     }
 
-    public TabulaModelBlock getRootModel()
-    {
+    public TabulaModelBlock getRootModel() {
         return this.hasParent() ? this.parent.getRootModel() : this;
     }
 
-    public ModelTransformation getAllTransforms()
-    {
+    public ModelTransformation getAllTransforms() {
         Transformation itemtransformvec3f = this.getTransform(ModelTransformationMode.THIRD_PERSON_LEFT_HAND);
         Transformation itemtransformvec3f1 = this.getTransform(ModelTransformationMode.THIRD_PERSON_RIGHT_HAND);
         Transformation itemtransformvec3f2 = this.getTransform(ModelTransformationMode.FIRST_PERSON_LEFT_HAND);
@@ -196,48 +157,37 @@ public class TabulaModelBlock
         return new ModelTransformation(itemtransformvec3f, itemtransformvec3f1, itemtransformvec3f2, itemtransformvec3f3, itemtransformvec3f4, itemtransformvec3f5, itemtransformvec3f6, itemtransformvec3f7);
     }
 
-    private Transformation getTransform(ModelTransformationMode type)
-    {
+    private Transformation getTransform(ModelTransformationMode type) {
         return this.parent != null && !this.cameraTransforms.isTransformationDefined(type) ? this.parent.getTransform(type) : this.cameraTransforms.getTransformation(type);
     }
 
-    public static void checkModelHierarchy(Map<Identifier, TabulaModelBlock> p_178312_0_)
-    {
-        for (TabulaModelBlock TabulaModelBlock : p_178312_0_.values())
-        {
-            try
-            {
+    public static void checkModelHierarchy(Map<Identifier, TabulaModelBlock> p_178312_0_) {
+        for (TabulaModelBlock TabulaModelBlock : p_178312_0_.values()) {
+            try {
                 TabulaModelBlock TabulaModelBlock1 = TabulaModelBlock.parent;
 
-                for (TabulaModelBlock TabulaModelBlock2 = TabulaModelBlock1.parent; TabulaModelBlock1 != TabulaModelBlock2; TabulaModelBlock2 = TabulaModelBlock2.parent.parent)
-                {
+                for (TabulaModelBlock TabulaModelBlock2 = TabulaModelBlock1.parent; TabulaModelBlock1 != TabulaModelBlock2; TabulaModelBlock2 = TabulaModelBlock2.parent.parent) {
                     TabulaModelBlock1 = TabulaModelBlock1.parent;
                 }
 
                 throw new LoopException();
-            }
-            catch (NullPointerException var5)
-            {
+            } catch (NullPointerException var5) {
             }
         }
     }
 
     @Environment(EnvType.CLIENT)
-    static final class Bookkeep
-    {
+    static final class Bookkeep {
         public final TabulaModelBlock model;
         public TabulaModelBlock modelExt;
 
-        private Bookkeep(TabulaModelBlock modelIn)
-        {
+        private Bookkeep(TabulaModelBlock modelIn) {
             this.model = modelIn;
         }
     }
 
-    public static class Deserializer implements JsonDeserializer<TabulaModelBlock>
-    {
-        public TabulaModelBlock deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException
-        {
+    public static class Deserializer implements JsonDeserializer<TabulaModelBlock> {
+        public TabulaModelBlock deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
             JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
             List<ModelElement> list = this.getModelElements(p_deserialize_3_, jsonobject);
             String s = this.getParent(jsonobject);
@@ -245,8 +195,7 @@ public class TabulaModelBlock
             boolean flag = this.getAmbientOcclusionEnabled(jsonobject);
             ModelTransformation itemcameratransforms = ModelTransformation.NONE;
 
-            if (jsonobject.has("display"))
-            {
+            if (jsonobject.has("display")) {
                 JsonObject jsonobject1 = JsonUtils.getJsonObject(jsonobject, "display");
                 itemcameratransforms = p_deserialize_3_.deserialize(jsonobject1, ModelTransformation.class);
             }
@@ -256,14 +205,11 @@ public class TabulaModelBlock
             return new TabulaModelBlock(resourcelocation, list, map, flag, true, itemcameratransforms, list1);
         }
 
-        protected List<ModelOverride> getItemOverrides(JsonDeserializationContext deserializationContext, JsonObject object)
-        {
+        protected List<ModelOverride> getItemOverrides(JsonDeserializationContext deserializationContext, JsonObject object) {
             List<ModelOverride> list = Lists.newArrayList();
 
-            if (object.has("overrides"))
-            {
-                for (JsonElement jsonelement : JsonUtils.getJsonArray(object, "overrides"))
-                {
+            if (object.has("overrides")) {
+                for (JsonElement jsonelement : JsonUtils.getJsonArray(object, "overrides")) {
                     list.add(deserializationContext.deserialize(jsonelement, ModelOverride.class));
                 }
             }
@@ -271,16 +217,13 @@ public class TabulaModelBlock
             return list;
         }
 
-        private Map<String, String> getTextures(JsonObject object)
-        {
+        private Map<String, String> getTextures(JsonObject object) {
             Map<String, String> map = Maps.newHashMap();
 
-            if (object.has("textures"))
-            {
+            if (object.has("textures")) {
                 JsonObject jsonobject = object.getAsJsonObject("textures");
 
-                for (Map.Entry<String, JsonElement> entry : jsonobject.entrySet())
-                {
+                for (Map.Entry<String, JsonElement> entry : jsonobject.entrySet()) {
                     map.put(entry.getKey(), entry.getValue().getAsString());
                 }
             }
@@ -288,24 +231,19 @@ public class TabulaModelBlock
             return map;
         }
 
-        private String getParent(JsonObject object)
-        {
+        private String getParent(JsonObject object) {
             return JsonUtils.getString(object, "parent", "");
         }
 
-        protected boolean getAmbientOcclusionEnabled(JsonObject object)
-        {
+        protected boolean getAmbientOcclusionEnabled(JsonObject object) {
             return JsonUtils.getBoolean(object, "ambientocclusion", true);
         }
 
-        protected List<ModelElement> getModelElements(JsonDeserializationContext deserializationContext, JsonObject object)
-        {
+        protected List<ModelElement> getModelElements(JsonDeserializationContext deserializationContext, JsonObject object) {
             List<ModelElement> list = Lists.newArrayList();
 
-            if (object.has("elements"))
-            {
-                for (JsonElement jsonelement : JsonUtils.getJsonArray(object, "elements"))
-                {
+            if (object.has("elements")) {
+                for (JsonElement jsonelement : JsonUtils.getJsonArray(object, "elements")) {
                     list.add(deserializationContext.deserialize(jsonelement, ModelElement.class));
                 }
             }
@@ -315,7 +253,6 @@ public class TabulaModelBlock
     }
 
     @Environment(EnvType.CLIENT)
-    public static class LoopException extends RuntimeException
-    {
+    public static class LoopException extends RuntimeException {
     }
 }

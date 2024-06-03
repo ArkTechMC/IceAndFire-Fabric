@@ -420,11 +420,8 @@ public abstract class GuiBasicBook extends Screen {
         }
         for (EntityRenderData data : entityRenders) {
             if (data.getPage() == this.currentPageCounter) {
-                Entity model = null;
-                EntityType type = ForgeRegistries.ENTITY_TYPES.getValue(new Identifier(data.getEntity()));
-                if (type != null) {
-                    model = renderedEntites.putIfAbsent(data.getEntity(), type.create(MinecraftClient.getInstance().world));
-                }
+                EntityType<?> type = Registries.ENTITY_TYPE.get(new Identifier(data.getEntity()));
+                Entity model = renderedEntites.putIfAbsent(data.getEntity(), type.create(MinecraftClient.getInstance().world));
                 if (model != null) {
                     float scale = (float) data.getScale();
                     model.age = MinecraftClient.getInstance().player.age;
@@ -583,7 +580,6 @@ public abstract class GuiBasicBook extends Screen {
     protected void playPageFlipSound() {
     }
 
-    @Nullable
     protected BookPage generatePage(Identifier res) {
         Optional<Resource> resource = null;
         BookPage page = null;

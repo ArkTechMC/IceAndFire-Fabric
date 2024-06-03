@@ -1,19 +1,17 @@
 package com.github.alexthe666.citadel.client.model.basic;
 
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Random;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 /*
  * @since 1.9.0
@@ -82,7 +80,7 @@ public class BasicModelPart {
 
     public BasicModelPart addBox(String partName, float x, float y, float z, int width, int height, int depth, float delta, int texX, int texY) {
         this.setTextureOffset(texX, texY);
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, (float)width, (float)height, (float)depth, delta, delta, delta, this.mirror, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, (float) width, (float) height, (float) depth, delta, delta, delta, this.mirror, false);
         return this;
     }
 
@@ -129,7 +127,7 @@ public class BasicModelPart {
                 this.translateRotate(matrixStackIn);
                 this.doRender(matrixStackIn.peek(), bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 
-                for(BasicModelPart BasicModelPart : this.childModels) {
+                for (BasicModelPart BasicModelPart : this.childModels) {
                     BasicModelPart.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
                 }
 
@@ -139,7 +137,7 @@ public class BasicModelPart {
     }
 
     public void translateRotate(MatrixStack matrixStackIn) {
-        matrixStackIn.translate(this.rotationPointX / 16.0F, this.rotationPointY / 16.0F, (double)(this.rotationPointZ / 16.0F));
+        matrixStackIn.translate(this.rotationPointX / 16.0F, this.rotationPointY / 16.0F, (double) (this.rotationPointZ / 16.0F));
         if (this.rotateAngleZ != 0.0F) {
             matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(this.rotateAngleZ));
         }
@@ -158,15 +156,15 @@ public class BasicModelPart {
         Matrix4f matrix4f = matrixEntryIn.getPositionMatrix();
         Matrix3f matrix3f = matrixEntryIn.getNormalMatrix();
 
-        for(ModelBox BasicModelPart$modelbox : this.cubeList) {
-            for(TexturedQuad BasicModelPart$texturedquad : BasicModelPart$modelbox.quads) {
+        for (ModelBox BasicModelPart$modelbox : this.cubeList) {
+            for (TexturedQuad BasicModelPart$texturedquad : BasicModelPart$modelbox.quads) {
                 Vector3f vector3f = new Vector3f(BasicModelPart$texturedquad.normal);
                 vector3f.mul(matrix3f);
                 float f = vector3f.x();
                 float f1 = vector3f.y();
                 float f2 = vector3f.z();
 
-                for(int i = 0; i < 4; ++i) {
+                for (int i = 0; i < 4; ++i) {
                     PositionTextureVertex BasicModelPart$positiontexturevertex = BasicModelPart$texturedquad.vertexPositions[i];
                     float f3 = BasicModelPart$positiontexturevertex.position.x() / 16.0F;
                     float f4 = BasicModelPart$positiontexturevertex.position.y() / 16.0F;
@@ -184,8 +182,8 @@ public class BasicModelPart {
      * Returns the model renderer with the new texture parameters.
      */
     public BasicModelPart setTextureSize(int textureWidthIn, int textureHeightIn) {
-        this.textureWidth = (float)textureWidthIn;
-        this.textureHeight = (float)textureHeightIn;
+        this.textureWidth = (float) textureWidthIn;
+        this.textureHeight = (float) textureHeightIn;
         return this;
     }
 
@@ -234,15 +232,15 @@ public class BasicModelPart {
             PositionTextureVertex BasicModelPart$positiontexturevertex4 = new PositionTextureVertex(f, y, f2, 0.0F, 8.0F);
             PositionTextureVertex BasicModelPart$positiontexturevertex5 = new PositionTextureVertex(f, f1, f2, 8.0F, 8.0F);
             PositionTextureVertex BasicModelPart$positiontexturevertex6 = new PositionTextureVertex(x, f1, f2, 8.0F, 0.0F);
-            float f4 = (float)texOffX;
-            float f5 = (float)texOffX + depth;
-            float f6 = (float)texOffX + depth + width;
-            float f7 = (float)texOffX + depth + width + width;
-            float f8 = (float)texOffX + depth + width + depth;
-            float f9 = (float)texOffX + depth + width + depth + width;
-            float f10 = (float)texOffY;
-            float f11 = (float)texOffY + depth;
-            float f12 = (float)texOffY + depth + height;
+            float f4 = (float) texOffX;
+            float f5 = (float) texOffX + depth;
+            float f6 = (float) texOffX + depth + width;
+            float f7 = (float) texOffX + depth + width + width;
+            float f8 = (float) texOffX + depth + width + depth;
+            float f9 = (float) texOffX + depth + width + depth + width;
+            float f10 = (float) texOffY;
+            float f11 = (float) texOffY + depth;
+            float f12 = (float) texOffY + depth + height;
             this.quads[2] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex4, BasicModelPart$positiontexturevertex3, BasicModelPart$positiontexturevertex7, BasicModelPart$positiontexturevertex}, f5, f10, f6, f11, texWidth, texHeight, mirorIn, Direction.DOWN);
             this.quads[3] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex1, BasicModelPart$positiontexturevertex2, BasicModelPart$positiontexturevertex6, BasicModelPart$positiontexturevertex5}, f6, f11, f7, f10, texWidth, texHeight, mirorIn, Direction.UP);
             this.quads[1] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex7, BasicModelPart$positiontexturevertex3, BasicModelPart$positiontexturevertex6, BasicModelPart$positiontexturevertex2}, f4, f11, f5, f12, texWidth, texHeight, mirorIn, Direction.WEST);
@@ -289,7 +287,7 @@ public class BasicModelPart {
             if (mirrorIn) {
                 int i = positionsIn.length;
 
-                for(int j = 0; j < i / 2; ++j) {
+                for (int j = 0; j < i / 2; ++j) {
                     PositionTextureVertex BasicModelPart$positiontexturevertex = positionsIn[j];
                     positionsIn[j] = positionsIn[i - 1 - j];
                     positionsIn[i - 1 - j] = BasicModelPart$positiontexturevertex;

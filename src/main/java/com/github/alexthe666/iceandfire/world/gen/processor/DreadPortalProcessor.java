@@ -33,7 +33,6 @@ public class DreadPortalProcessor extends StructureProcessor {
         }
     }
 
-    @Nullable
     @Override
     public StructureTemplate.StructureBlockInfo process(WorldView world, BlockPos pos, BlockPos pivot, StructureTemplate.StructureBlockInfo originalBlockInfo, StructureTemplate.StructureBlockInfo currentBlockInfo, StructurePlacementData data) {
         Random random = data.getRandom(pos);

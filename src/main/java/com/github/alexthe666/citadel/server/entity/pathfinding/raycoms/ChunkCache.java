@@ -31,11 +31,8 @@ import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.chunk.light.LightingProvider;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 
@@ -93,13 +90,11 @@ public class ChunkCache implements WorldView {
         return this.empty;
     }
 
-    @Nullable
     @Override
     public BlockEntity getBlockEntity(@NotNull BlockPos pos) {
         return this.getTileEntity(pos, WorldChunk.CreationType.CHECK); // Forge: don't modify world from other threads
     }
 
-    @Nullable
     public BlockEntity getTileEntity(BlockPos pos, WorldChunk.CreationType createType) {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
@@ -171,7 +166,6 @@ public class ChunkCache implements WorldView {
         return state.isAir();
     }
 
-    @Nullable
     @Override
     public Chunk getChunk(final int x, final int z, final ChunkStatus requiredStatus, final boolean nonnull) {
         int i = x - this.chunkX;
@@ -214,7 +208,7 @@ public class ChunkCache implements WorldView {
     }
 
     @Override
-    public boolean doesNotIntersectEntities(@Nullable final Entity entityIn, final VoxelShape shape) {
+    public boolean doesNotIntersectEntities(final Entity entityIn, final VoxelShape shape) {
         return false;
     }
 

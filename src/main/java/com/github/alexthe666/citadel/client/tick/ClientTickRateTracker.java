@@ -42,7 +42,7 @@ public class ClientTickRateTracker extends TickRateTracker {
 
     public void masterTick(){
         super.masterTick();
-        client.timer.msPerTick = getClientTickRate();
+        client.renderTickCounter.tickTime = getClientTickRate();
     }
 
     public float getClientTickRate(){
@@ -67,8 +67,8 @@ public class ClientTickRateTracker extends TickRateTracker {
 
     @Override
     public void tickEntityAtCustomRate(Entity entity) {
-        if(entity.method_48926().isClient && entity.method_48926() instanceof ClientWorld){
-            ((ClientWorld)entity.method_48926()).tickEntity(entity);
+        if(entity.getWorld().isClient && entity.getWorld() instanceof ClientWorld){
+            ((ClientWorld)entity.getWorld()).tickEntity(entity);
         }
     }
 }
