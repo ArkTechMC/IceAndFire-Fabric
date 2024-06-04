@@ -1,10 +1,10 @@
 package com.github.alexthe666.citadel.client.event;
 
+import com.iafenvoy.iafextra.event.Event;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraftforge.eventbus.api.Event;
 
 public class EventLivingRenderer extends Event {
 

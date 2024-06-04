@@ -1,8 +1,8 @@
 package com.github.alexthe666.citadel.server.event;
 
+import com.iafenvoy.iafextra.event.Cancelable;
+import com.iafenvoy.iafextra.event.Event;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.eventbus.api.Cancelable;
-import net.minecraftforge.eventbus.api.Event;
 
 @Cancelable
 public class EventChangeEntityTickRate extends Event {

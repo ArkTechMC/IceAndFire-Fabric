@@ -200,10 +200,10 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
             this.legLeft.rotateAngleY = -((float) Math.PI / 10F);
             this.legLeft.rotateAngleZ = -0.07853982F;
         }
-        if (this.attackTime > 0.0F) {
+        if (this.handSwingProgress > 0.0F) {
             Arm handSide = this.getMainHand(entityIn);
             HideableModelRenderer modelrenderer = this.getArmForSide(handSide);
-            float f1 = this.attackTime;
+            float f1 = this.handSwingProgress;
             this.body.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
 
             if (handSide == Arm.LEFT) {
@@ -217,15 +217,15 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
             this.armRight.rotateAngleY += this.body.rotateAngleY;
             this.armLeft.rotateAngleY += this.body.rotateAngleY;
             this.armLeft.rotateAngleX += this.body.rotateAngleX;
-            f1 = 1.0F - this.attackTime;
+            f1 = 1.0F - this.handSwingProgress;
             f1 = f1 * f1;
             f1 = f1 * f1;
             f1 = 1.0F - f1;
             float f2 = MathHelper.sin(f1 * (float) Math.PI);
-            float f3 = MathHelper.sin(this.attackTime * (float) Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
+            float f3 = MathHelper.sin(this.handSwingProgress * (float) Math.PI) * -(this.head.rotateAngleX - 0.7F) * 0.75F;
             modelrenderer.rotateAngleX = (float) ((double) modelrenderer.rotateAngleX - ((double) f2 * 1.2D + (double) f3));
             modelrenderer.rotateAngleY += this.body.rotateAngleY * 2.0F;
-            modelrenderer.rotateAngleZ += MathHelper.sin(this.attackTime * (float) Math.PI) * -0.4F;
+            modelrenderer.rotateAngleZ += MathHelper.sin(this.handSwingProgress * (float) Math.PI) * -0.4F;
         }
         if (this.isSneak) {
             this.body.rotateAngleX = 0.5F;

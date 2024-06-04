@@ -10,9 +10,7 @@ import net.minecraft.registry.tag.PointOfInterestTypeTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.poi.PointOfInterestType;
-import net.minecraftforge.common.data.ExistingFileHelper;
 
-import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
 public class POITagGenerator extends VanillaPointOfInterestTypeTagProvider {

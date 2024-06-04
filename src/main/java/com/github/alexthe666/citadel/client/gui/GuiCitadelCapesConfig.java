@@ -77,7 +77,7 @@ public class GuiCitadelCapesConfig extends GameOptionsScreen {
         entity.setPitch(-f1 * 20.0F);
         entity.headYaw = entity.getYaw();
         entity.prevHeadYaw = entity.getYaw();
-        DiffuseLighting.setupForEntityInInventory();
+        DiffuseLighting.method_34742();
         EntityRenderDispatcher entityrenderdispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
         quaternion1.conjugate();
         entityrenderdispatcher.setRotation(quaternion1);

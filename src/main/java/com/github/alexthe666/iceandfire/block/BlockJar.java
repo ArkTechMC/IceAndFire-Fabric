@@ -3,15 +3,7 @@ package com.github.alexthe666.iceandfire.block;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -30,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.PIXIE_JAR;
 
@@ -41,26 +34,26 @@ public class BlockJar extends BlockWithEntity {
 
     public BlockJar(int pixieType) {
         super(
-            pixieType != -1 ?
-                Settings
-                    .create()
-                    .mapColor(MapColor.CLEAR)
-                    .instrument(Instrument.HAT)
-                    .nonOpaque()
-                    .dynamicBounds()
-                    .strength(1, 2)
-                    .sounds(BlockSoundGroup.GLASS)
-                    .luminance((state) -> pixieType == -1 ? 0 : 10)
-                    .dropsLike(IafBlockRegistry.JAR_EMPTY.get())
-				: Settings
-                .create()
-                .mapColor(MapColor.CLEAR)
-                .instrument(Instrument.HAT)
-                .nonOpaque()
-                .dynamicBounds()
-                .strength(1, 2)
-					.sounds(BlockSoundGroup.GLASS)
-		);
+                pixieType != -1 ?
+                        Settings
+                                .create()
+                                .mapColor(MapColor.CLEAR)
+                                .instrument(Instrument.HAT)
+                                .nonOpaque()
+                                .dynamicBounds()
+                                .strength(1, 2)
+                                .sounds(BlockSoundGroup.GLASS)
+                                .luminance((state) -> 10)
+                                .dropsLike(IafBlockRegistry.JAR_EMPTY.get())
+                        : Settings
+                        .create()
+                        .mapColor(MapColor.CLEAR)
+                        .instrument(Instrument.HAT)
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .strength(1, 2)
+                        .sounds(BlockSoundGroup.GLASS)
+        );
 
         this.empty = pixieType == -1;
         this.pixieType = pixieType;

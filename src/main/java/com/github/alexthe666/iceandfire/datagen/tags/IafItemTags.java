@@ -16,8 +16,6 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.item.*;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -313,7 +311,7 @@ public class IafItemTags extends ItemTagProvider {
     }
 
     private static TagKey<Item> createKey(final String name) {
-        return ItemTags.create(new Identifier(IceAndFire.MOD_ID, name));
+        return TagKey.of(RegistryKeys.ITEM, new Identifier(IceAndFire.MOD_ID, name));
     }
 
     private static TagKey<Item> createForgeKey(final String name) {

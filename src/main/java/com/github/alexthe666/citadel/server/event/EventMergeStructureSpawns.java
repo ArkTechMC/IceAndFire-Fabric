@@ -1,5 +1,6 @@
 package com.github.alexthe666.citadel.server.event;
 
+import com.iafenvoy.iafextra.event.Event;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.collection.Pool;
@@ -7,13 +8,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.structure.Structure;
-import net.minecraftforge.eventbus.api.Event;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Event.HasResult
-public class EventMergeStructureSpawns extends Event{
+public class EventMergeStructureSpawns extends Event {
 
     private final StructureAccessor structureManager;
     private final BlockPos pos;
@@ -37,11 +37,11 @@ public class EventMergeStructureSpawns extends Event{
         return pos;
     }
 
-    public SpawnGroup getCategory(){
+    public SpawnGroup getCategory() {
         return category;
     }
 
-    public boolean isStructureTagged(TagKey<Structure> tagKey){
+    public boolean isStructureTagged(TagKey<Structure> tagKey) {
         return structureManager.getStructureContaining(pos, tagKey).hasChildren();
     }
 
@@ -53,10 +53,10 @@ public class EventMergeStructureSpawns extends Event{
         structureSpawns = spawns;
     }
 
-    public void mergeSpawns(){
-        List<SpawnSettings.SpawnEntry> list =  new ArrayList<>(biomeSpawns.getEntries());
-        for(SpawnSettings.SpawnEntry structureSpawn : structureSpawns.getEntries()){
-            if(!list.contains(structureSpawn)){
+    public void mergeSpawns() {
+        List<SpawnSettings.SpawnEntry> list = new ArrayList<>(biomeSpawns.getEntries());
+        for (SpawnSettings.SpawnEntry structureSpawn : structureSpawns.getEntries()) {
+            if (!list.contains(structureSpawn)) {
                 list.add(structureSpawn);
             }
         }

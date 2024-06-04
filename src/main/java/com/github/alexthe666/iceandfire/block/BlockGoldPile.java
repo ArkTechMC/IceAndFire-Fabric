@@ -1,13 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,6 +19,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.NotNull;
 
 public class BlockGoldPile extends Block {
     public static final IntProperty LAYERS = IntProperty.of("layers", 1, 8);
@@ -33,12 +27,12 @@ public class BlockGoldPile extends Block {
 
     public BlockGoldPile() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.DIRT_BROWN)
-                .strength(0.3F, 1)
-                .ticksRandomly()
-                .sounds(IafBlockRegistry.SOUND_TYPE_GOLD)
+                Settings
+                        .create()
+                        .mapColor(MapColor.DIRT_BROWN)
+                        .strength(0.3F, 1)
+                        .ticksRandomly()
+                        .sounds(IafBlockRegistry.SOUND_TYPE_GOLD)
         );
 
         this.setDefaultState(this.stateManager.getDefaultState().with(LAYERS, 1));

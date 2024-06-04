@@ -1,9 +1,8 @@
 package com.github.alexthe666.iceandfire.datagen;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
-import java.util.List;
-import java.util.function.Function;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -12,15 +11,11 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.PlacedFeatures;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
-import net.minecraft.world.gen.feature.SimpleBlockFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
+
+import java.util.List;
+import java.util.function.Function;
 
 public final class IafConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIRE_DRAGON_ROOST = registerKey("fire_dragon_roost");
@@ -84,12 +79,12 @@ public final class IafConfiguredFeatures {
 
         RuleTest stoneOreRule = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreRule = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-        List<OreFeatureConfig.Target> silverOreConfiguration = List.of(OreFeatureConfig.createTarget(stoneOreRule, IafBlockRegistry.SILVER_ORE.get().defaultBlockState()), OreFeatureConfig.createTarget(deepslateOreRule, IafBlockRegistry.DEEPSLATE_SILVER_ORE.get().defaultBlockState()));
+        List<OreFeatureConfig.Target> silverOreConfiguration = List.of(OreFeatureConfig.createTarget(stoneOreRule, IafBlockRegistry.SILVER_ORE.get().getDefaultState()), OreFeatureConfig.createTarget(deepslateOreRule, IafBlockRegistry.DEEPSLATE_SILVER_ORE.get().getDefaultState()));
 
-        context.register(SILVER_ORE, new ConfiguredFeature<>(Feature.ORE,new OreFeatureConfig(silverOreConfiguration, 4)));
+        context.register(SILVER_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(silverOreConfiguration, 4)));
 
         //TODO: Sapphires should only generate for ice dragon stuff
-        context.register(SAPPHIRE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), IafBlockRegistry.SAPPHIRE_ORE.get().defaultBlockState(), 4, 0.5f)));
+        context.register(SAPPHIRE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), IafBlockRegistry.SAPPHIRE_ORE.get().getDefaultState(), 4, 0.5f)));
         //TODO: Look at VegetationFeatures.java
         context.register(FIRE_LILY, new ConfiguredFeature(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FIRE_LILY.get())));
         context.register(FROST_LILY, new ConfiguredFeature(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FROST_LILY.get())));

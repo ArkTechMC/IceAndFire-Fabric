@@ -8,31 +8,17 @@ import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataOutput;
-import net.minecraft.data.recipes.*;
-import net.minecraft.data.server.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.RecipeProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
+import net.minecraft.data.server.recipe.*;
+import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.item.*;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -48,10 +34,9 @@ public class IafRecipes extends RecipeProvider {
     }
 
     @Override
-    protected void generate(Consumer<RecipeJsonProvider> consumer) {
+    public void generate(Consumer<RecipeJsonProvider> consumer) {
         createShaped(consumer);
         createShapeless(consumer);
-
     }
 
     private void createShaped(@NotNull final Consumer<RecipeJsonProvider> consumer) {
@@ -59,45 +44,45 @@ public class IafRecipes extends RecipeProvider {
                 .pattern("X")
                 .pattern("#")
                 .pattern("Y")
-                .define('#', Tags.Items.RODS_WOODEN)
-                .define('X', Items.FLINT)
-                .define('Y', IafItemRegistry.AMPHITHERE_FEATHER.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.AMPHITHERE_FEATHER.get()))
-                .save(consumer);
+                .input('#', Tags.Items.RODS_WOODEN)
+                .input('X', Items.FLINT)
+                .input('Y', IafItemRegistry.AMPHITHERE_FEATHER.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.AMPHITHERE_FEATHER.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.AMPHITHERE_MACUAHUITL.get())
                 .pattern("OXO")
                 .pattern("FXF")
                 .pattern("OSO")
-                .define('X', ItemTags.PLANKS)
-                .define('S', Tags.Items.RODS_WOODEN)
-                .define('O', Tags.Items.OBSIDIAN)
-                .define('F', IafItemRegistry.AMPHITHERE_FEATHER.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.AMPHITHERE_FEATHER.get()))
-                .save(consumer);
+                .input('X', ItemTags.PLANKS)
+                .input('S', Tags.Items.RODS_WOODEN)
+                .input('O', Tags.Items.OBSIDIAN)
+                .input('F', IafItemRegistry.AMPHITHERE_FEATHER.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.AMPHITHERE_FEATHER.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, Items.CHARCOAL)
                 .pattern("BBB")
                 .pattern("BBB")
                 .pattern("BBB")
                 .input('B', IafBlockRegistry.ASH.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.ASH.get()))
-                .save(consumer, location("ash_to_charcoal"));
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.ASH.get()))
+                .offerTo(consumer, location("ash_to_charcoal"));
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.BLINDFOLD.get())
                 .pattern("SLS")
-                .define('L', Tags.Items.LEATHER)
-                .define('S', Tags.Items.STRING)
-                .unlockedBy("has_item", conditionsFromItem(Tags.Items.LEATHER))
-                .save(consumer);
+                .input('L', Tags.Items.LEATHER)
+                .input('S', Tags.Items.STRING)
+                .criterion("has_item", conditionsFromTag(Tags.Items.LEATHER))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.CHAIN.get())
                 .pattern("S")
                 .pattern("S")
                 .pattern("S")
-                .define('S', Items.CHAIN)
-                .unlockedBy("has_item", conditionsFromItem(Items.CHAIN))
-                .save(consumer);
+                .input('S', Items.CHAIN)
+                .criterion("has_item", conditionsFromItem(Items.CHAIN))
+                .offerTo(consumer);
 
         // FIXME :: Currently uses `minecraft` namespace
         armorSet(consumer, Items.CHAIN,
@@ -111,11 +96,11 @@ public class IafRecipes extends RecipeProvider {
                 .pattern("S")
                 .pattern("E")
                 .pattern("W")
-                .define('W', IafItemTags.BONES_WITHER)
-                .define('S', IafItemRegistry.WITHER_SHARD.get())
-                .define('E', IafItemRegistry.COCKATRICE_EYE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.COCKATRICE_EYE.get()))
-                .save(consumer);
+                .input('W', IafItemTags.BONES_WITHER)
+                .input('S', IafItemRegistry.WITHER_SHARD.get())
+                .input('E', IafItemRegistry.COCKATRICE_EYE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.COCKATRICE_EYE.get()))
+                .offerTo(consumer);
 
         armorSet(consumer, Tags.Items.INGOTS_COPPER,
                 IafItemRegistry.COPPER_HELMET.get(),
@@ -136,31 +121,31 @@ public class IafRecipes extends RecipeProvider {
                 .pattern(" T ")
                 .pattern("CHC")
                 .pattern("CCC")
-                .define('C', IafItemRegistry.DEATH_WORM_CHITIN_RED.get())
-                .define('H', IafItemRegistry.CHAIN.get())
-                .define('T', IafItemRegistry.DEATHWORM_TOUNGE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
-                .save(consumer);
+                .input('C', IafItemRegistry.DEATH_WORM_CHITIN_RED.get())
+                .input('H', IafItemRegistry.CHAIN.get())
+                .input('T', IafItemRegistry.DEATHWORM_TOUNGE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DEATHWORM_GAUNTLET_WHITE.get())
                 .pattern(" T ")
                 .pattern("CHC")
                 .pattern("CCC")
-                .define('C', IafItemRegistry.DEATH_WORM_CHITIN_WHITE.get())
-                .define('H', IafItemRegistry.CHAIN.get())
-                .define('T', IafItemRegistry.DEATHWORM_TOUNGE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
-                .save(consumer);
+                .input('C', IafItemRegistry.DEATH_WORM_CHITIN_WHITE.get())
+                .input('H', IafItemRegistry.CHAIN.get())
+                .input('T', IafItemRegistry.DEATHWORM_TOUNGE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DEATHWORM_GAUNTLET_YELLOW.get())
                 .pattern(" T ")
                 .pattern("CHC")
                 .pattern("CCC")
-                .define('C', IafItemRegistry.DEATH_WORM_CHITIN_YELLOW.get())
-                .define('H', IafItemRegistry.CHAIN.get())
-                .define('T', IafItemRegistry.DEATHWORM_TOUNGE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
-                .save(consumer);
+                .input('C', IafItemRegistry.DEATH_WORM_CHITIN_YELLOW.get())
+                .input('H', IafItemRegistry.CHAIN.get())
+                .input('T', IafItemRegistry.DEATHWORM_TOUNGE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
+                .offerTo(consumer);
 
         armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_RED.get(),
                 IafItemRegistry.DEATHWORM_RED_HELMET.get(),
@@ -211,26 +196,26 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.DRAGONARMOR_DIAMOND_3.get()
         );
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT,IafItemRegistry.IRON_HIPPOGRYPH_ARMOR.get())
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.IRON_HIPPOGRYPH_ARMOR.get())
                 .pattern("FDF")
-                .define('F', Tags.Items.FEATHERS)
-                .define('D', Items.IRON_HORSE_ARMOR)
-                .unlockedBy("has_item", conditionsFromItem(Items.IRON_HORSE_ARMOR))
-                .save(consumer);
+                .input('F', Tags.Items.FEATHERS)
+                .input('D', Items.IRON_HORSE_ARMOR)
+                .criterion("has_item", conditionsFromItem(Items.IRON_HORSE_ARMOR))
+                .offerTo(consumer);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT,IafItemRegistry.GOLD_HIPPOGRYPH_ARMOR.get())
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.GOLD_HIPPOGRYPH_ARMOR.get())
                 .pattern("FDF")
-                .define('F', Tags.Items.FEATHERS)
-                .define('D', Items.GOLDEN_HORSE_ARMOR)
-                .unlockedBy("has_item", conditionsFromItem(Items.GOLDEN_HORSE_ARMOR))
-                .save(consumer);
+                .input('F', Tags.Items.FEATHERS)
+                .input('D', Items.GOLDEN_HORSE_ARMOR)
+                .criterion("has_item", conditionsFromItem(Items.GOLDEN_HORSE_ARMOR))
+                .offerTo(consumer);
 
-        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT,IafItemRegistry.DIAMOND_HIPPOGRYPH_ARMOR.get())
+        ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DIAMOND_HIPPOGRYPH_ARMOR.get())
                 .pattern("FDF")
-                .define('F', Tags.Items.FEATHERS)
-                .define('D', Items.DIAMOND_HORSE_ARMOR)
-                .unlockedBy("has_item", conditionsFromItem(Items.DIAMOND_HORSE_ARMOR))
-                .save(consumer);
+                .input('F', Tags.Items.FEATHERS)
+                .input('D', Items.DIAMOND_HORSE_ARMOR)
+                .criterion("has_item", conditionsFromItem(Items.DIAMOND_HORSE_ARMOR))
+                .offerTo(consumer);
 
         offerReversibleCompactingRecipes(consumer, RecipeCategory.MISC, IafItemRegistry.DRAGON_BONE.get(), RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DRAGON_BONE_BLOCK.get()
                 , locationString("dragon_bone_block"), null
@@ -239,52 +224,52 @@ public class IafRecipes extends RecipeProvider {
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.DRAGON_BONE_BLOCK_WALL.get())
                 .pattern("BBB")
                 .pattern("BBB")
-                .define('B', IafItemRegistry.DRAGON_BONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
-                .save(consumer);
+                .input('B', IafItemRegistry.DRAGON_BONE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.DRAGON_FLUTE.get())
                 .pattern("B  ")
                 .pattern(" B ")
                 .pattern("  I")
-                .define('I', Tags.Items.INGOTS_IRON)
-                .define('B', IafItemRegistry.DRAGON_BONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
-                .save(consumer);
+                .input('I', Tags.Items.INGOTS_IRON)
+                .input('B', IafItemRegistry.DRAGON_BONE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.DRAGON_HORN.get())
                 .pattern("  B")
                 .pattern(" BB")
                 .pattern("IB ")
-                .define('I', Tags.Items.RODS_WOODEN)
-                .define('B', IafItemRegistry.DRAGON_BONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
-                .save(consumer);
+                .input('I', Tags.Items.RODS_WOODEN)
+                .input('B', IafItemRegistry.DRAGON_BONE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.DRAGON_ICE_SPIKES.get(), 4)
                 .pattern("I I")
                 .pattern("I I")
-                .define('I', IafBlockRegistry.DRAGON_ICE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DRAGON_ICE.get()))
-                .save(consumer);
+                .input('I', IafBlockRegistry.DRAGON_ICE.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DRAGON_ICE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.NEST.get(), 8)
                 .pattern("HHH")
                 .pattern("HBH")
                 .pattern("HHH")
-                .define('H', Blocks.HAY_BLOCK)
-                .define('B', IafItemRegistry.DRAGON_BONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
-                .save(consumer);
+                .input('H', Blocks.HAY_BLOCK)
+                .input('B', IafItemRegistry.DRAGON_BONE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.DRAGON_STAFF.get())
                 .pattern("S")
                 .pattern("T")
                 .pattern("T")
-                .define('T', Tags.Items.RODS_WOODEN)
-                .define('S', IafItemTags.DRAGON_SKULLS)
-                .unlockedBy("has_item", conditionsFromTag(IafItemTags.DRAGON_SKULLS))
-                .save(consumer);
+                .input('T', Tags.Items.RODS_WOODEN)
+                .input('S', IafItemTags.DRAGON_SKULLS)
+                .criterion("has_item", conditionsFromTag(IafItemTags.DRAGON_SKULLS))
+                .offerTo(consumer);
 
         toolSet(consumer, IafItemRegistry.DRAGON_BONE.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.DRAGONBONE_SWORD.get(),
@@ -298,11 +283,11 @@ public class IafRecipes extends RecipeProvider {
                 .pattern(" DS")
                 .pattern("W S")
                 .pattern(" DS")
-                .define('S', Tags.Items.STRING)
-                .define('W', IafItemTags.BONES_WITHER)
-                .define('D', IafItemRegistry.DRAGON_BONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
-                .save(consumer);
+                .input('S', Tags.Items.STRING)
+                .input('W', IafItemTags.BONES_WITHER)
+                .input('D', IafItemRegistry.DRAGON_BONE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
+                .offerTo(consumer);
 
         forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_FIRE, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get());
         forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), IafItemRegistry.FIRE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get());
@@ -320,10 +305,10 @@ public class IafRecipes extends RecipeProvider {
                 .pattern("BMB")
                 .pattern("MBM")
                 .pattern("BMB")
-                .define('B', Tags.Items.BONES)
-                .define('M', IafItemTags.DRAGON_FOOD_MEAT)
-                .unlockedBy("has_item", conditionsFromTag(IafItemTags.DRAGON_FOOD_MEAT))
-                .save(consumer);
+                .input('B', Tags.Items.BONES)
+                .input('M', IafItemTags.DRAGON_FOOD_MEAT)
+                .criterion("has_item", conditionsFromTag(IafItemTags.DRAGON_FOOD_MEAT))
+                .offerTo(consumer);
 
         compact(consumer, IafItemRegistry.DRAGONSCALES_RED.get(), IafBlockRegistry.DRAGON_SCALE_RED.get());
         compact(consumer, IafItemRegistry.DRAGONSCALES_GREEN.get(), IafBlockRegistry.DRAGON_SCALE_GREEN.get());
@@ -436,69 +421,69 @@ public class IafRecipes extends RecipeProvider {
                 .pattern("DDD")
                 .pattern("DSD")
                 .pattern("DDD")
-                .define('S', Tags.Items.STONE)
-                .define('D', IafItemRegistry.DREAD_SHARD.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DREAD_SHARD.get()))
-                .save(consumer);
+                .input('S', Tags.Items.STONE)
+                .input('D', IafItemRegistry.DREAD_SHARD.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DREAD_SHARD.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_BRICKS.get(), 4)
                 .pattern("DD")
                 .pattern("DD")
-                .define('D', IafBlockRegistry.DREAD_STONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE.get()))
-                .save(consumer);
+                .input('D', IafBlockRegistry.DREAD_STONE.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_BRICKS_CHISELED.get())
                 .pattern("D")
                 .pattern("D")
-                .define('D', IafBlockRegistry.DREAD_STONE_BRICKS_SLAB.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS_SLAB.get()))
-                .save(consumer);
+                .input('D', IafBlockRegistry.DREAD_STONE_BRICKS_SLAB.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS_SLAB.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_FACE.get(), 8)
                 .pattern("DDD")
                 .pattern("DSD")
                 .pattern("DDD")
-                .define('S', Items.SKELETON_SKULL)
-                .define('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
-                .save(consumer);
+                .input('S', Items.SKELETON_SKULL)
+                .input('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_BRICKS_SLAB.get(), 6)
                 .pattern("DDD")
-                .define('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
-                .save(consumer);
+                .input('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_BRICKS_STAIRS.get(), 4)
                 .pattern("D  ")
                 .pattern("DD ")
                 .pattern("DDD")
-                .define('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
-                .save(consumer);
+                .input('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_TILE.get(), 8)
                 .pattern("DDD")
                 .pattern("D D")
                 .pattern("DDD")
-                .define('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
-                .save(consumer);
+                .input('D', IafBlockRegistry.DREAD_STONE_BRICKS.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_TORCH.get(), 4)
                 .pattern("D")
                 .pattern("S")
-                .define('S', Tags.Items.RODS_WOODEN)
-                .define('D', IafItemRegistry.DREAD_SHARD.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.DREAD_SHARD.get()))
-                .save(consumer);
+                .input('S', Tags.Items.RODS_WOODEN)
+                .input('D', IafItemRegistry.DREAD_SHARD.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.DREAD_SHARD.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.EARPLUGS.get())
                 .pattern("B B")
-                .define('B', ItemTags.PLANKS)
-                .unlockedBy("has_item", conditionsFromTag(ItemTags.PLANKS))
-                .save(consumer);
+                .input('B', ItemTags.PLANKS)
+                .criterion("has_item", conditionsFromTag(ItemTags.PLANKS))
+                .offerTo(consumer);
 
         for (EnumTroll type : EnumTroll.values()) {
             armorSet(consumer, type.leather.get(),
@@ -512,18 +497,18 @@ public class IafRecipes extends RecipeProvider {
                     .pattern("U U")
                     .input('T', type.leather.get())
                     .input('U', IafItemRegistry.TROLL_TUSK.get())
-                    .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.TROLL_TUSK.get()))
-                    .save(consumer);
+                    .criterion("has_item", conditionsFromItem(IafItemRegistry.TROLL_TUSK.get()))
+                    .offerTo(consumer);
         }
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.GHOST_CHEST.get())
                 .pattern(" E ")
                 .pattern("ECE")
                 .pattern(" E ")
-                .define('C', Tags.Items.RODS_WOODEN)
-                .define('E', IafItemRegistry.ECTOPLASM.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.ECTOPLASM.get()))
-                .save(consumer);
+                .input('C', Tags.Items.RODS_WOODEN)
+                .input('E', IafItemRegistry.ECTOPLASM.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.ECTOPLASM.get()))
+                .offerTo(consumer);
 
         dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_GOLD,
                 IafItemRegistry.DRAGONARMOR_GOLD_0.get(),
@@ -536,34 +521,34 @@ public class IafRecipes extends RecipeProvider {
                 .pattern(" E ")
                 .pattern("ECE")
                 .pattern(" E ")
-                .define('C', Items.COARSE_DIRT)
-                .define('E', IafItemRegistry.ECTOPLASM.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.ECTOPLASM.get()))
-                .save(consumer);
+                .input('C', Items.COARSE_DIRT)
+                .input('E', IafItemRegistry.ECTOPLASM.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.ECTOPLASM.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.MYRMEX_DESERT_RESIN.get())
                 .pattern("RR")
                 .pattern("RR")
-                .define('R', IafItemRegistry.MYRMEX_DESERT_RESIN.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.MYRMEX_DESERT_RESIN.get()))
-                .save(consumer);
+                .input('R', IafItemRegistry.MYRMEX_DESERT_RESIN.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.MYRMEX_DESERT_RESIN.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.MYRMEX_JUNGLE_RESIN.get())
                 .pattern("RR")
                 .pattern("RR")
-                .define('R', IafItemRegistry.MYRMEX_JUNGLE_RESIN.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.MYRMEX_JUNGLE_RESIN.get()))
-                .save(consumer);
+                .input('R', IafItemRegistry.MYRMEX_JUNGLE_RESIN.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.MYRMEX_JUNGLE_RESIN.get()))
+                .offerTo(consumer);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.SEA_SERPENT_ARROW.get(), 4)
                 .pattern("X")
                 .pattern("#")
                 .pattern("Y")
-                .define('#', Tags.Items.RODS_WOODEN)
-                .define('X', IafItemRegistry.SERPENT_FANG.get())
-                .define('Y', IafItemTags.SCALES_SEA_SERPENT)
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.SERPENT_FANG.get()))
-                .save(consumer);
+                .input('#', Tags.Items.RODS_WOODEN)
+                .input('X', IafItemRegistry.SERPENT_FANG.get())
+                .input('Y', IafItemTags.SCALES_SEA_SERPENT)
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.SERPENT_FANG.get()))
+                .offerTo(consumer);
 
         armorSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(),
                 IafItemRegistry.MYRMEX_DESERT_HELMET.get(),
@@ -597,10 +582,10 @@ public class IafRecipes extends RecipeProvider {
 
         CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItems(IafItemRegistry.RAW_SILVER.get()), RecipeCategory.TOOLS, IafItemRegistry.SILVER_INGOT.get(), 0.7f, 200)
                 .group("raw_silver")
-                .unlockedBy(hasItem(IafItemRegistry.RAW_SILVER.get()), conditionsFromItem(IafItemRegistry.RAW_SILVER.get())).save(consumer, location(getItemPath(IafItemRegistry.SILVER_INGOT.get())) + "_from_smelting_" + getItemPath(IafItemRegistry.RAW_SILVER.get()));
+                .criterion(hasItem(IafItemRegistry.RAW_SILVER.get()), conditionsFromItem(IafItemRegistry.RAW_SILVER.get())).offerTo(consumer, location(getItemPath(IafItemRegistry.SILVER_INGOT.get())) + "_from_smelting_" + getItemPath(IafItemRegistry.RAW_SILVER.get()));
         CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(IafItemRegistry.RAW_SILVER.get()), RecipeCategory.TOOLS, IafItemRegistry.SILVER_INGOT.get(), 0.7f, 100)
                 .group("raw_silver")
-                .unlockedBy(hasItem(IafItemRegistry.RAW_SILVER.get()), conditionsFromItem(IafItemRegistry.RAW_SILVER.get())).save(consumer, location(getItemPath(IafItemRegistry.SILVER_INGOT.get())) + "_from_blasting_" + getItemPath(IafItemRegistry.RAW_SILVER.get()));
+                .criterion(hasItem(IafItemRegistry.RAW_SILVER.get()), conditionsFromItem(IafItemRegistry.RAW_SILVER.get())).offerTo(consumer, location(getItemPath(IafItemRegistry.SILVER_INGOT.get())) + "_from_blasting_" + getItemPath(IafItemRegistry.RAW_SILVER.get()));
         compact(consumer, IafItemRegistry.SILVER_INGOT.get(), IafBlockRegistry.SILVER_BLOCK.get());
         compact(consumer, IafItemRegistry.RAW_SILVER.get(), IafBlockRegistry.RAW_SILVER_BLOCK.get());
         compact(consumer, IafItemRegistry.SILVER_NUGGET.get(), IafItemRegistry.SILVER_INGOT.get());
@@ -626,36 +611,36 @@ public class IafRecipes extends RecipeProvider {
                 .pattern("TTT")
                 .pattern("SDS")
                 .pattern(" B ")
-                .define('D', Tags.Items.GEMS_DIAMOND)
-                .define('S', IafItemTags.SCALES_SEA_SERPENT)
-                .define('T', IafItemRegistry.SERPENT_FANG.get())
-                .define('B', IafItemRegistry.DRAGON_BONE.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.SERPENT_FANG.get()))
-                .save(consumer);
+                .input('D', Tags.Items.GEMS_DIAMOND)
+                .input('S', IafItemTags.SCALES_SEA_SERPENT)
+                .input('T', IafItemRegistry.SERPENT_FANG.get())
+                .input('B', IafItemRegistry.DRAGON_BONE.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.SERPENT_FANG.get()))
+                .offerTo(consumer);
     }
 
     private void createShapeless(@NotNull final Consumer<RecipeJsonProvider> consumer) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, IafItemRegistry.AMBROSIA.get())
-                .requires(IafItemRegistry.PIXIE_DUST.get())
-                .requires(Items.BOWL)
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.PIXIE_DUST.get()))
-                .save(consumer);
+                .input(IafItemRegistry.PIXIE_DUST.get())
+                .input(Items.BOWL)
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.PIXIE_DUST.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.ASH.get())
-                .requires(Ingredient.fromTag(IafItemTags.CHARRED_BLOCKS), 9)
-                .unlockedBy("has_item", conditionsFromTag(IafItemTags.CHARRED_BLOCKS))
-                .save(consumer);
+                .input(Ingredient.fromTag(IafItemTags.CHARRED_BLOCKS), 9)
+                .criterion("has_item", conditionsFromTag(IafItemTags.CHARRED_BLOCKS))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.BESTIARY.get())
-                .requires(IafItemRegistry.MANUSCRIPT.get(), 3)
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.MANUSCRIPT.get()))
-                .save(consumer);
+                .input(IafItemRegistry.MANUSCRIPT.get(), 3)
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.MANUSCRIPT.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.CHAIN_STICKY.get())
-                .requires(Tags.Items.SLIMEBALLS)
-                .requires(IafItemRegistry.CHAIN.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.CHAIN.get()))
-                .save(consumer);
+                .input(Tags.Items.SLIMEBALLS)
+                .input(IafItemRegistry.CHAIN.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.CHAIN.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.COPPER_INGOT)
                 .input(Ingredient.fromTag(IafItemTags.NUGGETS_COPPER), 9)
@@ -663,19 +648,19 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer, location("copper_nuggets_to_ingot"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.COPPER_NUGGET.get(), 9)
-                .requires(Tags.Items.INGOTS_COPPER)
-                .unlockedBy("has_item", conditionsFromItem(Tags.Items.INGOTS_COPPER))
-                .save(consumer, location("copper_ingot_to_nuggets"));
+                .input(Tags.Items.INGOTS_COPPER)
+                .criterion("has_item", conditionsFromTag(Tags.Items.INGOTS_COPPER))
+                .offerTo(consumer, location("copper_ingot_to_nuggets"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.DECORATIONS, IafBlockRegistry.COPPER_PILE.get())
-                .requires(Ingredient.fromTag(IafItemTags.NUGGETS_COPPER), 2)
-                .unlockedBy("has_item", conditionsFromTag(IafItemTags.NUGGETS_COPPER))
-                .save(consumer);
+                .input(Ingredient.fromTag(IafItemTags.NUGGETS_COPPER), 2)
+                .criterion("has_item", conditionsFromTag(IafItemTags.NUGGETS_COPPER))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, IafBlockRegistry.DRAGON_ICE.get())
-                .requires(Ingredient.fromTag(IafItemTags.FROZEN_BLOCKS), 9)
-                .unlockedBy("has_item", conditionsFromTag(IafItemTags.FROZEN_BLOCKS))
-                .save(consumer);
+                .input(Ingredient.fromTag(IafItemTags.FROZEN_BLOCKS), 9)
+                .criterion("has_item", conditionsFromTag(IafItemTags.FROZEN_BLOCKS))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, Items.BONE_MEAL, 5)
                 .input(IafItemTags.MOB_SKULLS)
@@ -683,40 +668,40 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer, location("skull_to_bone_meal"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DRAGONBONE_ARROW.get(), 5)
-                .requires(IafItemRegistry.DRAGON_BONE.get())
-                .requires(IafItemRegistry.WITHER_SHARD.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.WITHER_SHARD.get()))
-                .save(consumer);
+                .input(IafItemRegistry.DRAGON_BONE.get())
+                .input(IafItemRegistry.WITHER_SHARD.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.WITHER_SHARD.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREAD_STONE_BRICKS_MOSSY.get())
-                .requires(Items.VINE)
-                .requires(IafBlockRegistry.DREAD_STONE_BRICKS.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
-                .save(consumer);
+                .input(Items.VINE)
+                .input(IafBlockRegistry.DREAD_STONE_BRICKS.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREAD_STONE_BRICKS.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, IafBlockRegistry.DREADWOOD_PLANKS.get(), 4)
-                .requires(IafBlockRegistry.DREADWOOD_LOG.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.DREADWOOD_LOG.get()))
-                .save(consumer);
+                .input(IafBlockRegistry.DREADWOOD_LOG.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.DREADWOOD_LOG.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, IafItemRegistry.FIRE_STEW.get())
-                .requires(Items.BOWL)
-                .requires(Items.BLAZE_ROD)
-                .requires(IafBlockRegistry.FIRE_LILY.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.FIRE_LILY.get()))
-                .save(consumer);
+                .input(Items.BOWL)
+                .input(Items.BLAZE_ROD)
+                .input(IafBlockRegistry.FIRE_LILY.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.FIRE_LILY.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, IafItemRegistry.FROST_STEW.get())
-                .requires(Items.BOWL)
-                .requires(Items.PRISMARINE_CRYSTALS)
-                .requires(IafBlockRegistry.FROST_LILY.get())
-                .unlockedBy("has_item", conditionsFromItem(IafBlockRegistry.FROST_LILY.get()))
-                .save(consumer);
+                .input(Items.BOWL)
+                .input(Items.PRISMARINE_CRYSTALS)
+                .input(IafBlockRegistry.FROST_LILY.get())
+                .criterion("has_item", conditionsFromItem(IafBlockRegistry.FROST_LILY.get()))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, IafBlockRegistry.GOLD_PILE.get())
-                .requires(Ingredient.ofItems(Tags.Items.NUGGETS_GOLD), 2)
-                .unlockedBy("has_item", conditionsFromItem(Tags.Items.NUGGETS_GOLD))
-                .save(consumer);
+                .input(Ingredient.fromTag(Tags.Items.NUGGETS_GOLD), 2)
+                .criterion("has_item", conditionsFromTag(Tags.Items.NUGGETS_GOLD))
+                .offerTo(consumer);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, Items.GRAVEL)
                 .input(Ingredient.fromTag(IafItemTags.CRACKLED_BLOCKS), 9)
@@ -724,33 +709,33 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer, location("crackled_to_gravel"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DRAGONBONE_SWORD_FIRE.get())
-                .requires(IafItemRegistry.DRAGONBONE_SWORD.get())
-                .requires(IafItemRegistry.FIRE_DRAGON_BLOOD.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.FIRE_DRAGON_BLOOD.get()))
-                .save(consumer, location("dragonbone_sword_fire"));
+                .input(IafItemRegistry.DRAGONBONE_SWORD.get())
+                .input(IafItemRegistry.FIRE_DRAGON_BLOOD.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.FIRE_DRAGON_BLOOD.get()))
+                .offerTo(consumer, location("dragonbone_sword_fire"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DRAGONBONE_SWORD_ICE.get())
-                .requires(IafItemRegistry.DRAGONBONE_SWORD.get())
-                .requires(IafItemRegistry.ICE_DRAGON_BLOOD.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.ICE_DRAGON_BLOOD.get()))
-                .save(consumer, location("dragonbone_sword_ice"));
+                .input(IafItemRegistry.DRAGONBONE_SWORD.get())
+                .input(IafItemRegistry.ICE_DRAGON_BLOOD.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.ICE_DRAGON_BLOOD.get()))
+                .offerTo(consumer, location("dragonbone_sword_ice"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING.get())
-                .requires(IafItemRegistry.DRAGONBONE_SWORD.get())
-                .requires(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get()))
-                .save(consumer, location("dragonbone_sword_lightning"));
+                .input(IafItemRegistry.DRAGONBONE_SWORD.get())
+                .input(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get()))
+                .offerTo(consumer, location("dragonbone_sword_lightning"));
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.GHOST_SWORD.get())
-                .requires(IafItemRegistry.DRAGONBONE_SWORD.get())
-                .requires(IafItemRegistry.GHOST_INGOT.get())
-                .unlockedBy("has_item", conditionsFromItem(IafItemRegistry.GHOST_INGOT.get()))
-                .save(consumer, location("ghost_sword"));
+                .input(IafItemRegistry.DRAGONBONE_SWORD.get())
+                .input(IafItemRegistry.GHOST_INGOT.get())
+                .criterion("has_item", conditionsFromItem(IafItemRegistry.GHOST_INGOT.get()))
+                .offerTo(consumer, location("ghost_sword"));
     }
 
     private void compact(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible unpacked, final ItemConvertible packed) {
-        String packedPath = ForgeRegistries.ITEMS.getKey(packed.asItem()).getPath();
-        String unpackedPath = ForgeRegistries.ITEMS.getKey(unpacked.asItem()).getPath();
+        String packedPath = Registries.ITEM.getId(packed.asItem()).getPath();
+        String unpackedPath = Registries.ITEM.getId(unpacked.asItem()).getPath();
 
 
         offerReversibleCompactingRecipes(consumer, RecipeCategory.MISC, unpacked, RecipeCategory.BUILDING_BLOCKS, packed

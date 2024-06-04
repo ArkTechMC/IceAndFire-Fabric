@@ -22,19 +22,7 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class CitadelEvents {
-
     private int updateTimer;
-
-    @SubscribeEvent
-    public void onEntityUpdateDebug(LivingEvent.LivingTickEvent event) {
-        if (CitadelConstants.DEBUG) {
-            if ((event.getEntity() instanceof PlayerEntity)) {
-                NbtCompound tag = CitadelEntityData.getCitadelTag(event.getEntity());
-                tag.putInt("CitadelInt", tag.getInt("CitadelInt") + 1);
-                Citadel.LOGGER.debug("Citadel Data Tag tracker example: " + tag.getInt("CitadelInt"));
-            }
-        }
-    }
 
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {

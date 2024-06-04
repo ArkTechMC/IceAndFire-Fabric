@@ -9,10 +9,16 @@ accessible field net/minecraft/entity/projectile/TridentEntity ENCHANTED Lnet/mi
 accessible field net/minecraft/entity/projectile/TridentEntity dealtDamage Z
 accessible field net/minecraft/structure/pool/StructurePool elements Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
 accessible field net/minecraft/structure/pool/StructurePool elementCounts Ljava/util/List;
+mutable field net/minecraft/structure/pool/StructurePool elements Lit/unimi/dsi/fastutil/objects/ObjectArrayList;
+mutable field net/minecraft/structure/pool/StructurePool elementCounts Ljava/util/List;
 accessible field net/minecraft/world/World damageSources Lnet/minecraft/entity/damage/DamageSources;
 accessible method net/minecraft/entity/LivingEntity knockback (Lnet/minecraft/entity/LivingEntity;)V
 accessible field net/minecraft/client/MinecraftClient renderTickCounter Lnet/minecraft/client/render/RenderTickCounter;
 accessible field net/minecraft/client/render/RenderTickCounter tickTime F
+mutable field net/minecraft/client/render/RenderTickCounter tickTime F
 accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockXSize I
 accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockYSize I
 accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockZSize I
+extendable method net/minecraft/client/gui/widget/PressableWidget getTextureY ()I
+accessible class net/minecraft/client/render/RenderPhase$DepthTest
+mutable field net/minecraft/client/render/RenderPhase beginAction Ljava/lang/Runnable;

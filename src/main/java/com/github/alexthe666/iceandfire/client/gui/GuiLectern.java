@@ -83,9 +83,9 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
             double l = mouseX - (i + 60);
             double i1 = mouseY - (j + 14 + 19 * k);
 
-            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.handler.onButtonClick(getMinecraft().player, k)) {
+            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.handler.onButtonClick(client.player, k)) {
                 flapTimer = 5;
-                this.getMinecraft().gameMode.handleInventoryButtonClick(this.handler.syncId, k);
+                this.client.interactionManager.clickButton(this.handler.syncId, k);
                 return true;
             }
         }
@@ -159,7 +159,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                 ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 185, 108, 19);
             } else {
                 String s = "" + 3;
-                TextRenderer fontrenderer = this.getMinecraft().font;
+                TextRenderer fontrenderer = this.client.textRenderer;
                 String s1 = "";
                 float textScale = 1.0F;
                 EnumBestiaryPages enchantment = this.handler.getPossiblePages()[i1];
@@ -190,7 +190,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                         ms.getMatrices().scale(textScale, textScale, 1);
                         fontrenderer.draw(s1, 0, 20 + 19 * i1, j2, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
                         ms.getMatrices().pop();
-                        fontrenderer = this.getMinecraft().font;
+                        fontrenderer = this.client.textRenderer;
                         fontrenderer.draw(s, k1 + 84 - fontrenderer.getWidth(s),
                             j + 13 + 19 * i1 + 7, j3, true, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
                     } else {
@@ -207,7 +207,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         this.renderBackground(ms);
         super.render(ms, mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(ms, mouseX, mouseY);
-        boolean flag = this.getMinecraft().player.isCreative();
+        boolean flag = this.client.player.isCreative();
         int i = this.handler.getManuscriptAmount();
 
         for (int j = 0; j < 3; ++j) {
@@ -269,7 +269,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         this.open = MathHelper.clamp(this.open, 0.0F, 1.0F);
         float f1 = (this.flipT - this.flip) * 0.4F;
         if (flapTimer > 0) {
-            f1 = (ticks + this.getMinecraft().getFrameTime()) * 0.5F;
+            f1 = (ticks + this.client.getTickDelta()) * 0.5F;
             flapTimer--;
         }
         f1 = MathHelper.clamp(f1, -0.2F, 0.2F);

@@ -4,19 +4,11 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.Instrument;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.sound.BlockSoundGroup;
@@ -28,6 +20,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_INPUT;
 
@@ -37,14 +30,14 @@ public class BlockDragonforgeInput extends BlockWithEntity implements IDragonPro
 
     public BlockDragonforgeInput(int dragonType) {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.STONE_GRAY)
-                .instrument(Instrument.BASEDRUM)
-                .dynamicBounds()
-                .strength(40, 500)
-                .sounds(BlockSoundGroup.METAL)
-		);
+                Settings
+                        .create()
+                        .mapColor(MapColor.STONE_GRAY)
+                        .instrument(Instrument.BASEDRUM)
+                        .dynamicBounds()
+                        .strength(40, 500)
+                        .sounds(BlockSoundGroup.METAL)
+        );
 
         this.dragonType = dragonType;
         this.setDefaultState(this.getStateManager().getDefaultState().with(ACTIVE, Boolean.FALSE));

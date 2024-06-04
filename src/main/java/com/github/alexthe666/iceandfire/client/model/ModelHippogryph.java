@@ -390,7 +390,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     @Override
     public void renderStatue(MatrixStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, Entity living) {
         this.render(matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-        if (this.young) {
+        if (this.child) {
             this.Body.setShouldScaleChildren(true);
             this.Head.setShouldScaleChildren(false);
             this.Body.setScale(0.5F, 0.5F, 0.5F);
@@ -540,7 +540,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     public void setAngles(EntityHippogryph entity, float f, float f1, float f2, float f3, float f4) {
         animate(entity, f, f1, f2, f3, f4, 1);
         EntityHippogryph hippo = entity;
-        if (this.young) {
+        if (this.child  ) {
             this.Body.setShouldScaleChildren(true);
             this.Head.setShouldScaleChildren(false);
             this.Body.setScale(0.5F, 0.5F, 0.5F);
@@ -555,7 +555,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
             this.Quill_L.setScale(1, 1, 1);
             this.Quill_R.setScale(1, 1, 1);
         }
-        if (this.young) {
+        if (this.child) {
             this.progressPosition(Body, hippo.sitProgress, 0, 16, 0);
         } else {
             this.progressPosition(Body, hippo.sitProgress, 0, 18, 0);

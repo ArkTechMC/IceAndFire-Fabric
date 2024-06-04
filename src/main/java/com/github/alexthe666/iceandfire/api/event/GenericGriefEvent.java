@@ -1,9 +1,8 @@
 package com.github.alexthe666.iceandfire.api.event;
 
+import com.iafenvoy.iafextra.event.Cancelable;
+import com.iafenvoy.iafextra.event.LivingEvent;
 import net.minecraft.entity.LivingEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.Cancelable;
 
 /**
  * GenericGriefEvent is fired right before an entity destroys or modifies blocks in some aspect. <br>
@@ -18,7 +17,6 @@ import net.minecraftforge.eventbus.api.Cancelable;
  * <br>
  * If you only want to deal with the damage caused by dragon fire, see {@link DragonFireDamageWorldEvent} <br>
  * <br>
- * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
  **/
 @Cancelable
 public class GenericGriefEvent extends LivingEvent {

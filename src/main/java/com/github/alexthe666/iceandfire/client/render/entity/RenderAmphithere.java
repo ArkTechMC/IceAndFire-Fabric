@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.ModelAmphithere;
 import com.github.alexthe666.iceandfire.entity.EntityAmphithere;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -11,16 +12,16 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderAmphithere extends MobEntityRenderer<EntityAmphithere, ModelAmphithere> {
 
-    public static final Identifier TEXTURE_BLUE = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_blue.png");
-    public static final Identifier TEXTURE_BLUE_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_blue_blink.png");
-    public static final Identifier TEXTURE_GREEN = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_green.png");
-    public static final Identifier TEXTURE_GREEN_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_green_blink.png");
-    public static final Identifier TEXTURE_OLIVE = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_olive.png");
-    public static final Identifier TEXTURE_OLIVE_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_olive_blink.png");
-    public static final Identifier TEXTURE_RED = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_red.png");
-    public static final Identifier TEXTURE_RED_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_red_blink.png");
-    public static final Identifier TEXTURE_YELLOW = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_yellow.png");
-    public static final Identifier TEXTURE_YELLOW_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/amphithere/amphithere_yellow_blink.png");
+    public static final Identifier TEXTURE_BLUE = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_blue.png");
+    public static final Identifier TEXTURE_BLUE_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_blue_blink.png");
+    public static final Identifier TEXTURE_GREEN = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_green.png");
+    public static final Identifier TEXTURE_GREEN_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_green_blink.png");
+    public static final Identifier TEXTURE_OLIVE = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_olive.png");
+    public static final Identifier TEXTURE_OLIVE_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_olive_blink.png");
+    public static final Identifier TEXTURE_RED = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_red.png");
+    public static final Identifier TEXTURE_RED_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_red_blink.png");
+    public static final Identifier TEXTURE_YELLOW = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_yellow.png");
+    public static final Identifier TEXTURE_YELLOW_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/amphithere/amphithere_yellow_blink.png");
 
     public RenderAmphithere(EntityRendererFactory.Context context) {
         super(context, new ModelAmphithere(), 1.6F);

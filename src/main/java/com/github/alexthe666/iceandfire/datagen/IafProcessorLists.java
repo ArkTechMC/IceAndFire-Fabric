@@ -17,7 +17,6 @@ import net.minecraft.structure.processor.StructureProcessorRule;
 import net.minecraft.structure.rule.AlwaysTrueRuleTest;
 import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.level.levelgen.structure.templatesystem.*;
 
 import java.util.List;
 

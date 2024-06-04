@@ -4,6 +4,7 @@ import com.github.alexthe666.citadel.CitadelConstants;
 import com.github.alexthe666.citadel.server.world.ModifiableTickRateServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
-
+    @Unique
     private long modifiedMsPerTick = -1;
+    @Unique
     private long masterMs;
 
     @Inject(
-            method = {"Lnet/minecraft/server/MinecraftServer;runServer()V"},
-            remap = CitadelConstants.REMAPREFS,
+            method = "runServer()V",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/server/MinecraftServer;startMetricsRecordingTick()V",
@@ -29,12 +30,13 @@ public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
         masterTick();
     }
 
+    @Unique
     private void masterTick() {
         masterMs += 50L;
     }
 
     @ModifyConstant(
-            method = {"Lnet/minecraft/server/MinecraftServer;runServer()V"},
+            method = "runServer()V",
             constant = @Constant(longValue = 50L),
             expect = 4)
     private long citadel_serverMsPerTick(long value) {

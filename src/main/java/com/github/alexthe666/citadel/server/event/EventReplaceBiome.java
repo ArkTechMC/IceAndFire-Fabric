@@ -1,12 +1,12 @@
 package com.github.alexthe666.citadel.server.event;
 
 import com.github.alexthe666.citadel.server.world.ExpandedBiomeSource;
+import com.iafenvoy.iafextra.event.Event;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
-import net.minecraftforge.eventbus.api.Event;
 
 @Event.HasResult
 public class EventReplaceBiome extends Event {
@@ -98,27 +98,27 @@ public class EventReplaceBiome extends Event {
         return depth >= min && depth <= max;
     }
 
-    public ExpandedBiomeSource getBiomeSource(){
+    public ExpandedBiomeSource getBiomeSource() {
         return biomeSource;
     }
 
-    public void setBiomeToGenerate(RegistryEntry<Biome> biome){
+    public void setBiomeToGenerate(RegistryEntry<Biome> biome) {
         biomeToGenerate = biome;
     }
 
-    public int getX(){
+    public int getX() {
         return x;
     }
 
-    public int getY(){
+    public int getY() {
         return y;
     }
 
-    public int getZ(){
+    public int getZ() {
         return z;
     }
 
-    public long getWorldSeed(){
+    public long getWorldSeed() {
         return worldSeed;
     }
 

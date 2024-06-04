@@ -3,9 +3,6 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.ModelHippocampus;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -18,22 +15,23 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 
 public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, ModelHippocampus> {
 
-    private static final Identifier VARIANT_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_0.png");
-    private static final Identifier VARIANT_0_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_0_blinking.png");
-    private static final Identifier VARIANT_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_1.png");
-    private static final Identifier VARIANT_1_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_1_blinking.png");
-    private static final Identifier VARIANT_2 = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_2.png");
-    private static final Identifier VARIANT_2_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_2_blinking.png");
-    private static final Identifier VARIANT_3 = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_3.png");
-    private static final Identifier VARIANT_3_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_3_blinking.png");
-    private static final Identifier VARIANT_4 = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_4.png");
-    private static final Identifier VARIANT_4_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_4_blinking.png");
-    private static final Identifier VARIANT_5 = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_5.png");
-    private static final Identifier VARIANT_5_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/hippocampus_5_blinking.png");
+    private static final Identifier VARIANT_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_0.png");
+    private static final Identifier VARIANT_0_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_0_blinking.png");
+    private static final Identifier VARIANT_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_1.png");
+    private static final Identifier VARIANT_1_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_1_blinking.png");
+    private static final Identifier VARIANT_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_2.png");
+    private static final Identifier VARIANT_2_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_2_blinking.png");
+    private static final Identifier VARIANT_3 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_3.png");
+    private static final Identifier VARIANT_3_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_3_blinking.png");
+    private static final Identifier VARIANT_4 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_4.png");
+    private static final Identifier VARIANT_4_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_4_blinking.png");
+    private static final Identifier VARIANT_5 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_5.png");
+    private static final Identifier VARIANT_5_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_5_blinking.png");
 
 
     public RenderHippocampus(EntityRendererFactory.Context context) {
@@ -57,12 +55,12 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
 
     private static class LayerHippocampusSaddle extends FeatureRenderer<EntityHippocampus, ModelHippocampus> {
         private final RenderHippocampus renderer;
-        private final RenderLayer SADDLE_TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/saddle.png"));
-        private final RenderLayer BRIDLE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/bridle.png"));
-        private final RenderLayer CHEST = RenderLayer.getEntityTranslucent(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/chest.png"));
-        private final RenderLayer TEXTURE_DIAMOND = RenderLayer.getEntityCutout(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/armor_diamond.png"));
-        private final RenderLayer TEXTURE_GOLD = RenderLayer.getEntityCutout(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/armor_gold.png"));
-        private final RenderLayer TEXTURE_IRON = RenderLayer.getEntityCutout(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/armor_iron.png"));
+        private final RenderLayer SADDLE_TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/saddle.png"));
+        private final RenderLayer BRIDLE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/bridle.png"));
+        private final RenderLayer CHEST = RenderLayer.getEntityTranslucent(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/chest.png"));
+        private final RenderLayer TEXTURE_DIAMOND = RenderLayer.getEntityCutout(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/armor_diamond.png"));
+        private final RenderLayer TEXTURE_GOLD = RenderLayer.getEntityCutout(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/armor_gold.png"));
+        private final RenderLayer TEXTURE_IRON = RenderLayer.getEntityCutout(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/armor_iron.png"));
 
         public LayerHippocampusSaddle(RenderHippocampus renderer) {
             super(renderer);
@@ -105,8 +103,8 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
 
     private static class LayerHippocampusRainbow extends FeatureRenderer<EntityHippocampus, ModelHippocampus> {
         private final RenderHippocampus renderer;
-        private final RenderLayer TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/rainbow.png"));
-        private final RenderLayer TEXTURE_BLINK = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID,"textures/models/hippocampus/rainbow_blink.png"));
+        private final RenderLayer TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/rainbow.png"));
+        private final RenderLayer TEXTURE_BLINK = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/rainbow_blink.png"));
 
         public LayerHippocampusRainbow(RenderHippocampus renderer) {
             super(renderer);

@@ -16,10 +16,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.*;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 
 public class BlockMyrmexCocoon extends BlockWithEntity {
 

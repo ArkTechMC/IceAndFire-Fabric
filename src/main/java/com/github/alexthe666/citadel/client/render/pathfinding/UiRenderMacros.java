@@ -638,7 +638,7 @@ public class UiRenderMacros
             livingEntity.headYaw = entity.getYaw();
             livingEntity.prevHeadYaw = entity.getYaw();
         }
-        DiffuseLighting.setupForEntityInInventory();
+        DiffuseLighting.method_34742();
         final EntityRenderDispatcher dispatcher = mc.getEntityRenderDispatcher();
         pitchRotation.conjugate();
         dispatcher.setRotation(pitchRotation);

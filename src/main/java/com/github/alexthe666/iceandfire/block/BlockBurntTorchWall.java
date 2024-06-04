@@ -19,8 +19,8 @@ public class BlockBurntTorchWall extends WallTorchBlock implements IDreadBlock {
                     .burnable()
                     .luminance((state) -> 0)
                     .sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds()
-                    .lootFrom(IafBlockRegistry.BURNT_TORCH)
-                    .noCollission(),
+//                    .lootFrom(IafBlockRegistry.BURNT_TORCH)
+                    .noCollision(),
             DustParticleEffect.DEFAULT
         );
     }

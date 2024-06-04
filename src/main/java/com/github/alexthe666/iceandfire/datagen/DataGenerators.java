@@ -41,7 +41,7 @@ public class DataGenerators {
                 Text.literal("Resources for Ice and Fire"),
                 MinecraftVersion.CURRENT.getResourceVersion(ResourceType.CLIENT_RESOURCES),
                 Arrays.stream(ResourceType.values()).collect(Collectors.toMap(Function.identity(), MinecraftVersion.CURRENT::getResourceVersion)))));
-        generator.addProvider(event.includeServer(), new IafBiomeTagGenerator(output, lookupProvider, helper));
+        generator.addProvider(event.includeServer(), new IafBiomeTagGenerator(output, lookupProvider));
         generator.addProvider(event.includeClient(), new AtlasGenerator(output, helper));
         BlockTagsProvider blocktags  = new IafBlockTags(output, provider, helper);
         generator.addProvider(event.includeServer(), blocktags);

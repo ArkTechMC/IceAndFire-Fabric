@@ -1,11 +1,11 @@
 package com.github.alexthe666.citadel.client.event;
 
+import com.iafenvoy.iafextra.event.Event;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.Event;
 
 @Environment(EnvType.CLIENT)
 @Event.HasResult

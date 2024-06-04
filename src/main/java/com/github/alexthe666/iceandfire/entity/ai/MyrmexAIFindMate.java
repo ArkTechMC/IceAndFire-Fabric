@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.util.math.Box;
 
-import javax.annotation.Nonnull;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
@@ -21,7 +20,6 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
     public EntityMyrmexRoyal myrmex;
     protected EntityMyrmexBase targetEntity;
 
-    @Nonnull
     private List<Entity> list = IAFMath.emptyEntityList;
 
     public MyrmexAIFindMate(EntityMyrmexRoyal myrmex) {

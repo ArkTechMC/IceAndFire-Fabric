@@ -1,11 +1,12 @@
 package com.github.alexthe666.iceandfire.datagen.util;
 
 import com.mojang.datafixers.util.Either;
-import java.util.List;
-import java.util.Optional;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.TagKey;
+
+import java.util.List;
+import java.util.Optional;
 
 public class ListHolderSet<T> extends RegistryEntryList.ListBacked<T> {
     List<RegistryEntry<T>> contents;

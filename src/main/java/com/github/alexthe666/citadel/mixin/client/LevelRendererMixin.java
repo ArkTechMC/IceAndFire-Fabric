@@ -1,9 +1,10 @@
 package com.github.alexthe666.citadel.mixin.client;
 
 import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.CitadelConstants;
 import com.github.alexthe666.citadel.client.event.EventGetOutlineColor;
 import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
+import com.iafenvoy.iafextra.event.Event;
+import com.iafenvoy.iafextra.event.EventBus;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -13,8 +14,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
 import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,45 +25,43 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WorldRenderer.class)
 public class LevelRendererMixin {
-
     @Final
     @Shadow
-    private MinecraftClient minecraft;
+    private MinecraftClient client;
 
-    @Inject(method = "Lnet/minecraft/client/renderer/LevelRenderer;initOutline()V",
-            at = @At("TAIL"))
+    @Inject(method = "loadEntityOutlinePostProcessor", at = @At("TAIL"))
     private void citadel_initOutline(CallbackInfo ci) {
         PostEffectRegistry.onInitializeOutline();
     }
 
-    @Inject(method = "Lnet/minecraft/client/renderer/LevelRenderer;resize(II)V",
+    @Inject(method = "onResized",
             at = @At("TAIL"))
     private void citadel_resize(int x, int y, CallbackInfo ci) {
         PostEffectRegistry.resize(x, y);
     }
 
 
-    @Inject(method = "Lnet/minecraft/client/renderer/LevelRenderer;renderLevel(Lcom/mojang/blaze3d/vertex/PoseStack;FJZLnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lorg/joml/Matrix4f;)V",
+    @Inject(method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/RenderBuffers;bufferSource()Lnet/minecraft/client/renderer/MultiBufferSource$BufferSource;",
+                    target = "Lnet/minecraft/client/render/BufferBuilderStorage;getEntityVertexConsumers()Lnet/minecraft/client/render/VertexConsumerProvider$Immediate;",
                     shift = At.Shift.BEFORE
             ))
     private void citadel_renderLevel_beforeEntities(MatrixStack poseStack, float f, long l, boolean b, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
-        PostEffectRegistry.clearAndBindWrite(this.minecraft.getFramebuffer());
+        PostEffectRegistry.clearAndBindWrite(this.client.getFramebuffer());
     }
 
-    @Inject(method = "Lnet/minecraft/client/renderer/LevelRenderer;renderLevel(Lcom/mojang/blaze3d/vertex/PoseStack;FJZLnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lorg/joml/Matrix4f;)V",
+    @Inject(method = "render",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/OutlineBufferSource;endOutlineBatch()V",
+                    target = "Lnet/minecraft/client/render/OutlineVertexConsumerProvider;draw()V",
                     shift = At.Shift.BEFORE
             ))
     private void citadel_renderLevel_process(MatrixStack poseStack, float f, long l, boolean b, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightTexture, Matrix4f matrix4f, CallbackInfo ci) {
-        PostEffectRegistry.processEffects(this.minecraft.getFramebuffer(), f);
+        PostEffectRegistry.processEffects(this.client.getFramebuffer(), f);
     }
 
-    @Inject(method = "Lnet/minecraft/client/renderer/LevelRenderer;renderLevel(Lcom/mojang/blaze3d/vertex/PoseStack;FJZLnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lorg/joml/Matrix4f;)V",
+    @Inject(method = "render",
             at = @At(
                     value = "TAIL"
             ))
@@ -73,13 +70,12 @@ public class LevelRendererMixin {
     }
 
     @Redirect(
-            method = "Lnet/minecraft/client/renderer/LevelRenderer;renderLevel(Lcom/mojang/blaze3d/vertex/PoseStack;FJZLnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lorg/joml/Matrix4f;)V",
-            remap = CitadelConstants.REMAPREFS,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;getTeamColor()I")
+            method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;getTeamColorValue()I")
     )
     private int citadel_getTeamColor(Entity entity) {
         EventGetOutlineColor event = new EventGetOutlineColor(entity, entity.getTeamColorValue());
-        MinecraftForge.EVENT_BUS.post(event);
+        EventBus.post(event);
         int color = entity.getTeamColorValue();
         if (event.getResult() == Event.Result.ALLOW) {
             color = event.getColor();
@@ -88,9 +84,8 @@ public class LevelRendererMixin {
     }
 
     @Redirect(
-            method = "Lnet/minecraft/client/renderer/LevelRenderer;renderSky(Lcom/mojang/blaze3d/vertex/PoseStack;Lorg/joml/Matrix4f;FLnet/minecraft/client/Camera;ZLjava/lang/Runnable;)V",
-            remap = CitadelConstants.REMAPREFS,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getTimeOfDay(F)F"),
+            method = "renderSky",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;getSkyAngle(F)F"),
             expect = 2
     )
     private float citadel_getTimeOfDay(ClientWorld instance, float partialTicks) {

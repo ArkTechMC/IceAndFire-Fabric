@@ -1,9 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityEggInIce;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -18,6 +15,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.EGG_IN_ICE;
 
@@ -27,14 +25,14 @@ public class BlockEggInIce extends BlockWithEntity {
     @SuppressWarnings("deprecation")
     public BlockEggInIce() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.PALE_PURPLE)
-                .nonOpaque()
-                .dynamicBounds()
-                .strength(0.5F)
-                .dynamicBounds()
-                .sounds(BlockSoundGroup.GLASS)
+                Settings
+                        .create()
+                        .mapColor(MapColor.PALE_PURPLE)
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .strength(0.5F)
+                        .dynamicBounds()
+                        .sounds(BlockSoundGroup.GLASS)
         );
     }
 

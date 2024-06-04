@@ -7,28 +7,26 @@ import com.github.alexthe666.iceandfire.client.render.entity.layer.IHasArmorVari
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerBipedArmorMultiple;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerGenericGlowing;
 import com.github.alexthe666.iceandfire.entity.EntityDreadThrall;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, ModelDreadThrall> implements IHasArmorVariantResource {
-    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_thrall.png");
-    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_thrall_eyes.png");
-    public static final Identifier TEXTURE_LEG_ARMOR = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_legs.png");
-    public static final Identifier TEXTURE_ARMOR_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_1.png");
-    public static final Identifier TEXTURE_ARMOR_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_2.png");
-    public static final Identifier TEXTURE_ARMOR_2 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_3.png");
-    public static final Identifier TEXTURE_ARMOR_3 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_4.png");
-    public static final Identifier TEXTURE_ARMOR_4 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_5.png");
-    public static final Identifier TEXTURE_ARMOR_5 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_6.png");
-    public static final Identifier TEXTURE_ARMOR_6 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_7.png");
-    public static final Identifier TEXTURE_ARMOR_7 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/thrall_chest_8.png");
+    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_thrall.png");
+    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_thrall_eyes.png");
+    public static final Identifier TEXTURE_LEG_ARMOR = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_legs.png");
+    public static final Identifier TEXTURE_ARMOR_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_1.png");
+    public static final Identifier TEXTURE_ARMOR_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_2.png");
+    public static final Identifier TEXTURE_ARMOR_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_3.png");
+    public static final Identifier TEXTURE_ARMOR_3 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_4.png");
+    public static final Identifier TEXTURE_ARMOR_4 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_5.png");
+    public static final Identifier TEXTURE_ARMOR_5 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_6.png");
+    public static final Identifier TEXTURE_ARMOR_6 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_7.png");
+    public static final Identifier TEXTURE_ARMOR_7 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/thrall_chest_8.png");
     public final HideableLayer<EntityDreadThrall, ModelDreadThrall, HeldItemFeatureRenderer<EntityDreadThrall, ModelDreadThrall>> itemLayer;
 
     public RenderDreadThrall(EntityRendererFactory.Context context) {
@@ -38,8 +36,8 @@ public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, Mode
         this.itemLayer = new HideableLayer<>(new HeldItemFeatureRenderer<>(this, context.getHeldItemRenderer()), this);
         this.addFeature(this.itemLayer);
         this.addFeature(new LayerBipedArmorMultiple<>(this,
-            new ModelDreadThrall(0.5F, true), new ModelDreadThrall(1.0F, true),
-            TEXTURE_ARMOR_0, TEXTURE_LEG_ARMOR));
+                new ModelDreadThrall(0.5F, true), new ModelDreadThrall(1.0F, true),
+                TEXTURE_ARMOR_0, TEXTURE_LEG_ARMOR));
     }
 
     @Override

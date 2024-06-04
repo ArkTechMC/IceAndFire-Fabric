@@ -1,9 +1,8 @@
 package com.github.alexthe666.iceandfire.api.event;
 
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.Cancelable;
+import com.iafenvoy.iafextra.event.Cancelable;
+import com.iafenvoy.iafextra.event.LivingEvent;
 
 /**
  * DragonFireDamageWorldEvent is fired right before a Dragon damages/changes terrain fire, lightning or ice. <br>
@@ -20,7 +19,6 @@ import net.minecraftforge.eventbus.api.Cancelable;
  * <br>
  * If you want to cancel all aspects of dragon fire, see {@link DragonFireEvent} <br>
  * <br>
- * This event is fired on the {@link MinecraftForge#EVENT_BUS}.
  **/
 @Cancelable
 public class DragonFireDamageWorldEvent extends LivingEvent {

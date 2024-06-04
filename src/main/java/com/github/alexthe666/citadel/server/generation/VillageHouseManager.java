@@ -34,7 +34,7 @@ public class VillageHouseManager {
                     for (int i = 0; i < weight; i++) {
                         templates.add(element);
                     }
-                    List<Pair<StructurePoolElement, Integer>> rawTemplates = new ArrayList(pool.elementCounts);
+                    List<Pair<StructurePoolElement, Integer>> rawTemplates = new ArrayList<>(pool.elementCounts);
                     rawTemplates.add(new Pair<>(element, weight));
                     pool.elements = templates;
                     pool.elementCounts = rawTemplates;

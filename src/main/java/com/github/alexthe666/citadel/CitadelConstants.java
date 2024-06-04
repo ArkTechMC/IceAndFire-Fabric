@@ -7,10 +7,7 @@ import java.util.Date;
 
 public class CitadelConstants {
     public static final boolean REMAPREFS = true;
-    public static final boolean DEBUG = false;
-
     private static boolean initDate = false;
-
     private static boolean aprilFools = false;
 
     public static boolean isAprilFools(){

@@ -33,7 +33,7 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
 
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
-        TextRenderer font = this.client.font;
+        TextRenderer font = this.client.textRenderer;
         if (tileFurnace != null) {
             String s = I18n.translate("block.iceandfire.dragonforge_" + DragonType.getNameFromInt(dragonType) + "_core");
             pGuiGraphics.drawText(this.textRenderer, s, this.backgroundWidth / 2 - font.getWidth(s) / 2, 6, 4210752, false);
@@ -64,10 +64,10 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
         BlockEntity te = IceAndFire.PROXY.getRefrencedTE();
         int j = 0;
 
-        List<DragonForgeRecipe> recipes = this.client.level.getRecipeManager()
-                .getAllRecipesFor(IafRecipeRegistry.DRAGON_FORGE_TYPE.get())
+        List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager()
+                .listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE.get())
                 .stream().filter(item ->
-                        item.isValidInput(tileFurnace.getSlot(0).getItem()) && item.isValidBlood(tileFurnace.getSlot(1).getItem())).collect(Collectors.toList());
+                        item.isValidInput(tileFurnace.getSlot(0).getStack()) && item.isValidBlood(tileFurnace.getSlot(1).getStack())).toList();
         int maxCookTime = recipes.isEmpty() ? 100 : recipes.get(0).getCookTime();
         if (te instanceof TileEntityDragonforge) {
             j = Math.min(((TileEntityDragonforge) te).cookTime, maxCookTime);

@@ -20,7 +20,9 @@
     ]
   },
   "mixins": [
-    "iceandfire.mixins.json"
+    "citadel.mixins.json",
+    "iceandfire.mixins.json",
+    "iceandfire.extra.mixins.json"
   ],
   "accessWidener": "iceandfire.accesswidener",
   "depends": {

@@ -31,12 +31,13 @@ public class LinkButton extends ButtonWidget {
         this(book, x, y, width, height, component, ItemStack.EMPTY, onPress);
     }
 
-    @Override
-    public int getFGColor() {
-        return this.hovered ? book.getWidgetColor() : this.active ? 0X94745A : 10526880;
-    }
+//    @Override
+//    public int getFGColor() {
+//        return this.hovered ? book.getWidgetColor() : this.active ? 0X94745A : 10526880;
+//    }
 
-    private int getTextureY() {
+    @Override
+    public int getTextureY() {
         int i = 1;
         if (!this.active) {
             i = 0;
@@ -73,7 +74,8 @@ public class LinkButton extends ButtonWidget {
             BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
         }
 
-        int j = getFGColor();
+//        int j = getFGColor();
+        int j = -1;
         int itemTextOffset = previewStack.isEmpty() ? 0 : 8;
         if (!previewStack.isEmpty()) {
             ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();

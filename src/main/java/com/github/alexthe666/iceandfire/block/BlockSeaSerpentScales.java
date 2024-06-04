@@ -1,8 +1,5 @@
 package com.github.alexthe666.iceandfire.block;
 
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.client.item.TooltipContext;
@@ -11,6 +8,8 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.BlockView;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 

@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.client.render.pathfinding;
 
-import DepthTestStateShard;
 import com.mojang.blaze3d.systems.RenderSystem;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
 import net.minecraft.client.MinecraftClient;
@@ -266,9 +265,6 @@ public class WorldRenderMacros extends UiRenderMacros {
 
     /**
      * Render a box around two positions
-     *
-     * @param posA First position
-     * @param posB Second position
      */
     public static void renderLineBox(final VertexConsumer buffer,
                                      final MatrixStack ps,
@@ -990,15 +986,15 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texture(NO_TEXTURE)
                         .program(COLOR_PROGRAM)
                         .transparency(GLINT_TRANSPARENCY)
-                        .depthTest(AlwaysDepthTestStateShard.ALWAYS_DEPTH_TEST)
-                        .setCullState(ENABLE_CULLING)
-                        .setLightmapState(DISABLE_LIGHTMAP)
-                        .setOverlayState(DISABLE_OVERLAY_COLOR)
-                        .setLayeringState(NO_LAYERING)
-                        .setOutputState(MAIN_TARGET)
-                        .setTexturingState(DEFAULT_TEXTURING)
-                        .setWriteMaskState(ALL_MASK)
-                        .createCompositeState(false));
+                        .depthTest(DepthTest.ALWAYS_DEPTH_TEST)
+                        .cull(ENABLE_CULLING)
+                        .lightmap(DISABLE_LIGHTMAP)
+                        .overlay(DISABLE_OVERLAY_COLOR)
+                        .layering(NO_LAYERING)
+                        .target(MAIN_TARGET)
+                        .texturing(DEFAULT_TEXTURING)
+                        .writeMaskState(ALL_MASK)
+                        .build(false));
 
         private static final RenderLayer LINES = of("structurize_lines",
                 VertexFormats.POSITION_COLOR,
@@ -1081,12 +1077,12 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .build(false));
     }
 
-    public static class AlwaysDepthTestStateShard extends DepthTestStateShard {
-        public static final DepthTestStateShard ALWAYS_DEPTH_TEST = new AlwaysDepthTestStateShard();
+    public static class AlwaysDepthTestStateShard extends RenderPhase.DepthTest {
+        public static final RenderPhase.DepthTest ALWAYS_DEPTH_TEST = new AlwaysDepthTestStateShard();
 
         private AlwaysDepthTestStateShard() {
             super("true_always", -1);
-            setupState = () -> {
+            beginAction = () -> {
                 RenderSystem.enableDepthTest();
                 RenderSystem.depthFunc(GL11.GL_ALWAYS);
             };

@@ -1,10 +1,10 @@
 package com.github.alexthe666.citadel.client.event;
 
+import com.iafenvoy.iafextra.event.Event;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.fluid.FluidState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.Event;
 
 @Environment(EnvType.CLIENT)
 @Event.HasResult

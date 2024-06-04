@@ -3,9 +3,6 @@ package com.github.alexthe666.iceandfire.block;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -25,6 +22,7 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_CORE;
 
@@ -58,25 +56,25 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
         if (active) {
             if (dragonType == 0) {
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get().defaultBlockState(), 3);
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get().defaultBlockState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get().getDefaultState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get().getDefaultState(), 3);
             } else if (dragonType == 1) {
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE.get().defaultBlockState(), 3);
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE.get().defaultBlockState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE.get().getDefaultState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE.get().getDefaultState(), 3);
             } else if (dragonType == 2) {
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.get().defaultBlockState(), 3);
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.get().defaultBlockState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.get().getDefaultState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.get().getDefaultState(), 3);
             }
         } else {
             if (dragonType == 0) {
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().defaultBlockState(), 3);
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().defaultBlockState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().getDefaultState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().getDefaultState(), 3);
             } else if(dragonType == 1) {
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().defaultBlockState(), 3);
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().defaultBlockState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().getDefaultState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().getDefaultState(), 3);
             }else if(dragonType == 2) {
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().defaultBlockState(), 3);
-                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().defaultBlockState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().getDefaultState(), 3);
+                worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().getDefaultState(), 3);
             }
         }
 

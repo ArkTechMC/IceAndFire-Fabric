@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.mixin.client;
 
-import com.github.alexthe666.citadel.CitadelConstants;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.SoundInstance;
@@ -12,10 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SoundSystem.class)
 public class SoundEngineMixin {
-
     @Inject(
-            method = {"Lnet/minecraft/client/sounds/SoundEngine;calculatePitch(Lnet/minecraft/client/resources/sounds/SoundInstance;)F"},
-            remap = CitadelConstants.REMAPREFS,
+            method = "getAdjustedPitch(Lnet/minecraft/client/sound/SoundInstance;)F",
             cancellable = true,
             at = @At(value = "RETURN")
     )

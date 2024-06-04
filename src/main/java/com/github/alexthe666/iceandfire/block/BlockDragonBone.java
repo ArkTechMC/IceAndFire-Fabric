@@ -1,12 +1,9 @@
 package com.github.alexthe666.iceandfire.block;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.enums.Instrument;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.sound.BlockSoundGroup;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockDragonBone extends PillarBlock implements IDragonProof {
 

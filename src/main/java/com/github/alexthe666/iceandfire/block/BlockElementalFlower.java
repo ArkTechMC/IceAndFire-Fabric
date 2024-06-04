@@ -1,14 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.registry.tag.BlockTags;
@@ -17,6 +9,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
 
 public class BlockElementalFlower extends PlantBlock {
     public Item itemBlock;
@@ -44,7 +39,7 @@ public class BlockElementalFlower extends PlantBlock {
     }
 
     @Override
-    protected boolean canPlantOnTop(BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos) {
+    public boolean canPlantOnTop(BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos) {
         Block block = state.getBlock();
         return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND || state.isIn(BlockTags.SAND);
     }

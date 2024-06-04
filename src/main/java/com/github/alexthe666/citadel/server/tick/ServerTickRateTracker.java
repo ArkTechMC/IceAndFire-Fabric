@@ -5,6 +5,7 @@ import com.github.alexthe666.citadel.server.message.SyncClientTickRateMessage;
 import com.github.alexthe666.citadel.server.world.CitadelServerData;
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifierType;
+import com.iafenvoy.iafextra.StaticVariables;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
@@ -12,9 +13,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ServerTickRateTracker extends TickRateTracker {
     public static final Logger LOGGER = LogManager.getLogger("citadel-server-tick");
@@ -47,7 +45,7 @@ public class ServerTickRateTracker extends TickRateTracker {
     }
 
     public int getServerTickLengthMs() {
-        int i = MinecraftServer.MS_PER_TICK;
+        int i = (int) StaticVariables.MSPT;
         for (TickRateModifier modifier : tickRateModifierList) {
             if (modifier.getType() == TickRateModifierType.GLOBAL) {
                 i *= modifier.getTickRateMultiplier();
