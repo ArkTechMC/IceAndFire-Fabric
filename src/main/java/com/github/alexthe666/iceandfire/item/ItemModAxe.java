@@ -31,37 +31,37 @@ public class ItemModAxe extends AxeItem implements DragonSteelOverrides<ItemModA
     @Override
     @Deprecated
     public @NotNull Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
-        return equipmentSlot == EquipmentSlot.MAINHAND && isDragonsteel(getMaterial()) ? this.bakeDragonsteel() : super.getAttributeModifiers(equipmentSlot);
+        return equipmentSlot == EquipmentSlot.MAINHAND && this.isDragonsteel(this.getMaterial()) ? this.bakeDragonsteel() : super.getAttributeModifiers(equipmentSlot);
     }
 
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
-        if (tier.getAttackDamage() != IafConfig.dragonsteelBaseDamage || dragonsteelModifiers == null) {
+        if (this.tier.getAttackDamage() != IafConfig.dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
             ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> lvt_5_1_ = ImmutableMultimap.builder();
             lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.dragonsteelBaseDamage - 1F + 5F, EntityAttributeModifier.Operation.ADDITION));
             lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3.0F, EntityAttributeModifier.Operation.ADDITION));
             this.dragonsteelModifiers = lvt_5_1_.build();
             return this.dragonsteelModifiers;
         } else {
-            return dragonsteelModifiers;
+            return this.dragonsteelModifiers;
         }
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return isDragonsteel(getMaterial()) ? IafConfig.dragonsteelBaseDurability : getMaterial().getDurability();
+        return this.isDragonsteel(this.getMaterial()) ? IafConfig.dragonsteelBaseDurability : this.getMaterial().getDurability();
     }
 
     @Override
     public boolean postHit(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
-        hurtEnemy(this, stack, target, attacker);
+        this.hurtEnemy(this, stack, target, attacker);
         return super.postHit(stack, target, attacker);
     }
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
         super.appendTooltip(stack, worldIn, tooltip, flagIn);
-        appendHoverText(tier, stack, worldIn, tooltip, flagIn);
+        this.appendHoverText(this.tier, stack, worldIn, tooltip, flagIn);
     }
 }

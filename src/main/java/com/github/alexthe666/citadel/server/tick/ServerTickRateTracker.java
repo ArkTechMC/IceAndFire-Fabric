@@ -25,12 +25,12 @@ public class ServerTickRateTracker extends TickRateTracker {
 
     public ServerTickRateTracker(MinecraftServer server, NbtCompound tag) {
         this(server);
-        fromTag(tag);
+        this.fromTag(tag);
     }
 
     public void addTickRateModifier(TickRateModifier modifier) {
-        tickRateModifierList.add(modifier);
-        sync();
+        this.tickRateModifierList.add(modifier);
+        this.sync();
     }
     @Override
     public void tickEntityAtCustomRate(Entity entity) {
@@ -41,12 +41,12 @@ public class ServerTickRateTracker extends TickRateTracker {
 
     @Override
     protected void sync() {
-        Citadel.sendMSGToAll(new SyncClientTickRateMessage(toTag()));
+        Citadel.sendMSGToAll(new SyncClientTickRateMessage(this.toTag()));
     }
 
     public int getServerTickLengthMs() {
         int i = (int) StaticVariables.MSPT;
-        for (TickRateModifier modifier : tickRateModifierList) {
+        for (TickRateModifier modifier : this.tickRateModifierList) {
             if (modifier.getType() == TickRateModifierType.GLOBAL) {
                 i *= modifier.getTickRateMultiplier();
             }

@@ -29,14 +29,14 @@ public class CockatriceAIWander extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!cockatrice.canMove()) {
+        if (!this.cockatrice.canMove()) {
             return false;
         }
-        if (cockatrice.getCommand() != 3 && cockatrice.getCommand() != 0) {
+        if (this.cockatrice.getCommand() != 3 && this.cockatrice.getCommand() != 0) {
             return false;
         }
         if (!this.mustUpdate) {
-            if (this.cockatrice.getRandom().nextInt(executionChance) != 0) {
+            if (this.cockatrice.getRandom().nextInt(this.executionChance) != 0) {
                 return false;
             }
         }

@@ -37,18 +37,18 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
     @Override
     public boolean canStart() {
         if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || this.myrmex.shouldEnterHive() || !this.myrmex.keepSearching || this.myrmex.getTarget() != null) {
-            list = IAFMath.emptyItemEntityList;
+            this.list = IAFMath.emptyItemEntityList;
             return false;
         }
 
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(32), this.targetEntitySelector);
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(32), this.targetEntitySelector);
 
-        if (list.isEmpty())
+        if (this.list.isEmpty())
             return false;
 
-        list.sort(this.theNearestAttackableTargetSorter);
-        this.targetEntity = list.get(0);
+        this.list.sort(this.theNearestAttackableTargetSorter);
+        this.targetEntity = this.list.get(0);
         return true;
     }
 
@@ -68,10 +68,10 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
         if (this.targetEntity == null || (!this.targetEntity.isAlive() || this.targetEntity.isTouchingWater())) {
             this.stop();
         } else if (this.mob.squaredDistanceTo(this.targetEntity) < 8F) {
-            this.myrmex.onPickupItem(targetEntity);
+            this.myrmex.onPickupItem(this.targetEntity);
             this.myrmex.setStackInHand(Hand.MAIN_HAND, this.targetEntity.getStack());
             this.targetEntity.remove(Entity.RemovalReason.DISCARDED);
-            stop();
+            this.stop();
         }
     }
 

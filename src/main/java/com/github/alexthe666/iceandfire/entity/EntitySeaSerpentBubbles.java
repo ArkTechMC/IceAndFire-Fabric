@@ -8,8 +8,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
@@ -17,8 +15,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements IDragonProjectile {
@@ -31,11 +27,6 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
                                    double posY, double posZ, double accelX, double accelY, double accelZ) {
         super(t, posX, posY, posZ, accelX, accelY, accelZ, worldIn);
     }
-
-    public EntitySeaSerpentBubbles(PlayMessages.SpawnEntity spawnEntity, World world) {
-        this(IafEntityRegistry.SEA_SERPENT_BUBBLES.get(), world);
-    }
-
 
     public EntitySeaSerpentBubbles(EntityType<? extends AbstractFireballEntity> t, World worldIn,
                                    EntitySeaSerpent shooter, double accelX, double accelY, double accelZ) {
@@ -52,11 +43,6 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
     }
 
     @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
     protected boolean isBurning() {
         return false;
     }
@@ -67,7 +53,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
         if (this.age > 400) {
             this.remove(RemovalReason.DISCARDED);
         }
-        autoTarget();
+        this.autoTarget();
         this.powerX *= 0.95F;
         this.powerY *= 0.95F;
         this.powerZ *= 0.95F;
@@ -97,7 +83,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
             this.setPosition(this.getX(), this.getY(), this.getZ());
         }
         this.setPosition(this.getX(), this.getY(), this.getZ());
-        if (this.age > 20 && !isTouchingWaterOrRain()) {
+        if (this.age > 20 && !this.isTouchingWaterOrRain()) {
             this.remove(RemovalReason.DISCARDED);
         }
     }
@@ -120,7 +106,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
                 this.powerX = d2 / d0 * 0.1D;
                 this.powerY = d3 / d0 * 0.1D;
                 this.powerZ = d4 / d0 * 0.1D;
-            } else if (age > 20) {
+            } else if (this.age > 20) {
                 this.remove(RemovalReason.DISCARDED);
             }
         }
@@ -160,7 +146,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
                     if (dragon.isTeammate(entity) || dragon.isPartOf(entity)) {
                         return;
                     }
-                    entity.damage(getWorld().getDamageSources().mobAttack(dragon), 6.0F);
+                    entity.damage(this.getWorld().getDamageSources().mobAttack(dragon), 6.0F);
 
                 }
             }

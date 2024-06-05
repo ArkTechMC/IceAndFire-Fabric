@@ -21,15 +21,15 @@ public class EventPosePlayerHand extends Event {
     }
 
     public Entity getEntityIn() {
-        return entityIn;
+        return this.entityIn;
     }
 
     public BipedEntityModel getModel() {
-        return model;
+        return this.model;
     }
 
     public boolean isLeftHand() {
-        return left;
+        return this.left;
     }
 
 

@@ -51,7 +51,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public PathFindingStatus getStatus()
     {
-        return status;
+        return this.status;
     }
 
     /**
@@ -61,7 +61,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public void setStatus(final PathFindingStatus s)
     {
-        status = s;
+        this.status = s;
     }
 
     /**
@@ -69,12 +69,12 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean isInProgress()
     {
-        return isComputing() || status == PathFindingStatus.IN_PROGRESS_FOLLOWING;
+        return this.isComputing() || this.status == PathFindingStatus.IN_PROGRESS_FOLLOWING;
     }
 
     public boolean isComputing()
     {
-        return status == PathFindingStatus.IN_PROGRESS_COMPUTING;
+        return this.status == PathFindingStatus.IN_PROGRESS_COMPUTING;
     }
 
     /**
@@ -82,7 +82,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean failedToReachDestination()
     {
-        return isFinished() && !pathReachesDestination;
+        return this.isFinished() && !this.pathReachesDestination;
     }
 
     /**
@@ -90,7 +90,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean isPathReachingDestination()
     {
-        return isFinished() && path != null && pathReachesDestination;
+        return this.isFinished() && this.path != null && this.pathReachesDestination;
     }
 
     /**
@@ -100,7 +100,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public void setPathReachesDestination(final boolean value)
     {
-        pathReachesDestination = value;
+        this.pathReachesDestination = value;
     }
 
     /**
@@ -108,7 +108,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean isCancelled()
     {
-        return status == PathFindingStatus.CANCELLED;
+        return this.status == PathFindingStatus.CANCELLED;
     }
 
     /**
@@ -116,7 +116,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public int getPathLength()
     {
-        return path.getLength();
+        return this.path.getLength();
     }
 
     /**
@@ -124,7 +124,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean hasPath()
     {
-        return path != null;
+        return this.path != null;
     }
 
     /**
@@ -134,7 +134,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public Path getPath()
     {
-        return path;
+        return this.path;
     }
 
     /**
@@ -144,7 +144,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public T getJob()
     {
-        return job;
+        return this.job;
     }
 
     /**
@@ -164,11 +164,11 @@ public class PathResult<T extends Callable<Path>>
      */
     public void startJob(final ExecutorService executorService)
     {
-        if (job != null)
+        if (this.job != null)
         {
             try {
                 if (!threadException)
-                    pathCalculation = executorService.submit(job);
+                    this.pathCalculation = executorService.submit(this.job);
             } catch (NullPointerException e) {
                 IceAndFire.LOGGER.error("Mod tried to move an entity from non server thread",e);
             } catch (RuntimeException e) {
@@ -185,16 +185,16 @@ public class PathResult<T extends Callable<Path>>
      */
     public void processCalculationResults()
     {
-        if (pathingDoneAndProcessed)
+        if (this.pathingDoneAndProcessed)
         {
             return;
         }
 
         try
         {
-            path = pathCalculation.get();
-            pathCalculation = null;
-            setStatus(PathFindingStatus.CALCULATION_COMPLETE);
+            this.path = this.pathCalculation.get();
+            this.pathCalculation = null;
+            this.setStatus(PathFindingStatus.CALCULATION_COMPLETE);
         }
         catch (InterruptedException | ExecutionException e)
         {
@@ -209,7 +209,7 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean isCalculatingPath()
     {
-        return pathCalculation != null && !pathCalculation.isDone();
+        return this.pathCalculation != null && !this.pathCalculation.isDone();
     }
 
     /**
@@ -219,16 +219,16 @@ public class PathResult<T extends Callable<Path>>
      */
     public boolean isFinished()
     {
-        if (!pathingDoneAndProcessed)
+        if (!this.pathingDoneAndProcessed)
         {
-            if (pathCalculation != null && pathCalculation.isDone())
+            if (this.pathCalculation != null && this.pathCalculation.isDone())
             {
-                processCalculationResults();
-                pathingDoneAndProcessed = true;
+                this.processCalculationResults();
+                this.pathingDoneAndProcessed = true;
             }
         }
 
-        return pathingDoneAndProcessed;
+        return this.pathingDoneAndProcessed;
     }
 
     /**
@@ -236,12 +236,12 @@ public class PathResult<T extends Callable<Path>>
      */
     public void cancel()
     {
-        if (pathCalculation != null)
+        if (this.pathCalculation != null)
         {
-            pathCalculation.cancel(false);
-            pathCalculation = null;
+            this.pathCalculation.cancel(false);
+            this.pathCalculation = null;
         }
 
-        pathingDoneAndProcessed = true;
+        this.pathingDoneAndProcessed = true;
     }
 }

@@ -45,7 +45,7 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
         this.targetChance = chance;
         this.theNearestAttackableTargetSorter = new Sorter(creature);
         this.setControls(EnumSet.of(Control.MOVE));
-        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && FoodUtils.getFoodPoints(item.getStack(), true, isIce) > 0;
+        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && FoodUtils.getFoodPoints(item.getStack(), true, this.isIce) > 0;
         this.prioritizeItems = prioritizeItems;
     }
 
@@ -53,28 +53,28 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
     public boolean canStart() {
         final EntityDragonBase dragon = (EntityDragonBase) this.mob;
 
-        if (prioritizeItems && dragon.getHunger() >= 60) {
+        if (this.prioritizeItems && dragon.getHunger() >= 60) {
             return false;
         }
 
         if (dragon.getHunger() >= 100 || !dragon.canMove() || (this.targetChance > 0 && this.mob.getRandom().nextInt(10) != 0)) {
-            list = IAFMath.emptyItemEntityList;
+            this.list = IAFMath.emptyItemEntityList;
             return false;
         } else {
-            return updateList();
+            return this.updateList();
         }
     }
 
     private boolean updateList() {
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class,
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class,
                     this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (list.isEmpty()) {
+        if (this.list.isEmpty()) {
             return false;
         } else {
-            list.sort(this.theNearestAttackableTargetSorter);
-            this.targetEntity = list.get(0);
+            this.list.sort(this.theNearestAttackableTargetSorter);
+            this.targetEntity = this.list.get(0);
             return true;
         }
     }
@@ -97,11 +97,11 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
             this.stop();
         } else if (this.mob.squaredDistanceTo(this.targetEntity) < this.mob.getWidth() * 2 + this.mob.getHeight() / 2 || (this.mob instanceof EntityDragonBase dragon && dragon.getHeadPosition().squaredDistanceTo(this.targetEntity.getPos()) < this.mob.getHeight())) {
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-            final int hunger = FoodUtils.getFoodPoints(this.targetEntity.getStack(), true, isIce);
+            final int hunger = FoodUtils.getFoodPoints(this.targetEntity.getStack(), true, this.isIce);
             final EntityDragonBase dragon = ((EntityDragonBase) this.mob);
             dragon.setHunger(Math.min(100, dragon.getHunger() + hunger));
             dragon.eatFoodBonus(this.targetEntity.getStack());
-            this.mob.setHealth(Math.min(this.mob.getMaxHealth(), (int) (this.mob.getHealth() + FoodUtils.getFoodPoints(this.targetEntity.getStack(), true, isIce))));
+            this.mob.setHealth(Math.min(this.mob.getMaxHealth(), (int) (this.mob.getHealth() + FoodUtils.getFoodPoints(this.targetEntity.getStack(), true, this.isIce))));
             if (EntityDragonBase.ANIMATION_EAT != null) {
                 dragon.setAnimation(EntityDragonBase.ANIMATION_EAT);
             }
@@ -109,9 +109,9 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
                 dragon.spawnItemCrackParticles(this.targetEntity.getStack().getItem());
             }
             this.targetEntity.getStack().decrement(1);
-            stop();
+            this.stop();
         } else {
-            updateList();
+            this.updateList();
         }
     }
 

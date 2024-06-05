@@ -44,7 +44,7 @@ public class MultiNoiseBiomeSourceMixin implements IMultiNoiseBiomeSourceAccesso
         float f3 = MultiNoiseUtil.toFloat(targetPoint.humidityNoise());
         float f4 = MultiNoiseUtil.toFloat(targetPoint.weirdnessNoise());
         float f5 = MultiNoiseUtil.toFloat(targetPoint.depth());
-        EventReplaceBiome event = new EventReplaceBiome((ExpandedBiomeSource) this, cir.getReturnValue(), x, y, z, f, f1, f2, f3, f4, f5, lastSampledWorldSeed, lastSampledDimension, sampler);
+        EventReplaceBiome event = new EventReplaceBiome((ExpandedBiomeSource) this, cir.getReturnValue(), x, y, z, f, f1, f2, f3, f4, f5, this.lastSampledWorldSeed, this.lastSampledDimension, sampler);
         EventBus.post(event);
         if (event.getResult() == Event.Result.ALLOW) {
             cir.setReturnValue(event.getBiomeToGenerate());
@@ -53,11 +53,11 @@ public class MultiNoiseBiomeSourceMixin implements IMultiNoiseBiomeSourceAccesso
 
     @Override
     public void setLastSampledSeed(long seed) {
-        lastSampledWorldSeed = seed;
+        this.lastSampledWorldSeed = seed;
     }
 
     @Override
     public void setLastSampledDimension(RegistryKey<World> dimension) {
-        lastSampledDimension = dimension;
+        this.lastSampledDimension = dimension;
     }
 }

@@ -11,6 +11,6 @@ public enum EnumDragonModelTypes implements IEnumDragonModelTypes {
     }
     @Override
     public String getModelType() {
-        return modelType;
+        return this.modelType;
     }
 }

@@ -52,9 +52,9 @@ public class RenderLightningDragon extends RenderDragonBase {
                     .size(0.05F * getBoundedScale(energyScale, 0.5F, 2))
                     .lifespan(4)
                     .spawn(LightningBoltData.SpawnFunction.NO_DELAY);
-                lightningRender.update(null, bolt, partialTicks);
+                this.lightningRender.update(null, bolt, partialTicks);
                 matrixStackIn.translate(-lightningDragon.getX(), -lightningDragon.getY(), -lightningDragon.getZ());
-                lightningRender.render(partialTicks, matrixStackIn, bufferIn);
+                this.lightningRender.render(partialTicks, matrixStackIn, bufferIn);
             }
         }
         matrixStackIn.pop();

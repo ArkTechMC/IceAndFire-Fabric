@@ -275,11 +275,11 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
     {
         float diff;
 
-        diff = x - t1.x;
+        diff = this.x - t1.x;
         if(Float.isNaN(diff)) return false;
         if((diff<0?-diff:diff) > epsilon) return false;
 
-        diff = y - t1.y;
+        diff = this.y - t1.y;
         if(Float.isNaN(diff)) return false;
         return !((diff < 0 ? -diff : diff) > epsilon);
     }
@@ -305,19 +305,19 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
     public final void clamp(float min, float max, Tuple2f t)
     {
         if( t.x > max ) {
-            x = max;
+            this.x = max;
         } else if( t.x < min ){
-            x = min;
+            this.x = min;
         } else {
-            x = t.x;
+            this.x = t.x;
         }
 
         if( t.y > max ) {
-            y = max;
+            this.y = max;
         } else if( t.y < min ){
-            y = min;
+            this.y = min;
         } else {
-            y = t.y;
+            this.y = t.y;
         }
 
     }
@@ -332,15 +332,15 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
     public final void clampMin(float min, Tuple2f t)
     {
         if( t.x < min ) {
-            x = min;
+            this.x = min;
         } else {
-            x = t.x;
+            this.x = t.x;
         }
 
         if( t.y < min ) {
-            y = min;
+            this.y = min;
         } else {
-            y = t.y;
+            this.y = t.y;
         }
 
     }
@@ -355,15 +355,15 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
     public final void clampMax(float max, Tuple2f t)
     {
         if( t.x > max ) {
-            x = max;
+            this.x = max;
         } else {
-            x = t.x;
+            this.x = t.x;
         }
 
         if( t.y > max ) {
-            y = max;
+            this.y = max;
         } else {
-            y = t.y;
+            this.y = t.y;
         }
 
     }
@@ -376,8 +376,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      */
     public final void absolute(Tuple2f t)
     {
-        x = Math.abs(t.x);
-        y = Math.abs(t.y);
+        this.x = Math.abs(t.x);
+        this.y = Math.abs(t.y);
     }
 
 
@@ -389,16 +389,16 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      */
     public final void clamp(float min, float max)
     {
-        if( x > max ) {
-            x = max;
-        } else if( x < min ){
-            x = min;
+        if(this.x > max ) {
+            this.x = max;
+        } else if(this.x < min ){
+            this.x = min;
         }
 
-        if( y > max ) {
-            y = max;
-        } else if( y < min ){
-            y = min;
+        if(this.y > max ) {
+            this.y = max;
+        } else if(this.y < min ){
+            this.y = min;
         }
 
     }
@@ -410,8 +410,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      */
     public final void clampMin(float min)
     {
-        if( x < min ) x=min;
-        if( y < min ) y=min;
+        if(this.x < min ) this.x =min;
+        if(this.y < min ) this.y =min;
     }
 
 
@@ -421,8 +421,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      */
     public final void clampMax(float max)
     {
-        if( x > max ) x=max;
-        if( y > max ) y=max;
+        if(this.x > max ) this.x =max;
+        if(this.y > max ) this.y =max;
     }
 
 
@@ -431,8 +431,8 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      */
     public final void absolute()
     {
-        x = Math.abs(x);
-        y = Math.abs(y);
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
     }
 
 
@@ -492,7 +492,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      * @since vecmath 1.5
      */
     public final float getX() {
-        return x;
+        return this.x;
     }
 
 
@@ -516,7 +516,7 @@ public abstract class Tuple2f implements java.io.Serializable, Cloneable {
      * @since vecmath 1.5
      */
     public final float getY() {
-        return y;
+        return this.y;
     }
 
 

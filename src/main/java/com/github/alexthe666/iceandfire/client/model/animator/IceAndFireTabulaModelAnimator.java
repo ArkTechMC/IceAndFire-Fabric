@@ -15,15 +15,15 @@ public class IceAndFireTabulaModelAnimator {
     }
 
     public void setRotateAngle(AdvancedModelBox model, float limbSwingAmount, float x, float y, float z) {
-        model.rotateAngleX += limbSwingAmount * distance(model.rotateAngleX, x);
-        model.rotateAngleY += limbSwingAmount * distance(model.rotateAngleY, y);
-        model.rotateAngleZ += limbSwingAmount * distance(model.rotateAngleZ, z);
+        model.rotateAngleX += limbSwingAmount * this.distance(model.rotateAngleX, x);
+        model.rotateAngleY += limbSwingAmount * this.distance(model.rotateAngleY, y);
+        model.rotateAngleZ += limbSwingAmount * this.distance(model.rotateAngleZ, z);
     }
 
     public void addToRotateAngle(AdvancedModelBox model, float limbSwingAmount, float x, float y, float z) {
-        model.rotateAngleX += Math.min(limbSwingAmount * 2, 1) * distance(model.defaultRotationX, x);
-        model.rotateAngleY += Math.min(limbSwingAmount * 2, 1) * distance(model.defaultRotationY, y);
-        model.rotateAngleZ += Math.min(limbSwingAmount * 2, 1) * distance(model.defaultRotationZ, z);
+        model.rotateAngleX += Math.min(limbSwingAmount * 2, 1) * this.distance(model.defaultRotationX, x);
+        model.rotateAngleY += Math.min(limbSwingAmount * 2, 1) * this.distance(model.defaultRotationY, y);
+        model.rotateAngleZ += Math.min(limbSwingAmount * 2, 1) * this.distance(model.defaultRotationZ, z);
     }
 
     public boolean isRotationEqual(AdvancedModelBox original, AdvancedModelBox pose) {
@@ -40,7 +40,7 @@ public class IceAndFireTabulaModelAnimator {
             from.rotateAngleY += ((to.rotateAngleY - from.rotateAngleY) / maxTime) * timer;
             from.rotateAngleZ += ((to.rotateAngleZ - from.rotateAngleZ) / maxTime) * timer;
         } else {
-            transitionAngles(from, to, timer, maxTime);
+            this.transitionAngles(from, to, timer, maxTime);
         }
         from.rotationPointX += ((to.rotationPointX - from.rotationPointX) / maxTime) * timer;
         from.rotationPointY += ((to.rotationPointY - from.rotationPointY) / maxTime) * timer;
@@ -48,9 +48,9 @@ public class IceAndFireTabulaModelAnimator {
     }
 
     public void transitionAngles(AdvancedModelBox from, AdvancedModelBox to, float timer, float maxTime) {
-        from.rotateAngleX += ((distance(from.rotateAngleX, to.rotateAngleX)) / maxTime) * timer;
-        from.rotateAngleY += ((distance(from.rotateAngleY, to.rotateAngleY)) / maxTime) * timer;
-        from.rotateAngleZ += ((distance(from.rotateAngleZ, to.rotateAngleZ)) / maxTime) * timer;
+        from.rotateAngleX += ((this.distance(from.rotateAngleX, to.rotateAngleX)) / maxTime) * timer;
+        from.rotateAngleY += ((this.distance(from.rotateAngleY, to.rotateAngleY)) / maxTime) * timer;
+        from.rotateAngleZ += ((this.distance(from.rotateAngleZ, to.rotateAngleZ)) / maxTime) * timer;
     }
 
     public float distance(float rotateAngleFrom, float rotateAngleTo) {
@@ -64,13 +64,13 @@ public class IceAndFireTabulaModelAnimator {
     public void moveToPose(TabulaModel model, TabulaModel modelTo) {
         for (AdvancedModelBox cube : model.getCubes().values()) {
             AdvancedModelBox cubeTo = modelTo.getCube(cube.boxName);
-            if (!isRotationEqual(baseModel.getCube(cube.boxName), cubeTo)) {
+            if (!this.isRotationEqual(this.baseModel.getCube(cube.boxName), cubeTo)) {
                 float toX = cubeTo.rotateAngleX;
                 float toY = cubeTo.rotateAngleY;
                 float toZ = cubeTo.rotateAngleZ;
-                model.llibAnimator.rotate(cube, distance(cube.rotateAngleX, toX), distance(cube.rotateAngleY, toY), distance(cube.rotateAngleZ, toZ));
+                model.llibAnimator.rotate(cube, this.distance(cube.rotateAngleX, toX), this.distance(cube.rotateAngleY, toY), this.distance(cube.rotateAngleZ, toZ));
             }
-            if (!isPositionEqual(baseModel.getCube(cube.boxName), cubeTo)) {
+            if (!this.isPositionEqual(this.baseModel.getCube(cube.boxName), cubeTo)) {
                 float toX = cubeTo.rotationPointX;
                 float toY = cubeTo.rotationPointY;
                 float toZ = cubeTo.rotationPointZ;

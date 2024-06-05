@@ -15,15 +15,15 @@ public class WorldGenCaveStalactites {
     }
 
     public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
-        int height = maxHeight + rand.nextInt(3);
+        int height = this.maxHeight + rand.nextInt(3);
         for (int i = 0; i < height; i++) {
             if (i < height / 2) {
-                worldIn.setBlockState(position.down(i).north(), block.getDefaultState(), 2);
-                worldIn.setBlockState(position.down(i).east(), block.getDefaultState(), 2);
-                worldIn.setBlockState(position.down(i).south(), block.getDefaultState(), 2);
-                worldIn.setBlockState(position.down(i).west(), block.getDefaultState(), 2);
+                worldIn.setBlockState(position.down(i).north(), this.block.getDefaultState(), 2);
+                worldIn.setBlockState(position.down(i).east(), this.block.getDefaultState(), 2);
+                worldIn.setBlockState(position.down(i).south(), this.block.getDefaultState(), 2);
+                worldIn.setBlockState(position.down(i).west(), this.block.getDefaultState(), 2);
             }
-            worldIn.setBlockState(position.down(i), block.getDefaultState(), 2);
+            worldIn.setBlockState(position.down(i), this.block.getDefaultState(), 2);
         }
         return true;
     }

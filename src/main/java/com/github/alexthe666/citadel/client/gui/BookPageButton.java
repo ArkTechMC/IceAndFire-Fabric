@@ -31,18 +31,18 @@ public class BookPageButton extends ButtonWidget {
         if (!this.isForward) {
             lvt_6_1_ += 13;
         }
-        drawNextArrow(p_230431_1_, this.getX(), this.getY(), lvt_5_1_, lvt_6_1_, 18, 12);
+        this.drawNextArrow(p_230431_1_, this.getX(), this.getY(), lvt_5_1_, lvt_6_1_, 18, 12);
     }
 
     public void drawNextArrow(DrawContext p_238474_1_, int p_238474_2_, int p_238474_3_, int p_238474_4_, int p_238474_5_, int p_238474_6_, int p_238474_7_) {
         if (this.hovered) {
-            int color = bookGUI.getWidgetColor();
+            int color = this.bookGUI.getWidgetColor();
             int r = (color & 0xFF0000) >> 16;
             int g = (color & 0xFF00) >> 8;
             int b = (color & 0xFF);
-            BookBlit.blitWithColor(p_238474_1_, bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, r, g, b, 255);
+            BookBlit.blitWithColor(p_238474_1_, this.bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, r, g, b, 255);
         } else {
-            BookBlit.blitWithColor(p_238474_1_, bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, 255, 255, 255, 255);
+            BookBlit.blitWithColor(p_238474_1_, this.bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 100, p_238474_4_, p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, 255, 255, 255, 255);
         }
     }
 

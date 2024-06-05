@@ -37,7 +37,7 @@ public class ItemDragonEgg extends Item {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + type.toString().toLowerCase()).formatted(type.color));
+        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase()).formatted(this.type.color));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ItemDragonEgg extends Item {
         ItemStack itemstack = context.getPlayer().getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide());
         EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), context.getWorld());
-        egg.setEggType(type);
+        egg.setEggType(this.type);
         egg.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);
         egg.onPlayerPlace(context.getPlayer());
         if (itemstack.hasCustomName()) {

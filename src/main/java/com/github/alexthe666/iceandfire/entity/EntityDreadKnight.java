@@ -114,7 +114,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     public void tickMovement() {
         super.tickMovement();
         if (this.getAnimation() == ANIMATION_SPAWN && this.getAnimationTick() < 30) {
-            BlockState belowBlock = getWorld().getBlockState(this.getBlockPos().down());
+            BlockState belowBlock = this.getWorld().getBlockState(this.getBlockPos().down());
             if (belowBlock.getBlock() != Blocks.AIR) {
                 for (int i = 0; i < 5; i++) {
                     this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, belowBlock), this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getBoundingBox().minY, this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
@@ -130,10 +130,10 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     protected void initEquipment(Random pRandom, LocalDifficulty pDifficulty) {
         super.initEquipment(pRandom, pDifficulty);
         this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DREAD_KNIGHT_SWORD.get()));
-        if (random.nextBoolean()) {
+        if (this.random.nextBoolean()) {
             this.equipStack(EquipmentSlot.OFFHAND, SHIELD.copy());
         }
-        setArmorVariant(random.nextInt(3));
+        this.setArmorVariant(this.random.nextInt(3));
     }
 
     @Override
@@ -146,34 +146,34 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
-        compound.putInt("ArmorVariant", getArmorVariant());
+        compound.putInt("ArmorVariant", this.getArmorVariant());
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
-        setArmorVariant(compound.getInt("ArmorVariant"));
+        this.setArmorVariant(compound.getInt("ArmorVariant"));
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     public int getArmorVariant() {

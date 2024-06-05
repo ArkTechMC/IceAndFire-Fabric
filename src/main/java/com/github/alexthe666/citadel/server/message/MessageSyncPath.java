@@ -42,18 +42,18 @@ public class MessageSyncPath {
     }
 
     public void write(final PacketByteBuf buf) {
-        buf.writeInt(lastDebugNodesVisited.size());
-        for (final MNode MNode : lastDebugNodesVisited) {
+        buf.writeInt(this.lastDebugNodesVisited.size());
+        for (final MNode MNode : this.lastDebugNodesVisited) {
             MNode.serializeToBuf(buf);
         }
 
-        buf.writeInt(lastDebugNodesNotVisited.size());
-        for (final MNode MNode : lastDebugNodesNotVisited) {
+        buf.writeInt(this.lastDebugNodesNotVisited.size());
+        for (final MNode MNode : this.lastDebugNodesNotVisited) {
             MNode.serializeToBuf(buf);
         }
 
-        buf.writeInt(lastDebugNodesPath.size());
-        for (final MNode MNode : lastDebugNodesPath) {
+        buf.writeInt(this.lastDebugNodesPath.size());
+        for (final MNode MNode : this.lastDebugNodesPath) {
             MNode.serializeToBuf(buf);
         }
     }

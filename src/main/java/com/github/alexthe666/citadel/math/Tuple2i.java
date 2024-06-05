@@ -261,8 +261,8 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      */
     public int hashCode() {
         long bits = 1L;
-        bits = 31L * bits + (long)x;
-        bits = 31L * bits + (long)y;
+        bits = 31L * bits + (long) this.x;
+        bits = 31L * bits + (long) this.y;
         return (int) (bits ^ (bits >> 32));
     }
 
@@ -276,19 +276,19 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      */
     public final void clamp(int min, int max, Tuple2i t) {
         if( t.x > max ) {
-            x = max;
+            this.x = max;
         } else if( t.x < min ) {
-            x = min;
+            this.x = min;
         } else {
-            x = t.x;
+            this.x = t.x;
         }
 
         if( t.y > max ) {
-            y = max;
+            this.y = max;
         } else if( t.y < min ) {
-            y = min;
+            this.y = min;
         } else {
-            y = t.y;
+            this.y = t.y;
         }
     }
 
@@ -301,15 +301,15 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      */
     public final void clampMin(int min, Tuple2i t) {
         if( t.x < min ) {
-            x = min;
+            this.x = min;
         } else {
-            x = t.x;
+            this.x = t.x;
         }
 
         if( t.y < min ) {
-            y = min;
+            this.y = min;
         } else {
-            y = t.y;
+            this.y = t.y;
         }
     }
 
@@ -322,15 +322,15 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      */
     public final void clampMax(int max, Tuple2i t) {
         if( t.x > max ) {
-            x = max;
+            this.x = max;
         } else {
-            x = t.x;
+            this.x = t.x;
         }
 
         if( t.y > max ) {
-            y = max;
+            this.y = max;
         } else {
-            y = t.y;
+            this.y = t.y;
         }
     }
 
@@ -341,8 +341,8 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      *  @param t   the source tuple, which will not be modified
      */
     public final void absolute(Tuple2i t) {
-        x = Math.abs(t.x);
-        y = Math.abs(t.y);
+        this.x = Math.abs(t.x);
+        this.y = Math.abs(t.y);
     }
 
 
@@ -352,16 +352,16 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      *  @param max  the highest value in this tuple after clamping
      */
     public final void clamp(int min, int max) {
-        if( x > max ) {
-            x = max;
-        } else if( x < min ) {
-            x = min;
+        if(this.x > max ) {
+            this.x = max;
+        } else if(this.x < min ) {
+            this.x = min;
         }
 
-        if( y > max ) {
-            y = max;
-        } else if( y < min ) {
-            y = min;
+        if(this.y > max ) {
+            this.y = max;
+        } else if(this.y < min ) {
+            this.y = min;
         }
     }
 
@@ -371,11 +371,11 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      *  @param min   the lowest value in this tuple after clamping
      */
     public final void clampMin(int min) {
-        if (x < min)
-            x=min;
+        if (this.x < min)
+            this.x =min;
 
-        if (y < min)
-            y = min;
+        if (this.y < min)
+            this.y = min;
     }
 
 
@@ -384,11 +384,11 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      *  @param max   the highest value in the tuple after clamping
      */
     public final void clampMax(int max) {
-        if (x > max)
-            x = max;
+        if (this.x > max)
+            this.x = max;
 
-        if (y > max)
-            y = max;
+        if (this.y > max)
+            this.y = max;
     }
 
 
@@ -396,8 +396,8 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      *  Sets each component of this tuple to its absolute value.
      */
     public final void absolute() {
-        x = Math.abs(x);
-        y = Math.abs(y);
+        this.x = Math.abs(this.x);
+        this.y = Math.abs(this.y);
     }
 
     /**
@@ -426,7 +426,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      * @since vecmath 1.5
      */
     public final int getX() {
-        return x;
+        return this.x;
     }
 
 
@@ -450,7 +450,7 @@ public abstract class Tuple2i implements java.io.Serializable, Cloneable {
      * @since vecmath 1.5
      */
     public final int getY() {
-        return y;
+        return this.y;
     }
 
 

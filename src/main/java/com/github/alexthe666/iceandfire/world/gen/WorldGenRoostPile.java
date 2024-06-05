@@ -23,7 +23,7 @@ public class WorldGenRoostPile {
             BlockPos up = position.up(i);
             for (BlockPos blockpos : BlockPos.stream(up.add(-j, 0, -l), up.add(j, 0, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
                 if (blockpos.getSquaredDistance(position) <= (double) (f * f)) {
-                    worldIn.setBlockState(blockpos, block.getDefaultState(), 2);
+                    worldIn.setBlockState(blockpos, this.block.getDefaultState(), 2);
                 }
             }
         }

@@ -45,7 +45,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
         BlockPos position = context.getOrigin();
         ChunkGenerator generator = context.getGenerator();
 
-        if (rand.nextInt(IafConfig.generateHydraChance) != 0 || !IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position) || !IafWorldRegistry.isFarEnoughFromDangerousGen(worldIn, position, getId())) {
+        if (rand.nextInt(IafConfig.generateHydraChance) != 0 || !IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position) || !IafWorldRegistry.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
             return false;
         }
 
@@ -112,7 +112,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
             }
             for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k + 8, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
                 if (blockpos.getSquaredDistance(position) <= f * f && blockpos.getY() == position.getY()) {
-                    if (rand.nextInt(30) == 0 && isTouchingAir(worldIn, blockpos.up())) {
+                    if (rand.nextInt(30) == 0 && this.isTouchingAir(worldIn, blockpos.up())) {
                         worldIn.setBlockState(blockpos.up(1), Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, HORIZONTALS[new Random().nextInt(3)]), 2);
                         if (worldIn.getBlockState(blockpos.up(1)).getBlock() instanceof ChestBlock) {
                             BlockEntity tileentity1 = worldIn.getBlockEntity(blockpos.up(1));
@@ -122,11 +122,11 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
                         }
                         continue;
                     }
-                    if (rand.nextInt(45) == 0 && isTouchingAir(worldIn, blockpos.up())) {
+                    if (rand.nextInt(45) == 0 && this.isTouchingAir(worldIn, blockpos.up())) {
                         worldIn.setBlockState(blockpos.up(), Blocks.SKELETON_SKULL.getDefaultState().with(SkullBlock.ROTATION, rand.nextInt(15)), 2);
                         continue;
                     }
-                    if (rand.nextInt(35) == 0 && isTouchingAir(worldIn, blockpos.up())) {
+                    if (rand.nextInt(35) == 0 && this.isTouchingAir(worldIn, blockpos.up())) {
                         worldIn.setBlockState(blockpos.up(), Blocks.OAK_LEAVES.getDefaultState().with(LeavesBlock.PERSISTENT, true), 2);
                         for (Direction facing : Direction.values()) {
                             if (rand.nextFloat() < 0.3F && facing != Direction.DOWN) {
@@ -135,11 +135,11 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
                         }
                         continue;
                     }
-                    if (rand.nextInt(15) == 0 && isTouchingAir(worldIn, blockpos.up())) {
+                    if (rand.nextInt(15) == 0 && this.isTouchingAir(worldIn, blockpos.up())) {
                         worldIn.setBlockState(blockpos.up(), Blocks.TALL_GRASS.getDefaultState(), 2);
                         continue;
                     }
-                    if (rand.nextInt(15) == 0 && isTouchingAir(worldIn, blockpos.up())) {
+                    if (rand.nextInt(15) == 0 && this.isTouchingAir(worldIn, blockpos.up())) {
                         worldIn.setBlockState(blockpos.up(), rand.nextBoolean() ? Blocks.BROWN_MUSHROOM.getDefaultState() : Blocks.RED_MUSHROOM.getDefaultState(), 2);
                         continue;
                     }

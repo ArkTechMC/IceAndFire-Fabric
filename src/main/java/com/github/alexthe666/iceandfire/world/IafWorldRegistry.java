@@ -6,7 +6,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
 import com.github.alexthe666.iceandfire.datagen.IafPlacedFeatures;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.util.IdUtil;
+import com.iafenvoy.iafextra.util.IdUtil;
 import com.github.alexthe666.iceandfire.world.feature.*;
 import com.github.alexthe666.iceandfire.world.gen.*;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;

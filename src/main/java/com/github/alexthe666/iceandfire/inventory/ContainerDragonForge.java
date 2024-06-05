@@ -32,9 +32,9 @@ public class ContainerDragonForge extends ScreenHandler {
         this.tileFurnace = furnaceInventory;
         this.world = playerInventory.player.getWorld();
         if (furnaceInventory instanceof TileEntityDragonforge) {
-            fireType = ((TileEntityDragonforge) furnaceInventory).fireType;
+            this.fireType = ((TileEntityDragonforge) furnaceInventory).fireType;
         } else if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityDragonforge) {
-            fireType = ((TileEntityDragonforge) IceAndFire.PROXY.getRefrencedTE()).fireType;
+            this.fireType = ((TileEntityDragonforge) IceAndFire.PROXY.getRefrencedTE()).fireType;
         }
         this.addSlot(new Slot(furnaceInventory, 0, 68, 34));
         this.addSlot(new Slot(furnaceInventory, 1, 86, 34));
@@ -71,7 +71,7 @@ public class ContainerDragonForge extends ScreenHandler {
                 }
                 slot.onQuickTransfer(itemstack1, itemstack);
             } else if (index != 1 && index != 0) {
-                if (fireType == 0) {
+                if (this.fireType == 0) {
                     if (!this.insertItem(itemstack1, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }

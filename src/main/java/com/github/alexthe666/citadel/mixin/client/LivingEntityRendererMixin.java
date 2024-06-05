@@ -24,7 +24,7 @@ public class LivingEntityRendererMixin {
             at = @At(value = "RETURN")
     )
     protected void citadel_setupRotations(LivingEntity livingEntity, MatrixStack poseStack, float ageInTicks, float bodyYRot, float partialTick, CallbackInfo ci) {
-        EventLivingRenderer.SetupRotations event = new EventLivingRenderer.SetupRotations(livingEntity, model, poseStack, bodyYRot, partialTick);
+        EventLivingRenderer.SetupRotations event = new EventLivingRenderer.SetupRotations(livingEntity, this.model, poseStack, bodyYRot, partialTick);
         EventBus.post(event);
     }
 
@@ -37,7 +37,7 @@ public class LivingEntityRendererMixin {
             )
     )
     protected void citadel_render_setupAnim_before(LivingEntity livingEntity, float yaw, float partialTicks, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, CallbackInfo ci) {
-        EventLivingRenderer.PreSetupAnimations event = new EventLivingRenderer.PreSetupAnimations(livingEntity, model, poseStack, yaw, partialTicks, bufferSource, packedLight);
+        EventLivingRenderer.PreSetupAnimations event = new EventLivingRenderer.PreSetupAnimations(livingEntity, this.model, poseStack, yaw, partialTicks, bufferSource, packedLight);
         EventBus.post(event);
     }
 
@@ -51,7 +51,7 @@ public class LivingEntityRendererMixin {
             )
     )
     protected void citadel_render_setupAnim_after(LivingEntity livingEntity, float yaw, float partialTicks, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, CallbackInfo ci) {
-        EventLivingRenderer.PostSetupAnimations event = new EventLivingRenderer.PostSetupAnimations(livingEntity, model, poseStack, yaw, partialTicks, bufferSource, packedLight);
+        EventLivingRenderer.PostSetupAnimations event = new EventLivingRenderer.PostSetupAnimations(livingEntity, this.model, poseStack, yaw, partialTicks, bufferSource, packedLight);
         EventBus.post(event);
     }
 
@@ -60,7 +60,7 @@ public class LivingEntityRendererMixin {
             at = @At(value = "RETURN")
     )
     protected void citadel_render_renderToBuffer(LivingEntity livingEntity, float yaw, float partialTicks, MatrixStack poseStack, VertexConsumerProvider bufferSource, int packedLight, CallbackInfo ci) {
-        EventLivingRenderer.PostRenderModel event = new EventLivingRenderer.PostRenderModel(livingEntity, model, poseStack, yaw, partialTicks, bufferSource, packedLight);
+        EventLivingRenderer.PostRenderModel event = new EventLivingRenderer.PostRenderModel(livingEntity, this.model, poseStack, yaw, partialTicks, bufferSource, packedLight);
         EventBus.post(event);
     }
 }

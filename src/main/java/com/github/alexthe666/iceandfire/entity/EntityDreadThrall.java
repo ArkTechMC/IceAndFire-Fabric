@@ -100,7 +100,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     public void tickMovement() {
         super.tickMovement();
         if (this.getAnimation() == ANIMATION_SPAWN && this.getAnimationTick() < 30) {
-            BlockState belowBlock = getWorld().getBlockState(this.getBlockPos().down());
+            BlockState belowBlock = this.getWorld().getBlockState(this.getBlockPos().down());
             if (belowBlock.getBlock() != Blocks.AIR) {
                 for (int i = 0; i < 5; i++) {
                     this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, belowBlock), this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getBoundingBox().minY, this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
@@ -117,8 +117,8 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     @Override
     protected void initEquipment(Random randomSource, @NotNull LocalDifficulty difficulty) {
         super.initEquipment(randomSource, difficulty);
-        if (random.nextFloat() < 0.75F) {
-            double chance = random.nextFloat();
+        if (this.random.nextFloat() < 0.75F) {
+            double chance = this.random.nextFloat();
             if (chance < 0.0025F) {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DRAGONSTEEL_ICE_SWORD.get()));
             }
@@ -132,23 +132,23 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DREAD_SWORD.get()));
             }
         }
-        if (random.nextFloat() < 0.75F) {
+        if (this.random.nextFloat() < 0.75F) {
             this.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.CHAINMAIL_HELMET));
-            setCustomArmorHead(random.nextInt(8) != 0);
+            this.setCustomArmorHead(this.random.nextInt(8) != 0);
         }
-        if (random.nextFloat() < 0.75F) {
+        if (this.random.nextFloat() < 0.75F) {
             this.equipStack(EquipmentSlot.CHEST, new ItemStack(Items.CHAINMAIL_CHESTPLATE));
-            setCustomArmorChest(random.nextInt(8) != 0);
+            this.setCustomArmorChest(this.random.nextInt(8) != 0);
         }
-        if (random.nextFloat() < 0.75F) {
+        if (this.random.nextFloat() < 0.75F) {
             this.equipStack(EquipmentSlot.LEGS, new ItemStack(Items.CHAINMAIL_LEGGINGS));
-            setCustomArmorLegs(random.nextInt(8) != 0);
+            this.setCustomArmorLegs(this.random.nextInt(8) != 0);
         }
-        if (random.nextFloat() < 0.75F) {
+        if (this.random.nextFloat() < 0.75F) {
             this.equipStack(EquipmentSlot.FEET, new ItemStack(Items.CHAINMAIL_BOOTS));
-            setCustomArmorFeet(random.nextInt(8) != 0);
+            this.setCustomArmorFeet(this.random.nextInt(8) != 0);
         }
-        setBodyArmorVariant(random.nextInt(8));
+        this.setBodyArmorVariant(this.random.nextInt(8));
     }
 
     @Override
@@ -161,42 +161,42 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
-        compound.putInt("ArmorVariant", getBodyArmorVariant());
-        compound.putBoolean("HasCustomHelmet", hasCustomArmorHead());
-        compound.putBoolean("HasCustomChestplate", hasCustomArmorChest());
-        compound.putBoolean("HasCustomLeggings", hasCustomArmorLegs());
-        compound.putBoolean("HasCustomBoots", hasCustomArmorFeet());
+        compound.putInt("ArmorVariant", this.getBodyArmorVariant());
+        compound.putBoolean("HasCustomHelmet", this.hasCustomArmorHead());
+        compound.putBoolean("HasCustomChestplate", this.hasCustomArmorChest());
+        compound.putBoolean("HasCustomLeggings", this.hasCustomArmorLegs());
+        compound.putBoolean("HasCustomBoots", this.hasCustomArmorFeet());
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
-        setBodyArmorVariant(compound.getInt("ArmorVariant"));
-        setCustomArmorHead(compound.getBoolean("HasCustomHelmet"));
-        setCustomArmorChest(compound.getBoolean("HasCustomChestplate"));
-        setCustomArmorLegs(compound.getBoolean("HasCustomLeggings"));
-        setCustomArmorFeet(compound.getBoolean("HasCustomBoots"));
+        this.setBodyArmorVariant(compound.getInt("ArmorVariant"));
+        this.setCustomArmorHead(compound.getBoolean("HasCustomHelmet"));
+        this.setCustomArmorChest(compound.getBoolean("HasCustomChestplate"));
+        this.setCustomArmorLegs(compound.getBoolean("HasCustomLeggings"));
+        this.setCustomArmorFeet(compound.getBoolean("HasCustomBoots"));
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     public boolean hasCustomArmorHead() {

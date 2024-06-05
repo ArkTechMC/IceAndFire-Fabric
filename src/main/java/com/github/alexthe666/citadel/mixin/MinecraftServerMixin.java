@@ -27,12 +27,12 @@ public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
             )
     )
     protected void citadel_beforeServerTick(CallbackInfo ci) {
-        masterTick();
+        this.masterTick();
     }
 
     @Unique
     private void masterTick() {
-        masterMs += 50L;
+        this.masterMs += 50L;
     }
 
     @ModifyConstant(
@@ -40,16 +40,16 @@ public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
             constant = @Constant(longValue = 50L),
             expect = 4)
     private long citadel_serverMsPerTick(long value) {
-        return modifiedMsPerTick == -1 ? value : modifiedMsPerTick;
+        return this.modifiedMsPerTick == -1 ? value : this.modifiedMsPerTick;
     }
 
     @Override
     public void setGlobalTickLengthMs(long msPerTick) {
-        modifiedMsPerTick = msPerTick;
+        this.modifiedMsPerTick = msPerTick;
     }
 
     @Override
     public long getMasterMs() {
-        return masterMs;
+        return this.masterMs;
     }
 }

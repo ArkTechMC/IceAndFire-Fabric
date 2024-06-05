@@ -1082,7 +1082,7 @@ public class WorldRenderMacros extends UiRenderMacros {
 
         private AlwaysDepthTestStateShard() {
             super("true_always", -1);
-            beginAction = () -> {
+            this.beginAction = () -> {
                 RenderSystem.enableDepthTest();
                 RenderSystem.depthFunc(GL11.GL_ALWAYS);
             };

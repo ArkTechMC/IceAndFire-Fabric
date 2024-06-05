@@ -18,7 +18,7 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
 
     public SpawnDragonSkeleton(EntityType<? extends EntityDragonBase> dt, Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
-        dragonType = dt;
+        this.dragonType = dt;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
 
         if (IafConfig.generateDragonSkeletons) {
             if (rand.nextInt(IafConfig.generateDragonSkeletonChance + 1) == 0) {
-                EntityDragonBase dragon = dragonType.create(worldIn.toServerWorld());
+                EntityDragonBase dragon = this.dragonType.create(worldIn.toServerWorld());
                 dragon.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                 int dragonage = 10 + rand.nextInt(100);
                 dragon.growDragon(dragonage);

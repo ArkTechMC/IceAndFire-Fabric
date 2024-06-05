@@ -19,19 +19,19 @@ public class DragonAIReturnToRoost extends Goal {
     @Override
     public boolean canStart() {
         return this.dragon.canMove() && this.dragon.lookingForRoostAIFlag
-            && (dragon.getTarget() == null || !dragon.getTarget().isAlive())
-            && dragon.getPositionTarget() != null
-            && DragonUtils.isInHomeDimension(dragon)
-            && dragon.getDistanceSquared(Vec3d.ofCenter(dragon.getPositionTarget())) > dragon.getWidth()
-            * dragon.getWidth();
+            && (this.dragon.getTarget() == null || !this.dragon.getTarget().isAlive())
+            && this.dragon.getPositionTarget() != null
+            && DragonUtils.isInHomeDimension(this.dragon)
+            && this.dragon.getDistanceSquared(Vec3d.ofCenter(this.dragon.getPositionTarget())) > this.dragon.getWidth()
+            * this.dragon.getWidth();
     }
 
     @Override
     public void tick() {
         if (this.dragon.getPositionTarget() != null) {
-            final double dist = Math.sqrt(dragon.getDistanceSquared(Vec3d.ofCenter(dragon.getPositionTarget())));
-            final double xDist = Math.abs(dragon.getX() - dragon.getPositionTarget().getX() - 0.5F);
-            final double zDist = Math.abs(dragon.getZ() - dragon.getPositionTarget().getZ() - 0.5F);
+            final double dist = Math.sqrt(this.dragon.getDistanceSquared(Vec3d.ofCenter(this.dragon.getPositionTarget())));
+            final double xDist = Math.abs(this.dragon.getX() - this.dragon.getPositionTarget().getX() - 0.5F);
+            final double zDist = Math.abs(this.dragon.getZ() - this.dragon.getPositionTarget().getZ() - 0.5F);
             final double xzDist = Math.sqrt(xDist * xDist + zDist * zDist);
 
             if (dist < this.dragon.getWidth()) {
@@ -40,7 +40,7 @@ public class DragonAIReturnToRoost extends Goal {
                 this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(),
                     this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
             } else {
-                double yAddition = 15 + dragon.getRandom().nextInt(3);
+                double yAddition = 15 + this.dragon.getRandom().nextInt(3);
                 if (xzDist < 40) {
                     yAddition = 0;
                     if (this.dragon.isOnGround()) {
@@ -71,7 +71,7 @@ public class DragonAIReturnToRoost extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return canStart();
+        return this.canStart();
     }
 
 }

@@ -9,8 +9,8 @@ import java.util.function.Supplier;
 
 public record SyncEntityData(int entityId, NbtCompound tag) {
     public void encode(final PacketByteBuf buffer) {
-        buffer.writeInt(entityId);
-        buffer.writeNbt(tag);
+        buffer.writeInt(this.entityId);
+        buffer.writeNbt(this.tag);
     }
 
     public static SyncEntityData decode(final PacketByteBuf buffer) {

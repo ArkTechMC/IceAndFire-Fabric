@@ -63,28 +63,28 @@ public interface DragonSteelOverrides<T extends ToolItem> {
     default void hurtEnemy(T item, ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (item.getMaterial() == IafItemRegistry.SILVER_TOOL_MATERIAL) {
             if (target.getGroup() == EntityGroup.UNDEAD) {
-                target.damage(attacker.getWorld().getDamageSources().magic(), getAttackDamage(item) + 3.0F);
+                target.damage(attacker.getWorld().getDamageSources().magic(), this.getAttackDamage(item) + 3.0F);
             }
         }
 
         if (item.getMaterial() == IafItemRegistry.MYRMEX_CHITIN_TOOL_MATERIAL) {
             if (target.getGroup() != EntityGroup.ARTHROPOD) {
-                target.damage(attacker.getWorld().getDamageSources().generic(), getAttackDamage(item) + 5.0F);
+                target.damage(attacker.getWorld().getDamageSources().generic(), this.getAttackDamage(item) + 5.0F);
             }
             if (target instanceof EntityDeathWorm) {
-                target.damage(attacker.getWorld().getDamageSources().generic(), getAttackDamage(item) + 5.0F);
+                target.damage(attacker.getWorld().getDamageSources().generic(), this.getAttackDamage(item) + 5.0F);
             }
         }
-        if (isDragonsteelFire(item.getMaterial()) && IafConfig.dragonWeaponFireAbility) {
+        if (this.isDragonsteelFire(item.getMaterial()) && IafConfig.dragonWeaponFireAbility) {
             target.setOnFireFor(15);
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (isDragonsteelIce(item.getMaterial()) && IafConfig.dragonWeaponIceAbility) {
+        if (this.isDragonsteelIce(item.getMaterial()) && IafConfig.dragonWeaponIceAbility) {
             EntityDataProvider.getCapability(target).ifPresent(data -> data.frozenData.setFrozen(target, 300));
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (isDragonsteelLightning(item.getMaterial()) && IafConfig.dragonWeaponLightningAbility) {
+        if (this.isDragonsteelLightning(item.getMaterial()) && IafConfig.dragonWeaponLightningAbility) {
             boolean flag = true;
             if (attacker instanceof PlayerEntity) {
                 if (attacker.handSwingProgress > 0.2) {
@@ -112,13 +112,13 @@ public interface DragonSteelOverrides<T extends ToolItem> {
         if (tier == IafItemRegistry.MYRMEX_CHITIN_TOOL_MATERIAL) {
             tooltip.add(Text.translatable("myrmextools.hurt").formatted(Formatting.GREEN));
         }
-        if (isDragonsteelFire(tier) && IafConfig.dragonWeaponFireAbility) {
+        if (this.isDragonsteelFire(tier) && IafConfig.dragonWeaponFireAbility) {
             tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
         }
-        if (isDragonsteelIce(tier) && IafConfig.dragonWeaponIceAbility) {
+        if (this.isDragonsteelIce(tier) && IafConfig.dragonWeaponIceAbility) {
             tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
         }
-        if (isDragonsteelLightning(tier) && IafConfig.dragonWeaponLightningAbility) {
+        if (this.isDragonsteelLightning(tier) && IafConfig.dragonWeaponLightningAbility) {
             tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
         }
     }

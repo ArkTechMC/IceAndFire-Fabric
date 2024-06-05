@@ -49,20 +49,20 @@ public class ModelDreadQueen extends ModelDreadBase<EntityDreadQueen> {
         this.cloak = new HideableModelRenderer(this, 81, 37);
         this.cloak.setPos(0.0F, 0.1F, 0.0F);
         this.cloak.addBox(-4.5F, 0.0F, 2.3F, 9, 21, 1, modelScale);
-        this.setRotateAngle(cloak, 0.045553093477052F, 0.0F, 0.0F);
+        this.setRotateAngle(this.cloak, 0.045553093477052F, 0.0F, 0.0F);
         this.armRight = new HideableModelRenderer(this, 40, 16);
         this.armRight.setPos(-5.0F, 2.0F, 0.0F);
         this.armRight.addBox(-2.5F, -2.0F, -2.0F, 3, 12, 4, modelScale);
-        this.setRotateAngle(armRight, 0.0F, 0.0F, 0.10000736613927509F);
+        this.setRotateAngle(this.armRight, 0.0F, 0.0F, 0.10000736613927509F);
         this.necklace = new HideableModelRenderer(this, 1, 52);
         this.necklace.setPos(0.0F, 0.1F, 0.0F);
         this.necklace.addBox(-4.5F, -0.3F, -2.8F, 9, 7, 5, modelScale);
-        this.setRotateAngle(necklace, 0.032114058236695664F, 0.0F, 0.0F);
+        this.setRotateAngle(this.necklace, 0.032114058236695664F, 0.0F, 0.0F);
         this.armLeft = new HideableModelRenderer(this, 40, 16);
         this.armLeft.mirror = true;
         this.armLeft.setPos(5.0F, 2.0F, -0.0F);
         this.armLeft.addBox(-0.5F, -2.0F, -2.0F, 3, 12, 4, modelScale);
-        this.setRotateAngle(armLeft, -0.0F, 0.0F, -0.10000736613927509F);
+        this.setRotateAngle(this.armLeft, -0.0F, 0.0F, -0.10000736613927509F);
         this.head = new HideableModelRenderer(this, 0, 0);
         this.head.setPos(0.0F, 0.0F, 0.0F);
         this.head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, modelScale);
@@ -84,7 +84,7 @@ public class ModelDreadQueen extends ModelDreadBase<EntityDreadQueen> {
         this.body.addChild(this.head);
         this.body.addChild(this.legLeft);
         this.updateDefaultPose();
-        animator = ModelAnimator.create();
+        this.animator = ModelAnimator.create();
     }
 
     @Override

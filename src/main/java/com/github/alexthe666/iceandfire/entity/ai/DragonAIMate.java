@@ -64,7 +64,7 @@ public class DragonAIMate extends Goal {
     @Override
     public void tick() {
         this.dragon.getLookControl().lookAt(this.targetMate, 10.0F, this.dragon.getMaxLookPitchChange());
-        this.dragon.getNavigation().startMovingTo(targetMate.getX(), targetMate.getY(), targetMate.getZ(), this.moveSpeed);
+        this.dragon.getNavigation().startMovingTo(this.targetMate.getX(), this.targetMate.getY(), this.targetMate.getZ(), this.moveSpeed);
         this.dragon.setFlying(false);
         this.dragon.setHovering(false);
         ++this.spawnBabyDelay;
@@ -134,14 +134,14 @@ public class DragonAIMate extends Goal {
             for (int x = 0; x < 3; x++) {
                 for (int z = 0; z < 3; z++) {
                     BlockPos add = eggPos.add(x, 0, z);
-                    BlockState prevState = theWorld.getBlockState(add);
-                    if (prevState.isReplaceable() || theWorld.getBlockState(add).isIn(BlockTags.DIRT) || theWorld.getBlockState(add).getHardness(theWorld, add) < 5F || theWorld.getBlockState(add).getHardness(theWorld, add) >= 0F) {
-                        theWorld.setBlockState(add, NEST);
+                    BlockState prevState = this.theWorld.getBlockState(add);
+                    if (prevState.isReplaceable() || this.theWorld.getBlockState(add).isIn(BlockTags.DIRT) || this.theWorld.getBlockState(add).getHardness(this.theWorld, add) < 5F || this.theWorld.getBlockState(add).getHardness(this.theWorld, add) >= 0F) {
+                        this.theWorld.setBlockState(add, NEST);
                     }
                 }
             }
-            if (theWorld.getBlockState(dirtPos).isReplaceable() || theWorld.getBlockState(dirtPos) == NEST) {
-                theWorld.setBlockState(dirtPos, Blocks.DIRT_PATH.getDefaultState());
+            if (this.theWorld.getBlockState(dirtPos).isReplaceable() || this.theWorld.getBlockState(dirtPos) == NEST) {
+                this.theWorld.setBlockState(dirtPos, Blocks.DIRT_PATH.getDefaultState());
             }
             if (this.theWorld.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
                 this.theWorld.spawnEntity(new ExperienceOrbEntity(this.theWorld, this.dragon.getX(), this.dragon.getY(), this.dragon.getZ(), random.nextInt(15) + 10));

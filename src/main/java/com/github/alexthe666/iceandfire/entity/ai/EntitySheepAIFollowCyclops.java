@@ -74,7 +74,7 @@ public class EntitySheepAIFollowCyclops extends Goal {
         if (--this.delayCounter <= 0) {
             this.delayCounter = this.getTickCount(10);
             if (this.childAnimal.squaredDistanceTo(this.cyclops) > 10) {
-                Path path = getPathToLivingEntity(this.childAnimal, this.cyclops);
+                Path path = this.getPathToLivingEntity(this.childAnimal, this.cyclops);
                 if (path != null) {
                     this.childAnimal.getNavigation().startMovingAlong(path, this.moveSpeed);
 

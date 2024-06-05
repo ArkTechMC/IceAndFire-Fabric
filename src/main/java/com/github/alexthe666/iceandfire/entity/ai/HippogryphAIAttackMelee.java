@@ -45,7 +45,7 @@ public class HippogryphAIAttackMelee extends Goal {
         } else if (LivingEntity.isAlive()) {
             return false;
         } else {
-            if (canPenalize) {
+            if (this.canPenalize) {
                 if (--this.delayCounter <= 0) {
                     this.path = this.attacker.getNavigation().findPathTo(LivingEntity, 0);
                     this.delayCounter = 4 + this.attacker.getRandom().nextInt(7);
@@ -125,15 +125,15 @@ public class HippogryphAIAttackMelee extends Goal {
                 this.delayCounter = 4 + this.attacker.getRandom().nextInt(7);
 
                 if (this.canPenalize) {
-                    this.delayCounter += failedPathFindingPenalty;
+                    this.delayCounter += this.failedPathFindingPenalty;
                     if (this.attacker.getNavigation().getCurrentPath() != null) {
                         net.minecraft.entity.ai.pathing.PathNode finalPathPoint = this.attacker.getNavigation().getCurrentPath().getEnd();
                         if (finalPathPoint != null && LivingEntity.squaredDistanceTo(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
+                            this.failedPathFindingPenalty = 0;
                         else
-                            failedPathFindingPenalty += 10;
+                            this.failedPathFindingPenalty += 10;
                     } else {
-                        failedPathFindingPenalty += 10;
+                        this.failedPathFindingPenalty += 10;
                     }
                 }
 

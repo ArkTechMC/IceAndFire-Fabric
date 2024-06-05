@@ -20,7 +20,7 @@ public class AquaticAIFindWaterTarget extends Goal {
     public AquaticAIFindWaterTarget(MobEntity mob, int range, boolean avoidAttacker) {
         this.mob = mob;
         this.setControls(EnumSet.of(Control.MOVE));
-        fleePosSorter = new Sorter(mob);
+        this.fleePosSorter = new Sorter(mob);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class AquaticAIFindWaterTarget extends Goal {
         }
         Path path = this.mob.getNavigation().getCurrentPath();
         if (this.mob.getRandom().nextFloat() < 0.15F || path != null && path.getEnd() != null && this.mob.squaredDistanceTo(path.getEnd().x, path.getEnd().y, path.getEnd().z) < 3) {
-            if (path != null && path.getEnd() != null || !this.mob.getNavigation().isIdle() && !isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(path.getEnd().x, path.getEnd().y, path.getEnd().z))) {
+            if (path != null && path.getEnd() != null || !this.mob.getNavigation().isIdle() && !this.isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(path.getEnd().x, path.getEnd().y, path.getEnd().z))) {
                 this.mob.getNavigation().stop();
             }
             if (this.mob.getNavigation().isIdle()) {
@@ -50,11 +50,11 @@ public class AquaticAIFindWaterTarget extends Goal {
     }
 
     public BlockPos findWaterTarget() {
-        BlockPos blockpos = BlockPos.ofFloored(this.mob.getBlockX(), this.mob.getBoundingBox().minY, mob.getBlockZ());
+        BlockPos blockpos = BlockPos.ofFloored(this.mob.getBlockX(), this.mob.getBoundingBox().minY, this.mob.getBlockZ());
         if (this.mob.getTarget() == null || !this.mob.getTarget().isAlive()) {
             for (int i = 0; i < 10; ++i) {
-                BlockPos blockpos1 = blockpos.add(mob.getRandom().nextInt(20) - 10, mob.getRandom().nextInt(6) - 3, mob.getRandom().nextInt(20) - 10);
-                if (mob.getWorld().getBlockState(blockpos1).isOf(Blocks.WATER)) {
+                BlockPos blockpos1 = blockpos.add(this.mob.getRandom().nextInt(20) - 10, this.mob.getRandom().nextInt(6) - 3, this.mob.getRandom().nextInt(20) - 10);
+                if (this.mob.getWorld().getBlockState(blockpos1).isOf(Blocks.WATER)) {
                     return blockpos1;
                 }
             }
@@ -65,7 +65,7 @@ public class AquaticAIFindWaterTarget extends Goal {
     }
 
     public boolean isDirectPathBetweenPoints(Entity entity, Vec3d vec1, Vec3d vec2) {
-        return mob.getWorld().raycast(new RaycastContext(vec1, vec2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity)).getType() == HitResult.Type.MISS;
+        return this.mob.getWorld().raycast(new RaycastContext(vec1, vec2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity)).getType() == HitResult.Type.MISS;
 
     }
 

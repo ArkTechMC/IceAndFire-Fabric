@@ -16,6 +16,7 @@ import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -294,10 +295,7 @@ public class DragonUtils {
     }
 
     public static boolean isVillager(Entity entity) {
-        var tags =  ForgeRegistries.ENTITY_TYPES.tags();
-        if (tags == null)
-            return false;
-        return entity.getType().isIn(tags.createTagKey(IafTagRegistry.VILLAGERS));
+        return false;
     }
 
     public static boolean isAnimaniaMob(Entity entity) {
@@ -305,7 +303,7 @@ public class DragonUtils {
     }
 
     public static boolean isDragonTargetable(Entity entity, Identifier tag) {
-        return entity.getType().isIn(ForgeRegistries.ENTITY_TYPES.tags().createTagKey(tag));
+        return entity.getType().isIn(Registries.ENTITY_TYPE.tags().createTagKey(tag));
     }
 
     public static String getDimensionName(World world) {
@@ -374,13 +372,13 @@ public class DragonUtils {
         }
         if (entity1 instanceof EntityMutlipartPart) {
             Entity multipart = ((EntityMutlipartPart) entity1).getParent();
-            if (multipart != null && multipart instanceof TameableEntity) {
+            if (multipart instanceof TameableEntity) {
                 owner1 = ((TameableEntity) multipart).getOwner();
             }
         }
         if (entity2 instanceof EntityMutlipartPart) {
             Entity multipart = ((EntityMutlipartPart) entity2).getParent();
-            if (multipart != null && multipart instanceof TameableEntity) {
+            if (multipart instanceof TameableEntity) {
                 owner2 = ((TameableEntity) multipart).getOwner();
             }
         }

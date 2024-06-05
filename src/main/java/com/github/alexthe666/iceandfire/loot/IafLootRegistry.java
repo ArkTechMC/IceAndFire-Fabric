@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.loot;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.util.IdUtil;
+import com.iafenvoy.iafextra.util.IdUtil;
 import net.minecraft.loot.function.LootFunction;
 import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.registry.Registries;

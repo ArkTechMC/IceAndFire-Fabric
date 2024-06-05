@@ -31,19 +31,19 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
     }
 
     public Ingredient getInput() {
-        return input;
+        return this.input;
     }
 
     public Ingredient getBlood() {
-        return blood;
+        return this.blood;
     }
 
     public int getCookTime() {
-        return cookTime;
+        return this.cookTime;
     }
 
     public String getDragonType() {
-        return dragonType;
+        return this.dragonType;
     }
 
     @Override
@@ -66,16 +66,16 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
 
     @Override
     public @NotNull ItemStack getOutput(DynamicRegistryManager registryAccess) {
-        return result;
+        return this.result;
     }
 
     public @NotNull ItemStack getResultItem() {
-        return result;
+        return this.result;
     }
 
     @Override
     public @NotNull ItemStack craft(@NotNull TileEntityDragonforge dragonforge, DynamicRegistryManager registryAccess) {
-        return result;
+        return this.result;
     }
 
     @Override

@@ -126,22 +126,22 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override

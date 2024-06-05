@@ -37,7 +37,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafConfig.spawnCyclopsCaveChance, context.getWorld(), context.getRandom(), context.getOrigin(), getId(), true)) {
+        if (!WorldUtil.canGenerate(IafConfig.spawnCyclopsCaveChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
 
@@ -71,16 +71,16 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
         // Set up the actual content
         for (BlockPos position : BlockPos.stream(context.getOrigin().add(-x, -y, -z), context.getOrigin().add(x, y, z)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (position.getSquaredDistance(context.getOrigin()) <= radius * radius && position.getY() == context.getOrigin().getY()) {
-                if (context.getRandom().nextInt(130) == 0 && isTouchingAir(context.getWorld(), position.up())) {
-                    generateSkeleton(context.getWorld(), position.up(), context.getRandom(), context.getOrigin(), radius);
+                if (context.getRandom().nextInt(130) == 0 && this.isTouchingAir(context.getWorld(), position.up())) {
+                    this.generateSkeleton(context.getWorld(), position.up(), context.getRandom(), context.getOrigin(), radius);
                 }
 
                 if (context.getRandom().nextInt(130) == 0 && position.getSquaredDistance(context.getOrigin()) <= (double) (radius * radius) * 0.8F && sheepPenCount < 2) {
-                    generateSheepPen(context.getWorld(), position.up(), context.getRandom(), context.getOrigin(), radius);
+                    this.generateSheepPen(context.getWorld(), position.up(), context.getRandom(), context.getOrigin(), radius);
                     sheepPenCount++;
                 }
 
-                if (context.getRandom().nextInt(80) == 0 && isTouchingAir(context.getWorld(), position.up())) {
+                if (context.getRandom().nextInt(80) == 0 && this.isTouchingAir(context.getWorld(), position.up())) {
                     context.getWorld().setBlockState(position.up(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 8), 3);
                     context.getWorld().setBlockState(position.up().north(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
                     context.getWorld().setBlockState(position.up().south(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
@@ -97,11 +97,11 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
                     }
                 }
 
-                if (context.getRandom().nextInt(50) == 0 && isTouchingAir(context.getWorld(), position.up())) {
+                if (context.getRandom().nextInt(50) == 0 && this.isTouchingAir(context.getWorld(), position.up())) {
                     int torchHeight = context.getRandom().nextInt(2) + 1;
 
                     for (int fence = 0; fence < torchHeight; fence++) {
-                        context.getWorld().setBlockState(position.up(1 + fence), getFenceState(context.getWorld(), position.up(1 + fence)), 3);
+                        context.getWorld().setBlockState(position.up(1 + fence), this.getFenceState(context.getWorld(), position.up(1 + fence)), 3);
                     }
 
                     context.getWorld().setBlockState(position.up(1 + torchHeight), Blocks.TORCH.getDefaultState(), 2);
@@ -155,7 +155,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
                 BlockPos relativePosition = end.offset(direction, side);
 
                 if (origin.getSquaredDistance(relativePosition) <= radius * radius) {
-                    level.setBlockState(relativePosition, getFenceState(level, relativePosition), Block.NOTIFY_ALL);
+                    level.setBlockState(relativePosition, this.getFenceState(level, relativePosition), Block.NOTIFY_ALL);
 
                     if (level.isAir(relativePosition.offset(direction.rotateYClockwise())) && sheepAmount > 0) {
                         BlockPos sheepPos = relativePosition.offset(direction.rotateYClockwise());
@@ -180,7 +180,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
                 BlockPos relativePosition = end.offset(direction, side);
 
                 if (origin.getSquaredDistance(relativePosition) <= radius * radius) {
-                    level.setBlockState(relativePosition, getFenceState(level, relativePosition), Block.NOTIFY_ALL);
+                    level.setBlockState(relativePosition, this.getFenceState(level, relativePosition), Block.NOTIFY_ALL);
                 }
             }
 

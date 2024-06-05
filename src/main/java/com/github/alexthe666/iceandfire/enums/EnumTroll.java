@@ -38,14 +38,14 @@ public enum EnumTroll {
     EnumTroll(CustomArmorMaterial material, Weapon... weapons) {
         this.weapons = weapons;
         this.material = material;
-        TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + ".png");
-        TEXTURE_STONE = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + "_stone.png");
-        TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + "_eyes.png");
-        leather = () ->new ItemTrollLeather(this);
-        helmet = () -> new ItemTrollArmor(this, material, ArmorItem.Type.HELMET);
-        chestplate = () -> new ItemTrollArmor(this, material, ArmorItem.Type.CHESTPLATE);
-        leggings = () -> new ItemTrollArmor(this, material, ArmorItem.Type.LEGGINGS);
-        boots = () -> new ItemTrollArmor(this, material, ArmorItem.Type.BOOTS);
+        this.TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + ".png");
+        this.TEXTURE_STONE = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + "_stone.png");
+        this.TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + "_eyes.png");
+        this.leather = () ->new ItemTrollLeather(this);
+        this.helmet = () -> new ItemTrollArmor(this, material, ArmorItem.Type.HELMET);
+        this.chestplate = () -> new ItemTrollArmor(this, material, ArmorItem.Type.CHESTPLATE);
+        this.leggings = () -> new ItemTrollArmor(this, material, ArmorItem.Type.LEGGINGS);
+        this.boots = () -> new ItemTrollArmor(this, material, ArmorItem.Type.BOOTS);
 
 
         //leather = IafItemRegistry.deferredRegister.register("troll_leather_" + name().toLowerCase(Locale.ROOT), () -> new ItemTrollLeather(this));
@@ -99,8 +99,8 @@ public enum EnumTroll {
         public Supplier<Item> item;
 
         Weapon() {
-            TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");
-            item = IafItemRegistry.registerItem("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), () -> new ItemTrollWeapon(this));
+            this.TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");
+            this.item = IafItemRegistry.registerItem("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), () -> new ItemTrollWeapon(this));
         }
 
     }

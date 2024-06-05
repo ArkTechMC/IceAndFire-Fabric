@@ -29,9 +29,9 @@ public class ItemDragonFlesh extends ItemGenericFood {
     @Override
     public void onFoodEaten(ItemStack stack, World worldIn, LivingEntity livingEntity) {
         if (!worldIn.isClient) {
-            if (dragonType == 0) {
+            if (this.dragonType == 0) {
                 livingEntity.setOnFireFor(5);
-            } else if (dragonType == 1) {
+            } else if (this.dragonType == 1) {
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
             } else {
                 if (!livingEntity.getWorld().isClient) {

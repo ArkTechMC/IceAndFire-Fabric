@@ -50,7 +50,7 @@ public class MausoleumStructure extends IafStructure {
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
 
-        if (!isBiomeValid(pContext, BiomeConfig.mausoleumBiomes, blockpos))
+        if (!this.isBiomeValid(pContext, BiomeConfig.mausoleumBiomes, blockpos))
             return Optional.empty();
 
         Optional<StructurePosition> structurePiecesGenerator =

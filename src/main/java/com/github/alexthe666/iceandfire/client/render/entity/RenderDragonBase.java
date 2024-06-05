@@ -50,23 +50,23 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
         this.shadowRadius = entity.getRenderSize() / 3;
         float f7 = entity.prevDragonPitch + (entity.getDragonPitch() - entity.prevDragonPitch) * partialTickTime;
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(f7));
-        matrixStackIn.scale(shadowRadius, shadowRadius, shadowRadius);
+        matrixStackIn.scale(this.shadowRadius, this.shadowRadius, this.shadowRadius);
     }
 
     @Override
     public @NotNull Identifier getTexture(EntityDragonBase entity) {
         String baseTexture = entity.getVariantName(entity.getVariant()) + entity.getDragonStage() + entity.isModelDead() + entity.isMale() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
-        Identifier resourcelocation = LAYERED_TEXTURE_CACHE.get(baseTexture);
+        Identifier resourcelocation = this.LAYERED_TEXTURE_CACHE.get(baseTexture);
         if (resourcelocation == null) {
             resourcelocation = new Identifier(IceAndFire.MOD_ID, "dragon_texture_" + baseTexture);
             List<String> tex = new ArrayList<String>();
             tex.add(EnumDragonTextures.getTextureFromDragon(entity).toString());
             if (entity.isMale() && !entity.isSkeletal()) {
-                if (dragonType == 0) {
+                if (this.dragonType == 0) {
                     tex.add(EnumDragonTextures.getDragonEnum(entity).FIRE_MALE_OVERLAY.toString());
-                } else if (dragonType == 1) {
+                } else if (this.dragonType == 1) {
                     tex.add(EnumDragonTextures.getDragonEnum(entity).ICE_MALE_OVERLAY.toString());
-                } else if (dragonType == 2) {
+                } else if (this.dragonType == 2) {
                     tex.add(EnumDragonTextures.getDragonEnum(entity).LIGHTNING_MALE_OVERLAY.toString());
                 }
             } else {
@@ -75,7 +75,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
             }
             ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
             MinecraftClient.getInstance().getTextureManager().registerTexture(resourcelocation, layeredBase);
-            LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);
+            this.LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);
         }
         return resourcelocation;
     }

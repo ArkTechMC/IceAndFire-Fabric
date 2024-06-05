@@ -66,7 +66,7 @@ public class MyrmexWorldData extends PersistentState {
     public void tick() {
         ++this.tickCounter;
         for (MyrmexHive hive : this.hiveList) {
-            hive.tick(this.tickCounter, world);
+            hive.tick(this.tickCounter, this.world);
         }
         //this.removeAnnihilatedHives();
 

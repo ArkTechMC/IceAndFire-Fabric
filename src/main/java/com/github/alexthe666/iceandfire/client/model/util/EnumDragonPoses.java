@@ -69,6 +69,6 @@ public enum EnumDragonPoses implements IEnumDragonPoses {
 
 	@Override
 	public String getPose() {
-		return pose;
+		return this.pose;
 	}
 }

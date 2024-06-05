@@ -26,14 +26,14 @@ public class EntityTideTrident extends TridentEntity {
 
     public EntityTideTrident(EntityType<? extends TridentEntity> type, World worldIn) {
         super(type, worldIn);
-        tridentStack = new ItemStack(IafItemRegistry.TIDE_TRIDENT.get());
+        this.tridentStack = new ItemStack(IafItemRegistry.TIDE_TRIDENT.get());
     }
 
     public EntityTideTrident(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
         this(IafEntityRegistry.TIDE_TRIDENT.get(), worldIn);
         this.setPosition(thrower.getX(), thrower.getEyeY() - 0.1F, thrower.getZ());
         this.setOwner(thrower);
-        tridentStack = thrownStackIn;
+        this.tridentStack = thrownStackIn;
         this.dataTracker.set(LOYALTY, (byte) EnchantmentHelper.getLoyalty(thrownStackIn));
         this.dataTracker.set(ENCHANTED, thrownStackIn.hasGlint());
         int piercingLevel = EnchantmentHelper.getLevel(Enchantments.PIERCING, thrownStackIn);
@@ -49,9 +49,9 @@ public class EntityTideTrident extends TridentEntity {
         }
 
         Entity entity1 = this.getOwner();
-        DamageSource damagesource = getWorld().getDamageSources().trident(this, entity1 == null ? this : entity1);
-        entitiesHit++;
-        if (entitiesHit >= getMaxPiercing())
+        DamageSource damagesource = this.getWorld().getDamageSources().trident(this, entity1 == null ? this : entity1);
+        this.entitiesHit++;
+        if (this.entitiesHit >= this.getMaxPiercing())
             this.dealtDamage = true;
         SoundEvent soundevent = SoundEvents.ITEM_TRIDENT_HIT;
         if (entity.damage(damagesource, f)) {
@@ -86,7 +86,7 @@ public class EntityTideTrident extends TridentEntity {
     }
 
     private int getMaxPiercing() {
-        return ADDITIONALPIERCING + getPierceLevel();
+        return ADDITIONALPIERCING + this.getPierceLevel();
     }
 
 }

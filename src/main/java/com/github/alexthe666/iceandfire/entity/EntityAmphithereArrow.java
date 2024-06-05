@@ -6,13 +6,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityAmphithereArrow extends PersistentProjectileEntity {
@@ -29,28 +25,18 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
         this.setDamage(2.5F);
     }
 
-    public EntityAmphithereArrow(PlayMessages.SpawnEntity spawnEntity, World world) {
-        this(IafEntityRegistry.AMPHITHERE_ARROW.get(), world);
-    }
-
     public EntityAmphithereArrow(EntityType type, LivingEntity shooter, World worldIn) {
         super(type, shooter, worldIn);
         this.setDamage(2.5F);
     }
 
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
     @Override
     public void tick() {
         super.tick();
-        if ((age == 1 || this.age % 70 == 0) && !this.inGround && !this.isOnGround()) {
+        if ((this.age == 1 || this.age % 70 == 0) && !this.inGround && !this.isOnGround()) {
             this.playSound(IafSoundRegistry.AMPHITHERE_GUST, 1, 1);
         }
-        if (getWorld().isClient && !this.inGround) {
+        if (this.getWorld().isClient && !this.inGround) {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
@@ -70,12 +56,12 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
         float strength = -1.4F;
         float f = MathHelper.sqrt((float) (xRatio * xRatio + zRatio * zRatio));
         living.setVelocity(living.getVelocity().multiply(0.5D, 1, 0.5D).subtract(xRatio / f * strength, 0, zRatio / f * strength).add(0, 0.6, 0));
-        spawnExplosionParticle();
+        this.spawnExplosionParticle();
     }
 
     public void spawnExplosionParticle() {
         if (this.getWorld().isClient) {
-            for (int height = 0; height < 1 + random.nextInt(2); height++) {
+            for (int height = 0; height < 1 + this.random.nextInt(2); height++) {
                 for (int i = 0; i < 20; ++i) {
                     double d0 = this.random.nextGaussian() * 0.02D;
                     double d1 = this.random.nextGaussian() * 0.02D;

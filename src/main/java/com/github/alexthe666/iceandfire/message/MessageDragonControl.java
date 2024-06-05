@@ -42,15 +42,15 @@ public class MessageDragonControl {
     }
 
     private double getPosX() {
-        return posX;
+        return this.posX;
     }
 
     private double getPosY() {
-        return posY;
+        return this.posY;
     }
 
     private double getPosZ() {
-        return posZ;
+        return this.posZ;
     }
 
     public static class Handler {

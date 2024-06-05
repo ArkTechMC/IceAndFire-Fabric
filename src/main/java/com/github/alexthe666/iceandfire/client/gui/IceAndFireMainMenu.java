@@ -53,7 +53,7 @@ public class IceAndFireMainMenu extends TitleScreen {
         for (int i = 0; i < drawingTextures.length; i++) {
             drawingTextures[i] = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/drawing_" + (i + 1) + ".png");
         }
-        resetDrawnImages();
+        this.resetDrawnImages();
         final String branch = "1.17";
         try (final BufferedReader reader = getURLContents("https://raw.githubusercontent.com/Alex-the-666/Ice_and_Fire/"
             + branch + "/src/main/resources/assets/iceandfire/splashes.txt", "assets/iceandfire/splashes.txt")) {
@@ -102,11 +102,11 @@ public class IceAndFireMainMenu extends TitleScreen {
 
 
     private void resetDrawnImages() {
-        globalAlpha = 0;
+        this.globalAlpha = 0;
         Random random = ThreadLocalRandom.current();
-        drawnPictures = new Picture[1 + random.nextInt(2)];
+        this.drawnPictures = new Picture[1 + random.nextInt(2)];
         boolean left = random.nextBoolean();
-        for (int i = 0; i < drawnPictures.length; i++) {
+        for (int i = 0; i < this.drawnPictures.length; i++) {
             left = !left;
             int x;
             int y = random.nextInt(25);
@@ -115,10 +115,10 @@ public class IceAndFireMainMenu extends TitleScreen {
             } else {
                 x = 30 + random.nextInt(20);
             }
-            drawnPictures[i] = new Picture(random.nextInt(drawingTextures.length - 1), x, y, 0.5F, random.nextFloat() * 0.5F + 0.5F);
+            this.drawnPictures[i] = new Picture(random.nextInt(drawingTextures.length - 1), x, y, 0.5F, random.nextFloat() * 0.5F + 0.5F);
         }
-        drawnEnscriptions = new Enscription[4 + random.nextInt(8)];
-        for (int i = 0; i < drawnEnscriptions.length; i++) {
+        this.drawnEnscriptions = new Enscription[4 + random.nextInt(8)];
+        for (int i = 0; i < this.drawnEnscriptions.length; i++) {
             left = !left;
             int x;
             int y = 10 + random.nextInt(130);
@@ -128,32 +128,32 @@ public class IceAndFireMainMenu extends TitleScreen {
                 x = 30 + random.nextInt(30);
             }
             String s1 = "missingno";
-            drawnEnscriptions[i] = new Enscription(s1, x, y, random.nextFloat() * 0.5F + 0.5F, 0X9C8B7B);
+            this.drawnEnscriptions[i] = new Enscription(s1, x, y, random.nextFloat() * 0.5F + 0.5F, 0X9C8B7B);
         }
     }
 
     @Override
     public void tick() {
         super.tick();
-        float flipTick = layerTick % 40;
-        if (globalAlpha < 1 && !isFlippingPage && flipTick < 30) {
-            globalAlpha += 0.1F;
+        float flipTick = this.layerTick % 40;
+        if (this.globalAlpha < 1 && !this.isFlippingPage && flipTick < 30) {
+            this.globalAlpha += 0.1F;
         }
 
-        if (globalAlpha > 0 && flipTick > 30) {
-            globalAlpha -= 0.1F;
+        if (this.globalAlpha > 0 && flipTick > 30) {
+            this.globalAlpha -= 0.1F;
         }
-        if (flipTick == 0 && !isFlippingPage) {
-            isFlippingPage = true;
+        if (flipTick == 0 && !this.isFlippingPage) {
+            this.isFlippingPage = true;
         }
-        if (isFlippingPage) {
-            if (layerTick % 2 == 0) {
-                pageFlip++;
+        if (this.isFlippingPage) {
+            if (this.layerTick % 2 == 0) {
+                this.pageFlip++;
             }
-            if (pageFlip == 6) {
-                pageFlip = 0;
-                isFlippingPage = false;
-                resetDrawnImages();
+            if (this.pageFlip == 6) {
+                this.pageFlip = 0;
+                this.isFlippingPage = false;
+                this.resetDrawnImages();
             }
         }
 
@@ -171,15 +171,15 @@ public class IceAndFireMainMenu extends TitleScreen {
         float f11 = 1.0F;
         int l = MathHelper.ceil(f11 * 255.0F) << 24;
         if (this.isFlippingPage) {
-            ms.drawTexture(pageFlipTextures[Math.min(5, pageFlip)], 50, 0, 0, 0, width - 100, height, width - 100, height);
+            ms.drawTexture(pageFlipTextures[Math.min(5, this.pageFlip)], 50, 0, 0, 0, width - 100, height, width - 100, height);
         } else {
             int middleX = width / 2;
             int middleY = height / 5;
             float widthScale = width / 427F;
             float heightScale = height / 427F;
             float imageScale = Math.min(widthScale, heightScale) * 192;
-            for (Picture picture : drawnPictures) {
-                float alpha = (picture.alpha * globalAlpha + 0.01F);
+            for (Picture picture : this.drawnPictures) {
+                float alpha = (picture.alpha * this.globalAlpha + 0.01F);
                 RenderSystem.enableBlend();
                 RenderSystem.setShaderColor(1, 1, 1, 1);
                 ms.drawTexture(drawingTextures[picture.image], (int) (picture.x * widthScale) + middleX, (int) ((picture.y * heightScale) + middleY), 0, 0, (int) imageScale, (int) imageScale, (int) imageScale, (int) imageScale);
@@ -213,7 +213,7 @@ public class IceAndFireMainMenu extends TitleScreen {
             this.drawables.get(i).render(ms, mouseX, mouseY, partialTicks);
         }
         for (int i = 0; i < this.drawables.size(); i++) {
-            drawables.get(i).render(ms, mouseX, mouseY, this.client.getLastFrameDuration());
+            this.drawables.get(i).render(ms, mouseX, mouseY, this.client.getLastFrameDuration());
         }
     }
 

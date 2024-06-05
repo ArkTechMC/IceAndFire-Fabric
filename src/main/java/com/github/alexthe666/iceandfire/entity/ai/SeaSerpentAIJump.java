@@ -26,8 +26,8 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
 
     @Override
     public boolean canStart() {
-        if (this.serpent.getRandom().nextInt(this.chance) != 0 || serpent.getTarget() != null
-            || serpent.jumpCooldown != 0) {
+        if (this.serpent.getRandom().nextInt(this.chance) != 0 || this.serpent.getTarget() != null
+            || this.serpent.jumpCooldown != 0) {
             return false;
         } else {
             Direction direction = this.serpent.getMovementDirection();
@@ -60,7 +60,7 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
     @Override
     public boolean shouldContinue() {
         double d0 = this.serpent.getVelocity().y;
-        return serpent.jumpCooldown > 0 && (d0 * d0 >= 0.03F || this.serpent.getPitch() == 0.0F
+        return this.serpent.jumpCooldown > 0 && (d0 * d0 >= 0.03F || this.serpent.getPitch() == 0.0F
             || Math.abs(this.serpent.getPitch()) >= 10.0F || !this.serpent.isTouchingWater())
             && !this.serpent.isOnGround();
     }
@@ -76,12 +76,12 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
     @Override
     public void start() {
         Direction direction = this.serpent.getMovementDirection();
-        final float up = 1F + serpent.getRandom().nextFloat() * 0.8F;
+        final float up = 1F + this.serpent.getRandom().nextFloat() * 0.8F;
         this.serpent
             .setVelocity(this.serpent.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
         this.serpent.setJumpingOutOfWater(true);
         this.serpent.getNavigation().stop();
-        this.serpent.jumpCooldown = serpent.getRandom().nextInt(100) + 100;
+        this.serpent.jumpCooldown = this.serpent.getRandom().nextInt(100) + 100;
     }
 
     /**

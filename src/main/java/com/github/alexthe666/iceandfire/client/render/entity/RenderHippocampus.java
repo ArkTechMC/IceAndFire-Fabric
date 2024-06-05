@@ -70,28 +70,28 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
         @Override
         public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityHippocampus hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (hippo.isSaddled()) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(SADDLE_TEXTURE);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.SADDLE_TEXTURE);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.isSaddled() && hippo.getControllingPassenger() != null) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(BRIDLE);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.BRIDLE);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.isChested()) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(CHEST);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.CHEST);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.getArmor() != 0) {
                 RenderLayer type = null;
                 switch (hippo.getArmor()) {
                     case 1:
-                        type = TEXTURE_IRON;
+                        type = this.TEXTURE_IRON;
                         break;
                     case 2:
-                        type = TEXTURE_GOLD;
+                        type = this.TEXTURE_GOLD;
                         break;
                     case 3:
-                        type = TEXTURE_DIAMOND;
+                        type = this.TEXTURE_DIAMOND;
                         break;
                 }
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(type);
@@ -114,7 +114,7 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
         @Override
         public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityHippocampus hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (hippo.hasCustomName() && hippo.getCustomName().toString().toLowerCase().contains("rainbow")) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(hippo.isBlinking() ? TEXTURE_BLINK : TEXTURE);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(hippo.isBlinking() ? this.TEXTURE_BLINK : this.TEXTURE);
                 int i1 = 25;
                 int i = hippo.age / 25 + hippo.getId();
                 int j = DyeColor.values().length;

@@ -10,6 +10,6 @@ public enum BiomeEntryType {
     }
 
     public boolean isDepreciated() {
-        return depreciated;
+        return this.depreciated;
     }
 }

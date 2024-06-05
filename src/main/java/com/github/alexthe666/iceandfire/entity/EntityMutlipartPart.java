@@ -13,15 +13,12 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -42,7 +39,7 @@ public abstract class EntityMutlipartPart extends Entity {
 
     protected EntityMutlipartPart(EntityType<?> t, World world) {
         super(t, world);
-        multipartSize = t.getDimensions();
+        this.multipartSize = t.getDimensions();
     }
 
     @Override
@@ -61,7 +58,7 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     public EntityMutlipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX,
-        float sizeY, float damageMultiplier) {
+                               float sizeY, float damageMultiplier) {
         super(t, parent.getWorld());
         this.setParent(parent);
         this.setScaleX(sizeX);
@@ -76,15 +73,15 @@ public abstract class EntityMutlipartPart extends Entity {
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 2D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1D);
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 2D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1D);
     }
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull EntityPose poseIn) {
-        return new EntityDimensions(getScaleX(), getScaleY(), false);
+        return new EntityDimensions(this.getScaleX(), this.getScaleY(), false);
     }
 
     @Override
@@ -129,16 +126,16 @@ public abstract class EntityMutlipartPart extends Entity {
 
     @Override
     public void tick() {
-        touchingWater = false;
+        this.touchingWater = false;
         if (this.age > 10) {
-            Entity parent = getParent();
-            calculateDimensions();
-            if (parent != null && !getWorld().isClient) {
+            Entity parent = this.getParent();
+            this.calculateDimensions();
+            if (parent != null && !this.getWorld().isClient) {
                 float renderYawOffset = parent.getYaw();
                 if (parent instanceof LivingEntity) {
                     renderYawOffset = ((LivingEntity) parent).bodyYaw;
                 }
-                if (isSlowFollow()) {
+                if (this.isSlowFollow()) {
                     this.setPosition(parent.prevX + this.radius * MathHelper.cos((float) (renderYawOffset * (Math.PI / 180.0F) + this.angleYaw)), parent.prevY + this.offsetY, parent.prevZ + this.radius * MathHelper.sin((float) (renderYawOffset * (Math.PI / 180.0F) + this.angleYaw)));
                     double d0 = parent.getX() - this.getX();
                     double d1 = parent.getY() - this.getY();
@@ -147,7 +144,7 @@ public abstract class EntityMutlipartPart extends Entity {
                     this.setPitch(this.limitAngle(this.getPitch(), f2, 5.0F));
                     this.scheduleVelocityUpdate();
                     this.setYaw(renderYawOffset);
-                    this.setPartYaw(getYaw());
+                    this.setPartYaw(this.getYaw());
                     if (!this.getWorld().isClient) {
                         this.collideWithNearbyEntities();
                     }
@@ -158,21 +155,23 @@ public abstract class EntityMutlipartPart extends Entity {
                 if (!this.getWorld().isClient) {
                     this.collideWithNearbyEntities();
                 }
-                if (parent.isRemoved() && !getWorld().isClient) {
+                if (parent.isRemoved() && !this.getWorld().isClient) {
                     this.remove(RemovalReason.DISCARDED);
                 }
-            } else if (age > 20 && !getWorld().isClient) {
-                remove(RemovalReason.DISCARDED);
+            } else if (this.age > 20 && !this.getWorld().isClient) {
+                this.remove(RemovalReason.DISCARDED);
             }
         }
         super.tick();
     }
 
-    protected boolean isSlowFollow(){
+    protected boolean isSlowFollow() {
         return false;
     }
 
-    /** Source: {@link net.minecraft.entity.ai.control.MoveControl#wrapDegrees(float, float, float)} */
+    /**
+     * Source: {@link MathHelper#wrapDegrees(float, float, float)}
+     */
     protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
         float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
         if (f > maximumChange) {
@@ -200,9 +199,9 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     public Entity getParent() {
-        UUID id = getParentId();
+        UUID id = this.getParentId();
 
-        if (id != null && getWorld() instanceof ServerWorld serverLevel) {
+        if (id != null && this.getWorld() instanceof ServerWorld serverLevel) {
             return serverLevel.getEntity(id);
         }
 
@@ -221,11 +220,6 @@ public abstract class EntityMutlipartPart extends Entity {
     @Override
     public boolean canHit() {
         return true;
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public void collideWithNearbyEntities() {
@@ -253,8 +247,8 @@ public abstract class EntityMutlipartPart extends Entity {
 
     @Override
     public @NotNull ActionResult interact(@NotNull PlayerEntity player, @NotNull Hand hand) {
-        Entity parent = getParent();
-        if (getWorld().isClient && parent != null) {
+        Entity parent = this.getParent();
+        if (this.getWorld().isClient && parent != null) {
             IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageMultipartInteract(parent.getId(), 0));
         }
         return parent != null ? parent.interact(player, hand) : ActionResult.PASS;
@@ -262,9 +256,9 @@ public abstract class EntityMutlipartPart extends Entity {
 
     @Override
     public boolean damage(@NotNull DamageSource source, float damage) {
-        Entity parent = getParent();
-        if (getWorld().isClient && source.getAttacker() instanceof PlayerEntity && parent != null) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageMultipartInteract(parent.getId(), damage * damageMultiplier));
+        Entity parent = this.getParent();
+        if (this.getWorld().isClient && source.getAttacker() instanceof PlayerEntity && parent != null) {
+            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageMultipartInteract(parent.getId(), damage * this.damageMultiplier));
         }
         return parent != null && parent.damage(source, damage * this.damageMultiplier);
     }

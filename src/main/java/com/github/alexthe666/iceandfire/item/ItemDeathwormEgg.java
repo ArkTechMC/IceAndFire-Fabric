@@ -34,7 +34,7 @@ public class ItemDeathwormEgg extends Item {
 
         if (!worldIn.isClient) {
             EntityDeathWormEgg entityegg = new EntityDeathWormEgg(IafEntityRegistry.DEATH_WORM_EGG.get(), playerIn,
-                worldIn, gigantic);
+                worldIn, this.gigantic);
             entityegg.setVelocity(playerIn, playerIn.getPitch(), playerIn.getYaw(), 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(entityegg);
         }

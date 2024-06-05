@@ -22,13 +22,13 @@ public class IafFeatureBiomeModifier implements BiomeModifier {
 
     public IafFeatureBiomeModifier(RegistryEntryList<PlacedFeature> features) {
         this.features = features;
-        this.features.forEach(feature -> featureMap.put(feature.getKey().get().getValue().toString(), feature));
+        this.features.forEach(feature -> this.featureMap.put(feature.getKey().get().getValue().toString(), feature));
     }
 
     @Override
     public void modify(RegistryEntry<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
         if (phase == Phase.ADD) {
-            IafWorldRegistry.addFeatures(biome, featureMap, builder);
+            IafWorldRegistry.addFeatures(biome, this.featureMap, builder);
         }
     }
 

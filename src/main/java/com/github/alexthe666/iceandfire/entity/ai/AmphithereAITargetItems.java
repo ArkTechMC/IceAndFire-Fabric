@@ -44,23 +44,23 @@ public class AmphithereAITargetItems<T extends ItemEntity> extends TrackTargetGo
             return false;
         }
         if (!((EntityAmphithere) this.mob).canMove()) {
-            list = IAFMath.emptyItemEntityList;
+            this.list = IAFMath.emptyItemEntityList;
             return false;
         }
 
         // If the target entity already is what we want skip AABB
-        if (targetEntitySelector.test(this.targetEntity)) {
+        if (this.targetEntitySelector.test(this.targetEntity)) {
             return true;
         }
 
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (list.isEmpty())
+        if (this.list.isEmpty())
             return false;
 
-        list.sort(this.theNearestAttackableTargetSorter);
-        this.targetEntity = list.get(0);
+        this.list.sort(this.theNearestAttackableTargetSorter);
+        this.targetEntity = this.list.get(0);
         return true;
     }
 
@@ -91,7 +91,7 @@ public class AmphithereAITargetItems<T extends ItemEntity> extends TrackTargetGo
             this.targetEntity.getStack().decrement(1);
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
             hippo.heal(5);
-            stop();
+            this.stop();
         }
     }
 

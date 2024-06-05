@@ -22,37 +22,37 @@ public class CustomToolMaterial implements ToolMaterial {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
     public int getDurability() {
-        return durability;
+        return this.durability;
     }
 
     @Override
     public float getMiningSpeedMultiplier() {
-        return speed;
+        return this.speed;
     }
 
     @Override
     public float getAttackDamage() {
-        return damage;
+        return this.damage;
     }
 
     @Override
     public int getMiningLevel() {
-        return harvestLevel;
+        return this.harvestLevel;
     }
 
     @Override
     public int getEnchantability() {
-        return enchantability;
+        return this.enchantability;
     }
 
     @Override
     public Ingredient getRepairIngredient() {
-        return ingredient == null ? Ingredient.EMPTY : ingredient;
+        return this.ingredient == null ? Ingredient.EMPTY : this.ingredient;
     }
 
     public void setRepairMaterial(Ingredient ingredient){

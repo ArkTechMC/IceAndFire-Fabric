@@ -55,7 +55,7 @@ public class BlockPixieHouse extends BlockWithEntity {
 
     @Override
     public void onStateReplaced(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-        dropPixie(worldIn, pos);
+        this.dropPixie(worldIn, pos);
         dropStack(worldIn, pos, new ItemStack(this, 0));
         super.onStateReplaced(state, worldIn, pos, newState, isMoving);
     }
@@ -67,7 +67,7 @@ public class BlockPixieHouse extends BlockWithEntity {
     private boolean checkFall(World worldIn, BlockPos pos) {
         if (!this.canPlaceBlockAt(worldIn, pos)) {
             worldIn.breakBlock(pos, true);
-            dropPixie(worldIn, pos);
+            this.dropPixie(worldIn, pos);
             return false;
         } else {
             return true;

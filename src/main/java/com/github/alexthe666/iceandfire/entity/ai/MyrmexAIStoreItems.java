@@ -53,40 +53,40 @@ public class MyrmexAIStoreItems extends Goal {
         if (!this.myrmex.isInHive()) {
             return false;
         }
-        first = true;
-        mainRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getCenter());
+        this.first = true;
+        this.mainRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getCenter());
 
-        nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.FOOD, this.myrmex.getRandom(), this.myrmex.getBlockPos()));
-        nextCocoon = getNearbyCocoon(nextRoom);
-        if (nextCocoon == null) {
+        this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.FOOD, this.myrmex.getRandom(), this.myrmex.getBlockPos()));
+        this.nextCocoon = this.getNearbyCocoon(this.nextRoom);
+        if (this.nextCocoon == null) {
             this.myrmex.setWaitTicks(20 + ThreadLocalRandom.current().nextInt(40));
         }
-        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(mainRoom.getX() + 0.5D, mainRoom.getY() + 0.5D, mainRoom.getZ() + 0.5D, this.movementSpeed);
-        return nextCocoon != null;
+        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.mainRoom.getX() + 0.5D, this.mainRoom.getY() + 0.5D, this.mainRoom.getZ() + 0.5D, this.movementSpeed);
+        return this.nextCocoon != null;
 
     }
 
     @Override
     public boolean shouldContinue() {
-        return !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && nextCocoon != null && isUseableCocoon(nextCocoon) && !this.myrmex.isCloseEnoughToTarget(nextCocoon, 3) && this.myrmex.shouldEnterHive();
+        return !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && this.nextCocoon != null && this.isUseableCocoon(this.nextCocoon) && !this.myrmex.isCloseEnoughToTarget(this.nextCocoon, 3) && this.myrmex.shouldEnterHive();
     }
 
     @Override
     public void tick() {
-        if (first && mainRoom != null) {
-            if (this.myrmex.isCloseEnoughToTarget(mainRoom, 10)) {
-                this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(nextCocoon.getX() + 0.5D, nextCocoon.getY() + 0.5D, nextCocoon.getZ() + 0.5D, this.movementSpeed);
-                first = false;
-            } else if (!this.myrmex.pathReachesTarget(path, mainRoom, 9)) {
+        if (this.first && this.mainRoom != null) {
+            if (this.myrmex.isCloseEnoughToTarget(this.mainRoom, 10)) {
+                this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextCocoon.getX() + 0.5D, this.nextCocoon.getY() + 0.5D, this.nextCocoon.getZ() + 0.5D, this.movementSpeed);
+                this.first = false;
+            } else if (!this.myrmex.pathReachesTarget(this.path, this.mainRoom, 9)) {
                 //Simple way to stop executing this task
-                nextCocoon = null;
+                this.nextCocoon = null;
             }
         }
 
-        if (!first && nextCocoon != null) {
+        if (!this.first && this.nextCocoon != null) {
             final double dist = 9.0D; // 3 * 3
-            if (this.myrmex.isCloseEnoughToTarget(nextCocoon, dist) && !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && isUseableCocoon(nextCocoon)) {
-                TileEntityMyrmexCocoon cocoon = (TileEntityMyrmexCocoon) this.myrmex.getWorld().getBlockEntity(nextCocoon);
+            if (this.myrmex.isCloseEnoughToTarget(this.nextCocoon, dist) && !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && this.isUseableCocoon(this.nextCocoon)) {
+                TileEntityMyrmexCocoon cocoon = (TileEntityMyrmexCocoon) this.myrmex.getWorld().getBlockEntity(this.nextCocoon);
                 ItemStack itemstack = this.myrmex.getStackInHand(Hand.MAIN_HAND);
                 if (!itemstack.isEmpty()) {
                     for (int i = 0; i < cocoon.size(); ++i) {
@@ -119,23 +119,23 @@ public class MyrmexAIStoreItems extends Goal {
                 }
             }
             //In case the myrmex isn't close enough to the cocoon and walked to it's destination try a different one
-            else if (!this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && this.path.getStatus() == PathFindingStatus.COMPLETE && !this.myrmex.pathReachesTarget(path, nextCocoon, dist)) {
-                nextCocoon = getNearbyCocoon(nextRoom);
-                if (nextCocoon != null) {
-                    this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(nextCocoon.getX() + 0.5D, nextCocoon.getY() + 0.5D, nextCocoon.getZ() + 0.5D, this.movementSpeed);
+            else if (!this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && this.path.getStatus() == PathFindingStatus.COMPLETE && !this.myrmex.pathReachesTarget(this.path, this.nextCocoon, dist)) {
+                this.nextCocoon = this.getNearbyCocoon(this.nextRoom);
+                if (this.nextCocoon != null) {
+                    this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextCocoon.getX() + 0.5D, this.nextCocoon.getY() + 0.5D, this.nextCocoon.getZ() + 0.5D, this.movementSpeed);
                 }
-            } else if (this.myrmex.pathReachesTarget(path, nextCocoon, dist) && this.path.isCancelled()) {
-                stop();
+            } else if (this.myrmex.pathReachesTarget(this.path, this.nextCocoon, dist) && this.path.isCancelled()) {
+                this.stop();
             }
         }
     }
 
     @Override
     public void stop() {
-        nextRoom = null;
-        nextCocoon = null;
-        mainRoom = null;
-        first = true;
+        this.nextRoom = null;
+        this.nextCocoon = null;
+        this.mainRoom = null;
+        this.first = true;
     }
 
     public BlockPos getNearbyCocoon(BlockPos roomCenter) {
@@ -153,7 +153,7 @@ public class MyrmexAIStoreItems extends Goal {
         if (closeCocoons.isEmpty()) {
             return null;
         }
-        return closeCocoons.get(myrmex.getRandom().nextInt(Math.max(closeCocoons.size() - 1, 1)));
+        return closeCocoons.get(this.myrmex.getRandom().nextInt(Math.max(closeCocoons.size() - 1, 1)));
     }
 
     public boolean isUseableCocoon(BlockPos blockpos) {

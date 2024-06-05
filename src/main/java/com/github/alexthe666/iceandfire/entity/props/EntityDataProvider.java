@@ -17,21 +17,21 @@ public class EntityDataProvider implements ICapabilitySerializable<NbtCompound> 
     public static final Map<Integer, LazyOptional<EntityData>> CLIENT_CACHE = new HashMap<>();
 
     private final EntityData data = new EntityData();
-    private final LazyOptional<EntityData> instance = LazyOptional.of(() -> data);
+    private final LazyOptional<EntityData> instance = LazyOptional.of(() -> this.data);
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull final Capability<T> capability, final Direction side) {
-        return capability == CapabilityHandler.ENTITY_DATA_CAPABILITY ? instance.cast() : LazyOptional.empty();
+        return capability == CapabilityHandler.ENTITY_DATA_CAPABILITY ? this.instance.cast() : LazyOptional.empty();
     }
 
     @Override
     public void deserializeNBT(final NbtCompound tag) {
-        instance.orElseThrow(() -> new IllegalArgumentException("Capability instance was not present")).deserialize(tag);
+        this.instance.orElseThrow(() -> new IllegalArgumentException("Capability instance was not present")).deserialize(tag);
     }
 
     @Override
     public NbtCompound serializeNBT() {
-        return instance.orElseThrow(() -> new IllegalArgumentException("Capability instance was not present")).serialize();
+        return this.instance.orElseThrow(() -> new IllegalArgumentException("Capability instance was not present")).serialize();
     }
 
     public static LazyOptional<EntityData> getCapability(final Entity entity) {

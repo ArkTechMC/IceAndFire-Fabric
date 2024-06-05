@@ -10,6 +10,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.SkeletonHorseEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.ServerConfigHandler;
+import net.minecraft.world.EntityView;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
@@ -105,5 +106,10 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
     @Override
     public @NotNull EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
     }
 }

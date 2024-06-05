@@ -4,9 +4,12 @@
   "package": "com.iafenvoy.iafextra.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MinecraftServerMixin"
+    "LivingEntityMixin",
+    "MinecraftServerMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
+    "ArmorFeatureRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

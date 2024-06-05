@@ -52,12 +52,12 @@ public class SpawnBiomeConfig {
 
     private File getConfigDirFile() {
         Path configPath = Path.of("./config/");
-        Path jsonPath = Paths.get(configPath.toAbsolutePath().toString(), fileName.getNamespace());
+        Path jsonPath = Paths.get(configPath.toAbsolutePath().toString(), this.fileName.getNamespace());
         return jsonPath.toFile();
     }
 
     private SpawnBiomeData getConfigData(SpawnBiomeData defaultConfigData) {
-        return getOrCreateConfigFile(getConfigDirFile(), fileName.getPath(), defaultConfigData, new TypeToken<SpawnBiomeData>() {
+        return getOrCreateConfigFile(this.getConfigDirFile(), this.fileName.getPath(), defaultConfigData, new TypeToken<SpawnBiomeData>() {
         }.getType());
     }
 }

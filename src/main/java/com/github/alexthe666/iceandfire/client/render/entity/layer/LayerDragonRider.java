@@ -43,7 +43,7 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
             float dragonScale = dragon.getRenderSize() / 3;
             for (Entity passenger : dragon.getPassengerList()) {
                 boolean prey = dragon.getControllingPassenger() == null || dragon.getControllingPassenger().getId() != passenger.getId();
-                if (excludeDreadQueenMob && passenger instanceof EntityDreadQueen) {
+                if (this.excludeDreadQueenMob && passenger instanceof EntityDreadQueen) {
                     prey = false;
                 }
                 ClientProxy.currentDragonRiders.remove(passenger.getUuid());
@@ -53,12 +53,12 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                     animationTicks = dragon.getAnimationTick();
                 }
                 if (animationTicks == 0 || animationTicks >= 15) {
-                    translateToBody(matrixStackIn);
+                    this.translateToBody(matrixStackIn);
                 }
                 if (prey) {
                     if (animationTicks == 0 || animationTicks >= 15 || dragon.isFlying()) {
-                        translateToHead(matrixStackIn);
-                        offsetPerDragonType(dragon.dragonType, matrixStackIn);
+                        this.translateToHead(matrixStackIn);
+                        this.offsetPerDragonType(dragon.dragonType, matrixStackIn);
                         EntityRenderer render = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(passenger);
                         EntityModel modelBase = null;
                         if (render instanceof MobEntityRenderer) {
@@ -85,7 +85,7 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(riderRot+180));
                 matrixStackIn.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
                 matrixStackIn.translate(0, -0.25F, 0);
-                renderEntity(passenger, 0, 0, 0, 0.0F, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+                this.renderEntity(passenger, 0, 0, 0, 0.0F, partialTicks, matrixStackIn, bufferIn, packedLightIn);
                 matrixStackIn.pop();
                 ClientProxy.currentDragonRiders.add(passenger.getUuid());
             }
@@ -94,14 +94,14 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
     }
 
     protected void translateToBody(MatrixStack stack) {
-        postRender(((TabulaModel) this.render.getModel()).getCube("BodyUpper"), stack, 0.0625F);
-        postRender(((TabulaModel) this.render.getModel()).getCube("Neck1"), stack, 00.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("BodyUpper"), stack, 0.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck1"), stack, 00.0625F);
     }
 
     protected void translateToHead(MatrixStack stack) {
-        postRender(((TabulaModel) this.render.getModel()).getCube("Neck2"), stack, 0.0625F);
-        postRender(((TabulaModel) this.render.getModel()).getCube("Neck3"), stack, 0.0625F);
-        postRender(((TabulaModel) this.render.getModel()).getCube("Head"), stack, 0.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck2"), stack, 0.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck3"), stack, 0.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Head"), stack, 0.0625F);
     }
 
     protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn, float scale) {

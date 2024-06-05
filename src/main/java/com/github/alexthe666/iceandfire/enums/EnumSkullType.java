@@ -21,7 +21,7 @@ public enum EnumSkullType {
     public RegistryObject<Item> skull_item;
 
     EnumSkullType() {
-        itemResourceName = this.name().toLowerCase(Locale.ROOT) + "_skull";
+        this.itemResourceName = this.name().toLowerCase(Locale.ROOT) + "_skull";
     }
 
     public static void initItems() {

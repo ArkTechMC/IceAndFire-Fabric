@@ -21,11 +21,11 @@ public enum TickRateModifierType {
     }
 
     public boolean isLocal() {
-        return local;
+        return this.local;
     }
 
     public int toId(){
-        return id;
+        return this.id;
     }
 
     public static TickRateModifierType fromId(int id){

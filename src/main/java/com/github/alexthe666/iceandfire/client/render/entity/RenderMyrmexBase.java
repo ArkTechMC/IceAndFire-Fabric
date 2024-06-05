@@ -28,11 +28,11 @@ public class RenderMyrmexBase extends MobEntityRenderer<EntityMyrmexBase, Advanc
     @Override
     public void render(EntityMyrmexBase entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
         if (entityIn.getGrowthStage() == 0) {
-            model = LARVA_MODEL;
+            this.model = LARVA_MODEL;
         } else if (entityIn.getGrowthStage() == 1) {
-            model = PUPA_MODEL;
+            this.model = PUPA_MODEL;
         } else {
-            model = adultModel;
+            this.model = this.adultModel;
         }
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 

@@ -49,7 +49,7 @@ public class IafWorldData extends PersistentState {
     }
 
     public boolean check(final TypedFeature feature, final BlockPos position, final String id) {
-        return check(feature.getFeatureType(), position, id);
+        return this.check(feature.getFeatureType(), position, id);
     }
 
     public boolean check(final FeatureType type, final BlockPos position, final String id) {

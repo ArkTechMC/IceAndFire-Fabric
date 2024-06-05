@@ -30,11 +30,11 @@ public class LecternBooks {
         }
 
         public int getBindingColor() {
-            return bindingColor;
+            return this.bindingColor;
         }
 
         public int getPageColor() {
-            return pageColor;
+            return this.pageColor;
         }
     }
 }

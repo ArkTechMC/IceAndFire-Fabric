@@ -49,21 +49,21 @@ public class DragonPosWorldData extends PersistentState {
     }
 
     public void addDragon(UUID uuid, BlockPos pos) {
-        lastDragonPositions.put(uuid, pos);
+        this.lastDragonPositions.put(uuid, pos);
         this.markDirty();
     }
 
     public void removeDragon(UUID uuid) {
-        lastDragonPositions.remove(uuid);
+        this.lastDragonPositions.remove(uuid);
         this.markDirty();
     }
 
     public BlockPos getDragonPos(UUID uuid) {
-        return lastDragonPositions.get(uuid);
+        return this.lastDragonPositions.get(uuid);
     }
 
     public void debug() {
-        IceAndFire.LOGGER.warn(lastDragonPositions.toString());
+        IceAndFire.LOGGER.warn(this.lastDragonPositions.toString());
     }
 
 
@@ -88,7 +88,7 @@ public class DragonPosWorldData extends PersistentState {
     public @NotNull NbtCompound writeNbt(NbtCompound compound) {
         compound.putInt("Tick", this.tickCounter);
         NbtList nbttaglist = new NbtList();
-        for (Map.Entry<UUID, BlockPos> pair : lastDragonPositions.entrySet()) {
+        for (Map.Entry<UUID, BlockPos> pair : this.lastDragonPositions.entrySet()) {
             NbtCompound CompoundNBT = new NbtCompound();
             CompoundNBT.putUuid("DragonUUID", pair.getKey());
             CompoundNBT.putInt("DragonPosX", pair.getValue().getX());

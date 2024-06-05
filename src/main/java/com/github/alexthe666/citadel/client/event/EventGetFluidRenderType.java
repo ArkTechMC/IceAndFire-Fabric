@@ -18,11 +18,11 @@ public class EventGetFluidRenderType extends Event {
     }
 
     public FluidState getFluidState() {
-        return fluidState;
+        return this.fluidState;
     }
 
     public RenderLayer getRenderType() {
-        return renderType;
+        return this.renderType;
     }
 
     public void setRenderType(RenderLayer renderType) {

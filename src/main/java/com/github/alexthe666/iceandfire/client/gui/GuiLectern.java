@@ -83,8 +83,8 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
             double l = mouseX - (i + 60);
             double i1 = mouseY - (j + 14 + 19 * k);
 
-            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.handler.onButtonClick(client.player, k)) {
-                flapTimer = 5;
+            if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.handler.onButtonClick(this.client.player, k)) {
+                this.flapTimer = 5;
                 this.client.interactionManager.clickButton(this.handler.syncId, k);
                 return true;
             }
@@ -172,7 +172,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                 int j2 = 6839882;
                 if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityLectern) {
                     IceAndFire.PROXY.getRefrencedTE();
-                    if (handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY.get()) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
+                    if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY.get()) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
                         int k2 = mouseX - (i + 60);
                         int l2 = mouseY - (j + 14 + 19 * i1);
                         int j3 = 0X9F988C;
@@ -186,7 +186,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
 
                         ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 223, 16, 16);
                         ms.getMatrices().push();
-                        ms.getMatrices().translate(width / 2F - 10, height / 2F - 83 + (1.0F - textScale) * 55, 2);
+                        ms.getMatrices().translate(this.width / 2F - 10, this.height / 2F - 83 + (1.0F - textScale) * 55, 2);
                         ms.getMatrices().scale(textScale, textScale, 1);
                         fontrenderer.draw(s1, 0, 20 + 19 * i1, j2, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
                         ms.getMatrices().pop();
@@ -268,9 +268,9 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
 
         this.open = MathHelper.clamp(this.open, 0.0F, 1.0F);
         float f1 = (this.flipT - this.flip) * 0.4F;
-        if (flapTimer > 0) {
-            f1 = (ticks + this.client.getTickDelta()) * 0.5F;
-            flapTimer--;
+        if (this.flapTimer > 0) {
+            f1 = (this.ticks + this.client.getTickDelta()) * 0.5F;
+            this.flapTimer--;
         }
         f1 = MathHelper.clamp(f1, -0.2F, 0.2F);
         this.flipA += (f1 - this.flipA) * 0.9F;

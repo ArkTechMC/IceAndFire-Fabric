@@ -117,12 +117,12 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     public void tickMovement() {
         super.tickMovement();
         LivingEntity attackTarget = this.getTarget();
-        if (Math.abs(firstWidth - INITIAL_WIDTH * getSize()) > 0.01F || Math.abs(firstHeight - INITIAL_HEIGHT * getSize()) > 0.01F) {
-            firstWidth = INITIAL_WIDTH * getSize();
-            firstHeight = INITIAL_HEIGHT * getSize();
+        if (Math.abs(this.firstWidth - INITIAL_WIDTH * this.getSize()) > 0.01F || Math.abs(this.firstHeight - INITIAL_HEIGHT * this.getSize()) > 0.01F) {
+            this.firstWidth = INITIAL_WIDTH * this.getSize();
+            this.firstHeight = INITIAL_HEIGHT * this.getSize();
         }
         if (this.getAnimation() == ANIMATION_SPAWN && this.getAnimationTick() < 30) {
-            BlockState belowBlock = getWorld().getBlockState(this.getBlockPos().down());
+            BlockState belowBlock = this.getWorld().getBlockState(this.getBlockPos().down());
             if (belowBlock.getBlock() != Blocks.AIR) {
                 for (int i = 0; i < 5; i++) {
                     this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, belowBlock), this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getBoundingBox().minY, this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
@@ -136,15 +136,15 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
             }
             this.lookAtEntity(attackTarget, 360, 80);
             if (this.getAnimation() == ANIMATION_SLASH && (this.getAnimationTick() == 9 || this.getAnimationTick() == 19)) {
-                attackTarget.damage(getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
+                attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
                 attackTarget.takeKnockback(0.25F, this.getX() - attackTarget.getX(), this.getZ() - attackTarget.getZ());
             }
         }
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             if (this.getTarget() != null) {
-                hostileTicks++;
+                this.hostileTicks++;
                 if (this.getScreamStage() == 0) {
-                    if (hostileTicks > 20) {
+                    if (this.hostileTicks > 20) {
                         this.setScreamStage(1);
                     }
                 } else {
@@ -162,7 +162,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
                         this.setScreamStage(0);
                     }
                 }
-                hostileTicks = 0;
+                this.hostileTicks = 0;
             }
         }
         AnimationHandler.INSTANCE.updateAnimations(this);
@@ -202,35 +202,35 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
 
     @Override
     public float getScaleFactor() {
-        return getSize();
+        return this.getSize();
     }
 
     @Override
     public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
-        this.setVariant(random.nextInt(3));
+        this.setVariant(this.random.nextInt(3));
         return data;
     }
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override

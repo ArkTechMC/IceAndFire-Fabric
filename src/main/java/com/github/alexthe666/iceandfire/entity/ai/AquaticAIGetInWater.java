@@ -29,14 +29,14 @@ public class AquaticAIGetInWater extends Goal {
     }
 
     protected boolean isAttackerInWater() {
-        return creature.getTarget() != null && !creature.getTarget().isTouchingWater();
+        return this.creature.getTarget() != null && !this.creature.getTarget().isTouchingWater();
     }
 
     @Override
     public boolean canStart() {
-        if (creature.hasPassengers() || creature instanceof TameableEntity && ((TameableEntity) creature).isTamed()
-                || creature.isTouchingWater() || isAttackerInWater() || creature instanceof EntitySiren
-                && (((EntitySiren) creature).isSinging() || ((EntitySiren) creature).wantsToSing())) {
+        if (this.creature.hasPassengers() || this.creature instanceof TameableEntity && ((TameableEntity) this.creature).isTamed()
+                || this.creature.isTouchingWater() || this.isAttackerInWater() || this.creature instanceof EntitySiren
+                && (((EntitySiren) this.creature).isSinging() || ((EntitySiren) this.creature).wantsToSing())) {
             return false;
         } else {
             Vec3d Vector3d = this.findPossibleShelter();
@@ -69,7 +69,7 @@ public class AquaticAIGetInWater extends Goal {
     }
 
     public Vec3d findPossibleShelter() {
-        return findPossibleShelter(10, 3);
+        return this.findPossibleShelter(10, 3);
     }
 
     protected Vec3d findPossibleShelter(int xz, int y) {

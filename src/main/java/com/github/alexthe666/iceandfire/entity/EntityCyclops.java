@@ -13,6 +13,7 @@ import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateCyclops;
 import com.google.common.base.Predicate;
+import com.iafenvoy.iafextra.event.EventBus;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -93,7 +94,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     protected @NotNull EntityNavigation createNavigation(@NotNull World worldIn) {
-        return new PathNavigateCyclops(this, getWorld());
+        return new PathNavigateCyclops(this, this.getWorld());
     }
 
     @Override
@@ -221,7 +222,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             this.setAnimation(ANIMATION_EATPLAYER);
             double raiseUp = this.getAnimationTick() < 10 ? 0 : Math.min((this.getAnimationTick() * 3 - 30) * 0.2, 5.2F);
             float pullIn = this.getAnimationTick() < 15 ? 0 : Math.min((this.getAnimationTick() - 15) * 0.15F, 0.75F);
-            bodyYaw = getYaw();
+            this.bodyYaw = this.getYaw();
             this.setYaw(0);
             float radius = -2.75F + pullIn;
             float angle = (0.01745329251F * this.bodyYaw) + 3.15F;
@@ -251,18 +252,13 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    public boolean shouldRiderSit() {
-        return false;
-    }
-
-    @Override
     public void tickMovement() {
         super.tickMovement();
-        if (eyeEntity == null) {
-            eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.6F, 1);
-            eyeEntity.copyPositionAndRotation(this);
+        if (this.eyeEntity == null) {
+            this.eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.6F, 1);
+            this.eyeEntity.copyPositionAndRotation(this);
         }
-        if (getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
+        if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
             this.setTarget(null);
         }
         if (this.isBlinded() && this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) > 6) {
@@ -291,9 +287,9 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
         }
         if (this.getAnimation() == ANIMATION_STOMP && this.getAnimationTick() == 14) {
             for (int i1 = 0; i1 < 20; i1++) {
-                double motionX = getRandom().nextGaussian() * 0.07D;
-                double motionY = getRandom().nextGaussian() * 0.07D;
-                double motionZ = getRandom().nextGaussian() * 0.07D;
+                double motionX = this.getRandom().nextGaussian() * 0.07D;
+                double motionY = this.getRandom().nextGaussian() * 0.07D;
+                double motionZ = this.getRandom().nextGaussian() * 0.07D;
                 float radius = 0.75F * -2F;
                 float angle = (0.01745329251F * this.bodyYaw) + i1 * 1F;
                 double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
@@ -302,8 +298,8 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
                 BlockState BlockState = this.getWorld().getBlockState(BlockPos.ofFloored(this.getX() + extraX, this.getY() + extraY - 1, this.getZ() + extraZ));
                 if (BlockState.isAir()) {
-                    if (getWorld().isClient) {
-                        getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, BlockState), this.getX() + extraX, this.getY() + extraY, this.getZ() + extraZ, motionX, motionY, motionZ);
+                    if (this.getWorld().isClient) {
+                        this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, BlockState), this.getX() + extraX, this.getY() + extraY, this.getZ() + extraZ, motionX, motionY, motionZ);
                     }
                 }
             }
@@ -311,14 +307,14 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
         AnimationHandler.INSTANCE.updateAnimations(this);
 
-        if (eyeEntity == null) {
-            eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.5F, 1);
-            eyeEntity.copyPositionAndRotation(this);
+        if (this.eyeEntity == null) {
+            this.eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.5F, 1);
+            this.eyeEntity.copyPositionAndRotation(this);
         }
 
-        EntityUtil.updatePart(eyeEntity, this);
+        EntityUtil.updatePart(this.eyeEntity, this);
 
-        breakBlock();
+        this.breakBlock();
     }
 
     @Override
@@ -334,14 +330,14 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
                 for (int b = (int) Math.round(this.getBoundingBox().minY) + 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++) {
                     for (int c = (int) Math.round(this.getBoundingBox().minZ) - 1; c <= (int) Math.round(this.getBoundingBox().maxZ) + 1; c++) {
                         BlockPos pos = new BlockPos(a, b, c);
-                        BlockState state = getWorld().getBlockState(pos);
+                        BlockState state = this.getWorld().getBlockState(pos);
                         Block block = state.getBlock();
-                        if (!state.isAir() && !state.getOutlineShape(getWorld(), pos).isEmpty() && !(block instanceof PlantBlock) && block != Blocks.BEDROCK && (state.getBlock() instanceof LeavesBlock || state.isIn(BlockTags.LOGS))) {
+                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && !(block instanceof PlantBlock) && block != Blocks.BEDROCK && (state.getBlock() instanceof LeavesBlock || state.isIn(BlockTags.LOGS))) {
                             this.getVelocity().multiply(0.6D);
-                            if (MinecraftForge.EVENT_BUS.post(new GenericGriefEvent(this, a, b, c))) continue;
+                            if (EventBus.post(new GenericGriefEvent(this, a, b, c))) continue;
                             if (block != Blocks.AIR) {
-                                if (!getWorld().isClient) {
-                                    getWorld().breakBlock(pos, true);
+                                if (!this.getWorld().isClient) {
+                                    this.getWorld().breakBlock(pos, true);
                                 }
                             }
                         }
@@ -353,30 +349,30 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public void remove(@NotNull RemovalReason reason) {
-        if (eyeEntity != null) {
-            eyeEntity.remove(reason);
+        if (this.eyeEntity != null) {
+            this.eyeEntity.remove(reason);
         }
         super.remove(reason);
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override

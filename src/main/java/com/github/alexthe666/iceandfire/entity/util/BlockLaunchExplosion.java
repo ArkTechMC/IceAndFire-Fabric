@@ -70,7 +70,7 @@ public class BlockLaunchExplosion extends Explosion {
      */
     @Override
     public void affectWorld(boolean spawnParticles) {
-        if (world.isClient) {
+        if (this.world.isClient) {
             this.world.playSound(this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.random.nextFloat() - this.world.random.nextFloat()) * 0.2F) * 0.7F, false);
         }
 
@@ -95,7 +95,7 @@ public class BlockLaunchExplosion extends Explosion {
 
                     Vec3d Vector3d = new Vec3d(this.x, this.y, this.z);
                     blockstate.onBlockExploded(this.world, blockpos, this);
-                    FallingBlockEntity fallingBlockEntity = new FallingBlockEntity(EntityType.FALLING_BLOCK, world);
+                    FallingBlockEntity fallingBlockEntity = new FallingBlockEntity(EntityType.FALLING_BLOCK, this.world);
                     fallingBlockEntity.setFallingBlockPos(blockpos1);
                     fallingBlockEntity.setPosition(blockpos1.getX() + 0.5D, blockpos1.getY() + 0.5D, blockpos1.getZ() + 0.5D);
                     double d5 = fallingBlockEntity.getX() - this.x;

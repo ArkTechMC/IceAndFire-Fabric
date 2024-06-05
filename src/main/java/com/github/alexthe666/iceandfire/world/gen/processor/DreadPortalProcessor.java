@@ -36,7 +36,7 @@ public class DreadPortalProcessor extends StructureProcessor {
     @Override
     public StructureTemplate.StructureBlockInfo process(WorldView world, BlockPos pos, BlockPos pivot, StructureTemplate.StructureBlockInfo originalBlockInfo, StructureTemplate.StructureBlockInfo currentBlockInfo, StructurePlacementData data) {
         Random random = data.getRandom(pos);
-        if (random.nextFloat() <= integrity) {
+        if (random.nextFloat() <= this.integrity) {
             if (currentBlockInfo.state().getBlock() == Blocks.DIAMOND_BLOCK) {
                 return new StructureTemplate.StructureBlockInfo(pos, IafBlockRegistry.DREAD_PORTAL.get().getDefaultState(), null);
             }

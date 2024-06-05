@@ -45,8 +45,8 @@ public class GorgonAIStareAttack extends Goal {
 
         if (LivingEntity != null) {
             if (EntityGorgon.isStoneMob(LivingEntity)) {
-                entity.setTarget(null);
-                stop();
+                this.entity.setTarget(null);
+                this.stop();
                 return;
             }
             this.entity.getLookControl().lookAt(LivingEntity.getX(),

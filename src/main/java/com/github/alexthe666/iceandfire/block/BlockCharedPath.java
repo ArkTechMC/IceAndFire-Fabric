@@ -32,7 +32,7 @@ public class BlockCharedPath extends DirtPathBlock {
 
         this.dragonType = dragonType;
         //setRegistryName(IceAndFire.MODID, getNameFromType(dragonType));
-        this.setDefaultState(stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
+        this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
     }
 
     public static String getNameFromType(int dragonType) {
@@ -64,14 +64,14 @@ public class BlockCharedPath extends DirtPathBlock {
             }
         }
         if (worldIn.getBlockState(pos.up()).isSolid()) {
-            worldIn.setBlockState(pos, getSmushedState(dragonType));
+            worldIn.setBlockState(pos, this.getSmushedState(this.dragonType));
         }
-        updateBlockState(worldIn, pos);
+        this.updateBlockState(worldIn, pos);
     }
 
     private void updateBlockState(World worldIn, BlockPos pos) {
         if (worldIn.getBlockState(pos.up()).isSolid()) {
-            worldIn.setBlockState(pos, getSmushedState(dragonType));
+            worldIn.setBlockState(pos, this.getSmushedState(this.dragonType));
         }
     }
 

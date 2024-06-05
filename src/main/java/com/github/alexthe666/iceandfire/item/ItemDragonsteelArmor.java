@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonsteelFireArmor;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonsteelIceArmor;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonsteelLightningArmor;
-import com.github.alexthe666.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
@@ -41,7 +41,7 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
     public ItemDragonsteelArmor(ArmorMaterial material, int renderIndex, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.material = material;
-        this.attributeModifierMultimap = createAttributeMap();
+        this.attributeModifierMultimap = this.createAttributeMap();
     }
 
     @Override
@@ -69,9 +69,9 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
     //Workaround for armor attributes being registered before the config gets loaded
     private Multimap<EntityAttribute, EntityAttributeModifier> createAttributeMap() {
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        UUID uuid = ARMOR_MODIFIERS[type.getEquipmentSlot().getEntitySlotId()];
-        builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uuid, "Armor modifier", material.getProtection(type), EntityAttributeModifier.Operation.ADDITION));
-        builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(uuid, "Armor toughness", material.getToughness(), EntityAttributeModifier.Operation.ADDITION));
+        UUID uuid = ARMOR_MODIFIERS[this.type.getEquipmentSlot().getEntitySlotId()];
+        builder.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(uuid, "Armor modifier", this.material.getProtection(this.type), EntityAttributeModifier.Operation.ADDITION));
+        builder.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(uuid, "Armor toughness", this.material.getToughness(), EntityAttributeModifier.Operation.ADDITION));
         if (this.knockbackResistance > 0) {
             builder.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(uuid, "Armor knockback resistance", this.knockbackResistance, EntityAttributeModifier.Operation.ADDITION));
         }
@@ -84,11 +84,11 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
         if (this.attributeModifierMultimap.containsKey(EntityAttributes.GENERIC_ARMOR)
                 && !this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).isEmpty()
                 && this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).toArray()[0] instanceof EntityAttributeModifier
-                && ((EntityAttributeModifier) this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).toArray()[0]).getValue() != getProtection()
+                && ((EntityAttributeModifier) this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).toArray()[0]).getValue() != this.getProtection()
         ) {
-            this.attributeModifierMultimap = createAttributeMap();
+            this.attributeModifierMultimap = this.createAttributeMap();
         }
-        return attributeModifierMultimap;
+        return this.attributeModifierMultimap;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
 
     @Override
     public @NotNull Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
-        return equipmentSlot == this.type.getEquipmentSlot() ? getOrUpdateAttributeMap() : super.getAttributeModifiers(equipmentSlot);
+        return equipmentSlot == this.type.getEquipmentSlot() ? this.getOrUpdateAttributeMap() : super.getAttributeModifiers(equipmentSlot);
     }
 
     @Override
@@ -117,9 +117,9 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
 
     @Override
     public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        if (material == DRAGONSTEEL_FIRE_ARMOR_MATERIAL) {
+        if (this.material == DRAGONSTEEL_FIRE_ARMOR_MATERIAL) {
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_fire" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
-        } else if (material == IafItemRegistry.DRAGONSTEEL_ICE_ARMOR_MATERIAL) {
+        } else if (this.material == IafItemRegistry.DRAGONSTEEL_ICE_ARMOR_MATERIAL) {
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_ice" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
         } else {
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_lightning" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));

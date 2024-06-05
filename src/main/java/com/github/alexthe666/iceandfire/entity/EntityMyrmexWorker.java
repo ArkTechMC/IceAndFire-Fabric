@@ -65,7 +65,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     protected Identifier getLootTableId() {
-        return isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
+        return this.isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
     }
 
     @Override
@@ -113,12 +113,12 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 if (tag != null) {
                     metadata = tag.getInt("EggOrdinal");
                 }
-                EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG.get(), getWorld());
+                EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG.get(), this.getWorld());
                 egg.copyPositionAndRotation(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
-                if (!getWorld().isClient) {
-                    getWorld().spawnEntity(egg);
+                if (!this.getWorld().isClient) {
+                    this.getWorld().spawnEntity(egg);
                 }
                 egg.startRiding(this);
                 this.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
@@ -170,17 +170,17 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     protected TradeOffers.Factory[] getLevel1Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_WORKER.get(1) : MyrmexTrades.DESERT_WORKER.get(1);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_WORKER.get(1) : MyrmexTrades.DESERT_WORKER.get(1);
     }
 
     @Override
     protected TradeOffers.Factory[] getLevel2Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_WORKER.get(2) : MyrmexTrades.DESERT_WORKER.get(2);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_WORKER.get(2) : MyrmexTrades.DESERT_WORKER.get(2);
     }
 
     @Override
     public Identifier getAdultTexture() {
-        return isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
+        return this.isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
     }
 
     @Override
@@ -190,17 +190,17 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public boolean shouldLeaveHive() {
-        return !holdingSomething();
+        return !this.holdingSomething();
     }
 
     @Override
     public boolean shouldEnterHive() {
-        return holdingSomething() || (!getWorld().isDay() && !IafConfig.myrmexHiveIgnoreDaytime);
+        return this.holdingSomething() || (!this.getWorld().isDay() && !IafConfig.myrmexHiveIgnoreDaytime);
     }
 
     @Override
     public boolean shouldMoveThroughHive() {
-        return !shouldLeaveHive() && !holdingSomething();
+        return !this.shouldLeaveHive() && !this.holdingSomething();
     }
 
     @Override
@@ -260,7 +260,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
-            bodyYaw = getYaw();
+            this.bodyYaw = this.getYaw();
             float radius = 1.05F;
             float angle = (0.01745329251F * this.bodyYaw);
             double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
@@ -302,8 +302,8 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
             if (owner != null && this.getHive() != null) {
                 this.getHive().modifyPlayerReputation(owner.getUuid(), 5);
                 this.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1, 1);
-                if (!getWorld().isClient) {
-                    getWorld().spawnEntity(new ExperienceOrbEntity(getWorld(), owner.getX(), owner.getY(), owner.getZ(), 1 + random.nextInt(3)));
+                if (!this.getWorld().isClient) {
+                    this.getWorld().spawnEntity(new ExperienceOrbEntity(this.getWorld(), owner.getX(), owner.getY(), owner.getZ(), 1 + this.random.nextInt(3)));
                 }
             }
         }

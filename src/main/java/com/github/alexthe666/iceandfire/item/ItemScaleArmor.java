@@ -8,7 +8,7 @@ import com.github.alexthe666.iceandfire.client.model.armor.ModelLightningDragonS
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
-import com.github.alexthe666.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
@@ -39,17 +39,12 @@ public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonIt
 
     @Override
     public @NotNull String getTranslationKey() {
-        switch (this.type) {
-            case HELMET:
-                return "item.iceandfire.dragon_helmet";
-            case CHESTPLATE:
-                return "item.iceandfire.dragon_chestplate";
-            case LEGGINGS:
-                return "item.iceandfire.dragon_leggings";
-            case BOOTS:
-                return "item.iceandfire.dragon_boots";
-        }
-        return "item.iceandfire.dragon_helmet";
+        return switch (this.type) {
+            case HELMET -> "item.iceandfire.dragon_helmet";
+            case CHESTPLATE -> "item.iceandfire.dragon_chestplate";
+            case LEGGINGS -> "item.iceandfire.dragon_leggings";
+            case BOOTS -> "item.iceandfire.dragon_boots";
+        };
     }
 
     @Override
@@ -76,13 +71,13 @@ public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonIt
 
     @Override
     public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/" + armor_type.name() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/" + this.armor_type.name() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + eggType.toString().toLowerCase()).formatted(eggType.color));
+        tooltip.add(Text.translatable("dragon." + this.eggType.toString().toLowerCase()).formatted(this.eggType.color));
         tooltip.add(Text.translatable("item.dragonscales_armor.desc").formatted(Formatting.GRAY));
     }
 }

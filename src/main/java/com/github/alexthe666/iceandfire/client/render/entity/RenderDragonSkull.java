@@ -29,7 +29,7 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
 
     public RenderDragonSkull(EntityRendererFactory.Context context, TabulaModel fireDragonModel, TabulaModel iceDragonModel, TabulaModel lightningDragonModel) {
         super(context);
-        growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
+        this.growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
         this.fireDragonModel = fireDragonModel;
         this.iceDragonModel = iceDragonModel;
         this.lightningDragonModel = lightningDragonModel;
@@ -45,19 +45,19 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     public void render(EntityDragonSkull entity, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
         TabulaModel model;
         if (entity.getDragonType() == 2) {
-            model = lightningDragonModel;
+            model = this.lightningDragonModel;
         } else if (entity.getDragonType() == 1) {
-            model = iceDragonModel;
+            model = this.iceDragonModel;
         } else {
-            model = fireDragonModel;
+            model = this.fireDragonModel;
         }
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderLayer.getEntityTranslucent(getTexture(entity)));
+        VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderLayer.getEntityTranslucent(this.getTexture(entity)));
         matrixStackIn.push();
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-180.0F));
         matrixStackIn.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(-180.0F - entity.getYaw()));
         float f = 0.0625F;
         matrixStackIn.scale(1.0F, 1.0F, 1.0F);
-        float size = getRenderSize(entity) / 3;
+        float size = this.getRenderSize(entity) / 3;
         matrixStackIn.scale(size, size, size);
         matrixStackIn.translate(0, entity.isOnWall() ? -0.24F : -0.12F, entity.isOnWall() ? 0.4F : 0.5F);
         model.resetToDefaultPose();
@@ -79,11 +79,11 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
 
 
     public float getRenderSize(EntityDragonSkull skull) {
-        float step = (growth_stages[skull.getDragonStage() - 1][1] - growth_stages[skull.getDragonStage() - 1][0]) / 25;
+        float step = (this.growth_stages[skull.getDragonStage() - 1][1] - this.growth_stages[skull.getDragonStage() - 1][0]) / 25;
         if (skull.getDragonAge() > 125) {
-            return growth_stages[skull.getDragonStage() - 1][0] + ((step * 25));
+            return this.growth_stages[skull.getDragonStage() - 1][0] + ((step * 25));
         }
-        return growth_stages[skull.getDragonStage() - 1][0] + ((step * this.getAgeFactor(skull)));
+        return this.growth_stages[skull.getDragonStage() - 1][0] + ((step * this.getAgeFactor(skull)));
     }
 
     private int getAgeFactor(EntityDragonSkull skull) {

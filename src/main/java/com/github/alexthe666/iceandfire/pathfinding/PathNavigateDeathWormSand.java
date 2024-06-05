@@ -48,11 +48,11 @@ public class PathNavigateDeathWormSand extends SwimNavigation {
 
     @Override
     protected boolean canPathDirectlyThrough(@NotNull final Vec3d start, @NotNull final Vec3d end) {
-        HitResult raytraceresult = this.world.raycast(new CustomRayTraceContext(start, end, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, entity));
+        HitResult raytraceresult = this.world.raycast(new CustomRayTraceContext(start, end, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this.entity));
 
         if (raytraceresult.getType() == HitResult.Type.BLOCK) {
             Vec3d vec3i = raytraceresult.getPos();
-            return entity.getWorld().getBlockState(BlockPos.ofFloored(vec3i)).isIn(BlockTags.SAND);
+            return this.entity.getWorld().getBlockState(BlockPos.ofFloored(vec3i)).isIn(BlockTags.SAND);
         }
 
         return raytraceresult.getType() == HitResult.Type.MISS;

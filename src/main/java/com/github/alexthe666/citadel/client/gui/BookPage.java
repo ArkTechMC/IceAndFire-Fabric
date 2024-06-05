@@ -50,50 +50,50 @@ public class BookPage {
     }
 
     public String getParent() {
-        return parent;
+        return this.parent;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public String getTextFileToReadFrom() {
-        return textFileToReadFrom;
+        return this.textFileToReadFrom;
     }
 
     public List<LinkData> getLinkedButtons() {
-        return linkedButtons;
+        return this.linkedButtons;
     }
 
     public List<EntityLinkData> getLinkedEntities() {
-        return linkedEntites;
+        return this.linkedEntites;
     }
 
     public List<ItemRenderData> getItemRenders() {
-        return itemRenders;
+        return this.itemRenders;
     }
 
     public List<RecipeData> getRecipes() {
-        return recipes;
+        return this.recipes;
     }
 
     public List<TabulaRenderData> getTabulaRenders() {
-        return tabulaRenders;
+        return this.tabulaRenders;
     }
 
     public List<EntityRenderData> getEntityRenders() {
-        return entityRenders;
+        return this.entityRenders;
     }
 
     public List<ImageData> getImages() {
-        return images;
+        return this.images;
     }
 
     public String generateTitle() {
-        if (translatableTitle != null) {
-            return I18n.translate(translatableTitle);
+        if (this.translatableTitle != null) {
+            return I18n.translate(this.translatableTitle);
         }
-        return title;
+        return this.title;
     }
 
     @Environment(EnvType.CLIENT)

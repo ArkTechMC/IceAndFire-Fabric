@@ -146,22 +146,22 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     public boolean isFlying() {
-        if (getWorld().isClient) {
+        if (this.getWorld().isClient) {
             return this.isFlying = this.dataTracker.get(FLYING).booleanValue();
         }
-        return isFlying;
+        return this.isFlying;
     }
 
     public void setFlying(boolean flying) {
         this.dataTracker.set(FLYING, flying);
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             this.isFlying = flying;
         }
     }
 
     @Override
     public void onDeath(DamageSource cause) {
-        if (cause.getAttacker() != null && cause.getAttacker() instanceof LivingEntity && !getWorld().isClient) {
+        if (cause.getAttacker() != null && cause.getAttacker() instanceof LivingEntity && !this.getWorld().isClient) {
             this.setVictorId(cause.getAttacker().getUuid());
             if (this.flock != null) {
                 this.flock.setFearTarget((LivingEntity) cause.getAttacker());
@@ -201,7 +201,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     public boolean isTargetBlocked(Vec3d target) {
-        return getWorld().raycast(new RaycastContext(target, this.getCameraPosVec(1.0F), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)).getType() == HitResult.Type.MISS;
+        return this.getWorld().raycast(new RaycastContext(target, this.getCameraPosVec(1.0F), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)).getType() == HitResult.Type.MISS;
     }
 
     @Override
@@ -216,7 +216,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
+        if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
             this.setTarget(null);
         }
         if (this.getTarget() != null && (this.getTarget() instanceof PlayerEntity && ((PlayerEntity) this.getTarget()).isCreative() || this.getVictor() != null && this.isVictor(this.getTarget()))) {
@@ -249,13 +249,13 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
             }
             this.flock.update();
         }
-        if (!getWorld().isClient && this.getTarget() != null && this.getTarget().isAlive()) {
+        if (!this.getWorld().isClient && this.getTarget() != null && this.getTarget().isAlive()) {
             double dist = this.squaredDistanceTo(this.getTarget());
             if (this.getAnimation() == ANIMATION_PECK && this.getAnimationTick() == 7) {
                 if (dist < 1.5F) {
                     this.getTarget().damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue()));
                 }
-                if (isOnGround()) {
+                if (this.isOnGround()) {
                     this.setFlying(false);
                 }
             }
@@ -266,19 +266,19 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                 LivingEntity target = this.getTarget();
                 this.lookAtEntity(target, 360, 360);
                 if (this.isFlying()) {
-                    setYaw(bodyYaw);
-                    if ((this.getAnimationTick() == 7 || this.getAnimationTick() == 14) && isDirectPathBetweenPoints(this, this.getPos(), target.getPos())) {
+                    this.setYaw(this.bodyYaw);
+                    if ((this.getAnimationTick() == 7 || this.getAnimationTick() == 14) && this.isDirectPathBetweenPoints(this, this.getPos(), target.getPos())) {
                         this.playSound(IafSoundRegistry.STYMPHALIAN_BIRD_ATTACK, 1, 1);
                         for (int i = 0; i < 4; i++) {
-                            float wingX = (float) (getX() + 1.8F * 0.5F * MathHelper.cos((float) ((getYaw() + 180 * (i % 2)) * Math.PI / 180)));
-                            float wingZ = (float) (getZ() + 1.8F * 0.5F * MathHelper.sin((float) ((getYaw() + 180 * (i % 2)) * Math.PI / 180)));
-                            float wingY = (float) (getY() + 1F);
+                            float wingX = (float) (this.getX() + 1.8F * 0.5F * MathHelper.cos((float) ((this.getYaw() + 180 * (i % 2)) * Math.PI / 180)));
+                            float wingZ = (float) (this.getZ() + 1.8F * 0.5F * MathHelper.sin((float) ((this.getYaw() + 180 * (i % 2)) * Math.PI / 180)));
+                            float wingY = (float) (this.getY() + 1F);
                             double d0 = target.getX() - wingX;
                             double d1 = target.getBoundingBox().minY - wingY;
                             double d2 = target.getZ() - wingZ;
                             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
                             EntityStymphalianFeather entityarrow = new EntityStymphalianFeather(
-                                IafEntityRegistry.STYMPHALIAN_FEATHER.get(), getWorld(), this);
+                                IafEntityRegistry.STYMPHALIAN_FEATHER.get(), this.getWorld(), this);
                             entityarrow.setPosition(wingX, wingY, wingZ);
                             entityarrow.setVelocity(d0, d1 + d3 * 0.10000000298023224D, d2, 1.6F,
                                 14 - this.getWorld().getDifficulty().getId() * 4);
@@ -291,46 +291,46 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                 }
             }
         }
-        boolean flying = this.isFlying() && !this.isOnGround() || airBorneCounter > 10 || this.getAnimation() == ANIMATION_SHOOT_ARROWS;
-        if (flying && flyProgress < 20.0F) {
-            flyProgress += 1F;
-        } else if (!flying && flyProgress > 0.0F) {
-            flyProgress -= 1F;
+        boolean flying = this.isFlying() && !this.isOnGround() || this.airBorneCounter > 10 || this.getAnimation() == ANIMATION_SHOOT_ARROWS;
+        if (flying && this.flyProgress < 20.0F) {
+            this.flyProgress += 1F;
+        } else if (!flying && this.flyProgress > 0.0F) {
+            this.flyProgress -= 1F;
         }
-        if (!this.isFlying() && this.airTarget != null && this.isOnGround() && !getWorld().isClient) {
+        if (!this.isFlying() && this.airTarget != null && this.isOnGround() && !this.getWorld().isClient) {
             this.airTarget = null;
         }
-        if (this.isFlying() && getTarget() == null) {
-            flyAround();
-        } else if (getTarget() != null) {
-            flyTowardsTarget();
+        if (this.isFlying() && this.getTarget() == null) {
+            this.flyAround();
+        } else if (this.getTarget() != null) {
+            this.flyTowardsTarget();
         }
-        if (!getWorld().isClient && this.doesWantToLand() && !aiFlightLaunch && this.getAnimation() != ANIMATION_SHOOT_ARROWS) {
+        if (!this.getWorld().isClient && this.doesWantToLand() && !this.aiFlightLaunch && this.getAnimation() != ANIMATION_SHOOT_ARROWS) {
             this.setFlying(false);
             this.airTarget = null;
         }
-        if (!getWorld().isClient && this.doesNotCollide(0, 0, 0) && !this.isFlying()) {
+        if (!this.getWorld().isClient && this.doesNotCollide(0, 0, 0) && !this.isFlying()) {
             this.setFlying(true);
             this.launchTicks = 0;
             this.flyTicks = 0;
             this.aiFlightLaunch = true;
         }
-        if (!getWorld().isClient && this.isOnGround() && this.isFlying() && !aiFlightLaunch && this.getAnimation() != ANIMATION_SHOOT_ARROWS) {
+        if (!this.getWorld().isClient && this.isOnGround() && this.isFlying() && !this.aiFlightLaunch && this.getAnimation() != ANIMATION_SHOOT_ARROWS) {
             this.setFlying(false);
             this.airTarget = null;
         }
-        if (!getWorld().isClient && (this.flock == null || this.flock != null && this.flock.isLeader(this)) && this.getRandom().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && this.getPassengerList().isEmpty() && !this.isBaby() && this.isOnGround()) {
+        if (!this.getWorld().isClient && (this.flock == null || this.flock != null && this.flock.isLeader(this)) && this.getRandom().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && this.getPassengerList().isEmpty() && !this.isBaby() && this.isOnGround()) {
             this.setFlying(true);
             this.launchTicks = 0;
             this.flyTicks = 0;
             this.aiFlightLaunch = true;
         }
-        if (!getWorld().isClient) {
-            if (aiFlightLaunch && this.launchTicks < 40) {
+        if (!this.getWorld().isClient) {
+            if (this.aiFlightLaunch && this.launchTicks < 40) {
                 this.launchTicks++;
             } else {
                 this.launchTicks = 0;
-                aiFlightLaunch = false;
+                this.aiFlightLaunch = false;
             }
             if (this.isFlying()) {
                 this.flyTicks++;
@@ -339,51 +339,51 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
             }
         }
         if (!this.isOnGround()) {
-            airBorneCounter++;
+            this.airBorneCounter++;
         } else {
-            airBorneCounter = 0;
+            this.airBorneCounter = 0;
         }
-        if (this.getAnimation() == ANIMATION_SHOOT_ARROWS && !this.isFlying() && !getWorld().isClient) {
+        if (this.getAnimation() == ANIMATION_SHOOT_ARROWS && !this.isFlying() && !this.getWorld().isClient) {
             this.setFlying(true);
-            aiFlightLaunch = true;
+            this.aiFlightLaunch = true;
         }
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
 
     public boolean isDirectPathBetweenPoints(Entity entity, Vec3d vec1, Vec3d vec2) {
-        return getWorld().raycast(new RaycastContext(vec1, vec2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)).getType() == HitResult.Type.MISS;
+        return this.getWorld().raycast(new RaycastContext(vec1, vec2, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)).getType() == HitResult.Type.MISS;
     }
 
     public void flyAround() {
-        if (airTarget != null && this.isFlying()) {
-            if (!isTargetInAir() || flyTicks > 6000 || !this.isFlying()) {
-                airTarget = null;
+        if (this.airTarget != null && this.isFlying()) {
+            if (!this.isTargetInAir() || this.flyTicks > 6000 || !this.isFlying()) {
+                this.airTarget = null;
             }
-            flyTowardsTarget();
+            this.flyTowardsTarget();
         }
     }
 
     public void flyTowardsTarget() {
-        if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.getY(), airTarget.getZ())) > 3) {
-            double targetX = airTarget.getX() + 0.5D - getX();
-            double targetY = Math.min(airTarget.getY(), 256) + 1D - getY();
-            double targetZ = airTarget.getZ() + 0.5D - getZ();
-            double motionX = (Math.signum(targetX) * 0.5D - this.getVelocity().x) * 0.100000000372529 * getFlySpeed(false);
-            double motionY = (Math.signum(targetY) * 0.5D - this.getVelocity().y) * 0.100000000372529 * getFlySpeed(true);
-            double motionZ = (Math.signum(targetZ) * 0.5D - this.getVelocity().z) * 0.100000000372529 * getFlySpeed(false);
+        if (this.airTarget != null && this.isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(this.airTarget.getX(), this.getY(), this.airTarget.getZ())) > 3) {
+            double targetX = this.airTarget.getX() + 0.5D - this.getX();
+            double targetY = Math.min(this.airTarget.getY(), 256) + 1D - this.getY();
+            double targetZ = this.airTarget.getZ() + 0.5D - this.getZ();
+            double motionX = (Math.signum(targetX) * 0.5D - this.getVelocity().x) * 0.100000000372529 * this.getFlySpeed(false);
+            double motionY = (Math.signum(targetY) * 0.5D - this.getVelocity().y) * 0.100000000372529 * this.getFlySpeed(true);
+            double motionZ = (Math.signum(targetZ) * 0.5D - this.getVelocity().z) * 0.100000000372529 * this.getFlySpeed(false);
             this.setVelocity(this.getVelocity().add(motionX, motionY, motionZ));
             float angle = (float) (Math.atan2(this.getVelocity().z, this.getVelocity().x) * 180.0D / Math.PI) - 90.0F;
-            float rotation = MathHelper.wrapDegrees(angle - getYaw());
-            forwardSpeed = 0.5F;
-            prevYaw = getYaw();
-            setYaw(getYaw() + rotation);
+            float rotation = MathHelper.wrapDegrees(angle - this.getYaw());
+            this.forwardSpeed = 0.5F;
+            this.prevYaw = this.getYaw();
+            this.setYaw(this.getYaw() + rotation);
             if (!this.isFlying()) {
                 this.setFlying(true);
             }
         } else {
             this.airTarget = null;
         }
-        if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.getY(), airTarget.getZ())) < 3 && this.doesWantToLand()) {
+        if (this.airTarget != null && this.isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(this.airTarget.getX(), this.getY(), this.airTarget.getZ())) < 3 && this.doesWantToLand()) {
             this.setFlying(false);
         }
     }
@@ -459,7 +459,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     protected boolean isTargetInAir() {
-        return airTarget != null && ((getWorld().getBlockState(airTarget).isAir()) || getWorld().getBlockState(airTarget).isAir());
+        return this.airTarget != null && ((this.getWorld().getBlockState(this.airTarget).isAir()) || this.getWorld().getBlockState(this.airTarget).isAir());
     }
 
     public boolean doesWantToLand() {
@@ -468,27 +468,27 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                 return this.flock.getLeader().doesWantToLand();
             }
         }
-        return this.flyTicks > 500 || flyTicks > 40 && this.flyProgress == 0;
+        return this.flyTicks > 500 || this.flyTicks > 40 && this.flyProgress == 0;
     }
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override

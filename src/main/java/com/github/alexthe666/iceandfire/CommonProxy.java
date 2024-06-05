@@ -21,10 +21,8 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 @Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CommonProxy {
-
-    @SubscribeEvent
-    public static void onModConfigEvent(final ModConfigEvent.Loading event) {
-        final IafConfig config = event.getConfig();
+    public static void loadConfig() {
+        final IafConfig config =new IafConfig();
         // Rebake the configs when they change
         if (config.getSpec() == ConfigHolder.CLIENT_SPEC) {
             IafConfig.bakeClient(config);
@@ -51,7 +49,7 @@ public class CommonProxy {
     }
 
     public void spawnParticle(EnumParticles name, double x, double y, double z, double motX, double motY, double motZ) {
-        spawnParticle(name, x, y, z, motX, motY, motZ, 1.0F);
+        this.spawnParticle(name, x, y, z, motX, motY, motZ, 1.0F);
     }
 
     public void spawnDragonParticle(EnumParticles name, double x, double y, double z, double motX, double motY, double motZ, EntityDragonBase entityDragonBase) {

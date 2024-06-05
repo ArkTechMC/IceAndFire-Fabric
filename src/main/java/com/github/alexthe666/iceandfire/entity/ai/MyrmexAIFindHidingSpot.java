@@ -31,28 +31,28 @@ public class MyrmexAIFindHidingSpot extends Goal {
 
     @Override
     public boolean canStart() {
-        this.targetBlock = getTargetPosition(wanderRadius);
-        return this.myrmex.canMove() && this.myrmex.getTarget() == null && myrmex.canSeeSky() && !myrmex.isHiding() && myrmex.visibleTicks <= 0;
+        this.targetBlock = this.getTargetPosition(this.wanderRadius);
+        return this.myrmex.canMove() && this.myrmex.getTarget() == null && this.myrmex.canSeeSky() && !this.myrmex.isHiding() && this.myrmex.visibleTicks <= 0;
     }
 
     @Override
     public boolean shouldContinue() {
-        return !myrmex.shouldEnterHive() && this.myrmex.getTarget() == null && !myrmex.isHiding() && myrmex.visibleTicks <= 0;
+        return !this.myrmex.shouldEnterHive() && this.myrmex.getTarget() == null && !this.myrmex.isHiding() && this.myrmex.visibleTicks <= 0;
     }
 
     @Override
     public void tick() {
-       if (targetBlock != null) {
+       if (this.targetBlock != null) {
            this.myrmex.getNavigation().startMovingTo(this.targetBlock.getX() + 0.5D, this.targetBlock.getY(), this.targetBlock.getZ() + 0.5D, 1D);
-           if (areMyrmexNear(5) || this.myrmex.isOnResin()) {
+           if (this.areMyrmexNear(5) || this.myrmex.isOnResin()) {
                if (this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
                    this.wanderRadius += RADIUS;
-                   this.targetBlock = getTargetPosition(wanderRadius);
+                   this.targetBlock = this.getTargetPosition(this.wanderRadius);
                }
            } else {
-               if (this.myrmex.getTarget() == null && this.myrmex.getCustomer() == null && myrmex.visibleTicks == 0 && this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
-                   myrmex.setHiding(true);
-                   myrmex.getNavigation().stop();
+               if (this.myrmex.getTarget() == null && this.myrmex.getCustomer() == null && this.myrmex.visibleTicks == 0 && this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
+                   this.myrmex.setHiding(true);
+                   this.myrmex.getNavigation().stop();
                }
            }
        }
@@ -62,7 +62,7 @@ public class MyrmexAIFindHidingSpot extends Goal {
     @Override
     public void stop() {
         this.targetBlock = null;
-        wanderRadius = RADIUS;
+        this.wanderRadius = RADIUS;
     }
 
     protected Box getTargetableArea(double targetDistance) {
@@ -70,9 +70,9 @@ public class MyrmexAIFindHidingSpot extends Goal {
     }
 
     public BlockPos getTargetPosition(int radius) {
-        final int x = (int) myrmex.getX() + myrmex.getRandom().nextInt(radius * 2) - radius;
-        final int z = (int) myrmex.getZ() + myrmex.getRandom().nextInt(radius * 2) - radius;
-        return myrmex.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, new BlockPos(x, 0, z));
+        final int x = (int) this.myrmex.getX() + this.myrmex.getRandom().nextInt(radius * 2) - radius;
+        final int z = (int) this.myrmex.getZ() + this.myrmex.getRandom().nextInt(radius * 2) - radius;
+        return this.myrmex.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, new BlockPos(x, 0, z));
     }
 
     private boolean areMyrmexNear(double distance) {

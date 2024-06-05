@@ -67,7 +67,7 @@ public class ChunkCache implements WorldView {
 
         for (int k = this.chunkX; k <= i; ++k) {
             for (int l = this.chunkZ; l <= j; ++l) {
-                if (WorldChunkUtil.isEntityChunkLoaded(world, new ChunkPos(k, l)) && worldIn.getChunkManager() instanceof ServerChunkManager serverChunkCache) {
+                if (WorldChunkUtil.isEntityChunkLoaded(this.world, new ChunkPos(k, l)) && worldIn.getChunkManager() instanceof ServerChunkManager serverChunkCache) {
                     final ChunkHolder holder = serverChunkCache.threadedAnvilChunkStorage.getChunkHolder(ChunkPos.toLong(k, l));
                     if (holder != null) {
                         this.chunkArray[k - this.chunkX][l - this.chunkZ] = holder.getAccessibleFuture().getNow(ChunkHolder.UNLOADED_WORLD_CHUNK).left().orElse(null);
@@ -77,8 +77,8 @@ public class ChunkCache implements WorldView {
         }
         this.dimType = type;
 
-        minBuildHeight = worldIn.getBottomY();
-        maxBuildHeight = worldIn.getTopY();
+        this.minBuildHeight = worldIn.getBottomY();
+        this.maxBuildHeight = worldIn.getTopY();
     }
 
     /**
@@ -98,7 +98,7 @@ public class ChunkCache implements WorldView {
     public BlockEntity getTileEntity(BlockPos pos, WorldChunk.CreationType createType) {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
-        if (!withinBounds(i, j)) {
+        if (!this.withinBounds(i, j)) {
             return null;
         }
         return this.chunkArray[i][j].getBlockEntity(pos, createType);
@@ -106,18 +106,18 @@ public class ChunkCache implements WorldView {
 
     @Override
     public int getBottomY() {
-        return minBuildHeight;
+        return this.minBuildHeight;
     }
 
     @Override
     public int getTopY() {
-        return maxBuildHeight;
+        return this.maxBuildHeight;
     }
 
     @NotNull
     @Override
     public BlockState getBlockState(BlockPos pos) {
-        if (pos.getY() >= getBottomY() && pos.getY() < getTopY()) {
+        if (pos.getY() >= this.getBottomY() && pos.getY() < this.getTopY()) {
             int i = (pos.getX() >> 4) - this.chunkX;
             int j = (pos.getZ() >> 4) - this.chunkZ;
 
@@ -135,7 +135,7 @@ public class ChunkCache implements WorldView {
 
     @Override
     public FluidState getFluidState(final BlockPos pos) {
-        if (pos.getY() >= getBottomY() && pos.getY() < getTopY()) {
+        if (pos.getY() >= this.getBottomY() && pos.getY() < this.getTopY()) {
             int i = (pos.getX() >> 4) - this.chunkX;
             int j = (pos.getZ() >> 4) - this.chunkZ;
 
@@ -244,11 +244,11 @@ public class ChunkCache implements WorldView {
 
     @Override
     public @NotNull DimensionType getDimension() {
-        return dimType;
+        return this.dimType;
     }
 
     private boolean withinBounds(int x, int z) {
-        return x >= 0 && x < chunkArray.length && z >= 0 && z < chunkArray[x].length && chunkArray[x][z] != null;
+        return x >= 0 && x < this.chunkArray.length && z >= 0 && z < this.chunkArray[x].length && this.chunkArray[x][z] != null;
     }
 
     @Override

@@ -25,16 +25,16 @@ public class DragonAIEscort extends Goal {
     public void tick() {
         if (this.dragon.getOwner() != null) {
             final float dist = this.dragon.distanceTo(this.dragon.getOwner());
-            if (dist > maxRange) {
+            if (dist > this.maxRange) {
                 return;
             }
-            if (dist > this.dragon.getBoundingBox().getAverageSideLength() && (!this.dragon.isFlying() && !this.dragon.isHovering() || !dragon.isAllowedToTriggerFlight())) {
-                if (previousPosition == null || previousPosition.getSquaredDistance(this.dragon.getOwner().getBlockPos()) > 9) {
+            if (dist > this.dragon.getBoundingBox().getAverageSideLength() && (!this.dragon.isFlying() && !this.dragon.isHovering() || !this.dragon.isAllowedToTriggerFlight())) {
+                if (this.previousPosition == null || this.previousPosition.getSquaredDistance(this.dragon.getOwner().getBlockPos()) > 9) {
                     this.dragon.getNavigation().startMovingTo(this.dragon.getOwner(), 1F);
-                    previousPosition = this.dragon.getOwner().getBlockPos();
+                    this.previousPosition = this.dragon.getOwner().getBlockPos();
                 }
             }
-            if ((dist > 30F || this.dragon.getOwner().getY() - this.dragon.getY() > 8) && !this.dragon.isFlying() && !this.dragon.isHovering() && dragon.isAllowedToTriggerFlight()) {
+            if ((dist > 30F || this.dragon.getOwner().getY() - this.dragon.getY() > 8) && !this.dragon.isFlying() && !this.dragon.isHovering() && this.dragon.isAllowedToTriggerFlight()) {
                 this.dragon.setHovering(true);
                 this.dragon.setInSittingPose(false);
                 this.dragon.setSitting(false);

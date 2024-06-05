@@ -32,17 +32,17 @@ public class BiomeSourceMixin implements ExpandedBiomeSource {
 
     @Override
     public Map<RegistryKey<Biome>, RegistryEntry<Biome>> getResourceKeyMap() {
-        return map;
+        return this.map;
     }
 
     @Override
     public void expandBiomesWith(Set<RegistryEntry<Biome>> newGenBiomes) {
-        if (!expanded) {
+        if (!this.expanded) {
             ImmutableSet.Builder<RegistryEntry<Biome>> builder = ImmutableSet.builder();
             builder.addAll(this.biomes.get());
             builder.addAll(newGenBiomes);
-            biomes = Suppliers.memoize(builder::build);
-            expanded = true;
+            this.biomes = Suppliers.memoize(builder::build);
+            this.expanded = true;
         }
     }
 

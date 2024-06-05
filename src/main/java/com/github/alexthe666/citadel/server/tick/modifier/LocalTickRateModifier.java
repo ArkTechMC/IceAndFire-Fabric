@@ -22,8 +22,8 @@ public abstract class LocalTickRateModifier extends TickRateModifier {
     @Override
     public NbtCompound toTag() {
         NbtCompound tag = super.toTag();
-        tag.putDouble("Range", range);
-        tag.putString("Dimension", dimension.getValue().toString());
+        tag.putDouble("Range", this.range);
+        tag.putString("Dimension", this.dimension.getValue().toString());
         return tag;
     }
 
@@ -38,7 +38,7 @@ public abstract class LocalTickRateModifier extends TickRateModifier {
     }
 
     public double getRange() {
-        return range;
+        return this.range;
     }
 
     public void setRange(double range) {
@@ -49,7 +49,7 @@ public abstract class LocalTickRateModifier extends TickRateModifier {
 
     @Override
     public boolean appliesTo(World level, double x, double y, double z) {
-        Vec3d center = getCenter(level);
-        return center.squaredDistanceTo(x, y, z) < range * range;
+        Vec3d center = this.getCenter(level);
+        return center.squaredDistanceTo(x, y, z) < this.range * this.range;
     }
 }

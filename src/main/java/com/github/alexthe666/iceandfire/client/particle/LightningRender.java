@@ -30,12 +30,12 @@ public class LightningRender {
     public void render(float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn) {
         VertexConsumer buffer = bufferIn.getBuffer(RenderLayer.getLightning());
         Matrix4f matrix = matrixStackIn.peek().getPositionMatrix();
-        Timestamp timestamp = new Timestamp(minecraft.world.getTime(), partialTicks);
-        boolean refresh = timestamp.isPassed(refreshTimestamp, (1 / REFRESH_TIME));
+        Timestamp timestamp = new Timestamp(this.minecraft.world.getTime(), partialTicks);
+        boolean refresh = timestamp.isPassed(this.refreshTimestamp, (1 / REFRESH_TIME));
         if (refresh) {
-            refreshTimestamp = timestamp;
+            this.refreshTimestamp = timestamp;
         }
-        for (Iterator<Map.Entry<Object, BoltOwnerData>> iter = boltOwners.entrySet().iterator(); iter.hasNext(); ) {
+        for (Iterator<Map.Entry<Object, BoltOwnerData>> iter = this.boltOwners.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry<Object, BoltOwnerData> entry = iter.next();
             BoltOwnerData data = entry.getValue();
             // tick our bolts based on the refresh rate, removing if they're now finished
@@ -54,12 +54,12 @@ public class LightningRender {
     }
 
     public void update(Object owner, LightningBoltData newBoltData, float partialTicks) {
-        if (minecraft.world == null) {
+        if (this.minecraft.world == null) {
             return;
         }
-        BoltOwnerData data = boltOwners.computeIfAbsent(owner, o -> new BoltOwnerData());
+        BoltOwnerData data = this.boltOwners.computeIfAbsent(owner, o -> new BoltOwnerData());
         data.lastBolt = newBoltData;
-        Timestamp timestamp = new Timestamp(minecraft.world.getTime(), partialTicks);
+        Timestamp timestamp = new Timestamp(this.minecraft.world.getTime(), partialTicks);
         if ((!data.lastBolt.getSpawnFunction().isConsecutive() || data.bolts.isEmpty()) && timestamp.isPassed(data.lastBoltTimestamp, data.lastBoltDelay)) {
             data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
         }
@@ -75,9 +75,9 @@ public class LightningRender {
         private double lastBoltDelay;
 
         private void addBolt(BoltInstance instance, Timestamp timestamp) {
-            bolts.add(instance);
-            lastBoltDelay = instance.bolt.getSpawnFunction().getSpawnDelay(random);
-            lastBoltTimestamp = timestamp;
+            this.bolts.add(instance);
+            this.lastBoltDelay = instance.bolt.getSpawnFunction().getSpawnDelay(LightningRender.this.random);
+            this.lastBoltTimestamp = timestamp;
         }
     }
 
@@ -94,17 +94,17 @@ public class LightningRender {
         }
 
         public void render(Matrix4f matrix, VertexConsumer buffer, Timestamp timestamp) {
-            float lifeScale = timestamp.subtract(createdTimestamp).value() / bolt.getLifespan();
-            Pair<Integer, Integer> bounds = bolt.getFadeFunction().getRenderBounds(renderQuads.size(), lifeScale);
+            float lifeScale = timestamp.subtract(this.createdTimestamp).value() / this.bolt.getLifespan();
+            Pair<Integer, Integer> bounds = this.bolt.getFadeFunction().getRenderBounds(this.renderQuads.size(), lifeScale);
             for (int i = bounds.getLeft(); i < bounds.getRight(); i++) {
-                renderQuads.get(i).getVecs().forEach(v -> buffer.vertex(matrix, (float) v.x, (float) v.y, (float) v.z)
-                    .color(bolt.getColor().x(), bolt.getColor().y(), bolt.getColor().z(), bolt.getColor().w())
+                this.renderQuads.get(i).getVecs().forEach(v -> buffer.vertex(matrix, (float) v.x, (float) v.y, (float) v.z)
+                    .color(this.bolt.getColor().x(), this.bolt.getColor().y(), this.bolt.getColor().z(), this.bolt.getColor().w())
                     .next());
             }
         }
 
         public boolean tick(Timestamp timestamp) {
-            return timestamp.isPassed(createdTimestamp, bolt.getLifespan());
+            return timestamp.isPassed(this.createdTimestamp, this.bolt.getLifespan());
         }
     }
 
@@ -123,8 +123,8 @@ public class LightningRender {
         }
 
         public Timestamp subtract(Timestamp other) {
-            long newTicks = ticks - other.ticks;
-            float newPartial = partial - other.partial;
+            long newTicks = this.ticks - other.ticks;
+            float newPartial = this.partial - other.partial;
             if (newPartial < 0) {
                 newPartial += 1;
                 newTicks -= 1;
@@ -133,17 +133,17 @@ public class LightningRender {
         }
 
         public float value() {
-            return ticks + partial;
+            return this.ticks + this.partial;
         }
 
         public boolean isPassed(Timestamp prev, double duration) {
-            long ticksPassed = ticks - prev.ticks;
+            long ticksPassed = this.ticks - prev.ticks;
             if (ticksPassed > duration)
                 return true;
             duration -= ticksPassed;
             if (duration >= 1)
                 return false;
-            return (partial - prev.partial) >= duration;
+            return (this.partial - prev.partial) >= duration;
         }
     }
 }

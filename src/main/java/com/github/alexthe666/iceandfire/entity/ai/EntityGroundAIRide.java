@@ -21,45 +21,45 @@ public class EntityGroundAIRide<T extends MobEntity & IGroundMount> extends Goal
 
     @Override
     public boolean canStart() {
-        player = dragon.getRidingPlayer();
+        this.player = this.dragon.getRidingPlayer();
 
-        return player != null;
+        return this.player != null;
     }
 
     @Override
     public void start() {
-        dragon.getNavigation().stop();
+        this.dragon.getNavigation().stop();
     }
 
     @Override
     public void tick() {
-        dragon.getNavigation().stop();
-        dragon.setTarget(null);
-        double x = dragon.getX();
-        double y = dragon.getY();
-        if (dragon instanceof EntityDeathWorm) {
-            y = ((EntityDeathWorm) dragon).processRiderY(y);
+        this.dragon.getNavigation().stop();
+        this.dragon.setTarget(null);
+        double x = this.dragon.getX();
+        double y = this.dragon.getY();
+        if (this.dragon instanceof EntityDeathWorm) {
+            y = ((EntityDeathWorm) this.dragon).processRiderY(y);
         }
-        double z = dragon.getZ();
-        double speed = 1.8F * dragon.getRideSpeedModifier();
-        if (player.sidewaysSpeed != 0 || player.forwardSpeed != 0) {
-            Vec3d lookVec = player.getRotationVector();
-            if (player.forwardSpeed < 0) {
+        double z = this.dragon.getZ();
+        double speed = 1.8F * this.dragon.getRideSpeedModifier();
+        if (this.player.sidewaysSpeed != 0 || this.player.forwardSpeed != 0) {
+            Vec3d lookVec = this.player.getRotationVector();
+            if (this.player.forwardSpeed < 0) {
                 lookVec = lookVec.rotateY((float) Math.PI);
-            } else if (player.sidewaysSpeed > 0) {
+            } else if (this.player.sidewaysSpeed > 0) {
                 lookVec = lookVec.rotateY((float) Math.PI * 0.5f);
-            } else if (player.sidewaysSpeed < 0) {
+            } else if (this.player.sidewaysSpeed < 0) {
                 lookVec = lookVec.rotateY((float) Math.PI * -0.5f);
             }
-            if (Math.abs(player.sidewaysSpeed) > 0.0) {
+            if (Math.abs(this.player.sidewaysSpeed) > 0.0) {
                 speed *= 0.25D;
             }
-            if (player.forwardSpeed < 0.0) {
+            if (this.player.forwardSpeed < 0.0) {
                 speed *= 0.15D;
             }
             x += lookVec.x * 10;
             z += lookVec.z * 10;
         }
-        dragon.getMoveControl().moveTo(x, y, z, speed);
+        this.dragon.getMoveControl().moveTo(x, y, z, speed);
     }
 }

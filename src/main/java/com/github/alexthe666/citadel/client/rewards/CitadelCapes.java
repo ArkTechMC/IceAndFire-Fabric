@@ -87,19 +87,19 @@ public class CitadelCapes {
         }
 
         public List<UUID> getIsFor() {
-            return isFor;
+            return this.isFor;
         }
 
         public String getIdentifier() {
-            return identifier;
+            return this.identifier;
         }
 
         public Identifier getTexture() {
-            return texture;
+            return this.texture;
         }
 
         public boolean isFor(UUID uuid) {
-            return isFor.contains(uuid);
+            return this.isFor.contains(uuid);
         }
     }
 }

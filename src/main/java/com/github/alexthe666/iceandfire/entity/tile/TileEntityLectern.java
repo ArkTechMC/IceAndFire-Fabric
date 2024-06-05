@@ -135,44 +135,44 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
             this.markDirty();
 
             if (/* Manuscripts */ this.stacks.get(1).isEmpty()) {
-                selectedPages[0] = null;
-                selectedPages[1] = null;
-                selectedPages[2] = null;
-                IceAndFire.sendMSGToAll(new MessageUpdateLectern(pos.asLong(), -1, -1, -1, false, 0));
+                this.selectedPages[0] = null;
+                this.selectedPages[1] = null;
+                this.selectedPages[2] = null;
+                IceAndFire.sendMSGToAll(new MessageUpdateLectern(this.pos.asLong(), -1, -1, -1, false, 0));
             } else {
-                selectedPages = randomizePages(getStack(0), getStack(1));
+                this.selectedPages = this.randomizePages(this.getStack(0), this.getStack(1));
             }
         }
     }
 
     public EnumBestiaryPages[] randomizePages(ItemStack bestiary, ItemStack manuscript) {
-        if (!world.isClient) {
+        if (!this.world.isClient) {
             if (bestiary.getItem() == IafItemRegistry.BESTIARY.get()) {
-                List<EnumBestiaryPages> possibleList = getPossiblePages();
-                localRand.setSeed(this.world.getTime());
-                Collections.shuffle(possibleList, localRand);
+                List<EnumBestiaryPages> possibleList = this.getPossiblePages();
+                this.localRand.setSeed(this.world.getTime());
+                Collections.shuffle(possibleList, this.localRand);
                 if (!possibleList.isEmpty()) {
-                    selectedPages[0] = possibleList.get(0);
+                    this.selectedPages[0] = possibleList.get(0);
                 } else {
-                    selectedPages[0] = null;
+                    this.selectedPages[0] = null;
                 }
                 if (possibleList.size() > 1) {
-                    selectedPages[1] = possibleList.get(1);
+                    this.selectedPages[1] = possibleList.get(1);
                 } else {
-                    selectedPages[1] = null;
+                    this.selectedPages[1] = null;
                 }
                 if (possibleList.size() > 2) {
-                    selectedPages[2] = possibleList.get(2);
+                    this.selectedPages[2] = possibleList.get(2);
                 } else {
-                    selectedPages[2] = null;
+                    this.selectedPages[2] = null;
                 }
             }
-            int page1 = selectedPages[0] == null ? -1 : selectedPages[0].ordinal();
-            int page2 = selectedPages[1] == null ? -1 : selectedPages[1].ordinal();
-            int page3 = selectedPages[2] == null ? -1 : selectedPages[2].ordinal();
-            IceAndFire.sendMSGToAll(new MessageUpdateLectern(pos.asLong(), page1, page2, page3, false, 0));
+            int page1 = this.selectedPages[0] == null ? -1 : this.selectedPages[0].ordinal();
+            int page2 = this.selectedPages[1] == null ? -1 : this.selectedPages[1].ordinal();
+            int page3 = this.selectedPages[2] == null ? -1 : this.selectedPages[2].ordinal();
+            IceAndFire.sendMSGToAll(new MessageUpdateLectern(this.pos.asLong(), page1, page2, page3, false, 0));
         }
-        return selectedPages;
+        return this.selectedPages;
     }
 
     @Override
@@ -260,7 +260,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        readNbt(packet.getNbt());
+        this.readNbt(packet.getNbt());
     }
 
     @Override
@@ -270,7 +270,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
 
     @Override
     protected @NotNull Text getContainerName() {
-        return getName();
+        return this.getName();
     }
 
     @Override
@@ -292,16 +292,16 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> capability, Direction facing) {
         if (!this.removed && facing != null && capability == ForgeCapabilities.ITEM_HANDLER) {
             if (facing == Direction.DOWN)
-                return handlers[1].cast();
+                return this.handlers[1].cast();
             else
-                return handlers[0].cast();
+                return this.handlers[0].cast();
         }
         return super.getCapability(capability, facing);
     }
 
     @Override
     public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        return new ContainerLectern(id, this, playerInventory, furnaceData);
+        return new ContainerLectern(id, this, playerInventory, this.furnaceData);
     }
 
 

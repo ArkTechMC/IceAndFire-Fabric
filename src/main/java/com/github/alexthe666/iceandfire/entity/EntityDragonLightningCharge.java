@@ -9,17 +9,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.network.PlayMessages;
 
 public class EntityDragonLightningCharge extends EntityDragonCharge implements IDragonProjectile {
-
-
     public EntityDragonLightningCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn) {
         super(type, worldIn);
-    }
-
-    public EntityDragonLightningCharge(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.LIGHTNING_DRAGON_CHARGE.get(), worldIn);
     }
 
     public EntityDragonLightningCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn, double posX,

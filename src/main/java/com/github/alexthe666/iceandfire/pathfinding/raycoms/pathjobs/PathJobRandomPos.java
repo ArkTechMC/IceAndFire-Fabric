@@ -126,7 +126,7 @@ public class PathJobRandomPos extends AbstractPathJob {
     protected Path search() {
         if (Pathfinding.isDebug()) {
             IceAndFire.LOGGER.info(String.format("Pathfinding from [%d,%d,%d] in the direction of [%d,%d,%d]",
-                    start.getX(), start.getY(), start.getZ(), destination.getX(), destination.getY(), destination.getZ()));
+                    this.start.getX(), this.start.getY(), this.start.getZ(), this.destination.getX(), this.destination.getY(), this.destination.getZ()));
         }
 
         return super.search();
@@ -140,20 +140,20 @@ public class PathJobRandomPos extends AbstractPathJob {
 
     @Override
     protected double computeHeuristic(final BlockPos pos) {
-        return Math.sqrt(destination.getSquaredDistance(new BlockPos(pos.getX(), destination.getY(), pos.getZ())));
+        return Math.sqrt(this.destination.getSquaredDistance(new BlockPos(pos.getX(), this.destination.getY(), pos.getZ())));
     }
 
     @Override
     protected boolean isAtDestination(final MNode n) {
-        return random.nextInt(10) == 0 && isInRestrictedArea(n.pos) && (start.getSquaredDistance(n.pos) > minDistFromStart * minDistFromStart)
-                && SurfaceType.getSurfaceType(world, world.getBlockState(n.pos.down()), n.pos.down()) == SurfaceType.WALKABLE
-                && destination.getSquaredDistance(n.pos) < this.maxDistToDest * this.maxDistToDest;
+        return random.nextInt(10) == 0 && this.isInRestrictedArea(n.pos) && (this.start.getSquaredDistance(n.pos) > this.minDistFromStart * this.minDistFromStart)
+                && SurfaceType.getSurfaceType(this.world, this.world.getBlockState(n.pos.down()), n.pos.down()) == SurfaceType.WALKABLE
+                && this.destination.getSquaredDistance(n.pos) < this.maxDistToDest * this.maxDistToDest;
     }
 
     @Override
     protected double getNodeResultScore(final MNode n) {
         //  For Result Score lower is better
-        return destination.getSquaredDistance(n.pos);
+        return this.destination.getSquaredDistance(n.pos);
     }
 
     /**
@@ -164,7 +164,7 @@ public class PathJobRandomPos extends AbstractPathJob {
      * @return
      */
     public boolean posAndRangeMatch(final int range, final BlockPos pos) {
-        return destination != null && range == maxDistToDest && destination.equals(pos);
+        return this.destination != null && range == this.maxDistToDest && this.destination.equals(pos);
     }
 
 

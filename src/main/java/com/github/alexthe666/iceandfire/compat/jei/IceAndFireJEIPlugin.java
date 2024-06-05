@@ -54,29 +54,29 @@ public class IceAndFireJEIPlugin implements IModPlugin {
         registry.addRecipes(ICE_DRAGON_FORGE_RECIPE_TYPE, ice);
         registry.addRecipes(LIGHTNING_DRAGON_FORGE_RECIPE_TYPE, lightning);
 
-        addDescription(registry, new ItemStack(IafItemRegistry.FIRE_DRAGON_BLOOD.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.ICE_DRAGON_BLOOD.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_RED.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BRONZE.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_GRAY.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_GREEN.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BLUE.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_WHITE.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_SAPPHIRE.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_SILVER.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_ELECTRIC.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_AMYTHEST.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_COPPER.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BLACK.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_FIRE.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_ICE.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_LIGHTNING.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.FIRE_STEW.get()));
-        addDescription(registry, new ItemStack(IafItemRegistry.FROST_STEW.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.FIRE_DRAGON_BLOOD.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.ICE_DRAGON_BLOOD.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_RED.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BRONZE.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_GRAY.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_GREEN.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BLUE.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_WHITE.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_SAPPHIRE.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_SILVER.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_ELECTRIC.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_AMYTHEST.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_COPPER.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BLACK.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_FIRE.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_ICE.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_LIGHTNING.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.FIRE_STEW.get()));
+        this.addDescription(registry, new ItemStack(IafItemRegistry.FROST_STEW.get()));
 
         for (EnumSkullType skull : EnumSkullType.values()) {
-            addDescription(registry, new ItemStack(skull.skull_item.get()));
+            this.addDescription(registry, new ItemStack(skull.skull_item.get()));
         }
 
         registry.addIngredientInfo(IafItemRegistry.PATTERN_FIRE.get().getDefaultInstance(), VanillaTypes.ITEM_STACK, Text.translatable("item.iceandfire.custom_banner.jei_desc"));

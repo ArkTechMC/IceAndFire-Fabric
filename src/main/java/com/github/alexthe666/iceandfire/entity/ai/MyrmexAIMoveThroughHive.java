@@ -38,15 +38,15 @@ public class MyrmexAIMoveThroughHive extends Goal {
         if (village == null) {
             return false;
         } else {
-            nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(this.myrmex.getRandom(), this.myrmex.getBlockPos()));
-            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(nextRoom.getX(), nextRoom.getY(), nextRoom.getZ(), movementSpeed);
+            this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(this.myrmex.getRandom(), this.myrmex.getBlockPos()));
+            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
             return this.path != null;
         }
     }
 
     @Override
     public boolean shouldContinue() {
-        return !myrmex.shouldLeaveHive() && !this.myrmex.isCloseEnoughToTarget(nextRoom, 3) && this.myrmex.shouldEnterHive() && !(this.myrmex instanceof EntityMyrmexWorker && ((EntityMyrmexWorker) this.myrmex).holdingBaby());
+        return !this.myrmex.shouldLeaveHive() && !this.myrmex.isCloseEnoughToTarget(this.nextRoom, 3) && this.myrmex.shouldEnterHive() && !(this.myrmex instanceof EntityMyrmexWorker && ((EntityMyrmexWorker) this.myrmex).holdingBaby());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MyrmexAIMoveThroughHive extends Goal {
 
     @Override
     public void stop() {
-        nextRoom = BlockPos.ORIGIN;
+        this.nextRoom = BlockPos.ORIGIN;
 
     }
 }

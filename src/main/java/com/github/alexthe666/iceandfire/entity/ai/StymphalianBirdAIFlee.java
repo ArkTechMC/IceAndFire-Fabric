@@ -45,7 +45,7 @@ public class StymphalianBirdAIFlee extends Goal {
             return false;
 
         this.closestLivingEntity = list.get(0);
-        if (closestLivingEntity != null && this.stymphalianBird.getVictor() != null && this.closestLivingEntity.equals(this.stymphalianBird.getVictor())) {
+        if (this.closestLivingEntity != null && this.stymphalianBird.getVictor() != null && this.closestLivingEntity.equals(this.stymphalianBird.getVictor())) {
             Vec3d Vector3d = NoPenaltyTargeting.findFrom(this.stymphalianBird, 32, 7, new Vec3d(this.closestLivingEntity.getX(), this.closestLivingEntity.getY(), this.closestLivingEntity.getZ()));
 
             if (Vector3d == null) {
@@ -54,7 +54,7 @@ public class StymphalianBirdAIFlee extends Goal {
                 Vector3d = Vector3d.add(0, 3, 0);
                 this.stymphalianBird.getMoveControl().moveTo(Vector3d.x, Vector3d.y, Vector3d.z, 3D);
                 this.stymphalianBird.getLookControl().lookAt(Vector3d.x, Vector3d.y, Vector3d.z, 180.0F, 20.0F);
-                hidePlace = Vector3d;
+                this.hidePlace = Vector3d;
                 return true;
             }
         }
@@ -63,13 +63,13 @@ public class StymphalianBirdAIFlee extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return hidePlace != null && this.stymphalianBird.squaredDistanceTo(hidePlace.add(0.5, 0.5, 0.5)) < 2;
+        return this.hidePlace != null && this.stymphalianBird.squaredDistanceTo(this.hidePlace.add(0.5, 0.5, 0.5)) < 2;
     }
 
     @Override
     public void start() {
-        this.stymphalianBird.getMoveControl().moveTo(hidePlace.x, hidePlace.y, hidePlace.z, 3D);
-        this.stymphalianBird.getLookControl().lookAt(hidePlace.x, hidePlace.y, hidePlace.z, 180.0F, 20.0F);
+        this.stymphalianBird.getMoveControl().moveTo(this.hidePlace.x, this.hidePlace.y, this.hidePlace.z, 3D);
+        this.stymphalianBird.getLookControl().lookAt(this.hidePlace.x, this.hidePlace.y, this.hidePlace.z, 180.0F, 20.0F);
     }
 
     @Override

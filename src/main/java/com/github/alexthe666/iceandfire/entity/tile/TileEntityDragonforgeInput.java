@@ -31,8 +31,8 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     public void onHitWithFlame() {
-        if (core != null) {
-            core.transferPower(1);
+        if (this.core != null) {
+            this.core.transferPower(1);
         }
     }
 
@@ -67,7 +67,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        readNbt(packet.getNbt());
+        this.readNbt(packet.getNbt());
     }
 
     @Override
@@ -83,18 +83,18 @@ public class TileEntityDragonforgeInput extends BlockEntity {
         );
 
         Box searchArea = new Box(
-                (double) pos.getX() - LURE_DISTANCE,
-                (double) pos.getY() - LURE_DISTANCE,
-                (double) pos.getZ() - LURE_DISTANCE,
-                (double) pos.getX() + LURE_DISTANCE,
-                (double) pos.getY() + LURE_DISTANCE,
-                (double) pos.getZ() + LURE_DISTANCE
+                (double) this.pos.getX() - LURE_DISTANCE,
+                (double) this.pos.getY() - LURE_DISTANCE,
+                (double) this.pos.getZ() - LURE_DISTANCE,
+                (double) this.pos.getX() + LURE_DISTANCE,
+                (double) this.pos.getY() + LURE_DISTANCE,
+                (double) this.pos.getZ() + LURE_DISTANCE
         );
 
         boolean dragonSelected = false;
 
-        for (EntityDragonBase dragon : world.getNonSpectatingEntities(EntityDragonBase.class, searchArea)) {
-            if (!dragonSelected && /* Dragon Checks */ getDragonType() == dragon.dragonType.getIntFromType() && (dragon.isChained() || dragon.isTamed()) && canSeeInput(dragon, targetPosition)) {
+        for (EntityDragonBase dragon : this.world.getNonSpectatingEntities(EntityDragonBase.class, searchArea)) {
+            if (!dragonSelected && /* Dragon Checks */ this.getDragonType() == dragon.dragonType.getIntFromType() && (dragon.isChained() || dragon.isTamed()) && this.canSeeInput(dragon, targetPosition)) {
                 dragon.burningTarget = this.pos;
                 dragonSelected = true;
             } else if (dragon.burningTarget == this.pos) {
@@ -105,11 +105,11 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     public boolean isAssembled() {
-        return (core != null && core.assembled() && core.canSmelt());
+        return (this.core != null && this.core.assembled() && this.core.canSmelt());
     }
 
     public void resetCore() {
-        core = null;
+        this.core = null;
     }
 
     private boolean canSeeInput(EntityDragonBase dragon, Vec3d target) {
@@ -124,7 +124,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     private BlockState getDeactivatedState() {
-        return switch (getDragonType()) {
+        return switch (this.getDragonType()) {
             case 1 ->
                     IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get().getDefaultState().with(BlockDragonforgeInput.ACTIVE, false);
             case 2 ->
@@ -135,7 +135,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     private int getDragonType() {
-        BlockState state = world.getBlockState(pos);
+        BlockState state = this.world.getBlockState(this.pos);
 
         if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get()) {
             return 0;
@@ -149,13 +149,13 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     private boolean isActive() {
-        BlockState state = world.getBlockState(pos);
+        BlockState state = this.world.getBlockState(this.pos);
         return state.getBlock() instanceof BlockDragonforgeInput && state.get(BlockDragonforgeInput.ACTIVE);
     }
 
     private TileEntityDragonforge getConnectedTileEntity(final BlockPos position) {
         for (Direction facing : HORIZONTALS) {
-            if (world.getBlockEntity(position.offset(facing)) instanceof TileEntityDragonforge forge) {
+            if (this.world.getBlockEntity(position.offset(facing)) instanceof TileEntityDragonforge forge) {
                 return forge;
             }
         }
@@ -165,8 +165,8 @@ public class TileEntityDragonforgeInput extends BlockEntity {
 
     @Override
     public <T> @NotNull LazyOptional<T> getCapability(@NotNull final Capability<T> capability, final Direction facing) {
-        if (core != null && capability == ForgeCapabilities.ITEM_HANDLER) {
-            return core.getCapability(capability, facing);
+        if (this.core != null && capability == ForgeCapabilities.ITEM_HANDLER) {
+            return this.core.getCapability(capability, facing);
         }
 
         return super.getCapability(capability, facing);

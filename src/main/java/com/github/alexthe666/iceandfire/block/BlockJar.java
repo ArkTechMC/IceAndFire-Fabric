@@ -78,7 +78,7 @@ public class BlockJar extends BlockWithEntity {
 
     @Override
     public void onStateReplaced(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-        dropPixie(worldIn, pos);
+        this.dropPixie(worldIn, pos);
         super.onStateReplaced(state, worldIn, pos, newState, isMoving);
     }
 
@@ -90,7 +90,7 @@ public class BlockJar extends BlockWithEntity {
 
     @Override
     public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World world, @NotNull BlockPos pos, @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult resultIn) {
-        if (!empty && world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityJar && ((TileEntityJar) world.getBlockEntity(pos)).hasPixie && ((TileEntityJar) world.getBlockEntity(pos)).hasProduced) {
+        if (!this.empty && world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityJar && ((TileEntityJar) world.getBlockEntity(pos)).hasPixie && ((TileEntityJar) world.getBlockEntity(pos)).hasProduced) {
             ((TileEntityJar) world.getBlockEntity(pos)).hasProduced = false;
             ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(IafItemRegistry.PIXIE_DUST.get()));
             if (!world.isClient) {
@@ -111,9 +111,9 @@ public class BlockJar extends BlockWithEntity {
     @Override
     public void onPlaced(World world, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity placer, @NotNull ItemStack stack) {
         if (world.getBlockEntity(pos) instanceof TileEntityJar jar) {
-            if (!empty) {
+            if (!this.empty) {
                 jar.hasPixie = true;
-                jar.pixieType = pixieType;
+                jar.pixieType = this.pixieType;
             } else {
                 jar.hasPixie = false;
             }
@@ -128,6 +128,6 @@ public class BlockJar extends BlockWithEntity {
 
     @Override
     public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new TileEntityJar(pos, state, empty);
+        return new TileEntityJar(pos, state, this.empty);
     }
 }

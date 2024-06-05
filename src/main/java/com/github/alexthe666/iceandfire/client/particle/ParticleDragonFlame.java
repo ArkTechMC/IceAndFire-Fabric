@@ -34,20 +34,20 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
         this.initialX = xCoordIn;
         this.initialY = yCoordIn;
         this.initialZ = zCoordIn;
-        targetX = xCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
-        targetY = yCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
-        targetZ = zCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
-        this.setPos(x, y, z);
+        this.targetX = xCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
+        this.targetY = yCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
+        this.targetZ = zCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
+        this.setPos(this.x, this.y, this.z);
         this.dragonSize = dragonSize;
-        this.speedBonus = random.nextFloat() * 0.015F;
+        this.speedBonus = this.random.nextFloat() * 0.015F;
     }
 
     public ParticleDragonFlame(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ, EntityDragonBase entityDragonBase, int startingAge) {
         this(world, x, y, z, motX, motY, motZ, MathHelper.clamp(entityDragonBase.getRenderSize() * 0.08F, 0.55F, 3F));
         this.dragon = entityDragonBase;
-        this.targetX = dragon.burnParticleX + (double) ((this.random.nextFloat() - this.random.nextFloat())) * 3.5F;
-        this.targetY = dragon.burnParticleY + (double) ((this.random.nextFloat() - this.random.nextFloat())) * 3.5F;
-        this.targetZ = dragon.burnParticleZ + (double) ((this.random.nextFloat() - this.random.nextFloat())) * 3.5F;
+        this.targetX = this.dragon.burnParticleX + (double) ((this.random.nextFloat() - this.random.nextFloat())) * 3.5F;
+        this.targetY = this.dragon.burnParticleY + (double) ((this.random.nextFloat() - this.random.nextFloat())) * 3.5F;
+        this.targetZ = this.dragon.burnParticleZ + (double) ((this.random.nextFloat() - this.random.nextFloat())) * 3.5F;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -57,14 +57,14 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
 
     @Override
     public int getMaxAge() {
-        return dragon == null ? 10 : 30;
+        return this.dragon == null ? 10 : 30;
     }
 
     @Override
     public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         //TODO: use buffer stuff
         Vec3d inerp = renderInfo.getPos();
-        if (age > this.getMaxAge()) {
+        if (this.age > this.getMaxAge()) {
             this.markDead();
         }
 
@@ -117,22 +117,22 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
     public void tick() {
         super.tick();
 
-        if (dragon == null) {
-            float distX = (float) (this.initialX - x);
-            float distZ = (float) (this.initialZ - z);
-            this.velocityX += distX * -0.01F * dragonSize * random.nextFloat();
-            this.velocityZ += distZ * -0.01F * dragonSize * random.nextFloat();
-            this.velocityY += 0.015F * random.nextFloat();
+        if (this.dragon == null) {
+            float distX = (float) (this.initialX - this.x);
+            float distZ = (float) (this.initialZ - this.z);
+            this.velocityX += distX * -0.01F * this.dragonSize * this.random.nextFloat();
+            this.velocityZ += distZ * -0.01F * this.dragonSize * this.random.nextFloat();
+            this.velocityY += 0.015F * this.random.nextFloat();
         } else {
-            double d2 = this.targetX - initialX;
-            double d3 = this.targetY - initialY;
-            double d4 = this.targetZ - initialZ;
+            double d2 = this.targetX - this.initialX;
+            double d3 = this.targetY - this.initialY;
+            double d4 = this.targetZ - this.initialZ;
             double dist = Math.sqrt(d2 * d2 + d3 * d3 + d4 * d4);
-            float speed = 0.015F + speedBonus;
+            float speed = 0.015F + this.speedBonus;
             this.velocityX += d2 * speed;
             this.velocityY += d3 * speed;
             this.velocityZ += d4 * speed;
-            if (touchedTime > 3) {
+            if (this.touchedTime > 3) {
                 this.markDead();
             }
         }

@@ -60,7 +60,7 @@ public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEn
 
         }
         if (entity == null) {
-            meta = TileEntityPixieHouse.getHouseTypeFromBlock(metaOverride.getBlock());
+            meta = TileEntityPixieHouse.getHouseTypeFromBlock(this.metaOverride.getBlock());
         }
         matrixStackIn.push();
         matrixStackIn.translate(0.5F, 1.501F, 0.5F);

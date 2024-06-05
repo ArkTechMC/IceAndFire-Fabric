@@ -16,7 +16,7 @@ public class RecipeData {
     }
 
     public String getRecipe() {
-        return recipe;
+        return this.recipe;
     }
 
     public void setRecipe(String recipe) {
@@ -24,11 +24,11 @@ public class RecipeData {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -36,7 +36,7 @@ public class RecipeData {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -44,7 +44,7 @@ public class RecipeData {
     }
 
     public double getScale() {
-        return scale;
+        return this.scale;
     }
 
     public void setScale(double scale) {

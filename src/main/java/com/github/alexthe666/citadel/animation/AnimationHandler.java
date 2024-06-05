@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.message.AnimationMessage;
 import com.iafenvoy.iafextra.event.EventBus;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.common.MinecraftForge;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**

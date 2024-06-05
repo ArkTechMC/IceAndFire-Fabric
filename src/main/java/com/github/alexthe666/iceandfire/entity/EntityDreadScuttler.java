@@ -129,15 +129,15 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     public void tickMovement() {
         super.tickMovement();
         LivingEntity attackTarget = this.getTarget();
-        if (Math.abs(firstWidth - INITIAL_WIDTH * getSize()) > 0.01F || Math.abs(firstHeight - INITIAL_HEIGHT * getSize()) > 0.01F) {
-            firstWidth = INITIAL_WIDTH * getSize();
-            firstHeight = INITIAL_HEIGHT * getSize();
+        if (Math.abs(this.firstWidth - INITIAL_WIDTH * this.getSize()) > 0.01F || Math.abs(this.firstHeight - INITIAL_HEIGHT * this.getSize()) > 0.01F) {
+            this.firstWidth = INITIAL_WIDTH * this.getSize();
+            this.firstHeight = INITIAL_HEIGHT * this.getSize();
         }
         if (!this.getWorld().isClient) {
             this.setBesideClimbableBlock(this.horizontalCollision);
         }
         if (this.getAnimation() == ANIMATION_SPAWN && this.getAnimationTick() < 30) {
-            BlockState belowBlock = getWorld().getBlockState(this.getBlockPos().down());
+            BlockState belowBlock = this.getWorld().getBlockState(this.getBlockPos().down());
             if (belowBlock.getBlock() != Blocks.AIR) {
                 for (int i = 0; i < 5; i++) {
                     this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, belowBlock), this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getBoundingBox().minY, this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
@@ -151,7 +151,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
             }
             this.lookAtEntity(attackTarget, 360, 80);
             if (this.getAnimation() == ANIMATION_BITE && this.getAnimationTick() == 6) {
-                attackTarget.damage(getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
+                attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
                 attackTarget.takeKnockback(0.25F, this.getX() - attackTarget.getX(), this.getZ() - attackTarget.getZ());
             }
         }
@@ -197,28 +197,28 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
-        this.setSize(0.5F + random.nextFloat() * 1.15F);
+        this.setSize(0.5F + this.random.nextFloat() * 1.15F);
         return data;
     }
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override
@@ -272,7 +272,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
 
     @Override
     public float getScaleFactor() {
-        return getSize();
+        return this.getSize();
     }
 
 }

@@ -30,8 +30,8 @@ public class ContainerHippogryph extends ScreenHandler {
         }
         this.hippogryph = hippogryph;
         this.player = playerInventory.player;
-        hippogryphInventory.onOpen(player);
-        this.addSlot(new Slot(hippogryphInventory, 0, 8, 18) {
+        this.hippogryphInventory.onOpen(this.player);
+        this.addSlot(new Slot(this.hippogryphInventory, 0, 8, 18) {
             @Override
             public boolean canInsert(@NotNull ItemStack stack) {
                 return stack.getItem() == Items.SADDLE && !this.hasStack();
@@ -49,7 +49,7 @@ public class ContainerHippogryph extends ScreenHandler {
                 return true;
             }
         });
-        this.addSlot(new Slot(hippogryphInventory, 1, 8, 36) {
+        this.addSlot(new Slot(this.hippogryphInventory, 1, 8, 36) {
             @Override
             public boolean canInsert(@NotNull ItemStack stack) {
                 return stack.getItem() == Blocks.CHEST.asItem() && !this.hasStack();
@@ -67,7 +67,7 @@ public class ContainerHippogryph extends ScreenHandler {
                 return true;
             }
         });
-        this.addSlot(new Slot(hippogryphInventory, 2, 8, 52) {
+        this.addSlot(new Slot(this.hippogryphInventory, 2, 8, 52) {
 
             @Override
             public boolean canInsert(@NotNull ItemStack stack) {
@@ -94,7 +94,7 @@ public class ContainerHippogryph extends ScreenHandler {
 
         for (int k = 0; k < 3; ++k) {
             for (int l = 0; l < 5; ++l) {
-                this.addSlot(new Slot(hippogryphInventory, 3 + l + k * 5, 80 + l * 18, 18 + k * 18) {
+                this.addSlot(new Slot(this.hippogryphInventory, 3 + l + k * 5, 80 + l * 18, 18 + k * 18) {
                     @Override
                     public boolean isEnabled() {
                         return ContainerHippogryph.this.hippogryph != null && ContainerHippogryph.this.hippogryph.isChested();
@@ -110,12 +110,12 @@ public class ContainerHippogryph extends ScreenHandler {
 
         for (int i1 = 0; i1 < 3; ++i1) {
             for (int k1 = 0; k1 < 9; ++k1) {
-                this.addSlot(new Slot(player.getInventory(), k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 + -18));
+                this.addSlot(new Slot(this.player.getInventory(), k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 + -18));
             }
         }
 
         for (int j1 = 0; j1 < 9; ++j1) {
-            this.addSlot(new Slot(player.getInventory(), j1, 8 + j1 * 18, 142));
+            this.addSlot(new Slot(this.player.getInventory(), j1, 8 + j1 * 18, 142));
         }
     }
 

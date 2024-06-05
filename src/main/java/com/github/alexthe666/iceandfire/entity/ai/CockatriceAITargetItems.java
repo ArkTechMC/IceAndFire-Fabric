@@ -42,19 +42,19 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
         }
 
         if ((!((EntityCockatrice) this.mob).canMove()) || this.mob.getHealth() >= this.mob.getMaxHealth()) {
-            list = IAFMath.emptyItemEntityList;
+            this.list = IAFMath.emptyItemEntityList;
             return false;
         }
 
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class,
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class,
                     this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (list.isEmpty()) {
+        if (this.list.isEmpty()) {
             return false;
         } else {
-            list.sort(this.theNearestAttackableTargetSorter);
-            this.targetEntity = list.get(0);
+            this.list.sort(this.theNearestAttackableTargetSorter);
+            this.targetEntity = this.list.get(0);
             return true;
         }
     }
@@ -81,7 +81,7 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
             cockatrice.heal(8);
             cockatrice.setAnimation(EntityCockatrice.ANIMATION_EAT);
-            stop();
+            this.stop();
         }
     }
 

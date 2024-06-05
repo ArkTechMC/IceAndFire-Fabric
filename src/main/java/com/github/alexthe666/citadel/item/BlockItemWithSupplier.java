@@ -20,11 +20,11 @@ public class BlockItemWithSupplier extends BlockItem {
 
     @Override
     public Block getBlock() {
-        return blockSupplier.get();
+        return this.blockSupplier.get();
     }
 
     public boolean canBeNested() {
-        return !(blockSupplier.get() instanceof ShulkerBoxBlock);
+        return !(this.blockSupplier.get() instanceof ShulkerBoxBlock);
     }
 
     public void onItemEntityDestroyed(ItemEntity p_150700_) {

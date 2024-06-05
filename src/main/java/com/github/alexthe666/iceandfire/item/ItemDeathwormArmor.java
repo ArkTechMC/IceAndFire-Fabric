@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDeathWormArmor;
-import com.github.alexthe666.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;

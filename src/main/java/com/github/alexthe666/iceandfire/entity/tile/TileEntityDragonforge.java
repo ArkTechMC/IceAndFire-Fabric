@@ -137,17 +137,17 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     private void updateGrills(boolean grill) {
         for (Direction facing : HORIZONTALS) {
             BlockPos grillPos = this.getPos().offset(facing);
-            if (grillMatches(world.getBlockState(grillPos).getBlock())) {
-                BlockState grillState = getGrillBlock().getDefaultState().with(BlockDragonforgeBricks.GRILL, grill);
-                if (world.getBlockState(grillPos) != grillState) {
-                    world.setBlockState(grillPos, grillState);
+            if (this.grillMatches(this.world.getBlockState(grillPos).getBlock())) {
+                BlockState grillState = this.getGrillBlock().getDefaultState().with(BlockDragonforgeBricks.GRILL, grill);
+                if (this.world.getBlockState(grillPos) != grillState) {
+                    this.world.setBlockState(grillPos, grillState);
                 }
             }
         }
     }
 
     public Block getGrillBlock() {
-        return switch (fireType) {
+        return switch (this.fireType) {
             case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
             case 2 -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
             default -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(); // isFire == 0
@@ -155,7 +155,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public boolean grillMatches(Block block) {
-        return switch (fireType) {
+        return switch (this.fireType) {
             case 0 -> block == IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get();
             case 1 -> block == IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
             case 2 -> block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
@@ -235,7 +235,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public String getTypeID() {
-        return switch (getFireType(this.getCachedState().getBlock())) {
+        return switch (this.getFireType(this.getCachedState().getBlock())) {
             case 0 -> "fire";
             case 1 -> "ice";
             case 2 -> "lightning";
@@ -244,25 +244,25 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public int getMaxCookTime() {
-        return getCurrentRecipe().map(DragonForgeRecipe::getCookTime).orElse(100);
+        return this.getCurrentRecipe().map(DragonForgeRecipe::getCookTime).orElse(100);
     }
 
     private Block getDefaultOutput() {
-        return fireType == 1 ? IafBlockRegistry.DRAGON_ICE.get() : IafBlockRegistry.ASH.get();
+        return this.fireType == 1 ? IafBlockRegistry.DRAGON_ICE.get() : IafBlockRegistry.ASH.get();
     }
 
     private ItemStack getCurrentResult() {
-        Optional<DragonForgeRecipe> recipe = getCurrentRecipe();
+        Optional<DragonForgeRecipe> recipe = this.getCurrentRecipe();
         return recipe.map(DragonForgeRecipe::getResultItem)
-                .orElseGet(() -> new ItemStack(getDefaultOutput()));
+                .orElseGet(() -> new ItemStack(this.getDefaultOutput()));
     }
 
     public Optional<DragonForgeRecipe> getCurrentRecipe() {
-        return world.getRecipeManager().getFirstMatch(IafRecipeRegistry.DRAGON_FORGE_TYPE.get(), this, world);
+        return this.world.getRecipeManager().getFirstMatch(IafRecipeRegistry.DRAGON_FORGE_TYPE.get(), this, this.world);
     }
 
     public List<DragonForgeRecipe> getRecipes() {
-        return world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE.get());
+        return this.world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE.get());
     }
 
     public boolean canSmelt() {
@@ -270,7 +270,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         if (cookStack.isEmpty())
             return false;
 
-        ItemStack forgeRecipeOutput = getCurrentResult();
+        ItemStack forgeRecipeOutput = this.getCurrentResult();
 
         if (forgeRecipeOutput.isEmpty())
             return false;
@@ -302,7 +302,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         ItemStack bloodStack = this.forgeItemStacks.get(1);
         ItemStack outputStack = this.forgeItemStacks.get(2);
 
-        ItemStack output = getCurrentResult();
+        ItemStack output = this.getCurrentResult();
 
         if (outputStack.isEmpty()) {
             this.forgeItemStacks.set(2, output.copy());
@@ -317,7 +317,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     @Override
     public boolean isValid(int index, @NotNull ItemStack stack) {
         return switch (index) {
-            case 1 -> getRecipes().stream().anyMatch(item -> item.isValidBlood(stack));
+            case 1 -> this.getRecipes().stream().anyMatch(item -> item.isValidBlood(stack));
             case 0 -> true;//getRecipes().stream().anyMatch(item -> item.isValidInput(stack))
             default -> false;
         };
@@ -359,55 +359,55 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         if (!this.removed && facing != null
             && capability == ForgeCapabilities.ITEM_HANDLER) {
             if (facing == Direction.UP)
-                return handlers[0].cast();
+                return this.handlers[0].cast();
             if (facing == Direction.DOWN)
-                return handlers[1].cast();
+                return this.handlers[1].cast();
             else
-                return handlers[2].cast();
+                return this.handlers[2].cast();
         }
         return super.getCapability(capability, facing);
     }
 
     @Override
     protected @NotNull Text getContainerName() {
-        return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(fireType));
+        return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(this.fireType));
     }
 
     public void transferPower(int i) {
-        if (!world.isClient) {
+        if (!this.world.isClient) {
             if (this.canSmelt()) {
-                if (canAddFlameAgain) {
-                    cookTime = Math.min(this.getMaxCookTime() + 1,
-                        cookTime + i);
-                    canAddFlameAgain = false;
+                if (this.canAddFlameAgain) {
+                    this.cookTime = Math.min(this.getMaxCookTime() + 1,
+                            this.cookTime + i);
+                    this.canAddFlameAgain = false;
                 }
             } else {
-                cookTime = 0;
+                this.cookTime = 0;
             }
-            IceAndFire.sendMSGToAll(new MessageUpdateDragonforge(pos.asLong(), cookTime));
+            IceAndFire.sendMSGToAll(new MessageUpdateDragonforge(this.pos.asLong(), this.cookTime));
         }
-        lastDragonFlameTimer = 40;
+        this.lastDragonFlameTimer = 40;
     }
 
     private boolean checkBoneCorners(BlockPos pos) {
-        return doesBlockEqual(pos.north().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-            && doesBlockEqual(pos.north().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-            && doesBlockEqual(pos.south().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-            && doesBlockEqual(pos.south().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get());
+        return this.doesBlockEqual(pos.north().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
+            && this.doesBlockEqual(pos.north().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
+            && this.doesBlockEqual(pos.south().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
+            && this.doesBlockEqual(pos.south().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get());
     }
 
     private boolean checkBrickCorners(BlockPos pos) {
-        return doesBlockEqual(pos.north().east(), getBrick()) && doesBlockEqual(pos.north().west(), getBrick())
-            && doesBlockEqual(pos.south().east(), getBrick()) && doesBlockEqual(pos.south().west(), getBrick());
+        return this.doesBlockEqual(pos.north().east(), this.getBrick()) && this.doesBlockEqual(pos.north().west(), this.getBrick())
+            && this.doesBlockEqual(pos.south().east(), this.getBrick()) && this.doesBlockEqual(pos.south().west(), this.getBrick());
     }
 
     private boolean checkBrickSlots(BlockPos pos) {
-        return doesBlockEqual(pos.north(), getBrick()) && doesBlockEqual(pos.east(), getBrick())
-            && doesBlockEqual(pos.west(), getBrick()) && doesBlockEqual(pos.south(), getBrick());
+        return this.doesBlockEqual(pos.north(), this.getBrick()) && this.doesBlockEqual(pos.east(), this.getBrick())
+            && this.doesBlockEqual(pos.west(), this.getBrick()) && this.doesBlockEqual(pos.south(), this.getBrick());
     }
 
     private boolean checkY(BlockPos pos) {
-        return doesBlockEqual(pos.up(), getBrick()) && doesBlockEqual(pos.down(), getBrick());
+        return this.doesBlockEqual(pos.up(), this.getBrick()) && this.doesBlockEqual(pos.down(), this.getBrick());
     }
 
     @Override
@@ -417,7 +417,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        readNbt(packet.getNbt());
+        this.readNbt(packet.getNbt());
     }
 
     @Override
@@ -426,12 +426,12 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public boolean assembled() {
-        return checkBoneCorners(pos.down()) && checkBrickSlots(pos.down()) && checkBrickCorners(pos)
-            && atleastThreeAreBricks(pos) && checkY(pos) && checkBoneCorners(pos.up()) && checkBrickSlots(pos.up());
+        return this.checkBoneCorners(this.pos.down()) && this.checkBrickSlots(this.pos.down()) && this.checkBrickCorners(this.pos)
+            && this.atleastThreeAreBricks(this.pos) && this.checkY(this.pos) && this.checkBoneCorners(this.pos.up()) && this.checkBrickSlots(this.pos.up());
     }
 
     private Block getBrick() {
-        return switch (fireType) {
+        return switch (this.fireType) {
             case 0 -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get();
             case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
             default -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
@@ -439,13 +439,13 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     private boolean doesBlockEqual(BlockPos pos, Block block) {
-        return world.getBlockState(pos).getBlock() == block;
+        return this.world.getBlockState(pos).getBlock() == block;
     }
 
     private boolean atleastThreeAreBricks(BlockPos pos) {
         int count = 0;
         for (Direction facing : HORIZONTALS) {
-            if (world.getBlockState(pos.offset(facing)).getBlock() == getBrick()) {
+            if (this.world.getBlockState(pos.offset(facing)).getBlock() == this.getBrick()) {
                 count++;
             }
         }

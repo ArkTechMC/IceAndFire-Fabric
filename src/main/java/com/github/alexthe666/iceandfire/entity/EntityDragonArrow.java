@@ -7,7 +7,6 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityDragonArrow extends PersistentProjectileEntity {
@@ -21,10 +20,6 @@ public class EntityDragonArrow extends PersistentProjectileEntity {
                              World world) {
         super(typeIn, x, y, z, world);
         this.setDamage(10);
-    }
-
-    public EntityDragonArrow(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.DRAGON_ARROW.get(), worldIn);
     }
 
     public EntityDragonArrow(EntityType<? extends PersistentProjectileEntity> typeIn, LivingEntity shooter, World worldIn) {

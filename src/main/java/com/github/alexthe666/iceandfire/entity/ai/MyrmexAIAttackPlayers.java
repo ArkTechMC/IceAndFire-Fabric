@@ -25,6 +25,6 @@ public class MyrmexAIAttackPlayers extends ActiveTargetGoal {
 
     @Override
     public boolean canStart() {
-        return myrmex.shouldHaveNormalAI() && super.canStart();
+        return this.myrmex.shouldHaveNormalAI() && super.canStart();
     }
 }

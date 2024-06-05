@@ -14,11 +14,11 @@ public class SirenAIWander extends WanderAroundGoal {
 
     @Override
     public boolean canStart() {
-        return !this.siren.isTouchingWater() && !siren.isSinging() && super.canStart();
+        return !this.siren.isTouchingWater() && !this.siren.isSinging() && super.canStart();
     }
 
     @Override
     public boolean shouldContinue() {
-        return !this.siren.isTouchingWater() && !siren.isSinging() && super.shouldContinue();
+        return !this.siren.isTouchingWater() && !this.siren.isSinging() && super.shouldContinue();
     }
 }

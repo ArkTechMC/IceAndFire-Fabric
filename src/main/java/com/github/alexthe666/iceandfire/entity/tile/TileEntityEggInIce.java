@@ -54,24 +54,24 @@ public class TileEntityEggInIce extends BlockEntity {
 
     @Override
     public void writeNbt(@NotNull NbtCompound tag) {
-        if (type != null) {
-            tag.putByte("Color", (byte) type.ordinal());
+        if (this.type != null) {
+            tag.putByte("Color", (byte) this.type.ordinal());
         } else {
             tag.putByte("Color", (byte) 0);
         }
-        tag.putInt("Age", age);
-        if (ownerUUID == null) {
+        tag.putInt("Age", this.age);
+        if (this.ownerUUID == null) {
             tag.putString("OwnerUUID", "");
         } else {
-            tag.putUuid("OwnerUUID", ownerUUID);
+            tag.putUuid("OwnerUUID", this.ownerUUID);
         }
     }
 
     @Override
     public void readNbt(@NotNull NbtCompound tag) {
         super.readNbt(tag);
-        type = EnumDragonEgg.values()[tag.getByte("Color")];
-        age = tag.getInt("Age");
+        this.type = EnumDragonEgg.values()[tag.getByte("Color")];
+        this.age = tag.getInt("Age");
         UUID s = null;
 
         if (tag.containsUuid("OwnerUUID")) {
@@ -84,7 +84,7 @@ public class TileEntityEggInIce extends BlockEntity {
             }
         }
         if (s != null) {
-            ownerUUID = s;
+            this.ownerUUID = s;
         }
     }
 
@@ -96,30 +96,30 @@ public class TileEntityEggInIce extends BlockEntity {
     @Override
     public @NotNull NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbtTagCompound = new NbtCompound();
-        writeNbt(nbtTagCompound);
+        this.writeNbt(nbtTagCompound);
         return nbtTagCompound;
     }
 
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
         NbtCompound nbtTagCompound = new NbtCompound();
-        writeNbt(nbtTagCompound);
+        this.writeNbt(nbtTagCompound);
         return BlockEntityUpdateS2CPacket.create(this);
     }
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket pkt) {
-        readNbt(pkt.getNbt());   // read from the nbt in the packet
+        this.readNbt(pkt.getNbt());   // read from the nbt in the packet
     }
 
     public void spawnEgg() {
-        if (type != null) {
-            EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), world);
-            egg.setEggType(type);
-            egg.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+        if (this.type != null) {
+            EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), this.world);
+            egg.setEggType(this.type);
+            egg.setPosition(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5);
             egg.setOwnerId(this.ownerUUID);
-            if (!world.isClient) {
-                world.spawnEntity(egg);
+            if (!this.world.isClient) {
+                this.world.spawnEntity(egg);
             }
         }
     }

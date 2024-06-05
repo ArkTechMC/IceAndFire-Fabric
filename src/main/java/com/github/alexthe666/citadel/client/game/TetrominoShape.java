@@ -23,7 +23,7 @@ public enum TetrominoShape {
     }
 
     public List<Vec3i> getRelativePositions() {
-        return relativePositions;
+        return this.relativePositions;
     }
 
 }

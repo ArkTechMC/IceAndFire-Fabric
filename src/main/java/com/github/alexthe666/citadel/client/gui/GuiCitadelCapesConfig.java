@@ -34,7 +34,7 @@ public class GuiCitadelCapesConfig extends GameOptionsScreen {
     public GuiCitadelCapesConfig(Screen parentScreenIn, GameOptions gameSettingsIn) {
         super(parentScreenIn, gameSettingsIn, Text.translatable("citadel.gui.capes"));
         NbtCompound tag = CitadelEntityData.getOrCreateCitadelTag(MinecraftClient.getInstance().player);
-        capeType = tag.contains("CitadelCapeType") && !tag.getString("CitadelCapeType").isEmpty() ? tag.getString("CitadelCapeType") : null;
+        this.capeType = tag.contains("CitadelCapeType") && !tag.getString("CitadelCapeType").isEmpty() ? tag.getString("CitadelCapeType") : null;
     }
 
 
@@ -107,32 +107,32 @@ public class GuiCitadelCapesConfig extends GameOptionsScreen {
             this.client.setScreen(this.parent);
         }).size(200, 20).position(i - 100, j + 160).build();
         this.addDrawableChild(doneButton);
-        button = ButtonWidget.builder(getTypeText(), (p_213079_1_) -> {
-            CitadelCapes.Cape nextCape = CitadelCapes.getNextCape(capeType, MinecraftClient.getInstance().player.getUuid());
+        this.button = ButtonWidget.builder(this.getTypeText(), (p_213079_1_) -> {
+            CitadelCapes.Cape nextCape = CitadelCapes.getNextCape(this.capeType, MinecraftClient.getInstance().player.getUuid());
             this.capeType = nextCape == null ? null : nextCape.getIdentifier();
             NbtCompound tag = CitadelEntityData.getOrCreateCitadelTag(MinecraftClient.getInstance().player);
-            if (capeType == null) {
+            if (this.capeType == null) {
                 tag.putString("CitadelCapeType", "");
                 tag.putBoolean("CitadelCapeDisabled", true);
             } else {
-                tag.putString("CitadelCapeType", capeType);
+                tag.putString("CitadelCapeType", this.capeType);
                 tag.putBoolean("CitadelCapeDisabled", false);
             }
             CitadelEntityData.setCitadelTag(MinecraftClient.getInstance().player, tag);
             Citadel.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, MinecraftClient.getInstance().player.getId()));
-            button.setMessage(getTypeText());
+            this.button.setMessage(this.getTypeText());
         }).size(200, 20).position(i - 100, j).build();
-        this.addDrawableChild(button);
+        this.addDrawableChild(this.button);
 
     }
 
     private Text getTypeText() {
         Text suffix;
 
-        if (capeType == null) {
+        if (this.capeType == null) {
             suffix = Text.translatable("citadel.gui.no_cape");
         } else {
-            CitadelCapes.Cape cape = CitadelCapes.getById(capeType);
+            CitadelCapes.Cape cape = CitadelCapes.getById(this.capeType);
             if (cape == null) {
                 suffix = Text.translatable("citadel.gui.no_cape");
             } else {

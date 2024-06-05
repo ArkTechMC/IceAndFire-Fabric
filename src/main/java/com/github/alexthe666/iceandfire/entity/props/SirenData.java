@@ -33,38 +33,38 @@ public class SirenData {
             return;
         }
 
-        if (!isInitialized) {
-            initialize(holder.getWorld());
+        if (!this.isInitialized) {
+            this.initialize(holder.getWorld());
         }
 
-        if (charmedBy == null) {
+        if (this.charmedBy == null) {
             return;
         }
 
-        if (charmedBy.isActuallySinging()) {
-            if (EntitySiren.isWearingEarplugs(holder) || charmTime > IafConfig.sirenMaxSingTime) {
-                charmedBy.singCooldown = IafConfig.sirenTimeBetweenSongs;
-                clearCharm();
+        if (this.charmedBy.isActuallySinging()) {
+            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafConfig.sirenMaxSingTime) {
+                this.charmedBy.singCooldown = IafConfig.sirenTimeBetweenSongs;
+                this.clearCharm();
                 return;
             }
 
-            if (!charmedBy.isAlive() || holder.distanceTo(charmedBy) > EntitySiren.SEARCH_RANGE * 2 || holder instanceof PlayerEntity player && (player.isCreative() || player.isSpectator())) {
-                clearCharm();
+            if (!this.charmedBy.isAlive() || holder.distanceTo(this.charmedBy) > EntitySiren.SEARCH_RANGE * 2 || holder instanceof PlayerEntity player && (player.isCreative() || player.isSpectator())) {
+                this.clearCharm();
                 return;
             }
 
-            if (holder.distanceTo(charmedBy) < 5) {
-                charmedBy.singCooldown = IafConfig.sirenTimeBetweenSongs;
-                charmedBy.setSinging(false);
-                charmedBy.setTarget(holder);
-                charmedBy.setAttacking(true);
-                charmedBy.triggerOtherSirens(holder);
-                clearCharm();
+            if (holder.distanceTo(this.charmedBy) < 5) {
+                this.charmedBy.singCooldown = IafConfig.sirenTimeBetweenSongs;
+                this.charmedBy.setSinging(false);
+                this.charmedBy.setTarget(holder);
+                this.charmedBy.setAttacking(true);
+                this.charmedBy.triggerOtherSirens(holder);
+                this.clearCharm();
                 return;
             }
 
-            isCharmed = true;
-            charmTime++;
+            this.isCharmed = true;
+            this.charmTime++;
             if (holder.getRandom().nextInt(7) == 0) {
                 for (int i = 0; i < 5; i++) {
                     holder.getWorld().addParticle(ParticleTypes.HEART,
@@ -79,9 +79,9 @@ public class SirenData {
                 holder.setJumping(true);
             }
 
-            double motionXAdd = (Math.signum(charmedBy.getX() - holder.getX()) * 0.5D - holder.getVelocity().x) * 0.100000000372529;
-            double motionYAdd = (Math.signum(charmedBy.getY() - holder.getY() + 1) * 0.5D - holder.getVelocity().y) * 0.100000000372529;
-            double motionZAdd = (Math.signum(charmedBy.getZ() - holder.getZ()) * 0.5D - holder.getVelocity().z) * 0.100000000372529;
+            double motionXAdd = (Math.signum(this.charmedBy.getX() - holder.getX()) * 0.5D - holder.getVelocity().x) * 0.100000000372529;
+            double motionYAdd = (Math.signum(this.charmedBy.getY() - holder.getY() + 1) * 0.5D - holder.getVelocity().y) * 0.100000000372529;
+            double motionZAdd = (Math.signum(this.charmedBy.getZ() - holder.getZ()) * 0.5D - holder.getVelocity().z) * 0.100000000372529;
 
             holder.setVelocity(holder.getVelocity().add(motionXAdd, motionYAdd, motionZAdd));
 
@@ -90,14 +90,14 @@ public class SirenData {
             }
 
             if (!(holder instanceof PlayerEntity)) {
-                double x = charmedBy.getX() - holder.getX();
-                double y = charmedBy.getY() - 1 - holder.getY();
-                double z = charmedBy.getZ() - holder.getZ();
+                double x = this.charmedBy.getX() - holder.getX();
+                double y = this.charmedBy.getY() - 1 - holder.getY();
+                double z = this.charmedBy.getZ() - holder.getZ();
                 double radius = Math.sqrt(x * x + z * z);
                 float xRot = (float) (-(MathHelper.atan2(y, radius) * (180D / Math.PI)));
                 float yRot = (float) (MathHelper.atan2(z, x) * (180D / Math.PI)) - 90.0F;
-                holder.setPitch(updateRotation(holder.getPitch(), xRot, 30F));
-                holder.setYaw(updateRotation(holder.getYaw(), yRot, 30F));
+                holder.setPitch(this.updateRotation(holder.getPitch(), xRot, 30F));
+                holder.setYaw(this.updateRotation(holder.getYaw(), yRot, 30F));
             }
         }
     }
@@ -107,30 +107,30 @@ public class SirenData {
             return;
         }
 
-        charmedBy = siren;
-        isCharmed = true;
-        triggerClientUpdate = true;
+        this.charmedBy = siren;
+        this.isCharmed = true;
+        this.triggerClientUpdate = true;
     }
 
     public void clearCharm() {
-        charmTime = 0;
-        isCharmed = false;
-        charmedBy = null;
-        triggerClientUpdate = true;
+        this.charmTime = 0;
+        this.isCharmed = false;
+        this.charmedBy = null;
+        this.triggerClientUpdate = true;
     }
 
     public void serialize(final NbtCompound tag) {
         NbtCompound sirenData = new NbtCompound();
 
-        if (charmedBy != null) {
-            sirenData.put("charmedByUUID", NbtHelper.fromUuid(charmedBy.getUuid()));
-            sirenData.putInt("charmedById", charmedBy.getId());
+        if (this.charmedBy != null) {
+            sirenData.put("charmedByUUID", NbtHelper.fromUuid(this.charmedBy.getUuid()));
+            sirenData.putInt("charmedById", this.charmedBy.getId());
         } else {
             sirenData.putInt("charmedById", -1);
         }
 
-        sirenData.putInt("charmTime", charmTime);
-        sirenData.putBoolean("isCharmed", isCharmed);
+        sirenData.putInt("charmTime", this.charmTime);
+        sirenData.putBoolean("isCharmed", this.isCharmed);
 
         tag.put("sirenData", sirenData);
     }
@@ -140,18 +140,18 @@ public class SirenData {
         NbtElement uuidTag = sirenData.get("charmedByUUID");
 
         if (uuidTag != null) {
-            charmedByUUID = NbtHelper.toUuid(uuidTag);
+            this.charmedByUUID = NbtHelper.toUuid(uuidTag);
         }
 
-        charmedById = sirenData.getInt("charmedById");
-        charmTime = sirenData.getInt("charmTime");
-        isCharmed = sirenData.getBoolean("isCharmed");
-        isInitialized = false;
+        this.charmedById = sirenData.getInt("charmedById");
+        this.charmTime = sirenData.getInt("charmTime");
+        this.isCharmed = sirenData.getBoolean("isCharmed");
+        this.isInitialized = false;
     }
 
     public boolean doesClientNeedUpdate() {
-        if (triggerClientUpdate) {
-            triggerClientUpdate = false;
+        if (this.triggerClientUpdate) {
+            this.triggerClientUpdate = false;
             return true;
         }
 
@@ -173,25 +173,25 @@ public class SirenData {
     }
 
     private void initialize(final World level) {
-        charmedBy = null;
+        this.charmedBy = null;
 
         // Make sure server gets the new entity ids on re-join and syncs it to the client
-        if (charmedByUUID != null && level instanceof ServerWorld serverLevel) {
-            Entity entity = serverLevel.getEntity(charmedByUUID);
+        if (this.charmedByUUID != null && level instanceof ServerWorld serverLevel) {
+            Entity entity = serverLevel.getEntity(this.charmedByUUID);
 
             if (entity instanceof EntitySiren siren) {
-                triggerClientUpdate = true;
-                charmedByUUID = null;
-                charmedBy = siren;
+                this.triggerClientUpdate = true;
+                this.charmedByUUID = null;
+                this.charmedBy = siren;
             }
-        } else if (charmedById != -1) {
-            Entity entity = level.getEntityById(charmedById);
+        } else if (this.charmedById != -1) {
+            Entity entity = level.getEntityById(this.charmedById);
 
             if (entity instanceof EntitySiren siren) {
-                charmedBy = siren;
+                this.charmedBy = siren;
             }
         }
 
-        isInitialized = true;
+        this.isInitialized = true;
     }
 }

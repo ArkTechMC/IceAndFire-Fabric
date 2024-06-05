@@ -24,15 +24,15 @@ public class ColorMappedTexture extends ResourceTexture {
     }
 
     public void load(ResourceManager resourceManager) throws IOException {
-        NativeImage nativeimage = getNativeImage(resourceManager, location);
+        NativeImage nativeimage = this.getNativeImage(resourceManager, this.location);
         if (nativeimage != null) {
-            if (resourceManager.getResource(location).isPresent()) {
-                Resource resource = resourceManager.getResource(location).get();
+            if (resourceManager.getResource(this.location).isPresent()) {
+                Resource resource = resourceManager.getResource(this.location).get();
                 try {
                     ColorsMetadataSection section = resource.getMetadata().decode(ColorsMetadataSection.SERIALIZER).orElse(new ColorsMetadataSection(null));
-                    NativeImage nativeimage2 = getNativeImage(resourceManager, section.getColorRamp());
+                    NativeImage nativeimage2 = this.getNativeImage(resourceManager, section.getColorRamp());
                     if (nativeimage2 != null) {
-                        processColorMap(nativeimage, nativeimage2);
+                        this.processColorMap(nativeimage, nativeimage2);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -79,10 +79,10 @@ public class ColorMappedTexture extends ResourceTexture {
                         replaceIndex = k;
                     }
                 }
-                if (replaceIndex >= 0 && colors.length > replaceIndex) {
-                    int r = colors[replaceIndex] >> 16 & 255;
-                    int g = colors[replaceIndex] >> 8 & 255;
-                    int b = colors[replaceIndex] & 255;
+                if (replaceIndex >= 0 && this.colors.length > replaceIndex) {
+                    int r = this.colors[replaceIndex] >> 16 & 255;
+                    int g = this.colors[replaceIndex] >> 8 & 255;
+                    int b = this.colors[replaceIndex] & 255;
                     nativeImage.setColor(i, j, ColorHelper.Abgr.getAbgr(ColorHelper.Abgr.getAlpha(colorAt), b, g, r));
                 }
             }
@@ -110,7 +110,7 @@ public class ColorMappedTexture extends ResourceTexture {
         }
 
         public Identifier getColorRamp() {
-            return colorRamp;
+            return this.colorRamp;
         }
     }
 

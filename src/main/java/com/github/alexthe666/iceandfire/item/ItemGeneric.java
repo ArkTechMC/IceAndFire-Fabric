@@ -43,8 +43,8 @@ public class ItemGeneric extends Item {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        if (description > 0) {
-            for (int i = 0; i < description; i++) {
+        if (this.description > 0) {
+            for (int i = 0; i < this.description; i++) {
                 tooltip.add(Text.translatable(this.getTranslationKey() + ".desc_" + i).formatted(Formatting.GRAY));
             }
         }

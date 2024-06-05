@@ -31,7 +31,7 @@ public class LinkData {
     }
 
     public String getLinkedPage() {
-        return linked_page;
+        return this.linked_page;
     }
 
     public void setLinkedPage(String linkedPage) {
@@ -39,7 +39,7 @@ public class LinkData {
     }
 
     public String getTitleText() {
-        return text;
+        return this.text;
     }
 
     public void setTitleText(String titleText) {
@@ -47,11 +47,11 @@ public class LinkData {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -59,7 +59,7 @@ public class LinkData {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -67,14 +67,14 @@ public class LinkData {
     }
 
     public ItemStack getDisplayItem() {
-        if (item == null || item.isEmpty()) {
+        if (this.item == null || this.item.isEmpty()) {
             return ItemStack.EMPTY;
         } else {
-            ItemStack stack = new ItemStack(Registries.ITEM.get(new Identifier(item)));
-            if (item_tag != null && !item_tag.isEmpty()) {
+            ItemStack stack = new ItemStack(Registries.ITEM.get(new Identifier(this.item)));
+            if (this.item_tag != null && !this.item_tag.isEmpty()) {
                 NbtCompound tag = null;
                 try {
-                    tag = StringNbtReader.parse(item_tag);
+                    tag = StringNbtReader.parse(this.item_tag);
                 } catch (CommandSyntaxException e) {
                     e.printStackTrace();
                 }

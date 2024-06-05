@@ -28,14 +28,14 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     public GuiDragonForge(ContainerDragonForge container, PlayerInventory inv, Text name) {
         super(container, inv, name);
         this.tileFurnace = container;
-        this.dragonType = tileFurnace.fireType;
+        this.dragonType = this.tileFurnace.fireType;
     }
 
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
         TextRenderer font = this.client.textRenderer;
-        if (tileFurnace != null) {
-            String s = I18n.translate("block.iceandfire.dragonforge_" + DragonType.getNameFromInt(dragonType) + "_core");
+        if (this.tileFurnace != null) {
+            String s = I18n.translate("block.iceandfire.dragonforge_" + DragonType.getNameFromInt(this.dragonType) + "_core");
             pGuiGraphics.drawText(this.textRenderer, s, this.backgroundWidth / 2 - font.getWidth(s) / 2, 6, 4210752, false);
         }
         pGuiGraphics.drawText(this.textRenderer, this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false);
@@ -45,9 +45,9 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     protected void drawBackground(DrawContext pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         Identifier texture = TEXTURE_FIRE;
-        if (dragonType == 0) {
+        if (this.dragonType == 0) {
             texture = TEXTURE_FIRE;
-        } else if (dragonType == 1) {
+        } else if (this.dragonType == 1) {
             texture = TEXTURE_ICE;
         } else {
             texture = TEXTURE_LIGHTNING;
@@ -67,7 +67,7 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
         List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager()
                 .listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE.get())
                 .stream().filter(item ->
-                        item.isValidInput(tileFurnace.getSlot(0).getStack()) && item.isValidBlood(tileFurnace.getSlot(1).getStack())).toList();
+                        item.isValidInput(this.tileFurnace.getSlot(0).getStack()) && item.isValidBlood(this.tileFurnace.getSlot(1).getStack())).toList();
         int maxCookTime = recipes.isEmpty() ? 100 : recipes.get(0).getCookTime();
         if (te instanceof TileEntityDragonforge) {
             j = Math.min(((TileEntityDragonforge) te).cookTime, maxCookTime);

@@ -58,21 +58,21 @@ public class DeathWormAIFindSandTarget extends Goal {
         if (this.mob.getTarget() == null || !this.mob.getTarget().isAlive()) {
             List<BlockPos> sand = new ArrayList<>();
             if (this.mob.isTamed() && this.mob.getWormHome() != null) {
-                range = 25;
-                for (int x = this.mob.getWormHome().getX() - range; x < this.mob.getWormHome().getX() + range; x++) {
-                    for (int y = this.mob.getWormHome().getY() - range; y < this.mob.getWormHome().getY() + range; y++) {
-                        for (int z = this.mob.getWormHome().getZ() - range; z < this.mob.getWormHome().getZ() + range; z++) {
-                            if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isIn(BlockTags.SAND) && isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(x, y, z))) {
+                this.range = 25;
+                for (int x = this.mob.getWormHome().getX() - this.range; x < this.mob.getWormHome().getX() + this.range; x++) {
+                    for (int y = this.mob.getWormHome().getY() - this.range; y < this.mob.getWormHome().getY() + this.range; y++) {
+                        for (int z = this.mob.getWormHome().getZ() - this.range; z < this.mob.getWormHome().getZ() + this.range; z++) {
+                            if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isIn(BlockTags.SAND) && this.isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(x, y, z))) {
                                 sand.add(new BlockPos(x, y, z));
                             }
                         }
                     }
                 }
             } else {
-                for (int x = (int) this.mob.getX() - range; x < (int) this.mob.getX() + range; x++) {
-                    for (int y = (int) this.mob.getY() - range; y < (int) this.mob.getY() + range; y++) {
-                        for (int z = (int) this.mob.getZ() - range; z < (int) this.mob.getZ() + range; z++) {
-                            if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isIn(BlockTags.SAND) && isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(x, y, z))) {
+                for (int x = (int) this.mob.getX() - this.range; x < (int) this.mob.getX() + this.range; x++) {
+                    for (int y = (int) this.mob.getY() - this.range; y < (int) this.mob.getY() + this.range; y++) {
+                        for (int z = (int) this.mob.getZ() - this.range; z < (int) this.mob.getZ() + this.range; z++) {
+                            if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isIn(BlockTags.SAND) && this.isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(x, y, z))) {
                                 sand.add(new BlockPos(x, y, z));
                             }
 

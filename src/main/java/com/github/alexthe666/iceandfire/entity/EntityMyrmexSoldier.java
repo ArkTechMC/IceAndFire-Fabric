@@ -41,17 +41,17 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
 
     @Override
     protected TradeOffers.Factory[] getLevel1Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_SOLDIER.get(1) : MyrmexTrades.DESERT_SOLDIER.get(1);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_SOLDIER.get(1) : MyrmexTrades.DESERT_SOLDIER.get(1);
     }
 
     @Override
     protected TradeOffers.Factory[] getLevel2Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_SOLDIER.get(2) : MyrmexTrades.DESERT_SOLDIER.get(2);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_SOLDIER.get(2) : MyrmexTrades.DESERT_SOLDIER.get(2);
     }
 
     @Override
     protected Identifier getLootTableId() {
-        return isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
+        return this.isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
     }
     @Override
     public Identifier getAdultTexture() {
-        return isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
+        return this.isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
     }
 
     @Override
@@ -153,7 +153,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
 
     @Override
     public boolean shouldEnterHive() {
-        return guardingEntity == null || !guardingEntity.canSeeSky() || guardingEntity.shouldEnterHive();
+        return this.guardingEntity == null || !this.guardingEntity.canSeeSky() || this.guardingEntity.shouldEnterHive();
     }
 
     @Override
@@ -165,7 +165,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
             this.setAnimation(this.getRandom().nextBoolean() ? ANIMATION_STING : ANIMATION_BITE);
             float f = (float) this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE);
             this.onAttacking(entityIn);
-            boolean flag = entityIn.damage(getWorld().getDamageSources().mobAttack(this), f);
+            boolean flag = entityIn.damage(this.getWorld().getDamageSources().mobAttack(this), f);
             if (this.getAnimation() == ANIMATION_STING && flag) {
                 this.playStingSound();
                 if (entityIn instanceof LivingEntity) {

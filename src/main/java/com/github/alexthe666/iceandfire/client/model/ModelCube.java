@@ -30,12 +30,12 @@ public class ModelCube extends AdvancedEntityModel {
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(bipedHead);
+        return ImmutableList.of(this.bipedHead);
     }
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(bipedHead);
+        return ImmutableList.of(this.bipedHead);
     }
 
 }

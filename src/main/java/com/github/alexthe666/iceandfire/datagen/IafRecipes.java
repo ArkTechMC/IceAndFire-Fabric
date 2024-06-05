@@ -35,8 +35,8 @@ public class IafRecipes extends RecipeProvider {
 
     @Override
     public void generate(Consumer<RecipeJsonProvider> consumer) {
-        createShaped(consumer);
-        createShapeless(consumer);
+        this.createShaped(consumer);
+        this.createShapeless(consumer);
     }
 
     private void createShaped(@NotNull final Consumer<RecipeJsonProvider> consumer) {
@@ -85,7 +85,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
 
         // FIXME :: Currently uses `minecraft` namespace
-        armorSet(consumer, Items.CHAIN,
+        this.armorSet(consumer, Items.CHAIN,
                 Items.CHAINMAIL_HELMET,
                 Items.CHAINMAIL_CHESTPLATE,
                 Items.CHAINMAIL_LEGGINGS,
@@ -102,14 +102,14 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromItem(IafItemRegistry.COCKATRICE_EYE.get()))
                 .offerTo(consumer);
 
-        armorSet(consumer, Tags.Items.INGOTS_COPPER,
+        this.armorSet(consumer, Tags.Items.INGOTS_COPPER,
                 IafItemRegistry.COPPER_HELMET.get(),
                 IafItemRegistry.COPPER_CHESTPLATE.get(),
                 IafItemRegistry.COPPER_LEGGINGS.get(),
                 IafItemRegistry.COPPER_BOOTS.get()
         );
 
-        toolSet(consumer, Tags.Items.INGOTS_COPPER, Tags.Items.RODS_WOODEN,
+        this.toolSet(consumer, Tags.Items.INGOTS_COPPER, Tags.Items.RODS_WOODEN,
                 IafItemRegistry.COPPER_SWORD.get(),
                 IafItemRegistry.COPPER_PICKAXE.get(),
                 IafItemRegistry.COPPER_AXE.get(),
@@ -147,49 +147,49 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromItem(IafItemRegistry.DEATHWORM_TOUNGE.get()))
                 .offerTo(consumer);
 
-        armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_RED.get(),
+        this.armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_RED.get(),
                 IafItemRegistry.DEATHWORM_RED_HELMET.get(),
                 IafItemRegistry.DEATHWORM_RED_CHESTPLATE.get(),
                 IafItemRegistry.DEATHWORM_RED_LEGGINGS.get(),
                 IafItemRegistry.DEATHWORM_RED_BOOTS.get()
         );
 
-        armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_WHITE.get(),
+        this.armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_WHITE.get(),
                 IafItemRegistry.DEATHWORM_WHITE_HELMET.get(),
                 IafItemRegistry.DEATHWORM_WHITE_CHESTPLATE.get(),
                 IafItemRegistry.DEATHWORM_WHITE_LEGGINGS.get(),
                 IafItemRegistry.DEATHWORM_WHITE_BOOTS.get()
         );
 
-        armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_YELLOW.get(),
+        this.armorSet(consumer, IafItemRegistry.DEATH_WORM_CHITIN_YELLOW.get(),
                 IafItemRegistry.DEATHWORM_YELLOW_HELMET.get(),
                 IafItemRegistry.DEATHWORM_YELLOW_CHESTPLATE.get(),
                 IafItemRegistry.DEATHWORM_YELLOW_LEGGINGS.get(),
                 IafItemRegistry.DEATHWORM_YELLOW_BOOTS.get()
         );
 
-        dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_COPPER,
+        this.dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_COPPER,
                 IafItemRegistry.DRAGONARMOR_COPPER_0.get(),
                 IafItemRegistry.DRAGONARMOR_COPPER_1.get(),
                 IafItemRegistry.DRAGONARMOR_COPPER_2.get(),
                 IafItemRegistry.DRAGONARMOR_COPPER_3.get()
         );
 
-        dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_IRON,
+        this.dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_IRON,
                 IafItemRegistry.DRAGONARMOR_IRON_0.get(),
                 IafItemRegistry.DRAGONARMOR_IRON_1.get(),
                 IafItemRegistry.DRAGONARMOR_IRON_2.get(),
                 IafItemRegistry.DRAGONARMOR_IRON_3.get()
         );
 
-        dragonArmorSet(consumer, IafItemTags.STORAGE_BLOCKS_SILVER,
+        this.dragonArmorSet(consumer, IafItemTags.STORAGE_BLOCKS_SILVER,
                 IafItemRegistry.DRAGONARMOR_SILVER_0.get(),
                 IafItemRegistry.DRAGONARMOR_SILVER_1.get(),
                 IafItemRegistry.DRAGONARMOR_SILVER_2.get(),
                 IafItemRegistry.DRAGONARMOR_SILVER_3.get()
         );
 
-        dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_DIAMOND,
+        this.dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_DIAMOND,
                 IafItemRegistry.DRAGONARMOR_DIAMOND_0.get(),
                 IafItemRegistry.DRAGONARMOR_DIAMOND_1.get(),
                 IafItemRegistry.DRAGONARMOR_DIAMOND_2.get(),
@@ -271,7 +271,7 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromTag(IafItemTags.DRAGON_SKULLS))
                 .offerTo(consumer);
 
-        toolSet(consumer, IafItemRegistry.DRAGON_BONE.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGON_BONE.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.DRAGONBONE_SWORD.get(),
                 IafItemRegistry.DRAGONBONE_PICKAXE.get(),
                 IafItemRegistry.DRAGONBONE_AXE.get(),
@@ -289,17 +289,17 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
                 .offerTo(consumer);
 
-        forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_FIRE, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get());
-        forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), IafItemRegistry.FIRE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get());
-        forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get());
+        this.forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_FIRE, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get());
+        this.forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), IafItemRegistry.FIRE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get());
+        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get());
 
-        forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_ICE, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get());
-        forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), IafItemRegistry.ICE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get());
-        forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get());
+        this.forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_ICE, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get());
+        this.forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), IafItemRegistry.ICE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get());
+        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get());
 
-        forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get());
-        forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), IafItemRegistry.LIGHTNING_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get());
-        forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get());
+        this.forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get());
+        this.forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), IafItemRegistry.LIGHTNING_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get());
+        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get());
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.DRAGON_MEAL.get())
                 .pattern("BMB")
@@ -310,23 +310,23 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromTag(IafItemTags.DRAGON_FOOD_MEAT))
                 .offerTo(consumer);
 
-        compact(consumer, IafItemRegistry.DRAGONSCALES_RED.get(), IafBlockRegistry.DRAGON_SCALE_RED.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_GREEN.get(), IafBlockRegistry.DRAGON_SCALE_GREEN.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_BRONZE.get(), IafBlockRegistry.DRAGON_SCALE_BRONZE.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_GRAY.get(), IafBlockRegistry.DRAGON_SCALE_GRAY.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_RED.get(), IafBlockRegistry.DRAGON_SCALE_RED.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_GREEN.get(), IafBlockRegistry.DRAGON_SCALE_GREEN.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_BRONZE.get(), IafBlockRegistry.DRAGON_SCALE_BRONZE.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_GRAY.get(), IafBlockRegistry.DRAGON_SCALE_GRAY.get());
 
-        compact(consumer, IafItemRegistry.DRAGONSCALES_BLUE.get(), IafBlockRegistry.DRAGON_SCALE_BLUE.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_WHITE.get(), IafBlockRegistry.DRAGON_SCALE_WHITE.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_SAPPHIRE.get(), IafBlockRegistry.DRAGON_SCALE_SAPPHIRE.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_SILVER.get(), IafBlockRegistry.DRAGON_SCALE_SILVER.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_BLUE.get(), IafBlockRegistry.DRAGON_SCALE_BLUE.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_WHITE.get(), IafBlockRegistry.DRAGON_SCALE_WHITE.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_SAPPHIRE.get(), IafBlockRegistry.DRAGON_SCALE_SAPPHIRE.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_SILVER.get(), IafBlockRegistry.DRAGON_SCALE_SILVER.get());
 
-        compact(consumer, IafItemRegistry.DRAGONSCALES_ELECTRIC.get(), IafBlockRegistry.DRAGON_SCALE_ELECTRIC.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_AMYTHEST.get(), IafBlockRegistry.DRAGON_SCALE_AMYTHEST.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_COPPER.get(), IafBlockRegistry.DRAGON_SCALE_COPPER.get());
-        compact(consumer, IafItemRegistry.DRAGONSCALES_BLACK.get(), IafBlockRegistry.DRAGON_SCALE_BLACK.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_ELECTRIC.get(), IafBlockRegistry.DRAGON_SCALE_ELECTRIC.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_AMYTHEST.get(), IafBlockRegistry.DRAGON_SCALE_AMYTHEST.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_COPPER.get(), IafBlockRegistry.DRAGON_SCALE_COPPER.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSCALES_BLACK.get(), IafBlockRegistry.DRAGON_SCALE_BLACK.get());
 
         for (EnumDragonArmor type : EnumDragonArmor.values()) {
-            armorSet(consumer, type.armorMaterial.getRepairIngredient(),
+            this.armorSet(consumer, type.armorMaterial.getRepairIngredient(),
                     type.helmet.get(),
                     type.chestplate.get(),
                     type.leggings.get(),
@@ -335,19 +335,19 @@ public class IafRecipes extends RecipeProvider {
         }
 
         for (EnumSeaSerpent type : EnumSeaSerpent.values()) {
-            armorSet(consumer, type.scale.get(),
+            this.armorSet(consumer, type.scale.get(),
                     type.helmet.get(),
                     type.chestplate.get(),
                     type.leggings.get(),
                     type.boots.get()
             );
 
-            compact(consumer, type.scale.get(), type.scaleBlock.get());
+            this.compact(consumer, type.scale.get(), type.scaleBlock.get());
         }
 
-        compact(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.get());
 
-        toolSet(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.DRAGONSTEEL_FIRE_SWORD.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_PICKAXE.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_AXE.get(),
@@ -355,23 +355,23 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.DRAGONSTEEL_FIRE_HOE.get()
         );
 
-        armorSet(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(),
+        this.armorSet(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_HELMET.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_CHESTPLATE.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_LEGGINGS.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_BOOTS.get()
         );
 
-        dragonArmorSet(consumer, IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.get(),
+        this.dragonArmorSet(consumer, IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_FIRE_0.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_FIRE_1.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_FIRE_2.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_FIRE_3.get()
         );
 
-        compact(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.get());
 
-        toolSet(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.DRAGONSTEEL_ICE_SWORD.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_PICKAXE.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_AXE.get(),
@@ -379,23 +379,23 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.DRAGONSTEEL_ICE_HOE.get()
         );
 
-        armorSet(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(),
+        this.armorSet(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_HELMET.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_CHESTPLATE.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_LEGGINGS.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_BOOTS.get()
         );
 
-        dragonArmorSet(consumer, IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.get(),
+        this.dragonArmorSet(consumer, IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_ICE_0.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_ICE_1.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_ICE_2.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_ICE_3.get()
         );
 
-        compact(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.get());
+        this.compact(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.get());
 
-        toolSet(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_SWORD.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_PICKAXE.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_AXE.get(),
@@ -403,14 +403,14 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_HOE.get()
         );
 
-        armorSet(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(),
+        this.armorSet(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_HELMET.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_CHESTPLATE.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_LEGGINGS.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_BOOTS.get()
         );
 
-        dragonArmorSet(consumer, IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.get(),
+        this.dragonArmorSet(consumer, IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_LIGHTNING_0.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_LIGHTNING_1.get(),
                 IafItemRegistry.DRAGONARMOR_DRAGONSTEEL_LIGHTNING_2.get(),
@@ -486,7 +486,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
 
         for (EnumTroll type : EnumTroll.values()) {
-            armorSet(consumer, type.leather.get(),
+            this.armorSet(consumer, type.leather.get(),
                     type.chestplate.get(),
                     type.leggings.get(),
                     type.boots.get()
@@ -510,7 +510,7 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromItem(IafItemRegistry.ECTOPLASM.get()))
                 .offerTo(consumer);
 
-        dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_GOLD,
+        this.dragonArmorSet(consumer, Tags.Items.STORAGE_BLOCKS_GOLD,
                 IafItemRegistry.DRAGONARMOR_GOLD_0.get(),
                 IafItemRegistry.DRAGONARMOR_GOLD_1.get(),
                 IafItemRegistry.DRAGONARMOR_GOLD_2.get(),
@@ -550,14 +550,14 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromItem(IafItemRegistry.SERPENT_FANG.get()))
                 .offerTo(consumer);
 
-        armorSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(),
+        this.armorSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(),
                 IafItemRegistry.MYRMEX_DESERT_HELMET.get(),
                 IafItemRegistry.MYRMEX_DESERT_CHESTPLATE.get(),
                 IafItemRegistry.MYRMEX_DESERT_LEGGINGS.get(),
                 IafItemRegistry.MYRMEX_DESERT_BOOTS.get()
         );
 
-        toolSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.MYRMEX_DESERT_SWORD.get(),
                 IafItemRegistry.MYRMEX_DESERT_PICKAXE.get(),
                 IafItemRegistry.MYRMEX_DESERT_AXE.get(),
@@ -565,14 +565,14 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.MYRMEX_DESERT_HOE.get()
         );
 
-        armorSet(consumer, IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get(),
+        this.armorSet(consumer, IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_HELMET.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_CHESTPLATE.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_LEGGINGS.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_BOOTS.get()
         );
 
-        toolSet(consumer, IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get(), IafItemTags.BONES_WITHER,
                 IafItemRegistry.MYRMEX_JUNGLE_SWORD.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_PICKAXE.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_AXE.get(),
@@ -586,18 +586,18 @@ public class IafRecipes extends RecipeProvider {
         CookingRecipeJsonBuilder.createBlasting(Ingredient.ofItems(IafItemRegistry.RAW_SILVER.get()), RecipeCategory.TOOLS, IafItemRegistry.SILVER_INGOT.get(), 0.7f, 100)
                 .group("raw_silver")
                 .criterion(hasItem(IafItemRegistry.RAW_SILVER.get()), conditionsFromItem(IafItemRegistry.RAW_SILVER.get())).offerTo(consumer, location(getItemPath(IafItemRegistry.SILVER_INGOT.get())) + "_from_blasting_" + getItemPath(IafItemRegistry.RAW_SILVER.get()));
-        compact(consumer, IafItemRegistry.SILVER_INGOT.get(), IafBlockRegistry.SILVER_BLOCK.get());
-        compact(consumer, IafItemRegistry.RAW_SILVER.get(), IafBlockRegistry.RAW_SILVER_BLOCK.get());
-        compact(consumer, IafItemRegistry.SILVER_NUGGET.get(), IafItemRegistry.SILVER_INGOT.get());
+        this.compact(consumer, IafItemRegistry.SILVER_INGOT.get(), IafBlockRegistry.SILVER_BLOCK.get());
+        this.compact(consumer, IafItemRegistry.RAW_SILVER.get(), IafBlockRegistry.RAW_SILVER_BLOCK.get());
+        this.compact(consumer, IafItemRegistry.SILVER_NUGGET.get(), IafItemRegistry.SILVER_INGOT.get());
 
-        armorSet(consumer, IafItemTags.INGOTS_SILVER,
+        this.armorSet(consumer, IafItemTags.INGOTS_SILVER,
                 IafItemRegistry.SILVER_HELMET.get(),
                 IafItemRegistry.SILVER_CHESTPLATE.get(),
                 IafItemRegistry.SILVER_LEGGINGS.get(),
                 IafItemRegistry.SILVER_BOOTS.get()
         );
 
-        toolSet(consumer, IafItemTags.INGOTS_SILVER, Tags.Items.RODS_WOODEN,
+        this.toolSet(consumer, IafItemTags.INGOTS_SILVER, Tags.Items.RODS_WOODEN,
                 IafItemRegistry.SILVER_SWORD.get(),
                 IafItemRegistry.SILVER_PICKAXE.get(),
                 IafItemRegistry.SILVER_AXE.get(),
@@ -605,7 +605,7 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.SILVER_HOE.get()
         );
 
-        compact(consumer, IafItemRegistry.SAPPHIRE_GEM.get(), IafBlockRegistry.SAPPHIRE_BLOCK.get());
+        this.compact(consumer, IafItemRegistry.SAPPHIRE_GEM.get(), IafBlockRegistry.SAPPHIRE_BLOCK.get());
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.TIDE_TRIDENT.get())
                 .pattern("TTT")
@@ -744,19 +744,19 @@ public class IafRecipes extends RecipeProvider {
     }
 
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final TagKey<Item> handle, final ItemConvertible... items) {
-        toolSet(consumer, Ingredient.fromTag(material), Ingredient.fromTag(handle), items);
+        this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.fromTag(handle), items);
     }
 
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final TagKey<Item> handle, final ItemConvertible... items) {
-        toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(handle), items);
+        this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(handle), items);
     }
 
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final ItemConvertible handle, final ItemConvertible... items) {
-        toolSet(consumer, Ingredient.fromTag(material), Ingredient.ofItems(handle), items);
+        this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.ofItems(handle), items);
     }
 
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible handle, final ItemConvertible... items) {
-        toolSet(consumer, Ingredient.ofItems(material), Ingredient.ofItems(handle), items);
+        this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.ofItems(handle), items);
     }
 
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible... results) {
@@ -764,15 +764,15 @@ public class IafRecipes extends RecipeProvider {
             Item item = result.asItem();
 
             if (item instanceof SwordItem) {
-                sword(consumer, material, handle, result);
+                this.sword(consumer, material, handle, result);
             } else if (item instanceof PickaxeItem) {
-                pickaxe(consumer, material, handle, result);
+                this.pickaxe(consumer, material, handle, result);
             } else if (item instanceof AxeItem) {
-                axe(consumer, material, handle, result);
+                this.axe(consumer, material, handle, result);
             } else if (item instanceof ShovelItem) {
-                shovel(consumer, material, handle, result);
+                this.shovel(consumer, material, handle, result);
             } else if (item instanceof HoeItem) {
-                hoe(consumer, material, handle, result);
+                this.hoe(consumer, material, handle, result);
             } else {
                 throw new IllegalArgumentException("Result is not a valid tool: [" + result + "]");
             }
@@ -780,21 +780,21 @@ public class IafRecipes extends RecipeProvider {
     }
 
     private void armorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> tag, final ItemConvertible... results) {
-        armorSet(consumer, Ingredient.fromTag(tag), results);
+        this.armorSet(consumer, Ingredient.fromTag(tag), results);
     }
 
     private void armorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible item, final ItemConvertible... results) {
-        armorSet(consumer, Ingredient.ofItems(item), results);
+        this.armorSet(consumer, Ingredient.ofItems(item), results);
     }
 
     private void armorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible... results) {
         for (ItemConvertible result : results) {
             if (result.asItem() instanceof ArmorItem armorItem) {
                 switch (armorItem.getType()) {
-                    case HELMET -> helmet(consumer, ingredient, result);
-                    case CHESTPLATE -> chestPlate(consumer, ingredient, result);
-                    case LEGGINGS -> leggings(consumer, ingredient, result);
-                    case BOOTS -> boots(consumer, ingredient, result);
+                    case HELMET -> this.helmet(consumer, ingredient, result);
+                    case CHESTPLATE -> this.chestPlate(consumer, ingredient, result);
+                    case LEGGINGS -> this.leggings(consumer, ingredient, result);
+                    case BOOTS -> this.boots(consumer, ingredient, result);
                     default -> throw new IllegalArgumentException("Result is not a valid armor item: [" + result + "]");
                 }
             } else {
@@ -897,21 +897,21 @@ public class IafRecipes extends RecipeProvider {
     }
 
     private void dragonArmorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible... results) {
-        dragonArmorSet(consumer, Ingredient.ofItems(material), results);
+        this.dragonArmorSet(consumer, Ingredient.ofItems(material), results);
     }
 
     private void dragonArmorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> tag, final ItemConvertible... results) {
-        dragonArmorSet(consumer, Ingredient.fromTag(tag), results);
+        this.dragonArmorSet(consumer, Ingredient.fromTag(tag), results);
     }
 
     private void dragonArmorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible... results) {
         for (ItemConvertible result : results) {
             if (result instanceof ItemDragonArmor dragonArmor) {
                 switch (dragonArmor.dragonSlot) {
-                    case 0 -> dragonHead(consumer, ingredient, result);
-                    case 1 -> dragonNeck(consumer, ingredient, result);
-                    case 2 -> dragonBody(consumer, ingredient, result);
-                    case 3 -> dragonTail(consumer, ingredient, result);
+                    case 0 -> this.dragonHead(consumer, ingredient, result);
+                    case 1 -> this.dragonNeck(consumer, ingredient, result);
+                    case 2 -> this.dragonBody(consumer, ingredient, result);
+                    case 3 -> this.dragonTail(consumer, ingredient, result);
                     default ->
                             throw new IllegalArgumentException("Result is not a valid dragon armor [" + result + "]");
                 }

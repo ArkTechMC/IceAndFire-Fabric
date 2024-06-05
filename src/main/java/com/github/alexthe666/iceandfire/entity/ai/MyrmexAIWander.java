@@ -14,6 +14,6 @@ public class MyrmexAIWander extends WanderAroundFarGoal {
 
     @Override
     public boolean canStart() {
-        return myrmex.canMove() && myrmex.shouldWander() && super.canStart();
+        return this.myrmex.canMove() && this.myrmex.shouldWander() && super.canStart();
     }
 }

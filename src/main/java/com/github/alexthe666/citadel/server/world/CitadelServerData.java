@@ -39,8 +39,8 @@ public class CitadelServerData extends PersistentState {
 
     @Override
     public NbtCompound writeNbt(NbtCompound tag) {
-        if(tickRateTracker != null){
-            tag.put("TickRateTracker", tickRateTracker.toTag());
+        if(this.tickRateTracker != null){
+            tag.put("TickRateTracker", this.tickRateTracker.toTag());
         }
         return tag;
     }
@@ -55,10 +55,10 @@ public class CitadelServerData extends PersistentState {
     }
 
     public ServerTickRateTracker getOrCreateTickRateTracker(){
-        if(tickRateTracker == null){
-            tickRateTracker = new ServerTickRateTracker(server);
+        if(this.tickRateTracker == null){
+            this.tickRateTracker = new ServerTickRateTracker(this.server);
         }
-        return tickRateTracker;
+        return this.tickRateTracker;
     }
 
 }

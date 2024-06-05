@@ -60,20 +60,20 @@ public class EntityDeathWormEgg extends ThrownItemEntity implements IEntityAddit
      */
     @Override
     protected void onCollision(HitResult result) {
-        Entity thrower = getOwner();
+        Entity thrower = this.getOwner();
         if (result.getType() == HitResult.Type.ENTITY) {
-            ((EntityHitResult) result).getEntity().damage(getWorld().getDamageSources().thrown(this, thrower), 0.0F);
+            ((EntityHitResult) result).getEntity().damage(this.getWorld().getDamageSources().thrown(this, thrower), 0.0F);
         }
 
         if (!this.getWorld().isClient) {
             float wormSize = 0.25F + (float) (Math.random() * 0.35F);
 
             EntityDeathWorm deathworm = new EntityDeathWorm(IafEntityRegistry.DEATH_WORM.get(), this.getWorld());
-            deathworm.setVariant(random.nextInt(3));
+            deathworm.setVariant(this.random.nextInt(3));
             deathworm.setTamed(true);
-            deathworm.setWormHome(getBlockPos());
+            deathworm.setWormHome(this.getBlockPos());
             deathworm.setWormAge(1);
-            deathworm.setDeathWormScale(giant ? (wormSize * 4) : wormSize);
+            deathworm.setDeathWormScale(this.giant ? (wormSize * 4) : wormSize);
             deathworm.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
             if (thrower instanceof PlayerEntity) {
                 deathworm.setOwnerUuid(thrower.getUuid());
@@ -87,6 +87,6 @@ public class EntityDeathWormEgg extends ThrownItemEntity implements IEntityAddit
 
     @Override
     protected @NotNull Item getDefaultItem() {
-        return giant ? IafItemRegistry.DEATHWORM_EGG_GIGANTIC.get() : IafItemRegistry.DEATHWORM_EGG.get();
+        return this.giant ? IafItemRegistry.DEATHWORM_EGG_GIGANTIC.get() : IafItemRegistry.DEATHWORM_EGG.get();
     }
 }

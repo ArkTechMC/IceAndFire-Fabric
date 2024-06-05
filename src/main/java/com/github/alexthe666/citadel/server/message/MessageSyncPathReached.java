@@ -30,8 +30,8 @@ public class MessageSyncPathReached {
     }
 
     public void write(final PacketByteBuf buf) {
-        buf.writeInt(reached.size());
-        for (final BlockPos node : reached) {
+        buf.writeInt(this.reached.size());
+        for (final BlockPos node : this.reached) {
             buf.writeBlockPos(node);
         }
 

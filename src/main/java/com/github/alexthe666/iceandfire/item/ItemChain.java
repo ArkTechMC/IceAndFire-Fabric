@@ -57,7 +57,7 @@ public class ItemChain extends Item {
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.chain.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.chain.desc_1").formatted(Formatting.GRAY));
-        if (sticky) {
+        if (this.sticky) {
             tooltip.add(Text.translatable("item.iceandfire.chain_sticky.desc_2").formatted(Formatting.GREEN));
             tooltip.add(Text.translatable("item.iceandfire.chain_sticky.desc_3").formatted(Formatting.GREEN));
         }
@@ -70,7 +70,7 @@ public class ItemChain extends Item {
                 return;
             }
 
-            if (sticky) {
+            if (this.sticky) {
                 double d0 = 60.0D;
                 double i = playerIn.getX();
                 double j = playerIn.getY();

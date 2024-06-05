@@ -22,18 +22,18 @@ public class DreadAIRideHorse extends Goal {
     @Override
     public boolean canStart() {
         if (this.knight.hasVehicle()) {
-            list = IAFMath.emptyAbstractHorseEntityList;
+            this.list = IAFMath.emptyAbstractHorseEntityList;
             return false;
         } else {
 
             if (this.knight.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-                list = this.knight.getWorld().getEntitiesByClass(AbstractHorseEntity.class,
+                this.list = this.knight.getWorld().getEntitiesByClass(AbstractHorseEntity.class,
                         this.knight.getBoundingBox().expand(16.0D, 7.0D, 16.0D), entity -> !entity.hasPassengers());
 
-            if (list.isEmpty()) {
+            if (this.list.isEmpty()) {
                 return false;
             } else {
-                this.horse = list.get(0);
+                this.horse = this.list.get(0);
                 return true;
             }
         }
@@ -64,7 +64,7 @@ public class DreadAIRideHorse extends Goal {
         if (this.knight.squaredDistanceTo(this.horse) < 4.0D) {
             this.horse.setTame(true);
             this.knight.getNavigation().stop();
-            this.knight.startRiding(horse);
+            this.knight.startRiding(this.horse);
         }
     }
 }

@@ -11,8 +11,6 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -23,8 +21,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolActions;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -56,10 +52,6 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
         this.setDamage(dmg);
     }
 
-    public EntityDreadLichSkull(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.DREAD_LICH_SKULL.get(), worldIn);
-    }
-
     @Override
     public boolean isTouchingWater() {
         return false;
@@ -87,7 +79,7 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
             LivingEntity target = ((PlayerEntity) shootingEntity).getPrimeAdversary();
             if (target == null || !target.isAlive()) {
                 double d0 = 10;
-                List<Entity> list = getWorld().getOtherEntities(shootingEntity, (new Box(this.getX(), this.getY(), this.getZ(), this.getX() + 1.0D, this.getY() + 1.0D, this.getZ() + 1.0D)).expand(d0, 10.0D, d0), EntityPredicates.VALID_ENTITY);
+                List<Entity> list = this.getWorld().getOtherEntities(shootingEntity, (new Box(this.getX(), this.getY(), this.getZ(), this.getX() + 1.0D, this.getY() + 1.0D, this.getZ() + 1.0D)).expand(d0, 10.0D, d0), EntityPredicates.VALID_ENTITY);
                 LivingEntity closest = null;
                 if (!list.isEmpty()) {
                     for (Entity e : list) {
@@ -121,16 +113,16 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
         double y = this.getY() + this.random.nextFloat() * this.getHeight() - this.getHeight();
         double z = this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth();
         float f = (this.getWidth() + this.getHeight() + this.getWidth()) * 0.333F + 0.5F;
-        if (particleDistSq(x, y, z) < f * f) {
+        if (this.particleDistSq(x, y, z) < f * f) {
             IceAndFire.PROXY.spawnParticle(EnumParticles.Dread_Torch, x, y + 0.5D, z, d0, d1, d2);
         }
         super.tick();
     }
 
     public double particleDistSq(double toX, double toY, double toZ) {
-        double d0 = getX() - toX;
-        double d1 = getY() - toY;
-        double d2 = getZ() - toZ;
+        double d0 = this.getX() - toX;
+        double d1 = this.getY() - toY;
+        double d2 = this.getZ() - toZ;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
@@ -207,10 +199,4 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
     protected @NotNull ItemStack asItemStack() {
         return ItemStack.EMPTY;
     }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
 }

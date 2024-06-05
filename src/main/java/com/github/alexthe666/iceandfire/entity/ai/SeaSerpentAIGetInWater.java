@@ -22,22 +22,22 @@ public class SeaSerpentAIGetInWater extends Goal {
     public boolean canStart() {
         if ((this.creature.jumpCooldown == 0 || this.creature.isOnGround())
             && !this.creature.getWorld().getFluidState(this.creature.getBlockPos()).isIn(FluidTags.WATER)) {
-            targetPos = generateTarget();
-            return targetPos != null;
+            this.targetPos = this.generateTarget();
+            return this.targetPos != null;
         }
         return false;
     }
 
     @Override
     public void start() {
-        if (targetPos != null) {
-            this.creature.getNavigation().startMovingTo(targetPos.getX(), targetPos.getY(), targetPos.getZ(), 1.5D);
+        if (this.targetPos != null) {
+            this.creature.getNavigation().startMovingTo(this.targetPos.getX(), this.targetPos.getY(), this.targetPos.getZ(), 1.5D);
         }
     }
 
     @Override
     public boolean shouldContinue() {
-        return !this.creature.getNavigation().isIdle() && targetPos != null
+        return !this.creature.getNavigation().isIdle() && this.targetPos != null
             && !this.creature.getWorld().getFluidState(this.creature.getBlockPos()).isIn(FluidTags.WATER);
     }
 

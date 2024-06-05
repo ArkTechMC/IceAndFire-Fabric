@@ -17,7 +17,7 @@ public class EventGetOutlineColor extends Event {
     }
 
     public Entity getEntityIn() {
-        return entityIn;
+        return this.entityIn;
     }
 
     public void setEntityIn(Entity entityIn) {
@@ -25,7 +25,7 @@ public class EventGetOutlineColor extends Event {
     }
 
     public int getColor() {
-        return color;
+        return this.color;
     }
 
     public void setColor(int color) {

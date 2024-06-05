@@ -10,6 +10,6 @@ public class MyrmexQueenAIWander extends MyrmexAIWander {
 
     @Override
     public boolean canStart() {
-        return (myrmex.canSeeSky() || myrmex.getHive() == null) && super.canStart();
+        return (this.myrmex.canSeeSky() || this.myrmex.getHive() == null) && super.canStart();
     }
 }

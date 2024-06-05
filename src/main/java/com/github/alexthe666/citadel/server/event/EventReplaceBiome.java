@@ -46,88 +46,88 @@ public class EventReplaceBiome extends Event {
     }
 
     public RegistryEntry<Biome> getBiomeToGenerate() {
-        return biomeToGenerate;
+        return this.biomeToGenerate;
     }
 
     public float getContinentalness() {
-        return continentalness;
+        return this.continentalness;
     }
 
     public float getErosion() {
-        return erosion;
+        return this.erosion;
     }
 
     public float getTemperature() {
-        return temperature;
+        return this.temperature;
     }
 
     public float getHumidity() {
-        return humidity;
+        return this.humidity;
     }
 
     public float getWeirdness() {
-        return weirdness;
+        return this.weirdness;
     }
 
     public float getDepth() {
-        return depth;
+        return this.depth;
     }
 
 
     public boolean testContinentalness(float min, float max) {
-        return continentalness >= min && continentalness <= max;
+        return this.continentalness >= min && this.continentalness <= max;
     }
 
     public boolean testErosion(float min, float max) {
-        return erosion >= min && erosion <= max;
+        return this.erosion >= min && this.erosion <= max;
     }
 
     public boolean testTemperature(float min, float max) {
-        return temperature >= min && temperature <= max;
+        return this.temperature >= min && this.temperature <= max;
     }
 
     public boolean testHumidity(float min, float max) {
-        return humidity >= min && humidity <= max;
+        return this.humidity >= min && this.humidity <= max;
     }
 
     public boolean testWeirdness(float min, float max) {
-        return weirdness >= min && weirdness <= max;
+        return this.weirdness >= min && this.weirdness <= max;
     }
 
     public boolean testDepth(float min, float max) {
-        return depth >= min && depth <= max;
+        return this.depth >= min && this.depth <= max;
     }
 
     public ExpandedBiomeSource getBiomeSource() {
-        return biomeSource;
+        return this.biomeSource;
     }
 
     public void setBiomeToGenerate(RegistryEntry<Biome> biome) {
-        biomeToGenerate = biome;
+        this.biomeToGenerate = biome;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public int getZ() {
-        return z;
+        return this.z;
     }
 
     public long getWorldSeed() {
-        return worldSeed;
+        return this.worldSeed;
     }
 
     public RegistryKey<World> getWorldDimension() {
-        return worldDimension;
+        return this.worldDimension;
     }
 
     public MultiNoiseUtil.MultiNoiseSampler getClimateSampler() {
-        return climateSampler;
+        return this.climateSampler;
     }
 
 }

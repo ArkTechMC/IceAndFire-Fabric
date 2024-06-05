@@ -26,15 +26,15 @@ public class ItemDragonArmor extends Item {
         this.type = type;
         this.dragonSlot = dragonSlot;
         if (type == DragonArmorType.FIRE || type == DragonArmorType.ICE || type == DragonArmorType.LIGHTNING)
-            baseName = Pattern.compile("[a-z]+_[a-z]+_[a-z]+");
+            this.baseName = Pattern.compile("[a-z]+_[a-z]+_[a-z]+");
     }
 
     @Override
     public @NotNull String getTranslationKey() {
         String fullName = Registries.ITEM.getId(this).getPath();
-        Matcher matcher = baseName.matcher(fullName);
-        name = matcher.find() ? matcher.group() : fullName;
-        return "item." + IceAndFire.MOD_ID + "." + name;
+        Matcher matcher = this.baseName.matcher(fullName);
+        this.name = matcher.find() ? matcher.group() : fullName;
+        return "item." + IceAndFire.MOD_ID + "." + this.name;
     }
 
     static String getNameForSlot(int slot) {
@@ -49,7 +49,7 @@ public class ItemDragonArmor extends Item {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        String words = switch (dragonSlot) {
+        String words = switch (this.dragonSlot) {
             case 1 -> "dragon.armor_neck";
             case 2 -> "dragon.armor_body";
             case 3 -> "dragon.armor_tail";

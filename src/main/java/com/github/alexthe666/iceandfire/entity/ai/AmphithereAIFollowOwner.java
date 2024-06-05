@@ -24,7 +24,7 @@ public class AmphithereAIFollowOwner extends Goal {
 
     public AmphithereAIFollowOwner(EntityAmphithere ampithereIn, double followSpeedIn, float minDistIn, float maxDistIn) {
         this.ampithere = ampithereIn;
-        this.world = (World) ampithereIn.getWorld();
+        this.world = ampithereIn.getWorld();
         this.followSpeed = followSpeedIn;
         this.minDist = minDistIn;
         this.maxDist = maxDistIn;
@@ -34,7 +34,7 @@ public class AmphithereAIFollowOwner extends Goal {
     @Override
     public boolean canStart() {
         LivingEntity LivingEntity = this.ampithere.getOwner();
-        if (ampithere.getCommand() != 2) {
+        if (this.ampithere.getCommand() != 2) {
             return false;
         }
         if (LivingEntity == null) {
@@ -53,12 +53,12 @@ public class AmphithereAIFollowOwner extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return !noPath() && this.ampithere.squaredDistanceTo(this.owner) > this.maxDist * this.maxDist
+        return !this.noPath() && this.ampithere.squaredDistanceTo(this.owner) > this.maxDist * this.maxDist
             && !this.ampithere.isSitting();
     }
 
     private boolean noPath() {
-        if (!ampithere.isFlying()) {
+        if (!this.ampithere.isFlying()) {
             return this.ampithere.getNavigation().isIdle();
         } else {
             return false;
@@ -87,7 +87,7 @@ public class AmphithereAIFollowOwner extends Goal {
         if (!this.ampithere.isSitting()) {
             if (--this.timeToRecalcPath <= 0) {
                 this.timeToRecalcPath = 10;
-                tryMoveTo();
+                this.tryMoveTo();
                 if (!this.ampithere.isLeashed() && !this.ampithere.hasVehicle()) {
                     if (this.ampithere.squaredDistanceTo(this.owner) >= 144.0D) {
                         final int i = MathHelper.floor(this.owner.getX()) - 2;
@@ -99,7 +99,7 @@ public class AmphithereAIFollowOwner extends Goal {
                                 if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.canTeleportToBlock(new BlockPos(i, j, k))) {
                                     this.ampithere.refreshPositionAndAngles(i + l + 0.5F, k, j + i1 + 0.5F,
                                         this.ampithere.getYaw(), this.ampithere.getPitch());
-                                    ampithere.getNavigation().stop();
+                                    this.ampithere.getNavigation().stop();
                                     return;
                                 }
                             }
@@ -116,8 +116,8 @@ public class AmphithereAIFollowOwner extends Goal {
     }
 
     private boolean tryMoveTo() {
-        if (!ampithere.isFlying()) {
-            return ampithere.getNavigation().startMovingTo(this.owner, this.followSpeed);
+        if (!this.ampithere.isFlying()) {
+            return this.ampithere.getNavigation().startMovingTo(this.owner, this.followSpeed);
         } else {
             this.ampithere.getMoveControl().moveTo(this.owner.getX(), this.owner.getY() + this.owner.getStandingEyeHeight() + 5 + this.ampithere.getRandom().nextInt(8), this.owner.getZ(), 0.25D);
             return true;

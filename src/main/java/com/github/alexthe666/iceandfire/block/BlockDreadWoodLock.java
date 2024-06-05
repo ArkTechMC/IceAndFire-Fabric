@@ -56,7 +56,7 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
             if (!player.isCreative()) {
                 stack.decrement(1);
             }
-            deleteNearbyWood(worldIn, pos, pos);
+            this.deleteNearbyWood(worldIn, pos, pos);
             worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.BLOCKS, 1, 1, false);
             worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1, 2, false);
         }
@@ -68,7 +68,7 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
             if (worldIn.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS.get() || worldIn.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS_LOCK.get()) {
                 worldIn.breakBlock(pos, false);
                 for (Direction facing : Direction.values()) {
-                    deleteNearbyWood(worldIn, pos.offset(facing), startPos);
+                    this.deleteNearbyWood(worldIn, pos.offset(facing), startPos);
                 }
             }
         }

@@ -42,7 +42,7 @@ public class BlockMyrmexResin extends Block {
 
     @Override
     public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entity) {
-        if (sticky) {
+        if (this.sticky) {
             if (!(entity instanceof EntityMyrmexBase)) {
                 entity.setVelocity(entity.getVelocity().multiply(0.4D, 0.4D, 0.4D));
             }

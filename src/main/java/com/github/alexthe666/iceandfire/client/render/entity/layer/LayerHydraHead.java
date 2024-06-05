@@ -59,7 +59,7 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
         if (entity.isInvisible()) {
             return;
         }
-        renderHydraHeads(renderer.getModel(), false, matrixStackIn, bufferIn, packedLightIn, entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+        renderHydraHeads(this.renderer.getModel(), false, matrixStackIn, bufferIn, packedLightIn, entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
     }
 
     public static void renderHydraHeads(ModelHydraBody model, boolean stone, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHydra hydra, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {

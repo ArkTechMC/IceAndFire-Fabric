@@ -32,9 +32,9 @@ public class ChangePageButton extends ButtonWidget {
             if (!this.right) {
                 j += 13;
             }
-            j += color * 23;
+            j += this.color * 23;
 
-            matrixStack.drawTexture(resourceLocation, this.getX(), this.getY(), i, j, width, height);
+            matrixStack.drawTexture(resourceLocation, this.getX(), this.getY(), i, j, this.width, this.height);
         }
     }
 }

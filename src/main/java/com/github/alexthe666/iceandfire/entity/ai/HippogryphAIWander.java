@@ -29,14 +29,14 @@ public class HippogryphAIWander extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!hippo.canMove()) {
+        if (!this.hippo.canMove()) {
             return false;
         }
-        if (hippo.isFlying() || hippo.isHovering()) {
+        if (this.hippo.isFlying() || this.hippo.isHovering()) {
             return false;
         }
         if (!this.mustUpdate) {
-            if (this.hippo.getRandom().nextInt(executionChance) != 0) {
+            if (this.hippo.getRandom().nextInt(this.executionChance) != 0) {
                 return false;
             }
         }

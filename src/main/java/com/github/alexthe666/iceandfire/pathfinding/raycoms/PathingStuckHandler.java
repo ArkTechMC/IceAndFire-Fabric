@@ -109,7 +109,7 @@ public class PathingStuckHandler implements IStuckHandler
      * Delay before taking unstuck actions in ticks, default 60 seconds
      */
     private int delayBeforeActions       = 60 * 20;
-    private int delayToNextUnstuckAction = delayBeforeActions;
+    private int delayToNextUnstuckAction = this.delayBeforeActions;
 
     /**
      * The start position of moving away unstuck
@@ -151,58 +151,58 @@ public class PathingStuckHandler implements IStuckHandler
         // Close enough to be considered at the goal
         if (distanceToGoal < MIN_TARGET_DIST)
         {
-            resetGlobalStuckTimers();
+            this.resetGlobalStuckTimers();
             return;
         }
 
         // Global timeout check
-        if (prevDestination.equals(navigator.getDesiredPos()))
+        if (this.prevDestination.equals(navigator.getDesiredPos()))
         {
-            globalTimeout++;
+            this.globalTimeout++;
 
             // Try path first, if path fits target pos
-            if (globalTimeout > Math.max(MIN_TP_DELAY, timePerBlockDistance * Math.max(MIN_DIST_FOR_TP, distanceToGoal)))
+            if (this.globalTimeout > Math.max(MIN_TP_DELAY, this.timePerBlockDistance * Math.max(MIN_DIST_FOR_TP, distanceToGoal)))
             {
-                completeStuckAction(navigator);
+                this.completeStuckAction(navigator);
             }
         }
         else
         {
-            resetGlobalStuckTimers();
+            this.resetGlobalStuckTimers();
         }
 
-        prevDestination = navigator.getDesiredPos();
+        this.prevDestination = navigator.getDesiredPos();
 
         if (navigator.getCurrentPath() == null || navigator.getCurrentPath().isFinished()) {
             // With no path reset the last path index point to -1
-            lastPathIndex = -1;
-            progressedNodes = 0;
+            this.lastPathIndex = -1;
+            this.progressedNodes = 0;
 
             // Stuck when we have no path and had no path last update before
-            if (!hadPath) {
-                tryUnstuck(navigator);
+            if (!this.hadPath) {
+                this.tryUnstuck(navigator);
             }
         }
         else
         {
-            if (navigator.getCurrentPath().getCurrentNodeIndex() == lastPathIndex) {
+            if (navigator.getCurrentPath().getCurrentNodeIndex() == this.lastPathIndex) {
                 // Stuck when we have a path, but are not progressing on it
-                tryUnstuck(navigator);
+                this.tryUnstuck(navigator);
             } else {
-                if (lastPathIndex != -1 && navigator.getCurrentPath().getTarget().getSquaredDistance(prevDestination) < 25) {
-                    progressedNodes = navigator.getCurrentPath().getCurrentNodeIndex() > lastPathIndex ? progressedNodes + 1 : progressedNodes - 1;
+                if (this.lastPathIndex != -1 && navigator.getCurrentPath().getTarget().getSquaredDistance(this.prevDestination) < 25) {
+                    this.progressedNodes = navigator.getCurrentPath().getCurrentNodeIndex() > this.lastPathIndex ? this.progressedNodes + 1 : this.progressedNodes - 1;
 
-                    if (progressedNodes > 5 && (navigator.getCurrentPath().getEnd() == null || !moveAwayStartPos.equals(navigator.getCurrentPath().getEnd().getBlockPos()))) {
+                    if (this.progressedNodes > 5 && (navigator.getCurrentPath().getEnd() == null || !this.moveAwayStartPos.equals(navigator.getCurrentPath().getEnd().getBlockPos()))) {
                         // Not stuck when progressing
-                        resetStuckTimers();
+                        this.resetStuckTimers();
                     }
                 }
             }
         }
 
-        lastPathIndex = navigator.getCurrentPath() != null ? navigator.getCurrentPath().getCurrentNodeIndex() : -1;
+        this.lastPathIndex = navigator.getCurrentPath() != null ? navigator.getCurrentPath().getCurrentNodeIndex() : -1;
 
-        hadPath = navigator.getCurrentPath() != null && !navigator.getCurrentPath().isFinished();
+        this.hadPath = navigator.getCurrentPath() != null && !navigator.getCurrentPath().isFinished();
     }
 
     /**
@@ -210,9 +210,9 @@ public class PathingStuckHandler implements IStuckHandler
      */
     private void resetGlobalStuckTimers()
     {
-        globalTimeout = 0;
-        prevDestination = BlockPos.ORIGIN;
-        resetStuckTimers();
+        this.globalTimeout = 0;
+        this.prevDestination = BlockPos.ORIGIN;
+        this.resetStuckTimers();
     }
 
     /**
@@ -223,7 +223,7 @@ public class PathingStuckHandler implements IStuckHandler
         final World world = navigator.getOurEntity().getWorld();
         final MobEntity entity = navigator.getOurEntity();
 
-        if (canTeleportGoal) {
+        if (this.canTeleportGoal) {
             final BlockPos tpPos = findAround(world, desired, 10, 10,
                 (posworld, pos) -> SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos.down()), pos.down()) == SurfaceType.WALKABLE
                     && SurfaceType.getSurfaceType(posworld, posworld.getBlockState(pos), pos) == SurfaceType.DROPABLE
@@ -232,25 +232,25 @@ public class PathingStuckHandler implements IStuckHandler
                 entity.requestTeleport(tpPos.getX() + 0.5, tpPos.getY(), tpPos.getZ() + 0.5);
             }
         }
-        if (takeDamageOnCompleteStuck) {
-            entity.damage(new DamageSource(entity.getWorld().getDamageSources().inWall().getTypeRegistryEntry(), entity), entity.getMaxHealth() * damagePct);
+        if (this.takeDamageOnCompleteStuck) {
+            entity.damage(new DamageSource(entity.getWorld().getDamageSources().inWall().getTypeRegistryEntry(), entity), entity.getMaxHealth() * this.damagePct);
         }
 
-        if (completeStuckBlockBreakRange > 0)
+        if (this.completeStuckBlockBreakRange > 0)
         {
             final Direction facing = getFacing(entity.getBlockPos(), navigator.getDesiredPos());
 
-            for (int i = 1; i <= completeStuckBlockBreakRange; i++)
+            for (int i = 1; i <= this.completeStuckBlockBreakRange; i++)
             {
                 if (!world.isAir(new BlockPos(entity.getBlockPos()).offset(facing, i)) || !world.isAir(new BlockPos(entity.getBlockPos()).offset(facing, i).up())) {
-                    breakBlocksAhead(world, new BlockPos(entity.getBlockPos()).offset(facing, i - 1), facing);
+                    this.breakBlocksAhead(world, new BlockPos(entity.getBlockPos()).offset(facing, i - 1), facing);
                     break;
                 }
             }
         }
 
         navigator.stop();
-        resetGlobalStuckTimers();
+        this.resetGlobalStuckTimers();
     }
 
     /**
@@ -258,68 +258,68 @@ public class PathingStuckHandler implements IStuckHandler
      */
     private void tryUnstuck(final AbstractAdvancedPathNavigate navigator)
     {
-        if (delayToNextUnstuckAction-- > 0)
+        if (this.delayToNextUnstuckAction-- > 0)
         {
             return;
         }
-        delayToNextUnstuckAction = 50;
+        this.delayToNextUnstuckAction = 50;
 
         // Clear path
-        if (stuckLevel == 0)
+        if (this.stuckLevel == 0)
         {
-            stuckLevel++;
-            delayToNextUnstuckAction = 100;
+            this.stuckLevel++;
+            this.delayToNextUnstuckAction = 100;
             navigator.stop();
             return;
         }
 
         // Move away
-        if (stuckLevel == 1) {
-            stuckLevel++;
-            delayToNextUnstuckAction = 200;
+        if (this.stuckLevel == 1) {
+            this.stuckLevel++;
+            this.delayToNextUnstuckAction = 200;
             navigator.stop();
             navigator.moveAwayFromXYZ(new BlockPos(navigator.getOurEntity().getBlockPos()), 10, 1.0f, false);
             navigator.getPathingOptions().setCanClimb(false);
-            moveAwayStartPos = navigator.getOurEntity().getBlockPos();
+            this.moveAwayStartPos = navigator.getOurEntity().getBlockPos();
             return;
         }
 
         // Skip ahead
-        if (stuckLevel == 2 && teleportRange > 0 && hadPath) {
-            int index = Math.min(navigator.getCurrentPath().getCurrentNodeIndex() + teleportRange, navigator.getCurrentPath().getLength() - 1);
+        if (this.stuckLevel == 2 && this.teleportRange > 0 && this.hadPath) {
+            int index = Math.min(navigator.getCurrentPath().getCurrentNodeIndex() + this.teleportRange, navigator.getCurrentPath().getLength() - 1);
             final PathNode togo = navigator.getCurrentPath().getNode(index);
             navigator.getOurEntity().requestTeleport(togo.x + 0.5d, togo.y, togo.z + 0.5d);
-            delayToNextUnstuckAction = 300;
+            this.delayToNextUnstuckAction = 300;
         }
 
         // Place ladders & leaves
-        if (stuckLevel >= 3 && stuckLevel <= 5)
+        if (this.stuckLevel >= 3 && this.stuckLevel <= 5)
         {
-            if (canPlaceLadders && rand.nextBoolean())
+            if (this.canPlaceLadders && this.rand.nextBoolean())
             {
-                delayToNextUnstuckAction = 200;
-                placeLadders(navigator);
+                this.delayToNextUnstuckAction = 200;
+                this.placeLadders(navigator);
             }
-            else if (canBuildLeafBridges && rand.nextBoolean())
+            else if (this.canBuildLeafBridges && this.rand.nextBoolean())
             {
-                delayToNextUnstuckAction = 100;
-                placeLeaves(navigator);
+                this.delayToNextUnstuckAction = 100;
+                this.placeLeaves(navigator);
             }
         }
 
         // break blocks
-        if (stuckLevel >= 6 && stuckLevel <= 8 && canBreakBlocks)
+        if (this.stuckLevel >= 6 && this.stuckLevel <= 8 && this.canBreakBlocks)
         {
-            delayToNextUnstuckAction = 200;
-            breakBlocks(navigator);
+            this.delayToNextUnstuckAction = 200;
+            this.breakBlocks(navigator);
         }
 
-        chanceStuckLevel();
+        this.chanceStuckLevel();
 
-        if (stuckLevel == 9)
+        if (this.stuckLevel == 9)
         {
-            completeStuckAction(navigator);
-            resetStuckTimers();
+            this.completeStuckAction(navigator);
+            this.resetStuckTimers();
         }
     }
 
@@ -328,11 +328,11 @@ public class PathingStuckHandler implements IStuckHandler
      */
     private void chanceStuckLevel()
     {
-        stuckLevel++;
+        this.stuckLevel++;
         // 20 % to decrease to the previous level again
-        if (stuckLevel > 1 && rand.nextInt(6) == 0)
+        if (this.stuckLevel > 1 && this.rand.nextInt(6) == 0)
         {
-            stuckLevel -= 2;
+            this.stuckLevel -= 2;
         }
     }
 
@@ -341,11 +341,11 @@ public class PathingStuckHandler implements IStuckHandler
      */
     private void resetStuckTimers()
     {
-        delayToNextUnstuckAction = delayBeforeActions;
-        lastPathIndex = -1;
-        progressedNodes = 0;
-        stuckLevel = 0;
-        moveAwayStartPos = BlockPos.ORIGIN;
+        this.delayToNextUnstuckAction = this.delayBeforeActions;
+        this.lastPathIndex = -1;
+        this.progressedNodes = 0;
+        this.stuckLevel = 0;
+        this.moveAwayStartPos = BlockPos.ORIGIN;
     }
 
     /**
@@ -358,19 +358,19 @@ public class PathingStuckHandler implements IStuckHandler
     private void breakBlocksAhead(final World world, final BlockPos start, final Direction facing) {
         // Above entity
         if (!world.isAir(start.up(3))) {
-            setAirIfPossible(world, start.up(3));
+            this.setAirIfPossible(world, start.up(3));
             return;
         }
 
         // Goal direction up
         if (!world.isAir(start.up().offset(facing))) {
-            setAirIfPossible(world, start.up().offset(facing));
+            this.setAirIfPossible(world, start.up().offset(facing));
             return;
         }
 
         // In goal direction
         if (!world.isAir(start.offset(facing))) {
-            setAirIfPossible(world, start.offset(facing));
+            this.setAirIfPossible(world, start.offset(facing));
         }
     }
 
@@ -400,9 +400,9 @@ public class PathingStuckHandler implements IStuckHandler
             entityPos = entityPos.up();
         }
 
-        tryPlaceLadderAt(world, entityPos);
-        tryPlaceLadderAt(world, entityPos.up());
-        tryPlaceLadderAt(world, entityPos.up(2));
+        this.tryPlaceLadderAt(world, entityPos);
+        this.tryPlaceLadderAt(world, entityPos.up());
+        this.tryPlaceLadderAt(world, entityPos.up(2));
     }
 
     /**
@@ -416,7 +416,7 @@ public class PathingStuckHandler implements IStuckHandler
 
         final Direction badFacing = getFacing(entity.getBlockPos(), navigator.getDesiredPos()).getOpposite();
 
-        for (final Direction dir : directions) {
+        for (final Direction dir : this.directions) {
             if (dir == badFacing) {
                 continue;
             }
@@ -444,7 +444,7 @@ public class PathingStuckHandler implements IStuckHandler
 
         final Direction facing = getFacing(entity.getBlockPos(), navigator.getDesiredPos());
 
-        breakBlocksAhead(world, entity.getBlockPos(), facing);
+        this.breakBlocksAhead(world, entity.getBlockPos(), facing);
     }
 
     /**
@@ -456,7 +456,7 @@ public class PathingStuckHandler implements IStuckHandler
     private void tryPlaceLadderAt(final World world, final BlockPos pos) {
         final BlockState state = world.getBlockState(pos);
         if (state.getBlock() != Blocks.LADDER && !state.isOpaque() && world.getFluidState(pos).isEmpty()) {
-            for (final Direction dir : directions) {
+            for (final Direction dir : this.directions) {
                 final BlockState toPlace = Blocks.LADDER.getDefaultState().with(LadderBlock.FACING, dir.getOpposite());
                 if (world.getBlockState(pos.offset(dir)).isSolid() && Blocks.LADDER.canPlaceAt(toPlace, world, pos)) {
                     world.setBlockState(pos, toPlace);
@@ -468,19 +468,19 @@ public class PathingStuckHandler implements IStuckHandler
 
     public PathingStuckHandler withBlockBreaks()
     {
-        canBreakBlocks = true;
+        this.canBreakBlocks = true;
         return this;
     }
 
     public PathingStuckHandler withPlaceLadders()
     {
-        canPlaceLadders = true;
+        this.canPlaceLadders = true;
         return this;
     }
 
     public PathingStuckHandler withBuildLeafBridges()
     {
-        canBuildLeafBridges = true;
+        this.canBuildLeafBridges = true;
         return this;
     }
 
@@ -492,20 +492,20 @@ public class PathingStuckHandler implements IStuckHandler
      */
     public PathingStuckHandler withTeleportSteps(int steps)
     {
-        teleportRange = steps;
+        this.teleportRange = steps;
         return this;
     }
 
     public PathingStuckHandler withTeleportOnFullStuck()
     {
-        canTeleportGoal = true;
+        this.canTeleportGoal = true;
         return this;
     }
 
     public PathingStuckHandler withTakeDamageOnStuck(float damagePct)
     {
         this.damagePct = damagePct;
-        takeDamageOnCompleteStuck = true;
+        this.takeDamageOnCompleteStuck = true;
         return this;
     }
 
@@ -517,7 +517,7 @@ public class PathingStuckHandler implements IStuckHandler
      */
     public PathingStuckHandler withTimePerBlockDistance(int time)
     {
-        timePerBlockDistance = time;
+        this.timePerBlockDistance = time;
         return this;
     }
 
@@ -529,7 +529,7 @@ public class PathingStuckHandler implements IStuckHandler
      */
     public PathingStuckHandler withDelayBeforeStuckActions(int delay)
     {
-        delayBeforeActions = delay;
+        this.delayBeforeActions = delay;
         return this;
     }
 
@@ -541,7 +541,7 @@ public class PathingStuckHandler implements IStuckHandler
      */
     public PathingStuckHandler withCompleteStuckBlockBreak(int range)
     {
-        completeStuckBlockBreakRange = range;
+        this.completeStuckBlockBreakRange = range;
         return this;
     }
 

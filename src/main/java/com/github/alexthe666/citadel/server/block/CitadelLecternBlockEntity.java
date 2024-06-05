@@ -107,7 +107,7 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
     }
 
     public boolean hasBook() {
-        return LecternBooks.isLecternBook(book);
+        return LecternBooks.isLecternBook(this.book);
     }
 
     public void setBook(ItemStack stack) {

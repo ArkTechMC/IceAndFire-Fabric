@@ -9,16 +9,11 @@ import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.network.PlayMessages;
 
 public class EntityDragonFireCharge extends EntityDragonCharge {
 
     public EntityDragonFireCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn) {
         super(type, worldIn);
-    }
-
-    public EntityDragonFireCharge(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.FIRE_DRAGON_CHARGE.get(), worldIn);
     }
 
     public EntityDragonFireCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn, double posX,
@@ -38,10 +33,10 @@ public class EntityDragonFireCharge extends EntityDragonCharge {
     @Override
     public void tick() {
         for (int i = 0; i < 4; ++i) {
-            this.getWorld().addParticle(ParticleTypes.FLAME, this.getX() + ((this.random.nextDouble() - 0.5D) * getWidth()), this.getY() + ((this.random.nextDouble() - 0.5D) * getWidth()), this.getZ() + ((this.random.nextDouble() - 0.5D) * getWidth()), 0.0D, 0.0D, 0.0D);
+            this.getWorld().addParticle(ParticleTypes.FLAME, this.getX() + ((this.random.nextDouble() - 0.5D) * this.getWidth()), this.getY() + ((this.random.nextDouble() - 0.5D) * this.getWidth()), this.getZ() + ((this.random.nextDouble() - 0.5D) * this.getWidth()), 0.0D, 0.0D, 0.0D);
         }
         if (this.isTouchingWater()) {
-            remove(RemovalReason.DISCARDED);
+            this.remove(RemovalReason.DISCARDED);
         }
         if (this.isBurning()) {
             this.setOnFireFor(1);

@@ -55,7 +55,7 @@ public class ModelGuardianStatue extends AdvancedEntityModel<Entity> {
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(guardianBody);
+        return ImmutableList.of(this.guardianBody);
     }
 
     @Override

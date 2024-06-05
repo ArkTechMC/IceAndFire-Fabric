@@ -49,7 +49,7 @@ public class GorgonTempleStructure extends IafStructure {
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
 
-        if (!isBiomeValid(pContext, BiomeConfig.gorgonTempleBiomes, blockpos))
+        if (!this.isBiomeValid(pContext, BiomeConfig.gorgonTempleBiomes, blockpos))
             return Optional.empty();
 
         Optional<StructurePosition> structurePiecesGenerator =

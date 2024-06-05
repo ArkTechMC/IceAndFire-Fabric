@@ -15,10 +15,10 @@ public class EventChangeEntityTickRate extends Event {
     }
 
     public Entity getEntity() {
-        return entity;
+        return this.entity;
     }
 
     public float getTargetTickRate() {
-        return targetTickRate;
+        return this.targetTickRate;
     }
 }

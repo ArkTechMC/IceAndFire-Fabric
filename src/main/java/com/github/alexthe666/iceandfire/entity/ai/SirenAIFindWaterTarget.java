@@ -59,7 +59,7 @@ public class SirenAIFindWaterTarget extends Goal {
             for (int x = posX - 5; x < posX + 5; x++) {
                 for (int y = posY - 5; y < posY + 5; y++) {
                     for (int z = posZ - 5; z < posZ + 5; z++) {
-                        if (mob.wantsToSing()) {
+                        if (this.mob.wantsToSing()) {
                             if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isSolid() && this.mob.getWorld().isAir(new BlockPos(x, y + 1, z)) && this.mob.isDirectPathBetweenPoints(this.mob.getPos(), new Vec3d(x, y + 1, z))) {
                                 singTargets.add(new Vec3d(x, y + 1, z));
                             }

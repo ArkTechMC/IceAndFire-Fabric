@@ -45,7 +45,7 @@ public class DragonType {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -53,11 +53,11 @@ public class DragonType {
     }
 
     public boolean isPiscivore() {
-        return piscivore;
+        return this.piscivore;
     }
 
     public DragonType setPiscivore() {
-        piscivore = true;
+        this.piscivore = true;
         return this;
     }
 }

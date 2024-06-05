@@ -34,12 +34,12 @@ public class ModelDreadLichSkull extends AdvancedEntityModel {
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(bipedHead, bipedHeadwear);
+        return ImmutableList.of(this.bipedHead, this.bipedHeadwear);
     }
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(bipedHead, bipedHeadwear);
+        return ImmutableList.of(this.bipedHead, this.bipedHeadwear);
     }
 
 }

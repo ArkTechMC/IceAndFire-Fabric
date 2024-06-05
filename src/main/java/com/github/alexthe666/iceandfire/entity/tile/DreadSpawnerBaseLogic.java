@@ -41,11 +41,11 @@ public abstract class DreadSpawnerBaseLogic extends MobSpawnerLogic {
 
     @Override
     public double getRotation() {
-        return spin;
+        return this.spin;
     }
 
     @Override
     public double getLastRotation() {
-        return oSpin;
+        return this.oSpin;
     }
 }

@@ -72,8 +72,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     public EntityHydra(EntityType<EntityHydra> type, World worldIn) {
         super(type, worldIn);
-        resetParts();
-        headDamageThreshold = Math.max(5, (float) IafConfig.hydraMaxHealth * 0.08F);
+        this.resetParts();
+        this.headDamageThreshold = Math.max(5, (float) IafConfig.hydraMaxHealth * 0.08F);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -119,41 +119,41 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         super.tickMovement();
         LivingEntity attackTarget = this.getTarget();
         if (attackTarget != null && this.canSee(attackTarget)) {
-            int index = random.nextInt(getHeadCount());
-            if (!isBreathing[index] && !isStriking[index]) {
+            int index = this.random.nextInt(this.getHeadCount());
+            if (!this.isBreathing[index] && !this.isStriking[index]) {
                 if (this.distanceTo(attackTarget) < 6) {
-                    if (strikeCooldown == 0 && strikingProgress[index] == 0) {
-                        isBreathing[index] = false;
-                        isStriking[index] = true;
+                    if (this.strikeCooldown == 0 && this.strikingProgress[index] == 0) {
+                        this.isBreathing[index] = false;
+                        this.isStriking[index] = true;
                         this.getWorld().sendEntityStatus(this, (byte) (40 + index));
-                        strikeCooldown = 3;
+                        this.strikeCooldown = 3;
                     }
-                } else if (random.nextBoolean() && breathCooldown == 0) {
-                    isBreathing[index] = true;
-                    isStriking[index] = false;
+                } else if (this.random.nextBoolean() && this.breathCooldown == 0) {
+                    this.isBreathing[index] = true;
+                    this.isStriking[index] = false;
                     this.getWorld().sendEntityStatus(this, (byte) (50 + index));
-                    breathCooldown = 15;
+                    this.breathCooldown = 15;
                 }
 
             }
 
         }
         for (int i = 0; i < HEADS; i++) {
-            boolean striking = isStriking[i];
-            boolean breathing = isBreathing[i];
-            prevStrikeProgress[i] = strikingProgress[i];
-            if (striking && strikingProgress[i] > 9) {
-                isStriking[i] = false;
+            boolean striking = this.isStriking[i];
+            boolean breathing = this.isBreathing[i];
+            this.prevStrikeProgress[i] = this.strikingProgress[i];
+            if (striking && this.strikingProgress[i] > 9) {
+                this.isStriking[i] = false;
                 if (attackTarget != null && this.distanceTo(attackTarget) < 6) {
-                    attackTarget.damage(getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
+                    attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
                     attackTarget.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 3, false, false));
                     attackTarget.takeKnockback(0.25F, this.getX() - attackTarget.getX(), this.getZ() - attackTarget.getZ());
                 }
             }
             if (breathing) {
-                if (age % 7 == 0 && attackTarget != null && i < this.getHeadCount()) {
+                if (this.age % 7 == 0 && attackTarget != null && i < this.getHeadCount()) {
                     Vec3d Vector3d = this.getRotationVec(1.0F);
-                    if (random.nextFloat() < 0.2F) {
+                    if (this.random.nextFloat() < 0.2F) {
                         this.playSound(IafSoundRegistry.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
                     }
                     double headPosX = this.headBoxes[i].getX() + Vector3d.x;
@@ -163,44 +163,44 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                     double d3 = attackTarget.getY() + attackTarget.getStandingEyeHeight() - headPosY + this.random.nextGaussian() * 0.4D;
                     double d4 = attackTarget.getZ() - headPosZ + this.random.nextGaussian() * 0.4D;
                     EntityHydraBreath entitylargefireball = new EntityHydraBreath(IafEntityRegistry.HYDRA_BREATH.get(),
-                        getWorld(), this, d2, d3, d4);
+                            this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
-                    if (!getWorld().isClient) {
-                        getWorld().spawnEntity(entitylargefireball);
+                    if (!this.getWorld().isClient) {
+                        this.getWorld().spawnEntity(entitylargefireball);
                     }
                 }
-                if (isBreathing[i] && (attackTarget == null || !attackTarget.isAlive() || breathTicks[i] > 60) && !getWorld().isClient) {
-                    isBreathing[i] = false;
-                    breathTicks[i] = 0;
-                    breathCooldown = 15;
+                if (this.isBreathing[i] && (attackTarget == null || !attackTarget.isAlive() || this.breathTicks[i] > 60) && !this.getWorld().isClient) {
+                    this.isBreathing[i] = false;
+                    this.breathTicks[i] = 0;
+                    this.breathCooldown = 15;
                     this.getWorld().sendEntityStatus(this, (byte) (60 + i));
                 }
-                breathTicks[i]++;
+                this.breathTicks[i]++;
             } else {
-                breathTicks[i] = 0;
+                this.breathTicks[i] = 0;
             }
-            if (striking && strikingProgress[i] < 10.0F) {
-                strikingProgress[i] += 2.5F;
-            } else if (!striking && strikingProgress[i] > 0.0F) {
-                strikingProgress[i] -= 2.5F;
+            if (striking && this.strikingProgress[i] < 10.0F) {
+                this.strikingProgress[i] += 2.5F;
+            } else if (!striking && this.strikingProgress[i] > 0.0F) {
+                this.strikingProgress[i] -= 2.5F;
             }
-            prevSpeakingProgress[i] = speakingProgress[i];
-            if (speakingProgress[i] > 0.0F) {
-                speakingProgress[i] -= 0.1F;
+            this.prevSpeakingProgress[i] = this.speakingProgress[i];
+            if (this.speakingProgress[i] > 0.0F) {
+                this.speakingProgress[i] -= 0.1F;
             }
-            prevBreathProgress[i] = breathProgress[i];
-            if (breathing && breathProgress[i] < 10.0F) {
-                breathProgress[i] += 1.0F;
-            } else if (!breathing && breathProgress[i] > 0.0F) {
-                breathProgress[i] -= 1.0F;
+            this.prevBreathProgress[i] = this.breathProgress[i];
+            if (breathing && this.breathProgress[i] < 10.0F) {
+                this.breathProgress[i] += 1.0F;
+            } else if (!breathing && this.breathProgress[i] > 0.0F) {
+                this.breathProgress[i] -= 1.0F;
             }
 
         }
-        if (strikeCooldown > 0) {
-            strikeCooldown--;
+        if (this.strikeCooldown > 0) {
+            this.strikeCooldown--;
         }
-        if (breathCooldown > 0) {
-            breathCooldown--;
+        if (this.breathCooldown > 0) {
+            this.breathCooldown--;
         }
         if (this.getHeadCount() == 1 && this.getSeveredHead() != -1) {
             this.setSeveredHead(-1);
@@ -208,42 +208,42 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         if (this.getHeadCount() == 1 && !this.isOnFire()) {
             this.setHeadCount(2);
             this.setSeveredHead(1);
-            onlyRegrowOneHeadNotTwo = true;
+            this.onlyRegrowOneHeadNotTwo = true;
         }
 
         if (this.getSeveredHead() != -1 && this.getSeveredHead() < this.getHeadCount()) {
             this.setSeveredHead(MathHelper.clamp(this.getSeveredHead(), 0, this.getHeadCount() - 1));
-            regrowHeadCooldown++;
-            if (regrowHeadCooldown >= 100) {
-                headDamageTracker[this.getSeveredHead()] = 0;
+            this.regrowHeadCooldown++;
+            if (this.regrowHeadCooldown >= 100) {
+                this.headDamageTracker[this.getSeveredHead()] = 0;
                 this.setSeveredHead(-1);
                 if (this.isOnFire()) {
                     this.setHeadCount(this.getHeadCount() - 1);
                 } else {
                     this.playSound(IafSoundRegistry.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
-                    if (!onlyRegrowOneHeadNotTwo) {
+                    if (!this.onlyRegrowOneHeadNotTwo) {
                         this.setHeadCount(this.getHeadCount() + 1);
                     }
                 }
-                onlyRegrowOneHeadNotTwo = false;
-                regrowHeadCooldown = 0;
+                this.onlyRegrowOneHeadNotTwo = false;
+                this.regrowHeadCooldown = 0;
             }
         } else {
-            regrowHeadCooldown = 0;
+            this.regrowHeadCooldown = 0;
         }
     }
 
     public void resetParts() {
-        clearParts();
-        headBoxes = new EntityHydraHead[HEADS * 2];
-        for (int i = 0; i < getHeadCount(); i++) {
+        this.clearParts();
+        this.headBoxes = new EntityHydraHead[HEADS * 2];
+        for (int i = 0; i < this.getHeadCount(); i++) {
             float maxAngle = 5;
-            headBoxes[i] = new EntityHydraHead(this, 3.2F, ROTATE[getHeadCount() - 1][i] * 1.1F, 1.0F, 0.75F, 1.75F, 1, i, false);
-            headBoxes[HEADS + i] = new EntityHydraHead(this, 2.1F, ROTATE[getHeadCount() - 1][i] * 1.1F, 1.0F, 0.75F, 0.75F, 1, i, true);
-            headBoxes[i].copyPositionAndRotation(this);
-            headBoxes[HEADS + i].copyPositionAndRotation(this);
-            headBoxes[i].setParent(this);
-            headBoxes[HEADS + i].setParent(this);
+            this.headBoxes[i] = new EntityHydraHead(this, 3.2F, ROTATE[this.getHeadCount() - 1][i] * 1.1F, 1.0F, 0.75F, 1.75F, 1, i, false);
+            this.headBoxes[HEADS + i] = new EntityHydraHead(this, 2.1F, ROTATE[this.getHeadCount() - 1][i] * 1.1F, 1.0F, 0.75F, 0.75F, 1, i, true);
+            this.headBoxes[i].copyPositionAndRotation(this);
+            this.headBoxes[HEADS + i].copyPositionAndRotation(this);
+            this.headBoxes[i].setParent(this);
+            this.headBoxes[HEADS + i].setParent(this);
         }
     }
 
@@ -251,23 +251,23 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     public void tick() {
         super.tick();
 
-        if (prevHeadCount != this.getHeadCount()) {
-            resetParts();
+        if (this.prevHeadCount != this.getHeadCount()) {
+            this.resetParts();
         }
 
         float partY = 1.0F - this.limbAnimator.getSpeed() * 0.5F;
 
-        for (int i = 0; i < getHeadCount(); i++) {
-            headBoxes[i].setPosition(headBoxes[i].getX(), this.getY() + partY, headBoxes[i].getZ());
-            EntityUtil.updatePart(headBoxes[i], this);
+        for (int i = 0; i < this.getHeadCount(); i++) {
+            this.headBoxes[i].setPosition(this.headBoxes[i].getX(), this.getY() + partY, this.headBoxes[i].getZ());
+            EntityUtil.updatePart(this.headBoxes[i], this);
 
-            headBoxes[HEADS + i].setPosition(headBoxes[HEADS + i].getX(), this.getY() + partY, headBoxes[HEADS + i].getZ());
-            EntityUtil.updatePart(headBoxes[HEADS + 1], this);
+            this.headBoxes[HEADS + i].setPosition(this.headBoxes[HEADS + i].getX(), this.getY() + partY, this.headBoxes[HEADS + i].getZ());
+            EntityUtil.updatePart(this.headBoxes[HEADS + 1], this);
         }
 
-        if (getHeadCount() > 1 && !isOnFire()) {
+        if (this.getHeadCount() > 1 && !this.isOnFire()) {
             if (this.getHealth() < this.getMaxHealth() && this.age % 30 == 0) {
-                int level = getHeadCount() - 1;
+                int level = this.getHeadCount() - 1;
                 if (this.getSeveredHead() != -1) {
                     level--;
                 }
@@ -276,15 +276,15 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             }
         }
 
-        if (isOnFire()) {
+        if (this.isOnFire()) {
             this.removeStatusEffect(StatusEffects.REGENERATION);
         }
 
-        prevHeadCount = this.getHeadCount();
+        this.prevHeadCount = this.getHeadCount();
     }
 
     private void clearParts() {
-        for (Entity entity : headBoxes) {
+        for (Entity entity : this.headBoxes) {
             if (entity != null) {
                 entity.remove(RemovalReason.DISCARDED);
             }
@@ -293,25 +293,25 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     @Override
     public void remove(@NotNull RemovalReason reason) {
-        clearParts();
+        this.clearParts();
         super.remove(reason);
     }
 
     @Override
     protected void playHurtSound(@NotNull DamageSource source) {
-        speakingProgress[random.nextInt(getHeadCount())] = 1F;
+        this.speakingProgress[this.random.nextInt(this.getHeadCount())] = 1F;
         super.playHurtSound(source);
     }
 
     @Override
     public void playAmbientSound() {
-        speakingProgress[random.nextInt(getHeadCount())] = 1F;
+        this.speakingProgress[this.random.nextInt(this.getHeadCount())] = 1F;
         super.playAmbientSound();
     }
 
     @Override
     public int getMinAmbientSoundDelay() {
-        return 100 / getHeadCount();
+        return 100 / this.getHeadCount();
     }
 
     @Override
@@ -321,7 +321,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         compound.putInt("HeadCount", this.getHeadCount());
         compound.putInt("SeveredHead", this.getSeveredHead());
         for (int i = 0; i < HEADS; i++) {
-            compound.putFloat("HeadDamage" + i, headDamageTracker[i]);
+            compound.putFloat("HeadDamage" + i, this.headDamageTracker[i]);
         }
     }
 
@@ -332,7 +332,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         this.setHeadCount(compound.getInt("HeadCount"));
         this.setSeveredHead(compound.getInt("SeveredHead"));
         for (int i = 0; i < HEADS; i++) {
-            headDamageTracker[i] = compound.getFloat("HeadDamage" + i);
+            this.headDamageTracker[i] = compound.getFloat("HeadDamage" + i);
         }
         this.setConfigurableAttributes();
     }
@@ -347,14 +347,14 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     @Override
     public boolean damage(@NotNull DamageSource source, float amount) {
-        if (lastHitHead > this.getHeadCount()) {
-            lastHitHead = this.getHeadCount() - 1;
+        if (this.lastHitHead > this.getHeadCount()) {
+            this.lastHitHead = this.getHeadCount() - 1;
         }
-        int headIndex = lastHitHead;
-        headDamageTracker[headIndex] += amount;
+        int headIndex = this.lastHitHead;
+        this.headDamageTracker[headIndex] += amount;
 
-        if (headDamageTracker[headIndex] > headDamageThreshold && (this.getSeveredHead() == -1 || this.getSeveredHead() >= this.getHeadCount())) {
-            headDamageTracker[headIndex] = 0;
+        if (this.headDamageTracker[headIndex] > this.headDamageThreshold && (this.getSeveredHead() == -1 || this.getSeveredHead() >= this.getHeadCount())) {
+            this.headDamageTracker[headIndex] = 0;
             this.regrowHeadCooldown = 0;
             this.setSeveredHead(headIndex);
             this.playSound(SoundEvents.ENTITY_GUARDIAN_FLOP, this.getSoundVolume(), this.getSoundPitch());
@@ -368,28 +368,28 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     @Override
     public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setVariant(random.nextInt(3));
+        this.setVariant(this.random.nextInt(3));
         return data;
     }
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override
@@ -440,13 +440,13 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     public void handleStatus(byte id) {
         if (id >= 40 && id <= 48) {
             int index = id - 40;
-            isStriking[MathHelper.clamp(index, 0, 8)] = true;
+            this.isStriking[MathHelper.clamp(index, 0, 8)] = true;
         } else if (id >= 50 && id <= 58) {
             int index = id - 50;
-            isBreathing[MathHelper.clamp(index, 0, 8)] = true;
+            this.isBreathing[MathHelper.clamp(index, 0, 8)] = true;
         } else if (id >= 60 && id <= 68) {
             int index = id - 60;
-            isBreathing[MathHelper.clamp(index, 0, 8)] = false;
+            this.isBreathing[MathHelper.clamp(index, 0, 8)] = false;
         } else {
             super.handleStatus(id);
         }
@@ -458,11 +458,11 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     public void onHitHead(float damage, int headIndex) {
-        lastHitHead = headIndex;
+        this.lastHitHead = headIndex;
     }
 
     public void triggerHeadFlags(int index) {
-        lastHitHead = index;
+        this.lastHitHead = index;
     }
 
     @Override

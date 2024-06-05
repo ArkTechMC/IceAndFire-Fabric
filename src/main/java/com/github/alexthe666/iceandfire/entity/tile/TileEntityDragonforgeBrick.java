@@ -16,16 +16,16 @@ public class TileEntityDragonforgeBrick extends BlockEntity {
 
     @Override
     public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> capability, Direction facing) {
-        if (getConnectedTileEntity() != null && capability == ForgeCapabilities.ITEM_HANDLER) {
-            return getConnectedTileEntity().getCapability(capability, facing);
+        if (this.getConnectedTileEntity() != null && capability == ForgeCapabilities.ITEM_HANDLER) {
+            return this.getConnectedTileEntity().getCapability(capability, facing);
         }
         return super.getCapability(capability, facing);
     }
 
     private ICapabilityProvider getConnectedTileEntity() {
         for (Direction facing : Direction.values()) {
-            if (world.getBlockEntity(pos.offset(facing)) instanceof TileEntityDragonforge) {
-                return world.getBlockEntity(pos.offset(facing));
+            if (this.world.getBlockEntity(this.pos.offset(facing)) instanceof TileEntityDragonforge) {
+                return this.world.getBlockEntity(this.pos.offset(facing));
             }
         }
         return null;

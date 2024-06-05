@@ -19,15 +19,15 @@ public class EventGetStarBrightness extends Event {
     }
 
     public ClientWorld getLevel() {
-        return clientLevel;
+        return this.clientLevel;
     }
 
     public float getPartialTicks() {
-        return partialTicks;
+        return this.partialTicks;
     }
 
     public float getBrightness() {
-        return brightness;
+        return this.brightness;
     }
 
     public void setBrightness(float brightness) {

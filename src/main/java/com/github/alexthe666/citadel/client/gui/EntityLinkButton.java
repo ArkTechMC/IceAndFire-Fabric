@@ -36,25 +36,25 @@ public class EntityLinkButton extends ButtonWidget {
     public void renderButton(DrawContext guiGraphics, int mouseX, int mouseY, float partialTicks) {
         int lvt_5_1_ = 0;
         int lvt_6_1_ = 30;
-        float f = (float) data.getScale();
+        float f = (float) this.data.getScale();
         guiGraphics.getMatrices().push();
         guiGraphics.getMatrices().translate(this.getX(), this.getY(), 0);
         guiGraphics.getMatrices().scale(f, f, 1);
         this.drawBtn(false, guiGraphics, 0, 0, lvt_5_1_, lvt_6_1_, 24, 24);
         Entity model = null;
-        EntityType<?> type = Registries.ENTITY_TYPE.get(new Identifier(data.getEntity()));
-        model = renderedEntites.putIfAbsent(data.getEntity(), type.create(MinecraftClient.getInstance().world));
+        EntityType<?> type = Registries.ENTITY_TYPE.get(new Identifier(this.data.getEntity()));
+        model = renderedEntites.putIfAbsent(this.data.getEntity(), type.create(MinecraftClient.getInstance().world));
 
         guiGraphics.enableScissor(this.getX() + Math.round(f * 4), this.getY() + Math.round(f * 4), this.getX() + Math.round(f * 20), this.getY() + Math.round(f * 20));
         if (model != null) {
             if (MinecraftClient.getInstance().player != null)
                 model.age = MinecraftClient.getInstance().player.age;
-            float renderScale = (float) (data.getEntityScale() * f * 10);
-            renderEntityInInventory(guiGraphics, 11 + (int) (data.getOffset_x() * data.getEntityScale()), 22 + (int) (data.getOffset_y() * data.getEntityScale()), renderScale, ENTITY_ROTATION, model);
+            float renderScale = (float) (this.data.getEntityScale() * f * 10);
+            this.renderEntityInInventory(guiGraphics, 11 + (int) (this.data.getOffset_x() * this.data.getEntityScale()), 22 + (int) (this.data.getOffset_y() * this.data.getEntityScale()), renderScale, ENTITY_ROTATION, model);
         }
         guiGraphics.disableScissor();
         if (this.hovered) {
-            bookGUI.setEntityTooltip(this.data.getHoverText());
+            this.bookGUI.setEntityTooltip(this.data.getHoverText());
             lvt_5_1_ = 48;
         } else {
             lvt_5_1_ = 24;
@@ -65,13 +65,13 @@ public class EntityLinkButton extends ButtonWidget {
 
     public void drawBtn(boolean color, DrawContext guiGraphics, int p_238474_2_, int p_238474_3_, int p_238474_4_, int p_238474_5_, int p_238474_6_, int p_238474_7_) {
         if (color) {
-            int widgetColor = bookGUI.getWidgetColor();
+            int widgetColor = this.bookGUI.getWidgetColor();
             int r = (widgetColor & 0xFF0000) >> 16;
             int g = (widgetColor & 0xFF00) >> 8;
             int b = (widgetColor & 0xFF);
-            BookBlit.blitWithColor(guiGraphics, bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 0, (float) p_238474_4_, (float) p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, r, g, b, 255);
+            BookBlit.blitWithColor(guiGraphics, this.bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 0, (float) p_238474_4_, (float) p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, r, g, b, 255);
         } else {
-            guiGraphics.drawTexture(bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 0, (float) p_238474_4_, (float) p_238474_5_, p_238474_6_, p_238474_7_, 256, 256);
+            guiGraphics.drawTexture(this.bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 0, (float) p_238474_4_, (float) p_238474_5_, p_238474_6_, p_238474_7_, 256, 256);
         }
     }
 

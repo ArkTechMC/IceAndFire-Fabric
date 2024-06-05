@@ -27,6 +27,6 @@ public class ModelChainTie extends BasicEntityModel<EntityChainTie> {
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(knotRenderer);
+        return ImmutableList.of(this.knotRenderer);
     }
 }

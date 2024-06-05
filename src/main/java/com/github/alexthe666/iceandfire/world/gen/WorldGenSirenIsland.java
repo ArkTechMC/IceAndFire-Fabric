@@ -26,7 +26,7 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafConfig.generateSirenChance, context.getWorld(), context.getRandom(), context.getOrigin(), getId(), false)) {
+        if (!WorldUtil.canGenerate(IafConfig.generateSirenChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), false)) {
             return false;
         }
 
@@ -38,14 +38,14 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
         while (!context.getWorld().getBlockState(center).isOpaque() && center.getY() >= context.getWorld().getBottomY()) {
             layer++;
 
-            for (float i = 0; i < getRadius(layer, up); i += 0.5f) {
+            for (float i = 0; i < this.getRadius(layer, up); i += 0.5f) {
                 for (float j = 0; j < 2 * Math.PI * i + context.getRandom().nextInt(2); j += 0.5f) {
                     BlockPos stonePos = BlockPos.ofFloored(Math.floor(center.getX() + MathHelper.sin(j) * i + context.getRandom().nextInt(2)), center.getY(), Math.floor(center.getZ() + MathHelper.cos(j) * i + context.getRandom().nextInt(2)));
-                    context.getWorld().setBlockState(stonePos, getStone(context.getRandom()), Block.NOTIFY_ALL);
+                    context.getWorld().setBlockState(stonePos, this.getStone(context.getRandom()), Block.NOTIFY_ALL);
                     BlockPos upPos = stonePos.up();
 
                     if (context.getWorld().isAir(upPos) && context.getWorld().isAir(upPos.east()) && context.getWorld().isAir(upPos.north()) && context.getWorld().isAir(upPos.north().east()) && context.getRandom().nextInt(3) == 0 && sirens > 0) {
-                        spawnSiren(context.getWorld(), context.getRandom(), upPos.north().east());
+                        this.spawnSiren(context.getWorld(), context.getRandom(), upPos.north().east());
                         sirens--;
                     }
                 }
@@ -56,12 +56,12 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
 
         layer++;
 
-        for (float i = 0; i < getRadius(layer, up); i += 0.5f) {
+        for (float i = 0; i < this.getRadius(layer, up); i += 0.5f) {
             for (float j = 0; j < 2 * Math.PI * i + context.getRandom().nextInt(2); j += 0.5f) {
                 BlockPos stonePos = BlockPos.ofFloored(Math.floor(center.getX() + MathHelper.sin(j) * i + context.getRandom().nextInt(2)), center.getY(), Math.floor(center.getZ() + MathHelper.cos(j) * i + context.getRandom().nextInt(2)));
 
                 while (!context.getWorld().getBlockState(stonePos).isOpaque() && stonePos.getY() >= 0) {
-                    context.getWorld().setBlockState(stonePos, getStone(context.getRandom()), Block.NOTIFY_ALL);
+                    context.getWorld().setBlockState(stonePos, this.getStone(context.getRandom()), Block.NOTIFY_ALL);
                     stonePos = stonePos.down();
                 }
             }
@@ -71,7 +71,7 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
     }
 
     private int getRadius(int layer, int up) {
-        return layer > up ? (int) (layer * 0.25) + up : Math.min(layer, MAX_ISLAND_RADIUS);
+        return layer > up ? (int) (layer * 0.25) + up : Math.min(layer, this.MAX_ISLAND_RADIUS);
     }
 
     private BlockState getStone(Random random) {

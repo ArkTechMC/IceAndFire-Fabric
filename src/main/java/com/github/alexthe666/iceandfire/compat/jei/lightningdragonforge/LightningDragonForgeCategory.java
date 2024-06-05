@@ -17,7 +17,7 @@ public class LightningDragonForgeCategory implements IRecipeCategory<DragonForge
     public LightningDragonForgeDrawable drawable;
 
     public LightningDragonForgeCategory() {
-        drawable = new LightningDragonForgeDrawable();
+        this.drawable = new LightningDragonForgeDrawable();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LightningDragonForgeCategory implements IRecipeCategory<DragonForge
 
     @Override
     public @NotNull IDrawable getBackground() {
-        return drawable;
+        return this.drawable;
     }
 
     @Override

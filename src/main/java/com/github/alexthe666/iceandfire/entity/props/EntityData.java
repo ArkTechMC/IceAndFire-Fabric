@@ -14,41 +14,41 @@ public class EntityData {
     public MiscData miscData = new MiscData();
 
     public void tick(final LivingEntity entity) {
-        frozenData.tickFrozen(entity);
-        chainData.tickChain(entity);
-        sirenData.tickCharmed(entity);
-        chickenData.tickChicken(entity);
-        miscData.tickMisc(entity);
+        this.frozenData.tickFrozen(entity);
+        this.chainData.tickChain(entity);
+        this.sirenData.tickCharmed(entity);
+        this.chickenData.tickChicken(entity);
+        this.miscData.tickMisc(entity);
 
-        boolean triggerClientUpdate = frozenData.doesClientNeedUpdate();
-        triggerClientUpdate = chainData.doesClientNeedUpdate() || triggerClientUpdate;
-        triggerClientUpdate = sirenData.doesClientNeedUpdate() || triggerClientUpdate;
-        triggerClientUpdate = miscData.doesClientNeedUpdate() || triggerClientUpdate;
+        boolean triggerClientUpdate = this.frozenData.doesClientNeedUpdate();
+        triggerClientUpdate = this.chainData.doesClientNeedUpdate() || triggerClientUpdate;
+        triggerClientUpdate = this.sirenData.doesClientNeedUpdate() || triggerClientUpdate;
+        triggerClientUpdate = this.miscData.doesClientNeedUpdate() || triggerClientUpdate;
 
         if (triggerClientUpdate && !entity.getWorld().isClient()) {
             if (entity instanceof ServerPlayerEntity serverPlayer) {
-                IceAndFire.NETWORK_WRAPPER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverPlayer), new SyncEntityData(entity.getId(), serialize()));
+                IceAndFire.NETWORK_WRAPPER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> serverPlayer), new SyncEntityData(entity.getId(), this.serialize()));
             } else {
-                IceAndFire.NETWORK_WRAPPER.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncEntityData(entity.getId(), serialize()));
+                IceAndFire.NETWORK_WRAPPER.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), new SyncEntityData(entity.getId(), this.serialize()));
             }
         }
     }
 
     public NbtCompound serialize() {
         NbtCompound tag = new NbtCompound();
-        frozenData.serialize(tag);
-        chainData.serialize(tag);
-        sirenData.serialize(tag);
-        chickenData.serialize(tag);
-        miscData.serialize(tag);
+        this.frozenData.serialize(tag);
+        this.chainData.serialize(tag);
+        this.sirenData.serialize(tag);
+        this.chickenData.serialize(tag);
+        this.miscData.serialize(tag);
         return tag;
     }
 
     public void deserialize(final NbtCompound tag) {
-        frozenData.deserialize(tag);
-        chainData.deserialize(tag);
-        sirenData.deserialize(tag);
-        chickenData.deserialize(tag);
-        miscData.deserialize(tag);
+        this.frozenData.deserialize(tag);
+        this.chainData.deserialize(tag);
+        this.sirenData.deserialize(tag);
+        this.chickenData.deserialize(tag);
+        this.miscData.deserialize(tag);
     }
 }

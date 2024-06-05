@@ -59,14 +59,14 @@ public class TileEntityJar extends BlockEntity {
 
     @Override
     public void writeNbt(NbtCompound compound) {
-        compound.putBoolean("HasPixie", hasPixie);
-        compound.putInt("PixieType", pixieType);
-        compound.putBoolean("HasProduced", hasProduced);
-        compound.putBoolean("TamedPixie", tamedPixie);
-        if (pixieOwnerUUID != null) {
-            compound.putUuid("PixieOwnerUUID", pixieOwnerUUID);
+        compound.putBoolean("HasPixie", this.hasPixie);
+        compound.putInt("PixieType", this.pixieType);
+        compound.putBoolean("HasProduced", this.hasProduced);
+        compound.putBoolean("TamedPixie", this.tamedPixie);
+        if (this.pixieOwnerUUID != null) {
+            compound.putUuid("PixieOwnerUUID", this.pixieOwnerUUID);
         }
-        compound.putInt("TicksExisted", ticksExisted);
+        compound.putInt("TicksExisted", this.ticksExisted);
         Inventories.writeNbt(compound, this.pixieItems);
     }
 
@@ -77,24 +77,24 @@ public class TileEntityJar extends BlockEntity {
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        readNbt(packet.getNbt());
-        if (!world.isClient) {
-            IceAndFire.sendMSGToAll(new MessageUpdatePixieHouseModel(pos.asLong(), packet.getNbt().getInt("PixieType")));
+        this.readNbt(packet.getNbt());
+        if (!this.world.isClient) {
+            IceAndFire.sendMSGToAll(new MessageUpdatePixieHouseModel(this.pos.asLong(), packet.getNbt().getInt("PixieType")));
         }
     }
 
     @Override
     public void readNbt(NbtCompound compound) {
-        hasPixie = compound.getBoolean("HasPixie");
-        pixieType = compound.getInt("PixieType");
-        hasProduced = compound.getBoolean("HasProduced");
-        ticksExisted = compound.getInt("TicksExisted");
-        tamedPixie = compound.getBoolean("TamedPixie");
+        this.hasPixie = compound.getBoolean("HasPixie");
+        this.pixieType = compound.getInt("PixieType");
+        this.hasProduced = compound.getBoolean("HasProduced");
+        this.ticksExisted = compound.getInt("TicksExisted");
+        this.tamedPixie = compound.getBoolean("TamedPixie");
         if (compound.containsUuid("PixieOwnerUUID")) {
-            pixieOwnerUUID = compound.getUuid("PixieOwnerUUID");
+            this.pixieOwnerUUID = compound.getUuid("PixieOwnerUUID");
         }
         this.pixieItems = DefaultedList.ofSize(1, ItemStack.EMPTY);
-        Inventories.readNbt(compound, pixieItems);
+        Inventories.readNbt(compound, this.pixieItems);
         super.readNbt(compound);
     }
 
@@ -132,17 +132,17 @@ public class TileEntityJar extends BlockEntity {
     public void releasePixie() {
         EntityPixie pixie = new EntityPixie(IafEntityRegistry.PIXIE.get(), this.world);
         pixie.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 1F, this.pos.getZ() + 0.5F, new Random().nextInt(360), 0);
-        pixie.setStackInHand(Hand.MAIN_HAND, pixieItems.get(0));
+        pixie.setStackInHand(Hand.MAIN_HAND, this.pixieItems.get(0));
         pixie.setColor(this.pixieType);
-        world.spawnEntity(pixie);
+        this.world.spawnEntity(pixie);
         this.hasPixie = false;
         this.pixieType = 0;
         pixie.ticksUntilHouseAI = 500;
         pixie.setTamed(this.tamedPixie);
         pixie.setOwnerUuid(this.pixieOwnerUUID);
 
-        if (!world.isClient) {
-            IceAndFire.sendMSGToAll(new MessageUpdatePixieHouse(pos.asLong(), false, 0));
+        if (!this.world.isClient) {
+            IceAndFire.sendMSGToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
         }
     }
 
@@ -150,7 +150,7 @@ public class TileEntityJar extends BlockEntity {
     public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.@NotNull Capability<T> capability, Direction facing) {
         if (facing == Direction.DOWN
             && capability == ForgeCapabilities.ITEM_HANDLER)
-            return downHandler.cast();
+            return this.downHandler.cast();
         return super.getCapability(capability, facing);
     }
 }

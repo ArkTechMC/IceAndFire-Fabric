@@ -258,7 +258,7 @@ public class AdvancedModelBox extends BasicModelPart {
                 this.translateAndRotate(p_228309_1_);
                 this.doRender(p_228309_1_.peek(), p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
                 ObjectListIterator var9 = this.childModels.iterator();
-                if (!scaleChildren) {
+                if (!this.scaleChildren) {
                     p_228309_1_.scale(1F / Math.max(this.scaleX, 0.0001F), 1F / Math.max(this.scaleY, 0.0001F), 1F / Math.max(this.scaleZ, 0.0001F));
                 }
                 while (var9.hasNext()) {

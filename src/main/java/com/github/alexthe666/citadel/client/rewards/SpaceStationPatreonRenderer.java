@@ -47,7 +47,7 @@ public class SpaceStationPatreonRenderer extends CitadelPatreonRenderer {
             PostEffectRegistry.renderEffectForNextTick(ClientProxy.RAINBOW_AURA_POST_SHADER);
             ClientProxy.CITADEL_MODEL.render(matrixStackIn, buffer.getBuffer(CitadelShaderRenderTypes.getRainbowAura(CITADEL_TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         }else{
-            ClientProxy.CITADEL_MODEL.render(matrixStackIn, buffer.getBuffer(RenderLayer.getEntityCutoutNoCull(CitadelTextureManager.getColorMappedTexture(resourceLocation, CITADEL_TEXTURE, colors))), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+            ClientProxy.CITADEL_MODEL.render(matrixStackIn, buffer.getBuffer(RenderLayer.getEntityCutoutNoCull(CitadelTextureManager.getColorMappedTexture(this.resourceLocation, CITADEL_TEXTURE, this.colors))), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             ClientProxy.CITADEL_MODEL.render(matrixStackIn, buffer.getBuffer(RenderLayer.getEyes(CITADEL_LIGHTS_TEXTURE)), light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         }
         matrixStackIn.pop();

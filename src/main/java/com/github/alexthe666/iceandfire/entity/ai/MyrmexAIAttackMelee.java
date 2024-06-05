@@ -45,11 +45,11 @@ public class MyrmexAIAttackMelee extends Goal {
             return false;
         } else if (!LivingEntity.isAlive()) {
             return false;
-        } else if (!myrmex.canMove()) {
+        } else if (!this.myrmex.canMove()) {
             return false;
         } else {
 
-            attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, speedTowardsTarget);
+            this.attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, this.speedTowardsTarget);
             if (this.attackPath != null) {
                 return true;
             } else {
@@ -90,7 +90,7 @@ public class MyrmexAIAttackMelee extends Goal {
     public void tick() {
         LivingEntity entity = this.myrmex.getTarget();
         if (entity != null) {
-            this.myrmex.getNavigation().startMovingTo(entity, speedTowardsTarget);
+            this.myrmex.getNavigation().startMovingTo(entity, this.speedTowardsTarget);
             final double d0 = this.myrmex.squaredDistanceTo(entity.getX(), entity.getBoundingBox().minY, entity.getZ());
             final double d1 = this.getAttackReachSqr(entity);
             --this.delayCounter;
@@ -101,15 +101,15 @@ public class MyrmexAIAttackMelee extends Goal {
                 this.delayCounter = 4 + this.myrmex.getRandom().nextInt(7);
 
                 if (this.canPenalize) {
-                    this.delayCounter += failedPathFindingPenalty;
+                    this.delayCounter += this.failedPathFindingPenalty;
                     if (this.myrmex.getNavigation().getCurrentPath() != null) {
                         net.minecraft.entity.ai.pathing.PathNode finalPathPoint = this.myrmex.getNavigation().getCurrentPath().getEnd();
                         if (finalPathPoint != null && entity.squaredDistanceTo(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
+                            this.failedPathFindingPenalty = 0;
                         else
-                            failedPathFindingPenalty += 10;
+                            this.failedPathFindingPenalty += 10;
                     } else {
-                        failedPathFindingPenalty += 10;
+                        this.failedPathFindingPenalty += 10;
                     }
                 }
 

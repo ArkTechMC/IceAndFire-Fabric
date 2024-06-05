@@ -37,7 +37,7 @@ public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntit
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
         matrixStackIn.translate(-0.5D, -0.5D, 0.5D);
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0F));
-        MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(isFire ? Blocks.MAGMA_BLOCK.getDefaultState() : IafBlockRegistry.DRAGON_ICE.get().getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV);
+        MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(this.isFire ? Blocks.MAGMA_BLOCK.getDefaultState() : IafBlockRegistry.DRAGON_ICE.get().getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV);
         matrixStackIn.pop();
     }
 

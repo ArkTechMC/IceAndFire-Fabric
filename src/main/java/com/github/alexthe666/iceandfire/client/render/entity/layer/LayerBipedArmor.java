@@ -95,9 +95,9 @@ public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity,
     }
 
     public Identifier getArmorResource(T entity, ItemStack stack, EquipmentSlot slot, String type) {
-        if (isLegSlot(slot))
-            return defaultLegArmor;
-        return defaultArmor;
+        if (this.isLegSlot(slot))
+            return this.defaultLegArmor;
+        return this.defaultArmor;
     }
 
 }

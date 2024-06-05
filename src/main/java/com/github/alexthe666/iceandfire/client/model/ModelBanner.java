@@ -30,7 +30,7 @@ public class ModelBanner extends CompositeEntityModel {
 
     @Override
     public @NotNull Iterable<BasicModelPart> getParts() {
-        return ImmutableList.of(flag, pole, bar);
+        return ImmutableList.of(this.flag, this.pole, this.bar);
     }
 
 }

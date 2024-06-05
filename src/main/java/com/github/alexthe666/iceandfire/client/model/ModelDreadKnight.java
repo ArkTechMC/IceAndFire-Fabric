@@ -45,7 +45,7 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
         this.armLeft.mirror = true;
         this.armLeft.setPos(5.0F, 2.0F, -0.0F);
         this.armLeft.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, modelScale);
-        this.setRotateAngle(armLeft, -0.0F, 0.10000736613927509F, -0.10000736613927509F);
+        this.setRotateAngle(this.armLeft, -0.0F, 0.10000736613927509F, -0.10000736613927509F);
         this.legLeft = new HideableModelRenderer(this, 0, 16);
         this.legLeft.mirror = true;
         this.legLeft.setPos(1.9F, 12.0F, 0.1F);
@@ -64,11 +64,11 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
         this.cloak = new HideableModelRenderer(this, 81, 37);
         this.cloak.setPos(0.0F, 0.1F, 0.0F);
         this.cloak.addBox(-4.5F, 0.0F, 2.3F, 9, 21, 1, modelScale);
-        this.setRotateAngle(cloak, 0.045553093477052F, 0.0F, 0.0F);
+        this.setRotateAngle(this.cloak, 0.045553093477052F, 0.0F, 0.0F);
         this.armRight = new HideableModelRenderer(this, 40, 16);
         this.armRight.setPos(-5.0F, 2.0F, 0.0F);
         this.armRight.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, modelScale);
-        this.setRotateAngle(armRight, -0.0F, -0.10000736613927509F, 0.10000736613927509F);
+        this.setRotateAngle(this.armRight, -0.0F, -0.10000736613927509F, 0.10000736613927509F);
         this.robeLowerLeft = new HideableModelRenderer(this, 58, 33);
         this.robeLowerLeft.setPos(0.0F, -0.2F, 0.0F);
         this.robeLowerLeft.addBox(-1.9F, 0.0F, -2.5F, 4, 7, 5, modelScale);
@@ -85,7 +85,7 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
         this.body.addChild(this.armRight);
         this.legLeft.addChild(this.robeLowerLeft);
         this.updateDefaultPose();
-        animator = ModelAnimator.create();
+        this.animator = ModelAnimator.create();
     }
 
     @Override

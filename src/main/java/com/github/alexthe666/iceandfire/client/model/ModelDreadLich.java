@@ -54,7 +54,7 @@ public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements M
         this.armRight = new HideableModelRenderer(this, 40, 16);
         this.armRight.setPos(-5.0F, 2.0F, 0.0F);
         this.armRight.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelScale);
-        this.setRotateAngle(armRight, 0.0F, -0.10000736613927509F, 0.10000736613927509F);
+        this.setRotateAngle(this.armRight, 0.0F, -0.10000736613927509F, 0.10000736613927509F);
         this.hood = new HideableModelRenderer(this, 60, 0);
         this.hood.setPos(0.0F, 0.0F, 0.0F);
         this.hood.addBox(-4.5F, -8.6F, -4.5F, 9, 9, 9, modelScale);
@@ -68,7 +68,7 @@ public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements M
         this.armLeft.mirror = true;
         this.armLeft.setPos(5.0F, 2.0F, -0.0F);
         this.armLeft.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelScale);
-        this.setRotateAngle(armLeft, 0.0F, 0.10000736613927509F, -0.10000736613927509F);
+        this.setRotateAngle(this.armLeft, 0.0F, 0.10000736613927509F, -0.10000736613927509F);
         this.robeLowerLeft = new HideableModelRenderer(this, 48, 35);
         this.robeLowerLeft.setPos(0.0F, 0.0F, 0.0F);
         this.robeLowerLeft.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelScale);
@@ -85,7 +85,7 @@ public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements M
         this.body.addChild(this.armLeft);
         this.legLeft.addChild(this.robeLowerLeft);
         this.updateDefaultPose();
-        animator = ModelAnimator.create();
+        this.animator = ModelAnimator.create();
     }
 
     public void setLivingAnimations(EntityDreadThrall LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTickTime) {

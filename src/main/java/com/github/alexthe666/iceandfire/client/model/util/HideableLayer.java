@@ -16,13 +16,13 @@ public class HideableLayer<T extends Entity, M extends EntityModel<T>, C extends
 
     public HideableLayer(C layerRenderer, FeatureRendererContext<T, M> entityRendererIn) {
         super(entityRendererIn);
-        hidden = false;
+        this.hidden = false;
         this.layerRenderer = layerRenderer;
     }
 
     @Override
     public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, @NotNull T entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!hidden)
-            layerRenderer.render(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+        if (!this.hidden)
+            this.layerRenderer.render(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
     }
 }

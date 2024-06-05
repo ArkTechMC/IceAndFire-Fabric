@@ -5,12 +5,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntitySeaSerpentArrow extends PersistentProjectileEntity {
@@ -27,16 +23,6 @@ public class EntitySeaSerpentArrow extends PersistentProjectileEntity {
         this.setDamage(3F);
     }
 
-    public EntitySeaSerpentArrow(PlayMessages.SpawnEntity spawnEntity, World world) {
-        this(IafEntityRegistry.SEA_SERPENT_ARROW.get(), world);
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-
     public EntitySeaSerpentArrow(EntityType t, World worldIn, LivingEntity shooter) {
         super(t, shooter, worldIn);
         this.setDamage(3F);
@@ -45,7 +31,7 @@ public class EntitySeaSerpentArrow extends PersistentProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        if (getWorld().isClient && !this.inGround) {
+        if (this.getWorld().isClient && !this.inGround) {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;

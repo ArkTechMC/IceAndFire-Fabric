@@ -24,15 +24,15 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
         super(world, x, y, z, motX, motY, motZ);
         this.setPos(x, y, z);
         this.colorScale = (float) 1;
-        this.red = Math.max(0.0F, MathHelper.sin((colorScale + 0.0F) * 6.2831855F) * 0.65F + 0.35F);
-        this.green = Math.max(0.0F, MathHelper.sin((colorScale + 0.33333334F) * 6.2831855F) * 0.65F + 0.35F);
-        this.blue = Math.max(0.0F, MathHelper.sin((colorScale + 0.6666667F) * 6.2831855F) * 0.65F + 0.35F);
+        this.red = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.0F) * 6.2831855F) * 0.65F + 0.35F);
+        this.green = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.33333334F) * 6.2831855F) * 0.65F + 0.35F);
+        this.blue = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.6666667F) * 6.2831855F) * 0.65F + 0.35F);
     }
 
     @Override
     public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
-        if (age > this.getMaxAge()) {
+        if (this.age > this.getMaxAge()) {
             this.markDead();
         }
 
@@ -79,13 +79,13 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     @Override
     public void tick() {
         super.tick();
-        colorScale += 0.015;
-        if (colorScale > 25) {
-            colorScale = 0;
+        this.colorScale += 0.015;
+        if (this.colorScale > 25) {
+            this.colorScale = 0;
         }
-        this.red = Math.max(0.0F, MathHelper.sin((colorScale + 0.0F) * 6.2831855F) * 0.65F + 0.35F);
-        this.green = Math.max(0.0F, MathHelper.sin((colorScale + 0.33333334F) * 6.2831855F) * 0.65F + 0.35F);
-        this.blue = Math.max(0.0F, MathHelper.sin((colorScale + 0.6666667F) * 6.2831855F) * 0.65F + 0.35F);
+        this.red = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.0F) * 6.2831855F) * 0.65F + 0.35F);
+        this.green = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.33333334F) * 6.2831855F) * 0.65F + 0.35F);
+        this.blue = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.6666667F) * 6.2831855F) * 0.65F + 0.35F);
 
     }
 

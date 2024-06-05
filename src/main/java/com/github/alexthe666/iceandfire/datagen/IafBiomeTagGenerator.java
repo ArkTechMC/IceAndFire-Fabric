@@ -24,9 +24,9 @@ public class IafBiomeTagGenerator extends VanillaBiomeTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup pProvider) {
-        getOrCreateTagBuilder(HAS_GRAVEYARD).addTag(BiomeTags.IS_OVERWORLD);
-        getOrCreateTagBuilder(HAS_MAUSOLEUM).addTag(BiomeTags.IS_OVERWORLD);
-        getOrCreateTagBuilder(HAS_GORGON_TEMPLE).addTag(BiomeTags.IS_OVERWORLD);
+        this.getOrCreateTagBuilder(HAS_GRAVEYARD).addTag(BiomeTags.IS_OVERWORLD);
+        this.getOrCreateTagBuilder(HAS_MAUSOLEUM).addTag(BiomeTags.IS_OVERWORLD);
+        this.getOrCreateTagBuilder(HAS_GORGON_TEMPLE).addTag(BiomeTags.IS_OVERWORLD);
     }
 
     @Override

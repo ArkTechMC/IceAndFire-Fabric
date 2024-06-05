@@ -14,7 +14,7 @@ public interface IComandableMob {
 
     default ActionResult playerSetCommand(PlayerEntity owner, AnimalEntity ourselves) {
         if (!owner.getWorld().isClient) {
-            int command = (getCommand() + 1) % 3;
+            int command = (this.getCommand() + 1) % 3;
             this.setCommand(command);
             this.sendCommandMessage(owner, command, ourselves.getName());
 

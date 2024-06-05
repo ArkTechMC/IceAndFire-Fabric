@@ -23,15 +23,15 @@ public class ParticleDreadPortal extends SpriteBillboardParticle {
     public ParticleDreadPortal(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ, float size) {
         super(world, x, y, z, motX, motY, motZ);
         this.setPos(x, y, z);
-        big = random.nextBoolean();
+        this.big = this.random.nextBoolean();
     }
 
     @Override
     public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
-        scale = 0.125F * (this.maxAge - (this.age));
-        scale = scale * 0.09F;
-        if (age > this.getMaxAge()) {
+        this.scale = 0.125F * (this.maxAge - (this.age));
+        this.scale = this.scale * 0.09F;
+        if (this.age > this.getMaxAge()) {
             this.markDead();
         }
 
@@ -63,7 +63,7 @@ public class ParticleDreadPortal extends SpriteBillboardParticle {
         float f8 = 1;
         float f5 = 0;
         float f6 = 1;
-        RenderSystem.setShaderTexture(0, big ? SNOWFLAKE_BIG : SNOWFLAKE);
+        RenderSystem.setShaderTexture(0, this.big ? SNOWFLAKE_BIG : SNOWFLAKE);
         int j = this.getBrightness(partialTicks);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder vertexbuffer = tessellator.getBuffer();

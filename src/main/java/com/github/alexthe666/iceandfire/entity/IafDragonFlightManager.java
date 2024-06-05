@@ -46,90 +46,90 @@ public class IafDragonFlightManager {
 
     public void update() {
 
-        if (dragon.getTarget() != null && dragon.getTarget().isAlive()) {
-            if (dragon instanceof EntityIceDragon && dragon.isTouchingWater()) {
-                if (dragon.getTarget() == null) {
-                    dragon.airAttack = IafDragonAttacks.Air.SCORCH_STREAM;
+        if (this.dragon.getTarget() != null && this.dragon.getTarget().isAlive()) {
+            if (this.dragon instanceof EntityIceDragon && this.dragon.isTouchingWater()) {
+                if (this.dragon.getTarget() == null) {
+                    this.dragon.airAttack = IafDragonAttacks.Air.SCORCH_STREAM;
                 } else {
-                    dragon.airAttack = IafDragonAttacks.Air.TACKLE;
+                    this.dragon.airAttack = IafDragonAttacks.Air.TACKLE;
                 }
             }
-            LivingEntity entity = dragon.getTarget();
-            if (dragon.airAttack == IafDragonAttacks.Air.TACKLE) {
-                target = new Vec3d(entity.getX(), entity.getY() + entity.getHeight(), entity.getZ());
+            LivingEntity entity = this.dragon.getTarget();
+            if (this.dragon.airAttack == IafDragonAttacks.Air.TACKLE) {
+                this.target = new Vec3d(entity.getX(), entity.getY() + entity.getHeight(), entity.getZ());
             }
-            if (dragon.airAttack == IafDragonAttacks.Air.HOVER_BLAST) {
-                float distY = 5 + dragon.getDragonStage() * 2;
+            if (this.dragon.airAttack == IafDragonAttacks.Air.HOVER_BLAST) {
+                float distY = 5 + this.dragon.getDragonStage() * 2;
                 int randomDist = 20;
-                if (dragon.squaredDistanceTo(entity.getX(), dragon.getY(), entity.getZ()) < 16 || dragon.squaredDistanceTo(entity.getX(), dragon.getY(), entity.getZ()) > 900) {
-                    target = new Vec3d(entity.getX() + dragon.getRandom().nextInt(randomDist) - randomDist / 2, entity.getY() + distY, entity.getZ() + dragon.getRandom().nextInt(randomDist) - randomDist / 2);
+                if (this.dragon.squaredDistanceTo(entity.getX(), this.dragon.getY(), entity.getZ()) < 16 || this.dragon.squaredDistanceTo(entity.getX(), this.dragon.getY(), entity.getZ()) > 900) {
+                    this.target = new Vec3d(entity.getX() + this.dragon.getRandom().nextInt(randomDist) - randomDist / 2, entity.getY() + distY, entity.getZ() + this.dragon.getRandom().nextInt(randomDist) - randomDist / 2);
                 }
-                dragon.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 3);
+                this.dragon.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 3);
             }
-            if (dragon.airAttack == IafDragonAttacks.Air.SCORCH_STREAM && startPreyVec != null && startAttackVec != null) {
-                float distX = (float) (startPreyVec.x - startAttackVec.x);
-                float distY = 5 + dragon.getDragonStage() * 2;
-                float distZ = (float) (startPreyVec.z - startAttackVec.z);
-                target = new Vec3d(entity.getX() + distX, entity.getY() + distY, entity.getZ() + distZ);
-                dragon.tryScorchTarget();
-                hasStartedToScorch = true;
-                if (target != null && dragon.squaredDistanceTo(target.x, target.y, target.z) < 100) {
-                    target = new Vec3d(entity.getX() - distX, entity.getY() + distY, entity.getZ() - distZ);
+            if (this.dragon.airAttack == IafDragonAttacks.Air.SCORCH_STREAM && this.startPreyVec != null && this.startAttackVec != null) {
+                float distX = (float) (this.startPreyVec.x - this.startAttackVec.x);
+                float distY = 5 + this.dragon.getDragonStage() * 2;
+                float distZ = (float) (this.startPreyVec.z - this.startAttackVec.z);
+                this.target = new Vec3d(entity.getX() + distX, entity.getY() + distY, entity.getZ() + distZ);
+                this.dragon.tryScorchTarget();
+                this.hasStartedToScorch = true;
+                if (this.target != null && this.dragon.squaredDistanceTo(this.target.x, this.target.y, this.target.z) < 100) {
+                    this.target = new Vec3d(entity.getX() - distX, entity.getY() + distY, entity.getZ() - distZ);
                 }
             }
 
-        } else if (target == null || dragon.squaredDistanceTo(target.x, target.y, target.z) < 4
-                || !dragon.getWorld().isAir(BlockPos.ofFloored(target.x, target.y, target.z))
-                        && (dragon.isHovering() || dragon.isFlying())
-                || dragon.getCommand() == 2 && dragon.shouldTPtoOwner()) {
+        } else if (this.target == null || this.dragon.squaredDistanceTo(this.target.x, this.target.y, this.target.z) < 4
+                || !this.dragon.getWorld().isAir(BlockPos.ofFloored(this.target.x, this.target.y, this.target.z))
+                        && (this.dragon.isHovering() || this.dragon.isFlying())
+                || this.dragon.getCommand() == 2 && this.dragon.shouldTPtoOwner()) {
             BlockPos viewBlock = null;
 
-            if (dragon instanceof EntityIceDragon && dragon.isTouchingWater()) {
-                viewBlock = DragonUtils.getWaterBlockInView(dragon);
+            if (this.dragon instanceof EntityIceDragon && this.dragon.isTouchingWater()) {
+                viewBlock = DragonUtils.getWaterBlockInView(this.dragon);
             }
-            if (dragon.getCommand() == 2 && dragon.useFlyingPathFinder()) {
-                if (dragon instanceof EntityIceDragon && dragon.isTouchingWater()) {
-                    viewBlock = DragonUtils.getWaterBlockInViewEscort(dragon);
+            if (this.dragon.getCommand() == 2 && this.dragon.useFlyingPathFinder()) {
+                if (this.dragon instanceof EntityIceDragon && this.dragon.isTouchingWater()) {
+                    viewBlock = DragonUtils.getWaterBlockInViewEscort(this.dragon);
                 } else {
-                    viewBlock = DragonUtils.getBlockInViewEscort(dragon);
+                    viewBlock = DragonUtils.getBlockInViewEscort(this.dragon);
                 }
-            } else if (dragon.lookingForRoostAIFlag) {
+            } else if (this.dragon.lookingForRoostAIFlag) {
                 // FIXME :: Unused
 //                double xDist = Math.abs(dragon.getX() - dragon.getRestrictCenter().getX() - 0.5F);
 //                double zDist = Math.abs(dragon.getZ() - dragon.getRestrictCenter().getZ() - 0.5F);
 //                double xzDist = Math.sqrt(xDist * xDist + zDist * zDist);
-                BlockPos upPos = dragon.getPositionTarget();
-                if (dragon.getDistanceSquared(Vec3d.ofCenter(dragon.getPositionTarget())) > 200) {
+                BlockPos upPos = this.dragon.getPositionTarget();
+                if (this.dragon.getDistanceSquared(Vec3d.ofCenter(this.dragon.getPositionTarget())) > 200) {
                     upPos = upPos.up(30);
                 }
                 viewBlock = upPos;
 
             }else if(viewBlock == null){
-                viewBlock = DragonUtils.getBlockInView(dragon);
-                if (dragon.isTouchingWater()) {
+                viewBlock = DragonUtils.getBlockInView(this.dragon);
+                if (this.dragon.isTouchingWater()) {
                     // If the dragon is in water, take off to reach the air target
-                    dragon.setHovering(true);
+                    this.dragon.setHovering(true);
                 }
             }
             if (viewBlock != null) {
-                target = new Vec3d(viewBlock.getX() + 0.5, viewBlock.getY() + 0.5, viewBlock.getZ() + 0.5);
+                this.target = new Vec3d(viewBlock.getX() + 0.5, viewBlock.getY() + 0.5, viewBlock.getZ() + 0.5);
             }
         }
-        if (target != null) {
-            if (target.y > IafConfig.maxDragonFlight) {
-                target = new Vec3d(target.x, IafConfig.maxDragonFlight, target.z);
+        if (this.target != null) {
+            if (this.target.y > IafConfig.maxDragonFlight) {
+                this.target = new Vec3d(this.target.x, IafConfig.maxDragonFlight, this.target.z);
             }
-            if (target.y >= dragon.getY() && !dragon.isModelDead()) {
-                dragon.setVelocity(dragon.getVelocity().add(0, 0.1D, 0));
+            if (this.target.y >= this.dragon.getY() && !this.dragon.isModelDead()) {
+                this.dragon.setVelocity(this.dragon.getVelocity().add(0, 0.1D, 0));
 
             }
         }
 
-        this.prevAirAttack = dragon.airAttack;
+        this.prevAirAttack = this.dragon.airAttack;
     }
 
     public Vec3d getFlightTarget() {
-        return target == null ? Vec3d.ZERO : target;
+        return this.target == null ? Vec3d.ZERO : this.target;
     }
 
     public void setFlightTarget(Vec3d target) {
@@ -137,21 +137,21 @@ public class IafDragonFlightManager {
     }
 
     private float getDistanceXZ(double x, double z) {
-        float f = (float) (dragon.getX() - x);
-        float f2 = (float) (dragon.getZ() - z);
+        float f = (float) (this.dragon.getX() - x);
+        float f2 = (float) (this.dragon.getZ() - z);
         return f * f + f2 * f2;
     }
 
     public void onSetAttackTarget(LivingEntity LivingEntityIn) {
-        if (prevAttackTarget != LivingEntityIn) {
+        if (this.prevAttackTarget != LivingEntityIn) {
             if (LivingEntityIn != null) {
-                startPreyVec = new Vec3d(LivingEntityIn.getX(), LivingEntityIn.getY(), LivingEntityIn.getZ());
+                this.startPreyVec = new Vec3d(LivingEntityIn.getX(), LivingEntityIn.getY(), LivingEntityIn.getZ());
             } else {
-                startPreyVec = new Vec3d(dragon.getX(), dragon.getY(), dragon.getZ());
+                this.startPreyVec = new Vec3d(this.dragon.getX(), this.dragon.getY(), this.dragon.getZ());
             }
-            startAttackVec = new Vec3d(dragon.getX(), dragon.getY(), dragon.getZ());
+            this.startAttackVec = new Vec3d(this.dragon.getX(), this.dragon.getY(), this.dragon.getZ());
         }
-        prevAttackTarget = LivingEntityIn;
+        this.prevAttackTarget = LivingEntityIn;
     }
 
     protected static class GroundMoveHelper extends MoveControl {
@@ -198,7 +198,7 @@ public class IafDragonFlightManager {
                 this.state = State.WAIT;
             } else if (this.state == State.MOVE_TO) {
                 this.state = State.WAIT;
-                EntityDragonBase dragonBase = (EntityDragonBase) entity;
+                EntityDragonBase dragonBase = (EntityDragonBase) this.entity;
                 double d0 = this.getTargetX() - this.entity.getX();
                 double d1 = this.getTargetZ() - this.entity.getZ();
                 double d2 = this.getTargetY() - this.entity.getY();
@@ -244,15 +244,15 @@ public class IafDragonFlightManager {
 
         @Override
         public void tick() {
-            if (dragon.horizontalCollision) {
-                dragon.setYaw(dragon.getYaw() + 180.0F);
+            if (this.dragon.horizontalCollision) {
+                this.dragon.setYaw(this.dragon.getYaw() + 180.0F);
                 this.speed = 0.1F;
-                dragon.flightManager.target = null;
+                this.dragon.flightManager.target = null;
                 return;
             }
-            float distX = (float) (dragon.flightManager.getFlightTarget().x - dragon.getX());
-            float distY = (float) (dragon.flightManager.getFlightTarget().y - dragon.getY());
-            float distZ = (float) (dragon.flightManager.getFlightTarget().z - dragon.getZ());
+            float distX = (float) (this.dragon.flightManager.getFlightTarget().x - this.dragon.getX());
+            float distY = (float) (this.dragon.flightManager.getFlightTarget().y - this.dragon.getY());
+            float distZ = (float) (this.dragon.flightManager.getFlightTarget().z - this.dragon.getZ());
             double planeDist = Math.sqrt(distX * distX + distZ * distZ);
             double yDistMod = 1.0D - (double) MathHelper.abs(distY * 0.7F) / planeDist;
             distX = (float) ((double) distX * yDistMod);
@@ -260,30 +260,30 @@ public class IafDragonFlightManager {
             planeDist = MathHelper.sqrt(distX * distX + distZ * distZ);
             double dist = Math.sqrt(distX * distX + distZ * distZ + distY * distY);
             if (dist > 1.0F) {
-                float yawCopy = dragon.getYaw();
+                float yawCopy = this.dragon.getYaw();
                 float atan = (float) MathHelper.atan2(distZ, distX);
-                float yawTurn = MathHelper.wrapDegrees(dragon.getYaw() + 90);
+                float yawTurn = MathHelper.wrapDegrees(this.dragon.getYaw() + 90);
                 float yawTurnAtan = MathHelper.wrapDegrees(atan * 57.295776F);
-                dragon.setYaw(IafDragonFlightManager.approachDegrees(yawTurn, yawTurnAtan, dragon.airAttack == IafDragonAttacks.Air.TACKLE && dragon.getTarget() != null ? 10 : 4.0F) - 90.0F);
-                dragon.bodyYaw = dragon.getYaw();
-                if (IafDragonFlightManager.degreesDifferenceAbs(yawCopy, dragon.getYaw()) < 3.0F) {
-                    speed = IafDragonFlightManager.approach((float) speed, 1.8F, 0.005F * (1.8F / (float) speed));
+                this.dragon.setYaw(IafDragonFlightManager.approachDegrees(yawTurn, yawTurnAtan, this.dragon.airAttack == IafDragonAttacks.Air.TACKLE && this.dragon.getTarget() != null ? 10 : 4.0F) - 90.0F);
+                this.dragon.bodyYaw = this.dragon.getYaw();
+                if (IafDragonFlightManager.degreesDifferenceAbs(yawCopy, this.dragon.getYaw()) < 3.0F) {
+                    this.speed = IafDragonFlightManager.approach((float) this.speed, 1.8F, 0.005F * (1.8F / (float) this.speed));
                 } else {
-                    speed = IafDragonFlightManager.approach((float) speed, 0.2F, 0.025F);
-                    if (dist < 100D && dragon.getTarget() != null) {
-                        speed = speed * (dist / 100D);
+                    this.speed = IafDragonFlightManager.approach((float) this.speed, 0.2F, 0.025F);
+                    if (dist < 100D && this.dragon.getTarget() != null) {
+                        this.speed = this.speed * (dist / 100D);
                     }
                 }
                 float finPitch = (float) (-(MathHelper.atan2(-distY, planeDist) * 57.2957763671875D));
-                dragon.setPitch(finPitch);
-                float yawTurnHead = dragon.getYaw() + 90.0F;
-                speed *= dragon.getFlightSpeedModifier();
-                speed *= Math.min(1, dist / 50 + 0.3);//Make the dragon fly slower when close to target
-                double x = speed * MathHelper.cos(yawTurnHead * 0.017453292F) * Math.abs((double) distX / dist);
-                double y = speed * MathHelper.sin(finPitch * 0.017453292F) * Math.abs((double) distY / dist);
-                double z = speed * MathHelper.sin(yawTurnHead * 0.017453292F) * Math.abs((double) distZ / dist);
+                this.dragon.setPitch(finPitch);
+                float yawTurnHead = this.dragon.getYaw() + 90.0F;
+                this.speed *= this.dragon.getFlightSpeedModifier();
+                this.speed *= Math.min(1, dist / 50 + 0.3);//Make the dragon fly slower when close to target
+                double x = this.speed * MathHelper.cos(yawTurnHead * 0.017453292F) * Math.abs((double) distX / dist);
+                double y = this.speed * MathHelper.sin(finPitch * 0.017453292F) * Math.abs((double) distY / dist);
+                double z = this.speed * MathHelper.sin(yawTurnHead * 0.017453292F) * Math.abs((double) distZ / dist);
                 double motionCap = 0.2D;
-                dragon.setVelocity(dragon.getVelocity().add(Math.min(x * 0.2D, motionCap), Math.min(y * 0.2D, motionCap), Math.min(z * 0.2D, motionCap)));
+                this.dragon.setVelocity(this.dragon.getVelocity().add(Math.min(x * 0.2D, motionCap), Math.min(y * 0.2D, motionCap), Math.min(z * 0.2D, motionCap)));
             }
         }
 
@@ -301,28 +301,28 @@ public class IafDragonFlightManager {
 
         @Override
         public void tick() {
-            if (dragon instanceof EntityDragonBase theDragon && theDragon.getControllingPassenger() != null) {
+            if (this.dragon instanceof EntityDragonBase theDragon && theDragon.getControllingPassenger() != null) {
                 // New ride system doesn't need move controller
                 // The flight move control is disabled here, the walking move controller will stay Operation.WAIT so nothing will happen too
                 return;
             }
 
-            double flySpeed = speed * speedMod() * 3;
-            Vec3d dragonVec = dragon.getPos();
-            Vec3d moveVec = new Vec3d(targetX, targetY, targetZ);
+            double flySpeed = this.speed * this.speedMod() * 3;
+            Vec3d dragonVec = this.dragon.getPos();
+            Vec3d moveVec = new Vec3d(this.targetX, this.targetY, this.targetZ);
             Vec3d normalized = moveVec.subtract(dragonVec).normalize();
             double dist = dragonVec.distanceTo(moveVec);
-            dragon.setVelocity(normalized.x * flySpeed, normalized.y * flySpeed, normalized.z * flySpeed);
+            this.dragon.setVelocity(normalized.x * flySpeed, normalized.y * flySpeed, normalized.z * flySpeed);
             if (dist > 2.5E-7) {
                 float yaw = (float) Math.toDegrees(Math.PI * 2 - Math.atan2(normalized.x, normalized.y));
-                dragon.setYaw(wrapDegrees(dragon.getYaw(), yaw, 5));
-                dragon.setMovementSpeed((float) (speed));
+                this.dragon.setYaw(this.wrapDegrees(this.dragon.getYaw(), yaw, 5));
+                this.dragon.setMovementSpeed((float) (this.speed));
             }
-            dragon.move(MovementType.SELF, dragon.getVelocity());
+            this.dragon.move(MovementType.SELF, this.dragon.getVelocity());
         }
 
         public double speedMod() {
-            return (dragon instanceof EntityAmphithere ? 0.6D : 1.25D) * IafConfig.dragonFlightSpeedMod * dragon.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            return (this.dragon instanceof EntityAmphithere ? 0.6D : 1.25D) * IafConfig.dragonFlightSpeedMod * this.dragon.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         }
     }
 }

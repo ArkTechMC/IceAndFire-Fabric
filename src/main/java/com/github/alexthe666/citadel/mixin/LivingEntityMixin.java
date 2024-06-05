@@ -27,12 +27,12 @@ public abstract class LivingEntityMixin extends Entity implements ICitadelDataEn
 
     @Inject(at = @At("TAIL"), method = "initDataTracker")
     private void citadel_registerData(CallbackInfo ci) {
-        dataTracker.startTracking(CITADEL_DATA, new NbtCompound());
+        this.dataTracker.startTracking(CITADEL_DATA, new NbtCompound());
     }
 
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
     private void citadel_writeAdditional(NbtCompound compoundNBT, CallbackInfo ci) {
-        NbtCompound citadelDat = getCitadelEntityData();
+        NbtCompound citadelDat = this.getCitadelEntityData();
         if (citadelDat != null) {
             compoundNBT.put("CitadelData", citadelDat);
         }
@@ -41,15 +41,15 @@ public abstract class LivingEntityMixin extends Entity implements ICitadelDataEn
     @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt")
     private void citadel_readAdditional(NbtCompound compoundNBT, CallbackInfo ci) {
         if (compoundNBT.contains("CitadelData")) {
-            setCitadelEntityData(compoundNBT.getCompound("CitadelData"));
+            this.setCitadelEntityData(compoundNBT.getCompound("CitadelData"));
         }
     }
 
     public NbtCompound getCitadelEntityData() {
-        return dataTracker.get(CITADEL_DATA);
+        return this.dataTracker.get(CITADEL_DATA);
     }
 
     public void setCitadelEntityData(NbtCompound nbt) {
-        dataTracker.set(CITADEL_DATA, nbt);
+        this.dataTracker.set(CITADEL_DATA, nbt);
     }
 }

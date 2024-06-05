@@ -14,6 +14,9 @@ import com.github.alexthe666.iceandfire.entity.util.ICustomMoveController;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
 import com.github.alexthe666.iceandfire.pathfinding.raycoms.WorldEventContext;
+import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.Perspective;
@@ -53,7 +56,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void renderWorldLastEvent(@NotNull final RenderLevelStageEvent event)
+    public static void renderWorldLastEvent()
     {
         WorldEventContext.INSTANCE.renderWorldLastEvent(event);
     }
@@ -79,12 +82,9 @@ public class ClientEvents {
         }
     }
 
-    @SubscribeEvent
-    public void onLivingUpdate(LivingEvent.LivingTickEvent event) {
+    public static void onLivingUpdate(LivingEntity entity) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        if (event.getEntity() instanceof ICustomMoveController) {
-            Entity entity = event.getEntity();
-            ICustomMoveController moveController = ((Entity & ICustomMoveController) event.getEntity());
+        if (entity instanceof ICustomMoveController moveController) {
             if (entity.getVehicle() != null && entity.getVehicle() == mc.player) {
                 byte previousState = moveController.getControlState();
                 moveController.dismount(mc.options.sneakKey.isPressed());
@@ -94,11 +94,11 @@ public class ClientEvents {
                 }
             }
         }
-        if (event.getEntity() instanceof PlayerEntity player) {
+        if (entity instanceof PlayerEntity player) {
             if (player.getWorld().isClient) {
 
                 if (player.getVehicle() instanceof ICustomMoveController) {
-                    Entity entity = player.getVehicle();
+                    Entity vehicle = player.getVehicle();
                     ICustomMoveController moveController = ((Entity & ICustomMoveController) player.getVehicle());
                     byte previousState = moveController.getControlState();
                     moveController.up(mc.options.jumpKey.isPressed());
@@ -108,7 +108,7 @@ public class ClientEvents {
                     moveController.strike(IafKeybindRegistry.dragon_fireAttack.isPressed());
                     byte controlState = moveController.getControlState();
                     if (controlState != previousState) {
-                        IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(entity.getId(), controlState, entity.getX(), entity.getY(), entity.getZ()));
+                        IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));
                     }
                 }
             }
@@ -196,7 +196,7 @@ public class ClientEvents {
     public void onEntityMount(EntityMountEvent event) {
         if (event.getEntityBeingMounted() instanceof EntityDragonBase dragon && event.getLevel().isClientSide && event.getEntityMounting() == MinecraftClient.getInstance().player) {
             if (dragon.isTamed() && dragon.isOwner(MinecraftClient.getInstance().player)) {
-                if (AUTO_ADAPT_3RD_PERSON) {
+                if (this.AUTO_ADAPT_3RD_PERSON) {
                     // Auto adjust 3rd person camera's according to dragon's size
                     IceAndFire.PROXY.setDragon3rdPersonView(2);
                 }

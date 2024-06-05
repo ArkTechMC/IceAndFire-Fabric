@@ -67,9 +67,9 @@ public class ContainerLectern extends ScreenHandler {
     }
 
     public void onUpdate() {
-        possiblePagesInt[0] = getPageField(0);
-        possiblePagesInt[1] = getPageField(1);
-        possiblePagesInt[2] = getPageField(2);
+        this.possiblePagesInt[0] = getPageField(0);
+        this.possiblePagesInt[1] = getPageField(1);
+        this.possiblePagesInt[2] = getPageField(2);
     }
 
     @Override
@@ -115,25 +115,25 @@ public class ContainerLectern extends ScreenHandler {
     }
 
     public EnumBestiaryPages[] getPossiblePages() {
-        possiblePagesInt[0] = getPageField(0);
-        possiblePagesInt[1] = getPageField(1);
-        possiblePagesInt[2] = getPageField(2);
+        this.possiblePagesInt[0] = getPageField(0);
+        this.possiblePagesInt[1] = getPageField(1);
+        this.possiblePagesInt[2] = getPageField(2);
         EnumBestiaryPages[] pages = new EnumBestiaryPages[3];
         if (this.tileFurnace.getStack(0).getItem() == IafItemRegistry.BESTIARY.get()) {
-            if (possiblePagesInt[0] < 0) {
+            if (this.possiblePagesInt[0] < 0) {
                 pages[0] = null;
             } else {
-                pages[0] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, possiblePagesInt[0])];
+                pages[0] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, this.possiblePagesInt[0])];
             }
-            if (possiblePagesInt[1] < 0) {
+            if (this.possiblePagesInt[1] < 0) {
                 pages[1] = null;
             } else {
-                pages[1] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, possiblePagesInt[1])];
+                pages[1] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, this.possiblePagesInt[1])];
             }
-            if (possiblePagesInt[2] < 0) {
+            if (this.possiblePagesInt[2] < 0) {
                 pages[2] = null;
             } else {
-                pages[2] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, possiblePagesInt[2])];
+                pages[2] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, this.possiblePagesInt[2])];
             }
         }
         return pages;
@@ -141,9 +141,9 @@ public class ContainerLectern extends ScreenHandler {
 
     @Override
     public boolean onButtonClick(PlayerEntity playerIn, int id) {
-        possiblePagesInt[0] = getPageField(0);
-        possiblePagesInt[1] = getPageField(1);
-        possiblePagesInt[2] = getPageField(2);
+        this.possiblePagesInt[0] = getPageField(0);
+        this.possiblePagesInt[1] = getPageField(1);
+        this.possiblePagesInt[2] = getPageField(2);
         ItemStack bookStack = this.tileFurnace.getStack(0);
         ItemStack manuscriptStack = this.tileFurnace.getStack(1);
         int i = 3;
@@ -162,7 +162,7 @@ public class ContainerLectern extends ScreenHandler {
             && !playerIn.isCreative()) {
             return false;
         } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty()) {
-            EnumBestiaryPages page = getPossiblePages()[MathHelper.clamp(id, 0, 2)];
+            EnumBestiaryPages page = this.getPossiblePages()[MathHelper.clamp(id, 0, 2)];
             if (page != null) {
                 if (bookStack.getItem() == IafItemRegistry.BESTIARY.get()) {
                     this.tileFurnace.setStack(0, bookStack);
@@ -188,7 +188,7 @@ public class ContainerLectern extends ScreenHandler {
                 this.onContentChanged(this.tileFurnace);
                 playerIn.getWorld().playSound(null, playerIn.getBlockPos(), IafSoundRegistry.BESTIARY_PAGE, SoundCategory.BLOCKS, 1.0F, playerIn.getWorld().random.nextFloat() * 0.1F + 0.9F);
             }
-            onUpdate();
+            this.onUpdate();
             return true;
         } else {
             return false;

@@ -48,7 +48,7 @@ public class GraveyardStructure extends IafStructure {
 
         BlockPos blockpos = pContext.chunkPos().getCenterAtY(1);
 
-        if (!isBiomeValid(pContext, BiomeConfig.graveyardBiomes, blockpos))
+        if (!this.isBiomeValid(pContext, BiomeConfig.graveyardBiomes, blockpos))
             return Optional.empty();
 
         Optional<StructurePosition> structurePiecesGenerator =

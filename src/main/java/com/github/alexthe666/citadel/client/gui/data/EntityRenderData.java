@@ -26,7 +26,7 @@ public class EntityRenderData {
     }
 
     public String getEntity() {
-        return entity;
+        return this.entity;
     }
 
     public void setEntity(String model) {
@@ -34,7 +34,7 @@ public class EntityRenderData {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -42,7 +42,7 @@ public class EntityRenderData {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -50,7 +50,7 @@ public class EntityRenderData {
     }
 
     public double getScale() {
-        return scale;
+        return this.scale;
     }
 
     public void setScale(double scale) {
@@ -58,7 +58,7 @@ public class EntityRenderData {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public void setPage(int page) {
@@ -66,7 +66,7 @@ public class EntityRenderData {
     }
 
     public double getRot_x() {
-        return rot_x;
+        return this.rot_x;
     }
 
     public void setRot_x(double rot_x) {
@@ -74,7 +74,7 @@ public class EntityRenderData {
     }
 
     public double getRot_y() {
-        return rot_y;
+        return this.rot_y;
     }
 
     public void setRot_y(double rot_y) {
@@ -82,7 +82,7 @@ public class EntityRenderData {
     }
 
     public double getRot_z() {
-        return rot_z;
+        return this.rot_z;
     }
 
     public void setRot_z(double rot_z) {
@@ -90,7 +90,7 @@ public class EntityRenderData {
     }
 
     public boolean isFollow_cursor() {
-        return follow_cursor;
+        return this.follow_cursor;
     }
 
     public void setFollow_cursor(boolean follow_cursor) {
@@ -98,7 +98,7 @@ public class EntityRenderData {
     }
 
     public String getEntityData() {
-        return entity_data;
+        return this.entity_data;
     }
 
 }

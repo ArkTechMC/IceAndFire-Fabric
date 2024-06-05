@@ -24,15 +24,15 @@ public abstract class TickRateModifier {
     }
 
     public TickRateModifierType getType() {
-        return type;
+        return this.type;
     }
 
     public float getMaxDuration() {
-        return maxDuration;
+        return this.maxDuration;
     }
 
     public float getTickRateMultiplier() {
-        return tickRateMultiplier;
+        return this.tickRateMultiplier;
     }
 
     public void setMaxDuration(float maxDuration) {
@@ -46,9 +46,9 @@ public abstract class TickRateModifier {
     public NbtCompound toTag() {
         NbtCompound tag = new NbtCompound();
         tag.putInt("TickRateType", this.type.toId());
-        tag.putFloat("MaxDuration", maxDuration);
-        tag.putFloat("Duration", duration);
-        tag.putFloat("SpeedMultiplier", tickRateMultiplier);
+        tag.putFloat("MaxDuration", this.maxDuration);
+        tag.putFloat("Duration", this.duration);
+        tag.putFloat("SpeedMultiplier", this.tickRateMultiplier);
         return tag;
     }
 
@@ -67,13 +67,13 @@ public abstract class TickRateModifier {
     }
 
     public void masterTick() {
-        duration++;
+        this.duration++;
     }
 
 
     public boolean doRemove() {
-        float f = tickRateMultiplier == 0 || this.getType() == TickRateModifierType.CELESTIAL ? 1.0F : 1F / tickRateMultiplier;
-        return duration >= maxDuration * f;
+        float f = this.tickRateMultiplier == 0 || this.getType() == TickRateModifierType.CELESTIAL ? 1.0F : 1F / this.tickRateMultiplier;
+        return this.duration >= this.maxDuration * f;
     }
 
     public abstract boolean appliesTo(World level, double x, double y, double z);

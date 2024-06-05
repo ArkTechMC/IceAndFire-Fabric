@@ -18,13 +18,6 @@ public class IafMobSpawnBiomeModifier implements BiomeModifier {
     public IafMobSpawnBiomeModifier() {
     }
 
-    @Override
-    public void modify(RegistryEntry<Biome> biome, Phase phase, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
-        if (phase == Phase.ADD) {
-            IafEntityRegistry.addSpawners(biome, builder);
-        }
-    }
-
 
     public Codec<? extends BiomeModifier> codec() {
         return SERIALIZER.get();

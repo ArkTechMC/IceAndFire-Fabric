@@ -16,13 +16,13 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 
     public WorldGenLightningDragonCave(final Codec<DefaultFeatureConfig> configuration) {
         super(configuration);
-        DRAGON_CHEST = LIGHTNING_DRAGON_CHEST;
-        DRAGON_MALE_CHEST = LIGHTNING_DRAGON_CHEST_MALE;
-        CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.CRACKLED_STONE.get(), 6);
-        PALETTE_BLOCK1 = IafBlockRegistry.CRACKLED_STONE.get().getDefaultState();
-        PALETTE_BLOCK2 = IafBlockRegistry.CRACKLED_COBBLESTONE.get().getDefaultState();
-        TREASURE_PILE = IafBlockRegistry.COPPER_PILE.get().getDefaultState();
-        dragonTypeOreTag = IafBlockTags.LIGHTNING_DRAGON_CAVE_ORES;
+        this.DRAGON_CHEST = LIGHTNING_DRAGON_CHEST;
+        this.DRAGON_MALE_CHEST = LIGHTNING_DRAGON_CHEST_MALE;
+        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.CRACKLED_STONE.get(), 6);
+        this.PALETTE_BLOCK1 = IafBlockRegistry.CRACKLED_STONE.get().getDefaultState();
+        this.PALETTE_BLOCK2 = IafBlockRegistry.CRACKLED_COBBLESTONE.get().getDefaultState();
+        this.TREASURE_PILE = IafBlockRegistry.COPPER_PILE.get().getDefaultState();
+        this.dragonTypeOreTag = IafBlockTags.LIGHTNING_DRAGON_CAVE_ORES;
     }
 
     @Override

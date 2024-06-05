@@ -34,7 +34,7 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
             final MobEntity entityLiving,
             final World worldIn) {
         super(entityLiving, worldIn);
-        this.ourEntity = entity;
+        this.ourEntity = this.entity;
     }
 
     /**
@@ -43,7 +43,7 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      * @return the destination position.
      */
     public BlockPos getDestination() {
-        return destination;
+        return this.destination;
     }
 
     /**
@@ -131,7 +131,7 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      * @return the pathing options.
      */
     public PathingOptions getPathingOptions() {
-        return pathingOptions;
+        return this.pathingOptions;
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      * @return mobentity
      */
     public MobEntity getOurEntity() {
-        return ourEntity;
+        return this.ourEntity;
     }
 
     /**

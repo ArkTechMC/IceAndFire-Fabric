@@ -41,18 +41,18 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
     @Override
     public boolean canStart() {
         if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || !this.myrmex.getNavigation().isIdle() || this.myrmex.shouldEnterHive() || !this.myrmex.keepSearching || this.myrmex.holdingBaby()) {
-            listBabies = IAFMath.emptyLivingEntityList;
+            this.listBabies = IAFMath.emptyLivingEntityList;
             return false;
         }
 
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            listBabies = this.mob.getWorld().getEntitiesByClass(LivingEntity.class, this.getTargetableArea(20), this.targetEntitySelector);
+            this.listBabies = this.mob.getWorld().getEntitiesByClass(LivingEntity.class, this.getTargetableArea(20), this.targetEntitySelector);
 
-        if (listBabies.isEmpty())
+        if (this.listBabies.isEmpty())
             return false;
 
-        listBabies.sort(this.theNearestAttackableTargetSorter);
-        this.targetEntity = listBabies.get(0);
+        this.listBabies.sort(this.theNearestAttackableTargetSorter);
+        this.targetEntity = this.listBabies.get(0);
         return true;
     }
 
@@ -73,7 +73,7 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
             && this.mob.squaredDistanceTo(this.targetEntity) < 2) {
             this.targetEntity.startRiding(this.myrmex);
         }
-        stop();
+        this.stop();
     }
 
     @Override

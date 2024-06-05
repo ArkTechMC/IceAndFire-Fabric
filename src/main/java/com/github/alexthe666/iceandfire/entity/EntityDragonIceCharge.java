@@ -10,17 +10,11 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.network.PlayMessages;
 
 public class EntityDragonIceCharge extends EntityDragonCharge {
 
     public EntityDragonIceCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn) {
         super(type, worldIn);
-
-    }
-
-    public EntityDragonIceCharge(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.ICE_DRAGON_CHARGE.get(), worldIn);
     }
 
     public EntityDragonIceCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn, double posX,

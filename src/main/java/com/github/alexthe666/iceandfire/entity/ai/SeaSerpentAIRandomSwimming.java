@@ -41,7 +41,7 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
     @Override
     protected Vec3d getWanderTarget() {
         if (((EntitySeaSerpent) this.mob).jumpCooldown <= 0) {
-            Vec3d vector3d = findSurfaceTarget(this.mob, 32, 16);
+            Vec3d vector3d = this.findSurfaceTarget(this.mob, 32, 16);
             if (vector3d != null) {
                 return vector3d.add(0, 1, 0);
             }
@@ -77,7 +77,7 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
         while (creature.getWorld().getFluidState(upPos).isIn(FluidTags.WATER)) {
             upPos = upPos.up();
         }
-        if (isAirAbove(upPos.down(), 0, 0, 0) && canJumpTo(upPos.down(), 0, 0, 0)) {
+        if (this.isAirAbove(upPos.down(), 0, 0, 0) && this.canJumpTo(upPos.down(), 0, 0, 0)) {
             return new Vec3d(upPos.getX() + 0.5F, upPos.getY() + 3.5F, upPos.getZ() + 0.5F);
         }
         return null;

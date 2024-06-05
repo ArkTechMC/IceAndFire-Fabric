@@ -25,11 +25,11 @@ public class DeathWormAIJump extends DiveJumpingGoal {
 
     @Override
     public boolean canStart() {
-        if (jumpCooldown > 0) {
-            jumpCooldown--;
+        if (this.jumpCooldown > 0) {
+            this.jumpCooldown--;
         }
-        if (this.dolphin.getRandom().nextInt(this.chance) != 0 || dolphin.hasPassengers()
-            || dolphin.getTarget() != null) {
+        if (this.dolphin.getRandom().nextInt(this.chance) != 0 || this.dolphin.hasPassengers()
+            || this.dolphin.getTarget() != null) {
             return false;
         } else {
             Direction direction = this.dolphin.getMovementDirection();
@@ -62,7 +62,7 @@ public class DeathWormAIJump extends DiveJumpingGoal {
     @Override
     public boolean shouldContinue() {
         final double d0 = this.dolphin.getVelocity().y;
-        return jumpCooldown > 0 && (d0 * d0 >= 0.03F || this.dolphin.getPitch() == 0.0F
+        return this.jumpCooldown > 0 && (d0 * d0 >= 0.03F || this.dolphin.getPitch() == 0.0F
             || Math.abs(this.dolphin.getPitch()) >= 10.0F || !this.dolphin.isInSand()) && !this.dolphin.isOnGround();
     }
 
@@ -77,12 +77,12 @@ public class DeathWormAIJump extends DiveJumpingGoal {
     @Override
     public void start() {
         Direction direction = this.dolphin.getMovementDirection();
-        final float up = (dolphin.getScaleFactor() > 3 ? 0.7F : 0.4F) + dolphin.getRandom().nextFloat() * 0.4F;
+        final float up = (this.dolphin.getScaleFactor() > 3 ? 0.7F : 0.4F) + this.dolphin.getRandom().nextFloat() * 0.4F;
         this.dolphin
             .setVelocity(this.dolphin.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
         this.dolphin.getNavigation().stop();
         this.dolphin.setWormJumping(30);
-        this.jumpCooldown = dolphin.getRandom().nextInt(65) + 32;
+        this.jumpCooldown = this.dolphin.getRandom().nextInt(65) + 32;
     }
 
     /**

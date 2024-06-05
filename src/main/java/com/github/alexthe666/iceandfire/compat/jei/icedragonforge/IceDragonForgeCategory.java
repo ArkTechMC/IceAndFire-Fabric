@@ -18,7 +18,7 @@ public class IceDragonForgeCategory implements IRecipeCategory<DragonForgeRecipe
     public IceDragonForgeDrawable drawable;
 
     public IceDragonForgeCategory() {
-        drawable = new IceDragonForgeDrawable();
+        this.drawable = new IceDragonForgeDrawable();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class IceDragonForgeCategory implements IRecipeCategory<DragonForgeRecipe
 
     @Override
     public @NotNull IDrawable getBackground() {
-        return drawable;
+        return this.drawable;
     }
 
     @Override

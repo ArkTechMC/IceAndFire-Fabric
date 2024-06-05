@@ -63,7 +63,7 @@ public class MovementControllerCustomCollisions extends MoveControl {
             BlockPos blockpos = this.entity.getBlockPos();
             BlockState blockstate = this.entity.getWorld().getBlockState(blockpos);
             VoxelShape voxelshape = blockstate.getSidesShape(this.entity.getWorld(), blockpos);
-            if (!(entity instanceof ICustomCollisions && ((ICustomCollisions) entity).canPassThrough(blockpos, blockstate, voxelshape))) {
+            if (!(this.entity instanceof ICustomCollisions && ((ICustomCollisions) this.entity).canPassThrough(blockpos, blockstate, voxelshape))) {
                 if (d2 > (double) this.entity.getStepHeight() && d0 * d0 + d1 * d1 < (double) Math.max(1.0F, this.entity.getWidth()) || !voxelshape.isEmpty() && this.entity.getY() < voxelshape.getMax(Direction.Axis.Y) + (double) blockpos.getY() && !blockstate.isIn(BlockTags.DOORS) && !blockstate.isIn(BlockTags.FENCES)) {
                     this.entity.getJumpControl().setActive();
                     this.state = State.JUMPING;

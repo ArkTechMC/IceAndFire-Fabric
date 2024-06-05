@@ -30,14 +30,14 @@ public class DragonAIWander extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!dragon.canMove() || dragon.isFuelingForge()) {
+        if (!this.dragon.canMove() || this.dragon.isFuelingForge()) {
             return false;
         }
-        if (dragon.isFlying() || dragon.isHovering()) {
+        if (this.dragon.isFlying() || this.dragon.isHovering()) {
             return false;
         }
         if (!this.mustUpdate) {
-            if (this.dragon.getRandom().nextInt(executionChance) != 0) {
+            if (this.dragon.getRandom().nextInt(this.executionChance) != 0) {
                 return false;
             }
         }

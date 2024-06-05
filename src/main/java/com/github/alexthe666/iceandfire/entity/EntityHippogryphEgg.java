@@ -50,18 +50,18 @@ public class EntityHippogryphEgg extends EggEntity {
 
     @Override
     protected void onCollision(HitResult result) {
-        Entity thrower = getOwner();
+        Entity thrower = this.getOwner();
         if (result.getType() == HitResult.Type.ENTITY) {
-            ((EntityHitResult) result).getEntity().damage(getWorld().getDamageSources().thrown(this, thrower), 0.0F);
+            ((EntityHitResult) result).getEntity().damage(this.getWorld().getDamageSources().thrown(this, thrower), 0.0F);
         }
 
         if (!this.getWorld().isClient) {
             EntityHippogryph hippogryph = new EntityHippogryph(IafEntityRegistry.HIPPOGRYPH.get(), this.getWorld());
             hippogryph.setBreedingAge(-24000);
             hippogryph.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
-            if (itemstack != null) {
+            if (this.itemstack != null) {
                 int variant = 0;
-                NbtCompound tag = itemstack.getNbt();
+                NbtCompound tag = this.itemstack.getNbt();
                 if (tag != null) {
                     variant = tag.getInt("EggOrdinal");
                 }

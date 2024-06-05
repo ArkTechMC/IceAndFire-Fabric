@@ -1,12 +1,10 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-
-import javax.annotation.Nonnull;
 
 public class PixieJarInvWrapper implements IItemHandlerModifiable {
 
@@ -21,7 +19,7 @@ public class PixieJarInvWrapper implements IItemHandlerModifiable {
     }
 
     @Override
-    public void setStackInSlot(int slot, @Nonnull ItemStack stack) {
+    public void setStackInSlot(int slot, ItemStack stack) {
         // this.tile.hasProduced = false;
     }
 
@@ -30,19 +28,16 @@ public class PixieJarInvWrapper implements IItemHandlerModifiable {
         return 1;
     }
 
-    @Nonnull
     @Override
     public ItemStack getStackInSlot(int slot) {
         return this.tile.hasProduced ? new ItemStack(IafItemRegistry.PIXIE_DUST.get()) : ItemStack.EMPTY;
     }
 
-    @Nonnull
     @Override
-    public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         return stack;
     }
 
-    @Nonnull
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (this.tile.hasProduced) {
@@ -59,7 +54,7 @@ public class PixieJarInvWrapper implements IItemHandlerModifiable {
     }
 
     @Override
-    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+    public boolean isItemValid(int slot, ItemStack stack) {
         return false;
     }
 }

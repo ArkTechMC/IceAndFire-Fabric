@@ -130,85 +130,85 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
         super.tick();
         if (!this.getWorld().isClient()) {
             this.setAir(200);
-            updateEggCondition();
+            this.updateEggCondition();
         }
     }
 
     public void updateEggCondition() {
-        DragonType dragonType = getEggType().dragonType;
+        DragonType dragonType = this.getEggType().dragonType;
 
         if (dragonType == DragonType.FIRE) {
-            if (getWorld().getBlockState(getBlockPos()).isBurning(getWorld(), getBlockPos())) {
-                setDragonAge(getDragonAge() + 1);
+            if (this.getWorld().getBlockState(this.getBlockPos()).isBurning(this.getWorld(), this.getBlockPos())) {
+                this.setDragonAge(this.getDragonAge() + 1);
             }
         } else if (dragonType == DragonType.ICE) {
-            BlockState state = getWorld().getBlockState(getBlockPos());
+            BlockState state = this.getWorld().getBlockState(this.getBlockPos());
 
-            if (state.isOf(Blocks.WATER) && getRandom().nextInt(500) == 0) {
-                getWorld().setBlockState(getBlockPos(), IafBlockRegistry.EGG_IN_ICE.get().getDefaultState());
-                getWorld().playSound(getX(), getY() + getStandingEyeHeight(), getZ(), SoundEvents.BLOCK_GLASS_BREAK, getSoundCategory(), 2.5F, 1.0F, false);
+            if (state.isOf(Blocks.WATER) && this.getRandom().nextInt(500) == 0) {
+                this.getWorld().setBlockState(this.getBlockPos(), IafBlockRegistry.EGG_IN_ICE.get().getDefaultState());
+                this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), SoundEvents.BLOCK_GLASS_BREAK, this.getSoundCategory(), 2.5F, 1.0F, false);
 
-                if (getWorld().getBlockEntity(getBlockPos()) instanceof TileEntityEggInIce eggInIce) {
-                    eggInIce.type = getEggType();
-                    eggInIce.ownerUUID = getOwnerId();
+                if (this.getWorld().getBlockEntity(this.getBlockPos()) instanceof TileEntityEggInIce eggInIce) {
+                    eggInIce.type = this.getEggType();
+                    eggInIce.ownerUUID = this.getOwnerId();
                 }
 
-                remove(RemovalReason.DISCARDED);
+                this.remove(RemovalReason.DISCARDED);
             }
         } else if (dragonType == DragonType.LIGHTNING) {
-            BlockPos.Mutable mutablePosition = new BlockPos.Mutable(getX(), getY(), getZ());
-            boolean isRainingAt = getWorld().hasRain(mutablePosition) || getWorld().hasRain(mutablePosition.set(getX(), getY() + (double) getHeight(), getZ()));
+            BlockPos.Mutable mutablePosition = new BlockPos.Mutable(this.getX(), this.getY(), this.getZ());
+            boolean isRainingAt = this.getWorld().hasRain(mutablePosition) || this.getWorld().hasRain(mutablePosition.set(this.getX(), this.getY() + (double) this.getHeight(), this.getZ()));
 
-            if (getWorld().isSkyVisible(getBlockPos().up()) && isRainingAt) {
-                setDragonAge(getDragonAge() + 1);
+            if (this.getWorld().isSkyVisible(this.getBlockPos().up()) && isRainingAt) {
+                this.setDragonAge(this.getDragonAge() + 1);
             }
         }
 
-        if (getDragonAge() > IafConfig.dragonEggTime) {
-            getWorld().setBlockState(getBlockPos(), Blocks.AIR.getDefaultState());
-            EntityDragonBase dragon = dragonType.getEntity().create(getWorld());
+        if (this.getDragonAge() > IafConfig.dragonEggTime) {
+            this.getWorld().setBlockState(this.getBlockPos(), Blocks.AIR.getDefaultState());
+            EntityDragonBase dragon = dragonType.getEntity().create(this.getWorld());
 
-            if (hasCustomName()) {
-                dragon.setCustomName(getCustomName());
+            if (this.hasCustomName()) {
+                dragon.setCustomName(this.getCustomName());
             }
 
             if (dragonType == DragonType.LIGHTNING) {
-                dragon.setVariant(getEggType().ordinal() - 8);
+                dragon.setVariant(this.getEggType().ordinal() - 8);
             } else {
-                dragon.setVariant(getEggType().ordinal());
+                dragon.setVariant(this.getEggType().ordinal());
             }
 
-            dragon.setGender(getRandom().nextBoolean());
-            dragon.setPosition(getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5);
+            dragon.setGender(this.getRandom().nextBoolean());
+            dragon.setPosition(this.getBlockPos().getX() + 0.5, this.getBlockPos().getY() + 1, this.getBlockPos().getZ() + 0.5);
             dragon.setHunger(50);
 
-            if (!getWorld().isClient()) {
-                getWorld().spawnEntity(dragon);
+            if (!this.getWorld().isClient()) {
+                this.getWorld().spawnEntity(dragon);
             }
 
-            if (hasCustomName()) { // FIXME :: Why do this again?
-                dragon.setCustomName(getCustomName());
+            if (this.hasCustomName()) { // FIXME :: Why do this again?
+                dragon.setCustomName(this.getCustomName());
             }
 
             dragon.setTamed(true);
-            dragon.setOwnerUuid(getOwnerId());
+            dragon.setOwnerUuid(this.getOwnerId());
 
             if (dragonType == DragonType.LIGHTNING) {
-                LightningEntity bolt = EntityType.LIGHTNING_BOLT.create(getWorld());
-                bolt.setPosition(getX(), getY(), getZ());
+                LightningEntity bolt = EntityType.LIGHTNING_BOLT.create(this.getWorld());
+                bolt.setPosition(this.getX(), this.getY(), this.getZ());
                 bolt.setCosmetic(true);
 
-                if (!getWorld().isClient()) {
-                    getWorld().spawnEntity(bolt);
+                if (!this.getWorld().isClient()) {
+                    this.getWorld().spawnEntity(bolt);
                 }
 
-                getWorld().playSound(getX(), getY() + getStandingEyeHeight(), getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, getSoundCategory(), 2.5F, 1.0F, false);
+                this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, this.getSoundCategory(), 2.5F, 1.0F, false);
             } else if (dragonType == DragonType.FIRE) {
-                getWorld().playSound(getX(), getY() + getStandingEyeHeight(), getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, getSoundCategory(), 2.5F, 1.0F, false);
+                this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 2.5F, 1.0F, false);
             }
 
-            getWorld().playSound(getX(), getY() + getStandingEyeHeight(), getZ(), IafSoundRegistry.EGG_HATCH, getSoundCategory(), 2.5F, 1.0F, false);
-            remove(RemovalReason.DISCARDED);
+            this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), IafSoundRegistry.EGG_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
+            this.remove(RemovalReason.DISCARDED);
         }
     }
 
@@ -234,9 +234,9 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
 
     @Override
     public boolean damage(@NotNull DamageSource var1, float var2) {
-        if (var1.isIn(DamageTypeTags.IS_FIRE) && getEggType().dragonType == DragonType.FIRE)
+        if (var1.isIn(DamageTypeTags.IS_FIRE) && this.getEggType().dragonType == DragonType.FIRE)
             return false;
-        if (!this.getWorld().isClient && !var1.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY) && !isRemoved()) {
+        if (!this.getWorld().isClient && !var1.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY) && !this.isRemoved()) {
             this.dropItem(this.getItem().getItem(), 1);
         }
         this.remove(RemovalReason.KILLED);
@@ -244,7 +244,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     private ItemStack getItem() {
-        return switch (getEggType().ordinal()) {
+        return switch (this.getEggType().ordinal()) {
             default -> new ItemStack(IafItemRegistry.DRAGONEGG_RED.get());
             case 1 -> new ItemStack(IafItemRegistry.DRAGONEGG_GREEN.get());
             case 2 -> new ItemStack(IafItemRegistry.DRAGONEGG_BRONZE.get());

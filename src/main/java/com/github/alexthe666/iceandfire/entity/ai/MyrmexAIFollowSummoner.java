@@ -32,7 +32,7 @@ public class MyrmexAIFollowSummoner extends Goal {
     @Override
     public boolean canStart() {
         LivingEntity LivingEntity = this.tameable.getSummoner();
-        if (tameable.getTarget() != null) {
+        if (this.tameable.getTarget() != null) {
             return false;
         }
         if (LivingEntity == null) {

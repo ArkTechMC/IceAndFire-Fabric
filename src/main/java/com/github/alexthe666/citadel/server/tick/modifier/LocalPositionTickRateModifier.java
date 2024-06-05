@@ -22,18 +22,18 @@ public class LocalPositionTickRateModifier extends LocalTickRateModifier {
     @Override
     public NbtCompound toTag() {
         NbtCompound tag = super.toTag();
-        tag.putDouble("CenterX", center.x);
-        tag.putDouble("CenterY", center.y);
-        tag.putDouble("CenterZ", center.z);
+        tag.putDouble("CenterX", this.center.x);
+        tag.putDouble("CenterY", this.center.y);
+        tag.putDouble("CenterZ", this.center.z);
         return tag;
     }
 
     public Vec3d getCenter() {
-        return center;
+        return this.center;
     }
 
     public Vec3d getCenter(World level) {
-        return getCenter();
+        return this.getCenter();
     }
 
     public void setCenter(Vec3d center) {

@@ -44,7 +44,7 @@ public class IFChainBuffer {
      */
     public void calculateChainSwingBuffer(float maxAngle, int bufferTime, float angleDecrement, float divisor, LivingEntity entity) {
         this.prevYawVariation = this.yawVariation;
-        if (!compareDouble(entity.bodyYaw, entity.prevBodyYaw) && MathHelper.abs(this.yawVariation) < maxAngle) {
+        if (!this.compareDouble(entity.bodyYaw, entity.prevBodyYaw) && MathHelper.abs(this.yawVariation) < maxAngle) {
             this.yawVariation += MathHelper.clamp((entity.prevBodyYaw - entity.bodyYaw) / divisor, -maxAngle, maxAngle);
         }
         if (this.yawVariation > angleDecrement) {
@@ -89,7 +89,7 @@ public class IFChainBuffer {
         if (Math.abs(entity.getPitch()) > maxAngle) {
             return;
         }
-        if (!compareDouble(entity.getPitch(), entity.prevPitch) && MathHelper.abs(this.pitchVariation) < maxAngle) {
+        if (!this.compareDouble(entity.getPitch(), entity.prevPitch) && MathHelper.abs(this.pitchVariation) < maxAngle) {
             this.pitchVariation += MathHelper.clamp((entity.prevPitch - entity.getPitch()) / divisor, -maxAngle, maxAngle);
         }
         if (this.pitchVariation > angleDecrement) {
@@ -128,7 +128,7 @@ public class IFChainBuffer {
     public void calculateChainFlapBuffer(float maxAngle, int bufferTime, float angleDecrement, float divisor, LivingEntity entity) {
         this.prevYawVariation = this.yawVariation;
 
-        if (!compareDouble(entity.bodyYaw, entity.prevBodyYaw) && MathHelper.abs(this.yawVariation) < maxAngle) {
+        if (!this.compareDouble(entity.bodyYaw, entity.prevBodyYaw) && MathHelper.abs(this.yawVariation) < maxAngle) {
             this.yawVariation += MathHelper.clamp((entity.prevBodyYaw - entity.bodyYaw) / divisor, -maxAngle, maxAngle);
             if (entity instanceof IFlapable && Math.abs(entity.prevBodyYaw - entity.bodyYaw) > 15D) {
                 ((IFlapable) entity).flapWings();
@@ -169,7 +169,7 @@ public class IFChainBuffer {
     public void calculateChainFlapBufferHead(float maxAngle, int bufferTime, float angleDecrement, float divisor, LivingEntity entity) {
         this.prevYawVariation = this.yawVariation;
 
-        if (!compareDouble(entity.prevHeadYaw, entity.headYaw) && MathHelper.abs(this.yawVariation) < maxAngle) {
+        if (!this.compareDouble(entity.prevHeadYaw, entity.headYaw) && MathHelper.abs(this.yawVariation) < maxAngle) {
             this.yawVariation += MathHelper.clamp((entity.headYaw - entity.prevHeadYaw) / divisor, -maxAngle, maxAngle);
             if (entity instanceof IFlapable && Math.abs(entity.headYaw - entity.prevHeadYaw) > 15D) {
                 ((IFlapable) entity).flapWings();
@@ -241,7 +241,7 @@ public class IFChainBuffer {
      * @param boxes the box array
      */
     public void applyChainSwingBuffer(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleY += rotateAmount;
         }
@@ -253,7 +253,7 @@ public class IFChainBuffer {
      * @param boxes the box array
      */
     public void applyChainWaveBuffer(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleX += rotateAmount;
         }
@@ -265,7 +265,7 @@ public class IFChainBuffer {
      * @param boxes the box array
      */
     public void applyChainFlapBuffer(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleZ += rotateAmount;
         }
@@ -277,21 +277,21 @@ public class IFChainBuffer {
      * @param boxes the box array
      */
     public void applyChainFlapBufferReverse(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleZ -= rotateAmount * 0.5F;
         }
     }
 
     public void applyChainSwingBufferReverse(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleY -= rotateAmount;
         }
     }
 
     public void applyChainWaveBufferReverse(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleX -= rotateAmount;
         }

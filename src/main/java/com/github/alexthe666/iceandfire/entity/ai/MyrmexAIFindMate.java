@@ -38,11 +38,11 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
     @Override
     public boolean canStart() {
         if (!this.myrmex.shouldHaveNormalAI()) {
-            list = IAFMath.emptyEntityList;
+            this.list = IAFMath.emptyEntityList;
             return false;
         }
         if (!this.myrmex.canMove() || this.myrmex.getTarget() != null || this.myrmex.releaseTicks < 400 || this.myrmex.mate != null) {
-            list = IAFMath.emptyEntityList;
+            this.list = IAFMath.emptyEntityList;
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
@@ -50,18 +50,18 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
             village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 100);
         }
         if (village != null && village.getCenter().getSquaredDistanceFromCenter(this.myrmex.getX(), village.getCenter().getY(), this.myrmex.getZ()) < 2000) {
-            list = IAFMath.emptyEntityList;
+            this.list = IAFMath.emptyEntityList;
             return false;
         }
 
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            list = this.mob.getWorld().getOtherEntities(myrmex, this.getTargetableArea(100), this.targetEntitySelector);
+            this.list = this.mob.getWorld().getOtherEntities(this.myrmex, this.getTargetableArea(100), this.targetEntitySelector);
 
-        if (list.isEmpty())
+        if (this.list.isEmpty())
             return false;
 
-        list.sort(this.theNearestAttackableTargetSorter);
-        for (Entity royal : list) {
+        this.list.sort(this.theNearestAttackableTargetSorter);
+        for (Entity royal : this.list) {
             if (this.myrmex.canBreedWith((EntityMyrmexRoyal) royal)) {
                 this.myrmex.mate = (EntityMyrmexRoyal) royal;
                 this.myrmex.getWorld().sendEntityStatus(this.myrmex, (byte) 76);

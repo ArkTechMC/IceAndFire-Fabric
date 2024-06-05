@@ -13,10 +13,10 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.iafenvoy.iceandfire.client.IceAndFireFabricClient"
+      "com.iafenvoy.iafextra.client.IceAndFireClient"
     ],
     "main": [
-      "com.iafenvoy.iceandfire.IceAndFireFabric"
+      "com.iafenvoy.iafextra.IceAndFire"
     ]
   },
   "mixins": [

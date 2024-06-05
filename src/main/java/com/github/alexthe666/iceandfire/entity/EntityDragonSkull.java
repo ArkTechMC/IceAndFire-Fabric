@@ -133,10 +133,10 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public void turnIntoItem() {
-        if (isRemoved())
+        if (this.isRemoved())
             return;
         this.remove(RemovalReason.DISCARDED);
-        ItemStack stack = new ItemStack(getDragonSkullItem());
+        ItemStack stack = new ItemStack(this.getDragonSkullItem());
         stack.setNbt(new NbtCompound());
         stack.getNbt().putInt("Stage", this.getStage());
         stack.getNbt().putInt("DragonAge", this.getDragonAge());
@@ -146,7 +146,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public Item getDragonSkullItem() {
-        switch (getDragonType()) {
+        switch (this.getDragonType()) {
             case 0:
                 return IafItemRegistry.DRAGON_SKULL_FIRE.get();
             case 1:
@@ -191,7 +191,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
 
     public float getDragonSize() {
         float step;
-        step = (minSize - maxSize) / (125);
+        step = (this.minSize - this.maxSize) / (125);
 
         if (this.getDragonAge() > 125) {
             return this.minSize + (step * 125);
@@ -220,7 +220,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public int getDragonStage() {
-        return Math.max(getStage(), 1);
+        return Math.max(this.getStage(), 1);
     }
 
     @Override

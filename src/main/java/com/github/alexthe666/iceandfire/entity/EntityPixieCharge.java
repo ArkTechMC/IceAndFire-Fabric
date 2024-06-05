@@ -12,15 +12,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityPixieCharge extends AbstractFireballEntity {
@@ -30,12 +26,7 @@ public class EntityPixieCharge extends AbstractFireballEntity {
 
     public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn) {
         super(t, worldIn);
-        rgb = EntityPixie.PARTICLE_RGB[random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
-    }
-
-
-    public EntityPixieCharge(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.PIXIE_CHARGE.get(), worldIn);
+        this.rgb = EntityPixie.PARTICLE_RGB[this.random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
     }
 
     public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn, double posX, double posY,
@@ -45,7 +36,7 @@ public class EntityPixieCharge extends AbstractFireballEntity {
         this.powerX = accelX / d0 * 0.07D;
         this.powerY = accelY / d0 * 0.07D;
         this.powerZ = accelZ / d0 * 0.07D;
-        rgb = EntityPixie.PARTICLE_RGB[random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
+        this.rgb = EntityPixie.PARTICLE_RGB[this.random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
     }
 
     public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn, PlayerEntity shooter,
@@ -55,12 +46,7 @@ public class EntityPixieCharge extends AbstractFireballEntity {
         this.powerX = accelX / d0 * 0.07D;
         this.powerY = accelY / d0 * 0.07D;
         this.powerZ = accelZ / d0 * 0.07D;
-        rgb = EntityPixie.PARTICLE_RGB[random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
+        this.rgb = EntityPixie.PARTICLE_RGB[this.random.nextInt(EntityPixie.PARTICLE_RGB.length - 1)];
     }
 
     @Override
@@ -78,7 +64,7 @@ public class EntityPixieCharge extends AbstractFireballEntity {
         Entity shootingEntity = this.getOwner();
         if (this.getWorld().isClient) {
             for (int i = 0; i < 5; ++i) {
-                IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), rgb[0], rgb[1], rgb[2]);
+                IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 0.15F * (this.random.nextBoolean() ? -1 : 1), this.rgb[0], this.rgb[1], this.rgb[2]);
             }
         }
         this.extinguish();
@@ -134,15 +120,15 @@ public class EntityPixieCharge extends AbstractFireballEntity {
                     if (entity instanceof LivingEntity) {
                         ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 100, 0));
                         ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100, 0));
-                        entity.damage(getWorld().getDamageSources().indirectMagic(shootingEntity, null), 5.0F);
+                        entity.damage(this.getWorld().getDamageSources().indirectMagic(shootingEntity, null), 5.0F);
                     }
                     if (this.getWorld().isClient) {
                         for (int i = 0; i < 20; ++i) {
-                            IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), rgb[0], rgb[1], rgb[2]);
+                            IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.rgb[0], this.rgb[1], this.rgb[2]);
                         }
                     }
                     if (shootingEntity == null || !(shootingEntity instanceof PlayerEntity) || !((PlayerEntity) shootingEntity).isCreative()) {
-                        if (random.nextInt(3) == 0) {
+                        if (this.random.nextInt(3) == 0) {
                             this.dropStack(new ItemStack(IafItemRegistry.PIXIE_DUST.get(), 1), 0.45F);
                         }
                     }

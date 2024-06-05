@@ -82,7 +82,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     public EntityType getTrappedEntityType() {
-        String str = getTrappedEntityTypeString();
+        String str = this.getTrappedEntityTypeString();
         return EntityType.get(str).orElse(EntityType.PIG);
     }
 
@@ -163,7 +163,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
 
     @Override
     public @NotNull EntityDimensions getDimensions(@NotNull EntityPose poseIn) {
-        return stoneStatueSize;
+        return this.stoneStatueSize;
     }
 
     @Override
@@ -171,11 +171,11 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
         super.tick();
         this.setYaw(this.bodyYaw);
         this.headYaw = this.getYaw();
-        if (Math.abs(this.getWidth() - getTrappedWidth()) > 0.01 || Math.abs(this.getHeight() - getTrappedHeight()) > 0.01) {
+        if (Math.abs(this.getWidth() - this.getTrappedWidth()) > 0.01 || Math.abs(this.getHeight() - this.getTrappedHeight()) > 0.01) {
             double prevX = this.getX();
             double prevZ = this.getZ();
-            this.stoneStatueSize = EntityDimensions.changing(getTrappedWidth(), getTrappedHeight());
-            calculateDimensions();
+            this.stoneStatueSize = EntityDimensions.changing(this.getTrappedWidth(), this.getTrappedHeight());
+            this.calculateDimensions();
             this.setPosition(prevX, this.getY(), prevZ);
         }
     }

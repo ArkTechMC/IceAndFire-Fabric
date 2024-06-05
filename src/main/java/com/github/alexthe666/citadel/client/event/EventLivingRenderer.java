@@ -21,19 +21,19 @@ public class EventLivingRenderer extends Event {
     }
 
     public LivingEntity getEntity() {
-        return entity;
+        return this.entity;
     }
 
     public EntityModel getModel() {
-        return model;
+        return this.model;
     }
 
     public MatrixStack getPoseStack() {
-        return poseStack;
+        return this.poseStack;
     }
 
     public float getPartialTicks() {
-        return partialTicks;
+        return this.partialTicks;
     }
 
     public static class SetupRotations extends EventLivingRenderer {
@@ -45,7 +45,7 @@ public class EventLivingRenderer extends Event {
         }
 
         public float getBodyYRot() {
-            return bodyYRot;
+            return this.bodyYRot;
         }
     }
 
@@ -62,15 +62,15 @@ public class EventLivingRenderer extends Event {
         }
 
         public float getBodyYRot() {
-            return bodyYRot;
+            return this.bodyYRot;
         }
 
         public VertexConsumerProvider getBufferSource() {
-            return bufferSource;
+            return this.bufferSource;
         }
 
         public int getPackedLight() {
-            return packedLight;
+            return this.packedLight;
         }
     }
 

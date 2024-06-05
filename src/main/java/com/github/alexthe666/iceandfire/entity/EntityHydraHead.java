@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.network.PlayMessages;
 
 public class EntityHydraHead extends EntityMutlipartPart {
     public int headIndex;
@@ -15,10 +14,6 @@ public class EntityHydraHead extends EntityMutlipartPart {
 
     public EntityHydraHead(EntityType<?> t, World world) {
         super(t, world);
-    }
-
-    public EntityHydraHead(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.HYDRA_MULTIPART.get(), worldIn);
     }
 
     public EntityHydraHead(EntityHydra entity, float radius, float angle, float y, float width, float height, float damageMulti, int headIndex, boolean neck) {
@@ -31,8 +26,8 @@ public class EntityHydraHead extends EntityMutlipartPart {
     @Override
     public void tick() {
         super.tick();
-        if (hydra != null && hydra.getSeveredHead() != -1 && this.neck && !EntityGorgon.isStoneMob(hydra)) {
-            if (hydra.getSeveredHead() == headIndex) {
+        if (this.hydra != null && this.hydra.getSeveredHead() != -1 && this.neck && !EntityGorgon.isStoneMob(this.hydra)) {
+            if (this.hydra.getSeveredHead() == this.headIndex) {
                 if (this.getWorld().isClient) {
                     for (int k = 0; k < 5; ++k) {
                         double d2 = 0.4;
@@ -50,12 +45,10 @@ public class EntityHydraHead extends EntityMutlipartPart {
     public boolean damage(DamageSource source, float damage) {
         Entity parent = this.getParent();
         if (parent instanceof EntityHydra) {
-            ((EntityHydra) parent).onHitHead(damage, headIndex);
+            ((EntityHydra) parent).onHitHead(damage, this.headIndex);
             return parent.damage(source, damage);
         } else {
             return parent != null && parent.damage(source, damage);
         }
     }
-
-
 }

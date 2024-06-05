@@ -54,7 +54,7 @@ public class LinkButton extends ButtonWidget {
         MinecraftClient minecraft = MinecraftClient.getInstance();
         TextRenderer font = minecraft.textRenderer;
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderTexture(0, book.getBookButtonsTexture());
+        RenderSystem.setShaderTexture(0, this.book.getBookButtonsTexture());
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         int i = this.getTextureY();
         RenderSystem.enableBlend();
@@ -62,24 +62,24 @@ public class LinkButton extends ButtonWidget {
         RenderSystem.enableDepthTest();
 
 
-        guiGraphics.drawTexture(book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
-        guiGraphics.drawTexture(book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
+        guiGraphics.drawTexture(this.book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
+        guiGraphics.drawTexture(this.book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
         if (this.hovered) {
-            int color = book.getWidgetColor();
+            int color = this.book.getWidgetColor();
             int r = (color & 0xFF0000) >> 16;
             int g = (color & 0xFF00) >> 8;
             int b = (color & 0xFF);
             i = 3;
-            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
-            BookBlit.blitWithColor(guiGraphics, book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
+            BookBlit.blitWithColor(guiGraphics, this.book.getBookButtonsTexture(), this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
+            BookBlit.blitWithColor(guiGraphics, this.book.getBookButtonsTexture(), this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height, 256, 256, r, g, b, 255);
         }
 
 //        int j = getFGColor();
         int j = -1;
-        int itemTextOffset = previewStack.isEmpty() ? 0 : 8;
-        if (!previewStack.isEmpty()) {
+        int itemTextOffset = this.previewStack.isEmpty() ? 0 : 8;
+        if (!this.previewStack.isEmpty()) {
             ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-            guiGraphics.drawItem(previewStack, this.getX() + 2, this.getY() + 1);
+            guiGraphics.drawItem(this.previewStack, this.getX() + 2, this.getY() + 1);
         }
         drawTextOf(guiGraphics, font, this.getMessage(), this.getX() + itemTextOffset + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
     }

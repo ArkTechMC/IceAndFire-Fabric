@@ -22,9 +22,9 @@ public class WorldGenRoostSpike {
             int l = radius - i;
             int k = Math.max(0, radius - (int) (i * 1.5F));
             float f = (float) (j + l) * 0.333F + 0.5F;
-            BlockPos up = position.up().offset(direction, i);
-            int xOrZero = direction.getAxis() == Direction.Axis.Z ? j : 0;
-            int zOrZero = direction.getAxis() == Direction.Axis.Z ? 0 : k;
+            BlockPos up = position.up().offset(this.direction, i);
+            int xOrZero = this.direction.getAxis() == Direction.Axis.Z ? j : 0;
+            int zOrZero = this.direction.getAxis() == Direction.Axis.Z ? 0 : k;
             for (BlockPos blockpos : BlockPos.stream(up.add(-xOrZero, -l, -zOrZero), up.add(xOrZero, l, zOrZero)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
                 if (blockpos.getSquaredDistance(position) <= (double) (f * f)) {
                     int height = Math.max(blockpos.getY() - up.getY(), 0);

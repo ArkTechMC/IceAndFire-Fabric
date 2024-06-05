@@ -12,11 +12,11 @@ public class Event {
     }
 
     public boolean isCanceled() {
-        return canceled;
+        return this.canceled;
     }
 
     public Result getResult() {
-        return result;
+        return this.result;
     }
 
     public void setResult(Result result) {

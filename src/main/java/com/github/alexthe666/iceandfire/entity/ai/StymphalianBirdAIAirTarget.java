@@ -30,18 +30,18 @@ public class StymphalianBirdAIAirTarget extends Goal {
 
     @Override
     public boolean canStart() {
-        if (bird != null) {
-            if (!bird.isFlying()) {
+        if (this.bird != null) {
+            if (!this.bird.isFlying()) {
                 return false;
             }
-            if (bird.isBaby() || bird.doesWantToLand()) {
+            if (this.bird.isBaby() || this.bird.doesWantToLand()) {
                 return false;
             }
-            if (bird.airTarget != null && (bird.isTargetBlocked(Vec3d.ofCenter(bird.airTarget)))) {
-                bird.airTarget = null;
+            if (this.bird.airTarget != null && (this.bird.isTargetBlocked(Vec3d.ofCenter(this.bird.airTarget)))) {
+                this.bird.airTarget = null;
             }
 
-            if (bird.airTarget != null) {
+            if (this.bird.airTarget != null) {
                 return false;
             } else {
                 Vec3d vec = this.findAirTarget();
@@ -49,7 +49,7 @@ public class StymphalianBirdAIAirTarget extends Goal {
                 if (vec == null) {
                     return false;
                 } else {
-                    bird.airTarget = BlockPos.ofFloored(vec);
+                    this.bird.airTarget = BlockPos.ofFloored(vec);
                     return true;
                 }
             }
@@ -59,16 +59,16 @@ public class StymphalianBirdAIAirTarget extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        if (!bird.isFlying()) {
+        if (!this.bird.isFlying()) {
             return false;
         }
-        if (bird.isBaby()) {
+        if (this.bird.isBaby()) {
             return false;
         }
-        return bird.airTarget != null;
+        return this.bird.airTarget != null;
     }
 
     public Vec3d findAirTarget() {
-        return Vec3d.ofCenter(getNearbyAirTarget(bird));
+        return Vec3d.ofCenter(getNearbyAirTarget(this.bird));
     }
 }

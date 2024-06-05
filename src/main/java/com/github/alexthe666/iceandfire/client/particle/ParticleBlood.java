@@ -26,12 +26,12 @@ public class ParticleBlood extends SpriteBillboardParticle {
     @Override
     public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
-        scale = 0.125F * (this.maxAge - (this.age));
-        scale = scale * 0.09F;
-        velocityX *= 0.75D;
-        velocityY *= 0.75D;
-        velocityZ *= 0.75D;
-        if (age > this.getMaxAge()) {
+        this.scale = 0.125F * (this.maxAge - (this.age));
+        this.scale = this.scale * 0.09F;
+        this.velocityX *= 0.75D;
+        this.velocityY *= 0.75D;
+        this.velocityZ *= 0.75D;
+        if (this.age > this.getMaxAge()) {
             this.markDead();
         }
 

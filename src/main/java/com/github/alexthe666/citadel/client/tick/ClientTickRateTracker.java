@@ -27,8 +27,8 @@ public class ClientTickRateTracker extends TickRateTracker {
     }
 
     public void syncFromServer(NbtCompound tag){
-        tickRateModifierList.clear();
-        fromTag(tag);
+        this.tickRateModifierList.clear();
+        this.fromTag(tag);
     }
 
     public static ClientTickRateTracker getForClient(MinecraftClient minecraft){
@@ -42,27 +42,27 @@ public class ClientTickRateTracker extends TickRateTracker {
 
     public void masterTick(){
         super.masterTick();
-        client.renderTickCounter.tickTime = getClientTickRate();
+        this.client.renderTickCounter.tickTime = this.getClientTickRate();
     }
 
     public float getClientTickRate(){
         float f = MS_PER_TICK;
-        for(TickRateModifier modifier : tickRateModifierList){
+        for(TickRateModifier modifier : this.tickRateModifierList){
             if(modifier.appliesTo(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getX(), MinecraftClient.getInstance().player.getY(), MinecraftClient.getInstance().player.getZ())){
                 f *= modifier.getTickRateMultiplier();
             }
         }
-        return Math.max(1F, f * getEntityTickLengthModifier(MinecraftClient.getInstance().player));
+        return Math.max(1F, f * this.getEntityTickLengthModifier(MinecraftClient.getInstance().player));
     }
 
     public float modifySoundPitch(SoundInstance soundInstance) {
         float f = 1.0F;
-        for(TickRateModifier modifier : tickRateModifierList){
+        for(TickRateModifier modifier : this.tickRateModifierList){
             if(modifier.appliesTo(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getX(), MinecraftClient.getInstance().player.getY(), MinecraftClient.getInstance().player.getZ())){
                 f /= modifier.getTickRateMultiplier();
             }
         }
-        return Math.max(1F, f * getEntityTickLengthModifier(MinecraftClient.getInstance().player));
+        return Math.max(1F, f * this.getEntityTickLengthModifier(MinecraftClient.getInstance().player));
     }
 
     @Override

@@ -48,7 +48,7 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
 
     @Override
     public void render(@NotNull EntityGhost entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
-        shadowRadius = 0;
+        this.shadowRadius = 0;
         if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Pre<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn)))
             return;
         matrixStackIn.push();
@@ -111,7 +111,7 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
         this.model.animateModel(entityIn, f5, f8, partialTicks);
         this.model.setAngles(entityIn, f5, f8, f7, f2, f6);
         float alphaForRender = this.getAlphaForRender(entityIn, partialTicks);
-        RenderLayer rendertype = entityIn.isDaytimeMode() ? IafRenderType.getGhostDaytime(getTexture(entityIn)) : IafRenderType.getGhost(getTexture(entityIn));//this.getRenderType(entityIn, flag, flag1, flag2);
+        RenderLayer rendertype = entityIn.isDaytimeMode() ? IafRenderType.getGhostDaytime(this.getTexture(entityIn)) : IafRenderType.getGhost(this.getTexture(entityIn));//this.getRenderType(entityIn, flag, flag1, flag2);
         if (!entityIn.isInvisible()) {
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(rendertype);
             int i = getOverlay(entityIn, this.getAnimationCounter(entityIn, partialTicks));

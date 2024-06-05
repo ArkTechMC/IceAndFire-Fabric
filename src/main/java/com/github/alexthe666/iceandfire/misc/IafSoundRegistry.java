@@ -1,12 +1,9 @@
 package com.github.alexthe666.iceandfire.misc;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.NewRegistryEvent;
 
 import java.lang.reflect.Field;
 
@@ -271,16 +268,15 @@ public final class IafSoundRegistry {
         return SoundEvent.of(soundID);
     }
 
-    @SubscribeEvent
-    public static void registerSoundEvents(final NewRegistryEvent event) {
+    public static void registerSoundEvents() {
         try {
             for (Field f : IafSoundRegistry.class.getFields()) {
                 Object obj = f.get(null);
                 if (obj instanceof SoundEvent) {
-                    ForgeRegistries.SOUND_EVENTS.register(((SoundEvent) obj).getId(), (SoundEvent) obj);
+                    Registry.register(Registries.SOUND_EVENT, ((SoundEvent) obj).getId(), (SoundEvent) obj);
                 } else if (obj instanceof SoundEvent[]) {
                     for (SoundEvent soundEvent : (SoundEvent[]) obj) {
-                        ForgeRegistries.SOUND_EVENTS.register(soundEvent.getId(), soundEvent);
+                        Registry.register(Registries.SOUND_EVENT, soundEvent.getId(), soundEvent);
                     }
                 }
             }

@@ -33,6 +33,6 @@ public class BlockSeaSerpentScales extends Block {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, BlockView worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("sea_serpent." + name).formatted(color));
+        tooltip.add(Text.translatable("sea_serpent." + this.name).formatted(this.color));
     }
 }

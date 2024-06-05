@@ -34,7 +34,7 @@ public class LayerDragonBanner extends FeatureRenderer<EntityDragonBase, Advance
             float f = (entity.getRenderSize() / 3F);
             float f2 = 1F / f;
             matrixStackIn.push();
-            postRender(StreamSupport.stream(this.renderer.getModel().getAllParts().spliterator(), false).filter(cube -> cube.boxName.equals("BodyUpper")).findFirst().get(), matrixStackIn, 0.0625F);
+            this.postRender(StreamSupport.stream(this.renderer.getModel().getAllParts().spliterator(), false).filter(cube -> cube.boxName.equals("BodyUpper")).findFirst().get(), matrixStackIn, 0.0625F);
             matrixStackIn.translate(0, -0.2F, 0.4F);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
             matrixStackIn.push();

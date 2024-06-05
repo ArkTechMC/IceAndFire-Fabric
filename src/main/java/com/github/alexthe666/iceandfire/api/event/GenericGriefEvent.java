@@ -32,15 +32,15 @@ public class GenericGriefEvent extends LivingEvent {
     }
 
     public double getTargetX() {
-        return targetX;
+        return this.targetX;
     }
 
     public double getTargetY() {
-        return targetY;
+        return this.targetY;
     }
 
     public double getTargetZ() {
-        return targetZ;
+        return this.targetZ;
     }
 
 }

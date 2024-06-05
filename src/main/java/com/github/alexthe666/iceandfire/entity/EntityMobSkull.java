@@ -92,11 +92,11 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
     }
 
     public EnumSkullType getSkullType() {
-        return EnumSkullType.values()[MathHelper.clamp(getEnumOrdinal(), 0, EnumSkullType.values().length - 1)];
+        return EnumSkullType.values()[MathHelper.clamp(this.getEnumOrdinal(), 0, EnumSkullType.values().length - 1)];
     }
 
     public void setSkullType(EnumSkullType skullType) {
-        setEnumOrdinal(skullType.ordinal());
+        this.setEnumOrdinal(skullType.ordinal());
     }
 
     @Override
@@ -106,10 +106,10 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
     }
 
     public void turnIntoItem() {
-        if (isRemoved())
+        if (this.isRemoved())
             return;
         this.remove(RemovalReason.DISCARDED);
-        ItemStack stack = new ItemStack(getSkullType().skull_item.get(), 1);
+        ItemStack stack = new ItemStack(this.getSkullType().skull_item.get(), 1);
         if (!this.getWorld().isClient)
             this.dropStack(stack, 0.0F);
     }

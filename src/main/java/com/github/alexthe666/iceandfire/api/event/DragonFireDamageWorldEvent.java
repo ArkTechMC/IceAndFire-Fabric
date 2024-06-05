@@ -36,19 +36,19 @@ public class DragonFireDamageWorldEvent extends LivingEvent {
     }
 
     public EntityDragonBase getDragon() {
-        return dragonBase;
+        return this.dragonBase;
     }
 
     public double getTargetX() {
-        return targetX;
+        return this.targetX;
     }
 
     public double getTargetY() {
-        return targetY;
+        return this.targetY;
     }
 
     public double getTargetZ() {
-        return targetZ;
+        return this.targetZ;
     }
 
 }

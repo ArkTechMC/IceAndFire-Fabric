@@ -51,7 +51,7 @@ public class DreadRuinProcessor extends StructureProcessor {
         if (infoIn2.state().getBlock() == IafBlockRegistry.DREAD_SPAWNER.get()) {
             NbtCompound tag = new NbtCompound();
             NbtCompound spawnData = new NbtCompound();
-            Identifier spawnerMobId = Registries.ENTITY_TYPE.getId(getRandomMobForMobSpawner(random));
+            Identifier spawnerMobId = Registries.ENTITY_TYPE.getId(this.getRandomMobForMobSpawner(random));
             if (spawnerMobId != null) {
                 NbtCompound entity = new NbtCompound();
                 entity.putString("id", spawnerMobId.toString());

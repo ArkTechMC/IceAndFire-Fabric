@@ -7,6 +7,6 @@ public interface ModifiableTickRateServer {
     long getMasterMs();
 
     default void resetGlobalTickLengthMs(){
-        setGlobalTickLengthMs(-1);
+        this.setGlobalTickLengthMs(-1);
     }
 }

@@ -61,13 +61,13 @@ public class ModelDreadThrall extends ModelDreadBase<EntityDreadThrall> {
             this.legLeft.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, modelScale);
             this.legLeft.setPos(1.9F, 12.0F + 0.0F, 0.0F);
         }
-        this.body.addChild(head);
-        this.head.addChild(headware);
-        this.body.addChild(armRight);
-        this.body.addChild(armLeft);
-        this.body.addChild(legRight);
-        this.body.addChild(legLeft);
-        animator = ModelAnimator.create();
+        this.body.addChild(this.head);
+        this.head.addChild(this.headware);
+        this.body.addChild(this.armRight);
+        this.body.addChild(this.armLeft);
+        this.body.addChild(this.legRight);
+        this.body.addChild(this.legLeft);
+        this.animator = ModelAnimator.create();
         this.updateDefaultPose();
     }
 
@@ -81,7 +81,7 @@ public class ModelDreadThrall extends ModelDreadBase<EntityDreadThrall> {
     @Override
     public void setAngles(EntityDreadThrall entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        this.flap(body, 0.5F, 0.15F, false, 1, 0F, limbSwing, limbSwingAmount);
+        this.flap(this.body, 0.5F, 0.15F, false, 1, 0F, limbSwing, limbSwingAmount);
     }
 
     @Override

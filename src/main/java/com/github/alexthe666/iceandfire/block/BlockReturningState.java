@@ -65,7 +65,7 @@ public class BlockReturningState extends Block {
             if (!worldIn.isAreaLoaded(pos, 3))
                 return;
             if (state.get(REVERTS) && rand.nextInt(3) == 0) {
-                worldIn.setBlockState(pos, returnState);
+                worldIn.setBlockState(pos, this.returnState);
             }
         }
     }

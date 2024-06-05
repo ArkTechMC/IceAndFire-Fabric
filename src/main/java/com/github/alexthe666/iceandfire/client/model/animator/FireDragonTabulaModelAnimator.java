@@ -10,9 +10,9 @@ public class FireDragonTabulaModelAnimator extends DragonTabulaModelAnimator<Ent
 
     public FireDragonTabulaModelAnimator() {
         super(DragonAnimationsLibrary.getModel(EnumDragonPoses.GROUND_POSE, EnumDragonModelTypes.FIRE_DRAGON_MODEL));
-        this.walkPoses = new TabulaModel[]{getModel(EnumDragonPoses.WALK1), getModel(EnumDragonPoses.WALK2), getModel(EnumDragonPoses.WALK3), getModel(EnumDragonPoses.WALK4)};
-        this.flyPoses = new TabulaModel[]{getModel(EnumDragonPoses.FLIGHT1), getModel(EnumDragonPoses.FLIGHT2), getModel(EnumDragonPoses.FLIGHT3), getModel(EnumDragonPoses.FLIGHT4), getModel(EnumDragonPoses.FLIGHT5), getModel(EnumDragonPoses.FLIGHT6)};
-        this.swimPoses = new TabulaModel[]{getModel(EnumDragonPoses.WALK1), getModel(EnumDragonPoses.WALK2), getModel(EnumDragonPoses.WALK3), getModel(EnumDragonPoses.WALK4)}; //TODO Proper swim animations
+        this.walkPoses = new TabulaModel[]{this.getModel(EnumDragonPoses.WALK1), this.getModel(EnumDragonPoses.WALK2), this.getModel(EnumDragonPoses.WALK3), this.getModel(EnumDragonPoses.WALK4)};
+        this.flyPoses = new TabulaModel[]{this.getModel(EnumDragonPoses.FLIGHT1), this.getModel(EnumDragonPoses.FLIGHT2), this.getModel(EnumDragonPoses.FLIGHT3), this.getModel(EnumDragonPoses.FLIGHT4), this.getModel(EnumDragonPoses.FLIGHT5), this.getModel(EnumDragonPoses.FLIGHT6)};
+        this.swimPoses = new TabulaModel[]{this.getModel(EnumDragonPoses.WALK1), this.getModel(EnumDragonPoses.WALK2), this.getModel(EnumDragonPoses.WALK3), this.getModel(EnumDragonPoses.WALK4)}; //TODO Proper swim animations
     }
 
     @Override

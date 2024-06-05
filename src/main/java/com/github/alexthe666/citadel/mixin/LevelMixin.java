@@ -21,7 +21,7 @@ public class LevelMixin {
 
     @Inject(at = @At("HEAD"), cancellable = true, method = "tickEntity")
     private void citadel_guardEntityTick(Consumer<Entity> ticker, Entity entity, CallbackInfo ci) {
-        if (!isClient) {
+        if (!this.isClient) {
             if (!Citadel.PROXY.canEntityTickServer((World) (Object) this, entity)) {
                 ci.cancel();
             }

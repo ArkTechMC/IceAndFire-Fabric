@@ -12,11 +12,11 @@ public class HippocampusAIWander extends WanderAroundGoal {
 
     @Override
     public boolean canStart() {
-        return !(mob instanceof TameableEntity && ((TameableEntity) mob).isSitting()) && !this.mob.isTouchingWater() && super.canStart();
+        return !(this.mob instanceof TameableEntity && ((TameableEntity) this.mob).isSitting()) && !this.mob.isTouchingWater() && super.canStart();
     }
 
     @Override
     public boolean shouldContinue() {
-        return !(mob instanceof TameableEntity && ((TameableEntity) mob).isSitting()) && !this.mob.isTouchingWater() && super.shouldContinue();
+        return !(this.mob instanceof TameableEntity && ((TameableEntity) this.mob).isSitting()) && !this.mob.isTouchingWater() && super.shouldContinue();
     }
 }

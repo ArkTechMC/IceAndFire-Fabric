@@ -16,7 +16,7 @@ public class EventRenderSplashText extends Event {
     }
 
     public String getSplashText() {
-        return splashText;
+        return this.splashText;
     }
 
     public void setSplashText(String splashText) {
@@ -24,11 +24,11 @@ public class EventRenderSplashText extends Event {
     }
 
     public float getPartialTicks() {
-        return partialTicks;
+        return this.partialTicks;
     }
 
     public DrawContext getGuiGraphics() {
-        return guiGraphics;
+        return this.guiGraphics;
     }
 
     @Event.HasResult
@@ -42,7 +42,7 @@ public class EventRenderSplashText extends Event {
         }
 
         public int getSplashTextColor() {
-            return splashTextColor;
+            return this.splashTextColor;
         }
 
         public void setSplashTextColor(int splashTextColor) {

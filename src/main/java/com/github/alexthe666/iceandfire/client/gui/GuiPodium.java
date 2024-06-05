@@ -21,7 +21,7 @@ public class GuiPodium extends HandledScreen<ContainerPodium> {
 
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int x, int y) {
-        if (handler != null) {
+        if (this.handler != null) {
             String s = I18n.translate("block.iceandfire.podium");
             pGuiGraphics.drawText(this.textRenderer, s, this.backgroundWidth / 2 - this.client.textRenderer.getWidth(s) / 2, 6, 4210752, false);
         }

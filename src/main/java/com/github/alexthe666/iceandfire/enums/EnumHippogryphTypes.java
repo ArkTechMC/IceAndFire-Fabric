@@ -28,8 +28,8 @@ public enum EnumHippogryphTypes {
 
     EnumHippogryphTypes(boolean developer) {
         this.developer = developer;
-        this.TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/hippogryph/" + name().toLowerCase(Locale.ROOT) + ".png");
-        this.TEXTURE_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippogryph/" + name().toLowerCase(Locale.ROOT) + "_blink.png");
+        this.TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + ".png");
+        this.TEXTURE_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + "_blink.png");
 
     }
 

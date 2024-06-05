@@ -93,7 +93,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     public EntityMyrmexBase(EntityType<? extends EntityMyrmexBase> t, World worldIn) {
         super(t, worldIn);
-        this.navigation = createNavigator(worldIn, AdvancedPathNavigate.MovementType.CLIMBING);
+        this.navigation = this.createNavigator(worldIn, AdvancedPathNavigate.MovementType.CLIMBING);
     }
 
     private static boolean isJungleBiome(World world, BlockPos position) {
@@ -203,15 +203,15 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     protected @NotNull EntityNavigation createNavigation(@NotNull World worldIn) {
-        return createNavigator(worldIn, AdvancedPathNavigate.MovementType.CLIMBING);
+        return this.createNavigator(worldIn, AdvancedPathNavigate.MovementType.CLIMBING);
     }
 
     protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type) {
-        return createNavigator(worldIn, type, getWidth(), getHeight());
+        return this.createNavigator(worldIn, type, this.getWidth(), this.getHeight());
     }
 
     protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type, float width, float height) {
-        AdvancedPathNavigate newNavigator = new AdvancedPathNavigate(this, getWorld(), type, width, height);
+        AdvancedPathNavigate newNavigator = new AdvancedPathNavigate(this, this.getWorld(), type, width, height);
         this.navigation = newNavigator;
         newNavigator.setCanSwim(true);
         newNavigator.getNodeMaker().setCanOpenDoors(true);
@@ -230,7 +230,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     public void tick() {
         super.tick();
         this.setStepHeight(1);
-        if (getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
+        if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
             this.setTarget(null);
         }
         if (this.getGrowthStage() < 2 && this.getVehicle() != null && this.getVehicle() instanceof EntityMyrmexBase) {
@@ -244,10 +244,10 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
             this.setBesideClimbableBlock(this.horizontalCollision && (this.isOnGround() || !this.verticalCollision));
         }
         if (this.getGrowthStage() < 2) {
-            growthTicks++;
-            if (growthTicks == IafConfig.myrmexLarvaTicks) {
+            this.growthTicks++;
+            if (this.growthTicks == IafConfig.myrmexLarvaTicks) {
                 this.setGrowthStage(this.getGrowthStage() + 1);
-                growthTicks = 0;
+                this.growthTicks = 0;
             }
         }
         if (!this.getWorld().isClient && this.getGrowthStage() < 2 && this.getRandom().nextInt(150) == 0 && this.getAnimation() == NO_ANIMATION) {
@@ -258,7 +258,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
             this.setTarget(null);
         }
         if (this.getTarget() != null && (haveSameHive(this, this.getTarget()) ||
-                this.getTarget() instanceof TameableEntity && !canAttackTamable((TameableEntity) this.getTarget()) ||
+                this.getTarget() instanceof TameableEntity && !this.canAttackTamable((TameableEntity) this.getTarget()) ||
                 this.getTarget() instanceof PlayerEntity && this.getHive() != null && !this.getHive().isPlayerReputationLowEnoughToFight(this.getTarget().getUuid()))) {
             this.setTarget(null);
         }
@@ -276,7 +276,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putInt("GrowthStage", this.getGrowthStage());
-        tag.putInt("GrowthTicks", growthTicks);
+        tag.putInt("GrowthTicks", this.growthTicks);
         tag.putBoolean("Variant", this.isJungle());
         if (this.getHive() != null) {
             tag.putUuid("HiveUUID", this.getHive().hiveUUID);
@@ -304,7 +304,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         this.growthTicks = tag.getInt("GrowthTicks");
         this.setJungleVariant(tag.getBoolean("Variant"));
         if (tag.containsUuid("HiveUUID")) {
-            this.setHive(MyrmexWorldData.get(getWorld()).getHiveFromUUID(tag.getUuid("HiveUUID")));
+            this.setHive(MyrmexWorldData.get(this.getWorld()).getHiveFromUUID(tag.getUuid("HiveUUID")));
         }
         if (tag.contains("Offers", 10)) {
             this.offers = new TradeOfferList(tag.getCompound("Offers"));
@@ -343,7 +343,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public int getWaitTicks() {
-        return waitTicks;
+        return this.waitTicks;
     }
 
     public void setWaitTicks(int waitTicks) {
@@ -396,22 +396,22 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override
@@ -455,7 +455,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     @Override
     public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
-        if (!shouldHaveNormalAI()) {
+        if (!this.shouldHaveNormalAI()) {
             return ActionResult.PASS;
         }
         boolean flag2 = itemstack.getItem() == IafItemRegistry.MYRMEX_JUNGLE_STAFF.get() || itemstack.getItem() == IafItemRegistry.MYRMEX_DESERT_STAFF.get();
@@ -492,7 +492,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
             return;
         }
         UUID staffUUID = itemstack.getNbt().containsUuid("HiveUUID") ? itemstack.getNbt().getUuid("HiveUUID") : null;
-        if (getWorld().isClient) {
+        if (this.getWorld().isClient) {
             return;
         }
         if (!player.isCreative()) {
@@ -525,11 +525,11 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     @Override
     public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setHive(MyrmexWorldData.get(getWorld()).getNearestHive(this.getBlockPos(), 400));
+        this.setHive(MyrmexWorldData.get(this.getWorld()).getNearestHive(this.getBlockPos(), 400));
         if (this.getHive() != null) {
-            this.setJungleVariant(isJungleBiome(getWorld(), this.getHive().getCenter()));
+            this.setJungleVariant(isJungleBiome(this.getWorld(), this.getHive().getCenter()));
         } else {
-            this.setJungleVariant(random.nextBoolean());
+            this.setJungleVariant(this.random.nextBoolean());
         }
         return spawnDataIn;
     }
@@ -549,22 +549,22 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     public Identifier getTexture() {
         if (this.getGrowthStage() == 0) {
-            return isJungle() ? TEXTURE_JUNGLE_LARVA : TEXTURE_DESERT_LARVA;
+            return this.isJungle() ? TEXTURE_JUNGLE_LARVA : TEXTURE_DESERT_LARVA;
         } else if (this.getGrowthStage() == 1) {
-            return isJungle() ? TEXTURE_JUNGLE_PUPA : TEXTURE_DESERT_PUPA;
+            return this.isJungle() ? TEXTURE_JUNGLE_PUPA : TEXTURE_DESERT_PUPA;
         } else {
-            return getAdultTexture();
+            return this.getAdultTexture();
         }
     }
 
     public MyrmexHive getHive() {
-        return hive;
+        return this.hive;
     }
 
     public void setHive(MyrmexHive newHive) {
-        hive = newHive;
-        if (hive != null) {
-            hive.addMyrmex(this);
+        this.hive = newHive;
+        if (this.hive != null) {
+            this.hive.addMyrmex(this);
         }
     }
 
@@ -576,13 +576,13 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public boolean canSeeSky() {
-        return getWorld().isSkyVisibleAllowingSea(this.getBlockPos());
+        return this.getWorld().isSkyVisibleAllowingSea(this.getBlockPos());
     }
 
     public boolean isOnResin() {
         int d0 = this.getBlockY() - 1;
         BlockPos blockpos = new BlockPos(this.getBlockX(), d0, this.getBlockZ());
-        while (getWorld().isAir(blockpos) && blockpos.getY() > 1) {
+        while (this.getWorld().isAir(blockpos) && blockpos.getY() > 1) {
             blockpos = blockpos.down();
         }
         BlockState BlockState = this.getWorld().getBlockState(blockpos);
@@ -590,20 +590,20 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public boolean isInNursery() {
-        if (getHive() != null && getHive().getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos()) != null) {
+        if (this.getHive() != null && this.getHive().getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && this.getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos()) != null) {
             return false;
         }
-        if (getHive() != null) {
-            BlockPos nursery = getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos());
+        if (this.getHive() != null) {
+            BlockPos nursery = this.getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos());
             return Math.sqrt(this.squaredDistanceTo(nursery.getX(), nursery.getY(), nursery.getZ())) < 45;
         }
         return false;
     }
 
     public boolean isInHive() {
-        if (getHive() != null) {
-            for (BlockPos pos : getHive().getAllRooms()) {
-                if (isCloseEnoughToTarget(MyrmexHive.getGroundedPos(getWorld(), pos), 50))
+        if (this.getHive() != null) {
+            for (BlockPos pos : this.getHive().getAllRooms()) {
+                if (this.isCloseEnoughToTarget(MyrmexHive.getGroundedPos(this.getWorld(), pos), 50))
                     return true;
             }
         }
@@ -623,7 +623,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         if (this.getGrowthStage() < 2) {
             return 1;
         }
-        return getCasteImportance();
+        return this.getCasteImportance();
     }
 
     public abstract int getCasteImportance();
@@ -686,7 +686,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public float getMyrmexPitch() {
-        return getWidth();
+        return this.getWidth();
     }
 
     public boolean shouldHaveNormalAI() {
@@ -842,8 +842,8 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     protected abstract TradeOffers.Factory[] getLevel2Trades();
 
     protected void populateTradeData() {
-        TradeOffers.Factory[] level1 = getLevel1Trades();
-        TradeOffers.Factory[] level2 = getLevel2Trades();
+        TradeOffers.Factory[] level1 = this.getLevel1Trades();
+        TradeOffers.Factory[] level2 = this.getLevel2Trades();
         if (level1 != null && level2 != null) {
             TradeOfferList merchantoffers = this.getOffers();
             this.addTrades(merchantoffers, level1, 5);
@@ -898,12 +898,12 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     public float getXZNavSize() {
-        return getWidth() / 2;
+        return this.getWidth() / 2;
     }
 
     @Override
     public int getYNavSize() {
-        return (int) getHeight() / 2;
+        return (int) this.getHeight() / 2;
     }
 
     @Override

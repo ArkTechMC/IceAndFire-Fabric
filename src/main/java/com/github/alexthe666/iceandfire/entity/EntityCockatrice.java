@@ -79,8 +79,8 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         super(type, worldIn);
         // Fix for some mods causing weird crashes
         this.lookControl = new IAFLookHelper(this);
-        aiStare = new CockatriceAIStareAttack(this, 1.0D, 0, 15.0F);
-        aiMelee = new EntityAIAttackMeleeNoCooldown(this, 1.5D, false);
+        this.aiStare = new CockatriceAIStareAttack(this, 1.0D, 0, 15.0F);
+        this.aiMelee = new EntityAIAttackMeleeNoCooldown(this, 1.5D, false);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -147,7 +147,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     public boolean hasPositionTarget() {
         return this.hasHomePosition &&
                 this.getCommand() == 3 &&
-                getHomeDimensionName().equals(DragonUtils.getDimensionName(this.getWorld()))
+                this.getHomeDimensionName().equals(DragonUtils.getDimensionName(this.getWorld()))
                 || super.hasPositionTarget();
     }
 
@@ -158,7 +158,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public @NotNull BlockPos getPositionTarget() {
-        return this.hasHomePosition && this.getCommand() == 3 && homePos != null ? homePos.getPosition() : super.getPositionTarget();
+        return this.hasHomePosition && this.getCommand() == 3 && this.homePos != null ? this.homePos.getPosition() : super.getPositionTarget();
     }
 
     @Override
@@ -167,7 +167,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     public String getHomeDimensionName() {
-        return this.homePos == null ? "" : homePos.getDimension();
+        return this.homePos == null ? "" : this.homePos.getDimension();
     }
 
     @Override
@@ -208,15 +208,15 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     private void switchAI(boolean melee) {
         if (melee) {
-            this.goalSelector.remove(aiStare);
-            if (aiMelee != null) {
-                this.goalSelector.add(2, aiMelee);
+            this.goalSelector.remove(this.aiStare);
+            if (this.aiMelee != null) {
+                this.goalSelector.add(2, this.aiMelee);
             }
             this.isMeleeMode = true;
         } else {
-            this.goalSelector.remove(aiMelee);
-            if (aiStare != null) {
-                this.goalSelector.add(2, aiStare);
+            this.goalSelector.remove(this.aiMelee);
+            if (this.aiStare != null) {
+                this.goalSelector.add(2, this.aiStare);
             }
             this.isMeleeMode = false;
         }
@@ -335,8 +335,8 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         tag.putInt("TamingPlayer", this.dataTracker.get(TAMING_PLAYER).intValue());
         tag.putInt("Command", this.getCommand());
         tag.putBoolean("HasHomePosition", this.hasHomePosition);
-        if (homePos != null && this.hasHomePosition) {
-            homePos.write(tag);
+        if (this.homePos != null && this.hasHomePosition) {
+            this.homePos.write(tag);
         }
     }
 
@@ -349,26 +349,26 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         this.setTamingPlayer(tag.getInt("TamingPlayer"));
         this.setCommand(tag.getInt("Command"));
         this.hasHomePosition = tag.getBoolean("HasHomePosition");
-        if (hasHomePosition && tag.getInt("HomeAreaX") != 0 && tag.getInt("HomeAreaY") != 0 && tag.getInt("HomeAreaZ") != 0) {
-            homePos = new HomePosition(tag, this.getWorld());
+        if (this.hasHomePosition && tag.getInt("HomeAreaX") != 0 && tag.getInt("HomeAreaY") != 0 && tag.getInt("HomeAreaZ") != 0) {
+            this.homePos = new HomePosition(tag, this.getWorld());
         }
         this.setConfigurableAttributes();
     }
 
     @Override
     public boolean isSitting() {
-        if (getWorld().isClient) {
+        if (this.getWorld().isClient) {
             boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
             this.isSitting = isSitting;
             return isSitting;
         }
-        return isSitting;
+        return this.isSitting;
     }
 
     @Override
     public void setSitting(boolean sitting) {
         super.setSwimming(sitting);
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             this.isSitting = sitting;
         }
     }
@@ -410,15 +410,15 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     public boolean isStaring() {
-        if (getWorld().isClient) {
+        if (this.getWorld().isClient) {
             return this.isStaring = this.dataTracker.get(STARING).booleanValue();
         }
-        return isStaring;
+        return this.isStaring;
     }
 
     public void setStaring(boolean staring) {
         this.dataTracker.set(STARING, staring);
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             this.isStaring = staring;
         }
     }
@@ -454,7 +454,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
                         BlockPos pos = this.getBlockPos();
                         this.homePos = new HomePosition(pos, this.getWorld());
                         this.hasHomePosition = true;
-                        player.sendMessage(Text.translatable("cockatrice.command.new_home", pos.getX(), pos.getY(), pos.getZ(), homePos.getDimension()), true);
+                        player.sendMessage(Text.translatable("cockatrice.command.new_home", pos.getX(), pos.getY(), pos.getZ(), this.homePos.getDimension()), true);
                         return ActionResult.SUCCESS;
                     }
                 } else {
@@ -488,7 +488,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         if (attackTarget != null && this.isTeammate(attackTarget)) {
             this.setTarget(null);
         }
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             if (attackTarget == null || !attackTarget.isAlive()) {
                 this.setTargetedEntity(0);
             } else if (this.isStaring() || this.shouldStareAttack(attackTarget)) {
@@ -521,33 +521,33 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
                 }
             }
         }
-        boolean sitting = isSitting();
-        if (sitting && sitProgress < 20.0F) {
-            sitProgress += 0.5F;
-        } else if (!sitting && sitProgress > 0.0F) {
-            sitProgress -= 0.5F;
+        boolean sitting = this.isSitting();
+        if (sitting && this.sitProgress < 20.0F) {
+            this.sitProgress += 0.5F;
+        } else if (!sitting && this.sitProgress > 0.0F) {
+            this.sitProgress -= 0.5F;
         }
 
-        boolean staring = isStaring();
-        if (staring && stareProgress < 20.0F) {
-            stareProgress += 0.5F;
-        } else if (!staring && stareProgress > 0.0F) {
-            stareProgress -= 0.5F;
+        boolean staring = this.isStaring();
+        if (staring && this.stareProgress < 20.0F) {
+            this.stareProgress += 0.5F;
+        } else if (!staring && this.stareProgress > 0.0F) {
+            this.stareProgress -= 0.5F;
         }
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             if (staring) {
-                ticksStaring++;
+                this.ticksStaring++;
             } else {
-                ticksStaring = 0;
+                this.ticksStaring = 0;
             }
         }
-        if (!getWorld().isClient && staring && (attackTarget == null || this.shouldMelee())) {
+        if (!this.getWorld().isClient && staring && (attackTarget == null || this.shouldMelee())) {
             this.setStaring(false);
         }
         if (attackTarget != null) {
             this.getLookControl().lookAt(attackTarget.getX(), attackTarget.getY() + (double) attackTarget.getStandingEyeHeight(), attackTarget.getZ(), (float) this.getMaxHeadRotation(), (float) this.getMaxLookPitchChange());
-            if (!shouldMelee() && attackTarget instanceof MobEntity) {
-                forcePreyToLook((MobEntity) attackTarget);
+            if (!this.shouldMelee() && attackTarget instanceof MobEntity) {
+                this.forcePreyToLook((MobEntity) attackTarget);
             }
         }
         boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget != null && attackTarget.hasStatusEffect(StatusEffects.BLINDNESS);
@@ -555,7 +555,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             this.setStaring(false);
         }
         if (!this.getWorld().isClient && !blindness && attackTarget != null && EntityGorgon.isEntityLookingAt(this, attackTarget, VIEW_RADIUS) && EntityGorgon.isEntityLookingAt(attackTarget, this, VIEW_RADIUS) && !EntityGorgon.isBlindfolded(attackTarget)) {
-            if (!shouldMelee()) {
+            if (!this.shouldMelee()) {
                 if (!this.isStaring()) {
                     this.setStaring(true);
                 } else {
@@ -592,11 +592,11 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             this.setAnimation(ANIMATION_WATTLESHAKE);
         }
         if (!this.getWorld().isClient) {
-            if (shouldMelee() && !this.isMeleeMode) {
-                switchAI(true);
+            if (this.shouldMelee() && !this.isMeleeMode) {
+                this.switchAI(true);
             }
-            if (!shouldMelee() && this.isMeleeMode) {
-                switchAI(false);
+            if (!this.shouldMelee() && this.isMeleeMode) {
+                this.switchAI(false);
             }
         }
 
@@ -636,7 +636,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             return 0;
         }
         float dist = IafConfig.cockatriceChickenSearchLength;
-        List<EntityCockatrice> list = getWorld().getNonSpectatingEntities(EntityCockatrice.class, this.getBoundingBox().stretch(dist, dist, dist));
+        List<EntityCockatrice> list = this.getWorld().getNonSpectatingEntities(EntityCockatrice.class, this.getBoundingBox().stretch(dist, dist, dist));
         int i = 0;
         for (EntityCockatrice cockatrice : list) {
             if (!cockatrice.isPartOf(this) && cockatrice.getTarget() != null && cockatrice.getTarget() == this.getTarget()) {
@@ -700,22 +700,22 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override
@@ -782,5 +782,10 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     @Override
     public boolean canImmediatelyDespawn(double distanceToClosestPlayer) {
         return false;
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
     }
 }

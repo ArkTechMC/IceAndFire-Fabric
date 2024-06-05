@@ -23,7 +23,7 @@ public class MyrmexAIEscortEntity extends Goal {
     @Override
     public void tick() {
         if (this.myrmex.guardingEntity != null && (this.myrmex.distanceTo(this.myrmex.guardingEntity) > 30 || this.myrmex.getNavigation().isIdle())) {
-            this.myrmex.getNavigation().startMovingTo(this.myrmex.guardingEntity, movementSpeed);
+            this.myrmex.getNavigation().startMovingTo(this.myrmex.guardingEntity, this.movementSpeed);
         }
     }
 

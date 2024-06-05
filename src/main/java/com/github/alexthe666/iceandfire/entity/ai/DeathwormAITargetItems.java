@@ -79,7 +79,7 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
 
     @Override
     public boolean shouldContinue() {
-        Entity itemTarget = targetEntity;
+        Entity itemTarget = this.targetEntity;
 
         if (itemTarget == null) {
             return false;
@@ -111,11 +111,11 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
             if (this.targetEntity.getOwner() != null)
                 thrower = this.targetEntity.getWorld().getPlayerByUuid(this.targetEntity.getOwner().getUuid());
             deathWorm.setExplosive(true, thrower);
-            stop();
+            this.stop();
         }
 
-        if (worm.getNavigation().isIdle()) {
-            worm.getNavigation().startMovingTo(targetEntity, 1.0F);
+        if (this.worm.getNavigation().isIdle()) {
+            this.worm.getNavigation().startMovingTo(this.targetEntity, 1.0F);
         }
 
     }

@@ -43,20 +43,20 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
             return false;
         }
         if (!((EntityHippogryph) this.mob).canMove()) {
-            list = IAFMath.emptyItemEntityList;
+            this.list = IAFMath.emptyItemEntityList;
             return false;
         }
 
-        return updateList();
+        return this.updateList();
     }
 
     private boolean updateList() {
-        list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
-        if (list.isEmpty()) {
+        this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
+        if (this.list.isEmpty()) {
             return false;
         } else {
-            list.sort(this.theNearestAttackableTargetSorter);
-            this.targetEntity = list.get(0);
+            this.list.sort(this.theNearestAttackableTargetSorter);
+            this.targetEntity = this.list.get(0);
             return true;
         }
     }
@@ -76,7 +76,7 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
         super.tick();
         if (this.targetEntity == null || !this.targetEntity.isAlive()) {
             this.stop();
-        } else if (this.getAttackReachSqr(targetEntity) >= this.mob.squaredDistanceTo(targetEntity)) {
+        } else if (this.getAttackReachSqr(this.targetEntity) >= this.mob.squaredDistanceTo(this.targetEntity)) {
             EntityHippogryph hippo = (EntityHippogryph) this.mob;
             this.targetEntity.getStack().decrement(1);
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
@@ -91,9 +91,9 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
                     hippo.setSitting(true);
                 }
             }
-            stop();
+            this.stop();
         } else {
-            updateList();
+            this.updateList();
         }
     }
 

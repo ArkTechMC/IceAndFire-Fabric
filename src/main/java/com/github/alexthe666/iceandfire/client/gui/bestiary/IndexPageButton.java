@@ -27,7 +27,7 @@ public class IndexPageButton extends ButtonWidget {
             RenderSystem.enableBlend();
             RenderSystem.enableDepthTest();
             TextRenderer font = IafConfig.useVanillaFont ? MinecraftClient.getInstance().textRenderer : (TextRenderer) IceAndFire.PROXY.getFontRenderer();
-            boolean flag = isSelected();
+            boolean flag = this.isSelected();
             pGuiGraphics.drawTexture(new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/widgets.png"), this.getX(), this.getY(), 0, flag ? 32 : 0, this.width, this.height);
             pGuiGraphics.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             int i = -1;

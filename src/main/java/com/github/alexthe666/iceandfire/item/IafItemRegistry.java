@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.item;
 
-import DeferredRegister;
 import com.github.alexthe666.citadel.server.item.CustomArmorMaterial;
 import com.github.alexthe666.citadel.server.item.CustomToolMaterial;
 import com.github.alexthe666.iceandfire.IafConfig;
@@ -9,25 +8,19 @@ import com.github.alexthe666.iceandfire.datagen.tags.BannerPatternTagGenerator;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.enums.*;
+import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundEvents;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.*;
 
 import java.util.function.Supplier;
 
 import static com.github.alexthe666.iceandfire.item.DragonSteelTier.*;
 
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IafItemRegistry {
     public static CustomArmorMaterial SILVER_ARMOR_MATERIAL = new IafArmorMaterial("silver", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0);
     public static CustomArmorMaterial COPPER_ARMOR_MATERIAL = new IafArmorMaterial("copper", 10, new int[]{1, 3, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
@@ -363,8 +356,7 @@ public class IafItemRegistry {
         return defaultBuilder().maxCount(1);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void registerItems(NewRegistryEvent event) {
+    public static void registerItems() {
         //spawn Eggs
         //@formatter:off
         registerItem("spawn_egg_fire_dragon", () -> new SpawnEggItem(IafEntityRegistry.FIRE_DRAGON.get(), 0X340000, 0XA52929, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
@@ -409,19 +401,8 @@ public class IafItemRegistry {
         return itemRegistryObject;
     }
 
-
-    /**
-     Set repair materials etc.
-     Due to the priority it should run after {@link DeferredRegister#addEntries( RegisterEvent)}
-     (and therefor not cause issues when accessing the suppliers)
-    */
-    @SubscribeEvent( priority = EventPriority.LOW)
-    public static void setRepairMaterials(final RegisterEvent event) {
-        if (event.getRegistryKey() != RegistryKeys.ITEM) {
-            return;
-        }
-
-        IafItemRegistry.BLINDFOLD_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(Tags.Items.STRING));
+    public static void setRepairMaterials() {
+        IafItemRegistry.BLINDFOLD_ARMOR_MATERIAL.setRepairMaterial(Ingredient.fromTag(Tags.Items.STRING));
         IafItemRegistry.SILVER_ARMOR_MATERIAL.setRepairMaterial(Ingredient.fromTag(IafItemTags.INGOTS_SILVER));
         IafItemRegistry.SILVER_TOOL_MATERIAL.setRepairMaterial(Ingredient.fromTag(IafItemTags.INGOTS_SILVER));
         IafItemRegistry.DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItemRegistry.DRAGON_BONE.get()));

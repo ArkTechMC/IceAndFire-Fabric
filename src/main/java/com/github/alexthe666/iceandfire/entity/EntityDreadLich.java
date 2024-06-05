@@ -113,7 +113,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     public void tickMovement() {
         super.tickMovement();
         if (this.getAnimation() == ANIMATION_SPAWN && this.getAnimationTick() < 30) {
-            BlockState belowBlock = getWorld().getBlockState(this.getBlockPos().down());
+            BlockState belowBlock = this.getWorld().getBlockState(this.getBlockPos().down());
             if (belowBlock.getBlock() != Blocks.AIR) {
                 for (int i = 0; i < 5; i++) {
                     this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, belowBlock), this.getX() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), this.getBoundingBox().minY, this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D, this.random.nextGaussian() * 0.02D);
@@ -132,11 +132,11 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             IceAndFire.PROXY.spawnParticle(EnumParticles.Dread_Torch, this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, d0, d1, d2);
             IceAndFire.PROXY.spawnParticle(EnumParticles.Dread_Torch, this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, d0, d1, d2);
         }
-        if (fireCooldown > 0) {
-            fireCooldown--;
+        if (this.fireCooldown > 0) {
+            this.fireCooldown--;
         }
-        if (minionCooldown > 0) {
-            minionCooldown--;
+        if (this.minionCooldown > 0) {
+            this.minionCooldown--;
         }
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
@@ -152,19 +152,19 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
         this.initEquipment(worldIn.getRandom(), difficultyIn);
-        this.setVariant(random.nextInt(5));
+        this.setVariant(this.random.nextInt(5));
         this.setCombatTask();
         return data;
     }
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
@@ -200,12 +200,12 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override
@@ -255,16 +255,16 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     @Override
     public void attack(@NotNull LivingEntity target, float distanceFactor) {
         boolean flag = false;
-        if (this.getMinionCount() < 5 && minionCooldown == 0) {
+        if (this.getMinionCount() < 5 && this.minionCooldown == 0) {
             this.setAnimation(ANIMATION_SUMMON);
             this.playSound(IafSoundRegistry.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
-            MobEntity minion = getRandomNewMinion();
-            int x = (int) (this.getX()) - 5 + random.nextInt(10);
-            int z = (int) (this.getZ()) - 5 + random.nextInt(10);
-            double y = getHeightFromXZ(x, z);
+            MobEntity minion = this.getRandomNewMinion();
+            int x = (int) (this.getX()) - 5 + this.random.nextInt(10);
+            int z = (int) (this.getZ()) - 5 + this.random.nextInt(10);
+            double y = this.getHeightFromXZ(x, z);
             minion.refreshPositionAndAngles(x + 0.5D, y, z + 0.5D, this.getYaw(), this.getPitch());
             minion.setTarget(target);
-            World currentLevel = getWorld();
+            World currentLevel = this.getWorld();
             if (currentLevel instanceof ServerWorldAccess) {
                 minion.initialize((ServerWorldAccess) currentLevel, currentLevel.getLocalDifficulty(this.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);
             }
@@ -274,14 +274,14 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             if (!currentLevel.isClient) {
                 currentLevel.spawnEntity(minion);
             }
-            minionCooldown = 100;
+            this.minionCooldown = 100;
             this.setMinionCount(this.getMinionCount() + 1);
             flag = true;
         }
-        if (fireCooldown == 0 && !flag) {
+        if (this.fireCooldown == 0 && !flag) {
             this.swingHand(Hand.MAIN_HAND);
             this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, this.getSoundVolume(), this.getSoundPitch());
-            EntityDreadLichSkull skull = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL.get(), getWorld(), this,
+            EntityDreadLichSkull skull = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL.get(), this.getWorld(), this,
                     6);
             double d0 = target.getX() - this.getX();
             double d1 = target.getBoundingBox().minY + target.getHeight() * 2 - skull.getY();
@@ -289,26 +289,26 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             double d3 = Math.sqrt((float) (d0 * d0 + d2 * d2));
             skull.setVelocity(d0, d1 + d3 * 0.20000000298023224D, d2, 0.0F, 14 - this.getWorld().getDifficulty().getId() * 4);
             this.getWorld().spawnEntity(skull);
-            fireCooldown = 100;
+            this.fireCooldown = 100;
         }
     }
 
     private MobEntity getRandomNewMinion() {
-        float chance = random.nextFloat();
+        float chance = this.random.nextFloat();
         if (chance > 0.5F) {
-            return new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL.get(), getWorld());
+            return new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL.get(), this.getWorld());
         } else if (chance > 0.35F) {
-            return new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL.get(), getWorld());
+            return new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL.get(), this.getWorld());
         } else if (chance > 0.15F) {
-            return new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST.get(), getWorld());
+            return new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST.get(), this.getWorld());
         } else {
-            return new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER.get(), getWorld());
+            return new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER.get(), this.getWorld());
         }
     }
 
     private double getHeightFromXZ(int x, int z) {
         BlockPos thisPos = new BlockPos(x, (int) (this.getY() + 7), z);
-        while (getWorld().isAir(thisPos) && thisPos.getY() > 2) {
+        while (this.getWorld().isAir(thisPos) && thisPos.getY() > 2) {
             thisPos = thisPos.down();
         }
         double height = thisPos.getY() + 1.0D;

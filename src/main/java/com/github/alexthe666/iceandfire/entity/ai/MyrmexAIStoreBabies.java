@@ -27,14 +27,14 @@ public class MyrmexAIStoreBabies extends Goal {
         if (village == null) {
             return false;
         } else {
-            nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRandom(), this.myrmex.getBlockPos())).up();
+            this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRandom(), this.myrmex.getBlockPos())).up();
             return true;
         }
     }
 
     @Override
     public boolean shouldContinue() {
-        return this.myrmex.holdingBaby() && !this.myrmex.getNavigation().isIdle() && this.myrmex.squaredDistanceTo(nextRoom.getX() + 0.5D, nextRoom.getY() + 0.5D, nextRoom.getZ() + 0.5D) > 3 && this.myrmex.shouldEnterHive();
+        return this.myrmex.holdingBaby() && !this.myrmex.getNavigation().isIdle() && this.myrmex.squaredDistanceTo(this.nextRoom.getX() + 0.5D, this.nextRoom.getY() + 0.5D, this.nextRoom.getZ() + 0.5D) > 3 && this.myrmex.shouldEnterHive();
     }
 
     @Override
@@ -44,11 +44,11 @@ public class MyrmexAIStoreBabies extends Goal {
 
     @Override
     public void tick() {
-        if (nextRoom != null && this.myrmex.squaredDistanceTo(nextRoom.getX() + 0.5D, nextRoom.getY() + 0.5D, nextRoom.getZ() + 0.5D) < 4 && this.myrmex.holdingBaby()) {
+        if (this.nextRoom != null && this.myrmex.squaredDistanceTo(this.nextRoom.getX() + 0.5D, this.nextRoom.getY() + 0.5D, this.nextRoom.getZ() + 0.5D) < 4 && this.myrmex.holdingBaby()) {
             if (!this.myrmex.getPassengerList().isEmpty()) {
                 for (Entity entity : this.myrmex.getPassengerList()) {
                     entity.stopRiding();
-                    stop();
+                    this.stop();
                     entity.copyPositionAndRotation(this.myrmex);
                 }
             }
@@ -57,7 +57,7 @@ public class MyrmexAIStoreBabies extends Goal {
 
     @Override
     public void stop() {
-        nextRoom = BlockPos.ORIGIN;
+        this.nextRoom = BlockPos.ORIGIN;
         this.myrmex.getNavigation().stop();
     }
 

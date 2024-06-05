@@ -17,7 +17,7 @@ public class ItemRenderData {
     }
 
     public String getItem() {
-        return item;
+        return this.item;
     }
 
     public void setItem(String item) {
@@ -25,19 +25,19 @@ public class ItemRenderData {
     }
 
     public String getItemTag() {
-        return item_tag;
+        return this.item_tag;
     }
 
     public void setItemTag(String item) {
-        this.item_tag = item_tag;
+        this.item_tag = this.item_tag;
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -45,7 +45,7 @@ public class ItemRenderData {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -53,7 +53,7 @@ public class ItemRenderData {
     }
 
     public double getScale() {
-        return scale;
+        return this.scale;
     }
 
     public void setScale(double scale) {

@@ -9,8 +9,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -22,8 +20,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -48,10 +44,6 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         this.setDamage(dmg);
     }
 
-    public EntityGhostSword(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.GHOST_SWORD.get(), worldIn);
-    }
-
     @Override
     public boolean isTouchingWater() {
         return false;
@@ -65,7 +57,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        noClip = true;
+        this.noClip = true;
         float sqrt = MathHelper.sqrt((float) (this.getVelocity().x * this.getVelocity().x + this.getVelocity().z * this.getVelocity().z));
         if ((sqrt < 0.1F) && this.age > 200) {
             this.remove(RemovalReason.DISCARDED);
@@ -77,7 +69,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         double y = this.getY() + this.random.nextFloat() * this.getHeight() - this.getHeight();
         double z = this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth();
         float f = (this.getWidth() + this.getHeight() + this.getWidth()) * 0.333F + 0.5F;
-        if (particleDistSq(x, y, z) < f * f) {
+        if (this.particleDistSq(x, y, z) < f * f) {
             this.getWorld().addParticle(ParticleTypes.SNEEZE, x, y + 0.5D, z, d0, d1, d2);
         }
         Vec3d vector3d = this.getVelocity();
@@ -124,9 +116,9 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     }
 
     public double particleDistSq(double toX, double toY, double toZ) {
-        double d0 = getX() - toX;
-        double d1 = getY() - toY;
-        double d2 = getZ() - toZ;
+        double d0 = this.getX() - toX;
+        double d1 = this.getY() - toY;
+        double d2 = this.getZ() - toZ;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
@@ -146,11 +138,6 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     @Override
     protected @NotNull ItemStack asItemStack() {
         return ItemStack.EMPTY;
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     private IntOpenHashSet piercedEntities;
@@ -189,11 +176,11 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         }
 
         Entity entity1 = this.getOwner();
-        DamageSource damagesource = getWorld().getDamageSources().magic();
+        DamageSource damagesource = this.getWorld().getDamageSources().magic();
 
         if (entity1 != null) {
             if (entity1 instanceof LivingEntity) {
-                damagesource = getWorld().getDamageSources().indirectMagic(this, entity1);
+                damagesource = this.getWorld().getDamageSources().indirectMagic(this, entity1);
                 ((LivingEntity) entity1).onAttacking(entity);
             }
         }
@@ -213,7 +200,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
 
                 if (this.knockbackStrength > 0) {
                     Vec3d vec3d = this.getVelocity().multiply(1.0D, 0.0D, 1.0D).normalize()
-                        .multiply(this.knockbackStrength * 0.6D);
+                            .multiply(this.knockbackStrength * 0.6D);
                     if (vec3d.lengthSquared() > 0.0D) {
                         livingentity.addVelocity(vec3d.x, 0.1D, vec3d.z);
                     }

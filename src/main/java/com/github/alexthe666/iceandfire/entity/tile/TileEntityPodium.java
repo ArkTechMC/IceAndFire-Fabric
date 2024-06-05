@@ -50,7 +50,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
 
     @Override
     public net.minecraft.util.math.Box getRenderBoundingBox() {
-        return new net.minecraft.util.math.Box(pos, pos.add(1, 3, 1));
+        return new net.minecraft.util.math.Box(this.pos, this.pos.add(1, 3, 1));
     }
 
     @Override
@@ -104,8 +104,8 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
             stack.setCount(this.getMaxCountPerStack());
         }
         this.writeNbt(this.toInitialChunkDataNbt());
-        if (!world.isClient) {
-            IceAndFire.sendMSGToAll(new MessageUpdatePodium(this.getPos().asLong(), stacks.get(0)));
+        if (!this.world.isClient) {
+            IceAndFire.sendMSGToAll(new MessageUpdatePodium(this.getPos().asLong(), this.stacks.get(0)));
         }
     }
 
@@ -176,7 +176,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        readNbt(packet.getNbt());
+        this.readNbt(packet.getNbt());
     }
 
     @Override
@@ -191,7 +191,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
 
     @Override
     public @NotNull Text getDisplayName() {
-        return getContainerName();
+        return this.getContainerName();
     }
 
     @Override
@@ -219,9 +219,9 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
         if (!this.removed && facing != null
             && capability == ForgeCapabilities.ITEM_HANDLER) {
             if (facing == Direction.DOWN)
-                return handlers[1].cast();
+                return this.handlers[1].cast();
             else
-                return handlers[0].cast();
+                return this.handlers[0].cast();
         }
         return super.getCapability(capability, facing);
     }

@@ -20,14 +20,14 @@ public class SeaSerpentTabulaModelAnimator extends IceAndFireTabulaModelAnimator
         model.resetToDefaultPose();
         model.getCube("BodyUpper").rotationPointY += 9;//model was made too high
         model.llibAnimator.update(entity);
-        animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
+        this.animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
         int currentIndex = entity.swimCycle / 10;
         int prevIndex = currentIndex - 1;
         if (prevIndex < 0) {
             prevIndex = 3;
         }
-        TabulaModel prevPosition = swimPose[prevIndex];
-        TabulaModel currentPosition = swimPose[currentIndex];
+        TabulaModel prevPosition = this.swimPose[prevIndex];
+        TabulaModel currentPosition = this.swimPose[currentIndex];
         float partialTicks = MinecraftClient.getInstance().getTickDelta();
         float delta = ((entity.swimCycle) / 10.0F) % 1.0F + (partialTicks / 10.0F);
         // AdvancedModelBox[] tailParts = {model.getCube("Tail1"), model.getCube("Tail2"), model.getCube("Tail3"), model.getCube("Tail4"), model.getCube("Tail5"), model.getCube("Tail6")};
@@ -35,13 +35,13 @@ public class SeaSerpentTabulaModelAnimator extends IceAndFireTabulaModelAnimator
 
         for (AdvancedModelBox cube : model.getCubes().values()) {
             if (entity.jumpProgress > 0.0F) {
-                if (!isRotationEqual(cube, EnumSeaSerpentAnimations.JUMPING2.seaserpent_model.getCube(cube.boxName))) {
-                    transitionTo(cube, EnumSeaSerpentAnimations.JUMPING2.seaserpent_model.getCube(cube.boxName), entity.jumpProgress, 5, false);
+                if (!this.isRotationEqual(cube, EnumSeaSerpentAnimations.JUMPING2.seaserpent_model.getCube(cube.boxName))) {
+                    this.transitionTo(cube, EnumSeaSerpentAnimations.JUMPING2.seaserpent_model.getCube(cube.boxName), entity.jumpProgress, 5, false);
                 }
             }
             if (entity.wantJumpProgress > 0.0F) {
-                if (!isRotationEqual(cube, EnumSeaSerpentAnimations.JUMPING1.seaserpent_model.getCube(cube.boxName))) {
-                    transitionTo(cube, EnumSeaSerpentAnimations.JUMPING1.seaserpent_model.getCube(cube.boxName), entity.wantJumpProgress, 10, false);
+                if (!this.isRotationEqual(cube, EnumSeaSerpentAnimations.JUMPING1.seaserpent_model.getCube(cube.boxName))) {
+                    this.transitionTo(cube, EnumSeaSerpentAnimations.JUMPING1.seaserpent_model.getCube(cube.boxName), entity.wantJumpProgress, 10, false);
                 }
             }
             AdvancedModelBox prevPositionCube = prevPosition.getCube(cube.boxName);
@@ -52,13 +52,13 @@ public class SeaSerpentTabulaModelAnimator extends IceAndFireTabulaModelAnimator
             float x = currPositionCube.rotateAngleX;
             float y = currPositionCube.rotateAngleY;
             float z = currPositionCube.rotateAngleZ;
-            this.addToRotateAngle(cube, limbSwingAmount, prevX + delta * distance(prevX, x), prevY + delta * distance(prevY, y), prevZ + delta * distance(prevZ, z));
+            this.addToRotateAngle(cube, limbSwingAmount, prevX + delta * this.distance(prevX, x), prevY + delta * this.distance(prevY, y), prevZ + delta * this.distance(prevZ, z));
 
         }
         if (entity.breathProgress > 0.0F) {
-            progressRotation(model.getCube("Head"), entity.breathProgress, (float) Math.toRadians(-15F), 0, 0);
-            progressRotation(model.getCube("HeadFront"), entity.breathProgress, (float) Math.toRadians(-20F), 0, 0);
-            progressRotation(model.getCube("Jaw"), entity.breathProgress, (float) Math.toRadians(60F), 0, 0);
+            this.progressRotation(model.getCube("Head"), entity.breathProgress, (float) Math.toRadians(-15F), 0, 0);
+            this.progressRotation(model.getCube("HeadFront"), entity.breathProgress, (float) Math.toRadians(-20F), 0, 0);
+            this.progressRotation(model.getCube("Jaw"), entity.breathProgress, (float) Math.toRadians(60F), 0, 0);
         }
         if (entity.jumpRot > 0.0F) {
             float jumpRot = entity.prevJumpRot + (entity.jumpRot - entity.prevJumpRot) * partialTicks;
@@ -100,23 +100,23 @@ public class SeaSerpentTabulaModelAnimator extends IceAndFireTabulaModelAnimator
         }
         if (model.llibAnimator.setAnimation(EntitySeaSerpent.ANIMATION_BITE)) {
             model.llibAnimator.startKeyframe(5);
-            moveToPose(model, EnumSeaSerpentAnimations.BITE1.seaserpent_model);
+            this.moveToPose(model, EnumSeaSerpentAnimations.BITE1.seaserpent_model);
             model.llibAnimator.endKeyframe();
             model.llibAnimator.startKeyframe(5);
-            moveToPose(model, EnumSeaSerpentAnimations.BITE2.seaserpent_model);
+            this.moveToPose(model, EnumSeaSerpentAnimations.BITE2.seaserpent_model);
             model.llibAnimator.endKeyframe();
             model.llibAnimator.setStaticKeyframe(2);
             model.llibAnimator.resetKeyframe(3);
         }
         if (model.llibAnimator.setAnimation(EntitySeaSerpent.ANIMATION_ROAR)) {
             model.llibAnimator.startKeyframe(10);
-            moveToPose(model, EnumSeaSerpentAnimations.ROAR1.seaserpent_model);
+            this.moveToPose(model, EnumSeaSerpentAnimations.ROAR1.seaserpent_model);
             model.llibAnimator.endKeyframe();
             model.llibAnimator.startKeyframe(10);
-            moveToPose(model, EnumSeaSerpentAnimations.ROAR2.seaserpent_model);
+            this.moveToPose(model, EnumSeaSerpentAnimations.ROAR2.seaserpent_model);
             model.llibAnimator.endKeyframe();
             model.llibAnimator.startKeyframe(10);
-            moveToPose(model, EnumSeaSerpentAnimations.ROAR3.seaserpent_model);
+            this.moveToPose(model, EnumSeaSerpentAnimations.ROAR3.seaserpent_model);
             model.llibAnimator.endKeyframe();
             model.llibAnimator.resetKeyframe(10);
         }

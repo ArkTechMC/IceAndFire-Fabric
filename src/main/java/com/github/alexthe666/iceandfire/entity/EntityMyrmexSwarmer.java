@@ -37,8 +37,8 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
     public EntityMyrmexSwarmer(EntityType type, World worldIn) {
         super(type, worldIn);
         this.moveControl = new FlyMoveHelper(this);
-        this.navigation = createNavigator(getWorld(), AdvancedPathNavigate.MovementType.FLYING);
-        switchNavigator(false);
+        this.navigation = this.createNavigator(this.getWorld(), AdvancedPathNavigate.MovementType.FLYING);
+        this.switchNavigator(false);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -177,9 +177,9 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
     @Override
     public void tickMovement() {
         super.tickMovement();
-        setFlying(true);
+        this.setFlying(true);
         boolean flying = this.isFlying() && !this.isOnGround();
-        setTicksAlive(getTicksAlive() + 1);
+        this.setTicksAlive(this.getTicksAlive() + 1);
         if (flying) {
             this.setVelocity(this.getVelocity().add(0, -0.08D, 0));
             if (this.moveControl.getTargetY() > this.getY()) {
@@ -192,7 +192,7 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
         if (this.getTarget() != null) {
             this.moveControl.moveTo(this.getTarget().getX(), this.getTarget().getBoundingBox().minY, this.getTarget().getZ(), 1.0F);
             if (this.getAttackBounds().intersects(this.getTarget().getBoundingBox())) {
-                this.setAnimation(random.nextBoolean() ? ANIMATION_BITE : ANIMATION_STING);
+                this.setAnimation(this.random.nextBoolean() ? ANIMATION_BITE : ANIMATION_STING);
             }
         }
         if (this.getTicksAlive() > 1800) {
@@ -201,15 +201,15 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
         if (this.getAnimation() == ANIMATION_BITE && this.getTarget() != null && this.getAnimationTick() == 6) {
             this.playBiteSound();
             double dist = this.squaredDistanceTo(this.getTarget());
-            if (dist < attackDistance()) {
-                this.getTarget().damage(getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue()));
+            if (dist < this.attackDistance()) {
+                this.getTarget().damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue()));
             }
         }
         if (this.getAnimation() == ANIMATION_STING && this.getTarget() != null && this.getAnimationTick() == 6) {
             this.playStingSound();
             double dist = this.squaredDistanceTo(this.getTarget());
-            if (dist < attackDistance()) {
-                this.getTarget().damage(getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() * 2));
+            if (dist < this.attackDistance()) {
+                this.getTarget().damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() * 2));
                 // After calling hurt the target can become null due to forge hooks
                 if (this.getTarget() != null)
                     this.getTarget().addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 70, 1));
@@ -248,6 +248,6 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
     }
 
     public boolean shouldAttackEntity(LivingEntity attacker, LivingEntity LivingEntity) {
-        return !isTeammate(attacker);
+        return !this.isTeammate(attacker);
     }
 }

@@ -26,31 +26,31 @@ public class Whitespace {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     public boolean isDown() {
-        return down;
+        return this.down;
     }
 
     public void setDown(boolean downIn){
-        down = downIn;
+        this.down = downIn;
     }
 
     @Override

@@ -25,13 +25,13 @@ public class PixieAISteal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!IafConfig.pixiesStealItems || !temptedEntity.getMainHandStack().isEmpty() || temptedEntity.stealCooldown > 0) {
+        if (!IafConfig.pixiesStealItems || !this.temptedEntity.getMainHandStack().isEmpty() || this.temptedEntity.stealCooldown > 0) {
             return false;
         }
-        if (temptedEntity.getRandom().nextInt(200) == 0) {
+        if (this.temptedEntity.getRandom().nextInt(200) == 0) {
             return false;
         }
-        if (temptedEntity.isTamed()) {
+        if (this.temptedEntity.isTamed()) {
             return false;
         }
         if (this.delayTemptCounter > 0) {
@@ -45,7 +45,7 @@ public class PixieAISteal extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        return !temptedEntity.isTamed() && temptedEntity.getMainHandStack().isEmpty() && this.delayTemptCounter == 0 && temptedEntity.stealCooldown == 0;
+        return !this.temptedEntity.isTamed() && this.temptedEntity.getMainHandStack().isEmpty() && this.delayTemptCounter == 0 && this.temptedEntity.stealCooldown == 0;
     }
 
     @Override
@@ -86,10 +86,10 @@ public class PixieAISteal extends Goal {
                 this.temptedEntity.flipAI(true);
                 this.temptedEntity.playSound(IafSoundRegistry.PIXIE_TAUNT, 1F, 1F);
 
-                for (EntityPixie pixie : this.temptingPlayer.getWorld().getNonSpectatingEntities(EntityPixie.class, temptedEntity.getBoundingBox().expand(40))) {
+                for (EntityPixie pixie : this.temptingPlayer.getWorld().getNonSpectatingEntities(EntityPixie.class, this.temptedEntity.getBoundingBox().expand(40))) {
                     pixie.stealCooldown = 1000 + pixie.getRandom().nextInt(3000);
                 }
-                if (temptingPlayer != null) {
+                if (this.temptingPlayer != null) {
                     this.temptingPlayer.addStatusEffect(new StatusEffectInstance(this.temptedEntity.negativePotions[this.temptedEntity.getColor()], 100));
                 }
             } else {

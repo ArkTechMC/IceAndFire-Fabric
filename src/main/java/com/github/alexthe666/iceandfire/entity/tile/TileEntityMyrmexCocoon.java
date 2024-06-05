@@ -111,7 +111,7 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
 
     @Override
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        readNbt(packet.getNbt());
+        this.readNbt(packet.getNbt());
     }
 
     @Override
@@ -120,7 +120,7 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
     }
 
     public boolean isFull(ItemStack heldStack) {
-        for (ItemStack itemstack : chestContents) {
+        for (ItemStack itemstack : this.chestContents) {
             if (itemstack.isEmpty() || heldStack != null && !heldStack.isEmpty() && ItemStack.areItemsEqual(itemstack, heldStack) && itemstack.getCount() + heldStack.getCount() < itemstack.getMaxCount()) {
                 return false;
             }

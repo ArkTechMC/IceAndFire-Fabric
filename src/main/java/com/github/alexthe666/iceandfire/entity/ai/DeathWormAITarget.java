@@ -26,16 +26,16 @@ public class DeathWormAITarget<T extends LivingEntity> extends ActiveTargetGoal<
     public boolean canStart() {
         boolean canUse = super.canStart();
 
-        if (canUse && targetEntity != null && targetEntity.getType() != (IafEntityRegistry.DEATH_WORM.get())) {
-            if (targetEntity instanceof PlayerEntity && !deathworm.isOwner(targetEntity)) {
-                return !deathworm.isTamed();
-            } else if (deathworm.isOwner(targetEntity)) {
+        if (canUse && this.targetEntity != null && this.targetEntity.getType() != (IafEntityRegistry.DEATH_WORM.get())) {
+            if (this.targetEntity instanceof PlayerEntity && !this.deathworm.isOwner(this.targetEntity)) {
+                return !this.deathworm.isTamed();
+            } else if (this.deathworm.isOwner(this.targetEntity)) {
                 return false;
             }
 
-            if (targetEntity instanceof HostileEntity && deathworm.getWormAge() > 2) {
-                if (targetEntity instanceof PathAwareEntity) {
-                    return deathworm.getWormAge() > 3;
+            if (this.targetEntity instanceof HostileEntity && this.deathworm.getWormAge() > 2) {
+                if (this.targetEntity instanceof PathAwareEntity) {
+                    return this.deathworm.getWormAge() > 3;
                 }
 
                 return true;

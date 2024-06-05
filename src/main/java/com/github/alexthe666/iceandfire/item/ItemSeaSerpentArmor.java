@@ -4,7 +4,7 @@ import com.github.alexthe666.citadel.server.item.CustomArmorMaterial;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
-import com.github.alexthe666.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
@@ -56,7 +56,7 @@ public class ItemSeaSerpentArmor extends ArmorItem implements IArmorTextureProvi
 
     @Override
     public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_tide_" + armor_type.resourceName + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_tide_" + this.armor_type.resourceName + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class ItemSeaSerpentArmor extends ArmorItem implements IArmorTextureProvi
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
 
-        tooltip.add(Text.translatable("sea_serpent." + armor_type.resourceName).formatted(armor_type.color));
+        tooltip.add(Text.translatable("sea_serpent." + this.armor_type.resourceName).formatted(this.armor_type.color));
         tooltip.add(Text.translatable("item.iceandfire.sea_serpent_armor.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.sea_serpent_armor.desc_1").formatted(Formatting.GRAY));
     }

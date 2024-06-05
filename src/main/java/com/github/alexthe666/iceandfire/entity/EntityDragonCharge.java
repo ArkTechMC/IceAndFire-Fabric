@@ -9,15 +9,12 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class EntityDragonCharge extends AbstractFireballEntity implements IDragonProjectile {
@@ -109,10 +106,10 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
                         return;
                     }
                     if (shootingEntity instanceof EntityDragonBase shootingDragon) {
-                        float damageAmount = getDamage() * ((EntityDragonBase) shootingEntity).getDragonStage();
+                        float damageAmount = this.getDamage() * ((EntityDragonBase) shootingEntity).getDragonStage();
 
                         Entity cause = shootingDragon.getRidingPlayer() != null ? shootingDragon.getRidingPlayer() : shootingDragon;
-                        DamageSource source = causeDamage(cause);
+                        DamageSource source = this.causeDamage(cause);
 
                         entity.damage(source, damageAmount);
                         if (entity instanceof LivingEntity && ((LivingEntity) entity).getHealth() == 0) {
@@ -127,7 +124,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
             }
             if (movingObject.getType() != HitResult.Type.MISS) {
                 if (shootingEntity instanceof EntityDragonBase && DragonUtils.canGrief((EntityDragonBase) shootingEntity)) {
-                    destroyArea(getWorld(), BlockPos.ofFloored(this.getX(), this.getY(), this.getZ()), ((EntityDragonBase) shootingEntity));
+                    this.destroyArea(this.getWorld(), BlockPos.ofFloored(this.getX(), this.getY(), this.getZ()), ((EntityDragonBase) shootingEntity));
                 }
                 this.remove(RemovalReason.DISCARDED);
             }
@@ -147,7 +144,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
     }
 
     protected boolean canHitMob(Entity hitMob) {
-        Entity shooter = getOwner();
+        Entity shooter = this.getOwner();
         return hitMob != this && super.canHit(hitMob) && !(shooter == null || hitMob.isTeammate(shooter)) && !(hitMob instanceof EntityDragonPart);
     }
 
@@ -159,10 +156,5 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
     @Override
     public float getTargetingMargin() {
         return 0F;
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -17,33 +17,33 @@ public class FrozenData {
     private boolean triggerClientUpdate;
 
     public void tickFrozen(final LivingEntity entity) {
-        if (!isFrozen) {
+        if (!this.isFrozen) {
             return;
         }
 
         if (entity instanceof EntityIceDragon) {
-            clearFrozen(entity);
+            this.clearFrozen(entity);
             return;
         }
 
         if (entity.isOnFire()) {
-            clearFrozen(entity);
+            this.clearFrozen(entity);
             entity.extinguish();
             return;
         }
 
         if (entity.isDead()) {
-            clearFrozen(entity);
+            this.clearFrozen(entity);
             return;
         }
 
-        if (frozenTicks > 0) {
-            frozenTicks--;
+        if (this.frozenTicks > 0) {
+            this.frozenTicks--;
         } else {
-            clearFrozen(entity);
+            this.clearFrozen(entity);
         }
 
-        if (isFrozen && !(entity instanceof PlayerEntity player && player.isCreative())) {
+        if (this.isFrozen && !(entity instanceof PlayerEntity player && player.isCreative())) {
             entity.setVelocity(entity.getVelocity().multiply(0.25F, 1, 0.25F));
 
             if (!(entity instanceof EnderDragonEntity) && !entity.isOnGround()) {
@@ -53,13 +53,13 @@ public class FrozenData {
     }
 
     public void setFrozen(final LivingEntity target, int duration) {
-        if (!isFrozen) {
+        if (!this.isFrozen) {
             target.playSound(SoundEvents.BLOCK_GLASS_PLACE, 1, 1);
         }
 
-        frozenTicks = duration;
-        isFrozen = true;
-        triggerClientUpdate = true;
+        this.frozenTicks = duration;
+        this.isFrozen = true;
+        this.triggerClientUpdate = true;
     }
 
     private void clearFrozen(final LivingEntity entity) {
@@ -75,28 +75,28 @@ public class FrozenData {
 
         entity.playSound(SoundEvents.BLOCK_GLASS_BREAK, 3, 1);
 
-        isFrozen = false;
-        frozenTicks = 0;
-        triggerClientUpdate = true;
+        this.isFrozen = false;
+        this.frozenTicks = 0;
+        this.triggerClientUpdate = true;
     }
 
     public void serialize(final NbtCompound tag) {
         NbtCompound frozenData = new NbtCompound();
-        frozenData.putInt("frozenTicks", frozenTicks);
-        frozenData.putBoolean("isFrozen", isFrozen);
+        frozenData.putInt("frozenTicks", this.frozenTicks);
+        frozenData.putBoolean("isFrozen", this.isFrozen);
 
         tag.put("frozenData", frozenData);
     }
 
     public void deserialize(final NbtCompound tag) {
         NbtCompound frozenData = tag.getCompound("frozenData");
-        frozenTicks = frozenData.getInt("frozenTicks");
-        isFrozen = frozenData.getBoolean("isFrozen");
+        this.frozenTicks = frozenData.getInt("frozenTicks");
+        this.isFrozen = frozenData.getBoolean("isFrozen");
     }
 
     public boolean doesClientNeedUpdate() {
-        if (triggerClientUpdate) {
-            triggerClientUpdate = false;
+        if (this.triggerClientUpdate) {
+            this.triggerClientUpdate = false;
             return true;
         }
 

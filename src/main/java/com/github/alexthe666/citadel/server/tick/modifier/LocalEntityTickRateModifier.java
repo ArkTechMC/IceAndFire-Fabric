@@ -31,7 +31,7 @@ public class LocalEntityTickRateModifier extends LocalTickRateModifier {
     @Override
     public Vec3d getCenter(World level) {
         Entity entity = level.getEntityById(this.entityId);
-        if (isEntityValid(level) && entity != null) {
+        if (this.isEntityValid(level) && entity != null) {
             return entity.getPos();
         }
         return Vec3d.ZERO;
@@ -39,25 +39,25 @@ public class LocalEntityTickRateModifier extends LocalTickRateModifier {
 
     @Override
     public boolean appliesTo(World level, double x, double y, double z) {
-        return super.appliesTo(level, x, y, z) && isEntityValid(level);
+        return super.appliesTo(level, x, y, z) && this.isEntityValid(level);
     }
 
     public boolean isEntityValid(World level) {
         Entity entity = level.getEntityById(this.entityId);
-        return entity != null && entity.getType().equals(expectedEntityType) && entity.isAlive() && (!(entity instanceof IModifiesTime) || ((IModifiesTime) entity).isTimeModificationValid(this));
+        return entity != null && entity.getType().equals(this.expectedEntityType) && entity.isAlive() && (!(entity instanceof IModifiesTime) || ((IModifiesTime) entity).isTimeModificationValid(this));
     }
 
     @Override
     public NbtCompound toTag() {
         NbtCompound tag = super.toTag();
-        tag.putInt("EntityId", entityId);
+        tag.putInt("EntityId", this.entityId);
         Identifier resourcelocation = Registries.ENTITY_TYPE.getId(this.expectedEntityType);
         tag.putString("EntityType", resourcelocation.toString());
         return tag;
     }
 
     public int getEntityId() {
-        return entityId;
+        return this.entityId;
     }
 
     public void setEntityId(int entityId) {
@@ -65,7 +65,7 @@ public class LocalEntityTickRateModifier extends LocalTickRateModifier {
     }
 
     public EntityType getExpectedEntityType() {
-        return expectedEntityType;
+        return this.expectedEntityType;
     }
 
     public void setExpectedEntityType(EntityType expectedEntityType) {

@@ -19,9 +19,9 @@ public class MessageDragonSetBurnBlock {
     public MessageDragonSetBurnBlock(int dragonId, boolean breathingFire, BlockPos pos) {
         this.dragonId = dragonId;
         this.breathingFire = breathingFire;
-        posX = pos.getX();
-        posY = pos.getY();
-        posZ = pos.getZ();
+        this.posX = pos.getX();
+        this.posY = pos.getY();
+        this.posZ = pos.getZ();
     }
 
     public static MessageDragonSetBurnBlock read(PacketByteBuf buf) {

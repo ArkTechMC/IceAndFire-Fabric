@@ -26,7 +26,7 @@ public class EntityLinkData {
     }
 
     public String getEntity() {
-        return entity;
+        return this.entity;
     }
 
     public void setEntity(String model) {
@@ -34,7 +34,7 @@ public class EntityLinkData {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -42,7 +42,7 @@ public class EntityLinkData {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -50,7 +50,7 @@ public class EntityLinkData {
     }
 
     public double getScale() {
-        return scale;
+        return this.scale;
     }
 
     public void setScale(double scale) {
@@ -58,7 +58,7 @@ public class EntityLinkData {
     }
 
     public double getEntityScale() {
-        return entity_scale;
+        return this.entity_scale;
     }
 
     public void setEntityScale(double scale) {
@@ -66,7 +66,7 @@ public class EntityLinkData {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public void setPage(int page) {
@@ -74,7 +74,7 @@ public class EntityLinkData {
     }
 
     public String getLinkedPage() {
-        return linked_page;
+        return this.linked_page;
     }
 
     public void setLinkedPage(String linkedPage) {
@@ -82,7 +82,7 @@ public class EntityLinkData {
     }
 
     public String getHoverText() {
-        return hover_text;
+        return this.hover_text;
     }
 
     public void setHoverText(String titleText) {
@@ -90,7 +90,7 @@ public class EntityLinkData {
     }
 
     public float getOffset_y() {
-        return offset_y;
+        return this.offset_y;
     }
 
     public void setOffset_y(float offset_y) {
@@ -98,7 +98,7 @@ public class EntityLinkData {
     }
 
     public float getOffset_x() {
-        return offset_x;
+        return this.offset_x;
     }
 
     public void setOffset_x(float offset_x) {

@@ -22,15 +22,15 @@ public class ChainData {
     private boolean triggerClientUpdate;
 
     public void tickChain(final LivingEntity entity) {
-        if (!isInitialized) {
-            initialize(entity.getWorld());
+        if (!this.isInitialized) {
+            this.initialize(entity.getWorld());
         }
 
-        if (chainedTo == null) {
+        if (this.chainedTo == null) {
             return;
         }
 
-        for (Entity chain : chainedTo) {
+        for (Entity chain : this.chainedTo) {
             double distance = chain.distanceTo(entity);
 
             if (distance > 7) {
@@ -43,59 +43,59 @@ public class ChainData {
     }
 
     public List<Entity> getChainedTo() {
-        return Objects.requireNonNullElse(chainedTo, Collections.emptyList());
+        return Objects.requireNonNullElse(this.chainedTo, Collections.emptyList());
     }
 
     public void clearChains() {
-        if (chainedTo == null) {
+        if (this.chainedTo == null) {
             return;
         }
 
-        chainedTo = null;
-        triggerClientUpdate = true;
+        this.chainedTo = null;
+        this.triggerClientUpdate = true;
     }
 
     public void attachChain(final Entity chain) {
-        if (chainedTo == null) {
-            chainedTo = new ArrayList<>();
-        } else if (chainedTo.contains(chain)) {
+        if (this.chainedTo == null) {
+            this.chainedTo = new ArrayList<>();
+        } else if (this.chainedTo.contains(chain)) {
             return;
         }
 
-        chainedTo.add(chain);
-        triggerClientUpdate = true;
+        this.chainedTo.add(chain);
+        this.triggerClientUpdate = true;
     }
 
     public void removeChain(final Entity chain) {
-        if (chainedTo == null) {
+        if (this.chainedTo == null) {
             return;
         }
 
-        chainedTo.remove(chain);
-        triggerClientUpdate = true;
+        this.chainedTo.remove(chain);
+        this.triggerClientUpdate = true;
 
-        if (chainedTo.isEmpty()) {
-            chainedTo = null;
+        if (this.chainedTo.isEmpty()) {
+            this.chainedTo = null;
         }
     }
 
     public boolean isChainedTo(final Entity toCheck) {
-        if (chainedTo == null || chainedTo.isEmpty()) {
+        if (this.chainedTo == null || this.chainedTo.isEmpty()) {
             return false;
         }
 
-        return chainedTo.contains(toCheck);
+        return this.chainedTo.contains(toCheck);
     }
 
     public void serialize(final NbtCompound tag) {
         NbtCompound chainedData = new NbtCompound();
         NbtList uuids = new NbtList();
 
-        if (chainedTo != null) {
-            int[] ids = new int[chainedTo.size()];
+        if (this.chainedTo != null) {
+            int[] ids = new int[this.chainedTo.size()];
 
-            for (int i = 0; i < chainedTo.size(); i++) {
-                Entity entity = chainedTo.get(i);
+            for (int i = 0; i < this.chainedTo.size(); i++) {
+                Entity entity = this.chainedTo.get(i);
 
                 ids[i] = entity.getId();
                 uuids.add(NbtHelper.fromUuid(entity.getUuid()));
@@ -113,32 +113,32 @@ public class ChainData {
         int[] loadedChainedToIds = chainedData.getIntArray("chainedToIds");
         NbtList uuids = chainedData.getList("chainedToUUIDs", NbtList.INT_ARRAY_TYPE);
 
-        isInitialized = false;
+        this.isInitialized = false;
 
         if (loadedChainedToIds.length > 0) {
-            chainedToIds = new ArrayList<>();
+            this.chainedToIds = new ArrayList<>();
 
             for (int loadedChainedToId : loadedChainedToIds) {
-                chainedToIds.add(loadedChainedToId);
+                this.chainedToIds.add(loadedChainedToId);
             }
         } else {
-            chainedToIds = null;
+            this.chainedToIds = null;
         }
 
         if (!uuids.isEmpty()) {
-            chainedToUUIDs = new ArrayList<>();
+            this.chainedToUUIDs = new ArrayList<>();
 
             for (NbtElement uuid : uuids) {
-                chainedToUUIDs.add(NbtHelper.toUuid(uuid));
+                this.chainedToUUIDs.add(NbtHelper.toUuid(uuid));
             }
         } else {
-            chainedToUUIDs = null;
+            this.chainedToUUIDs = null;
         }
     }
 
     public boolean doesClientNeedUpdate() {
-        if (triggerClientUpdate) {
-            triggerClientUpdate = false;
+        if (this.triggerClientUpdate) {
+            this.triggerClientUpdate = false;
             return true;
         }
 
@@ -149,8 +149,8 @@ public class ChainData {
         List<Entity> entities = new ArrayList<>();
 
         // Make sure server gets the new entity ids on re-join and syncs it to the client
-        if (chainedToUUIDs != null && level instanceof ServerWorld serverLevel) {
-            for (UUID uuid : chainedToUUIDs) {
+        if (this.chainedToUUIDs != null && level instanceof ServerWorld serverLevel) {
+            for (UUID uuid : this.chainedToUUIDs) {
                 Entity entity = serverLevel.getEntity(uuid);
 
                 if (entity != null) {
@@ -158,9 +158,9 @@ public class ChainData {
                 }
             }
 
-            triggerClientUpdate = true;
-        } else if (chainedToIds != null) {
-            for (int id : chainedToIds) {
+            this.triggerClientUpdate = true;
+        } else if (this.chainedToIds != null) {
+            for (int id : this.chainedToIds) {
                 if (id == -1) {
                     continue;
                 }
@@ -174,13 +174,13 @@ public class ChainData {
         }
 
         if (!entities.isEmpty()) {
-            chainedTo = entities;
+            this.chainedTo = entities;
         } else {
-            chainedTo = null;
+            this.chainedTo = null;
         }
 
-        chainedToIds = null;
-        chainedToUUIDs = null;
-        isInitialized = true;
+        this.chainedToIds = null;
+        this.chainedToUUIDs = null;
+        this.isInitialized = true;
     }
 }

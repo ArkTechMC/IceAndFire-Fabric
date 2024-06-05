@@ -49,7 +49,7 @@ public class PathResult<T extends Callable<Path>> {
      * @return status.
      */
     public PathFindingStatus getStatus() {
-        return status;
+        return this.status;
     }
 
     /**
@@ -58,32 +58,32 @@ public class PathResult<T extends Callable<Path>> {
      * @param s status to set.
      */
     public void setStatus(final PathFindingStatus s) {
-        status = s;
+        this.status = s;
     }
 
     /**
      * @return true if the path is still computing or being followed.
      */
     public boolean isInProgress() {
-        return isComputing() || status == PathFindingStatus.IN_PROGRESS_FOLLOWING;
+        return this.isComputing() || this.status == PathFindingStatus.IN_PROGRESS_FOLLOWING;
     }
 
     public boolean isComputing() {
-        return status == PathFindingStatus.IN_PROGRESS_COMPUTING;
+        return this.status == PathFindingStatus.IN_PROGRESS_COMPUTING;
     }
 
     /**
      * @return true if the no path can be found.
      */
     public boolean failedToReachDestination() {
-        return isFinished() && !pathReachesDestination;
+        return this.isFinished() && !this.pathReachesDestination;
     }
 
     /**
      * @return true if the path is computed, and it reaches a desired destination.
      */
     public boolean isPathReachingDestination() {
-        return isFinished() && path != null && pathReachesDestination;
+        return this.isFinished() && this.path != null && this.pathReachesDestination;
     }
 
     /**
@@ -92,28 +92,28 @@ public class PathResult<T extends Callable<Path>> {
      * @param value new value for pathReachesDestination.
      */
     public void setPathReachesDestination(final boolean value) {
-        pathReachesDestination = value;
+        this.pathReachesDestination = value;
     }
 
     /**
      * @return true if the path was cancelled before being computed or before the entity reached it's destination.
      */
     public boolean isCancelled() {
-        return status == PathFindingStatus.CANCELLED;
+        return this.status == PathFindingStatus.CANCELLED;
     }
 
     /**
      * @return length of the compute path, in nodes.
      */
     public int getPathLength() {
-        return path.getLength();
+        return this.path.getLength();
     }
 
     /**
      * @return true if the path moves from the current location, useful for checking if a path actually generated.
      */
     public boolean hasPath() {
-        return path != null;
+        return this.path != null;
     }
 
     /**
@@ -122,7 +122,7 @@ public class PathResult<T extends Callable<Path>> {
      * @return path
      */
     public Path getPath() {
-        return path;
+        return this.path;
     }
 
     /**
@@ -131,7 +131,7 @@ public class PathResult<T extends Callable<Path>> {
      * @return
      */
     public T getJob() {
-        return job;
+        return this.job;
     }
 
     /**
@@ -149,10 +149,10 @@ public class PathResult<T extends Callable<Path>> {
      * @param executorService executor
      */
     public void startJob(final ExecutorService executorService) {
-        if (job != null) {
+        if (this.job != null) {
             try {
                 if (!threadException)
-                    pathCalculation = executorService.submit(job);
+                    this.pathCalculation = executorService.submit(this.job);
             } catch (NullPointerException e) {
                 Citadel.LOGGER.error("Mod tried to move an entity from non server thread", e);
             } catch (RuntimeException e) {
@@ -168,14 +168,14 @@ public class PathResult<T extends Callable<Path>> {
      * Processes the completed calculation results
      */
     public void processCalculationResults() {
-        if (pathingDoneAndProcessed) {
+        if (this.pathingDoneAndProcessed) {
             return;
         }
 
         try {
-            path = pathCalculation.get();
-            pathCalculation = null;
-            setStatus(PathFindingStatus.CALCULATION_COMPLETE);
+            this.path = this.pathCalculation.get();
+            this.pathCalculation = null;
+            this.setStatus(PathFindingStatus.CALCULATION_COMPLETE);
         } catch (InterruptedException | ExecutionException e) {
             Citadel.LOGGER.catching(e);
         }
@@ -187,7 +187,7 @@ public class PathResult<T extends Callable<Path>> {
      * @return true
      */
     public boolean isCalculatingPath() {
-        return pathCalculation != null && !pathCalculation.isDone();
+        return this.pathCalculation != null && !this.pathCalculation.isDone();
     }
 
     /**
@@ -196,25 +196,25 @@ public class PathResult<T extends Callable<Path>> {
      * @return true if calculation is done and processed
      */
     public boolean isFinished() {
-        if (!pathingDoneAndProcessed) {
-            if (pathCalculation != null && pathCalculation.isDone()) {
-                processCalculationResults();
-                pathingDoneAndProcessed = true;
+        if (!this.pathingDoneAndProcessed) {
+            if (this.pathCalculation != null && this.pathCalculation.isDone()) {
+                this.processCalculationResults();
+                this.pathingDoneAndProcessed = true;
             }
         }
 
-        return pathingDoneAndProcessed;
+        return this.pathingDoneAndProcessed;
     }
 
     /**
      * Cancels the path calculation
      */
     public void cancel() {
-        if (pathCalculation != null) {
-            pathCalculation.cancel(false);
-            pathCalculation = null;
+        if (this.pathCalculation != null) {
+            this.pathCalculation.cancel(false);
+            this.pathCalculation = null;
         }
 
-        pathingDoneAndProcessed = true;
+        this.pathingDoneAndProcessed = true;
     }
 }

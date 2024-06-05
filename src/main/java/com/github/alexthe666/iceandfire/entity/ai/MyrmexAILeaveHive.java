@@ -44,15 +44,15 @@ public class MyrmexAILeaveHive extends Goal {
         if (village == null) {
             return false;
         } else {
-            nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
-            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(nextEntrance.getX(), nextEntrance.getY(), nextEntrance.getZ(), movementSpeed);
+            this.nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
+            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextEntrance.getX(), this.nextEntrance.getY(), this.nextEntrance.getZ(), this.movementSpeed);
             return true;
         }
     }
 
     @Override
     public boolean shouldContinue() {
-        if (this.myrmex.isCloseEnoughToTarget(nextEntrance, 12) || this.myrmex.shouldEnterHive()) {
+        if (this.myrmex.isCloseEnoughToTarget(this.nextEntrance, 12) || this.myrmex.shouldEnterHive()) {
             return false;
         }
 
@@ -63,10 +63,10 @@ public class MyrmexAILeaveHive extends Goal {
     public void tick() {
         //If the path has been created but the destination couldn't be reached
         //or if the myrmex has reached the end of the path but isn't close enough to the entrance for some reason
-        if (!this.myrmex.pathReachesTarget(path,nextEntrance,12)) {
+        if (!this.myrmex.pathReachesTarget(this.path, this.nextEntrance,12)) {
             MyrmexHive village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 1000);
-            nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
-            path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(nextEntrance.getX(), nextEntrance.getY() + 1, nextEntrance.getZ(), movementSpeed);
+            this.nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
+            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextEntrance.getX(), this.nextEntrance.getY() + 1, this.nextEntrance.getZ(), this.movementSpeed);
         }
     }
 
@@ -77,7 +77,7 @@ public class MyrmexAILeaveHive extends Goal {
 
     @Override
     public void stop() {
-        nextEntrance = BlockPos.ORIGIN;
+        this.nextEntrance = BlockPos.ORIGIN;
         this.myrmex.getNavigation().stop();
     }
 }

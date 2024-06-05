@@ -118,15 +118,15 @@ public class PostEffectRegistry {
         }
 
         public PostEffectProcessor getPostChain() {
-            return postChain;
+            return this.postChain;
         }
 
         public Framebuffer getRenderTarget() {
-            return renderTarget;
+            return this.renderTarget;
         }
 
         public boolean isEnabled() {
-            return enabled;
+            return this.enabled;
         }
 
         public void setEnabled(boolean enabled) {
@@ -134,14 +134,14 @@ public class PostEffectRegistry {
         }
 
         public void close() {
-            if (postChain != null) {
-                postChain.close();
+            if (this.postChain != null) {
+                this.postChain.close();
             }
         }
 
         public void resize(int x, int y) {
-            if (postChain != null) {
-                postChain.setupDimensions(x, y);
+            if (this.postChain != null) {
+                this.postChain.setupDimensions(x, y);
             }
         }
     }

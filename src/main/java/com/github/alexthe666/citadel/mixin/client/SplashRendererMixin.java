@@ -33,12 +33,12 @@ public class SplashRendererMixin {
             ))
     protected void citadel_preRenderSplashText(DrawContext guiGraphics, int width, TextRenderer font, int loadProgress, CallbackInfo ci) {
         guiGraphics.getMatrices().push();
-        EventRenderSplashText.Pre event = new EventRenderSplashText.Pre(text, guiGraphics, MinecraftClient.getInstance().getTickDelta(), 16776960);
+        EventRenderSplashText.Pre event = new EventRenderSplashText.Pre(this.text, guiGraphics, MinecraftClient.getInstance().getTickDelta(), 16776960);
         EventBus.post(event);
 
         if (event.getResult() == Event.Result.ALLOW) {
-            text = event.getSplashText();
-            splashTextColor = event.getSplashTextColor();
+            this.text = event.getSplashText();
+            this.splashTextColor = event.getSplashTextColor();
         }
     }
 
@@ -51,7 +51,7 @@ public class SplashRendererMixin {
             )
     )
     protected void citadel_postRenderSplashText(DrawContext guiGraphics, int width, TextRenderer font, int loadProgress, CallbackInfo ci) {
-        EventRenderSplashText.Post event = new EventRenderSplashText.Post(text, guiGraphics, MinecraftClient.getInstance().getTickDelta());
+        EventRenderSplashText.Post event = new EventRenderSplashText.Post(this.text, guiGraphics, MinecraftClient.getInstance().getTickDelta());
         EventBus.post(event);
         guiGraphics.getMatrices().pop();
     }
@@ -60,6 +60,6 @@ public class SplashRendererMixin {
             method = "render",
             constant = @Constant(intValue = 16776960))
     private int citadel_splashTextColor(int value) {
-        return splashTextColor == -1 ? value : splashTextColor;
+        return this.splashTextColor == -1 ? value : this.splashTextColor;
     }
 }

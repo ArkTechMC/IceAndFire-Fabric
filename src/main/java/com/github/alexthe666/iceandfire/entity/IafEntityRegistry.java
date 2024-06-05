@@ -5,28 +5,20 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraftforge.common.world.ModifiableBiomeInfo;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.util.HashMap;
 
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IafEntityRegistry {
 
-    public static final LazyRegistrar<EntityType<?>> ENTITIES = LazyRegistrar.create(Registries.ENTITY_TYPE,
-        IceAndFire.MOD_ID);
+    public static final LazyRegistrar<EntityType<?>> ENTITIES = LazyRegistrar.create(Registries.ENTITY_TYPE, IceAndFire.MOD_ID);
 
     public static final RegistryObject<EntityType<EntityDragonPart>> DRAGON_MULTIPART = registerEntity(EntityType.Builder.<EntityDragonPart>create(EntityDragonPart::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F).makeFireImmune(), "dragon_multipart");
     public static final RegistryObject<EntityType<EntitySlowPart>> SLOW_MULTIPART = registerEntity(EntityType.Builder.<EntitySlowPart>create(EntitySlowPart::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F).makeFireImmune(), "multipart");
@@ -91,47 +83,45 @@ public class IafEntityRegistry {
         return ENTITIES.register(entityName, () -> builder.build(entityName));
     }
 
-    @SubscribeEvent
-    public static void bakeAttributes(EntityAttributeCreationEvent creationEvent) {
-        creationEvent.put(DRAGON_EGG.get(), EntityDragonEgg.bakeAttributes().build());
-        creationEvent.put(DRAGON_SKULL.get(), EntityDragonSkull.bakeAttributes().build());
-        creationEvent.put(FIRE_DRAGON.get(), EntityFireDragon.bakeAttributes().build());
-        creationEvent.put(ICE_DRAGON.get(), EntityIceDragon.bakeAttributes().build());
-        creationEvent.put(LIGHTNING_DRAGON.get(), EntityLightningDragon.bakeAttributes().build());
-        creationEvent.put(HIPPOGRYPH.get(), EntityHippogryph.bakeAttributes().build());
-        creationEvent.put(GORGON.get(), EntityGorgon.bakeAttributes().build());
-        creationEvent.put(STONE_STATUE.get(), EntityStoneStatue.bakeAttributes().build());
-        creationEvent.put(PIXIE.get(), EntityPixie.bakeAttributes().build());
-        creationEvent.put(CYCLOPS.get(), EntityCyclops.bakeAttributes().build());
-        creationEvent.put(SIREN.get(), EntitySiren.bakeAttributes().build());
-        creationEvent.put(HIPPOCAMPUS.get(), EntityHippocampus.bakeAttributes().build());
-        creationEvent.put(DEATH_WORM.get(), EntityDeathWorm.bakeAttributes().build());
-        creationEvent.put(COCKATRICE.get(), EntityCockatrice.bakeAttributes().build());
-        creationEvent.put(STYMPHALIAN_BIRD.get(), EntityStymphalianBird.bakeAttributes().build());
-        creationEvent.put(TROLL.get(), EntityTroll.bakeAttributes().build());
-        creationEvent.put(MYRMEX_WORKER.get(), EntityMyrmexWorker.bakeAttributes().build());
-        creationEvent.put(MYRMEX_SOLDIER.get(), EntityMyrmexSoldier.bakeAttributes().build());
-        creationEvent.put(MYRMEX_SENTINEL.get(), EntityMyrmexSentinel.bakeAttributes().build());
-        creationEvent.put(MYRMEX_ROYAL.get(), EntityMyrmexRoyal.bakeAttributes().build());
-        creationEvent.put(MYRMEX_QUEEN.get(), EntityMyrmexQueen.bakeAttributes().build());
-        creationEvent.put(MYRMEX_EGG.get(), EntityMyrmexEgg.bakeAttributes().build());
-        creationEvent.put(MYRMEX_SWARMER.get(), EntityMyrmexSwarmer.bakeAttributes().build());
-        creationEvent.put(AMPHITHERE.get(), EntityAmphithere.bakeAttributes().build());
-        creationEvent.put(SEA_SERPENT.get(), EntitySeaSerpent.bakeAttributes().build());
-        creationEvent.put(MOB_SKULL.get(), EntityMobSkull.bakeAttributes().build());
-        creationEvent.put(DREAD_THRALL.get(), EntityDreadThrall.bakeAttributes().build());
-        creationEvent.put(DREAD_LICH.get(), EntityDreadLich.bakeAttributes().build());
-        creationEvent.put(DREAD_BEAST.get(), EntityDreadBeast.bakeAttributes().build());
-        creationEvent.put(DREAD_HORSE.get(), EntityDreadHorse.bakeAttributes().build());
-        creationEvent.put(DREAD_GHOUL.get(), EntityDreadGhoul.bakeAttributes().build());
-        creationEvent.put(DREAD_KNIGHT.get(), EntityDreadKnight.bakeAttributes().build());
-        creationEvent.put(DREAD_SCUTTLER.get(), EntityDreadScuttler.bakeAttributes().build());
-        creationEvent.put(HYDRA.get(), EntityHydra.bakeAttributes().build());
-        creationEvent.put(GHOST.get(), EntityGhost.bakeAttributes().build());
+    public static void bakeAttributes() {
+        FabricDefaultAttributeRegistry.register(DRAGON_EGG.get(), EntityDragonEgg.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DRAGON_SKULL.get(), EntityDragonSkull.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(FIRE_DRAGON.get(), EntityFireDragon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(ICE_DRAGON.get(), EntityIceDragon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(LIGHTNING_DRAGON.get(), EntityLightningDragon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(HIPPOGRYPH.get(), EntityHippogryph.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(GORGON.get(), EntityGorgon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(STONE_STATUE.get(), EntityStoneStatue.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(PIXIE.get(), EntityPixie.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(CYCLOPS.get(), EntityCyclops.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(SIREN.get(), EntitySiren.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(HIPPOCAMPUS.get(), EntityHippocampus.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DEATH_WORM.get(), EntityDeathWorm.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(COCKATRICE.get(), EntityCockatrice.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(STYMPHALIAN_BIRD.get(), EntityStymphalianBird.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(TROLL.get(), EntityTroll.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_WORKER.get(), EntityMyrmexWorker.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_SOLDIER.get(), EntityMyrmexSoldier.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_SENTINEL.get(), EntityMyrmexSentinel.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_ROYAL.get(), EntityMyrmexRoyal.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_QUEEN.get(), EntityMyrmexQueen.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_EGG.get(), EntityMyrmexEgg.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_SWARMER.get(), EntityMyrmexSwarmer.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(AMPHITHERE.get(), EntityAmphithere.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(SEA_SERPENT.get(), EntitySeaSerpent.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MOB_SKULL.get(), EntityMobSkull.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_THRALL.get(), EntityDreadThrall.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_LICH.get(), EntityDreadLich.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_BEAST.get(), EntityDreadBeast.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_HORSE.get(), EntityDreadHorse.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_GHOUL.get(), EntityDreadGhoul.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_KNIGHT.get(), EntityDreadKnight.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_SCUTTLER.get(), EntityDreadScuttler.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(HYDRA.get(), EntityHydra.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(GHOST.get(), EntityGhost.bakeAttributes().build());
     }
 
-    @SubscribeEvent
-    public static void commonSetup(final FMLCommonSetupEvent event) {
+    public static void commonSetup() {
         SpawnRestriction.register(HIPPOGRYPH.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityHippogryph::canMobSpawn);
         SpawnRestriction.register(TROLL.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityTroll::canTrollSpawnOn);
         SpawnRestriction.register(DREAD_LICH.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityDreadLich::canLichSpawnOn);
@@ -140,42 +130,42 @@ public class IafEntityRegistry {
     }
 
     public static HashMap<String, Boolean> LOADED_ENTITIES;
+
     static {
-    	LOADED_ENTITIES = new HashMap<>();
-    	LOADED_ENTITIES.put("HIPPOGRYPH", false);
-    	LOADED_ENTITIES.put("DREAD_LICH", false);
-    	LOADED_ENTITIES.put("COCKATRICE", false);
-    	LOADED_ENTITIES.put("AMPHITHERE", false);
-    	LOADED_ENTITIES.put("TROLL_F", false);
-    	LOADED_ENTITIES.put("TROLL_S", false);
-    	LOADED_ENTITIES.put("TROLL_M", false);
+        LOADED_ENTITIES = new HashMap<>();
+        LOADED_ENTITIES.put("HIPPOGRYPH", false);
+        LOADED_ENTITIES.put("DREAD_LICH", false);
+        LOADED_ENTITIES.put("COCKATRICE", false);
+        LOADED_ENTITIES.put("AMPHITHERE", false);
+        LOADED_ENTITIES.put("TROLL_F", false);
+        LOADED_ENTITIES.put("TROLL_S", false);
+        LOADED_ENTITIES.put("TROLL_M", false);
     }
-    public static void addSpawners(RegistryEntry<Biome> biome, ModifiableBiomeInfo.BiomeInfo.Builder builder) {
-        if (IafConfig.spawnHippogryphs && BiomeConfig.test(BiomeConfig.hippogryphBiomes, biome)) {
-            builder.getMobSpawnSettings().getSpawner(SpawnGroup.CREATURE).add(new SpawnSettings.SpawnEntry(IafEntityRegistry.HIPPOGRYPH.get(), IafConfig.hippogryphSpawnRate, 1, 1));
+
+    public static void addSpawners() {
+        if (IafConfig.spawnHippogryphs) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.HIPPOGRYPH.get(), IafConfig.hippogryphSpawnRate, 1, 1);
             LOADED_ENTITIES.put("HIPPOGRYPH", true);
         }
-        if (IafConfig.spawnLiches && BiomeConfig.test(BiomeConfig.mausoleumBiomes, biome)) {
-            builder.getMobSpawnSettings().getSpawner(SpawnGroup.MONSTER).add(new SpawnSettings.SpawnEntry(IafEntityRegistry.DREAD_LICH.get(), IafConfig.lichSpawnRate, 1, 1));
+        if (IafConfig.spawnLiches) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntityRegistry.DREAD_LICH.get(), IafConfig.lichSpawnRate, 1, 1);
             LOADED_ENTITIES.put("DREAD_LICH", true);
         }
-        if (IafConfig.spawnCockatrices && BiomeConfig.test(BiomeConfig.cockatriceBiomes, biome)) {
-            builder.getMobSpawnSettings().getSpawner(SpawnGroup.CREATURE).add(new SpawnSettings.SpawnEntry(IafEntityRegistry.COCKATRICE.get(), IafConfig.cockatriceSpawnRate, 1, 2));
+        if (IafConfig.spawnCockatrices) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.COCKATRICE.get(), IafConfig.cockatriceSpawnRate, 1, 2);
             LOADED_ENTITIES.put("COCKATRICE", true);
         }
-        if (IafConfig.spawnAmphitheres && BiomeConfig.test(BiomeConfig.amphithereBiomes, biome)) {
-            builder.getMobSpawnSettings().getSpawner(SpawnGroup.CREATURE).add(new SpawnSettings.SpawnEntry(IafEntityRegistry.AMPHITHERE.get(), IafConfig.amphithereSpawnRate, 1, 3));
+        if (IafConfig.spawnAmphitheres) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.AMPHITHERE.get(), IafConfig.amphithereSpawnRate, 1, 3);
             LOADED_ENTITIES.put("AMPHITHERE", true);
         }
-        if (IafConfig.spawnTrolls && (
-    		BiomeConfig.test(BiomeConfig.forestTrollBiomes, biome) ||
-    		BiomeConfig.test(BiomeConfig.snowyTrollBiomes, biome) ||
-    		BiomeConfig.test(BiomeConfig.mountainTrollBiomes, biome)
-		)) {
-            builder.getMobSpawnSettings().getSpawner(SpawnGroup.MONSTER).add(new SpawnSettings.SpawnEntry(IafEntityRegistry.TROLL.get(), IafConfig.trollSpawnRate, 1, 3));
-    		if (BiomeConfig.test(BiomeConfig.forestTrollBiomes, biome)) LOADED_ENTITIES.put("TROLL_F", true);
-    		if (BiomeConfig.test(BiomeConfig.snowyTrollBiomes, biome)) LOADED_ENTITIES.put("TROLL_S", true);
-    		if (BiomeConfig.test(BiomeConfig.mountainTrollBiomes, biome)) LOADED_ENTITIES.put("TROLL_M", true);
+        if (IafConfig.spawnTrolls) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.forestTrollBiomes, context.getBiomeRegistryEntry()) ||
+                    BiomeConfig.test(BiomeConfig.snowyTrollBiomes, context.getBiomeRegistryEntry()) ||
+                    BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntityRegistry.TROLL.get(), IafConfig.trollSpawnRate, 1, 3);
+            LOADED_ENTITIES.put("TROLL_F", true);
+            LOADED_ENTITIES.put("TROLL_S", true);
+            LOADED_ENTITIES.put("TROLL_M", true);
         }
 
     }

@@ -30,8 +30,8 @@ public class MessageSyncPathReached {
     }
 
     public void write(final PacketByteBuf buf) {
-        buf.writeInt(reached.size());
-        for (final BlockPos node : reached) {
+        buf.writeInt(this.reached.size());
+        for (final BlockPos node : this.reached) {
             buf.writeBlockPos(node);
         }
 
@@ -56,7 +56,7 @@ public class MessageSyncPathReached {
 
             if (contextSupplier.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
                 for (final MNode node : PathfindingDebugRenderer.lastDebugNodesPath) {
-                    if (reached.contains(node.pos)) {
+                    if (this.reached.contains(node.pos)) {
                         node.setReachedByWorker(true);
                     }
                 }

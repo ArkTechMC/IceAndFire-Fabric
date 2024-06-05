@@ -38,10 +38,10 @@ public class DragonAIAttackMelee extends Goal {
             return false;
         } else if (!livingEntity.isAlive()) {
             return false;
-        } else if (!dragon.canMove() || dragon.isHovering() || dragon.isFlying()) {
+        } else if (!this.dragon.canMove() || this.dragon.isHovering() || this.dragon.isFlying()) {
             return false;
         } else {
-            ((AdvancedPathNavigate) this.dragon.getNavigation()).moveToLivingEntity(livingEntity, speedTowardsTarget);
+            ((AdvancedPathNavigate) this.dragon.getNavigation()).moveToLivingEntity(livingEntity, this.speedTowardsTarget);
             return true;
         }
     }
@@ -57,7 +57,7 @@ public class DragonAIAttackMelee extends Goal {
             return false;
         }
 
-        return livingEntity != null && livingEntity.isAlive() && !dragon.isFlying() && !dragon.isHovering();
+        return livingEntity != null && livingEntity.isAlive() && !this.dragon.isFlying() && !this.dragon.isHovering();
     }
 
     @Override
@@ -77,16 +77,16 @@ public class DragonAIAttackMelee extends Goal {
     @Override
     public void tick() {
         LivingEntity entity = this.dragon.getTarget();
-        if(delayCounter > 0){
-            delayCounter--;
+        if(this.delayCounter > 0){
+            this.delayCounter--;
         }
         if (entity != null) {
-            if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
+            if (this.dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
                 this.stop();
                 return;
             }
 
-            ((AdvancedPathNavigate) this.dragon.getNavigation()).moveToLivingEntity(entity, speedTowardsTarget);
+            ((AdvancedPathNavigate) this.dragon.getNavigation()).moveToLivingEntity(entity, this.speedTowardsTarget);
 
             final double d0 = this.dragon.squaredDistanceTo(entity.getX(), entity.getBoundingBox().minY, entity.getZ());
             final double d1 = this.getAttackReachSqr(entity);
@@ -98,15 +98,15 @@ public class DragonAIAttackMelee extends Goal {
                 this.delayCounter = 4 + this.dragon.getRandom().nextInt(7);
 
                 if (this.canPenalize) {
-                    this.delayCounter += failedPathFindingPenalty;
+                    this.delayCounter += this.failedPathFindingPenalty;
                     if (this.dragon.getNavigation().getCurrentPath() != null) {
                         net.minecraft.entity.ai.pathing.PathNode finalPathPoint = this.dragon.getNavigation().getCurrentPath().getEnd();
                         if (finalPathPoint != null && entity.squaredDistanceTo(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            failedPathFindingPenalty = 0;
+                            this.failedPathFindingPenalty = 0;
                         else
-                            failedPathFindingPenalty += 10;
+                            this.failedPathFindingPenalty += 10;
                     } else {
-                        failedPathFindingPenalty += 10;
+                        this.failedPathFindingPenalty += 10;
                     }
                 }
 

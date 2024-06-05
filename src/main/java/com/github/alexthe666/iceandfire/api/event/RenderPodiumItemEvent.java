@@ -25,30 +25,30 @@ public class RenderPodiumItemEvent extends Event {
     }
 
     public RenderPodium<?> getRender() {
-        return render;
+        return this.render;
     }
 
     public ItemStack getItemStack() {
-        return podium.getStack(0);
+        return this.podium.getStack(0);
     }
 
     public TileEntityPodium getPodium() {
-        return podium;
+        return this.podium;
     }
 
     public float getPartialTicks() {
-        return partialTicks;
+        return this.partialTicks;
     }
 
     public double getX() {
-        return x;
+        return this.x;
     }
 
     public double getY() {
-        return y;
+        return this.y;
     }
 
     public double getZ() {
-        return z;
+        return this.z;
     }
 }

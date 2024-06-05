@@ -67,7 +67,7 @@ public class WorldGenDreadRuin extends Feature<DefaultFeatureConfig> {
         StructureWorldAccess worldIn = context.getWorld();
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
-        Identifier structure = getRandomStructure(rand);
+        Identifier structure = this.getRandomStructure(rand);
         Direction facing = HORIZONTALS[rand.nextInt(3)];
         MinecraftServer server = worldIn.toServerWorld().getServer();
         Biome biome = worldIn.getBiome(position).value();

@@ -30,32 +30,32 @@ public class EventMergeStructureSpawns extends Event {
     }
 
     public StructureAccessor getStructureManager() {
-        return structureManager;
+        return this.structureManager;
     }
 
     public BlockPos getPos() {
-        return pos;
+        return this.pos;
     }
 
     public SpawnGroup getCategory() {
-        return category;
+        return this.category;
     }
 
     public boolean isStructureTagged(TagKey<Structure> tagKey) {
-        return structureManager.getStructureContaining(pos, tagKey).hasChildren();
+        return this.structureManager.getStructureContaining(this.pos, tagKey).hasChildren();
     }
 
     public Pool<SpawnSettings.SpawnEntry> getStructureSpawns() {
-        return structureSpawns;
+        return this.structureSpawns;
     }
 
     public void setStructureSpawns(Pool<SpawnSettings.SpawnEntry> spawns) {
-        structureSpawns = spawns;
+        this.structureSpawns = spawns;
     }
 
     public void mergeSpawns() {
-        List<SpawnSettings.SpawnEntry> list = new ArrayList<>(biomeSpawns.getEntries());
-        for (SpawnSettings.SpawnEntry structureSpawn : structureSpawns.getEntries()) {
+        List<SpawnSettings.SpawnEntry> list = new ArrayList<>(this.biomeSpawns.getEntries());
+        for (SpawnSettings.SpawnEntry structureSpawn : this.structureSpawns.getEntries()) {
             if (!list.contains(structureSpawn)) {
                 list.add(structureSpawn);
             }
@@ -64,6 +64,6 @@ public class EventMergeStructureSpawns extends Event {
     }
 
     public Pool<SpawnSettings.SpawnEntry> getBiomeSpawns() {
-        return biomeSpawns;
+        return this.biomeSpawns;
     }
 }

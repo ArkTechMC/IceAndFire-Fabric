@@ -27,27 +27,27 @@ public class CustomArmorMaterial implements ArmorMaterial {
 
     @Override
     public int getDurability(ArmorItem.Type slotIn) {
-        return durability;
+        return this.durability;
     }
 
     @Override
     public int getProtection(ArmorItem.Type slotIn) {
-        return damageReduction[slotIn.ordinal()];
+        return this.damageReduction[slotIn.ordinal()];
     }
 
     @Override
     public int getEnchantability() {
-        return encantability;
+        return this.encantability;
     }
 
     @Override
     public SoundEvent getEquipSound() {
-        return sound;
+        return this.sound;
     }
 
     @Override
     public Ingredient getRepairIngredient() {
-        return ingredient == null ? Ingredient.EMPTY : ingredient;
+        return this.ingredient == null ? Ingredient.EMPTY : this.ingredient;
     }
 
     public void setRepairMaterial(Ingredient ingredient){
@@ -56,16 +56,16 @@ public class CustomArmorMaterial implements ArmorMaterial {
 
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     @Override
     public float getToughness() {
-        return toughness;
+        return this.toughness;
     }
 
     @Override
     public float getKnockbackResistance() {
-        return knockbackResistance;
+        return this.knockbackResistance;
     }
 }

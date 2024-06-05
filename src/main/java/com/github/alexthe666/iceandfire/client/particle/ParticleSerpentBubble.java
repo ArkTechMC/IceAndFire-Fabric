@@ -26,7 +26,7 @@ public class ParticleSerpentBubble extends SpriteBillboardParticle {
     @Override
     public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
-        if (age > this.getMaxAge()) {
+        if (this.age > this.getMaxAge()) {
             this.markDead();
         }
 

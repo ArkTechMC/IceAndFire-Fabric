@@ -47,20 +47,20 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     @Override
     public boolean generate(@NotNull final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafConfig.generateDragonRoostChance, context.getWorld(), context.getRandom(), context.getOrigin(), getId(), true)) {
+        if (!WorldUtil.canGenerate(IafConfig.generateDragonRoostChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
 
         boolean isMale = new Random().nextBoolean();
         int radius = 12 + context.getRandom().nextInt(8);
 
-        spawnDragon(context, radius, isMale);
-        generateSurface(context, radius);
-        generateShell(context, radius);
+        this.spawnDragon(context, radius, isMale);
+        this.generateSurface(context, radius);
+        this.generateShell(context, radius);
         radius -= 2;
-        hollowOut(context, radius);
+        this.hollowOut(context, radius);
         radius += 15;
-        generateDecoration(context, radius, isMale);
+        this.generateDecoration(context, radius, isMale);
 
         return true;
     }
@@ -70,7 +70,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
         for (int i = 0; i < radius; i++) {
             int layeredRadius = radius - i;
-            double circularArea = getCircularArea(radius);
+            double circularArea = this.getCircularArea(radius);
             BlockPos up = position.up(i);
 
             for (BlockPos blockpos : BlockPos.stream(up.add(-layeredRadius, 0, -layeredRadius), up.add(layeredRadius, 0, layeredRadius)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
@@ -96,12 +96,12 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
     }
 
     protected BlockState transform(final Block block) {
-        return transform(block.getDefaultState());
+        return this.transform(block.getDefaultState());
     }
 
     private void generateDecoration(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius, boolean isMale) {
         int height = (radius / 5);
-        double circularArea = getCircularArea(radius, height);
+        double circularArea = this.getCircularArea(radius, height);
 
         BlockPos.stream(context.getOrigin().add(-radius, -height, -radius), context.getOrigin().add(radius, height, radius)).map(BlockPos::toImmutable).forEach(position -> {
             if (position.getSquaredDistance(context.getOrigin()) <= circularArea) {
@@ -111,7 +111,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
                     BlockState state = context.getWorld().getBlockState(position);
 
                     if (!(state.getBlock() instanceof BlockWithEntity) && state.getHardness(context.getWorld(), position) >= 0) {
-                        BlockState transformed = transform(state);
+                        BlockState transformed = this.transform(state);
 
                         if (transformed != state) {
                             context.getWorld().setBlockState(position, transformed, Block.NOTIFY_LISTENERS);
@@ -119,15 +119,15 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
                     }
                 }
 
-                handleCustomGeneration(context, position, distance);
+                this.handleCustomGeneration(context, position, distance);
 
                 if (distance > 0.5 && context.getRandom().nextInt(1000) == 0) {
                     // FIXME
-                    new WorldGenRoostBoulder(transform(Blocks.COBBLESTONE).getBlock(), context.getRandom().nextInt(3), true).generate(context.getWorld(), context.getRandom(), getSurfacePosition(context.getWorld(), position));
+                    new WorldGenRoostBoulder(this.transform(Blocks.COBBLESTONE).getBlock(), context.getRandom().nextInt(3), true).generate(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position));
                 }
 
                 if (distance < 0.3 && context.getRandom().nextInt(isMale ? 200 : 300) == 0) {
-                    generateTreasurePile(context.getWorld(), context.getRandom(), position);
+                    this.generateTreasurePile(context.getWorld(), context.getRandom(), position);
                 }
 
                 if (distance < 0.3D && context.getRandom().nextInt(isMale ? 500 : 700) == 0) {
@@ -139,14 +139,14 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
                         BlockEntity blockEntity = context.getWorld().getBlockEntity(surfacePosition);
 
                         if (blockEntity instanceof ChestBlockEntity chest) {
-                            chest.setLootTable(getRoostLootTable(), context.getRandom().nextLong());
+                            chest.setLootTable(this.getRoostLootTable(), context.getRandom().nextLong());
                         }
                     }
                 }
 
                 if (context.getRandom().nextInt(5000) == 0) {
                     // FIXME
-                    new WorldGenRoostArch(transform(Blocks.COBBLESTONE).getBlock()).generate(context.getWorld(), context.getRandom(), getSurfacePosition(context.getWorld(), position));
+                    new WorldGenRoostArch(this.transform(Blocks.COBBLESTONE).getBlock()).generate(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position));
                 }
             }
         });
@@ -154,7 +154,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     private void hollowOut(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius) {
         int height = 2;
-        double circularArea = getCircularArea(radius, height);
+        double circularArea = this.getCircularArea(radius, height);
         BlockPos up = context.getOrigin().up(height - 1);
 
         BlockPos.stream(up.add(-radius, 0, -radius), up.add(radius, height, radius)).map(BlockPos::toImmutable).forEach(position -> {
@@ -166,30 +166,30 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     private void generateShell(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius) {
         int height = (radius / 5);
-        double circularArea = getCircularArea(radius, height);
+        double circularArea = this.getCircularArea(radius, height);
 
         BlockPos.stream(context.getOrigin().add(-radius, -height, -radius), context.getOrigin().add(radius, 1, radius)).map(BlockPos::toImmutable).forEach(position -> {
             if (position.getSquaredDistance(context.getOrigin()) < circularArea) {
-                context.getWorld().setBlockState(position, context.getRandom().nextBoolean() ? transform(Blocks.GRAVEL) : transform(Blocks.DIRT), Block.NOTIFY_LISTENERS);
+                context.getWorld().setBlockState(position, context.getRandom().nextBoolean() ? this.transform(Blocks.GRAVEL) : this.transform(Blocks.DIRT), Block.NOTIFY_LISTENERS);
             } else if (position.getSquaredDistance(context.getOrigin()) == circularArea) {
-                context.getWorld().setBlockState(position, transform(Blocks.COBBLESTONE), Block.NOTIFY_LISTENERS);
+                context.getWorld().setBlockState(position, this.transform(Blocks.COBBLESTONE), Block.NOTIFY_LISTENERS);
             }
         });
     }
 
     private void generateSurface(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius) {
         int height = 2;
-        double circularArea = getCircularArea(radius, height);
+        double circularArea = this.getCircularArea(radius, height);
 
         BlockPos.stream(context.getOrigin().add(-radius, height, -radius), context.getOrigin().add(radius, 0, radius)).map(BlockPos::toImmutable).forEach(position -> {
             int heightDifference = position.getY() - context.getOrigin().getY();
 
             if (position.getSquaredDistance(context.getOrigin()) <= circularArea && heightDifference < 2 + context.getRandom().nextInt(height) && !context.getWorld().isAir(position.down())) {
                 if (context.getWorld().isAir(position.up())) {
-                    context.getWorld().setBlockState(position, transform(Blocks.GRASS), Block.NOTIFY_LISTENERS);
+                    context.getWorld().setBlockState(position, this.transform(Blocks.GRASS), Block.NOTIFY_LISTENERS);
                 } else {
                     // TODO :: Usually not much / anything of this survives the next generation steps
-                    context.getWorld().setBlockState(position, transform(Blocks.DIRT), Block.NOTIFY_LISTENERS);
+                    context.getWorld().setBlockState(position, this.transform(Blocks.DIRT), Block.NOTIFY_LISTENERS);
                 }
             }
         });
@@ -200,26 +200,26 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
         for (int i = 0; i < layers; i++) {
             int radius = layers - i;
-            double circularArea = getCircularArea(radius);
+            double circularArea = this.getCircularArea(radius);
 
             for (BlockPos position : BlockPos.stream(origin.add(-radius, i, -radius), origin.add(radius, i, radius)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
                 if (position.getSquaredDistance(origin) <= circularArea) {
                     position = level.getTopPosition(Heightmap.Type.WORLD_SURFACE, position);
 
-                    if (treasureBlock instanceof BlockGoldPile) {
+                    if (this.treasureBlock instanceof BlockGoldPile) {
                         BlockState state = level.getBlockState(position);
                         boolean placed = false;
 
                         if (state.isAir()) {
-                            level.setBlockState(position, treasureBlock.getDefaultState().with(BlockGoldPile.LAYERS, 1 + random.nextInt(7)), Block.NOTIFY_LISTENERS);
+                            level.setBlockState(position, this.treasureBlock.getDefaultState().with(BlockGoldPile.LAYERS, 1 + random.nextInt(7)), Block.NOTIFY_LISTENERS);
                             placed = true;
                         } else if (state.getBlock() instanceof SnowBlock) {
-                            level.setBlockState(position.down(), treasureBlock.getDefaultState().with(BlockGoldPile.LAYERS, state.get(SnowBlock.LAYERS)), Block.NOTIFY_LISTENERS);
+                            level.setBlockState(position.down(), this.treasureBlock.getDefaultState().with(BlockGoldPile.LAYERS, state.get(SnowBlock.LAYERS)), Block.NOTIFY_LISTENERS);
                             placed = true;
                         }
 
                         if (placed && level.getBlockState(position.down()).getBlock() instanceof BlockGoldPile) {
-                            level.setBlockState(position.down(), treasureBlock.getDefaultState().with(BlockGoldPile.LAYERS, 8), Block.NOTIFY_LISTENERS);
+                            level.setBlockState(position.down(), this.treasureBlock.getDefaultState().with(BlockGoldPile.LAYERS, 8), Block.NOTIFY_LISTENERS);
                         }
                     }
                 }
@@ -228,7 +228,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
     }
 
     private void spawnDragon(@NotNull final FeatureContext<DefaultFeatureConfig> context, int ageOffset, boolean isMale) {
-        EntityDragonBase dragon = getDragonType().create(context.getWorld().toServerWorld());
+        EntityDragonBase dragon = this.getDragonType().create(context.getWorld().toServerWorld());
         dragon.setGender(isMale);
         dragon.growDragon(40 + ageOffset);
         dragon.setAgingDisabled(true);

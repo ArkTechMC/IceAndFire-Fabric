@@ -26,11 +26,11 @@ public class WorldGenRoostGoldPile {
             for (BlockPos blockpos : BlockPos.stream(up.add(-j, 0, -l), up.add(j, 0, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
                 if (blockpos.getSquaredDistance(position) <= (double) (f * f)) {
                     blockpos = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, blockpos);
-                    if (block instanceof BlockGoldPile) {
+                    if (this.block instanceof BlockGoldPile) {
                         if (worldIn.isAir(blockpos)) {
-                            worldIn.setBlockState(blockpos, block.getDefaultState().with(BlockGoldPile.LAYERS, 1 + rand.nextInt(7)), 2);
+                            worldIn.setBlockState(blockpos, this.block.getDefaultState().with(BlockGoldPile.LAYERS, 1 + rand.nextInt(7)), 2);
                             if (worldIn.getBlockState(blockpos.down()).getBlock() instanceof BlockGoldPile) {
-                                worldIn.setBlockState(blockpos.down(), block.getDefaultState().with(BlockGoldPile.LAYERS, 8), 2);
+                                worldIn.setBlockState(blockpos.down(), this.block.getDefaultState().with(BlockGoldPile.LAYERS, 8), 2);
                             }
                         }
                     }

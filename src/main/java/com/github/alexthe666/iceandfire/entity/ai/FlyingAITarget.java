@@ -31,7 +31,7 @@ public class FlyingAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> 
 
     @Override
     public boolean canStart() {
-        if (mob instanceof EntitySeaSerpent && (((EntitySeaSerpent) mob).isJumpingOutOfWater() || !mob.isTouchingWater())) {
+        if (this.mob instanceof EntitySeaSerpent && (((EntitySeaSerpent) this.mob).isJumpingOutOfWater() || !this.mob.isTouchingWater())) {
             return false;
         }
         return super.canStart();

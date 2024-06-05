@@ -44,8 +44,8 @@ public class ParticlePixieDust extends SpriteBillboardParticle {
         scaley = MathHelper.clamp(scaley, 0.0F, 1.0F);
         this.scale = this.reddustParticleScale * scaley;
 
-        float width = scale * 0.09F;
-        if (age > this.getMaxAge()) {
+        float width = this.scale * 0.09F;
+        if (this.age > this.getMaxAge()) {
             this.markDead();
         }
 
@@ -96,9 +96,9 @@ public class ParticlePixieDust extends SpriteBillboardParticle {
     }
 
     public void onUpdate() {
-        this.prevPosX = x;
-        this.prevPosY = y;
-        this.prevPosZ = z;
+        this.prevPosX = this.x;
+        this.prevPosY = this.y;
+        this.prevPosZ = this.z;
 
         if (this.age++ >= this.maxAge) {
             this.markDead();

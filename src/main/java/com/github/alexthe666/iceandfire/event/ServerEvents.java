@@ -23,18 +23,14 @@ import com.github.alexthe666.iceandfire.pathfinding.raycoms.pathjobs.AbstractPat
 import com.github.alexthe666.iceandfire.world.gen.WorldGenFireDragonCave;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenIceDragonCave;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenLightningDragonCave;
+import com.iafenvoy.iafextra.event.AttackEntityEvent;
+import com.iafenvoy.iafextra.event.Event;
+import com.iafenvoy.iafextra.event.ProjectileImpactEvent;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.WallBlock;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageRecord;
 import net.minecraft.entity.damage.DamageTracker;
 import net.minecraft.entity.damage.DamageTypes;
@@ -55,6 +51,7 @@ import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -69,7 +66,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityStruckByLightningEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -80,13 +76,11 @@ import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID)
 public class ServerEvents {
 
     public static final UUID ALEX_UUID = UUID.fromString("71363abe-fd03-49c9-940d-aae8b8209b7c");
@@ -135,7 +129,7 @@ public class ServerEvents {
     }
 
     private static boolean isInEntityTag(Identifier loc, EntityType<?> type) {
-        return type.isIn(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.tags()).createTagKey(loc));
+        return type.isIn(Objects.requireNonNull(Registries.ENTITY_TYPE.tags()).createTagKey(loc));
     }
 
     public static boolean isLivestock(Entity entity) {
@@ -180,19 +174,18 @@ public class ServerEvents {
         return false;
     }
 
-    @SubscribeEvent
-    public void onArrowCollide(final ProjectileImpactEvent event) {
+    public static void onArrowCollide(final ProjectileImpactEvent event) {
         if (event.getRayTraceResult() instanceof EntityHitResult result) {
             Entity shotEntity = result.getEntity();
 
             if (shotEntity instanceof EntityGhost) {
-                event.setCanceled(true);
-            } else if (event.getEntity() instanceof PersistentProjectileEntity arrow && arrow.getOwner() != null) {
+                event.cancel();
+            } else if (event.getProjectile() instanceof PersistentProjectileEntity arrow && arrow.getOwner() != null) {
                 Entity shootingEntity = arrow.getOwner();
 
                 if (shootingEntity instanceof LivingEntity && isRidingOrBeingRiddenBy(shootingEntity, shotEntity)) {
                     if (shotEntity instanceof TameableEntity tamable && tamable.isTamed() && shotEntity.isTeammate(shootingEntity)) {
-                        event.setCanceled(true);
+                        event.cancel();
                     }
                 }
             }
@@ -207,16 +200,15 @@ public class ServerEvents {
             Registry<StructurePool> templatePoolRegistry = event.getServer().registryAccess().registry(RegistryKeys.TEMPLATE_POOL).orElseThrow();
             Registry<StructureProcessorList> processorListRegistry = event.getServer().registryAccess().registry(RegistryKeys.PROCESSOR_LIST).orElseThrow();
             for (String type : VILLAGE_TYPES) {
-                IafVillagerRegistry.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IceAndFire.MOD_ID,"village/" + type + "_scriber_1", IafConfig.villagerHouseWeight);
+                IafVillagerRegistry.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IceAndFire.MOD_ID, "village/" + type + "_scriber_1", IafConfig.villagerHouseWeight);
             }
         }
 
     }
 
-    @SubscribeEvent
-    public void onPlayerAttackMob(AttackEntityEvent event) {
+    public static void onPlayerAttackMob(AttackEntityEvent event) {
         if (event.getTarget() instanceof EntityMutlipartPart && event.getEntity() instanceof PlayerEntity) {
-            event.setCanceled(true);
+            event.cancel();
             Entity parent = ((EntityMutlipartPart) event.getTarget()).getParent();
             try {
                 //If the attacked entity is the parent itself parent will be null and also doesn't have to be attacked
@@ -230,7 +222,7 @@ public class ServerEvents {
                 extraData = ((EntityHydraHead) event.getTarget()).headIndex;
                 ((EntityHydra) parent).triggerHeadFlags(extraData);
             }
-            if (event.getTarget().level().isClientSide && parent != null) {
+            if (event.getTarget().getWorld().isClient && parent != null) {
                 IceAndFire.NETWORK_WRAPPER.sendToServer(new MessagePlayerHitMultipart(parent.getId(), extraData));
             }
         }

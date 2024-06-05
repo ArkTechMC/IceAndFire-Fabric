@@ -25,7 +25,7 @@ public class ItemDragonScales extends Item {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + type.toString().toLowerCase()).formatted(type.color));
+        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase()).formatted(this.type.color));
     }
 
 }

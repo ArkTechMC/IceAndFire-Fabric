@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.interfaces;
+package com.iafenvoy.iafextra.interfaces;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;

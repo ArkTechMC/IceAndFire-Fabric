@@ -66,7 +66,7 @@ public class WorldGenIceDragonRoosts extends WorldGenDragonRoosts {
     @Override
     protected void handleCustomGeneration(@NotNull final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance) {
         if (context.getRandom().nextInt(1000) == 0) {
-            generateRoostPile(context.getWorld(), context.getRandom(), getSurfacePosition(context.getWorld(), position), IafBlockRegistry.DRAGON_ICE.get());
+            this.generateRoostPile(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position), IafBlockRegistry.DRAGON_ICE.get());
         }
     }
 }

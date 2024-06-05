@@ -13,6 +13,6 @@ public class CockatriceAIFollowOwner extends FollowOwnerGoal {
 
     @Override
     public boolean canStart() {
-        return super.canStart() && cockatrice.getCommand() == 2;
+        return super.canStart() && this.cockatrice.getCommand() == 2;
     }
 }

@@ -11,16 +11,12 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityHydraBreath extends AbstractFireballEntity implements IDragonProjectile {
@@ -34,10 +30,6 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
         super(t, posX, posY, posZ, accelX, accelY, accelZ, worldIn);
     }
 
-    public EntityHydraBreath(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.HYDRA_BREATH.get(), worldIn);
-    }
-
     public EntityHydraBreath(EntityType<? extends AbstractFireballEntity> t, World worldIn, EntityHydra shooter,
                              double accelX, double accelY, double accelZ) {
         super(t, shooter, accelX, accelY, accelZ, worldIn);
@@ -45,11 +37,6 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
         this.powerX = accelX / d0 * 0.02D;
         this.powerY = accelY / d0 * 0.02D;
         this.powerZ = accelZ / d0 * 0.02D;
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
@@ -140,7 +127,7 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
                     if (dragon.isTeammate(entity) || dragon.isPartOf(entity)) {
                         return;
                     }
-                    entity.damage(getWorld().getDamageSources().mobAttack(dragon), 2.0F);
+                    entity.damage(this.getWorld().getDamageSources().mobAttack(dragon), 2.0F);
                     if (entity instanceof LivingEntity) {
                         ((LivingEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 60, 0));
                     }

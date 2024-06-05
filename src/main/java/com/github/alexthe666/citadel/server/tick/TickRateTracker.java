@@ -16,15 +16,15 @@ public abstract class TickRateTracker {
     private long masterTickCount;
 
     public void masterTick() {
-        masterTickCount++;
-        specialTickRateEntities.forEach(this::tickBlockedEntity);
-        specialTickRateEntities.removeIf(this::hasNormalTickRate);
-        for (TickRateModifier modifier : tickRateModifierList) {
+        this.masterTickCount++;
+        this.specialTickRateEntities.forEach(this::tickBlockedEntity);
+        this.specialTickRateEntities.removeIf(this::hasNormalTickRate);
+        for (TickRateModifier modifier : this.tickRateModifierList) {
             modifier.masterTick();
         }
-        if (!tickRateModifierList.isEmpty()) {
-            if (tickRateModifierList.removeIf(TickRateModifier::doRemove)) {
-                sync();
+        if (!this.tickRateModifierList.isEmpty()) {
+            if (this.tickRateModifierList.removeIf(TickRateModifier::doRemove)) {
+                this.sync();
             }
         }
     }
@@ -33,13 +33,13 @@ public abstract class TickRateTracker {
     }
 
     public boolean hasModifiersActive() {
-        return !tickRateModifierList.isEmpty();
+        return !this.tickRateModifierList.isEmpty();
     }
 
     public NbtCompound toTag() {
         NbtCompound tag = new NbtCompound();
         NbtList list = new NbtList();
-        for (TickRateModifier modifier : tickRateModifierList) {
+        for (TickRateModifier modifier : this.tickRateModifierList) {
             if (!modifier.doRemove()) {
                 list.add(modifier.toTag());
             }
@@ -55,7 +55,7 @@ public abstract class TickRateTracker {
                 NbtCompound tag1 = list.getCompound(i);
                 TickRateModifier modifier = TickRateModifier.fromTag(tag1);
                 if (!modifier.doRemove()) {
-                    tickRateModifierList.add(modifier);
+                    this.tickRateModifierList.add(modifier);
                 }
             }
         }
@@ -63,21 +63,21 @@ public abstract class TickRateTracker {
 
     public long getDayTimeIncrement(long timeIn) {
         float f = 1F;
-        for (TickRateModifier modifier : tickRateModifierList) {
+        for (TickRateModifier modifier : this.tickRateModifierList) {
             if (modifier.getType() == TickRateModifierType.CELESTIAL) {
                 f *= modifier.getTickRateMultiplier();
             }
         }
         if (f < 1F && f > 0F) {
             int inverse = (int) (1 / f);
-            return masterTickCount % inverse == 0 ? timeIn : 0;
+            return this.masterTickCount % inverse == 0 ? timeIn : 0;
         }
         return (long) (timeIn * f);
     }
 
     public float getEntityTickLengthModifier(Entity entity) {
         float f = 1.0F;
-        for (TickRateModifier modifier : tickRateModifierList) {
+        for (TickRateModifier modifier : this.tickRateModifierList) {
             if (modifier.getType().isLocal() && modifier.appliesTo(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ())) {
                 f *= modifier.getTickRateMultiplier();
             }
@@ -86,21 +86,21 @@ public abstract class TickRateTracker {
     }
 
     public boolean hasNormalTickRate(Entity entity) {
-        return getEntityTickLengthModifier(entity) == 1.0F;
+        return this.getEntityTickLengthModifier(entity) == 1.0F;
     }
 
     public boolean isTickingHandled(Entity entity){
-        return specialTickRateEntities.contains(entity);
+        return this.specialTickRateEntities.contains(entity);
     }
 
     public void addTickBlockedEntity(Entity entity) {
-        if (!isTickingHandled(entity)) {
-            specialTickRateEntities.add(entity);
+        if (!this.isTickingHandled(entity)) {
+            this.specialTickRateEntities.add(entity);
         }
     }
 
     protected void tickBlockedEntity(Entity entity){
-        tickEntityAtCustomRate(entity);
+        this.tickEntityAtCustomRate(entity);
     }
 
 

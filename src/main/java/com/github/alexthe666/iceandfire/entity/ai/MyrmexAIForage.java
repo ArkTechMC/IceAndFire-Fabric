@@ -57,24 +57,24 @@ public class MyrmexAIForage extends Goal {
         }
 
         // Get nearby edible blocks
-        List<BlockPos> edibleBlocks = getEdibleBlocks();
+        List<BlockPos> edibleBlocks = this.getEdibleBlocks();
         // If there are no edible blocks nearby
         if (edibleBlocks.isEmpty()) {
-            return myrmex.getRandom().nextInt(chance) == 0 && increaseRadiusAndWander();
+            return this.myrmex.getRandom().nextInt(this.chance) == 0 && this.increaseRadiusAndWander();
         }
         // Set closest block as target
         edibleBlocks.sort(this.targetSorter);
         this.targetBlock = edibleBlocks.get(0);
-        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(targetBlock.getX(),
-                targetBlock.getY(), targetBlock.getZ(), 1D);
-        return myrmex.getRandom().nextInt(chance) == 0;
+        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
+                this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
+        return this.myrmex.getRandom().nextInt(this.chance) == 0;
     }
 
     @Override
     public boolean shouldContinue() {
         if (this.targetBlock == null) return false;
         if (this.myrmex.getWaitTicks() > 0) return false;
-        if (myrmex.shouldEnterHive()) {
+        if (this.myrmex.shouldEnterHive()) {
             this.myrmex.keepSearching = false;
             return false;
         }
@@ -84,28 +84,28 @@ public class MyrmexAIForage extends Goal {
     @Override
     public void tick() {
         // If we haven't found an edible block as a target
-        if (targetBlock != null && this.myrmex.keepSearching) {
+        if (this.targetBlock != null && this.myrmex.keepSearching) {
             // If the myrmex is close enough to the target or at the end of the path
-            if (this.myrmex.isCloseEnoughToTarget(targetBlock, 12)
-                    || !this.myrmex.pathReachesTarget(path, targetBlock, 12)) {
-                failedToFindPath = 0;
-                List<BlockPos> edibleBlocks = getEdibleBlocks();
+            if (this.myrmex.isCloseEnoughToTarget(this.targetBlock, 12)
+                    || !this.myrmex.pathReachesTarget(this.path, this.targetBlock, 12)) {
+                this.failedToFindPath = 0;
+                List<BlockPos> edibleBlocks = this.getEdibleBlocks();
                 // If we found an edible block nearby
                 if (!edibleBlocks.isEmpty()) {
                     this.myrmex.keepSearching = false;
                     edibleBlocks.sort(this.targetSorter);
                     this.targetBlock = edibleBlocks.get(0);
-                    this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(targetBlock.getX(),
-                            targetBlock.getY(), targetBlock.getZ(), 1D);
+                    this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
+                            this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
                 }
                 // If there are still no edible blocks nearby
                 else {
-                    increaseRadiusAndWander();
+                    this.increaseRadiusAndWander();
                 }
             }
             // if we have found an edible block
         } else if (!this.myrmex.keepSearching) {
-            failedToFindPath = 0;
+            this.failedToFindPath = 0;
             BlockState block = this.myrmex.getWorld().getBlockState(this.targetBlock);
             // Test if the block is edible
             if (EntityMyrmexBase.isEdibleBlock(block)) {
@@ -114,7 +114,7 @@ public class MyrmexAIForage extends Goal {
                     block.getBlock();
                     // Routine to break block and add item to myrmex
                     List<ItemStack> drops = Block.getDroppedStacks(block, (ServerWorld) this.myrmex.getWorld(), this.targetBlock,
-                            this.myrmex.getWorld().getBlockEntity(targetBlock)); // use the old method until it gets removed, for
+                            this.myrmex.getWorld().getBlockEntity(this.targetBlock)); // use the old method until it gets removed, for
                     // backward compatibility
                     if (!drops.isEmpty()) {
                         this.myrmex.getWorld().breakBlock(this.targetBlock, false);
@@ -140,15 +140,15 @@ public class MyrmexAIForage extends Goal {
                 }
                 // If the myrmex reached the end of the path but is still not close enough to
                 // the target
-                else if (!this.myrmex.pathReachesTarget(path, targetBlock, 12)) {
-                    List<BlockPos> edibleBlocks = getEdibleBlocks();
+                else if (!this.myrmex.pathReachesTarget(this.path, this.targetBlock, 12)) {
+                    List<BlockPos> edibleBlocks = this.getEdibleBlocks();
                     // If we found an edible block nearby
                     if (!edibleBlocks.isEmpty()) {
                         this.myrmex.keepSearching = false;
                         // This time choose a different random edible block
                         this.targetBlock = edibleBlocks.get(this.myrmex.getRandom().nextInt(edibleBlocks.size()));
-                        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(targetBlock.getX(),
-                                targetBlock.getY(), targetBlock.getZ(), 1D);
+                        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
+                                this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
                     } else {
                         this.myrmex.keepSearching = true;
                     }
@@ -197,31 +197,31 @@ public class MyrmexAIForage extends Goal {
 
     private boolean increaseRadiusAndWander() {
         this.myrmex.keepSearching = true;
-        if (myrmex.getHive() != null) {
-            wanderRadius = myrmex.getHive().getWanderRadius();
-            myrmex.getHive().setWanderRadius(wanderRadius * 2);
+        if (this.myrmex.getHive() != null) {
+            this.wanderRadius = this.myrmex.getHive().getWanderRadius();
+            this.myrmex.getHive().setWanderRadius(this.wanderRadius * 2);
         }
         // Increase wander radius
-        wanderRadius *= 2;
+        this.wanderRadius *= 2;
         // this.myrmex.setWaitTicks(80+new Random().nextInt(40));
         // Set target as random position inside wanderRadius
-        if (wanderRadius >= IafConfig.myrmexMaximumWanderRadius) {
-            wanderRadius = IafConfig.myrmexMaximumWanderRadius;
+        if (this.wanderRadius >= IafConfig.myrmexMaximumWanderRadius) {
+            this.wanderRadius = IafConfig.myrmexMaximumWanderRadius;
             this.myrmex.setWaitTicks(80 + ThreadLocalRandom.current().nextInt(40));
             // Keep track of how many times the myrmex has potentially not found a path to a
             // target
-            failedToFindPath++;
-            if (failedToFindPath >= 10) {
+            this.failedToFindPath++;
+            if (this.failedToFindPath >= 10) {
                 this.myrmex.setWaitTicks(800 + ThreadLocalRandom.current().nextInt(40));
             }
         }
-        Vec3d vec = NoPenaltyTargeting.find(this.myrmex, wanderRadius, 7);
+        Vec3d vec = NoPenaltyTargeting.find(this.myrmex, this.wanderRadius, 7);
         if (vec != null) {
             this.targetBlock = BlockPos.ofFloored(vec);
         }
         if (this.targetBlock != null) {
-            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(targetBlock.getX(),
-                    targetBlock.getY(), targetBlock.getZ(), 1D);
+            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
+                    this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
             return true;
         }
         return false;

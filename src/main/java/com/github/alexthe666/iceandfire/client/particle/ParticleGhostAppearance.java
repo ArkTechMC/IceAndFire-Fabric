@@ -29,7 +29,7 @@ public class ParticleGhostAppearance extends Particle {
         this.gravityStrength = 0.0F;
         this.maxAge = 15;
         this.ghost = ghost;
-        fromLeft = worldIn.random.nextBoolean();
+        this.fromLeft = worldIn.random.nextBoolean();
     }
 
     @Override
@@ -41,11 +41,11 @@ public class ParticleGhostAppearance extends Particle {
     public void buildGeometry(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
         float f = ((float) this.age + partialTicks) / (float) this.maxAge;
         float f1 = 0.05F + 0.5F * MathHelper.sin(f * (float) Math.PI);
-        Entity entity = world.getEntityById(ghost);
+        Entity entity = this.world.getEntityById(this.ghost);
         if (entity instanceof EntityGhost ghostEntity && MinecraftClient.getInstance().options.getPerspective() == Perspective.FIRST_PERSON) {
             MatrixStack matrixstack = new MatrixStack();
             matrixstack.multiply(renderInfo.getRotation());
-            if (fromLeft) {
+            if (this.fromLeft) {
                 matrixstack.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(150.0F * f - 60.0F));
                 matrixstack.multiply(RotationAxis.NEGATIVE_Z.rotationDegrees(150.0F * f - 60.0F));
 

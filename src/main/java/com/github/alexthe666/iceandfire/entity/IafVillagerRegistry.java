@@ -26,7 +26,6 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IafVillagerRegistry {
 
     public static final LazyRegistrar<PointOfInterestType> POI_TYPES = LazyRegistrar.create(Registries.POI_TYPE, IceAndFire.MOD_ID);

@@ -26,15 +26,15 @@ public class MiscData {
     private boolean triggerClientUpdate;
 
     public void tickMisc(final LivingEntity entity) {
-        if (!isInitialized) {
-            initialize(entity.getWorld());
+        if (!this.isInitialized) {
+            this.initialize(entity.getWorld());
         }
 
-        if (loveTicks > 0) {
-            loveTicks--;
+        if (this.loveTicks > 0) {
+            this.loveTicks--;
 
-            if (loveTicks == 0) {
-                triggerClientUpdate = true;
+            if (this.loveTicks == 0) {
+                this.triggerClientUpdate = true;
                 return;
             }
 
@@ -45,60 +45,60 @@ public class MiscData {
                 mob.setAttacking(false);
             }
 
-            createLoveParticles(entity);
+            this.createLoveParticles(entity);
         }
     }
 
     public List<LivingEntity> getTargetedByScepter() {
-        return Objects.requireNonNullElse(targetedByScepter, Collections.emptyList());
+        return Objects.requireNonNullElse(this.targetedByScepter, Collections.emptyList());
     }
 
     public void addScepterTarget(final LivingEntity target) {
-        if (targetedByScepter == null) {
-            targetedByScepter = new ArrayList<>();
-        } else if (targetedByScepter.contains(target)) {
+        if (this.targetedByScepter == null) {
+            this.targetedByScepter = new ArrayList<>();
+        } else if (this.targetedByScepter.contains(target)) {
             return;
         }
 
-        targetedByScepter.add(target);
-        triggerClientUpdate = true;
+        this.targetedByScepter.add(target);
+        this.triggerClientUpdate = true;
     }
 
     public void removeScepterTarget(final LivingEntity target) {
-        if (targetedByScepter == null) {
+        if (this.targetedByScepter == null) {
             return;
         }
 
-        targetedByScepter.remove(target);
-        triggerClientUpdate = true;
+        this.targetedByScepter.remove(target);
+        this.triggerClientUpdate = true;
     }
 
     public void setLoveTicks(int loveTicks) {
         this.loveTicks = loveTicks;
-        triggerClientUpdate = true;
+        this.triggerClientUpdate = true;
     }
 
     public void setLungeTicks(int lungeTicks) {
         this.lungeTicks = lungeTicks;
-        triggerClientUpdate = true;
+        this.triggerClientUpdate = true;
     }
 
     public void setDismounted(boolean hasDismounted) {
         this.hasDismounted = hasDismounted;
-        triggerClientUpdate = true;
+        this.triggerClientUpdate = true;
     }
 
     public void serialize(final NbtCompound tag) {
         NbtCompound miscData = new NbtCompound();
-        miscData.putInt("loveTicks", loveTicks);
-        miscData.putInt("lungeTicks", lungeTicks);
-        miscData.putBoolean("hasDismounted", hasDismounted);
+        miscData.putInt("loveTicks", this.loveTicks);
+        miscData.putInt("lungeTicks", this.lungeTicks);
+        miscData.putBoolean("hasDismounted", this.hasDismounted);
 
-        if (targetedByScepter != null) {
-            int[] ids = new int[targetedByScepter.size()];
+        if (this.targetedByScepter != null) {
+            int[] ids = new int[this.targetedByScepter.size()];
 
-            for (int i = 0; i < targetedByScepter.size(); i++) {
-                ids[i] = targetedByScepter.get(i).getId();
+            for (int i = 0; i < this.targetedByScepter.size(); i++) {
+                ids[i] = this.targetedByScepter.get(i).getId();
             }
 
             tag.putIntArray("targetedByScepterIds", ids);
@@ -109,25 +109,25 @@ public class MiscData {
 
     public void deserialize(final NbtCompound tag) {
         NbtCompound miscData = tag.getCompound("miscData");
-        loveTicks = miscData.getInt("loveTicks");
-        lungeTicks = miscData.getInt("lungeTicks");
-        hasDismounted = miscData.getBoolean("hasDismounted");
+        this.loveTicks = miscData.getInt("loveTicks");
+        this.lungeTicks = miscData.getInt("lungeTicks");
+        this.hasDismounted = miscData.getBoolean("hasDismounted");
         int[] loadedChainedToIds = miscData.getIntArray("targetedByScepterIds");
 
-        isInitialized = false;
+        this.isInitialized = false;
 
         if (loadedChainedToIds.length > 0) {
-            targetedByScepterIds = new ArrayList<>();
+            this.targetedByScepterIds = new ArrayList<>();
 
             for (int loadedChainedToId : loadedChainedToIds) {
-                targetedByScepterIds.add(loadedChainedToId);
+                this.targetedByScepterIds.add(loadedChainedToId);
             }
         }
     }
 
     public boolean doesClientNeedUpdate() {
-        if (triggerClientUpdate) {
-            triggerClientUpdate = false;
+        if (this.triggerClientUpdate) {
+            this.triggerClientUpdate = false;
             return true;
         }
 
@@ -148,8 +148,8 @@ public class MiscData {
     private void initialize(final World level) {
         List<LivingEntity> entities = new ArrayList<>();
 
-        if (targetedByScepterIds != null) {
-            for (int id : targetedByScepterIds) {
+        if (this.targetedByScepterIds != null) {
+            for (int id : this.targetedByScepterIds) {
                 if (id == -1) {
                     continue;
                 }
@@ -163,12 +163,12 @@ public class MiscData {
         }
 
         if (!entities.isEmpty()) {
-            targetedByScepter = entities;
+            this.targetedByScepter = entities;
         } else {
-            targetedByScepter = null;
+            this.targetedByScepter = null;
         }
 
-        targetedByScepterIds = null;
-        isInitialized = true;
+        this.targetedByScepterIds = null;
+        this.isInitialized = true;
     }
 }

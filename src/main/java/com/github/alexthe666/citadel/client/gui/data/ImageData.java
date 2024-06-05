@@ -24,7 +24,7 @@ public class ImageData {
     }
 
     public String getTexture() {
-        return texture;
+        return this.texture;
     }
 
     public void setTexture(String texture) {
@@ -32,7 +32,7 @@ public class ImageData {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -40,7 +40,7 @@ public class ImageData {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -48,7 +48,7 @@ public class ImageData {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public void setPage(int page) {
@@ -56,7 +56,7 @@ public class ImageData {
     }
 
     public double getScale() {
-        return scale;
+        return this.scale;
     }
 
     public void setScale(double scale) {
@@ -64,7 +64,7 @@ public class ImageData {
     }
 
     public int getU() {
-        return u;
+        return this.u;
     }
 
     public void setU(int u) {
@@ -72,7 +72,7 @@ public class ImageData {
     }
 
     public int getV() {
-        return v;
+        return this.v;
     }
 
     public void setV(int v) {
@@ -80,7 +80,7 @@ public class ImageData {
     }
 
     public int getWidth() {
-        return width;
+        return this.width;
     }
 
     public void setWidth(int width) {
@@ -88,7 +88,7 @@ public class ImageData {
     }
 
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     public void setHeight(int height) {

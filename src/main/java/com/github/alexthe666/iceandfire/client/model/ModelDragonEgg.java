@@ -40,12 +40,12 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(Egg1);
+        return ImmutableList.of(this.Egg1);
     }
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(Egg1, Egg2, Egg3, Egg4);
+        return ImmutableList.of(this.Egg1, this.Egg2, this.Egg3, this.Egg4);
     }
 
     @Override
@@ -61,21 +61,21 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
                 isLocationValid = egg.getWorld().hasRain(egg.getBlockPos());
             }
             if (isLocationValid) {
-                this.walk(Egg1, 0.3F, 0.3F, true, 1, 0, f2, 1);
-                this.flap(Egg1, 0.3F, 0.3F, false, 0, 0, f2, 1);
+                this.walk(this.Egg1, 0.3F, 0.3F, true, 1, 0, f2, 1);
+                this.flap(this.Egg1, 0.3F, 0.3F, false, 0, 0, f2, 1);
             }
         }
     }
 
     public void renderPodium() {
-        Egg1.rotateAngleX = (float) Math.toRadians(-180);
+        this.Egg1.rotateAngleX = (float) Math.toRadians(-180);
 
     }
 
     public void renderFrozen(TileEntityEggInIce tile) {
         this.resetToDefaultPose();
-        Egg1.rotateAngleX = (float) Math.toRadians(-180);
-        this.walk(Egg1, 0.3F, 0.1F, true, 1, 0, tile.ticksExisted, 1);
-        this.flap(Egg1, 0.3F, 0.1F, false, 0, 0, tile.ticksExisted, 1);
+        this.Egg1.rotateAngleX = (float) Math.toRadians(-180);
+        this.walk(this.Egg1, 0.3F, 0.1F, true, 1, 0, tile.ticksExisted, 1);
+        this.flap(this.Egg1, 0.3F, 0.1F, false, 0, 0, tile.ticksExisted, 1);
     }
 }

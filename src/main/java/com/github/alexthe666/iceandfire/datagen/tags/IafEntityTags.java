@@ -21,7 +21,7 @@ public class IafEntityTags extends VanillaEntityTypeTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup provider) {
-        getOrCreateTagBuilder(IMMUNE_TO_GORGON_STONE)
+        this.getOrCreateTagBuilder(IMMUNE_TO_GORGON_STONE)
                 .addTag(Tags.EntityTypes.BOSSES)
                 .add(EntityType.WARDEN);
     }

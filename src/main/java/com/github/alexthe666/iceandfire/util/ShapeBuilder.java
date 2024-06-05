@@ -19,22 +19,22 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder getAllInSphereMutable(int radius, BlockPos center) {
-        return getAllInSphereMutable(radius, center.getX(), center.getY(), center.getZ());
+        return this.getAllInSphereMutable(radius, center.getX(), center.getY(), center.getZ());
     }
 
     public ShapeBuilder getAllInSphereMutable(int radius, int c1, int c2, int c3) {
-        return getAllInCutOffSphereMutable(radius, radius, c1, c2, c3);
+        return this.getAllInCutOffSphereMutable(radius, radius, c1, c2, c3);
     }
 
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOff, BlockPos center) {
-        return getAllInCutOffSphereMutable(radiusX, yCutOff, yCutOff, center.getX(), center.getY(), center.getZ());
+        return this.getAllInCutOffSphereMutable(radiusX, yCutOff, yCutOff, center.getX(), center.getY(), center.getZ());
     }
 
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOff, int c1, int c2, int c3) {
-        return getAllInCutOffSphereMutable(radiusX, yCutOff, yCutOff, c1, c2, c3);
+        return this.getAllInCutOffSphereMutable(radiusX, yCutOff, yCutOff, c1, c2, c3);
     }
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOffMax, int yCutOffMin, BlockPos center) {
-        return getAllInCutOffSphereMutable(radiusX, yCutOffMax, yCutOffMin, center.getX(), center.getY(), center.getZ());
+        return this.getAllInCutOffSphereMutable(radiusX, yCutOffMax, yCutOffMin, center.getX(), center.getY(), center.getZ());
     }
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOffMax, int yCutOffMin, int c1, int c2, int c3) {
         int r2 = radiusX * radiusX;
@@ -47,25 +47,25 @@ public class ShapeBuilder {
 
             @Override
             protected BlockPos computeNext() {
-                if (-currRY > yCutOffMin) {
+                if (-this.currRY > yCutOffMin) {
                     return this.endOfData();
                 } else {
-                    if (isWithinRange(currRX, currRY, phase, offset, r2)) {
-                        BlockPos pos = this.mutablePos.set(c1 + currRX, c2 + currRY, c3 + phase * offset);
-                        offset++;
+                    if (this.isWithinRange(this.currRX, this.currRY, this.phase, this.offset, r2)) {
+                        BlockPos pos = this.mutablePos.set(c1 + this.currRX, c2 + this.currRY, c3 + this.phase * this.offset);
+                        this.offset++;
                         return pos;
                     } else {
-                        if (phase == 1) {
-                            phase = -1;
-                            offset = 1;
-                        } else if (phase == -1) {
-                            phase = 1;
-                            offset = 0;
-                            currRX--;
+                        if (this.phase == 1) {
+                            this.phase = -1;
+                            this.offset = 1;
+                        } else if (this.phase == -1) {
+                            this.phase = 1;
+                            this.offset = 0;
+                            this.currRX--;
                         }
-                        if (-currRX > radiusX) {
-                            currRY--;
-                            currRX = radiusX;
+                        if (-this.currRX > radiusX) {
+                            this.currRY--;
+                            this.currRX = radiusX;
                         }
                         return this.computeNext();
                     }
@@ -80,11 +80,11 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder getAllInRandomlyDistributedRangeYCutOffSphereMutable(int maxRadiusX, int minRadiusX, int yCutOff, Random rand, BlockPos center) {
-        return getAllInRandomlyDistributedRangeYCutOffSphereMutable(maxRadiusX, minRadiusX, yCutOff, rand, center.getX(), center.getY(), center.getZ());
+        return this.getAllInRandomlyDistributedRangeYCutOffSphereMutable(maxRadiusX, minRadiusX, yCutOff, rand, center.getX(), center.getY(), center.getZ());
     }
 
     public ShapeBuilder getAllInRandomlyDistributedRangeYCutOffSphereMutable(int maxRadiusX, int minRadiusX, int ycutoffmin, Random rand, int c1, int c2, int c3) {
-        return getAllInRandomlyDistributedRangeYCutOffSphereMutable(maxRadiusX, minRadiusX, ycutoffmin, ycutoffmin, rand, c1, c2, c3);
+        return this.getAllInRandomlyDistributedRangeYCutOffSphereMutable(maxRadiusX, minRadiusX, ycutoffmin, ycutoffmin, rand, c1, c2, c3);
     }
 
     public ShapeBuilder getAllInRandomlyDistributedRangeYCutOffSphereMutable(int maxRadiusX, int minRadiusX, int yCutOffMax, int yCutOffMin, Random rand, int c1, int c2, int c3) {
@@ -100,29 +100,29 @@ public class ShapeBuilder {
 
             @Override
             protected BlockPos computeNext() {
-                if (-currRY > yCutOffMin) {
+                if (-this.currRY > yCutOffMin) {
                     return this.endOfData();
                 } else {
-                    int distance = distance(currRX, currRY, phase, offset);
+                    int distance = this.distance(this.currRX, this.currRY, this.phase, this.offset);
                     if (distance <= minr2 || distance <= maxr2 * MathHelper.clamp(rand.nextFloat(), rDifference, 1.0F)) {
-                        BlockPos pos = this.mutablePos.set(c1 + currRX, c2 + currRY, c3 + phase * offset);
-                        offset++;
+                        BlockPos pos = this.mutablePos.set(c1 + this.currRX, c2 + this.currRY, c3 + this.phase * this.offset);
+                        this.offset++;
                         return pos;
                     } else if (distance <= maxr2) {
-                        offset++;
+                        this.offset++;
                         return this.computeNext();
                     } else {
-                        if (phase == 1) {
-                            phase = -1;
-                            offset = 1;
-                        } else if (phase == -1) {
-                            phase = 1;
-                            offset = 0;
-                            currRX--;
+                        if (this.phase == 1) {
+                            this.phase = -1;
+                            this.offset = 1;
+                        } else if (this.phase == -1) {
+                            this.phase = 1;
+                            this.offset = 0;
+                            this.currRX--;
                         }
-                        if (-currRX > maxRadiusX) {
-                            currRY--;
-                            currRX = maxRadiusX;
+                        if (-this.currRX > maxRadiusX) {
+                            this.currRY--;
+                            this.currRX = maxRadiusX;
                         }
                         return this.computeNext();
                     }
@@ -147,21 +147,21 @@ public class ShapeBuilder {
 
             @Override
             protected BlockPos computeNext() {
-                if (-currR > radius) {
+                if (-this.currR > radius) {
                     return this.endOfData();
                 } else {
-                    if (isWithinRange(currR, phase, offset, r2)) {
-                        BlockPos pos = this.mutablePos.set(c1 + currR, c2, c3 + phase * offset);
-                        offset++;
+                    if (this.isWithinRange(this.currR, this.phase, this.offset, r2)) {
+                        BlockPos pos = this.mutablePos.set(c1 + this.currR, c2, c3 + this.phase * this.offset);
+                        this.offset++;
                         return pos;
                     } else {
-                        if (phase == 1) {
-                            phase = -1;
-                            offset = 1;
-                        } else if (phase == -1) {
-                            phase = 1;
-                            offset = 0;
-                            currR--;
+                        if (this.phase == 1) {
+                            this.phase = -1;
+                            this.offset = 1;
+                        } else if (this.phase == -1) {
+                            this.phase = 1;
+                            this.offset = 0;
+                            this.currR--;
                         }
                         return this.computeNext();
                     }
@@ -176,7 +176,7 @@ public class ShapeBuilder {
     }
 
     public Stream<BlockPos> toStream(boolean parallel) {
-        return StreamSupport.stream(blocks.spliterator(), parallel);
+        return StreamSupport.stream(this.blocks.spliterator(), parallel);
     }
 
     public Iterable<BlockPos> toIterable() {

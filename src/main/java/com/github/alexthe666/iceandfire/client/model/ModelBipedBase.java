@@ -142,13 +142,13 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         modelIn.leftArmPose = this.leftArmPose;
         modelIn.rightArmPose = this.rightArmPose;
         modelIn.isSneak = this.isSneak;
-        copyFrom(modelIn.head, this.head);
-        copyFrom(modelIn.headware, this.headware);
-        copyFrom(modelIn.body, this.body);
-        copyFrom(modelIn.armRight, this.armRight);
-        copyFrom(modelIn.armLeft, this.armLeft);
-        copyFrom(modelIn.legRight, this.legRight);
-        copyFrom(modelIn.legLeft, this.legLeft);
+        this.copyFrom(modelIn.head, this.head);
+        this.copyFrom(modelIn.headware, this.headware);
+        this.copyFrom(modelIn.body, this.body);
+        this.copyFrom(modelIn.armRight, this.armRight);
+        this.copyFrom(modelIn.armLeft, this.armLeft);
+        this.copyFrom(modelIn.legRight, this.legRight);
+        this.copyFrom(modelIn.legLeft, this.legLeft);
     }
 
     public void setModelAttributes(BipedEntityModel<T> modelIn) {
@@ -156,13 +156,13 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         modelIn.leftArmPose = this.leftArmPose;
         modelIn.rightArmPose = this.rightArmPose;
         modelIn.sneaking = this.isSneak;
-        copyFrom(modelIn.head, this.head);
-        copyFrom(modelIn.hat, this.headware);
-        copyFrom(modelIn.body, this.body);
-        copyFrom(modelIn.rightArm, this.armRight);
-        copyFrom(modelIn.leftArm, this.armLeft);
-        copyFrom(modelIn.rightLeg, this.legRight);
-        copyFrom(modelIn.leftLeg, this.legLeft);
+        this.copyFrom(modelIn.head, this.head);
+        this.copyFrom(modelIn.hat, this.headware);
+        this.copyFrom(modelIn.body, this.body);
+        this.copyFrom(modelIn.rightArm, this.armRight);
+        this.copyFrom(modelIn.leftArm, this.armLeft);
+        this.copyFrom(modelIn.rightLeg, this.legRight);
+        this.copyFrom(modelIn.leftLeg, this.legLeft);
     }
 
     public void setVisible(boolean visible) {
@@ -178,8 +178,8 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
     @Override
     public void setAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.resetToDefaultPose();
-        animate(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, 0);
-        this.faceTarget(netHeadYaw, headPitch, 1.0F, head);
+        this.animate(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, 0);
+        this.faceTarget(netHeadYaw, headPitch, 1.0F, this.head);
         float f = 1.0F;
         this.armRight.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
         this.armLeft.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
@@ -262,11 +262,11 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(head, headware, body, armRight, armLeft, legRight, legLeft);
+        return ImmutableList.of(this.head, this.headware, this.body, this.armRight, this.armLeft, this.legRight, this.legLeft);
     }
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(body);
+        return ImmutableList.of(this.body);
     }
 }

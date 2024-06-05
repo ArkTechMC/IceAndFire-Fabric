@@ -57,13 +57,13 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
         if (pixie.isPixieSitting()) return false;
 
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (list.isEmpty()) {
+        if (this.list.isEmpty()) {
             return false;
         } else {
-            list.sort(this.theNearestAttackableTargetSorter);
-            this.targetEntity = list.get(0);
+            this.list.sort(this.theNearestAttackableTargetSorter);
+            this.targetEntity = this.list.get(0);
             return true;
         }
     }
@@ -105,7 +105,7 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
             pixie.setStackInHand(Hand.MAIN_HAND, this.targetEntity.getStack());
             this.targetEntity.getStack().decrement(1);
             pixie.playSound(IafSoundRegistry.PIXIE_TAUNT, 1F, 1F);
-            stop();
+            this.stop();
         }
     }
 

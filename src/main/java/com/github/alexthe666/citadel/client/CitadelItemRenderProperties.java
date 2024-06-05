@@ -9,6 +9,6 @@ public class CitadelItemRenderProperties implements IClientItemExtensions {
 
     @Override
     public BuiltinModelItemRenderer getCustomRenderer() {
-        return renderer;
+        return this.renderer;
     }
 }

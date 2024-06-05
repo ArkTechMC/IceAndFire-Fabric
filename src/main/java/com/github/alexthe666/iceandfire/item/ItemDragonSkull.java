@@ -57,7 +57,7 @@ public class ItemDragonSkull extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        String iceorfire = "dragon." + getType(dragonType);
+        String iceorfire = "dragon." + getType(this.dragonType);
         tooltip.add(Text.translatable(iceorfire).formatted(Formatting.GRAY));
         if (stack.getNbt() != null) {
             tooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(Text.literal(" " + stack.getNbt().getInt("Stage"))));
@@ -74,7 +74,7 @@ public class ItemDragonSkull extends Item {
          */
         if (stack.getNbt() != null) {
             EntityDragonSkull skull = new EntityDragonSkull(IafEntityRegistry.DRAGON_SKULL.get(), context.getWorld());
-            skull.setDragonType(dragonType);
+            skull.setDragonType(this.dragonType);
             skull.setStage(stack.getNbt().getInt("Stage"));
             skull.setDragonAge(stack.getNbt().getInt("DragonAge"));
             BlockPos offset = context.getBlockPos().offset(context.getSide(), 1);

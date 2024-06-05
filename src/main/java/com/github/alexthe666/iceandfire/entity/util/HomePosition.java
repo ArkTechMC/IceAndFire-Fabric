@@ -13,11 +13,11 @@ public class HomePosition {
     String dimension;
 
     public HomePosition(NbtCompound compound) {
-        read(compound);
+        this.read(compound);
     }
 
     public HomePosition(NbtCompound compound, World world) {
-        read(compound, world);
+        this.read(compound, world);
     }
 
     public HomePosition(BlockPos pos, World world) {
@@ -28,29 +28,29 @@ public class HomePosition {
         this.x = x;
         this.y = y;
         this.z = z;
-        pos = new BlockPos(x, y, z);
+        this.pos = new BlockPos(x, y, z);
         this.dimension = DragonUtils.getDimensionName(world);
     }
 
     public BlockPos getPosition() {
-        return pos;
+        return this.pos;
     }
 
     public String getDimension() {
-        return dimension == null ? "" : dimension;
+        return this.dimension == null ? "" : this.dimension;
     }
 
     public NbtCompound write(NbtCompound compound) {
         compound.putInt("HomeAreaX", this.x);
         compound.putInt("HomeAreaY", this.y);
         compound.putInt("HomeAreaZ", this.z);
-        if (dimension != null)
+        if (this.dimension != null)
             compound.putString("HomeDimension", this.dimension);
         return compound;
     }
 
     public HomePosition read(NbtCompound compound, World world) {
-        read(compound);
+        this.read(compound);
         if (this.dimension == null)
             this.dimension = DragonUtils.getDimensionName(world);
         return this;
@@ -63,7 +63,7 @@ public class HomePosition {
             this.y = compound.getInt("HomeAreaY");
         if (compound.contains("HomeAreaZ"))
             this.z = compound.getInt("HomeAreaZ");
-        pos = new BlockPos(x, y, z);
+        this.pos = new BlockPos(this.x, this.y, this.z);
         if (compound.contains("HomeDimension"))
             this.dimension = compound.getString("HomeDimension");
         return this;

@@ -32,21 +32,21 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
         super(dispatcher, modelSet);
         this.blockEntityRenderDispatcher = dispatcher;
         this.entityModelSet = modelSet;
-        PIXIE_HOUSE_RENDERER = new RenderPixieHouse(null);
+        this.PIXIE_HOUSE_RENDERER = new RenderPixieHouse(null);
 
     }
 
     @Override
     public void render(ItemStack stack, @NotNull ModelTransformationMode type, @NotNull MatrixStack stackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         if (stack.getItem() == IafBlockRegistry.GHOST_CHEST.get().asItem()) {
-            blockEntityRenderDispatcher.renderEntity(chest, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+            this.blockEntityRenderDispatcher.renderEntity(this.chest, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
         if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == IafBlockRegistry.DREAD_PORTAL.get()) {
-            blockEntityRenderDispatcher.renderEntity(portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+            this.blockEntityRenderDispatcher.renderEntity(this.portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
         if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof BlockPixieHouse) {
-            PIXIE_HOUSE_RENDERER.metaOverride = (BlockItem) stack.getItem();
-            PIXIE_HOUSE_RENDERER.render(null, 0, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+            this.PIXIE_HOUSE_RENDERER.metaOverride = (BlockItem) stack.getItem();
+            this.PIXIE_HOUSE_RENDERER.render(null, 0, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
 
     }

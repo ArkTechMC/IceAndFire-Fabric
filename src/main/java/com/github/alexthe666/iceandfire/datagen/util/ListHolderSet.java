@@ -25,7 +25,7 @@ public class ListHolderSet<T> extends RegistryEntryList.ListBacked<T> {
 
     @Override
     public boolean contains(RegistryEntry<T> pHolder) {
-        return contents.contains(pHolder);
+        return this.contents.contains(pHolder);
     }
 
     @Override

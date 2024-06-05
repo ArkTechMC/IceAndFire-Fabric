@@ -108,13 +108,13 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, BlockState state) {
-        if (isFire == 0) {
+        if (this.isFire == 0) {
             return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().asItem());
         }
-        if (isFire == 1) {
+        if (this.isFire == 1) {
             return new ItemStack(IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().asItem());
         }
-        if (isFire == 2) {
+        if (this.isFire == 2) {
             return new ItemStack(IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().asItem());
         }
         return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().asItem());
@@ -148,7 +148,7 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
     @Override
     public boolean shouldBeInTab() {
-        return !activated;
+        return !this.activated;
     }
 
     @Override
@@ -158,6 +158,6 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
     @Override
     public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new TileEntityDragonforge(pos, state, isFire);
+        return new TileEntityDragonforge(pos, state, this.isFire);
     }
 }

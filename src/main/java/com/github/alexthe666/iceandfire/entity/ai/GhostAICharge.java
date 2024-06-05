@@ -24,36 +24,36 @@ public class GhostAICharge extends Goal {
 
     @Override
     public boolean canStart() {
-        return ghost.getTarget() != null && !ghost.isCharging();
+        return this.ghost.getTarget() != null && !this.ghost.isCharging();
     }
 
     @Override
     public boolean shouldContinue() {
-        return ghost.getTarget() != null && ghost.getTarget().isAlive();
+        return this.ghost.getTarget() != null && this.ghost.getTarget().isAlive();
     }
 
     @Override
     public void start() {
-        ghost.setCharging(true);
+        this.ghost.setCharging(true);
     }
 
     @Override
     public void stop() {
-        firstPhase = true;
+        this.firstPhase = true;
         this.moveToPos = null;
-        ghost.setCharging(false);
+        this.ghost.setCharging(false);
     }
 
     @Override
     public void tick() {
-        LivingEntity target = ghost.getTarget();
+        LivingEntity target = this.ghost.getTarget();
         if (target != null) {
             if (this.ghost.getAnimation() == IAnimatedEntity.NO_ANIMATION && this.ghost.distanceTo(target) < 1.4D) {
                 this.ghost.setAnimation(EntityGhost.ANIMATION_HIT);
             }
-            if (firstPhase) {
+            if (this.firstPhase) {
                 if (this.moveToPos == null) {
-                    BlockPos moveToPos = DragonUtils.getBlockInTargetsViewGhost(ghost, target);
+                    BlockPos moveToPos = DragonUtils.getBlockInTargetsViewGhost(this.ghost, target);
                     this.moveToPos = Vec3d.ofCenter(moveToPos);
                 } else {
                     this.ghost.getNavigation().startMovingTo(this.moveToPos.x + 0.5D, this.moveToPos.y + 0.5D,
@@ -64,7 +64,7 @@ public class GhostAICharge extends Goal {
                         }
                         this.firstPhase = false;
                         this.moveToPos = null;
-                        offsetOf = target.getPos().subtract(this.ghost.getPos()).normalize();
+                        this.offsetOf = target.getPos().subtract(this.ghost.getPos()).normalize();
                     }
                 }
             } else {

@@ -20,22 +20,22 @@ public class SpawnBiomeData {
     }
 
     private SpawnBiomeData(SpawnBiomeEntry[][] biomesRead) {
-        biomes = new ArrayList<>();
+        this.biomes = new ArrayList<>();
         for (SpawnBiomeEntry[] innerArray : biomesRead) {
-            biomes.add(Arrays.asList(innerArray));
+            this.biomes.add(Arrays.asList(innerArray));
         }
     }
 
     public SpawnBiomeData addBiomeEntry(BiomeEntryType type, boolean negate, String value, int pool) {
-        if (biomes.isEmpty() || biomes.size() < pool + 1) {
-            biomes.add(new ArrayList<>());
+        if (this.biomes.isEmpty() || this.biomes.size() < pool + 1) {
+            this.biomes.add(new ArrayList<>());
         }
-        biomes.get(pool).add(new SpawnBiomeEntry(type, negate, value));
+        this.biomes.get(pool).add(new SpawnBiomeEntry(type, negate, value));
         return this;
     }
 
     public boolean matches(RegistryEntry<Biome> biomeHolder, Identifier registryName) {
-        for (List<SpawnBiomeEntry> all : biomes) {
+        for (List<SpawnBiomeEntry> all : this.biomes) {
             boolean overall = true;
             for (SpawnBiomeEntry cond : all) {
                 if (!cond.matches(biomeHolder, registryName)) {
@@ -78,20 +78,20 @@ public class SpawnBiomeData {
         }
 
         public boolean matches(RegistryEntry<Biome> biomeHolder, Identifier registryName) {
-            if (type.isDepreciated()) {
+            if (this.type.isDepreciated()) {
                 Citadel.LOGGER.warn("biome config: BIOME_DICT and BIOME_CATEGORY are no longer valid in 1.19+. Please use BIOME_TAG instead.");
                 return false;
             } else {
-                if (type == BiomeEntryType.BIOME_TAG) {
-                    if (biomeHolder.getTagKeys().anyMatch((biomeTagKey -> biomeTagKey.location() != null && biomeTagKey.location().toString().equals(value)))) {
-                        return !negate;
+                if (this.type == BiomeEntryType.BIOME_TAG) {
+                    if (biomeHolder.getTagKeys().anyMatch((biomeTagKey -> biomeTagKey.location() != null && biomeTagKey.location().toString().equals(this.value)))) {
+                        return !this.negate;
                     }
-                    return negate;
+                    return this.negate;
                 } else {
-                    if (registryName.toString().equals(value)) {
-                        return !negate;
+                    if (registryName.toString().equals(this.value)) {
+                        return !this.negate;
                     }
-                    return negate;
+                    return this.negate;
                 }
             }
         }

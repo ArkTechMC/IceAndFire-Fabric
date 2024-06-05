@@ -14,11 +14,11 @@ public class DeathWormAIWander extends WanderAroundFarGoal {
 
     @Override
     public boolean canStart() {
-        return !worm.isInSand() && !worm.hasPassengers() && super.canStart();
+        return !this.worm.isInSand() && !this.worm.hasPassengers() && super.canStart();
     }
 
     @Override
     public boolean shouldContinue() {
-        return !worm.isInSand() && !worm.hasPassengers() && super.shouldContinue();
+        return !this.worm.isInSand() && !this.worm.hasPassengers() && super.shouldContinue();
     }
 }

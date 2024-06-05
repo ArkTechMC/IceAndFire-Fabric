@@ -48,12 +48,12 @@ public class PathJobMoveToLocation extends AbstractPathJob {
     protected Path search() {
         if (Pathfinding.isDebug()) {
             Citadel.LOGGER.info(String.format("Pathfinding from [%d,%d,%d] to [%d,%d,%d]",
-                    start.getX(), start.getY(), start.getZ(), destination.getX(), destination.getY(), destination.getZ()));
+                    this.start.getX(), this.start.getY(), this.start.getZ(), this.destination.getX(), this.destination.getY(), this.destination.getZ()));
         }
 
         //  Compute destination slack - if the destination point cannot be stood in
-        if (getGroundHeight(null, destination) != destination.getY()) {
-            destinationSlack = DESTINATION_SLACK_ADJACENT;
+        if (this.getGroundHeight(null, this.destination) != this.destination.getY()) {
+            this.destinationSlack = DESTINATION_SLACK_ADJACENT;
         }
 
         return super.search();
@@ -61,12 +61,12 @@ public class PathJobMoveToLocation extends AbstractPathJob {
 
     @Override
     protected BlockPos getPathTargetPos(final MNode finalMNode) {
-        return destination;
+        return this.destination;
     }
 
     @Override
     protected double computeHeuristic(final BlockPos pos) {
-        return Math.sqrt(destination.getSquaredDistance(pos));
+        return Math.sqrt(this.destination.getSquaredDistance(pos));
     }
 
     /**
@@ -77,16 +77,16 @@ public class PathJobMoveToLocation extends AbstractPathJob {
      */
     @Override
     protected boolean isAtDestination(final MNode n) {
-        if (destinationSlack <= DESTINATION_SLACK_NONE) {
-            return n.pos.getX() == destination.getX()
-                    && n.pos.getY() == destination.getY()
-                    && n.pos.getZ() == destination.getZ();
+        if (this.destinationSlack <= DESTINATION_SLACK_NONE) {
+            return n.pos.getX() == this.destination.getX()
+                    && n.pos.getY() == this.destination.getY()
+                    && n.pos.getZ() == this.destination.getZ();
         }
 
-        if (n.pos.getY() == destination.getY() - 1) {
-            return destination.isWithinDistance(new Vec3i(n.pos.getX(), destination.getY(), n.pos.getZ()), DESTINATION_SLACK_ADJACENT);
+        if (n.pos.getY() == this.destination.getY() - 1) {
+            return this.destination.isWithinDistance(new Vec3i(n.pos.getX(), this.destination.getY(), n.pos.getZ()), DESTINATION_SLACK_ADJACENT);
         }
-        return destination.isWithinDistance(n.pos, DESTINATION_SLACK_ADJACENT);
+        return this.destination.isWithinDistance(n.pos, DESTINATION_SLACK_ADJACENT);
     }
 
     /**
@@ -98,6 +98,6 @@ public class PathJobMoveToLocation extends AbstractPathJob {
     @Override
     protected double getNodeResultScore(final MNode n) {
         //  For Result Score lower is better
-        return destination.getSquaredDistance(n.pos);
+        return this.destination.getSquaredDistance(n.pos);
     }
 }

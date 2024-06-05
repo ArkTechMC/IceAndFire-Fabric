@@ -53,7 +53,7 @@ public class GuiMyrmexStaff extends Screen {
         if (ClientProxy.getReferedClientHive() == null) {
             return;
         }
-        populateRoomMap();
+        this.populateRoomMap();
         this.addSelectableChild(
                 ButtonWidget.builder(
                         ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
@@ -75,15 +75,15 @@ public class GuiMyrmexStaff extends Screen {
                     this.currentPage++;
                 }
             }));
-        int totalRooms = allRoomPos.size();
-        for (int rooms = 0; rooms < allRoomPos.size(); rooms++) {
+        int totalRooms = this.allRoomPos.size();
+        for (int rooms = 0; rooms < this.allRoomPos.size(); rooms++) {
             int yIndex = rooms % ROOMS_PER_PAGE;
-            BlockPos pos = allRoomPos.get(rooms).pos;
+            BlockPos pos = this.allRoomPos.get(rooms).pos;
             //IndexPageButton button = new IndexPageButton(2 + i, centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), StatCollector.translateToLocal("bestiary." + EnumBestiaryPages.values()[allPageTypes.get(i).ordinal()].toString().toLowerCase()));
             MyrmexDeleteButton button = new MyrmexDeleteButton(i + x_translate, j + y_translate + (yIndex) * 22, pos, Text.translatable("myrmex.message.delete"), (p_214132_1_) -> {
-                if (ticksSinceDeleted <= 0) {
+                if (this.ticksSinceDeleted <= 0) {
                     ClientProxy.getReferedClientHive().removeRoom(pos);
-                    ticksSinceDeleted = 5;
+                    this.ticksSinceDeleted = 5;
                 }
             });
             button.visible = rooms < ROOMS_PER_PAGE * (this.currentPage + 1) && rooms >= ROOMS_PER_PAGE * this.currentPage;
@@ -96,22 +96,22 @@ public class GuiMyrmexStaff extends Screen {
     }
 
     private void populateRoomMap() {
-        allRoomPos.clear();
+        this.allRoomPos.clear();
 
         for (WorldGenMyrmexHive.RoomType type : ROOMS) {
             List<BlockPos> roomPos = ClientProxy.getReferedClientHive().getRooms(type);
             for (BlockPos pos : roomPos) {
                 String name = type == WorldGenMyrmexHive.RoomType.FOOD ? "food" : type == WorldGenMyrmexHive.RoomType.NURSERY ? "nursery" : "misc";
-                allRoomPos.add(new Room(pos, name));
+                this.allRoomPos.add(new Room(pos, name));
                 //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
             }
         }
         for (BlockPos pos : ClientProxy.getReferedClientHive().getEntrances().keySet()) {
-            allRoomPos.add(new Room(pos, "enterance_surface"));
+            this.allRoomPos.add(new Room(pos, "enterance_surface"));
             //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
         }
         for (BlockPos pos : ClientProxy.getReferedClientHive().getEntranceBottoms().keySet()) {
-            allRoomPos.add(new Room(pos, "enterance_bottom"));
+            this.allRoomPos.add(new Room(pos, "enterance_bottom"));
             //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
         }
     }
@@ -122,21 +122,21 @@ public class GuiMyrmexStaff extends Screen {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int i = (this.width - 248) / 2;
         int j = (this.height - 166) / 2;
-        ms.drawTexture(jungle ? JUNGLE_TEXTURE : DESERT_TEXTURE, i, j, 0, 0, 248, 166);
+        ms.drawTexture(this.jungle ? JUNGLE_TEXTURE : DESERT_TEXTURE, i, j, 0, 0, 248, 166);
     }
 
     @Override
     public void render(@NotNull DrawContext ms, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(ms);
-        init();
+        this.init();
         int i = (this.width - 248) / 2 + 10;
         int j = (this.height - 166) / 2 + 8;
         super.render(ms, mouseX, mouseY, partialTicks);
         int color = this.jungle ? 0X35EA15 : 0XFFBF00;
-        if (ticksSinceDeleted > 0) {
-            ticksSinceDeleted--;
+        if (this.ticksSinceDeleted > 0) {
+            this.ticksSinceDeleted--;
         }
-        hiveCount = 0;
+        this.hiveCount = 0;
         for (int rooms = 0; rooms < this.allRoomButtonPos.size(); rooms++) {
             if (rooms < ROOMS_PER_PAGE * (this.currentPage + 1) && rooms >= ROOMS_PER_PAGE * this.currentPage) {
                 this.drawRoomInfo(ms, this.allRoomPos.get(rooms).string, this.allRoomPos.get(rooms).pos, i, j, color);
@@ -184,8 +184,8 @@ public class GuiMyrmexStaff extends Screen {
 
     private void drawRoomInfo(DrawContext ms, String type, BlockPos pos, int i, int j, int color) {
         String translate = "myrmex.message.room." + type;
-        this.client.textRenderer.draw(I18n.translate(translate, pos.getX(), pos.getY(), pos.getZ()), i, j + 36 + hiveCount * 22, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-        hiveCount++;
+        this.client.textRenderer.draw(I18n.translate(translate, pos.getX(), pos.getY(), pos.getZ()), i, j + 36 + this.hiveCount * 22, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        this.hiveCount++;
     }
 
     private class Room {

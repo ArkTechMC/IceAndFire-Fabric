@@ -34,10 +34,10 @@ public class NodeProcessorDeathWorm extends PathNodeMaker {
     public @NotNull PathNodeType getDefaultNodeType(BlockView worldIn, int x, int y, int z) {
         BlockPos blockpos = new BlockPos(x, y, z);
         BlockState blockstate = worldIn.getBlockState(blockpos);
-        if (!isPassable(worldIn, blockpos.down()) && (blockstate.isAir() || isPassable(worldIn, blockpos))) {
+        if (!this.isPassable(worldIn, blockpos.down()) && (blockstate.isAir() || this.isPassable(worldIn, blockpos))) {
             return PathNodeType.BREACH;
         } else {
-            return isPassable(worldIn, blockpos) ? PathNodeType.WATER : PathNodeType.BLOCKED;
+            return this.isPassable(worldIn, blockpos) ? PathNodeType.WATER : PathNodeType.BLOCKED;
         }
     }
 
@@ -66,7 +66,7 @@ public class NodeProcessorDeathWorm extends PathNodeMaker {
             for (int j = p_186327_2_; j < p_186327_2_ + this.entityBlockYSize; ++j) {
                 for (int k = p_186327_3_; k < p_186327_3_ + this.entityBlockZSize; ++k) {
                     BlockState blockstate = this.cachedWorld.getBlockState(blockpos$mutable.set(i, j, k));
-                    if (!isPassable(this.cachedWorld, blockpos$mutable.down()) && (blockstate.isAir() || isPassable(this.cachedWorld, blockpos$mutable))) {
+                    if (!this.isPassable(this.cachedWorld, blockpos$mutable.down()) && (blockstate.isAir() || this.isPassable(this.cachedWorld, blockpos$mutable))) {
                         return PathNodeType.BREACH;
                     }
 
@@ -75,7 +75,7 @@ public class NodeProcessorDeathWorm extends PathNodeMaker {
         }
 
         BlockState blockstate1 = this.cachedWorld.getBlockState(blockpos$mutable);
-        return isPassable(blockstate1) ? PathNodeType.WATER : PathNodeType.BLOCKED;
+        return this.isPassable(blockstate1) ? PathNodeType.WATER : PathNodeType.BLOCKED;
     }
 
 

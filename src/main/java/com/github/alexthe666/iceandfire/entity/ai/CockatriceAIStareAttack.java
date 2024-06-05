@@ -50,7 +50,7 @@ public class CockatriceAIStareAttack extends Goal {
         this.seeTime = 0;
         this.entity.clearActiveItem();
         this.entity.getNavigation().stop();
-        target = null;
+        this.target = null;
     }
 
     @Override
@@ -59,16 +59,16 @@ public class CockatriceAIStareAttack extends Goal {
         if (LivingEntity != null) {
 
             if (EntityGorgon.isStoneMob(LivingEntity) || !LivingEntity.isAlive()) {
-                entity.setTarget(null);
+                this.entity.setTarget(null);
                 this.entity.setTargetedEntity(0);
-                stop();
+                this.stop();
                 return;
             }
-            if (!isEntityLookingAt(LivingEntity, entity, EntityCockatrice.VIEW_RADIUS) || (LivingEntity.prevX != entity.getX() || LivingEntity.prevY != entity.getY() || LivingEntity.prevZ != entity.getZ())) {
+            if (!isEntityLookingAt(LivingEntity, this.entity, EntityCockatrice.VIEW_RADIUS) || (LivingEntity.prevX != this.entity.getX() || LivingEntity.prevY != this.entity.getY() || LivingEntity.prevZ != this.entity.getZ())) {
                 this.entity.getNavigation().stop();
                 BlockPos pos = DragonUtils.getBlockInTargetsViewCockatrice(this.entity, LivingEntity);
-                if (target == null || pos.getSquaredDistance(target) > 4) {
-                    target = pos;
+                if (this.target == null || pos.getSquaredDistance(this.target) > 4) {
+                    this.target = pos;
                 }
             }
             this.entity.setTargetedEntity(LivingEntity.getId());
@@ -87,9 +87,9 @@ public class CockatriceAIStareAttack extends Goal {
             } else {
                 --this.seeTime;
             }
-            if (target != null) {
-                if (this.entity.squaredDistanceTo(target.getX(), target.getY(), target.getZ()) > 16 && !isEntityLookingAt(LivingEntity, entity, EntityCockatrice.VIEW_RADIUS)) {
-                    this.entity.getNavigation().startMovingTo(target.getX(), target.getY(), target.getZ(), moveSpeedAmp);
+            if (this.target != null) {
+                if (this.entity.squaredDistanceTo(this.target.getX(), this.target.getY(), this.target.getZ()) > 16 && !isEntityLookingAt(LivingEntity, this.entity, EntityCockatrice.VIEW_RADIUS)) {
+                    this.entity.getNavigation().startMovingTo(this.target.getX(), this.target.getY(), this.target.getZ(), this.moveSpeedAmp);
                 }
 
             }

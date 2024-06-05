@@ -14,7 +14,7 @@ public class LineData {
     }
 
     public int getxIndex() {
-        return xIndex;
+        return this.xIndex;
     }
 
     public void setxIndex(int xIndex) {
@@ -22,7 +22,7 @@ public class LineData {
     }
 
     public int getyIndex() {
-        return yIndex;
+        return this.yIndex;
     }
 
     public void setyIndex(int yIndex) {
@@ -30,7 +30,7 @@ public class LineData {
     }
 
     public String getText() {
-        return text;
+        return this.text;
     }
 
     public void setText(String text) {
@@ -38,7 +38,7 @@ public class LineData {
     }
 
     public int getPage() {
-        return page;
+        return this.page;
     }
 
     public void setPage(int page) {

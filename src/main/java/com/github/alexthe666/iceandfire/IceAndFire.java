@@ -89,25 +89,6 @@ public class IceAndFire {
         biomeModifiers.register("iaf_mob_spawns", IafMobSpawnBiomeModifier::makeCodec);
         biomeModifiers.register("iaf_features", IafFeatureBiomeModifier::makeCodec);
 
-        IafItemRegistry.ITEMS.register(modBus);
-        IafBlockRegistry.BLOCKS.register(modBus);
-        IafTabRegistry.TAB_REGISTER.register(modBus);
-        IafEntityRegistry.ENTITIES.register(modBus);
-        IafTileEntityRegistry.TYPES.register(modBus);
-        IafPlacementFilterRegistry.PLACEMENT_MODIFIER_TYPES.register(modBus);
-        IafWorldRegistry.FEATURES.register(modBus);
-        IafRecipeRegistry.RECIPE_TYPE.register(modBus);
-        IafBannerPatterns.BANNERS.register(modBus);
-        IafStructureTypes.STRUCTURE_TYPES.register(modBus);
-        IafContainerRegistry.CONTAINERS.register(modBus);
-        IafRecipeSerializers.SERIALIZERS.register(modBus);
-        IafProcessors.PROCESSORS.register(modBus);
-
-        IafVillagerRegistry.POI_TYPES.register(modBus);
-        IafVillagerRegistry.PROFESSIONS.register(modBus);
-
-        MinecraftForge.EVENT_BUS.register(IafBlockRegistry.class);
-        MinecraftForge.EVENT_BUS.register(IafRecipeRegistry.class);
         modBus.addListener(this::setup);
         modBus.addListener(this::setupComplete);
         modBus.addListener(this::setupClient);

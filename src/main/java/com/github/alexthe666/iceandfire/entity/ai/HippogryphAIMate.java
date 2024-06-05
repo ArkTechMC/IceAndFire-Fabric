@@ -83,14 +83,14 @@ public class HippogryphAIMate extends Goal {
     }
 
     private void spawnBaby() {
-        ItemEntity egg = new ItemEntity(world, this.hippo.getX(), this.hippo.getY(), this.hippo.getZ(),
+        ItemEntity egg = new ItemEntity(this.world, this.hippo.getX(), this.hippo.getY(), this.hippo.getZ(),
             ItemHippogryphEgg.createEggStack(this.hippo.getEnumVariant(), this.targetMate.getEnumVariant()));
         this.hippo.setBreedingAge(6000);
         this.targetMate.setBreedingAge(6000);
         this.hippo.resetLoveTicks();
         this.targetMate.resetLoveTicks();
         egg.refreshPositionAndAngles(this.hippo.getX(), this.hippo.getY(), this.hippo.getZ(), 0.0F, 0.0F);
-        if (!world.isClient) {
+        if (!this.world.isClient) {
             this.world.spawnEntity(egg);
         }
         Random random = this.hippo.getRandom();

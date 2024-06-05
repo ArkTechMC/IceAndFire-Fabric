@@ -52,24 +52,24 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
         public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityHippogryph hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (hippo.getArmor() != 0) {
                 RenderLayer type = switch (hippo.getArmor()) {
-                    case 1 -> TEXTURE_IRON;
-                    case 2 -> TEXTURE_GOLD;
-                    case 3 -> TEXTURE_DIAMOND;
+                    case 1 -> this.TEXTURE_IRON;
+                    case 2 -> this.TEXTURE_GOLD;
+                    case 3 -> this.TEXTURE_DIAMOND;
                     default -> null;
                 };
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(type);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.isSaddled()) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(SADDLE_TEXTURE);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.SADDLE_TEXTURE);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.isSaddled() && hippo.getControllingPassenger() != null) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(BRIDLE);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.BRIDLE);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.isChested()) {
-                VertexConsumer ivertexbuilder = bufferIn.getBuffer(CHEST);
+                VertexConsumer ivertexbuilder = bufferIn.getBuffer(this.CHEST);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
         }

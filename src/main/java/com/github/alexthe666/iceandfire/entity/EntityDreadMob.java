@@ -130,7 +130,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (!getWorld().isClient && this.getCommander() instanceof EntityDreadLich lich) {
+        if (!this.getWorld().isClient && this.getCommander() instanceof EntityDreadLich lich) {
             if (lich.getTarget() != null && lich.getTarget().isAlive()) {
                 this.setTarget(lich.getTarget());
             }
@@ -145,8 +145,8 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
             if (player != null) {
                 return player;
             } else {
-                if (!getWorld().isClient) {
-                    Entity entity = getWorld().getServer().getWorld(this.getWorld().getRegistryKey()).getEntity(uuid);
+                if (!this.getWorld().isClient) {
+                    Entity entity = this.getWorld().getServer().getWorld(this.getWorld().getRegistryKey()).getEntity(uuid);
                     if (entity instanceof LivingEntity) {
                         return entity;
                     }
@@ -164,8 +164,8 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
             Entity summoned = necromancyEntity(LivingEntityIn);
             if (summoned != null) {
                 summoned.copyPositionAndRotation(LivingEntityIn);
-                if (!getWorld().isClient) {
-                    getWorld().spawnEntity(summoned);
+                if (!this.getWorld().isClient) {
+                    this.getWorld().spawnEntity(summoned);
                 }
                 if (commander instanceof EntityDreadLich) {
                     ((EntityDreadLich) commander).setMinionCount(((EntityDreadLich) commander).getMinionCount() + 1);
@@ -180,7 +180,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
 
     @Override
     public void remove(@NotNull RemovalReason reason) {
-        if (!isRemoved() && this.getCommander() != null && this.getCommander() instanceof EntityDreadLich lich) {
+        if (!this.isRemoved() && this.getCommander() != null && this.getCommander() instanceof EntityDreadLich lich) {
             lich.setMinionCount(lich.getMinionCount() - 1);
         }
         super.remove(reason);

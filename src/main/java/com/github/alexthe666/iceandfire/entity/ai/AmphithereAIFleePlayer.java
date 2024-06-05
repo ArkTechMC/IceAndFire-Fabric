@@ -35,12 +35,12 @@ public class AmphithereAIFleePlayer extends Goal {
         if (!this.entity.isFlying() && !this.entity.isTamed()) {
 
             if (this.entity.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-                list = this.entity.getWorld().getEntitiesByClass(PlayerEntity.class, this.entity.getBoundingBox().expand(this.avoidDistance, 6D, this.avoidDistance), EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR);
+                this.list = this.entity.getWorld().getEntitiesByClass(PlayerEntity.class, this.entity.getBoundingBox().expand(this.avoidDistance, 6D, this.avoidDistance), EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR);
 
-            if (list.isEmpty())
+            if (this.list.isEmpty())
                 return false;
 
-            this.closestLivingEntity = list.get(0);
+            this.closestLivingEntity = this.list.get(0);
             Vec3d Vector3d = NoPenaltyTargeting.findFrom(this.entity, 20, 7, new Vec3d(this.closestLivingEntity.getX(), this.closestLivingEntity.getY(), this.closestLivingEntity.getZ()));
 
             if (Vector3d == null) {
@@ -53,7 +53,7 @@ public class AmphithereAIFleePlayer extends Goal {
             }
 
         } else {
-            list = IAFMath.emptyPlayerEntityList;
+            this.list = IAFMath.emptyPlayerEntityList;
             return false;
         }
     }

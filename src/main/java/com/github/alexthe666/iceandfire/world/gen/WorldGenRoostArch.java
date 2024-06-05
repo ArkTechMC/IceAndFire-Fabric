@@ -20,7 +20,7 @@ public class WorldGenRoostArch {
         Direction direction = HORIZONTALS[rand.nextInt(HORIZONTALS.length - 1)];
         boolean diagonal = rand.nextBoolean();
         for (int i = 0; i < height; i++) {
-            worldIn.setBlockState(position.up(i), block.getDefaultState(), 2);
+            worldIn.setBlockState(position.up(i), this.block.getDefaultState(), 2);
         }
         BlockPos offsetPos = position;
         int placedWidths = 0;
@@ -30,12 +30,12 @@ public class WorldGenRoostArch {
                 offsetPos = position.up(height).offset(direction, i).offset(direction.rotateYClockwise(), i);
             }
             if (placedWidths < width - 1 || rand.nextBoolean()) {
-                worldIn.setBlockState(offsetPos, block.getDefaultState(), 2);
+                worldIn.setBlockState(offsetPos, this.block.getDefaultState(), 2);
             }
             placedWidths++;
         }
         while (worldIn.isAir(offsetPos.down()) && offsetPos.getY() > 0) {
-            worldIn.setBlockState(offsetPos.down(), block.getDefaultState(), 2);
+            worldIn.setBlockState(offsetPos.down(), this.block.getDefaultState(), 2);
             offsetPos = offsetPos.down();
         }
         return true;

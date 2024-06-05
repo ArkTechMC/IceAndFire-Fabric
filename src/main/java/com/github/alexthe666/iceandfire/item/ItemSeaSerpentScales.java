@@ -23,6 +23,6 @@ public class ItemSeaSerpentScales extends ItemGeneric {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("sea_serpent." + colorName).formatted(color));
+        tooltip.add(Text.translatable("sea_serpent." + this.colorName).formatted(this.color));
     }
 }

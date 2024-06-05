@@ -19,8 +19,8 @@ public class EventBus {
         return false;
     }
 
-    public static <T extends Event> void register(Class<T> clazz, Consumer<Event> event) {
+    public static <T extends Event> void register(Class<T> clazz, Consumer<T> event) {
         if (!EVENTS.containsKey(clazz)) EVENTS.put(clazz, new ArrayList<>());
-        EVENTS.get(clazz).add(event);
+        EVENTS.get(clazz).add((Consumer<Event>) event);
     }
 }

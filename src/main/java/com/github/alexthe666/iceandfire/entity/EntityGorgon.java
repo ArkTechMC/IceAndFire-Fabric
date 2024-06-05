@@ -96,12 +96,12 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(2, new AvoidSunlightGoal(this));
         this.goalSelector.add(3, new EscapeSunlightGoal(this, 1.0D));
-        this.goalSelector.add(3, aiStare = new GorgonAIStareAttack(this, 1.0D, 0, 15.0F));
-        this.goalSelector.add(3, aiMelee = new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.add(3, this.aiStare = new GorgonAIStareAttack(this, 1.0D, 0, 15.0F));
+        this.goalSelector.add(3, this.aiMelee = new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 1.0D) {
             @Override
             public boolean canStart() {
-                chance = 20;
+                this.chance = 20;
                 return super.canStart();
             }
         });
@@ -128,12 +128,12 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
                 return entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone());
             }
         }));
-        this.goalSelector.remove(aiMelee);
+        this.goalSelector.remove(this.aiMelee);
     }
 
     public void attackEntityWithRangedAttack(LivingEntity entity) {
         if (!(entity instanceof MobEntity) && entity instanceof LivingEntity) {
-            forcePreyToLook(entity);
+            this.forcePreyToLook(entity);
         }
     }
 
@@ -154,16 +154,16 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     @Override
     public void setTarget(LivingEntity LivingEntityIn) {
         super.setTarget(LivingEntityIn);
-        if (LivingEntityIn != null && !getWorld().isClient) {
+        if (LivingEntityIn != null && !this.getWorld().isClient) {
 
 
             boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || LivingEntityIn.hasStatusEffect(StatusEffects.BLINDNESS) || LivingEntityIn instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) LivingEntityIn).canBeTurnedToStone() || isBlindfolded(LivingEntityIn);
             if (blindness && this.deathTime == 0) {
-                this.goalSelector.add(3, aiMelee);
-                this.goalSelector.remove(aiStare);
+                this.goalSelector.add(3, this.aiMelee);
+                this.goalSelector.remove(this.aiStare);
             } else {
-                this.goalSelector.add(3, aiStare);
-                this.goalSelector.remove(aiMelee);
+                this.goalSelector.add(3, this.aiStare);
+                this.goalSelector.remove(this.aiMelee);
             }
         }
     }
@@ -209,14 +209,14 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (playerStatueCooldown > 0) {
-            playerStatueCooldown--;
+        if (this.playerStatueCooldown > 0) {
+            this.playerStatueCooldown--;
         }
         LivingEntity attackTarget = this.getTarget();
         if (attackTarget != null) {
             boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS);
             if (!blindness && this.deathTime == 0 && attackTarget instanceof MobEntity && !(attackTarget instanceof PlayerEntity)) {
-                forcePreyToLook(attackTarget);
+                this.forcePreyToLook(attackTarget);
             }
             if (isEntityLookingAt(attackTarget, this, 0.4)) {
                 this.getLookControl().lookAt(attackTarget.getX(), attackTarget.getY() + (double) attackTarget.getStandingEyeHeight(), attackTarget.getZ(), (float) this.getMaxHeadRotation(), (float) this.getMaxLookPitchChange());
@@ -233,19 +233,19 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
                 }
                 if (this.getAnimation() == ANIMATION_SCARE) {
                     if (this.getAnimationTick() > 10) {
-                        if (!getWorld().isClient) {
-                            if (playerStatueCooldown == 0) {
+                        if (!this.getWorld().isClient) {
+                            if (this.playerStatueCooldown == 0) {
                                 EntityStoneStatue statue = EntityStoneStatue.buildStatueEntity(attackTarget);
                                 statue.updatePositionAndAngles(attackTarget.getX(), attackTarget.getY(), attackTarget.getZ(), attackTarget.getYaw(), attackTarget.getPitch());
-                                if (!getWorld().isClient) {
-                                    getWorld().spawnEntity(statue);
+                                if (!this.getWorld().isClient) {
+                                    this.getWorld().spawnEntity(statue);
                                 }
                                 statue.setYaw(attackTarget.getYaw());
                                 statue.setYaw(attackTarget.getYaw());
                                 statue.headYaw = attackTarget.getYaw();
                                 statue.bodyYaw = attackTarget.getYaw();
                                 statue.prevBodyYaw = attackTarget.getYaw();
-                                playerStatueCooldown = 40;
+                                this.playerStatueCooldown = 40;
                                 if (attackTarget instanceof PlayerEntity) {
 
                                     attackTarget.damage(IafDamageRegistry.causeGorgonDamage(this), Integer.MAX_VALUE);
@@ -293,22 +293,22 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override

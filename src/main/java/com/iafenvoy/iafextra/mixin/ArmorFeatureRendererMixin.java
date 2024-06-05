@@ -1,6 +1,6 @@
-package com.github.alexthe666.iceandfire.mixin;
+package com.iafenvoy.iafextra.mixin;
 
-import com.github.alexthe666.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;

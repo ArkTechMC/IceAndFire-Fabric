@@ -77,7 +77,7 @@ public class PathingOptions {
     }
 
     public boolean canOpenDoors() {
-        return canOpenDoors;
+        return this.canOpenDoors;
     }
 
     public void setCanOpenDoors(final boolean canOpenDoors) {
@@ -85,12 +85,12 @@ public class PathingOptions {
     }
 
     public boolean canUseRails() {
-        return canUseRails;
+        return this.canUseRails;
     }
 
     public boolean canClimbVines()
     {
-        return canClimbVines;
+        return this.canClimbVines;
     }
 
     public void setCanUseRails(final boolean canUseRails) {
@@ -98,7 +98,7 @@ public class PathingOptions {
     }
 
     public boolean canSwim() {
-        return canSwim;
+        return this.canSwim;
     }
 
     public void setCanSwim(final boolean canSwim) {
@@ -106,7 +106,7 @@ public class PathingOptions {
     }
 
     public boolean canEnterDoors() {
-        return enterDoors;
+        return this.enterDoors;
     }
 
     public void setEnterDoors(final boolean enterDoors) {
@@ -122,7 +122,7 @@ public class PathingOptions {
     public void setCanClimb(final boolean canClimb){this.canClimb = canClimb;}
 
     public PathingOptions withStartSwimCost(final double startSwimCost) {
-        swimCostEnter = startSwimCost;
+        this.swimCostEnter = startSwimCost;
         return this;
     }
 
@@ -154,13 +154,13 @@ public class PathingOptions {
     }
 
     public PathingOptions withRailExitCost(final double railExitCost) {
-        railsExitCost = railExitCost;
+        this.railsExitCost = railExitCost;
         return this;
     }
 
     public PathingOptions withToggleCost(final double toggleCost)
     {
-        traverseToggleAbleCost = toggleCost;
+        this.traverseToggleAbleCost = toggleCost;
         return this;
     }
 
@@ -178,7 +178,7 @@ public class PathingOptions {
      */
     public PathingOptions withCanSwim(final boolean canswim)
     {
-        setCanSwim(canswim);
+        this.setCanSwim(canswim);
         return this;
     }
 
@@ -189,7 +189,7 @@ public class PathingOptions {
      */
     public PathingOptions withCanEnterDoors(final boolean canEnter)
     {
-        setEnterDoors(canEnter);
+        this.setEnterDoors(canEnter);
         return this;
     }
 }

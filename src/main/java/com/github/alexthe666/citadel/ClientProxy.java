@@ -125,10 +125,10 @@ public class ClientProxy extends ServerProxy {
     @SubscribeEvent
     public void screenRender(ScreenEvent.Render event) {
         if(event.getScreen() instanceof TitleScreen && CitadelConstants.isAprilFools()) {
-            if(aprilFoolsTetrisGame == null){
-                aprilFoolsTetrisGame = new Tetris();
+            if(this.aprilFoolsTetrisGame == null){
+                this.aprilFoolsTetrisGame = new Tetris();
             }else{
-                aprilFoolsTetrisGame.render((TitleScreen) event.getScreen(), event.getGuiGraphics(), event.getPartialTick());
+                this.aprilFoolsTetrisGame.render((TitleScreen) event.getScreen(), event.getGuiGraphics(), event.getPartialTick());
             }
         }
     }
@@ -200,11 +200,11 @@ public class ClientProxy extends ServerProxy {
 
     @SubscribeEvent
     public void renderSplashTextBefore(EventRenderSplashText.Pre event) {
-        if(CitadelConstants.isAprilFools() && aprilFoolsTetrisGame != null){
+        if(CitadelConstants.isAprilFools() && this.aprilFoolsTetrisGame != null){
             event.setResult(Event.Result.ALLOW);
             float hue = (System.currentTimeMillis() % 6000) / 6000f;
             event.getGuiGraphics().getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees((float)Math.sin(hue * Math.PI) * 360));
-            if(!aprilFoolsTetrisGame.isStarted()){
+            if(!this.aprilFoolsTetrisGame.isStarted()){
                 event.setSplashText("Psst... press 'T' ;)");
             }else{
                 event.setSplashText("");
@@ -216,7 +216,7 @@ public class ClientProxy extends ServerProxy {
 
     @SubscribeEvent
     public void onKeyPressed(ScreenEvent.KeyPressed event) {
-        if(MinecraftClient.getInstance().currentScreen instanceof TitleScreen && aprilFoolsTetrisGame != null && aprilFoolsTetrisGame.isStarted()){
+        if(MinecraftClient.getInstance().currentScreen instanceof TitleScreen && this.aprilFoolsTetrisGame != null && this.aprilFoolsTetrisGame.isStarted()){
             if(event.getKeyCode() == InputUtil.GLFW_KEY_LEFT || event.getKeyCode() == InputUtil.GLFW_KEY_RIGHT || event.getKeyCode() == InputUtil.GLFW_KEY_DOWN || event.getKeyCode() == InputUtil.GLFW_KEY_UP){
                 event.setCanceled(true);
             }
@@ -225,40 +225,40 @@ public class ClientProxy extends ServerProxy {
 
         @SubscribeEvent
     public void clientTick(TickEvent.ClientTickEvent event) {
-        if(event.phase == TickEvent.Phase.START && !isGamePaused()){
+        if(event.phase == TickEvent.Phase.START && !this.isGamePaused()){
             ClientTickRateTracker.getForClient(MinecraftClient.getInstance()).masterTick();
-            tickMouseOverAnimations();
+            this.tickMouseOverAnimations();
         }
-        if(event.type == TickEvent.Type.CLIENT && event.phase == TickEvent.Phase.START && !isGamePaused() && CitadelConstants.isAprilFools()) {
-            if(aprilFoolsTetrisGame != null){
+        if(event.type == TickEvent.Type.CLIENT && event.phase == TickEvent.Phase.START && !this.isGamePaused() && CitadelConstants.isAprilFools()) {
+            if(this.aprilFoolsTetrisGame != null){
                 if(MinecraftClient.getInstance().currentScreen instanceof TitleScreen){
-                    aprilFoolsTetrisGame.tick();
+                    this.aprilFoolsTetrisGame.tick();
                 }else{
-                    aprilFoolsTetrisGame.reset();
+                    this.aprilFoolsTetrisGame.reset();
                 }
             }
         }
     }
 
     private void tickMouseOverAnimations() {
-        prevMouseOverProgresses.putAll(mouseOverProgresses);
-        if (lastHoveredItem != null) {
-            float prev = mouseOverProgresses.getOrDefault(lastHoveredItem, 0F);
+        this.prevMouseOverProgresses.putAll(this.mouseOverProgresses);
+        if (this.lastHoveredItem != null) {
+            float prev = this.mouseOverProgresses.getOrDefault(this.lastHoveredItem, 0F);
             float maxTime = 5F;
-            if(lastHoveredItem.getItem() instanceof ItemWithHoverAnimation hoverOver){
-                maxTime = hoverOver.getMaxHoverOverTime(lastHoveredItem);
+            if(this.lastHoveredItem.getItem() instanceof ItemWithHoverAnimation hoverOver){
+                maxTime = hoverOver.getMaxHoverOverTime(this.lastHoveredItem);
             }
             if (prev < maxTime) {
-                mouseOverProgresses.put(lastHoveredItem, prev + 1);
+                this.mouseOverProgresses.put(this.lastHoveredItem, prev + 1);
             }
         }
 
-        if (!mouseOverProgresses.isEmpty()) {
-            Iterator<Map.Entry<ItemStack, Float>> it = mouseOverProgresses.entrySet().iterator();
+        if (!this.mouseOverProgresses.isEmpty()) {
+            Iterator<Map.Entry<ItemStack, Float>> it = this.mouseOverProgresses.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<ItemStack, Float> next = it.next();
                 float progress = next.getValue();
-                if (lastHoveredItem == null || next.getKey() != lastHoveredItem) {
+                if (this.lastHoveredItem == null || next.getKey() != this.lastHoveredItem) {
                     if (progress == 0) {
                         it.remove();
                     } else {
@@ -267,22 +267,22 @@ public class ClientProxy extends ServerProxy {
                 }
             }
         }
-        lastHoveredItem = null;
+        this.lastHoveredItem = null;
     }
 
     @SubscribeEvent
     public void renderTooltipColor(RenderTooltipEvent.Color event) {
         if (event.getItemStack().getItem() instanceof ItemWithHoverAnimation hoverOver && hoverOver.canHoverOver(event.getItemStack())) {
-            lastHoveredItem = event.getItemStack();
+            this.lastHoveredItem = event.getItemStack();
         } else {
-            lastHoveredItem = null;
+            this.lastHoveredItem = null;
         }
     }
 
     @Override
     public float getMouseOverProgress(ItemStack itemStack){
-        float prev = prevMouseOverProgresses.getOrDefault(itemStack, 0F);
-        float current = mouseOverProgresses.getOrDefault(itemStack, 0F);
+        float prev = this.prevMouseOverProgresses.getOrDefault(itemStack, 0F);
+        float current = this.mouseOverProgresses.getOrDefault(itemStack, 0F);
         float lerped = prev + (current - prev) * MinecraftClient.getInstance().getTickDelta();
         float maxTime = 5F;
         if(itemStack.getItem() instanceof ItemWithHoverAnimation hoverOver){

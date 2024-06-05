@@ -44,9 +44,9 @@ public class EntityCockatriceEgg extends ThrownItemEntity {
      */
     @Override
     protected void onCollision(HitResult result) {
-        Entity thrower = getOwner();
+        Entity thrower = this.getOwner();
         if (result.getType() == HitResult.Type.ENTITY) {
-            ((EntityHitResult) result).getEntity().damage(getWorld().getDamageSources().thrown(this, thrower), 0.0F);
+            ((EntityHitResult) result).getEntity().damage(this.getWorld().getDamageSources().thrown(this, thrower), 0.0F);
         }
 
         if (!this.getWorld().isClient) {

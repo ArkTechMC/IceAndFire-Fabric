@@ -39,10 +39,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.LocalDifficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityPixie extends TameableEntity {
@@ -95,7 +92,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     public boolean isPixieSitting() {
-        if (getWorld().isClient) {
+        if (this.getWorld().isClient) {
             boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
             this.isSitting = isSitting;
             this.setSitting(isSitting);
@@ -105,7 +102,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     public void setPixieSitting(boolean sitting) {
-        if (!getWorld().isClient) {
+        if (!this.getWorld().isClient) {
             this.isSitting = sitting;
             this.setInSittingPose(sitting);
         }
@@ -233,7 +230,7 @@ public class EntityPixie extends TameableEntity {
                     break;
             }
             ItemStack stack = new ItemStack(jar, 1);
-            if (!getWorld().isClient) {
+            if (!this.getWorld().isClient) {
                 if (!this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
                     this.dropStack(this.getStackInHand(Hand.MAIN_HAND), 0.0F);
                     this.stealCooldown = STEAL_COOLDOWN;
@@ -316,27 +313,27 @@ public class EntityPixie extends TameableEntity {
             }
         }
 
-        if (stealCooldown > 0) {
-            stealCooldown--;
+        if (this.stealCooldown > 0) {
+            this.stealCooldown--;
         }
         if (!this.getMainHandStack().isEmpty() && !this.isTamed()) {
-            ticksHeldItemFor++;
+            this.ticksHeldItemFor++;
         } else {
-            ticksHeldItemFor = 0;
+            this.ticksHeldItemFor = 0;
         }
 
 
         if (!this.isPixieSitting() && !this.isBeyondHeight()) {
             this.setVelocity(this.getVelocity().add(0, 0.08, 0));
         }
-        if (getWorld().isClient) {
+        if (this.getWorld().isClient) {
             IceAndFire.PROXY.spawnParticle(EnumParticles.If_Pixie, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2F) - (double) this.getWidth(), PARTICLE_RGB[this.getColor()][0], PARTICLE_RGB[this.getColor()][1], PARTICLE_RGB[this.getColor()][2]);
         }
-        if (ticksUntilHouseAI > 0) {
-            ticksUntilHouseAI--;
+        if (this.ticksUntilHouseAI > 0) {
+            this.ticksUntilHouseAI--;
         }
-        if (!getWorld().isClient) {
-            if (housePos != null && this.squaredDistanceTo(Vec3d.ofCenter(housePos)) < 1.5F && getWorld().getBlockEntity(housePos) != null && getWorld().getBlockEntity(housePos) instanceof TileEntityPixieHouse house) {
+        if (!this.getWorld().isClient) {
+            if (this.housePos != null && this.squaredDistanceTo(Vec3d.ofCenter(this.housePos)) < 1.5F && this.getWorld().getBlockEntity(this.housePos) != null && this.getWorld().getBlockEntity(this.housePos) instanceof TileEntityPixieHouse house) {
                 if (house.hasPixie) {
                     this.housePos = null;
                 } else {
@@ -345,13 +342,13 @@ public class EntityPixie extends TameableEntity {
                     house.pixieItems.set(0, this.getStackInHand(Hand.MAIN_HAND));
                     house.tamedPixie = this.isTamed();
                     house.pixieOwnerUUID = this.getOwnerUuid();
-                    IceAndFire.sendMSGToAll(new MessageUpdatePixieHouse(housePos.asLong(), true, this.getColor()));
+                    IceAndFire.sendMSGToAll(new MessageUpdatePixieHouse(this.housePos.asLong(), true, this.getColor()));
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
         }
         if (this.getOwner() != null && this.isOwnerClose() && this.age % 80 == 0) {
-            this.getOwner().addStatusEffect(new StatusEffectInstance(positivePotions[this.getColor()], 100, 0, false, false));
+            this.getOwner().addStatusEffect(new StatusEffectInstance(this.positivePotions[this.getColor()], 100, 0, false, false));
         }
         //PlayerEntity player = world.getClosestPlayerToEntity(this, 25);
         //if (player != null) {
@@ -401,7 +398,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     public BlockPos getHousePos() {
-        return housePos;
+        return this.housePos;
     }
 
     public boolean isOwnerClose() {
@@ -439,6 +436,11 @@ public class EntityPixie extends TameableEntity {
         }
 
         return super.isTeammate(entityIn);
+    }
+
+    @Override
+    public EntityView method_48926() {
+        return this.getWorld();
     }
 
     class AIMoveControl extends MoveControl {

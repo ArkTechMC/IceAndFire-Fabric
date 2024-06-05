@@ -30,16 +30,16 @@ public class TileEntityGhostChest extends ChestBlockEntity {
     public void onOpen(@NotNull PlayerEntity player) {
         super.onOpen(player);
         if (this.world.getDifficulty() != Difficulty.PEACEFUL) {
-            EntityGhost ghost = IafEntityRegistry.GHOST.get().create(world);
+            EntityGhost ghost = IafEntityRegistry.GHOST.get().create(this.world);
             ghost.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F,
                 ThreadLocalRandom.current().nextFloat() * 360F, 0);
             if (!this.world.isClient) {
-                ghost.initialize((ServerWorld) world, world.getLocalDifficulty(this.pos), SpawnReason.SPAWNER, null, null);
+                ghost.initialize((ServerWorld) this.world, this.world.getLocalDifficulty(this.pos), SpawnReason.SPAWNER, null, null);
                 if (!player.isCreative()) {
                     ghost.setTarget(player);
                 }
                 ghost.setPersistent();
-                world.spawnEntity(ghost);
+                this.world.spawnEntity(ghost);
             }
             ghost.setAnimation(EntityGhost.ANIMATION_SCARE);
             ghost.setPositionTarget(this.pos, 4);

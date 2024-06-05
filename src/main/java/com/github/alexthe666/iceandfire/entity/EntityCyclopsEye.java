@@ -6,7 +6,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.world.World;
-import net.minecraftforge.network.PlayMessages;
 
 public class EntityCyclopsEye extends EntityMutlipartPart {
 
@@ -14,13 +13,9 @@ public class EntityCyclopsEye extends EntityMutlipartPart {
         super(t, world);
     }
 
-    public EntityCyclopsEye(PlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(IafEntityRegistry.CYCLOPS_MULTIPART.get(), worldIn);
-    }
-
     public EntityCyclopsEye(LivingEntity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
         super(IafEntityRegistry.CYCLOPS_MULTIPART.get(), parent, radius, angleYaw, offsetY, sizeX, sizeY,
-            damageMultiplier);
+                damageMultiplier);
     }
 
     @Override

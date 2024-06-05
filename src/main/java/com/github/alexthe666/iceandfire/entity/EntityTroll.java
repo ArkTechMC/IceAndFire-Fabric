@@ -12,6 +12,7 @@ import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.iafenvoy.iafextra.event.EventBus;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -42,9 +43,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.explosion.Explosion;
-import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -95,13 +94,13 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     private void setAvoidSun(boolean day) {
-        if (day && !avoidSun) {
+        if (day && !this.avoidSun) {
             ((MobNavigation) this.getNavigation()).setAvoidSunlight(true);
-            avoidSun = true;
+            this.avoidSun = true;
         }
-        if (!day && avoidSun) {
+        if (!day && this.avoidSun) {
             ((MobNavigation) this.getNavigation()).setAvoidSunlight(false);
-            avoidSun = false;
+            this.avoidSun = false;
         }
     }
 
@@ -129,7 +128,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new ActiveTargetGoal(this, MerchantEntity.class, false));
         this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, false));
-        setAvoidSun(true);
+        this.setAvoidSun(true);
     }
 
     @Override
@@ -159,7 +158,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public EnumTroll getTrollType() {
-        return EnumTroll.values()[getVariant()];
+        return EnumTroll.values()[this.getVariant()];
     }
 
     public void setTrollType(EnumTroll variant) {
@@ -175,7 +174,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public EnumTroll.Weapon getWeaponType() {
-        return EnumTroll.Weapon.values()[getWeapon()];
+        return EnumTroll.Weapon.values()[this.getWeapon()];
     }
 
     public void setWeaponType(EnumTroll.Weapon variant) {
@@ -187,7 +186,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putInt("Weapon", this.getWeapon());
-        compound.putFloat("StoneProgress", stoneProgress);
+        compound.putFloat("StoneProgress", this.stoneProgress);
     }
 
     @Override
@@ -202,7 +201,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setTrollType(EnumTroll.getBiomeType(getWorld().getBiome(this.getBlockPos())));
+        this.setTrollType(EnumTroll.getBiomeType(this.getWorld().getBiome(this.getBlockPos())));
         this.setWeaponType(EnumTroll.getWeaponForType(this.getTrollType()));
         return spawnDataIn;
     }
@@ -241,7 +240,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
                 if (this.getRandom().nextInt(3) == 0) {
                     ItemStack weaponStack = new ItemStack(this.getWeaponType().item.get(), 1);
                     weaponStack.damage(this.getRandom().nextInt(250), this.getRandom(), null);
-                    dropItemAt(weaponStack, this.getX(), this.getY(), this.getZ());
+                    this.dropItemAt(weaponStack, this.getX(), this.getY(), this.getZ());
                 } else {
                     ItemStack brokenDrop = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                     ItemStack brokenDrop2 = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
@@ -273,8 +272,8 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
                         brokenDrop = new ItemStack(Blocks.SPRUCE_LOG, this.getRandom().nextInt(4) + 1);
                         brokenDrop2 = new ItemStack(Items.SNOWBALL, this.getRandom().nextInt(4) + 1);
                     }
-                    dropItemAt(brokenDrop, this.getX(), this.getY(), this.getZ());
-                    dropItemAt(brokenDrop2, this.getX(), this.getY(), this.getZ());
+                    this.dropItemAt(brokenDrop, this.getX(), this.getY(), this.getZ());
+                    this.dropItemAt(brokenDrop2, this.getX(), this.getY(), this.getZ());
 
                 }
             }
@@ -295,14 +294,14 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
+        if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
             this.setTarget(null);
         }
         boolean stone = EntityGorgon.isStoneMob(this);
-        if (stone && stoneProgress < 20.0F) {
-            stoneProgress += 2F;
-        } else if (!stone && stoneProgress > 0.0F) {
-            stoneProgress -= 2F;
+        if (stone && this.stoneProgress < 20.0F) {
+            this.stoneProgress += 2F;
+        } else if (!stone && this.stoneProgress > 0.0F) {
+            this.stoneProgress -= 2F;
         }
         if (!stone && this.getAnimation() == NO_ANIMATION && this.getTarget() != null && this.getRandom().nextInt(100) == 0) {
             this.setAnimation(ANIMATION_ROAR);
@@ -313,7 +312,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         if (!stone && this.getHealth() < this.getMaxHealth() && this.age % 30 == 0) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 30, 1, false, false));
         }
-        setAvoidSun(this.getWorld().isDay());
+        this.setAvoidSun(this.getWorld().isDay());
         if (this.getWorld().isDay() && !this.getWorld().isClient) {
             float f = this.getWorld().getLightLevel(LightType.SKY, this.getBlockPos());
             BlockPos blockpos = this.getVehicle() instanceof BoatEntity ? (new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ())).up() : new BlockPos(this.getBlockX(), this.getBlockY(), this.getBlockZ());
@@ -325,8 +324,8 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
                 EntityStoneStatue statue = EntityStoneStatue.buildStatueEntity(this);
                 statue.getTrappedTag().putFloat("StoneProgress", 20);
                 statue.updatePositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
-                if (!getWorld().isClient) {
-                    getWorld().spawnEntity(statue);
+                if (!this.getWorld().isClient) {
+                    this.getWorld().spawnEntity(statue);
                 }
                 statue.prevYaw = this.getYaw();
                 statue.setYaw(this.getYaw());
@@ -337,15 +336,15 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
             }
         }
         if (this.getAnimation() == ANIMATION_STRIKE_VERTICAL && this.getAnimationTick() == 10) {
-            float weaponX = (float) (getX() + 1.9F * MathHelper.cos((float) ((bodyYaw + 90) * Math.PI / 180)));
-            float weaponZ = (float) (getZ() + 1.9F * MathHelper.sin((float) ((bodyYaw + 90) * Math.PI / 180)));
-            float weaponY = (float) (getY() + (0.2F));
-            BlockState state = getWorld().getBlockState(BlockPos.ofFloored(weaponX, weaponY - 1, weaponZ));
+            float weaponX = (float) (this.getX() + 1.9F * MathHelper.cos((float) ((this.bodyYaw + 90) * Math.PI / 180)));
+            float weaponZ = (float) (this.getZ() + 1.9F * MathHelper.sin((float) ((this.bodyYaw + 90) * Math.PI / 180)));
+            float weaponY = (float) (this.getY() + (0.2F));
+            BlockState state = this.getWorld().getBlockState(BlockPos.ofFloored(weaponX, weaponY - 1, weaponZ));
             for (int i = 0; i < 20; i++) {
-                double motionX = getRandom().nextGaussian() * 0.07D;
-                double motionY = getRandom().nextGaussian() * 0.07D;
-                double motionZ = getRandom().nextGaussian() * 0.07D;
-                if (state.isSolid() && getWorld().isClient) {
+                double motionX = this.getRandom().nextGaussian() * 0.07D;
+                double motionY = this.getRandom().nextGaussian() * 0.07D;
+                double motionZ = this.getRandom().nextGaussian() * 0.07D;
+                if (state.isSolid() && this.getWorld().isClient) {
                     this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, state), weaponX + (this.getRandom().nextFloat() - 0.5F), weaponY + (this.getRandom().nextFloat() - 0.5F), weaponZ + (this.getRandom().nextFloat() - 0.5F), motionX, motionY, motionZ);
                 }
             }
@@ -380,11 +379,11 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
                 this.setAnimation(ANIMATION_STRIKE_VERTICAL);
             }
             if (this.getAnimation() == ANIMATION_STRIKE_VERTICAL && this.getAnimationTick() == 10) {
-                float weaponX = (float) (getX() + 1.9F * MathHelper.cos((float) ((bodyYaw + 90) * Math.PI / 180)));
-                float weaponZ = (float) (getZ() + 1.9F * MathHelper.sin((float) ((bodyYaw + 90) * Math.PI / 180)));
-                float weaponY = (float) (getY() + (this.getStandingEyeHeight() / 2));
-                Explosion explosion = new Explosion(getWorld(), this, weaponX, weaponY, weaponZ, 1F + this.getRandom().nextFloat(), new ArrayList<>());
-                if (!MinecraftForge.EVENT_BUS.post(new GenericGriefEvent(this, weaponX, weaponY, weaponZ))) {
+                float weaponX = (float) (this.getX() + 1.9F * MathHelper.cos((float) ((this.bodyYaw + 90) * Math.PI / 180)));
+                float weaponZ = (float) (this.getZ() + 1.9F * MathHelper.sin((float) ((this.bodyYaw + 90) * Math.PI / 180)));
+                float weaponY = (float) (this.getY() + (this.getStandingEyeHeight() / 2));
+                Explosion explosion = new Explosion(this.getWorld(), this, weaponX, weaponY, weaponZ, 1F + this.getRandom().nextFloat(), new ArrayList<>());
+                if (!EventBus.post(new GenericGriefEvent(this, weaponX, weaponY, weaponZ))) {
                     explosion.collectBlocksAndDamageEntities();
                     explosion.affectWorld(true);
                 }
@@ -421,22 +420,22 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override

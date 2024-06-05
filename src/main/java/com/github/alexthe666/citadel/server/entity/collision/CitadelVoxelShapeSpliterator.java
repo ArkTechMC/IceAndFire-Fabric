@@ -99,7 +99,7 @@ public class CitadelVoxelShapeSpliterator extends Spliterators.AbstractSpliterat
                     continue;
                 }
                 VoxelShape voxelshape = blockstate.getCollisionShape(this.reader, this.mutablePos, this.context);
-                if (entity instanceof ICustomCollisions && ((ICustomCollisions) entity).canPassThrough(mutablePos, blockstate, voxelshape)) {
+                if (this.entity instanceof ICustomCollisions && ((ICustomCollisions) this.entity).canPassThrough(this.mutablePos, blockstate, voxelshape)) {
                     continue;
                 }
                 if (voxelshape == VoxelShapes.fullCube()) {

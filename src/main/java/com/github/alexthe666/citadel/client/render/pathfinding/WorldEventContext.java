@@ -32,30 +32,30 @@ public class WorldEventContext {
 
     public void renderWorldLastEvent(final RenderLevelStageEvent event)
     {
-        bufferSource = WorldRenderMacros.getBufferSource();
-        poseStack = event.getPoseStack();
-        partialTicks = event.getPartialTick();
-        clientLevel = MinecraftClient.getInstance().world;
-        clientPlayer = MinecraftClient.getInstance().player;
-        mainHandItem = clientPlayer.getMainHandStack();
-        clientRenderDist = MinecraftClient.getInstance().options.getViewDistance().getValue();
+        this.bufferSource = WorldRenderMacros.getBufferSource();
+        this.poseStack = event.getPoseStack();
+        this.partialTicks = event.getPartialTick();
+        this.clientLevel = MinecraftClient.getInstance().world;
+        this.clientPlayer = MinecraftClient.getInstance().player;
+        this.mainHandItem = this.clientPlayer.getMainHandStack();
+        this.clientRenderDist = MinecraftClient.getInstance().options.getViewDistance().getValue();
 
         final Vec3d cameraPos = MinecraftClient.getInstance().gameRenderer.getCamera().getPos();
-        poseStack.push();
-        poseStack.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
+        this.poseStack.push();
+        this.poseStack.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
 
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_CUTOUT_MIPPED_BLOCKS_BLOCKS)
         {
             PathfindingDebugRenderer.render(this);
 
-            bufferSource.draw();
+            this.bufferSource.draw();
         }
         else if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRIPWIRE_BLOCKS)
         {
-            bufferSource.draw();
+            this.bufferSource.draw();
         }
 
-        poseStack.pop();
+        this.poseStack.pop();
     }
 
 }

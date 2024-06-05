@@ -57,7 +57,7 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob {
     protected Path search() {
         if (Pathfinding.isDebug()) {
             Citadel.LOGGER.info(String.format("Pathfinding from [%d,%d,%d] away from [%d,%d,%d]",
-                    start.getX(), start.getY(), start.getZ(), avoid.getX(), avoid.getY(), avoid.getZ()));
+                    this.start.getX(), this.start.getY(), this.start.getZ(), this.avoid.getX(), this.avoid.getY(), this.avoid.getZ()));
         }
 
         return super.search();
@@ -71,7 +71,7 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob {
      */
     @Override
     protected double computeHeuristic(final BlockPos pos) {
-        return -avoid.getSquaredDistance(pos);
+        return -this.avoid.getSquaredDistance(pos);
     }
 
     /**
@@ -82,7 +82,7 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob {
      */
     @Override
     protected boolean isAtDestination(final MNode n) {
-        return Math.sqrt(avoid.getSquaredDistance(n.pos)) > avoidDistance;
+        return Math.sqrt(this.avoid.getSquaredDistance(n.pos)) > this.avoidDistance;
     }
 
     /**
@@ -93,6 +93,6 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob {
      */
     @Override
     protected double getNodeResultScore(final MNode n) {
-        return -avoid.getSquaredDistance(n.pos);
+        return -this.avoid.getSquaredDistance(n.pos);
     }
 }

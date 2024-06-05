@@ -61,9 +61,9 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
     @Override
     public void render(EntityCockatrice entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
         if (entityIn.isBaby()) {
-            model = BABY_MODEL;
+            this.model = BABY_MODEL;
         } else {
-            model = ADULT_MODEL;
+            this.model = ADULT_MODEL;
         }
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         LivingEntity livingentity = entityIn.getTargetedEntity();

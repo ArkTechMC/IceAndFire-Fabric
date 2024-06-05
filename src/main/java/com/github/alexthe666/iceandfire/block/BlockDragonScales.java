@@ -34,6 +34,6 @@ public class BlockDragonScales extends Block implements IDragonProof {
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, BlockView worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + type.toString().toLowerCase()).formatted(type.color));
+        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase()).formatted(this.type.color));
     }
 }

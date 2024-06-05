@@ -49,15 +49,15 @@ public class ModelTrollWeapon extends AdvancedEntityModel<Entity> {
         this.log1 = new AdvancedModelBox(this, 10, 100);
         this.log1.setPos(-0.5F, 8.0F, -0.4F);
         this.log1.addBox(-1.5F, -17.9F, -3.5F, 6, 20, 6, 0.0F);
-        this.setRotateAngle(log1, 3.141592653589793F, 0.0F, 0.0F);
+        this.setRotateAngle(this.log1, 3.141592653589793F, 0.0F, 0.0F);
         this.log2 = new AdvancedModelBox(this, 10, 70);
         this.log2.setPos(0.0F, 9.0F, -1.0F);
         this.log2.addBox(-2.0F, -6.9F, -3.0F, 7, 24, 6, 0.0F);
-        this.setRotateAngle(log2, -0.045553093477052F, 0.0F, 0.0F);
+        this.setRotateAngle(this.log2, -0.045553093477052F, 0.0F, 0.0F);
         this.blade2_2 = new AdvancedModelBox(this, 161, 99);
         this.blade2_2.setPos(0.0F, 17.0F, 9.0F);
         this.blade2_2.addBox(-1.0F, -5.0F, -6.0F, 2, 5, 5, 0.0F);
-        this.setRotateAngle(blade2_2, 3.141592653589793F, 0.0F, 0.0F);
+        this.setRotateAngle(this.blade2_2, 3.141592653589793F, 0.0F, 0.0F);
         this.handle.addChild(this.block);
         this.column.addChild(this.bottom);
         this.handle.addChild(this.blade2);
@@ -72,7 +72,7 @@ public class ModelTrollWeapon extends AdvancedEntityModel<Entity> {
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {
-        return ImmutableList.of(log1);
+        return ImmutableList.of(this.log1);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ModelTrollWeapon extends AdvancedEntityModel<Entity> {
 
     @Override
     public Iterable<BasicModelPart> parts() {
-        return ImmutableList.of(log1);
+        return ImmutableList.of(this.log1);
     }
 
     @Override

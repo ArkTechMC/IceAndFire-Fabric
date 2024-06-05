@@ -33,11 +33,11 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
         super(renderIn);
         this.render = renderIn;
         try {
-            fireHead = onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/firedragon/firedragon_Ground"), null),
+            this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/firedragon/firedragon_Ground"), null),
                 Collections.singletonList("HeadFront"));
-            iceHead = onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/icedragon/icedragon_Ground"), null),
+            this.iceHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/icedragon/icedragon_Ground"), null),
                 Collections.singletonList("HeadFront"));
-            lightningHead = onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_Ground"), null),
+            this.lightningHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_Ground"), null),
                 Collections.singletonList("HeadFront"));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -49,15 +49,15 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
         if (dragon.shouldRenderEyes()) {
             RenderLayer eyes = RenderLayer.getEyes(EnumDragonTextures.getEyeTextureFromDragon(dragon));
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(eyes);
-            if (dragon instanceof EntityLightningDragon && lightningHead != null) {
-                copyPositions(lightningHead, (TabulaModel) this.getContextModel());
-                lightningHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-            } else if (dragon instanceof EntityIceDragon && iceHead != null) {
-                copyPositions(iceHead, (TabulaModel) this.getContextModel());
-                iceHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-            } else if (fireHead != null) {
-                copyPositions(fireHead, (TabulaModel) this.getContextModel());
-                fireHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+            if (dragon instanceof EntityLightningDragon && this.lightningHead != null) {
+                this.copyPositions(this.lightningHead, (TabulaModel) this.getContextModel());
+                this.lightningHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+            } else if (dragon instanceof EntityIceDragon && this.iceHead != null) {
+                this.copyPositions(this.iceHead, (TabulaModel) this.getContextModel());
+                this.iceHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+            } else if (this.fireHead != null) {
+                this.copyPositions(this.fireHead, (TabulaModel) this.getContextModel());
+                this.fireHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             //Fallback method
             else {
@@ -84,7 +84,7 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
                 cube = cube.getParent();
             }
         }
-        removeChildren(model,keepCubes);
+        this.removeChildren(model,keepCubes);
         model.getCubes().values().removeIf(advancedModelBox -> !keepCubes.contains(advancedModelBox));
         return model;
     }
@@ -93,7 +93,7 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
         model.getRootBox().forEach(modelRenderer -> {
             modelRenderer.childModels.removeIf(child -> !keepCubes.contains(child));
             modelRenderer.childModels.forEach(childModel ->{
-                removeChildren((AdvancedModelBox) childModel,keepCubes);
+                this.removeChildren((AdvancedModelBox) childModel,keepCubes);
             });
         });
     }
@@ -101,7 +101,7 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     private void removeChildren(AdvancedModelBox modelBox, List<AdvancedModelBox> keepCubes){
         modelBox.childModels.removeIf(modelRenderer -> !keepCubes.contains(modelRenderer));
         modelBox.childModels.forEach(modelRenderer -> {
-            removeChildren((AdvancedModelBox)modelRenderer,keepCubes);
+            this.removeChildren((AdvancedModelBox)modelRenderer,keepCubes);
         });
     }
 
@@ -115,12 +115,12 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     public void copyPositions(TabulaModel model, TabulaModel modelTo) {
         for (AdvancedModelBox cube : model.getCubes().values()) {
             AdvancedModelBox modelToCube = modelTo.getCube(cube.boxName);
-            if (!isAngleEqual(cube,modelToCube)) {
+            if (!this.isAngleEqual(cube,modelToCube)) {
                 cube.rotateAngleX = modelToCube.rotateAngleX;
                 cube.rotateAngleY = modelToCube.rotateAngleY;
                 cube.rotateAngleZ = modelToCube.rotateAngleZ;
             }
-            if (!isPositionEqual(cube,modelToCube)) {
+            if (!this.isPositionEqual(cube,modelToCube)) {
                 cube.rotationPointX = modelToCube.rotationPointX;
                 cube.rotationPointY = modelToCube.rotationPointY;
                 cube.rotationPointZ = modelToCube.rotationPointZ;

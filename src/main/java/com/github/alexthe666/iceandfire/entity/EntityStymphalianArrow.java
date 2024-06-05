@@ -5,12 +5,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityStymphalianArrow extends PersistentProjectileEntity {
@@ -25,15 +21,6 @@ public class EntityStymphalianArrow extends PersistentProjectileEntity {
         this(t, worldIn);
         this.setPosition(x, y, z);
         this.setDamage(3.5F);
-    }
-
-    public EntityStymphalianArrow(PlayMessages.SpawnEntity spawnEntity, World world) {
-        this(IafEntityRegistry.STYMPHALIAN_ARROW.get(), world);
-    }
-
-    @Override
-    public @NotNull Packet<ClientPlayPacketListener> createSpawnPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     public EntityStymphalianArrow(EntityType t, World worldIn, LivingEntity shooter) {

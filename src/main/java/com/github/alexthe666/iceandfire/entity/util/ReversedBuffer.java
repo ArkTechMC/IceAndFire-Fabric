@@ -124,7 +124,7 @@ public class ReversedBuffer {
      * @param boxes the box array
      */
     public void applyChainSwingBuffer(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleY -= rotateAmount;
         }
@@ -136,7 +136,7 @@ public class ReversedBuffer {
      * @param boxes the box array
      */
     public void applyChainWaveBuffer(BasicModelPart... boxes) {
-        float rotateAmount = 0.01745329251F * MathHelper.lerp(getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
+        float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
         for (BasicModelPart box : boxes) {
             box.rotateAngleX -= rotateAmount;
         }

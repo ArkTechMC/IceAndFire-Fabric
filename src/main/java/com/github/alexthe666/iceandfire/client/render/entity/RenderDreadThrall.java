@@ -70,10 +70,10 @@ public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, Mode
     public void scale(EntityDreadThrall livingEntityIn, MatrixStack stack, float partialTickTime) {
         stack.scale(0.95F, 0.95F, 0.95F);
         if (livingEntityIn.getAnimation() == this.getModel().getSpawnAnimation()) {
-            itemLayer.hidden = livingEntityIn.getAnimationTick() <= this.getModel().getSpawnAnimation().getDuration() - 10;
+            this.itemLayer.hidden = livingEntityIn.getAnimationTick() <= this.getModel().getSpawnAnimation().getDuration() - 10;
             return;
         }
-        itemLayer.hidden = false;
+        this.itemLayer.hidden = false;
 
     }
 

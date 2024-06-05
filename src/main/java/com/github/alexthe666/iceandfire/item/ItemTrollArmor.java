@@ -4,7 +4,7 @@ import com.github.alexthe666.citadel.server.item.CustomArmorMaterial;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelTrollArmor;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
-import com.github.alexthe666.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
@@ -40,7 +40,7 @@ public class ItemTrollArmor extends ArmorItem implements IArmorTextureProvider {
 
     @Override
     public @NotNull ArmorMaterial getMaterial() {
-        return troll.material;
+        return this.troll.material;
     }
 
 
@@ -66,11 +66,11 @@ public class ItemTrollArmor extends ArmorItem implements IArmorTextureProvider {
 
     @Override
     public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_troll_" + troll.name().toLowerCase(Locale.ROOT) + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_troll_" + this.troll.name().toLowerCase(Locale.ROOT) + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 
     @Override
     public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
-        tooltip.add(Text.translatable("item.iceandfire.troll_leather_armor_" + getArmorPart(type.getEquipmentSlot()) + ".desc").formatted(Formatting.GREEN));
+        tooltip.add(Text.translatable("item.iceandfire.troll_leather_armor_" + getArmorPart(this.type.getEquipmentSlot()) + ".desc").formatted(Formatting.GREEN));
     }
 }

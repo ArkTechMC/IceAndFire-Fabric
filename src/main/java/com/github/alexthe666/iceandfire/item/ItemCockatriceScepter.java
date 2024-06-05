@@ -7,6 +7,7 @@ import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -43,9 +44,9 @@ public class ItemCockatriceScepter extends Item {
 
     @Override
     public void onStoppedUsing(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity livingEntity, int timeLeft) {
-        if (specialWeaponDmg > 0) {
-            stack.damage(specialWeaponDmg, livingEntity, player -> player.sendToolBreakStatus(livingEntity.getActiveHand()));
-            specialWeaponDmg = 0;
+        if (this.specialWeaponDmg > 0) {
+            stack.damage(this.specialWeaponDmg, livingEntity, player -> player.sendToolBreakStatus(livingEntity.getActiveHand()));
+            this.specialWeaponDmg = 0;
         }
 
         EntityDataProvider.getCapability(livingEntity).ifPresent(data -> data.miscData.getTargetedByScepter().clear());
@@ -117,7 +118,7 @@ public class ItemCockatriceScepter extends Item {
                 EntityDataProvider.getCapability(player).ifPresent(data -> data.miscData.addScepterTarget(target));
             }
 
-            attackTargets(player);
+            this.attackTargets(player);
         }
     }
 
@@ -131,14 +132,14 @@ public class ItemCockatriceScepter extends Item {
                     continue;
                 }
 
-                target.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 2));
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40, 2));
 
-                if (caster.tickCount % 20 == 0) {
-                    specialWeaponDmg++;
-                    target.hurt(caster.level().damageSources().wither(), 2);
+                if (caster.age % 20 == 0) {
+                    this.specialWeaponDmg++;
+                    target.damage(caster.getWorld().damageSources.wither(), 2);
                 }
 
-                drawParticleBeam(caster, target);
+                this.drawParticleBeam(caster, target);
             }
         });
     }

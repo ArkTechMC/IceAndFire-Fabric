@@ -58,7 +58,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         tag.putBoolean("Jungle", this.isJungle());
         tag.putInt("MyrmexAge", this.getMyrmexAge());
         tag.putInt("MyrmexCaste", this.getMyrmexCaste());
-        tag.putUuid("HiveUUID", hiveUUID == null ? hiveUUID = UUID.randomUUID() : hiveUUID);
+        tag.putUuid("HiveUUID", this.hiveUUID == null ? this.hiveUUID = UUID.randomUUID() : this.hiveUUID);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         this.setJungle(tag.getBoolean("Jungle"));
         this.setMyrmexAge(tag.getInt("MyrmexAge"));
         this.setMyrmexCaste(tag.getInt("MyrmexCaste"));
-        hiveUUID = tag.getUuid("HiveUUID");
+        this.hiveUUID = tag.getUuid("HiveUUID");
     }
 
     @Override
@@ -104,13 +104,13 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     public boolean canSeeSky() {
-        return getWorld().isSkyVisibleAllowingSea(this.getBlockPos());
+        return this.getWorld().isSkyVisibleAllowingSea(this.getBlockPos());
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (!canSeeSky()) {
+        if (!this.canSeeSky()) {
             this.setMyrmexAge(this.getMyrmexAge() + 1);
         }
         if (this.getMyrmexAge() > IafConfig.myrmexEggTicks) {
@@ -118,54 +118,54 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
             EntityMyrmexBase myrmex;
             switch (this.getMyrmexCaste()) {
                 default:
-                    myrmex = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(), getWorld());
+                    myrmex = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(), this.getWorld());
                     break;
                 case 1:
-                    myrmex = new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(), getWorld());
+                    myrmex = new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(), this.getWorld());
                     break;
                 case 2:
-                    myrmex = new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL.get(), getWorld());
+                    myrmex = new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL.get(), this.getWorld());
                     break;
                 case 3:
-                    myrmex = new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(), getWorld());
+                    myrmex = new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(), this.getWorld());
                     break;
                 case 4:
-                    myrmex = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(), getWorld());
+                    myrmex = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(), this.getWorld());
                     break;
             }
             myrmex.setJungleVariant(this.isJungle());
             myrmex.setGrowthStage(0);
             myrmex.updatePositionAndAngles(this.getX(), this.getY(), this.getZ(), 0, 0);
             if (myrmex instanceof EntityMyrmexQueen) {
-                MyrmexHive hive = new MyrmexHive(getWorld(), this.getBlockPos(), 100);
-                PlayerEntity player = getWorld().getClosestPlayer(this, 30);
+                MyrmexHive hive = new MyrmexHive(this.getWorld(), this.getBlockPos(), 100);
+                PlayerEntity player = this.getWorld().getClosestPlayer(this, 30);
                 if (player != null) {
                     hive.hasOwner = true;
                     hive.ownerUUID = player.getUuid();
-                    if (!getWorld().isClient) {
+                    if (!this.getWorld().isClient) {
                         hive.modifyPlayerReputation(player.getUuid(), 100);
                     }
                 }
-                MyrmexWorldData.addHive(getWorld(), hive);
+                MyrmexWorldData.addHive(this.getWorld(), hive);
                 myrmex.setHive(hive);
 
 
             } else {
-                if (MyrmexWorldData.get(getWorld()) != null) {
+                if (MyrmexWorldData.get(this.getWorld()) != null) {
                     MyrmexHive hive;
                     if (this.hiveUUID == null) {
-                        hive = MyrmexWorldData.get(getWorld()).getNearestHive(this.getBlockPos(), 400);
+                        hive = MyrmexWorldData.get(this.getWorld()).getNearestHive(this.getBlockPos(), 400);
                     } else {
-                        hive = MyrmexWorldData.get(getWorld()).getHiveFromUUID(hiveUUID);
+                        hive = MyrmexWorldData.get(this.getWorld()).getHiveFromUUID(this.hiveUUID);
                     }
-                    if (!getWorld().isClient && hive != null && Math.sqrt(this.squaredDistanceTo(hive.getCenter().getX(), hive.getCenter().getY(), hive.getCenter().getZ())) < 2000) {
+                    if (!this.getWorld().isClient && hive != null && Math.sqrt(this.squaredDistanceTo(hive.getCenter().getX(), hive.getCenter().getY(), hive.getCenter().getZ())) < 2000) {
                         myrmex.setHive(hive);
                     }
                 }
             }
 
-            if (!getWorld().isClient) {
-                getWorld().spawnEntity(myrmex);
+            if (!this.getWorld().isClient) {
+                this.getWorld().spawnEntity(myrmex);
             }
             this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), IafSoundRegistry.EGG_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
         }
@@ -196,7 +196,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         if (dmg.isOf(DamageTypes.IN_WALL) || dmg.isOf(DamageTypes.FALL)) {
             return false;
         }
-        if (!getWorld().isClient && !dmg.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+        if (!this.getWorld().isClient && !dmg.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             this.dropStack(this.getItem(), 0);
         }
         this.remove(RemovalReason.KILLED);

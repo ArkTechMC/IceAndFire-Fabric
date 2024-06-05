@@ -57,20 +57,20 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
 
     @Override
     public void render(EntityStoneStatue entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
-        EntityModel model = new PigEntityModel(context.getPart(EntityModelLayers.PIG));
+        EntityModel model = new PigEntityModel(this.context.getPart(EntityModelLayers.PIG));
 
         // Get the correct model
-        if (modelMap.get(entityIn.getTrappedEntityTypeString()) != null) {
-            model = modelMap.get(entityIn.getTrappedEntityTypeString());
+        if (this.modelMap.get(entityIn.getTrappedEntityTypeString()) != null) {
+            model = this.modelMap.get(entityIn.getTrappedEntityTypeString());
         } else {
             EntityRenderer renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().renderers.get(entityIn.getTrappedEntityType());
 
             if (renderer instanceof FeatureRendererContext) {
                 model = ((FeatureRendererContext<?, ?>) renderer).getModel();
             } else if (entityIn.getTrappedEntityType() == EntityType.PLAYER) {
-                model = new ModelStonePlayer(context.getPart(EntityModelLayers.PLAYER));
+                model = new ModelStonePlayer(this.context.getPart(EntityModelLayers.PLAYER));
             }
-            modelMap.put(entityIn.getTrappedEntityTypeString(), model);
+            this.modelMap.put(entityIn.getTrappedEntityTypeString(), model);
         }
         if (model == null)
             return;
@@ -108,7 +108,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
         } else if (fakeEntity != null) {
             model.setAngles(fakeEntity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F);
         }
-        preRenderCallback(entityIn, matrixStackIn, partialTicks);
+        this.preRenderCallback(entityIn, matrixStackIn, partialTicks);
         matrixStackIn.translate(0, 1.5F, 0);
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));
@@ -129,7 +129,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
             VertexConsumer ivertexbuilder2 = bufferIn.getBuffer(crackTex);
             matrixStackIn.push();
             matrixStackIn.push();
-            preRenderCallback(entityIn, matrixStackIn, partialTicks);
+            this.preRenderCallback(entityIn, matrixStackIn, partialTicks);
             matrixStackIn.translate(0, 1.5F, 0);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
             matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));

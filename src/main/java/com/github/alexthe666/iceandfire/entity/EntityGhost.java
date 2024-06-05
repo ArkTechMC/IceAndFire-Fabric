@@ -185,7 +185,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         this.goalSelector.add(5, new WanderAroundFarGoal(this, 0.6D) {
             @Override
             public boolean canStart() {
-                chance = 60;
+                this.chance = 60;
                 return super.canStart();
             }
         });
@@ -209,8 +209,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     public void tickMovement() {
         super.tickMovement();
         this.noClip = true;
-        if (!getWorld().isClient) {
-            boolean day = isAffectedByDaylight() && !this.wasFromChest();
+        if (!this.getWorld().isClient) {
+            boolean day = this.isAffectedByDaylight() && !this.wasFromChest();
             if (day) {
                 if (!this.isDaytimeMode()) {
                     this.setAnimation(ANIMATION_SCARE);
@@ -220,10 +220,10 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
                 this.setDaytimeMode(false);
                 this.setDaytimeCounter(0);
             }
-            if (isDaytimeMode()) {
+            if (this.isDaytimeMode()) {
                 this.setVelocity(Vec3d.ZERO);
                 this.setDaytimeCounter(this.getDaytimeCounter() + 1);
-                if(getDaytimeCounter() >= 100){
+                if(this.getDaytimeCounter() >= 100){
                     this.setInvisible(true);
                 }
             }else{
@@ -231,9 +231,9 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
                 this.setDaytimeCounter(0);
             }
         } else {
-            if (this.getAnimation() == ANIMATION_SCARE && this.getAnimationTick() == 3 && !this.isHauntedShoppingList() && random.nextInt(3) == 0) {
+            if (this.getAnimation() == ANIMATION_SCARE && this.getAnimationTick() == 3 && !this.isHauntedShoppingList() && this.random.nextInt(3) == 0) {
                 this.playSound(IafSoundRegistry.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
-                if (getWorld().isClient) {
+                if (this.getWorld().isClient) {
                     IceAndFire.PROXY.spawnParticle(EnumParticles.Ghost_Appearance, this.getX(), this.getY(), this.getZ(), this.getId(), 0, 0);
                 }
             }
@@ -301,7 +301,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setColor(this.random.nextInt(3));
-        if (random.nextInt(200) == 0) {
+        if (this.random.nextInt(200) == 0) {
             this.setColor(-1);
         }
 
@@ -362,22 +362,22 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public int getAnimationTick() {
-        return animationTick;
+        return this.animationTick;
     }
 
     @Override
     public void setAnimationTick(int tick) {
-        animationTick = tick;
+        this.animationTick = tick;
     }
 
     @Override
     public Animation getAnimation() {
-        return currentAnimation;
+        return this.currentAnimation;
     }
 
     @Override
     public void setAnimation(Animation animation) {
-        currentAnimation = animation;
+        this.currentAnimation = animation;
     }
 
     @Override
@@ -402,23 +402,23 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         @Override
         public void tick() {
             if (this.state == State.MOVE_TO) {
-                Vec3d vec3d = new Vec3d(this.getTargetX() - ghost.getX(), this.getTargetY() - ghost.getY(), this.getTargetZ() - ghost.getZ());
+                Vec3d vec3d = new Vec3d(this.getTargetX() - this.ghost.getX(), this.getTargetY() - this.ghost.getY(), this.getTargetZ() - this.ghost.getZ());
                 double d0 = vec3d.length();
-                double edgeLength = ghost.getBoundingBox().getAverageSideLength();
+                double edgeLength = this.ghost.getBoundingBox().getAverageSideLength();
                 if (d0 < edgeLength) {
                     this.state = State.WAIT;
-                    ghost.setVelocity(ghost.getVelocity().multiply(0.5D));
+                    this.ghost.setVelocity(this.ghost.getVelocity().multiply(0.5D));
                 } else {
-                    ghost.setVelocity(ghost.getVelocity().add(vec3d.multiply(this.speed * 0.5D * 0.05D / d0)));
-                    if (ghost.getTarget() == null) {
-                        Vec3d vec3d1 = ghost.getVelocity();
-                        ghost.setYaw(-((float) MathHelper.atan2(vec3d1.x, vec3d1.z)) * (180F / (float) Math.PI));
-                        ghost.bodyYaw = ghost.getYaw();
+                    this.ghost.setVelocity(this.ghost.getVelocity().add(vec3d.multiply(this.speed * 0.5D * 0.05D / d0)));
+                    if (this.ghost.getTarget() == null) {
+                        Vec3d vec3d1 = this.ghost.getVelocity();
+                        this.ghost.setYaw(-((float) MathHelper.atan2(vec3d1.x, vec3d1.z)) * (180F / (float) Math.PI));
+                        this.ghost.bodyYaw = this.ghost.getYaw();
                     } else {
-                        double d4 = ghost.getTarget().getX() - ghost.getX();
-                        double d5 = ghost.getTarget().getZ() - ghost.getZ();
-                        ghost.setYaw(-((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI));
-                        ghost.bodyYaw = ghost.getYaw();
+                        double d4 = this.ghost.getTarget().getX() - this.ghost.getX();
+                        double d5 = this.ghost.getTarget().getZ() - this.ghost.getZ();
+                        this.ghost.setYaw(-((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI));
+                        this.ghost.bodyYaw = this.ghost.getYaw();
                     }
                 }
             }

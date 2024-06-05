@@ -86,7 +86,7 @@ public class CustomCollisionsNavigator extends MobNavigation {
         for (BlockPos blockpos : BlockPos.iterate(new BlockPos(x, y, z), new BlockPos(x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1))) {
             double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.x;
             double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.z;
-            if (!(d0 * p_179692_8_ + d1 * p_179692_10_ < 0.0D) && !this.world.getBlockState(blockpos).canPathfindThrough(this.world, blockpos, NavigationType.LAND) || ((ICustomCollisions)entity).canPassThrough(blockpos, world.getBlockState(blockpos), null)) {
+            if (!(d0 * p_179692_8_ + d1 * p_179692_10_ < 0.0D) && !this.world.getBlockState(blockpos).canPathfindThrough(this.world, blockpos, NavigationType.LAND) || ((ICustomCollisions) this.entity).canPassThrough(blockpos, this.world.getBlockState(blockpos), null)) {
                 return false;
             }
         }
@@ -108,7 +108,7 @@ public class CustomCollisionsNavigator extends MobNavigation {
                     if (!(d0 * p_179683_8_ + d1 * p_179683_10_ < 0.0D)) {
                         PathNodeType pathnodetype = this.nodeMaker.getNodeType(this.world, k, y - 1, l, this.entity);
                         mutable.set(k, y - 1, l);
-                        if (!this.canWalkOnPath(pathnodetype) || ((ICustomCollisions)entity).canPassThrough(mutable, world.getBlockState(mutable), null)) {
+                        if (!this.canWalkOnPath(pathnodetype) || ((ICustomCollisions) this.entity).canPassThrough(mutable, this.world.getBlockState(mutable), null)) {
                             return false;
                         }
 

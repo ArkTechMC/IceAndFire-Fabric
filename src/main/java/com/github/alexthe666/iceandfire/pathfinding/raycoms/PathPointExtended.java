@@ -44,7 +44,7 @@ public class PathPointExtended extends PathNode {
      */
     public boolean isOnLadder()
     {
-        return onLadder;
+        return this.onLadder;
     }
 
     /**
@@ -64,7 +64,7 @@ public class PathPointExtended extends PathNode {
      */
     public Direction getLadderFacing()
     {
-        return ladderFacing;
+        return this.ladderFacing;
     }
 
     /**
@@ -110,7 +110,7 @@ public class PathPointExtended extends PathNode {
      */
     public boolean isOnRails()
     {
-        return onRails;
+        return this.onRails;
     }
 
     /**
@@ -120,7 +120,7 @@ public class PathPointExtended extends PathNode {
      */
     public boolean isRailsEntry()
     {
-        return railsEntry;
+        return this.railsEntry;
     }
 
     /**
@@ -130,7 +130,7 @@ public class PathPointExtended extends PathNode {
      */
     public boolean isRailsExit()
     {
-        return railsExit;
+        return this.railsExit;
     }
 
     @Override
@@ -140,7 +140,7 @@ public class PathPointExtended extends PathNode {
         {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
+        if (o == null || this.getClass() != o.getClass())
         {
             return false;
         }
@@ -151,19 +151,19 @@ public class PathPointExtended extends PathNode {
 
         final PathPointExtended that = (PathPointExtended) o;
 
-        if (onLadder != that.onLadder)
+        if (this.onLadder != that.onLadder)
         {
             return false;
         }
-        return ladderFacing == that.ladderFacing;
+        return this.ladderFacing == that.ladderFacing;
     }
 
     @Override
     public int hashCode()
     {
         int result = super.hashCode();
-        result = 31 * result + (onLadder ? 1 : 0);
-        result = 31 * result + ladderFacing.hashCode();
+        result = 31 * result + (this.onLadder ? 1 : 0);
+        result = 31 * result + this.ladderFacing.hashCode();
         return result;
     }
 }

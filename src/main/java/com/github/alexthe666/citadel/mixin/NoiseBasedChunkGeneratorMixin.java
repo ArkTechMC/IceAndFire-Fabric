@@ -27,7 +27,7 @@ public class NoiseBasedChunkGeneratorMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;surfaceRule()Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;")
     )
     private MaterialRules.MaterialRule citadel_buildSurface_surfaceRuleRedirect(ChunkGeneratorSettings noiseGeneratorSettings) {
-        return getMergedRulesFor(noiseGeneratorSettings);
+        return this.getMergedRulesFor(noiseGeneratorSettings);
     }
 
     @Redirect(
@@ -35,15 +35,15 @@ public class NoiseBasedChunkGeneratorMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;surfaceRule()Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;")
     )
     private MaterialRules.MaterialRule citadel_applyCarvers_surfaceRuleRedirect(ChunkGeneratorSettings noiseGeneratorSettings) {
-        return getMergedRulesFor(noiseGeneratorSettings);
+        return this.getMergedRulesFor(noiseGeneratorSettings);
     }
 
     @Unique
     private MaterialRules.MaterialRule getMergedRulesFor(ChunkGeneratorSettings settings){
-        MaterialRules.MaterialRule merged = mergedRulesMap.get(settings);
+        MaterialRules.MaterialRule merged = this.mergedRulesMap.get(settings);
         if(merged == null){
-            merged = rulesToMerge.apply(settings.surfaceRule());
-            mergedRulesMap.put(settings, merged);
+            merged = this.rulesToMerge.apply(settings.surfaceRule());
+            this.mergedRulesMap.put(settings, merged);
         }
         return merged;
     }

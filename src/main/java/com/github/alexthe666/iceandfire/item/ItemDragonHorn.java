@@ -22,7 +22,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class ItemDragonHorn extends Item {
         if (stack.getNbt() != null) {
             String id = stack.getNbt().getString("DragonHornEntityID");
             if (EntityType.get(id).isPresent()) {
-                EntityType entityType = EntityType.get(id).get();
+                EntityType<?> entityType = EntityType.get(id).get();
                 if (entityType == IafEntityRegistry.FIRE_DRAGON.get())
                     return 1;
 
@@ -121,7 +120,7 @@ public class ItemDragonHorn extends Item {
                 String id = stack.getNbt().getString("DragonHornEntityID");
                 if (EntityType.get(id).isPresent()) {
                     EntityType type = EntityType.get(id).get();
-                    tooltip.add((Text.translatable(type.getTranslationKey())).formatted(getTextColorForEntityType(type)));
+                    tooltip.add((Text.translatable(type.getTranslationKey())).formatted(this.getTextColorForEntityType(type)));
                     String name = (Text.translatable("dragon.unnamed")).getString();
                     if (!entityTag.getString("CustomName").isEmpty()) {
                         MutableText component = Text.Serializer.fromJson(entityTag.getString("CustomName"));

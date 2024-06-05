@@ -25,14 +25,14 @@ public class HippogryphAITarget<T extends LivingEntity> extends ActiveTargetGoal
 
     @Override
     public boolean canStart() {
-        if (super.canStart() && targetEntity != null && !targetEntity.getClass().equals(this.hippogryph.getClass())) {
-            if (this.hippogryph.getWidth() >= targetEntity.getWidth()) {
-                if (targetEntity instanceof PlayerEntity) {
-                    return !hippogryph.isTamed();
+        if (super.canStart() && this.targetEntity != null && !this.targetEntity.getClass().equals(this.hippogryph.getClass())) {
+            if (this.hippogryph.getWidth() >= this.targetEntity.getWidth()) {
+                if (this.targetEntity instanceof PlayerEntity) {
+                    return !this.hippogryph.isTamed();
                 } else {
-                    if (!hippogryph.isOwner(targetEntity) && hippogryph.canMove() && targetEntity instanceof AnimalEntity) {
-                        if (hippogryph.isTamed()) {
-                            return DragonUtils.canTameDragonAttack(hippogryph, targetEntity);
+                    if (!this.hippogryph.isOwner(this.targetEntity) && this.hippogryph.canMove() && this.targetEntity instanceof AnimalEntity) {
+                        if (this.hippogryph.isTamed()) {
+                            return DragonUtils.canTameDragonAttack(this.hippogryph, this.targetEntity);
                         } else {
                             return true;
                         }

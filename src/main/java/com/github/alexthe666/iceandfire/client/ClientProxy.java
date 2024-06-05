@@ -11,7 +11,6 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.event.ClientEvents;
-import com.github.alexthe666.iceandfire.event.PlayerRenderEvents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
@@ -54,7 +53,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init() {
         IafKeybindRegistry.init();
-        MinecraftForge.EVENT_BUS.register(new PlayerRenderEvents());
         MinecraftForge.EVENT_BUS.register(new ClientEvents());
     }
 
@@ -139,22 +137,22 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public int getDragon3rdPersonView() {
-        return thirdPersonViewDragon;
+        return this.thirdPersonViewDragon;
     }
 
     @Override
     public void setDragon3rdPersonView(int view) {
-        thirdPersonViewDragon = view;
+        this.thirdPersonViewDragon = view;
     }
 
     @Override
     public int getPreviousViewType() {
-        return previousViewType;
+        return this.previousViewType;
     }
 
     @Override
     public void setPreviousViewType(int view) {
-        previousViewType = view;
+        this.previousViewType = view;
     }
 
     @Override
@@ -170,22 +168,22 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public Entity getReferencedMob() {
-        return referencedMob;
+        return this.referencedMob;
     }
 
     @Override
     public void setReferencedMob(Entity dragonBase) {
-        referencedMob = dragonBase;
+        this.referencedMob = dragonBase;
     }
 
     @Override
     public BlockEntity getRefrencedTE() {
-        return referencedTE;
+        return this.referencedTE;
     }
 
     @Override
     public void setRefrencedTE(BlockEntity tileEntity) {
-        referencedTE = tileEntity;
+        this.referencedTE = tileEntity;
     }
 
     @Environment(EnvType.CLIENT)

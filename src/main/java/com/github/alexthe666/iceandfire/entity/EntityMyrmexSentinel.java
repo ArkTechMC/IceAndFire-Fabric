@@ -53,17 +53,17 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
     @Override
     protected TradeOffers.Factory[] getLevel1Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_SENTINEL.get(1) : MyrmexTrades.DESERT_SENTINEL.get(1);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_SENTINEL.get(1) : MyrmexTrades.DESERT_SENTINEL.get(1);
     }
 
     @Override
     protected TradeOffers.Factory[] getLevel2Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_SENTINEL.get(2) : MyrmexTrades.DESERT_SENTINEL.get(2);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_SENTINEL.get(2) : MyrmexTrades.DESERT_SENTINEL.get(2);
     }
 
     @Override
     protected Identifier getLootTableId() {
-        return isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
+        return this.isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
     }
 
     @Override
@@ -79,36 +79,36 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
     public void tickMovement() {
         super.tickMovement();
         LivingEntity attackTarget = this.getTarget();
-        if (visibleTicks > 0) {
-            visibleTicks--;
+        if (this.visibleTicks > 0) {
+            this.visibleTicks--;
         } else {
-            visibleTicks = 0;
+            this.visibleTicks = 0;
         }
         if (attackTarget != null) {
-            visibleTicks = 100;
+            this.visibleTicks = 100;
         }
         if (this.canSeeSky()) {
             this.daylightTicks++;
         } else {
             this.daylightTicks = 0;
         }
-        boolean holding = getHeldEntity() != null;
-        boolean hiding = isHiding() && !this.hasCustomer();
-        if ((holding || this.isOnResin() || attackTarget != null) || visibleTicks > 0) {
+        boolean holding = this.getHeldEntity() != null;
+        boolean hiding = this.isHiding() && !this.hasCustomer();
+        if ((holding || this.isOnResin() || attackTarget != null) || this.visibleTicks > 0) {
             this.setHiding(false);
         }
-        if (holding && holdingProgress < 20.0F) {
-            holdingProgress += 1.0F;
-        } else if (!holding && holdingProgress > 0.0F) {
-            holdingProgress -= 1.0F;
+        if (holding && this.holdingProgress < 20.0F) {
+            this.holdingProgress += 1.0F;
+        } else if (!holding && this.holdingProgress > 0.0F) {
+            this.holdingProgress -= 1.0F;
         }
         if (hiding) {
             this.setYaw(this.prevYaw);
         }
-        if (hiding && hidingProgress < 20.0F) {
-            hidingProgress += 1.0F;
-        } else if (!hiding && hidingProgress > 0.0F) {
-            hidingProgress -= 1.0F;
+        if (hiding && this.hidingProgress < 20.0F) {
+            this.hidingProgress += 1.0F;
+        } else if (!hiding && this.hidingProgress > 0.0F) {
+            this.hidingProgress -= 1.0F;
         }
         if (this.getHeldEntity() != null) {
             this.setAnimation(ANIMATION_NIBBLE);
@@ -199,11 +199,11 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
     @Override
     public Identifier getAdultTexture() {
-        if (isHiding()) {
-            return isJungle() ? TEXTURE_JUNGLE_HIDDEN : TEXTURE_DESERT_HIDDEN;
+        if (this.isHiding()) {
+            return this.isJungle() ? TEXTURE_JUNGLE_HIDDEN : TEXTURE_DESERT_HIDDEN;
 
         } else {
-            return isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
+            return this.isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
         }
     }
 
@@ -221,7 +221,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
     public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putBoolean("Hiding", this.isHiding());
-        tag.putInt("DaylightTicks", daylightTicks);
+        tag.putInt("DaylightTicks", this.daylightTicks);
     }
 
     @Override
@@ -245,7 +245,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
     public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
-            bodyYaw = getYaw();
+            this.bodyYaw = this.getYaw();
             float radius = 1.25F;
             float extraY = 0.35F;
             if (this.getAnimation() == ANIMATION_GRAB) {
@@ -265,12 +265,12 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (amount >= 1.0D && !this.getPassengerList().isEmpty() && random.nextInt(2) == 0) {
+        if (amount >= 1.0D && !this.getPassengerList().isEmpty() && this.random.nextInt(2) == 0) {
             for (Entity entity : this.getPassengerList()) {
                 entity.stopRiding();
             }
         }
-        visibleTicks = 300;
+        this.visibleTicks = 300;
         this.setHiding(false);
         return super.damage(source, amount);
     }
@@ -286,7 +286,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
             } else {
                 this.setAnimation(this.getRandom().nextBoolean() ? ANIMATION_STING : ANIMATION_SLASH);
             }
-            visibleTicks = 300;
+            this.visibleTicks = 300;
             return true;
         }
         return false;
@@ -304,7 +304,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
     @Override
     public boolean canMove() {
-        return super.canMove() && this.getHeldEntity() == null && !isHiding();
+        return super.canMove() && this.getHeldEntity() == null && !this.isHiding();
     }
 
     @Override

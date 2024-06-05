@@ -10,6 +10,7 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexTrades;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.base.Predicate;
+import com.iafenvoy.iafextra.event.EventBus;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -39,7 +40,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityMyrmexQueen extends EntityMyrmexBase {
@@ -61,7 +61,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     @Override
     protected Identifier getLootTableId() {
-        return isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
+        return this.isJungle() ? JUNGLE_LOOT : DESERT_LOOT;
     }
 
     @Override
@@ -77,12 +77,12 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     @Override
     protected TradeOffers.Factory[] getLevel1Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_QUEEN.get(1) : MyrmexTrades.DESERT_QUEEN.get(1);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_QUEEN.get(1) : MyrmexTrades.DESERT_QUEEN.get(1);
     }
 
     @Override
     protected TradeOffers.Factory[] getLevel2Trades() {
-        return isJungle() ? MyrmexTrades.JUNGLE_QUEEN.get(2) : MyrmexTrades.DESERT_QUEEN.get(2);
+        return this.isJungle() ? MyrmexTrades.JUNGLE_QUEEN.get(2) : MyrmexTrades.DESERT_QUEEN.get(2);
     }
 
     @Override
@@ -98,7 +98,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     @Override
     public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
-        tag.putInt("EggTicks", eggTicks);
+        tag.putInt("EggTicks", this.eggTicks);
         tag.putBoolean("MadeHome", this.hasMadeHome());
 
     }
@@ -122,23 +122,23 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     public void tickMovement() {
         super.tickMovement();
         if (this.getAnimation() == ANIMATION_DIGNEST) {
-            spawnGroundEffects(3);
+            this.spawnGroundEffects(3);
         }
         if (this.getHive() != null) {
-            this.getHive().tick(0, getWorld());
+            this.getHive().tick(0, this.getWorld());
         }
 
-        if (hasMadeHome() && this.getGrowthStage() >= 2 && !this.canSeeSky()) {
-            eggTicks++;
+        if (this.hasMadeHome() && this.getGrowthStage() >= 2 && !this.canSeeSky()) {
+            this.eggTicks++;
         } else if (this.canSeeSky()) {
             this.setAnimation(ANIMATION_DIGNEST);
             if (this.getAnimationTick() == 42) {
                 int down = Math.max(15, this.getBlockPos().getY() - 20 + this.getRandom().nextInt(10));
                 BlockPos genPos = new BlockPos(this.getBlockX(), down, this.getBlockZ());
-                if (!MinecraftForge.EVENT_BUS.post(new GenericGriefEvent(this, genPos.getX(), genPos.getY(), genPos.getZ()))) {
+                if (!EventBus.post(new GenericGriefEvent(this, genPos.getX(), genPos.getY(), genPos.getZ()))) {
                     WorldGenMyrmexHive hiveGen = new WorldGenMyrmexHive(true, this.isJungle(), DefaultFeatureConfig.CODEC);
-                    if (!getWorld().isClient && getWorld() instanceof ServerWorld) {
-                        hiveGen.placeSmallGen((ServerWorld) getWorld(), this.getRandom(), genPos);
+                    if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld) {
+                        hiveGen.placeSmallGen((ServerWorld) this.getWorld(), this.getRandom(), genPos);
                     }
                     this.setMadeHome(true);
                     this.refreshPositionAndAngles(genPos.getX(), down, genPos.getZ(), 0, 0);
@@ -146,39 +146,39 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                     this.setHive(hiveGen.hive);
                     for (int i = 0; i < 3; i++) {
                         EntityMyrmexWorker worker = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(),
-                                getWorld());
+                                this.getWorld());
                         worker.copyPositionAndRotation(this);
                         worker.setHive(this.getHive());
                         worker.setJungleVariant(this.isJungle());
-                        if (!getWorld().isClient) {
-                            getWorld().spawnEntity(worker);
+                        if (!this.getWorld().isClient) {
+                            this.getWorld().spawnEntity(worker);
                         }
                     }
                     return;
                 }
             }
         }
-        if (!getWorld().isClient && eggTicks > IafConfig.myrmexPregnantTicks && this.getHive() == null || !getWorld().isClient && this.getHive() != null && this.getHive().repopulate() && eggTicks > IafConfig.myrmexPregnantTicks) {
+        if (!this.getWorld().isClient && this.eggTicks > IafConfig.myrmexPregnantTicks && this.getHive() == null || !this.getWorld().isClient && this.getHive() != null && this.getHive().repopulate() && this.eggTicks > IafConfig.myrmexPregnantTicks) {
             float radius = -5.25F;
             float angle = (0.01745329251F * this.bodyYaw);
             double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
             double extraZ = radius * MathHelper.cos(angle);
             BlockPos eggPos = BlockPos.ofFloored(this.getX() + extraX, this.getY() + 0.75F, this.getZ() + extraZ);
-            if (getWorld().isAir(eggPos)) {
+            if (this.getWorld().isAir(eggPos)) {
                 this.setAnimation(ANIMATION_EGG);
                 if (this.getAnimationTick() == 10) {
                     EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG.get(), this.getWorld());
                     egg.setJungle(this.isJungle());
-                    int caste = getRandomCaste(getWorld(), this.getRandom(), getHive() == null || getHive().reproduces);
+                    int caste = getRandomCaste(this.getWorld(), this.getRandom(), this.getHive() == null || this.getHive().reproduces);
                     egg.setMyrmexCaste(caste);
                     egg.refreshPositionAndAngles(this.getX() + extraX, this.getY() + 0.75F, this.getZ() + extraZ, 0, 0);
-                    if (getHive() != null) {
+                    if (this.getHive() != null) {
                         egg.hiveUUID = this.getHive().hiveUUID;
                     }
-                    if (!getWorld().isClient) {
-                        getWorld().spawnEntity(egg);
+                    if (!this.getWorld().isClient) {
+                        this.getWorld().spawnEntity(egg);
                     }
-                    eggTicks = 0;
+                    this.eggTicks = 0;
                 }
 
             }
@@ -245,9 +245,9 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     @Override
     public boolean isInHive() {
-        if (getHive() != null) {
-            for (BlockPos pos : getHive().getAllRooms()) {
-                if (isCloseEnoughToTarget(MyrmexHive.getGroundedPos(getWorld(), pos), 300))
+        if (this.getHive() != null) {
+            for (BlockPos pos : this.getHive().getAllRooms()) {
+                if (this.isCloseEnoughToTarget(MyrmexHive.getGroundedPos(this.getWorld(), pos), 300))
                     return true;
             }
         }
@@ -280,7 +280,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     @Override
     public Identifier getAdultTexture() {
-        return isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
+        return this.isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;
     }
 
     @Override
@@ -332,19 +332,19 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     public void spawnGroundEffects(float size) {
         for (int i = 0; i < size * 3; i++) {
             for (int i1 = 0; i1 < 10; i1++) {
-                double motionX = getRandom().nextGaussian() * 0.07D;
-                double motionY = getRandom().nextGaussian() * 0.07D;
-                double motionZ = getRandom().nextGaussian() * 0.07D;
-                float radius = size * random.nextFloat();
-                float angle = (0.01745329251F * this.bodyYaw) * 3.14F * random.nextFloat();
+                double motionX = this.getRandom().nextGaussian() * 0.07D;
+                double motionY = this.getRandom().nextGaussian() * 0.07D;
+                double motionZ = this.getRandom().nextGaussian() * 0.07D;
+                float radius = size * this.random.nextFloat();
+                float angle = (0.01745329251F * this.bodyYaw) * 3.14F * this.random.nextFloat();
                 double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
                 double extraY = 0.8F;
                 double extraZ = radius * MathHelper.cos(angle);
 
                 BlockState BlockState = this.getWorld().getBlockState(BlockPos.ofFloored(this.getBlockX() + extraX, this.getBlockY() + extraY - 1, this.getBlockZ() + extraZ));
                 if (BlockState.isAir()) {
-                    if (getWorld().isClient) {
-                        getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, BlockState), true, this.getX() + extraX, this.getY() + extraY, this.getZ() + extraZ, motionX, motionY, motionZ);
+                    if (this.getWorld().isClient) {
+                        this.getWorld().addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, BlockState), true, this.getX() + extraX, this.getY() + extraY, this.getZ() + extraZ, motionX, motionY, motionZ);
                     }
                 }
             }

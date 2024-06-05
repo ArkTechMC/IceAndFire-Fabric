@@ -23,7 +23,7 @@ public class MyrmexAIMoveToMate extends Goal {
     @Override
     public void tick() {
         if (this.myrmex.mate != null && (this.myrmex.distanceTo(this.myrmex.mate) > 30 || this.myrmex.getNavigation().isIdle())) {
-            this.myrmex.getMoveControl().moveTo(this.myrmex.mate.getX(), this.myrmex.getY(), this.myrmex.mate.getZ(), movementSpeed);
+            this.myrmex.getMoveControl().moveTo(this.myrmex.mate.getX(), this.myrmex.getY(), this.myrmex.mate.getZ(), this.movementSpeed);
         }
     }
 
