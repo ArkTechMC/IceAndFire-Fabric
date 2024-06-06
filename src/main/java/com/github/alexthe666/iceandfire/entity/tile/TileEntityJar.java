@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouseModel;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieJar;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
@@ -79,7 +80,7 @@ public class TileEntityJar extends BlockEntity {
     public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
         this.readNbt(packet.getNbt());
         if (!this.world.isClient) {
-            IceAndFire.sendMSGToAll(new MessageUpdatePixieHouseModel(this.pos.asLong(), packet.getNbt().getInt("PixieType")));
+            IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouseModel(this.pos.asLong(), packet.getNbt().getInt("PixieType")));
         }
     }
 
@@ -109,12 +110,12 @@ public class TileEntityJar extends BlockEntity {
         if (entityJar.ticksExisted % 24000 == 0 && !entityJar.hasProduced && entityJar.hasPixie) {
             entityJar.hasProduced = true;
             if (!level.isClient) {
-                IceAndFire.sendMSGToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
+                IafServerNetworkHandler.sendToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
             }
         }
         if (entityJar.hasPixie && entityJar.hasProduced != entityJar.prevHasProduced && entityJar.ticksExisted > 5) {
             if (!level.isClient) {
-                IceAndFire.sendMSGToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
+                IafServerNetworkHandler.sendToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
             } else {
                 level.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSoundRegistry.PIXIE_HURT, SoundCategory.BLOCKS, 1, 1, false);
             }
@@ -142,7 +143,7 @@ public class TileEntityJar extends BlockEntity {
         pixie.setOwnerUuid(this.pixieOwnerUUID);
 
         if (!this.world.isClient) {
-            IceAndFire.sendMSGToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
+            IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
         }
     }
 

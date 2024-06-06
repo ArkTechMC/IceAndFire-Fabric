@@ -3,14 +3,17 @@ package com.github.alexthe666.iceandfire.message;
 import com.github.alexthe666.citadel.server.message.PacketBufferUtils;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPodium;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
-import java.util.function.Supplier;
-
-public class MessageUpdatePodium {
+public class MessageUpdatePodium implements S2CMessage {
 
     public long blockPos;
     public ItemStack heldStack;
@@ -24,39 +27,30 @@ public class MessageUpdatePodium {
     public MessageUpdatePodium() {
     }
 
-    public static MessageUpdatePodium read(PacketByteBuf buf) {
-        return new MessageUpdatePodium(buf.readLong(), PacketBufferUtils.readItemStack(buf));
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "update_podium");
     }
 
-    public static void write(MessageUpdatePodium message, PacketByteBuf buf) {
-        buf.writeLong(message.blockPos);
-        PacketBufferUtils.writeItemStack(buf, message.heldStack);
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeLong(this.blockPos);
+        PacketBufferUtils.writeItemStack(buf, this.heldStack);
     }
 
-    public static class Handler {
-        public Handler() {
-        }
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.blockPos = buf.readLong();
+        this.heldStack = PacketBufferUtils.readItemStack(buf);
+    }
 
-        public static void handle(final MessageUpdatePodium message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    BlockPos pos = BlockPos.of(message.blockPos);
-
-                    if (player.level().getBlockEntity(pos) instanceof TileEntityPodium podium) {
-                        podium.setItem(0, message.heldStack);
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            BlockPos pos = BlockPos.fromLong(this.blockPos);
+            if (player.getWorld().getBlockEntity(pos) instanceof TileEntityPodium podium)
+                podium.setStack(0, this.heldStack);
         }
     }
 }

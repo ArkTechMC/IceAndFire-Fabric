@@ -4,15 +4,21 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.iafenvoy.iafextra.network.C2SMessage;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
-import java.util.function.Supplier;
-
-public class MessageUpdateLectern {
+public class MessageUpdateLectern implements S2CMessage, C2SMessage {
 
     public long blockPos;
     public int selectedPages1;
@@ -28,71 +34,76 @@ public class MessageUpdateLectern {
         this.selectedPages3 = selectedPages3;
         this.updateStack = updateStack;
         this.pageOrdinal = pageOrdinal;
-
     }
 
     public MessageUpdateLectern() {
     }
 
-    public static MessageUpdateLectern read(PacketByteBuf buf) {
-        return new MessageUpdateLectern(buf.readLong(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readBoolean(), buf.readInt());
-    }
-
-    public static void write(MessageUpdateLectern message, PacketByteBuf buf) {
-        buf.writeLong(message.blockPos);
-        buf.writeInt(message.selectedPages1);
-        buf.writeInt(message.selectedPages2);
-        buf.writeInt(message.selectedPages3);
-        buf.writeBoolean(message.updateStack);
-        buf.writeInt(message.pageOrdinal);
-    }
-
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(MessageUpdateLectern message, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() ->
-                    DistExecutor.unsafeRunWhenOn(Dist.DEDICATED_SERVER, () -> () -> Handler.handlePacket(message, ctx))
-            );
-            ctx.get().enqueueWork(() ->
-                    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> Handler.handlePacket(message, ctx))
-            );
-            ctx.get().setPacketHandled(true);
-        }
-
-        public static void handlePacket(final MessageUpdateLectern message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    BlockPos pos = BlockPos.of(message.blockPos);
-                    if (player.level().hasChunkAt(pos) && player.level().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
-                        if (message.updateStack) {
-                            ItemStack bookStack = lectern.getItem(0);
-                            if (bookStack.getItem() == IafItemRegistry.BESTIARY.get()) {
-                                EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(message.pageOrdinal), bookStack);
-                            }
-                            lectern.randomizePages(bookStack, lectern.getItem(1));
-                        } else {
-                            lectern.selectedPages[0] = EnumBestiaryPages.fromInt(message.selectedPages1);
-                            lectern.selectedPages[1] = EnumBestiaryPages.fromInt(message.selectedPages2);
-                            lectern.selectedPages[2] = EnumBestiaryPages.fromInt(message.selectedPages3);
-                        }
-
-
+    @Override
+    public void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        server.execute(() -> {
+            if (player != null) {
+                BlockPos pos = BlockPos.fromLong(this.blockPos);
+                if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
+                    if (this.updateStack) {
+                        ItemStack bookStack = lectern.getStack(0);
+                        if (bookStack.getItem() == IafItemRegistry.BESTIARY.get())
+                            EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(this.pageOrdinal), bookStack);
+                        lectern.randomizePages(bookStack, lectern.getStack(1));
+                    } else {
+                        lectern.selectedPages[0] = EnumBestiaryPages.fromInt(this.selectedPages1);
+                        lectern.selectedPages[1] = EnumBestiaryPages.fromInt(this.selectedPages2);
+                        lectern.selectedPages[2] = EnumBestiaryPages.fromInt(this.selectedPages3);
                     }
                 }
-            });
-
-            context.setPacketHandled(true);
-        }
+            }
+        });
     }
 
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "update_lectern");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeLong(this.blockPos);
+        buf.writeInt(this.selectedPages1);
+        buf.writeInt(this.selectedPages2);
+        buf.writeInt(this.selectedPages3);
+        buf.writeBoolean(this.updateStack);
+        buf.writeInt(this.pageOrdinal);
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.blockPos = buf.readLong();
+        this.selectedPages1 = buf.readInt();
+        this.selectedPages2 = buf.readInt();
+        this.selectedPages3 = buf.readInt();
+        this.updateStack = buf.readBoolean();
+        this.pageOrdinal = buf.readInt();
+    }
+
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        client.execute(() -> {
+            PlayerEntity player = client.player;
+            if (player != null) {
+                BlockPos pos = BlockPos.fromLong(this.blockPos);
+                if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
+                    if (this.updateStack) {
+                        ItemStack bookStack = lectern.getStack(0);
+                        if (bookStack.getItem() == IafItemRegistry.BESTIARY.get())
+                            EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(this.pageOrdinal), bookStack);
+                        lectern.randomizePages(bookStack, lectern.getStack(1));
+                    } else {
+                        lectern.selectedPages[0] = EnumBestiaryPages.fromInt(this.selectedPages1);
+                        lectern.selectedPages[1] = EnumBestiaryPages.fromInt(this.selectedPages2);
+                        lectern.selectedPages[2] = EnumBestiaryPages.fromInt(this.selectedPages3);
+                    }
+                }
+            }
+        });
+    }
 }

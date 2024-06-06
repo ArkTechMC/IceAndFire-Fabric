@@ -1,13 +1,18 @@
 package com.github.alexthe666.iceandfire.message;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
+import com.iafenvoy.iafextra.network.C2SMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageHippogryphArmor {
+public class MessageHippogryphArmor implements C2SMessage {
 
     public int dragonId;
     public int slot_index;
@@ -22,50 +27,47 @@ public class MessageHippogryphArmor {
     public MessageHippogryphArmor() {
     }
 
-    public static MessageHippogryphArmor read(PacketByteBuf buf) {
-        return new MessageHippogryphArmor(buf.readInt(), buf.readInt(), buf.readInt());
-    }
+    @Override
+    public void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.dragonId);
 
-    public static void write(MessageHippogryphArmor message, PacketByteBuf buf) {
-        buf.writeInt(message.dragonId);
-        buf.writeInt(message.slot_index);
-        buf.writeInt(message.armor_type);
-    }
-
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(final MessageHippogryphArmor message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.dragonId);
-
-                    if (entity instanceof EntityHippogryph hippogryph) {
-                        if (message.slot_index == 0) {
-                            hippogryph.setSaddled(message.armor_type == 1);
-                        } else if (message.slot_index == 1) {
-                            hippogryph.setChested(message.armor_type == 1);
-                        } else if (message.slot_index == 2) {
-                            hippogryph.setArmor(message.armor_type);
-                        }
-                    } else if (entity instanceof EntityHippocampus hippo) {
-                        if (message.slot_index == 0) {
-                            hippo.setSaddled(message.armor_type == 1);
-                        } else if (message.slot_index == 1) {
-                            hippo.setChested(message.armor_type == 1);
-                        } else if (message.slot_index == 2) {
-                            hippo.setArmor(message.armor_type);
-                        }
-                    }
+            if (entity instanceof EntityHippogryph hippogryph) {
+                if (this.slot_index == 0) {
+                    hippogryph.setSaddled(this.armor_type == 1);
+                } else if (this.slot_index == 1) {
+                    hippogryph.setChested(this.armor_type == 1);
+                } else if (this.slot_index == 2) {
+                    hippogryph.setArmor(this.armor_type);
                 }
-            });
-
-            context.setPacketHandled(true);
+            } else if (entity instanceof EntityHippocampus hippo) {
+                if (this.slot_index == 0) {
+                    hippo.setSaddled(this.armor_type == 1);
+                } else if (this.slot_index == 1) {
+                    hippo.setChested(this.armor_type == 1);
+                } else if (this.slot_index == 2) {
+                    hippo.setArmor(this.armor_type);
+                }
+            }
         }
+    }
+
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "hippogryph_armor");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.dragonId);
+        buf.writeInt(this.slot_index);
+        buf.writeInt(this.armor_type);
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.dragonId = buf.readInt();
+        this.slot_index = buf.readInt();
+        this.armor_type = buf.readInt();
     }
 }

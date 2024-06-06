@@ -2,7 +2,6 @@ package com.github.alexthe666.citadel;
 
 import com.github.alexthe666.citadel.config.ConfigHolder;
 import com.github.alexthe666.citadel.config.ServerConfig;
-import com.github.alexthe666.citadel.config.biome.CitadelBiomeDefinitions;
 import com.github.alexthe666.citadel.item.ItemCitadelBook;
 import com.github.alexthe666.citadel.item.ItemCitadelDebug;
 import com.github.alexthe666.citadel.item.ItemCustomRender;
@@ -11,12 +10,9 @@ import com.github.alexthe666.citadel.server.block.CitadelLecternBlock;
 import com.github.alexthe666.citadel.server.block.CitadelLecternBlockEntity;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
 import com.github.alexthe666.citadel.server.generation.SpawnProbabilityModifier;
-import com.github.alexthe666.citadel.server.generation.SurfaceRulesManager;
 import com.github.alexthe666.citadel.server.generation.VillageHouseManager;
-import com.github.alexthe666.citadel.server.message.*;
 import com.github.alexthe666.citadel.server.world.ExpandedBiomeSource;
 import com.github.alexthe666.citadel.server.world.ExpandedBiomes;
-import com.github.alexthe666.citadel.web.WebHelper;
 import com.mojang.serialization.Codec;
 import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
@@ -50,21 +46,17 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.lang.ref.Reference;
 import java.util.*;
 
-@Mod("citadel")
+@Mod(Citadel.MOD_ID)
 public class Citadel {
+    public static final String MOD_ID="citadel";
     public static final Logger LOGGER = LogManager.getLogger("citadel");
     private static final String PROTOCOL_VERSION = Integer.toString(1);
     private static final Identifier PACKET_NETWORK_NAME = new Identifier("citadel:main_channel");
@@ -128,24 +120,6 @@ public class Citadel {
     private void setup(final FMLCommonSetupEvent event) {
         PROXY.onPreInit();
         LecternBooks.init();
-        int packetsRegistered = 0;
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, PropertiesMessage.class, PropertiesMessage::write, PropertiesMessage::read, PropertiesMessage.Handler::handle);
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, AnimationMessage.class, AnimationMessage::write, AnimationMessage::read, AnimationMessage.Handler::handle);
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, SyncClientTickRateMessage.class, SyncClientTickRateMessage::write, SyncClientTickRateMessage::read, SyncClientTickRateMessage.Handler::handle);
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, DanceJukeboxMessage.class, DanceJukeboxMessage::write, DanceJukeboxMessage::read, DanceJukeboxMessage.Handler::handle);
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageSyncPath.class, MessageSyncPath::write, MessageSyncPath::read, MessageSyncPath.Handler::handle);
-        NETWORK_WRAPPER.registerMessage(packetsRegistered++, MessageSyncPathReached.class, MessageSyncPathReached::write, MessageSyncPathReached::read, MessageSyncPathReached.Handler::handle);
-        BufferedReader urlContents = WebHelper.getURLContents("https://raw.githubusercontent.com/Alex-the-666/Citadel/master/src/main/resources/assets/citadel/patreon.txt", "assets/citadel/patreon.txt");
-        if (urlContents != null) {
-            try {
-                String line;
-                while ((line = urlContents.readLine()) != null) {
-                    PATREONS.add(line);
-                }
-            } catch (IOException e) {
-                LOGGER.warn("Failed to load patreon contributor perks");
-            }
-        } else LOGGER.warn("Failed to load patreon contributor perks");
     }
 
     @SubscribeEvent
@@ -160,7 +134,6 @@ public class Citadel {
             //citadelTestBiomeData = SpawnBiomeConfig.create(new ResourceLocation("citadel:config_biome"), CitadelBiomeDefinitions.TERRALITH_TEST);
         }
     }
-
 
 
     private void doClientStuff(final FMLClientSetupEvent event) {
@@ -182,13 +155,13 @@ public class Citadel {
         Registry<Biome> allBiomes = registryAccess.get(RegistryKeys.BIOME);
         Registry<DimensionOptions> levelStems = registryAccess.get(RegistryKeys.DIMENSION);
         Map<RegistryKey<Biome>, RegistryEntry<Biome>> biomeMap = new HashMap<>();
-        for(RegistryKey<Biome> biomeResourceKey : allBiomes.getKeys()){
+        for (RegistryKey<Biome> biomeResourceKey : allBiomes.getKeys()) {
             Optional<RegistryEntry.Reference<Biome>> holderOptional = allBiomes.getEntry(biomeResourceKey);
             holderOptional.ifPresent(biomeHolder -> biomeMap.put(biomeResourceKey, biomeHolder));
         }
         for (RegistryKey<DimensionOptions> levelStemResourceKey : levelStems.getKeys()) {
             Optional<RegistryEntry.Reference<DimensionOptions>> holderOptional = levelStems.getEntry(levelStemResourceKey);
-            if(holderOptional.isPresent() && holderOptional.get().value().chunkGenerator().getBiomeSource() instanceof ExpandedBiomeSource expandedBiomeSource){
+            if (holderOptional.isPresent() && holderOptional.get().value().chunkGenerator().getBiomeSource() instanceof ExpandedBiomeSource expandedBiomeSource) {
                 expandedBiomeSource.setResourceKeyMap(biomeMap);
                 Set<RegistryEntry<Biome>> biomeHolders = ExpandedBiomes.buildBiomeList(registryAccess, levelStemResourceKey);
                 expandedBiomeSource.expandBiomesWith(biomeHolders);

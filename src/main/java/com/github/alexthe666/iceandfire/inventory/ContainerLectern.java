@@ -7,6 +7,7 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemBestiary;
 import com.github.alexthe666.iceandfire.message.MessageUpdateLectern;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -178,7 +179,7 @@ public class ContainerLectern extends ScreenHandler {
 
                         }
                         else {
-                            IceAndFire.sendMSGToServer(new MessageUpdateLectern(IceAndFire.PROXY.getRefrencedTE().getPos().asLong(), 0, 0, 0, true, page.ordinal()));
+                            IafClientNetworkHandler.send(new MessageUpdateLectern(IceAndFire.PROXY.getRefrencedTE().getPos().asLong(), 0, 0, 0, true, page.ordinal()));
                         }
 
                     }

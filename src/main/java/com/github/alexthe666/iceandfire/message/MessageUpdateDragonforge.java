@@ -2,13 +2,16 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
-import java.util.function.Supplier;
-
-public class MessageUpdateDragonforge {
+public class MessageUpdateDragonforge implements S2CMessage {
 
     public long blockPos;
     public int cookTime;
@@ -22,44 +25,33 @@ public class MessageUpdateDragonforge {
     public MessageUpdateDragonforge() {
     }
 
-    public static MessageUpdateDragonforge read(PacketByteBuf buf) {
-        return new MessageUpdateDragonforge(buf.readLong(), buf.readInt());
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "update_dragon_forge");
     }
 
-    public static void write(MessageUpdateDragonforge message, PacketByteBuf buf) {
-        buf.writeLong(message.blockPos);
-        buf.writeInt(message.cookTime);
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeLong(this.blockPos);
+        buf.writeInt(this.cookTime);
     }
 
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.blockPos = buf.readLong();
+        this.cookTime = buf.readInt();
+    }
 
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(final MessageUpdateDragonforge message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    BlockPos pos = BlockPos.of(message.blockPos);
-
-                    if (player.level().getBlockEntity(pos) instanceof TileEntityDragonforge forge) {
-                        forge.cookTime = message.cookTime;
-
-                        if (message.cookTime > 0) {
-                            forge.lastDragonFlameTimer = 40;
-                        }
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            BlockPos pos = BlockPos.fromLong(this.blockPos);
+            if (player.getWorld().getBlockEntity(pos) instanceof TileEntityDragonforge forge) {
+                forge.cookTime = this.cookTime;
+                if (this.cookTime > 0)
+                    forge.lastDragonFlameTimer = 40;
+            }
         }
     }
 }

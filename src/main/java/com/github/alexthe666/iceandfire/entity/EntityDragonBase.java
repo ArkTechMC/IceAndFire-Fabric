@@ -31,6 +31,8 @@ import com.github.alexthe666.iceandfire.pathfinding.raycoms.pathjobs.ICustomSize
 import com.github.alexthe666.iceandfire.world.DragonPosWorldData;
 import com.google.common.base.Predicate;
 import com.iafenvoy.iafextra.event.EventBus;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -440,7 +442,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
                 this.setBreathingFire(true);
             } else {
                 if (!this.getWorld().isClient) {
-                    IceAndFire.sendMSGToAll(new MessageDragonSetBurnBlock(this.getId(), true, this.burningTarget));
+                    IafServerNetworkHandler.sendToAll(new MessageDragonSetBurnBlock(this.getId(), true, this.burningTarget));
                 }
                 this.burningTarget = null;
             }
@@ -1194,11 +1196,11 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
                             if (player.getPassengerList().size() >= 3)
                                 return ActionResult.FAIL;
                             this.startRiding(player, true);
-                            IceAndFire.sendMSGToAll(new MessageStartRidingMob(this.getId(), true, true));
+                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMob(this.getId(), true, true));
                         } else if (dragonStage > 2 && !player.hasVehicle()) {
                             player.setSneaking(false);
                             player.startRiding(this, true);
-                            IceAndFire.sendMSGToAll(new MessageStartRidingMob(this.getId(), true, false));
+                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMob(this.getId(), true, false));
                             this.setInSittingPose(false);
                         }
                         this.getNavigation().stop();
@@ -1861,7 +1863,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
             if ((this.getControlState() == 1 << 4 || ((PlayerEntity) riding).isFallFlying()) && !riding.hasVehicle()) {
                 this.stopRiding();
                 if (this.getWorld().isClient) {
-                    IceAndFire.sendMSGToServer(new MessageStartRidingMob(this.getId(), false, true));
+                    IafClientNetworkHandler.send(new MessageStartRidingMob(this.getId(), false, true));
                 }
 
             }

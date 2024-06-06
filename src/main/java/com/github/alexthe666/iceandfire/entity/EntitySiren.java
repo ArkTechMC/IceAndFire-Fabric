@@ -19,6 +19,7 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageSirenSong;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -370,7 +371,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         this.dataTracker.set(SINGING, singing);
         if (!this.getWorld().isClient) {
             this.isSinging = singing;
-            IceAndFire.sendMSGToAll(new MessageSirenSong(this.getId(), singing));
+            IafServerNetworkHandler.sendToAll(new MessageSirenSong(this.getId(), singing));
         }
     }
 

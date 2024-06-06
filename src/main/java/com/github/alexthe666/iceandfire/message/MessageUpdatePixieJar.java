@@ -2,13 +2,20 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class MessageUpdatePixieJar {
+public class MessageUpdatePixieJar implements S2CMessage {
 
     public long blockPos;
     public boolean isProducing;
@@ -22,39 +29,30 @@ public class MessageUpdatePixieJar {
     public MessageUpdatePixieJar() {
     }
 
-    public static MessageUpdatePixieJar read(PacketByteBuf buf) {
-        return new MessageUpdatePixieJar(buf.readLong(), buf.readBoolean());
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID,"update_pixie_jar");
     }
 
-    public static void write(MessageUpdatePixieJar message, PacketByteBuf buf) {
-        buf.writeLong(message.blockPos);
-        buf.writeBoolean(message.isProducing);
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeLong(this.blockPos);
+        buf.writeBoolean(this.isProducing);
     }
 
-    public static class Handler {
-        public Handler() {
-        }
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.blockPos=buf.readLong();
+        this.isProducing=buf.readBoolean();
+    }
 
-        public static void handle(final MessageUpdatePixieJar message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    BlockPos pos = BlockPos.of(message.blockPos);
-
-                    if (player.level().getBlockEntity(pos) instanceof TileEntityJar jar) {
-                        jar.hasProduced = message.isProducing;
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            BlockPos pos = BlockPos.fromLong(this.blockPos);
+            if (player.getWorld().getBlockEntity(pos) instanceof TileEntityJar jar)
+                jar.hasProduced = this.isProducing;
         }
     }
 }

@@ -1,21 +1,23 @@
 package com.github.alexthe666.citadel.server.message;
 
 
+import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.client.render.pathfinding.PathfindingDebugRenderer;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.util.Identifier;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Supplier;
 
 /**
  * Message to sync some path over to the client.
  */
-public class MessageSyncPath {
+public class MessageSyncPath implements S2CMessage {
     /**
      * Set of visited nodes.
      */
@@ -41,62 +43,44 @@ public class MessageSyncPath {
         this.lastDebugNodesPath = lastDebugNodesPath;
     }
 
-    public void write(final PacketByteBuf buf) {
+    public MessageSyncPath() {
+    }
+
+    @Override
+    public Identifier getId() {
+        return new Identifier(Citadel.MOD_ID, "message_sync");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
         buf.writeInt(this.lastDebugNodesVisited.size());
-        for (final MNode MNode : this.lastDebugNodesVisited) {
+        for (final MNode MNode : this.lastDebugNodesVisited)
             MNode.serializeToBuf(buf);
-        }
-
         buf.writeInt(this.lastDebugNodesNotVisited.size());
-        for (final MNode MNode : this.lastDebugNodesNotVisited) {
+        for (final MNode MNode : this.lastDebugNodesNotVisited)
             MNode.serializeToBuf(buf);
-        }
-
         buf.writeInt(this.lastDebugNodesPath.size());
-        for (final MNode MNode : this.lastDebugNodesPath) {
+        for (final MNode MNode : this.lastDebugNodesPath)
             MNode.serializeToBuf(buf);
-        }
     }
 
-    public static MessageSyncPath read(final PacketByteBuf buf) {
+    @Override
+    public void decode(PacketByteBuf buf) {
         int size = buf.readInt();
-
-        Set<MNode> lastDebugNodesVisited = new HashSet<>();
-        for (int i = 0; i < size; i++) {
-            lastDebugNodesVisited.add(new MNode(buf));
-        }
-
+        for (int i = 0; i < size; i++)
+            this.lastDebugNodesVisited.add(new MNode(buf));
         size = buf.readInt();
-        Set<MNode> lastDebugNodesNotVisited = new HashSet<>();
-        for (int i = 0; i < size; i++) {
-            lastDebugNodesNotVisited.add(new MNode(buf));
-        }
-
+        for (int i = 0; i < size; i++)
+            this.lastDebugNodesNotVisited.add(new MNode(buf));
         size = buf.readInt();
-        Set<MNode> lastDebugNodesPath = new HashSet<>();
-        for (int i = 0; i < size; i++) {
-            lastDebugNodesPath.add(new MNode(buf));
-        }
-
-        return new MessageSyncPath(lastDebugNodesVisited, lastDebugNodesNotVisited, lastDebugNodesPath);
+        for (int i = 0; i < size; i++)
+            this.lastDebugNodesPath.add(new MNode(buf));
     }
 
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static boolean handle(MessageSyncPath message, Supplier<NetworkEvent.Context> contextSupplier) {
-            contextSupplier.get().enqueueWork(() -> {
-                contextSupplier.get().setPacketHandled(true);
-
-                if (contextSupplier.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                    PathfindingDebugRenderer.lastDebugNodesVisited = message.lastDebugNodesVisited;
-                    PathfindingDebugRenderer.lastDebugNodesNotVisited = message.lastDebugNodesNotVisited;
-                    PathfindingDebugRenderer.lastDebugNodesPath = message.lastDebugNodesPath;
-                }
-            });
-            return true;
-        }
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PathfindingDebugRenderer.lastDebugNodesVisited = this.lastDebugNodesVisited;
+        PathfindingDebugRenderer.lastDebugNodesNotVisited = this.lastDebugNodesNotVisited;
+        PathfindingDebugRenderer.lastDebugNodesPath = this.lastDebugNodesPath;
     }
-
 }

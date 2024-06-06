@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemBestiary;
 import com.github.alexthe666.iceandfire.message.MessageUpdateLectern;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -138,7 +139,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
                 this.selectedPages[0] = null;
                 this.selectedPages[1] = null;
                 this.selectedPages[2] = null;
-                IceAndFire.sendMSGToAll(new MessageUpdateLectern(this.pos.asLong(), -1, -1, -1, false, 0));
+                IafServerNetworkHandler.sendToAll(new MessageUpdateLectern(this.pos.asLong(), -1, -1, -1, false, 0));
             } else {
                 this.selectedPages = this.randomizePages(this.getStack(0), this.getStack(1));
             }
@@ -170,7 +171,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
             int page1 = this.selectedPages[0] == null ? -1 : this.selectedPages[0].ordinal();
             int page2 = this.selectedPages[1] == null ? -1 : this.selectedPages[1].ordinal();
             int page3 = this.selectedPages[2] == null ? -1 : this.selectedPages[2].ordinal();
-            IceAndFire.sendMSGToAll(new MessageUpdateLectern(this.pos.asLong(), page1, page2, page3, false, 0));
+            IafServerNetworkHandler.sendToAll(new MessageUpdateLectern(this.pos.asLong(), page1, page2, page3, false, 0));
         }
         return this.selectedPages;
     }

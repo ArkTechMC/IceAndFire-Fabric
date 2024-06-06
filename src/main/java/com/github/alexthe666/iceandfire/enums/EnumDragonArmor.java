@@ -59,7 +59,6 @@ public enum EnumDragonArmor {
 
     public static Item getScaleItem(EnumDragonArmor armor) {
         return switch (armor) {
-            case armor_red -> IafItemRegistry.DRAGONSCALES_RED.get();
             case armor_bronze -> IafItemRegistry.DRAGONSCALES_BRONZE.get();
             case armor_green -> IafItemRegistry.DRAGONSCALES_GREEN.get();
             case armor_gray -> IafItemRegistry.DRAGONSCALES_GRAY.get();

@@ -1,21 +1,23 @@
 package com.github.alexthe666.citadel.server.message;
 
+import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.client.render.pathfinding.PathfindingDebugRenderer;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Supplier;
 
 /**
  * Message to sync the reached positions over to the client for rendering.
  */
-public class MessageSyncPathReached {
+public class MessageSyncPathReached implements S2CMessage {
     /**
      * Set of reached positions.
      */
@@ -29,41 +31,32 @@ public class MessageSyncPathReached {
         this.reached = reached;
     }
 
-    public void write(final PacketByteBuf buf) {
+    public MessageSyncPathReached() {
+    }
+
+    @Override
+    public Identifier getId() {
+        return new Identifier(Citadel.MOD_ID, "sync_path_reached");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
         buf.writeInt(this.reached.size());
-        for (final BlockPos node : this.reached) {
+        for (final BlockPos node : this.reached)
             buf.writeBlockPos(node);
-        }
-
     }
 
-    public static MessageSyncPathReached read(final PacketByteBuf buf) {
+    @Override
+    public void decode(PacketByteBuf buf) {
         int size = buf.readInt();
-        Set<BlockPos> reached = new HashSet<>();
-        for (int i = 0; i < size; i++) {
-            reached.add(buf.readBlockPos());
-        }
-        return new MessageSyncPathReached(reached);
+        for (int i = 0; i < size; i++)
+            this.reached.add(buf.readBlockPos());
     }
 
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static boolean handle(MessageSyncPathReached message, Supplier<NetworkEvent.Context> contextSupplier) {
-            contextSupplier.get().enqueueWork(() -> {
-                contextSupplier.get().setPacketHandled(true);
-
-                if (contextSupplier.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-                    for (final MNode node : PathfindingDebugRenderer.lastDebugNodesPath) {
-                        if (message.reached.contains(node.pos)) {
-                            node.setReachedByWorker(true);
-                        }
-                    }
-                }
-
-            });
-            return true;
-        }
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        for (final MNode node : PathfindingDebugRenderer.lastDebugNodesPath)
+            if (this.reached.contains(node.pos))
+                node.setReachedByWorker(true);
     }
 }

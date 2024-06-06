@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-public class ItemTrollArmor extends ArmorItem implements IArmorTextureProvider {
+public class ItemTrollArmor extends ArmorItem {
 
     public EnumTroll troll;
 
@@ -52,21 +52,6 @@ public class ItemTrollArmor extends ArmorItem implements IArmorTextureProvider {
             case FEET -> "boots";
             default -> "";
         };
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public @NotNull BipedEntityModel<?> getHumanoidArmorModel(LivingEntity LivingEntity, ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<?> _default) {
-                return new ModelTrollArmor(armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD);
-            }
-        });
-    }
-
-    @Override
-    public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_troll_" + this.troll.name().toLowerCase(Locale.ROOT) + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 
     @Override

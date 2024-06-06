@@ -15,6 +15,7 @@ import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormLand;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormSand;
 import com.google.common.base.Predicate;
 import com.iafenvoy.iafextra.event.EventBus;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.LookControl;
@@ -53,7 +54,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
-import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICustomCollisions, IBlacklistedFromStatues, IAnimatedEntity, IVillagerFear, IAnimalFear, IGroundMount, IHasCustomizableAttributes, ICustomMoveController {
@@ -374,7 +374,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         this.clearSegments();
         if (!this.getWorld().isClient) {
             this.initSegments(scale * (this.getWormAge() / 5F));
-            IceAndFire.sendMSGToAll(new MessageDeathWormHitbox(this.getId(), scale * (this.getWormAge() / 5F)));
+            IafServerNetworkHandler.sendToAll(new MessageDeathWormHitbox(this.getId(), scale * (this.getWormAge() / 5F)));
         }
     }
 

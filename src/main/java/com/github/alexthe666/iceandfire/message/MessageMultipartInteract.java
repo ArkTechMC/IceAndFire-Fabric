@@ -1,13 +1,18 @@
 package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.iafenvoy.iafextra.network.C2SMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageMultipartInteract {
+public class MessageMultipartInteract implements C2SMessage {
 
     public int creatureID;
     public float dmg;
@@ -20,47 +25,44 @@ public class MessageMultipartInteract {
     public MessageMultipartInteract() {
     }
 
-    public static MessageMultipartInteract read(PacketByteBuf buf) {
-        return new MessageMultipartInteract(buf.readInt(), buf.readFloat());
-    }
-
     public static void write(MessageMultipartInteract message, PacketByteBuf buf) {
         buf.writeInt(message.creatureID);
         buf.writeFloat(message.dmg);
     }
 
-    public static class Handler {
-        public Handler() {
-        }
+    @Override
+    public void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.creatureID);
 
-        public static void handle(final MessageMultipartInteract message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
+            if (entity instanceof LivingEntity livingEntity) {
+                double dist = player.distanceTo(livingEntity);
 
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.creatureID);
-
-                    if (entity instanceof LivingEntity livingEntity) {
-                        double dist = player.distanceTo(livingEntity);
-
-                        if (dist < 100) {
-                            if (message.dmg > 0F) {
-                                livingEntity.hurt(player.level().damageSources().mobAttack(player), message.dmg);
-                            } else {
-                                livingEntity.interact(player, InteractionHand.MAIN_HAND);
-                            }
-                        }
+                if (dist < 100) {
+                    if (this.dmg > 0F) {
+                        livingEntity.damage(player.getWorld().damageSources.mobAttack(player), this.dmg);
+                    } else {
+                        livingEntity.interact(player, Hand.MAIN_HAND);
                     }
                 }
-            });
-
-            context.setPacketHandled(true);
+            }
         }
+    }
+
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "multipart_interact");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.creatureID);
+        buf.writeFloat(this.dmg);
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.creatureID = buf.readInt();
+        this.dmg = buf.readFloat();
     }
 }

@@ -3,13 +3,17 @@ package com.github.alexthe666.iceandfire.message;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
-import java.util.function.Supplier;
-
-public class MessageUpdatePixieHouse {
+public class MessageUpdatePixieHouse implements S2CMessage {
 
     public long blockPos;
     public boolean hasPixie;
@@ -25,46 +29,38 @@ public class MessageUpdatePixieHouse {
     public MessageUpdatePixieHouse() {
     }
 
-    public static MessageUpdatePixieHouse read(PacketByteBuf buf) {
-        return new MessageUpdatePixieHouse(buf.readLong(), buf.readBoolean(), buf.readInt());
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "update_pixie_house");
     }
 
-    public static void write(MessageUpdatePixieHouse message, PacketByteBuf buf) {
-        buf.writeLong(message.blockPos);
-        buf.writeBoolean(message.hasPixie);
-        buf.writeInt(message.pixieType);
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeLong(this.blockPos);
+        buf.writeBoolean(this.hasPixie);
+        buf.writeInt(this.pixieType);
     }
 
-    public static class Handler {
-        public Handler() {
-        }
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.blockPos = buf.readLong();
+        this.hasPixie = buf.readBoolean();
+        this.pixieType = buf.readInt();
+    }
 
-        public static void handle(final MessageUpdatePixieHouse message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    BlockPos pos = BlockPos.of(message.blockPos);
-                    BlockEntity blockEntity = player.level().getBlockEntity(pos);
-
-                    if (blockEntity instanceof TileEntityPixieHouse house) {
-                        house.hasPixie = message.hasPixie;
-                        house.pixieType = message.pixieType;
-                    } else if (blockEntity instanceof TileEntityJar jar) {
-                        jar.hasPixie = message.hasPixie;
-                        jar.pixieType = message.pixieType;
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            BlockPos pos = BlockPos.fromLong(this.blockPos);
+            BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
+            if (blockEntity instanceof TileEntityPixieHouse house) {
+                house.hasPixie = this.hasPixie;
+                house.pixieType = this.pixieType;
+            } else if (blockEntity instanceof TileEntityJar jar) {
+                jar.hasPixie = this.hasPixie;
+                jar.pixieType = this.pixieType;
+            }
         }
     }
-
 }

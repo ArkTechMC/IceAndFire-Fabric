@@ -2,13 +2,21 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.util.ISyncMount;
+import com.iafenvoy.iafextra.network.C2SMessage;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageStartRidingMob {
+public class MessageStartRidingMob implements S2CMessage, C2SMessage {
 
     public int dragonId;
     public boolean ride;
@@ -23,54 +31,61 @@ public class MessageStartRidingMob {
     public MessageStartRidingMob() {
     }
 
-    public static MessageStartRidingMob read(PacketByteBuf buf) {
-        return new MessageStartRidingMob(buf.readInt(), buf.readBoolean(), buf.readBoolean());
-    }
+    @Override
+    public void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.dragonId);
+            if (entity instanceof ISyncMount && entity instanceof TameableEntity tamable) {
+                if (tamable.isOwner(player) && tamable.distanceTo(player) < 14) {
+                    if (this.ride) {
+                        if (this.baby) tamable.startRiding(player, true);
+                        else player.startRiding(tamable, true);
 
-    public static void write(MessageStartRidingMob message, PacketByteBuf buf) {
-        buf.writeInt(message.dragonId);
-        buf.writeBoolean(message.ride);
-        buf.writeBoolean(message.baby);
-    }
-
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(final MessageStartRidingMob message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.dragonId);
-
-                    if (entity instanceof ISyncMount && entity instanceof TamableAnimal tamable) {
-                        if (tamable.isOwnedBy(player) && tamable.distanceTo(player) < 14) {
-                            if (message.ride) {
-                                if (message.baby) {
-                                    tamable.startRiding(player, true);
-                                } else {
-                                    player.startRiding(tamable, true);
-                                }
-                            } else {
-                                if (message.baby) {
-                                    tamable.stopRiding();
-                                } else {
-                                    player.stopRiding();
-                                }
-                            }
-                        }
+                    } else {
+                        if (this.baby) tamable.stopRiding();
+                        else player.stopRiding();
                     }
                 }
-            });
+            }
+        }
+    }
 
-            context.setPacketHandled(true);
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "start_riding_mob");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.dragonId);
+        buf.writeBoolean(this.ride);
+        buf.writeBoolean(this.baby);
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.dragonId = buf.readInt();
+        this.ride = buf.readBoolean();
+        this.baby = buf.readBoolean();
+    }
+
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.dragonId);
+            if (entity instanceof ISyncMount && entity instanceof TameableEntity tamable) {
+                if (tamable.isOwner(player) && tamable.distanceTo(player) < 14) {
+                    if (this.ride) {
+                        if (this.baby) tamable.startRiding(player, true);
+                        else player.startRiding(tamable, true);
+
+                    } else {
+                        if (this.baby) tamable.stopRiding();
+                        else player.stopRiding();
+                    }
+                }
+            }
         }
     }
 }

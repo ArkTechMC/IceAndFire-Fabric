@@ -1,17 +1,9 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonsteelFireArmor;
-import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonsteelIceArmor;
-import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonsteelLightningArmor;
-import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -20,19 +12,13 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraft.world.item.*;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Consumer;
 
-import static com.github.alexthe666.iceandfire.item.IafItemRegistry.*;
-
-public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDragonItem, IArmorTextureProvider {
+public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDragonItem {
 
     private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
     private final ArmorMaterial material;
@@ -42,27 +28,6 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.material = material;
         this.attributeModifierMultimap = this.createAttributeMap();
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public @NotNull BipedEntityModel<?> getHumanoidArmorModel(LivingEntity LivingEntity, ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<?> _default) {
-                boolean inner = armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD;
-                if (itemStack.getItem() instanceof ArmorItem) {
-                    ArmorMaterial armorMaterial = ((ArmorItem) itemStack.getItem()).getMaterial();
-                    if (DRAGONSTEEL_FIRE_ARMOR_MATERIAL.equals(armorMaterial))
-                        return new ModelDragonsteelFireArmor(inner);
-                    if (DRAGONSTEEL_ICE_ARMOR_MATERIAL.equals(armorMaterial))
-                        return new ModelDragonsteelIceArmor(inner);
-                    if (DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL.equals(armorMaterial))
-                        return new ModelDragonsteelLightningArmor(inner);
-                }
-                return _default;
-
-            }
-        });
     }
 
 
@@ -113,16 +78,5 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
         if (this.material != null)
             return this.material.getProtection(this.getType());
         return super.getProtection();
-    }
-
-    @Override
-    public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        if (this.material == DRAGONSTEEL_FIRE_ARMOR_MATERIAL) {
-            return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_fire" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
-        } else if (this.material == IafItemRegistry.DRAGONSTEEL_ICE_ARMOR_MATERIAL) {
-            return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_ice" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
-        } else {
-            return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_lightning" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
-        }
     }
 }

@@ -2,15 +2,17 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
+import net.minecraft.util.Identifier;
 
 
-public class MessageDeathWormHitbox {
-
+public class MessageDeathWormHitbox implements S2CMessage {
     public int deathWormId;
     public float scale;
 
@@ -22,39 +24,30 @@ public class MessageDeathWormHitbox {
     public MessageDeathWormHitbox() {
     }
 
-    public static MessageDeathWormHitbox read(PacketByteBuf buf) {
-        return new MessageDeathWormHitbox(buf.readInt(), buf.readFloat());
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler listener, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.deathWormId);
+            if (entity instanceof EntityDeathWorm deathWorm)
+                deathWorm.initSegments(this.scale);
+        }
     }
 
-    public static void write(MessageDeathWormHitbox message, PacketByteBuf buf) {
-        buf.writeInt(message.deathWormId);
-        buf.writeFloat(message.scale);
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "death_worm_hit_box");
     }
 
-    public static class Handler {
-        public Handler() {
-        }
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.deathWormId);
+        buf.writeFloat(this.scale);
+    }
 
-        public static void handle(final MessageDeathWormHitbox message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.deathWormId);
-
-                    if (entity instanceof EntityDeathWorm deathWorm) {
-                        deathWorm.initSegments(message.scale);
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
-        }
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.deathWormId = buf.readInt();
+        this.scale = buf.readFloat();
     }
 }

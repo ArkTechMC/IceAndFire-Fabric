@@ -2,14 +2,20 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.iafenvoy.iafextra.network.C2SMessage;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageDragonSyncFire {
-
+public class MessageDragonSyncFire implements C2SMessage, S2CMessage {
     public int dragonId;
     public double posX;
     public double posY;
@@ -27,10 +33,6 @@ public class MessageDragonSyncFire {
     public MessageDragonSyncFire() {
     }
 
-    public static MessageDragonSyncFire read(PacketByteBuf buf) {
-        return new MessageDragonSyncFire(buf.readInt(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readInt());
-    }
-
     public static void write(MessageDragonSyncFire message, PacketByteBuf buf) {
         buf.writeInt(message.dragonId);
         buf.writeDouble(message.posX);
@@ -39,31 +41,45 @@ public class MessageDragonSyncFire {
         buf.writeInt(message.syncType);
     }
 
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(final MessageDragonSyncFire message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.dragonId);
-
-                    if (entity instanceof EntityDragonBase dragon) {
-                        dragon.stimulateFire(message.posX, message.posY, message.posZ, message.syncType);
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
+    @Override
+    public void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.dragonId);
+            if (entity instanceof EntityDragonBase dragon)
+                dragon.stimulateFire(this.posX, this.posY, this.posZ, this.syncType);
         }
     }
 
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "dragon_sync_fire");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.dragonId);
+        buf.writeDouble(this.posX);
+        buf.writeDouble(this.posY);
+        buf.writeDouble(this.posZ);
+        buf.writeInt(this.syncType);
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.dragonId = buf.readInt();
+        this.posX = buf.readDouble();
+        this.posY = buf.readDouble();
+        this.posZ = buf.readDouble();
+        this.syncType = buf.readInt();
+    }
+
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.dragonId);
+            if (entity instanceof EntityDragonBase dragon)
+                dragon.stimulateFire(this.posX, this.posY, this.posZ, this.syncType);
+        }
+    }
 }

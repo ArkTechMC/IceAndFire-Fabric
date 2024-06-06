@@ -13,7 +13,7 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.iafenvoy.iafextra.client.IceAndFireClient"
+      "com.iafenvoy.iafextra.IceAndFireClient"
     ],
     "main": [
       "com.iafenvoy.iafextra.IceAndFire"

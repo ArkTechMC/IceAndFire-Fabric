@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.message.MessageSyncPath;
 import com.github.alexthe666.iceandfire.message.MessageSyncPathReached;
 import com.github.alexthe666.iceandfire.pathfinding.raycoms.*;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
@@ -279,7 +280,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
 
         for (final Map.Entry<PlayerEntity, UUID> entry : trackingMap.entrySet()) {
             if (entry.getValue().equals(mob.getUuid())) {
-                IceAndFire.sendMSGToPlayer(new MessageSyncPathReached(reached), (ServerPlayerEntity) entry.getKey());
+                IafServerNetworkHandler.send(new MessageSyncPathReached(reached), (ServerPlayerEntity) entry.getKey());
             }
         }
     }

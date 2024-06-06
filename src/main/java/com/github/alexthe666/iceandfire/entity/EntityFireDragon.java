@@ -12,6 +12,8 @@ import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import com.iafenvoy.iafextra.event.EventBus;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -418,19 +420,19 @@ public class EntityFireDragon extends EntityDragonBase {
         if (EventBus.post(new DragonFireEvent(this, burnX, burnY, burnZ))) return;
         if (syncType == 1 && !this.getWorld().isClient) {
             //sync with client
-            IceAndFire.sendMSGToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
+            IafServerNetworkHandler.sendToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
         }
         if (syncType == 2 && this.getWorld().isClient) {
             //sync with server
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
+            IafClientNetworkHandler.send(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
         }
         if (syncType == 3 && !this.getWorld().isClient) {
             //sync with client, fire bomb
-            IceAndFire.sendMSGToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
+            IafServerNetworkHandler.sendToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
         }
         if (syncType == 4 && this.getWorld().isClient) {
             //sync with server, fire bomb
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
+            IafClientNetworkHandler.send(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
         }
         if (syncType > 2 && syncType < 6) {
             if (this.getAnimation() != ANIMATION_FIRECHARGE) {

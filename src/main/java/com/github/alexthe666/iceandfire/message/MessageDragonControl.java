@@ -3,13 +3,16 @@ package com.github.alexthe666.iceandfire.message;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
+import com.iafenvoy.iafextra.network.C2SMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageDragonControl {
+public class MessageDragonControl implements C2SMessage {
 
     public int dragonId;
     public byte controlState;
@@ -29,82 +32,64 @@ public class MessageDragonControl {
     public MessageDragonControl() {
     }
 
-    public static MessageDragonControl read(PacketByteBuf buf) {
-        return new MessageDragonControl(buf.readInt(), buf.readByte(), buf.readDouble(), buf.readDouble(), buf.readDouble());
-    }
-
-    public static void write(MessageDragonControl message, PacketByteBuf buf) {
-        buf.writeInt(message.dragonId);
-        buf.writeByte(message.controlState);
-        buf.writeDouble(message.posX);
-        buf.writeDouble(message.posY);
-        buf.writeDouble(message.posZ);
-    }
-
-    private double getPosX() {
-        return this.posX;
-    }
-
-    private double getPosY() {
-        return this.posY;
-    }
-
-    private double getPosZ() {
-        return this.posZ;
-    }
-
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(final MessageDragonControl message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.dragonId);
-
-                    if (ServerEvents.isRidingOrBeingRiddenBy(entity, player)) {
+    @Override
+    public void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketSender responseSender) {
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.dragonId);
+            if (ServerEvents.isRidingOrBeingRiddenBy(entity, player)) {
                         /*
                             For some of these entities the `setPos` is handled in `Entity#move`
                             Doing it here would cause server-side movement checks to fail (resulting in "moved wrongly" messages)
                         */
-                        if (entity instanceof EntityDragonBase dragon) {
-                            if (dragon.isOwnedBy(player)) {
-                                dragon.setControlState(message.controlState);
-                            }
-                        } else if (entity instanceof EntityHippogryph hippogryph) {
-                            if (hippogryph.isOwnedBy(player)) {
-                                hippogryph.setControlState(message.controlState);
-                            }
-                        } else if (entity instanceof EntityHippocampus hippo) {
-                            if (hippo.isOwnedBy(player)) {
-                                hippo.setControlState(message.controlState);
-                            }
-
-                            hippo.setPos(message.getPosX(), message.getPosY(), message.getPosZ());
-                        } else if (entity instanceof EntityDeathWorm deathWorm) {
-                            deathWorm.setControlState(message.controlState);
-                            deathWorm.setPos(message.getPosX(), message.getPosY(), message.getPosZ());
-                        } else if (entity instanceof EntityAmphithere amphithere) {
-                            if (amphithere.isOwnedBy(player)) {
-                                amphithere.setControlState(message.controlState);
-                            }
-
-                            // TODO :: Is this handled by Entity#move due to recent changes?
-                            amphithere.setPos(message.getPosX(), message.getPosY(), message.getPosZ());
-                        }
+                if (entity instanceof EntityDragonBase dragon) {
+                    if (dragon.isOwner(player)) {
+                        dragon.setControlState(this.controlState);
                     }
-                }
-            });
+                } else if (entity instanceof EntityHippogryph hippogryph) {
+                    if (hippogryph.isOwner(player)) {
+                        hippogryph.setControlState(this.controlState);
+                    }
+                } else if (entity instanceof EntityHippocampus hippo) {
+                    if (hippo.isOwner(player)) {
+                        hippo.setControlState(this.controlState);
+                    }
 
-            context.setPacketHandled(true);
+                    hippo.setPos(this.posX, this.posY, this.posZ);
+                } else if (entity instanceof EntityDeathWorm deathWorm) {
+                    deathWorm.setControlState(this.controlState);
+                    deathWorm.setPos(this.posX, this.posY, this.posZ);
+                } else if (entity instanceof EntityAmphithere amphithere) {
+                    if (amphithere.isOwner(player)) {
+                        amphithere.setControlState(this.controlState);
+                    }
+
+                    // TODO :: Is this handled by Entity#move due to recent changes?
+                    amphithere.setPos(this.posX, this.posY, this.posZ);
+                }
+            }
         }
+    }
+
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "dragon_control");
+    }
+
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.dragonId);
+        buf.writeByte(this.controlState);
+        buf.writeDouble(this.posX);
+        buf.writeDouble(this.posY);
+        buf.writeDouble(this.posZ);
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.dragonId = buf.readInt();
+        this.controlState = buf.readByte();
+        this.posX = buf.readDouble();
+        this.posY = buf.readDouble();
+        this.posZ = buf.readDouble();
     }
 }

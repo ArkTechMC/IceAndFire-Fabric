@@ -13,10 +13,7 @@ import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.util.ICustomMoveController;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.WorldEventContext;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.Perspective;
@@ -26,17 +23,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.entity.EntityMountEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -44,7 +36,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 
-    private static final Identifier SIREN_SHADER = new Identifier(IceAndFire.MOD_ID,"shaders/post/siren.json");
+    private static final Identifier SIREN_SHADER = new Identifier(IceAndFire.MOD_ID, "shaders/post/siren.json");
 
     private final Random rand = new Random();
 
@@ -53,12 +45,6 @@ public class ClientEvents {
             return ClientProxy.currentDragonRiders.contains(living.getUuid()) || living == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.getPerspective().isFirstPerson();
         }
         return false;
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void renderWorldLastEvent()
-    {
-        WorldEventContext.INSTANCE.renderWorldLastEvent(event);
     }
 
     @SubscribeEvent
@@ -90,7 +76,7 @@ public class ClientEvents {
                 moveController.dismount(mc.options.sneakKey.isPressed());
                 byte controlState = moveController.getControlState();
                 if (controlState != previousState) {
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(entity.getId(), controlState, entity.getX(), entity.getY(), entity.getZ()));
+                    IafClientNetworkHandler.send(new MessageDragonControl(entity.getId(), controlState, entity.getX(), entity.getY(), entity.getZ()));
                 }
             }
         }
@@ -108,7 +94,7 @@ public class ClientEvents {
                     moveController.strike(IafKeybindRegistry.dragon_fireAttack.isPressed());
                     byte controlState = moveController.getControlState();
                     if (controlState != previousState) {
-                        IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));
+                        IafClientNetworkHandler.send(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));
                     }
                 }
             }
@@ -139,10 +125,10 @@ public class ClientEvents {
                         renderer.shutdownEffect();
                     }
 
-                if (data.sirenData.isCharmed) {
-                    if (player.level().isClientSide && rand.nextInt(40) == 0) {
-                        IceAndFire.PROXY.spawnParticle(EnumParticles.Siren_Appearance, player.getX(), player.getY(), player.getZ(), data.sirenData.charmedBy.getHairColor(), 0, 0);
-                    }
+                    if (data.sirenData.isCharmed) {
+                        if (player.getWorld().isClient && rand.nextInt(40) == 0) {
+                            IceAndFire.PROXY.spawnParticle(EnumParticles.Siren_Appearance, player.getX(), player.getY(), player.getZ(), data.sirenData.charmedBy.getHairColor(), 0, 0);
+                        }
 
                         if (IafConfig.sirenShader && renderer.currentEffect() == null) {
                             renderer.loadEffect(SIREN_SHADER);

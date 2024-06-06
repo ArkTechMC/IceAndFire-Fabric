@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.message.MessageGetMyrmexHive;
 import com.github.alexthe666.iceandfire.message.MessageSetMyrmexHiveNull;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -50,9 +51,9 @@ public class ItemMyrmexStaff extends Item {
                 MyrmexHive hive = MyrmexWorldData.get(worldIn).getHiveFromUUID(id);
                 MyrmexWorldData.addHive(worldIn, new MyrmexHive());
                 if (hive != null) {
-                    IceAndFire.sendMSGToAll(new MessageGetMyrmexHive(hive.toNBT()));
+                    IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHive(hive.toNBT()));
                 } else {
-                    IceAndFire.sendMSGToAll(new MessageSetMyrmexHiveNull());
+                    IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
                 }
             } else if (id != null && !id.equals(new UUID(0, 0))) {
                 IceAndFire.PROXY.openMyrmexStaffGui(itemStackIn);
@@ -73,9 +74,9 @@ public class ItemMyrmexStaff extends Item {
                 if (!context.getWorld().isClient) {
                     MyrmexHive hive = MyrmexWorldData.get(context.getWorld()).getHiveFromUUID(id);
                     if (hive != null) {
-                        IceAndFire.sendMSGToAll(new MessageGetMyrmexHive(hive.toNBT()));
+                        IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHive(hive.toNBT()));
                     } else {
-                        IceAndFire.sendMSGToAll(new MessageSetMyrmexHiveNull());
+                        IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
                     }
                 } else if (id != null && !id.equals(new UUID(0, 0))) {
                     IceAndFire.PROXY.openMyrmexAddRoomGui(context.getPlayer().getStackInHand(context.getHand()), context.getBlockPos(), context.getPlayer().getHorizontalFacing());

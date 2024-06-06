@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.inventory.ContainerPodium;
 import com.github.alexthe666.iceandfire.item.ItemDragonEgg;
 import com.github.alexthe666.iceandfire.item.ItemMyrmexEgg;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePodium;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -105,7 +106,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
         }
         this.writeNbt(this.toInitialChunkDataNbt());
         if (!this.world.isClient) {
-            IceAndFire.sendMSGToAll(new MessageUpdatePodium(this.getPos().asLong(), this.stacks.get(0)));
+            IafServerNetworkHandler.sendToAll(new MessageUpdatePodium(this.getPos().asLong(), this.stacks.get(0)));
         }
     }
 

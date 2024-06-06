@@ -3,7 +3,6 @@ package com.github.alexthe666.citadel.server.message;
 import io.netty.buffer.ByteBuf;
 import org.apache.commons.lang3.Validate;
 
-import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;

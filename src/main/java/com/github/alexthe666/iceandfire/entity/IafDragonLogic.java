@@ -3,12 +3,9 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.message.MessageSpawnParticleAt;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.entity.ai.pathing.PathNode;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
@@ -491,24 +488,5 @@ public class IafDragonLogic {
                 + "\nTackling: " + this.dragon.isTackling()
 
         );
-    }
-
-    public void debugPathfinder(Path currentPath) {
-        if (IceAndFire.DEBUG) {
-            try {
-                for (int i = 0; i < currentPath.getLength(); i++) {
-                    final PathNode point = currentPath.getNode(i);
-                    IceAndFire.sendMSGToAll(new MessageSpawnParticleAt(point.x, point.y, point.z, 2));
-                }
-                if (currentPath.getCurrentNodePos() != null) {
-                    final Vec3d point = Vec3d.ofCenter(currentPath.getCurrentNodePos());
-                    IceAndFire.sendMSGToAll(new MessageSpawnParticleAt(point.x, point.y, point.z, 1));
-
-                }
-            } catch (Exception e) {
-                //Pathfinders are always unfriendly.
-            }
-
-        }
     }
 }

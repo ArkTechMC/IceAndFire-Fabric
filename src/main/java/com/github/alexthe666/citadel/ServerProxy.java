@@ -1,12 +1,7 @@
 package com.github.alexthe666.citadel;
 
-import com.github.alexthe666.citadel.server.entity.IDancesToJukebox;
 import com.github.alexthe666.citadel.server.event.EventChangeEntityTickRate;
-import com.github.alexthe666.citadel.server.event.EventMergeStructureSpawns;
-import com.github.alexthe666.citadel.server.event.EventReplaceBiome;
-import com.github.alexthe666.citadel.server.generation.SurfaceRulesManager;
 import com.github.alexthe666.citadel.server.world.CitadelServerData;
-import com.github.alexthe666.citadel.server.world.ExpandedBiomeSource;
 import com.github.alexthe666.citadel.server.world.ModifiableTickRateServer;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
 import net.minecraft.entity.Entity;
@@ -24,11 +19,6 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ServerProxy {
@@ -48,14 +38,6 @@ public class ServerProxy {
     }
 
     public void handleClientTickRatePacket(NbtCompound compound) {
-    }
-
-    public void handleJukeboxPacket(World level, int entityId, BlockPos jukeBox, boolean dancing) {
-        Entity entity = level.getEntityById(entityId);
-        if (entity instanceof IDancesToJukebox dancer) {
-            dancer.setDancing(dancing);
-            dancer.setJukeboxPos(dancing ? jukeBox : null);
-        }
     }
 
 

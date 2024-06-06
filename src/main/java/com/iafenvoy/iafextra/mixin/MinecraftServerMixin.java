@@ -8,12 +8,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.BooleanSupplier;
-
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Inject(method = "tick", at = @At("RETURN"))
-    private void onTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci, @Local(ordinal = 1) long m) {
+    private void onTick(CallbackInfo ci, @Local(ordinal = 1) long m) {
         StaticVariables.MSPT = (double) m / 1_000_000;
+    }
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onServerCreate(CallbackInfo ci) {
+        StaticVariables.server = (MinecraftServer) (Object) this;
     }
 }

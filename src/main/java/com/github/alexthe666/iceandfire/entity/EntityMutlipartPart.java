@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.message.MessageMultipartInteract;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -169,9 +169,6 @@ public abstract class EntityMutlipartPart extends Entity {
         return false;
     }
 
-    /**
-     * Source: {@link MathHelper#wrapDegrees(float, float, float)}
-     */
     protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
         float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
         if (f > maximumChange) {
@@ -249,16 +246,16 @@ public abstract class EntityMutlipartPart extends Entity {
     public @NotNull ActionResult interact(@NotNull PlayerEntity player, @NotNull Hand hand) {
         Entity parent = this.getParent();
         if (this.getWorld().isClient && parent != null) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageMultipartInteract(parent.getId(), 0));
+            IafClientNetworkHandler.send(new MessageMultipartInteract(parent.getId(), 0));
         }
         return parent != null ? parent.interact(player, hand) : ActionResult.PASS;
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float damage) {
+    public boolean damage(DamageSource source, float damage) {
         Entity parent = this.getParent();
         if (this.getWorld().isClient && source.getAttacker() instanceof PlayerEntity && parent != null) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageMultipartInteract(parent.getId(), damage * this.damageMultiplier));
+            IafClientNetworkHandler.send(new MessageMultipartInteract(parent.getId(), damage * this.damageMultiplier));
         }
         return parent != null && parent.damage(source, damage * this.damageMultiplier);
     }

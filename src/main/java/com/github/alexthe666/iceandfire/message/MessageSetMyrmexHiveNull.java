@@ -1,34 +1,41 @@
 package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageSetMyrmexHiveNull {
+public class MessageSetMyrmexHiveNull implements S2CMessage {
 
     public MessageSetMyrmexHiveNull() {
     }
 
-    public static MessageSetMyrmexHiveNull read(PacketByteBuf buf) {
-        return new MessageSetMyrmexHiveNull();
-    }
 
     public static void write(MessageSetMyrmexHiveNull message, PacketByteBuf buf) {
     }
 
-    public static class Handler {
-        public Handler() {
-        }
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "set_myrmex_hive_null");
+    }
 
-        public static void handle(MessageSetMyrmexHiveNull message, Supplier<NetworkEvent.Context> context) {
-            context.get().setPacketHandled(true);
-            PlayerEntity player = context.get().getSender();
-            if (player != null) {
-                IceAndFire.PROXY.setReferencedHive(null);
-            }
+    @Override
+    public void encode(PacketByteBuf buf) {
+    }
+
+    @Override
+    public void decode(PacketByteBuf buf) {
+    }
+
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            IceAndFire.PROXY.setReferencedHive(null);
         }
     }
 }

@@ -2,13 +2,16 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
+import com.iafenvoy.iafextra.network.S2CMessage;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.util.Identifier;
 
-import java.util.function.Supplier;
-
-public class MessageSirenSong {
+public class MessageSirenSong implements S2CMessage {
 
     public int sirenId;
     public boolean isSinging;
@@ -21,41 +24,30 @@ public class MessageSirenSong {
     public MessageSirenSong() {
     }
 
-    public static MessageSirenSong read(PacketByteBuf buf) {
-        return new MessageSirenSong(buf.readInt(), buf.readBoolean());
+    @Override
+    public Identifier getId() {
+        return new Identifier(IceAndFire.MOD_ID, "siren_song");
     }
 
-    public static void write(MessageSirenSong message, PacketByteBuf buf) {
-        buf.writeInt(message.sirenId);
-        buf.writeBoolean(message.isSinging);
+    @Override
+    public void encode(PacketByteBuf buf) {
+        buf.writeInt(this.sirenId);
+        buf.writeBoolean(this.isSinging);
     }
 
+    @Override
+    public void decode(PacketByteBuf buf) {
+        this.sirenId = buf.readInt();
+        this.isSinging = buf.readBoolean();
+    }
 
-    public static class Handler {
-        public Handler() {
-        }
-
-        public static void handle(final MessageSirenSong message, final Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                Player player = context.getSender();
-
-                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                    player = IceAndFire.PROXY.getClientSidePlayer();
-                }
-
-                if (player != null) {
-                    Entity entity = player.level().getEntity(message.sirenId);
-
-                    if (entity instanceof EntitySiren siren) {
-                        siren.setSinging(message.isSinging);
-                    }
-                }
-            });
-
-            context.setPacketHandled(true);
+    @Override
+    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
+        PlayerEntity player = client.player;
+        if (player != null) {
+            Entity entity = player.getWorld().getEntityById(this.sirenId);
+            if (entity instanceof EntitySiren siren)
+                siren.setSinging(this.isSinging);
         }
     }
-
 }

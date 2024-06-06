@@ -14,7 +14,6 @@ import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.item.*;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
-import com.github.alexthe666.iceandfire.message.MessageSwingArm;
 import com.github.alexthe666.iceandfire.message.MessageSyncPath;
 import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
@@ -24,8 +23,8 @@ import com.github.alexthe666.iceandfire.world.gen.WorldGenFireDragonCave;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenIceDragonCave;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenLightningDragonCave;
 import com.iafenvoy.iafextra.event.AttackEntityEvent;
-import com.iafenvoy.iafextra.event.Event;
 import com.iafenvoy.iafextra.event.ProjectileImpactEvent;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.WallBlock;
@@ -223,7 +222,7 @@ public class ServerEvents {
                 ((EntityHydra) parent).triggerHeadFlags(extraData);
             }
             if (event.getTarget().getWorld().isClient && parent != null) {
-                IceAndFire.NETWORK_WRAPPER.sendToServer(new MessagePlayerHitMultipart(parent.getId(), extraData));
+                IafClientNetworkHandler.send(new MessagePlayerHitMultipart(parent.getId(), extraData));
             }
         }
     }
@@ -506,20 +505,6 @@ public class ServerEvents {
                     AbstractPathJob.trackingMap.put(event.getEntity(), event.getTarget().getUUID());
                 }
             }
-        }
-    }
-
-    @SubscribeEvent // TODO :: Can this be moved into the item itself?
-    public static void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
-        onLeftClick(event.getEntity(), event.getItemStack());
-        if (event.getLevel().isClientSide) {
-            IceAndFire.sendMSGToServer(new MessageSwingArm());
-        }
-    }
-
-    public static void onLeftClick(final PlayerEntity playerEntity, final ItemStack stack) {
-        if (stack.getItem() == IafItemRegistry.GHOST_SWORD.get()) {
-            ItemGhostSword.spawnGhostSwordEntity(stack, playerEntity);
         }
     }
 

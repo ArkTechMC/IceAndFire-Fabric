@@ -9,6 +9,7 @@ import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
+import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -342,7 +343,7 @@ public class EntityPixie extends TameableEntity {
                     house.pixieItems.set(0, this.getStackInHand(Hand.MAIN_HAND));
                     house.tamedPixie = this.isTamed();
                     house.pixieOwnerUUID = this.getOwnerUuid();
-                    IceAndFire.sendMSGToAll(new MessageUpdatePixieHouse(this.housePos.asLong(), true, this.getColor()));
+                    IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.housePos.asLong(), true, this.getColor()));
                     this.remove(RemovalReason.DISCARDED);
                 }
             }

@@ -18,6 +18,7 @@ import com.github.alexthe666.iceandfire.message.MessageHippogryphArmor;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
 import com.google.common.base.Predicate;
+import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -231,9 +232,9 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
             if (this.getWorld().isClient) {
                 ItemStack saddle = animalchest.getStack(0);
                 ItemStack chest = animalchest.getStack(1);
-                IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-                IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getId(), 1, chest != null && chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty() ? 1 : 0));
-                IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getId(), 2, getIntFromArmor(animalchest.getStack(2))));
+                IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
+                IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 1, chest != null && chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty() ? 1 : 0));
+                IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 2, getIntFromArmor(animalchest.getStack(2))));
             }
         }
     }
@@ -497,9 +498,9 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
                 ItemStack saddle = this.hippogryphInventory.getStack(0);
                 ItemStack chest = this.hippogryphInventory.getStack(1);
                 if (this.getWorld().isClient) {
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getId(), 1, chest != null && chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty() ? 1 : 0));
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getId(), 2, getIntFromArmor(this.hippogryphInventory.getStack(2))));
+                    IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
+                    IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 1, chest != null && chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty() ? 1 : 0));
+                    IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 2, getIntFromArmor(this.hippogryphInventory.getStack(2))));
                 }
             }
         }
