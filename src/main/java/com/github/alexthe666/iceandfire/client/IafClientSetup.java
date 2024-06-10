@@ -18,16 +18,12 @@ import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemDragonHorn;
 import com.github.alexthe666.iceandfire.item.ItemSummoningCrystal;
-import dev.arktechmc.iafextra.resource.TabulaResourceManager;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
-import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
 
 import java.io.IOException;
@@ -118,7 +114,14 @@ public class IafClientSetup {
         EnumSeaSerpentAnimations.initializeSerpentModels();
         DragonAnimationsLibrary.register(EnumDragonPoses.values(), EnumDragonModelTypes.values());
 
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TabulaResourceManager());
+        try {
+            IafClientSetup.SEA_SERPENT_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/seaserpent/seaserpent_base"), new SeaSerpentTabulaModelAnimator());
+            IafClientSetup.FIRE_DRAGON_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/firedragon/firedragon_ground"), new FireDragonTabulaModelAnimator());
+            IafClientSetup.ICE_DRAGON_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/icedragon/icedragon_ground"), new IceDragonTabulaModelAnimator());
+            IafClientSetup.LIGHTNING_DRAGON_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_ground"), new LightningTabulaDragonAnimator());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.GOLD_PILE.get(), RenderLayer.getCutout());
         BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.SILVER_PILE.get(), RenderLayer.getCutout());

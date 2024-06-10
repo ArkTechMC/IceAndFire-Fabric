@@ -61,7 +61,7 @@ public class ItemDragonHorn extends Item {
     @Override
     public @NotNull ActionResult useOnEntity(@NotNull ItemStack stack, PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
         ItemStack trueStack = playerIn.getStackInHand(hand);
-        if (!playerIn.getWorld().isClient && hand == Hand.MAIN_HAND && target instanceof EntityDragonBase && ((EntityDragonBase) target).isOwner(playerIn) && (trueStack.getNbt() == null || (trueStack.getNbt() != null && trueStack.getNbt().getCompound("EntityTag").isEmpty()))) {
+        if (!playerIn.getWorld().isClient && hand == Hand.MAIN_HAND && target instanceof EntityDragonBase && ((EntityDragonBase) target).isOwner(playerIn) && (trueStack.getNbt() == null || trueStack.getNbt().getCompound("EntityTag").isEmpty())) {
             NbtCompound newTag = new NbtCompound();
 
             NbtCompound entityTag = new NbtCompound();
