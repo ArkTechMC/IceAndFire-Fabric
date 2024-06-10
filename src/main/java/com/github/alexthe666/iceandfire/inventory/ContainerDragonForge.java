@@ -2,13 +2,12 @@ package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.FurnaceOutputSlot;
 import net.minecraft.screen.slot.Slot;
@@ -21,16 +20,18 @@ public class ContainerDragonForge extends ScreenHandler {
     protected final World world;
     private final Inventory tileFurnace;
     public int fireType;
+    private final TileEntityDragonforge owner;
 
     public ContainerDragonForge(int i, PlayerInventory playerInventory) {
-        this(i, new SimpleInventory(3), playerInventory, new ArrayPropertyDelegate(0));
+        this(i, new SimpleInventory(3), playerInventory, null);
     }
 
 
-    public ContainerDragonForge(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate vars) {
+    public ContainerDragonForge(int id, Inventory furnaceInventory, PlayerInventory playerInventory, TileEntityDragonforge owner) {
         super(IafContainerRegistry.DRAGON_FORGE_CONTAINER.get(), id);
         this.tileFurnace = furnaceInventory;
         this.world = playerInventory.player.getWorld();
+        this.owner = owner;
         if (furnaceInventory instanceof TileEntityDragonforge) {
             this.fireType = ((TileEntityDragonforge) furnaceInventory).fireType;
         } else if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityDragonforge) {
@@ -100,5 +101,9 @@ public class ContainerDragonForge extends ScreenHandler {
         }
 
         return itemstack;
+    }
+
+    public TileEntityDragonforge getOwner() {
+        return this.owner;
     }
 }

@@ -10,6 +10,7 @@
   ],
   "client": [
     "ArmorFeatureRendererMixin",
+    "MinecraftClientMixin",
     "TitleScreenMixin"
   ],
   "injectors": {

@@ -303,9 +303,9 @@ public class ServerEvents {
 
             if (attacker instanceof LivingEntity) {
                 EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(attacker);
-                if (data.miscData.loveTicks > 0) {
-                    event.cancel();
-                }
+//                if (data.miscData.loveTicks > 0) {
+//                    event.cancel();
+//                }
 
                 if (isChicken(event.getEntity())) {
                     signalChickenAlarm(event.getEntity(), attacker);
@@ -377,7 +377,7 @@ public class ServerEvents {
 
                         statue.remove(Entity.RemovalReason.KILLED);
                     }
-                    return ActionResult.SUCCESS;
+                    return ActionResult.PASS;
                 }
             }
         }

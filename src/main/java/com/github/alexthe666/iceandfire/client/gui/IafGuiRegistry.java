@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.inventory.IafContainerRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 
 public class IafGuiRegistry {
-
     public static void register() {
         HandledScreens.register(IafContainerRegistry.IAF_LECTERN_CONTAINER.get(), GuiLectern::new);
         HandledScreens.register(IafContainerRegistry.PODIUM_CONTAINER.get(), GuiPodium::new);

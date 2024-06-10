@@ -56,7 +56,8 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
         int k = (this.width - this.backgroundWidth) / 2;
         int l = (this.height - this.backgroundHeight) / 2;
         pGuiGraphics.drawTexture(texture, k, l, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        int i1 = this.getCookTime(126);
+        TileEntityDragonforge entityDragonforge = this.tileFurnace.getOwner();
+        int i1 = this.getCookTime(entityDragonforge == null ? 126 : entityDragonforge.cookTime);
         pGuiGraphics.drawTexture(texture, k + 12, l + 23, 0, 166, i1, 38);
     }
 

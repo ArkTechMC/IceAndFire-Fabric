@@ -43,52 +43,20 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Porting Lib
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:asm:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:accessors:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:attributes:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:base:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:blocks:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:brewing:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:client_events:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:common:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:core:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:config:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:chunk_loading:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:data:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:entity:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:extensions:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:fluids:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:gametest:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:gui_utils:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:items:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:lazy_registration:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:level_events:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:loot:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:mixin_extensions:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:model_builders:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:model_generators:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:model_loader:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:model_materials:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:models:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:networking:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:obj_loader:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:recipe_book_categories:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:registries:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:tags:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:tool_actions:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:transfer:${project.porting_version}"
-    modImplementation "io.github.fabricators_of_create.Porting-Lib:utility:${project.porting_version}"
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:base:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:common:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:core:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:config:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:data:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:entity:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:lazy_registration:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:level_events:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:tags:${project.porting_version}"))
+    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:utility:${project.porting_version}"))
 
     // CCA
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"
-//    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-util:2.7.2"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-item:${project.cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:${project.cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-level:${project.cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-scoreboard:${project.cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-chunk:${project.cca_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-block:${project.cca_version}"
+    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"))
+    modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"))
 
     // Optional dependencies
     // EMI

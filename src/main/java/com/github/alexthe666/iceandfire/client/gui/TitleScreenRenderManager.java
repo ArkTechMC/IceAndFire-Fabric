@@ -1,11 +1,9 @@
 package com.github.alexthe666.iceandfire.client.gui;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import dev.arktechmc.iafextra.util.RandomHelper;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
+import dev.arktechmc.iafextra.util.RandomHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -17,26 +15,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TitleScreenRenderManager {
-    public static final int LAYER_COUNT = 2;
     public static final Identifier splash = new Identifier(IceAndFire.MOD_ID, "splashes.txt");
-    public static final String VERSION;
-    private static final Identifier MINECRAFT_TITLE_TEXTURES = new Identifier("textures/gui/title/minecraft.png");
     private static final Identifier BESTIARY_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/bestiary_menu.png");
     private static final Identifier TABLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/table.png");
     private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
     public static Identifier[] pageFlipTextures;
-    public static Identifier[] drawingTextures = new Identifier[22];
+    public static Identifier[] drawingTextures = new Identifier[23];
     private static int layerTick;
     private static List<String> splashText;
     private static boolean isFlippingPage = false;
     private static int pageFlip = 0;
     private static Picture[] drawnPictures;
-    private static Enscription[] drawnEnscriptions;
     private static float globalAlpha = 1F;
 
     static {
@@ -46,13 +39,9 @@ public class TitleScreenRenderManager {
                 new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/page_4.png"),
                 new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/page_5.png"),
                 new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/page_6.png")};
-        for (int i = 0; i < drawingTextures.length; i++) {
-            drawingTextures[i] = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/drawing_" + (i + 1) + ".png");
-        }
+        for (int i = 0; i < drawingTextures.length; i++)
+            drawingTextures[i] = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/drawing_" + i + ".png");
         resetDrawnImages();
-        Optional<ModContainer> container = FabricLoader.getInstance().getModContainer(IceAndFire.MOD_ID);
-        if (container.isPresent()) VERSION = container.get().getMetadata().getVersion().getFriendlyString();
-        else VERSION = "Unknown";
     }
 
     public static SplashTextRenderer getSplash() {
@@ -85,7 +74,7 @@ public class TitleScreenRenderManager {
             }
             drawnPictures[i] = new Picture(random.nextInt(drawingTextures.length - 1), x, y, 0.5F, random.nextFloat() * 0.5F + 0.5F);
         }
-        drawnEnscriptions = new Enscription[4 + random.nextInt(8)];
+        Enscription[] drawnEnscriptions = new Enscription[4 + random.nextInt(8)];
         for (int i = 0; i < drawnEnscriptions.length; i++) {
             left = !left;
             int x;
@@ -121,7 +110,6 @@ public class TitleScreenRenderManager {
                 resetDrawnImages();
             }
         }
-
         layerTick++;
     }
 
@@ -141,7 +129,9 @@ public class TitleScreenRenderManager {
             for (Picture picture : drawnPictures) {
                 RenderSystem.enableBlend();
                 RenderSystem.setShaderColor(1, 1, 1, 1);
-                ms.drawTexture(drawingTextures[picture.image], (int) (picture.x * widthScale) + middleX, (int) ((picture.y * heightScale) + middleY), 0, 0, (int) imageScale, (int) imageScale, (int) imageScale, (int) imageScale);
+                int x = (int) (picture.x * widthScale) + middleX;
+                int y = (int) ((picture.y * heightScale) + middleY);
+                ms.drawTexture(drawingTextures[picture.image], x, y, 0, 0, (int) imageScale, (int) imageScale, (int) imageScale, (int) imageScale);
                 RenderSystem.disableBlend();
             }
         }
@@ -150,7 +140,8 @@ public class TitleScreenRenderManager {
     public static void drawModName(DrawContext ms, int width, int height) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager._enableBlend();
-        textRenderer.draw("Ice and Fire " + Formatting.YELLOW + VERSION, 2, height - 20, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        textRenderer.draw("Ice and Fire " + Formatting.YELLOW + dev.arktechmc.iafextra.IceAndFire.VERSION, 2, height - 30, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        textRenderer.draw(Formatting.GOLD + "Report if you meet any crash.", 2, height - 20, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 
     private static class Picture {

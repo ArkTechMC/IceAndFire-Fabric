@@ -27,7 +27,15 @@ public class IafTabRegistry {
             // Set icon of creative tab
             .icon(() -> new ItemStack(IafBlockRegistry.DRAGON_SCALE_RED.get()))
             // Add default items to tab
-            .entries((params, output) -> TAB_BLOCKS_LIST.forEach(block -> output.add(block.get())))
+            .entries((params, output) -> {
+                for (Supplier<? extends Block> block : TAB_BLOCKS_LIST) {
+                    ItemStack stack = new ItemStack(block.get());
+                    if (!stack.isEmpty())
+                        output.add(stack);
+                    else
+                        System.err.println("Failed to put item: " + block.get());
+                }
+            })
             .build()
     );
 
@@ -37,7 +45,11 @@ public class IafTabRegistry {
             // Set icon of creative tab
             .icon(() -> new ItemStack(IafItemRegistry.DRAGON_SKULL_FIRE.get()))
             // Add default items to tab
-            .entries((params, output) -> TAB_ITEMS_LIST.forEach(block -> output.add(block.get())))
+            .entries((params, output) -> {
+                for (Supplier<? extends Item> item : TAB_ITEMS_LIST) {
+                    output.add(item.get());
+                }
+            })
             .build()
     );
 }

@@ -3,7 +3,7 @@
   "dragon_type": "lightning",
   "cook_time": 1000,
   "input": {
-    "tag": "forge:ingots/iron"
+    "item": "minecraft:iron_ingot"
   },
   "blood": {
     "item": "iceandfire:lightning_dragon_blood"

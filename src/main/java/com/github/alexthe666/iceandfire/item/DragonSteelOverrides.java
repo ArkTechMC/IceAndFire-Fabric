@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IafConfig;
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
 import com.google.common.collect.Multimap;
@@ -16,8 +17,11 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -45,19 +49,19 @@ public interface DragonSteelOverrides<T extends ToolItem> {
     }
 
     default boolean isDragonsteel(ToolMaterial tier) {
-        return tier.getTag() == DragonSteelTier.DRAGONSTEEL_TIER_TAG;
+        return tier.getTag() == TagKey.of(RegistryKeys.BLOCK, new Identifier(IceAndFire.MOD_ID, "needs_dragonsteel"));
     }
 
     default boolean isDragonsteelFire(ToolMaterial tier) {
-        return tier == DragonSteelTier.DRAGONSTEEL_TIER_FIRE;
+        return tier == DragonSteelTier.createMaterialWithRepairItem(IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), "dragonsteel_tier_fire");
     }
 
     default boolean isDragonsteelIce(ToolMaterial tier) {
-        return tier == DragonSteelTier.DRAGONSTEEL_TIER_ICE;
+        return tier == DragonSteelTier.createMaterialWithRepairItem(IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), "dragonsteel_tier_ice");
     }
 
     default boolean isDragonsteelLightning(ToolMaterial tier) {
-        return tier == DragonSteelTier.DRAGONSTEEL_TIER_LIGHTNING;
+        return tier == DragonSteelTier.createMaterialWithRepairItem(IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), "dragonsteel_tier_lightning");
     }
 
     default void hurtEnemy(T item, ItemStack stack, LivingEntity target, LivingEntity attacker) {

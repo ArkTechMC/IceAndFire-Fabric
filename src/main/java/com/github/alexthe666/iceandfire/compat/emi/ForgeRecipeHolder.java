@@ -77,9 +77,9 @@ public class ForgeRecipeHolder {
         @Override
         public void addWidgets(WidgetHolder widgets) {
             widgets.addTexture(ForgeRecipeHolder.this.texture, 3, 4);
-            widgets.addSlot(EmiIngredient.of(this.recipe.getInput()), 64, 29);
-            widgets.addSlot(EmiIngredient.of(this.recipe.getBlood()), 82, 29);
-            widgets.addSlot(EmiStack.of(this.recipe.getOutput(null)), 144, 30).recipeContext(this);
+            widgets.addSlot(EmiIngredient.of(this.recipe.getInput()), 67, 33);
+            widgets.addSlot(EmiIngredient.of(this.recipe.getBlood()), 85, 33);
+            widgets.addSlot(EmiStack.of(this.recipe.getOutput(null)), 143, 30).large(true).recipeContext(this);
         }
     }
 }

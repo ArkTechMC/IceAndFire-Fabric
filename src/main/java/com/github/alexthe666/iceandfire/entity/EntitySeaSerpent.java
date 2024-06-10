@@ -9,6 +9,7 @@ import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
+import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -630,7 +631,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                         BlockState state = this.getWorld().getBlockState(pos);
                         FluidState fluidState = this.getWorld().getFluidState(pos);
                         Block block = state.getBlock();
-                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {//TODO: state.getBlock() instanceof IPlantable || in ()
+                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable ||state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {
                             if (block != Blocks.AIR) {
                                 if (!this.getWorld().isClient) {
                                     this.getWorld().breakBlock(pos, true);

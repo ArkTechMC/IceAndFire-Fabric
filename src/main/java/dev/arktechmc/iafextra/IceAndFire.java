@@ -31,11 +31,22 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.*;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
+
 public class IceAndFire implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final String VERSION;
+
+    static {
+        Optional<ModContainer> container = FabricLoader.getInstance().getModContainer(com.github.alexthe666.iceandfire.IceAndFire.MOD_ID);
+        if (container.isPresent()) VERSION = container.get().getMetadata().getVersion().getFriendlyString();
+        else VERSION = "Unknown";
+    }
 
     @Override
     public void onInitialize() {
@@ -45,6 +56,34 @@ public class IceAndFire implements ModInitializer {
         Citadel.ITEMS.register();
         Citadel.BLOCKS.register();
         Citadel.BLOCK_ENTITIES.register();
+
+        IafRecipeRegistry.registerDispenser();
+        IafItemRegistry.registerItems();
+        IafItemRegistry.setRepairMaterials();
+        IafEntityRegistry.bakeAttributes();
+        IafSoundRegistry.registerSoundEvents();
+        EventRegistration.register();
+        IafVillagerRegistry.addScribeTrades();
+        IafRecipeRegistry.init();
+        IafLootRegistry.init();
+
+        IafEntityRegistry.ENTITIES.register();
+        IafTileEntityRegistry.TYPES.register();
+        IafPlacementFilterRegistry.PLACEMENT_MODIFIER_TYPES.register();
+        IafWorldRegistry.FEATURES.register();
+        IafBannerPatterns.BANNERS.register();
+        IafStructureTypes.STRUCTURE_TYPES.register();
+        IafContainerRegistry.CONTAINERS.register();
+        IafRecipeSerializers.SERIALIZERS.register();
+        IafProcessors.PROCESSORS.register();
+        IafBlockRegistry.BLOCKS.register();
+        IafItemRegistry.ITEMS.register();
+        IafTabRegistry.TAB_REGISTER.register();
+
+        IafVillagerRegistry.POI_TYPES.register();
+        IafVillagerRegistry.PROFESSIONS.register();
+        IafEntityRegistry.addSpawners();
+        IafEntityRegistry.commonSetup();
 
         PlayerBlockBreakEvents.AFTER.register(ServerEvents::onBreakBlock);
         UseEntityCallback.EVENT.register(ServerEvents::onEntityInteract);
@@ -60,39 +99,11 @@ public class IceAndFire implements ModInitializer {
         LivingEntityEvents.DROPS.register(ServerEvents::onEntityDrop);
         LivingEntityEvents.FALL.register(ServerEvents::onEntityFall);
 
-        IafItemRegistry.ITEMS.register();
-        IafBlockRegistry.BLOCKS.register();
-        IafTabRegistry.TAB_REGISTER.register();
-        IafEntityRegistry.ENTITIES.register();
-        IafTileEntityRegistry.TYPES.register();
-        IafPlacementFilterRegistry.PLACEMENT_MODIFIER_TYPES.register();
-        IafWorldRegistry.FEATURES.register();
-        IafRecipeRegistry.init();
-        IafBannerPatterns.BANNERS.register();
-        IafStructureTypes.STRUCTURE_TYPES.register();
-        IafContainerRegistry.CONTAINERS.register();
-        IafRecipeSerializers.SERIALIZERS.register();
-        IafProcessors.PROCESSORS.register();
-        IafLootRegistry.init();
-
-        IafVillagerRegistry.POI_TYPES.register();
-        IafVillagerRegistry.PROFESSIONS.register();
-
 //        BiomeModificationImpl.INSTANCE.addModifier(new Identifier(com.github.alexthe666.iceandfire.IceAndFire.MOD_ID, "biome"),
 //                ModificationPhase.ADDITIONS, context -> true, (context, biomeModificationContext) -> {
 //
 //                    IafWorldRegistry.addFeatures(biome, this.featureMap);
 //                });
-
-        IafRecipeRegistry.registerDispenser();
-        IafItemRegistry.registerItems();
-        IafItemRegistry.setRepairMaterials();
-        IafEntityRegistry.bakeAttributes();
-        IafEntityRegistry.commonSetup();
-        IafEntityRegistry.addSpawners();
-        IafSoundRegistry.registerSoundEvents();
-        EventRegistration.register();
-        IafVillagerRegistry.addScribeTrades();
 
         IafServerNetworkHandler.register();
     }

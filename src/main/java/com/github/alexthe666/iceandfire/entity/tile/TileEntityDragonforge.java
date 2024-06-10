@@ -428,11 +428,11 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
     @Override
     public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        return new ContainerDragonForge(id, this, playerInventory, new ArrayPropertyDelegate(0));
+        return new ContainerDragonForge(id, this, playerInventory,this);
     }
 
     @Override
     protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
-        return new ContainerDragonForge(id, this, player, new ArrayPropertyDelegate(0));
+        return new ContainerDragonForge(id, this, player,this);
     }
 }
