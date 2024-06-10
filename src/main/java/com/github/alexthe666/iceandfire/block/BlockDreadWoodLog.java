@@ -9,13 +9,13 @@ public class BlockDreadWoodLog extends PillarBlock implements IDragonProof, IDre
 
     public BlockDreadWoodLog() {
         super(
-    		Settings
-				.create()
-				.mapColor(MapColor.OAK_TAN)
-				.instrument(Instrument.BASS)
-				.burnable()
-				.strength(2F, 10000F)
-    			.sounds(BlockSoundGroup.WOOD)
-		);
+                Settings
+                        .create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .instrument(Instrument.BASS)
+                        .burnable()
+                        .strength(2F, 10000F)
+                        .sounds(BlockSoundGroup.WOOD)
+        );
     }
 }

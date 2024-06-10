@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.loot;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.iafenvoy.iafextra.util.IdUtil;
+import dev.arktechmc.iafextra.util.IdUtil;
 import net.minecraft.loot.function.LootFunction;
 import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.registry.Registries;
@@ -19,8 +19,8 @@ public class IafLootRegistry {
     }
 
     public static void init() {
-        CUSTOMIZE_TO_DRAGON = register(IdUtil.build(IceAndFire.MOD_ID,"customize_to_dragon"), new CustomizeToDragon.Serializer());
-        CUSTOMIZE_TO_SERPENT = register(IdUtil.build(IceAndFire.MOD_ID,"customize_to_sea_serpent"), new CustomizeToSeaSerpent.Serializer());
+        CUSTOMIZE_TO_DRAGON = register(IdUtil.build(IceAndFire.MOD_ID, "customize_to_dragon"), new CustomizeToDragon.Serializer());
+        CUSTOMIZE_TO_SERPENT = register(IdUtil.build(IceAndFire.MOD_ID, "customize_to_sea_serpent"), new CustomizeToSeaSerpent.Serializer());
     }
 
 }

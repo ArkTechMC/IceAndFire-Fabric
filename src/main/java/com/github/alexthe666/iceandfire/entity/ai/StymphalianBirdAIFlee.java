@@ -39,7 +39,7 @@ public class StymphalianBirdAIFlee extends Goal {
             return false;
         }
         List<LivingEntity> list = this.stymphalianBird.getWorld().getEntitiesByClass(LivingEntity.class, this.stymphalianBird.getBoundingBox().expand(this.avoidDistance, 3.0D, this.avoidDistance),
-            this.canBeSeenSelector);
+                this.canBeSeenSelector);
 
         if (list.isEmpty())
             return false;

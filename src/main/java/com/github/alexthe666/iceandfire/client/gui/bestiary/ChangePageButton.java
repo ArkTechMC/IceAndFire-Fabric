@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class ChangePageButton extends ButtonWidget {
     private final boolean right;
-    public int lastpage = 1;
     private final int color;
+    public int lastpage = 1;
 
     public ChangePageButton(int x, int y, boolean right, int color, PressAction press) {
         super(x, y, 23, 10, Text.literal(""), press, DEFAULT_NARRATION_SUPPLIER);
@@ -21,7 +21,7 @@ public class ChangePageButton extends ButtonWidget {
     @Override
     public void renderButton(@NotNull DrawContext matrixStack, int mouseX, int mouseY, float partial) {
         if (this.active) {
-            Identifier resourceLocation = new Identifier(IceAndFire.MOD_ID,"textures/gui/bestiary/widgets.png");
+            Identifier resourceLocation = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/widgets.png");
             boolean flag = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
             int i = 0;
             int j = 64;

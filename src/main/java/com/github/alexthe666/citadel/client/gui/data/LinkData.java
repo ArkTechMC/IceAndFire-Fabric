@@ -8,13 +8,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 public class LinkData {
+    private final int page;
+    private final String item;
+    private final String item_tag;
     private String linked_page;
     private String text;
     private int x;
     private int y;
-    private final int page;
-    private final String item;
-    private final String item_tag;
 
     public LinkData(String linkedPage, String titleText, int x, int y, int page) {
         this(linkedPage, titleText, x, y, page, null, null);

@@ -1,8 +1,5 @@
 package com.github.alexthe666.citadel.item;
 
-import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
-import com.github.alexthe666.citadel.server.tick.modifier.CelestialTickRateModifier;
-import com.github.alexthe666.citadel.server.tick.modifier.LocalPositionTickRateModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -7,8 +7,6 @@ import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.world.IafWorldData;
 import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import com.mojang.serialization.Codec;
-import java.util.Random;
-import java.util.stream.Collectors;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.LeavesBlock;
@@ -28,6 +26,9 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 import net.minecraft.world.gen.feature.util.FeatureContext;
+
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements TypedFeature {
 

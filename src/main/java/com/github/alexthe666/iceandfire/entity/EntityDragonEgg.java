@@ -10,6 +10,7 @@ import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.collect.ImmutableList;
+import dev.arktechmc.iafextra.util.BlockUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -138,7 +139,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
         DragonType dragonType = this.getEggType().dragonType;
 
         if (dragonType == DragonType.FIRE) {
-            if (this.getWorld().getBlockState(this.getBlockPos()).isBurning(this.getWorld(), this.getBlockPos())) {
+            if (BlockUtil.isBurning(this.getWorld().getBlockState(this.getBlockPos()))) {
                 this.setDragonAge(this.getDragonAge() + 1);
             }
         } else if (dragonType == DragonType.ICE) {

@@ -4,12 +4,6 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.world.gen.TypedFeature;
 import com.mojang.datafixers.util.Pair;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
@@ -18,17 +12,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class IafWorldData extends PersistentState {
-    public enum FeatureType {
-        SURFACE,
-        UNDERGROUND,
-        OCEAN
-    }
-
     private static final String IDENTIFIER = IceAndFire.MOD_ID + "_general";
     private static final Map<FeatureType, List<Pair<String, BlockPos>>> LAST_GENERATED = new HashMap<>();
-
     public IafWorldData() { /* Nothing to do */ }
 
     public IafWorldData(final NbtCompound tag) {
@@ -109,5 +102,11 @@ public class IafWorldData extends PersistentState {
         });
 
         return tag;
+    }
+
+    public enum FeatureType {
+        SURFACE,
+        UNDERGROUND,
+        OCEAN
     }
 }

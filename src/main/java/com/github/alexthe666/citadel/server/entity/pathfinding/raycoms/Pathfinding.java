@@ -4,10 +4,6 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
  */
 
 import com.github.alexthe666.citadel.Citadel;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.thread.ThreadExecutor;
-import net.minecraftforge.common.util.LogicalSidedProvider;
-import net.minecraftforge.fml.LogicalSide;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.*;
@@ -51,17 +47,7 @@ public final class Pathfinding {
 
         @Override
         public Thread newThread(final @NotNull Runnable runnable) throws RuntimeException {
-            ThreadExecutor<?> workqueue = LogicalSidedProvider.WORKQUEUE.get(LogicalSide.SERVER);
-            ClassLoader classLoader;
-            if (workqueue.isOnThread()) {
-                classLoader = Thread.currentThread().getContextClassLoader();
-            } else if (workqueue instanceof MinecraftServer server){
-               classLoader = server.getThread().getContextClassLoader();
-            } else {
-                classLoader = CompletableFuture.supplyAsync(() -> Thread.currentThread().getContextClassLoader(), workqueue).orTimeout(10, TimeUnit.SECONDS).exceptionally((ex)-> {
-                    throw new RuntimeException(String.format("Couldn't join threads within timeout range. Tried joining '%s' on '%s'", Thread.currentThread().getName(), workqueue.getName()));
-                }).join();
-            }
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             final Thread thread = new Thread(runnable, "Citadel Pathfinding Worker #" + (id++));
             thread.setDaemon(true);
             thread.setPriority(Thread.MAX_PRIORITY);

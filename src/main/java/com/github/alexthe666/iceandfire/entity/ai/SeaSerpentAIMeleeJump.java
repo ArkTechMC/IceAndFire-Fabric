@@ -9,7 +9,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
-public class SeaSerpentAIMeleeJump  extends DiveJumpingGoal {
+public class SeaSerpentAIMeleeJump extends DiveJumpingGoal {
     private final EntitySeaSerpent dolphin;
     private int attackCooldown = 0;
     private boolean inWater;
@@ -27,9 +27,9 @@ public class SeaSerpentAIMeleeJump  extends DiveJumpingGoal {
     public boolean shouldContinue() {
         final double d0 = this.dolphin.getVelocity().y;
         return this.dolphin.getTarget() != null && this.dolphin.jumpCooldown > 0
-            && (d0 * d0 >= 0.03F || this.dolphin.getPitch() == 0.0F
-            || Math.abs(this.dolphin.getPitch()) >= 10.0F || !this.dolphin.isTouchingWater())
-            && !this.dolphin.isOnGround();
+                && (d0 * d0 >= 0.03F || this.dolphin.getPitch() == 0.0F
+                || Math.abs(this.dolphin.getPitch()) >= 10.0F || !this.dolphin.isTouchingWater())
+                && !this.dolphin.isOnGround();
     }
 
     @Override

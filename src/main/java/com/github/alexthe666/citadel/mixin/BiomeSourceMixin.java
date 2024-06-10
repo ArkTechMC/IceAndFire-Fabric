@@ -26,13 +26,13 @@ public class BiomeSourceMixin implements ExpandedBiomeSource {
     private Map<RegistryKey<Biome>, RegistryEntry<Biome>> map = new HashMap<>();
 
     @Override
-    public void setResourceKeyMap(Map<RegistryKey<Biome>, RegistryEntry<Biome>> map) {
-        this.map = map;
+    public Map<RegistryKey<Biome>, RegistryEntry<Biome>> getResourceKeyMap() {
+        return this.map;
     }
 
     @Override
-    public Map<RegistryKey<Biome>, RegistryEntry<Biome>> getResourceKeyMap() {
-        return this.map;
+    public void setResourceKeyMap(Map<RegistryKey<Biome>, RegistryEntry<Biome>> map) {
+        this.map = map;
     }
 
     @Override

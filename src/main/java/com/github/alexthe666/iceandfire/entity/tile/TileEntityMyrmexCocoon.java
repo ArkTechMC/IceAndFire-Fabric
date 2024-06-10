@@ -110,11 +110,6 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
     }
 
     @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        this.readNbt(packet.getNbt());
-    }
-
-    @Override
     public @NotNull NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }

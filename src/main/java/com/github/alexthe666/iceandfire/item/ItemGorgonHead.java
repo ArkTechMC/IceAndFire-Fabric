@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.client.render.tile.RenderGorgonHead;
 import com.github.alexthe666.iceandfire.datagen.tags.IafEntityTags;
 import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
@@ -9,7 +8,6 @@ import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
@@ -22,31 +20,15 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.util.NonNullLazy;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 public class ItemGorgonHead extends Item {
 
     public ItemGorgonHead() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(1));
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-            static final NonNullLazy<BuiltinModelItemRenderer> renderer = NonNullLazy.of(() -> new RenderGorgonHead(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()));
-
-            @Override
-            public BuiltinModelItemRenderer getCustomRenderer() {
-                return renderer.get();
-            }
-        });
     }
 
     @Override
@@ -113,7 +95,7 @@ public class ItemGorgonHead extends Item {
                 boolean wasSuccesful = true;
 
                 if (pointedEntity instanceof PlayerEntity) {
-                     wasSuccesful = pointedEntity.damage(IafDamageRegistry.causeGorgonDamage(pointedEntity), Integer.MAX_VALUE);
+                    wasSuccesful = pointedEntity.damage(IafDamageRegistry.causeGorgonDamage(pointedEntity), Integer.MAX_VALUE);
                 } else {
                     if (!worldIn.isClient)
                         pointedEntity.remove(Entity.RemovalReason.KILLED);

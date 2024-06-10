@@ -13,12 +13,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 
-    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/pixie_0.png");
-    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/pixie_1.png");
-    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/pixie_2.png");
-    public static final Identifier TEXTURE_3 = new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/pixie_3.png");
-    public static final Identifier TEXTURE_4 = new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/pixie_4.png");
-    public static final Identifier TEXTURE_5 = new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/pixie_5.png");
+    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_0.png");
+    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_1.png");
+    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_2.png");
+    public static final Identifier TEXTURE_3 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_3.png");
+    public static final Identifier TEXTURE_4 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_4.png");
+    public static final Identifier TEXTURE_5 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_5.png");
 
     public RenderPixie(EntityRendererFactory.Context context) {
         super(context, new ModelPixie(), 0.2F);

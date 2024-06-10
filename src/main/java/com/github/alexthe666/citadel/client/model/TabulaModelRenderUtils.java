@@ -16,14 +16,14 @@ public class TabulaModelRenderUtils {
             this(new Vector3f(p_i1158_1_, p_i1158_2_, p_i1158_3_), p_i1158_4_, p_i1158_5_);
         }
 
-        public PositionTextureVertex setTextureUV(float p_78240_1_, float p_78240_2_) {
-            return new PositionTextureVertex(this.position, p_78240_1_, p_78240_2_);
-        }
-
         public PositionTextureVertex(Vector3f p_i225952_1_, float p_i225952_2_, float p_i225952_3_) {
             this.position = p_i225952_1_;
             this.textureU = p_i225952_2_;
             this.textureV = p_i225952_3_;
+        }
+
+        public PositionTextureVertex setTextureUV(float p_78240_1_, float p_78240_2_) {
+            return new PositionTextureVertex(this.position, p_78240_1_, p_78240_2_);
         }
     }
 

@@ -1,16 +1,16 @@
 package com.github.alexthe666.citadel.client.render;
 
-import org.joml.Matrix4f;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
+import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Matrix4f;
+
+import java.util.*;
 
 /*
     Lightning bolt effect code used with permission from aidancbrady
@@ -19,13 +19,10 @@ public class LightningRender {
 
     private static final float REFRESH_TIME = 3F;
     private static final double MAX_OWNER_TRACK_TIME = 100;
-
-    private Timestamp refreshTimestamp = new Timestamp();
-
     private final Random random = new Random();
     private final MinecraftClient minecraft = MinecraftClient.getInstance();
-
     private final Map<Object, BoltOwnerData> boltOwners = new Object2ObjectOpenHashMap<>();
+    private Timestamp refreshTimestamp = new Timestamp();
 
     public void render(float partialTicks, MatrixStack PoseStackIn, VertexConsumerProvider bufferIn) {
         VertexConsumer buffer = bufferIn.getBuffer(RenderLayer.getLightning());

@@ -57,7 +57,7 @@ public class HippogryphAIMate extends Goal {
     @Override
     public void tick() {
         this.hippo.getLookControl().lookAt(this.targetMate, 10.0F,
-            this.hippo.getMaxLookPitchChange());
+                this.hippo.getMaxLookPitchChange());
         this.hippo.getNavigation().startMovingTo(this.targetMate, this.moveSpeed);
         ++this.spawnBabyDelay;
 
@@ -68,7 +68,7 @@ public class HippogryphAIMate extends Goal {
 
     private EntityHippogryph getNearbyMate() {
         List<EntityHippogryph> list = this.world.getNonSpectatingEntities(EntityHippogryph.class,
-            this.hippo.getBoundingBox().expand(8.0D));
+                this.hippo.getBoundingBox().expand(8.0D));
         double d0 = Double.MAX_VALUE;
         EntityHippogryph entityanimal = null;
 
@@ -84,7 +84,7 @@ public class HippogryphAIMate extends Goal {
 
     private void spawnBaby() {
         ItemEntity egg = new ItemEntity(this.world, this.hippo.getX(), this.hippo.getY(), this.hippo.getZ(),
-            ItemHippogryphEgg.createEggStack(this.hippo.getEnumVariant(), this.targetMate.getEnumVariant()));
+                ItemHippogryphEgg.createEggStack(this.hippo.getEnumVariant(), this.targetMate.getEnumVariant()));
         this.hippo.setBreedingAge(6000);
         this.targetMate.setBreedingAge(6000);
         this.hippo.resetLoveTicks();
@@ -103,12 +103,12 @@ public class HippogryphAIMate extends Goal {
             final double d4 = 0.5D + random.nextDouble() * this.hippo.getHeight();
             final double d5 = random.nextDouble() * this.hippo.getWidth() * 2.0D - this.hippo.getWidth();
             this.world.addParticle(ParticleTypes.HEART, this.hippo.getX() + d3, this.hippo.getY() + d4,
-                this.hippo.getZ() + d5, d0, d1, d2);
+                    this.hippo.getZ() + d5, d0, d1, d2);
         }
 
         if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
             this.world.spawnEntity(new ExperienceOrbEntity(this.world, this.hippo.getX(), this.hippo.getY(),
-                this.hippo.getZ(), random.nextInt(7) + 1));
+                    this.hippo.getZ(), random.nextInt(7) + 1));
         }
     }
 }

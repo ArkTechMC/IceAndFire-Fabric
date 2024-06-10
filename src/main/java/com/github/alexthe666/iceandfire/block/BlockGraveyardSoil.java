@@ -20,13 +20,13 @@ public class BlockGraveyardSoil extends Block {
 
     public BlockGraveyardSoil() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.DIRT_BROWN)
-                .sounds(BlockSoundGroup.GRAVEL)
-                .strength(5, 1F)
-                .ticksRandomly()
-		);
+                Settings
+                        .create()
+                        .mapColor(MapColor.DIRT_BROWN)
+                        .sounds(BlockSoundGroup.GRAVEL)
+                        .strength(5, 1F)
+                        .ticksRandomly()
+        );
     }
 
 
@@ -41,7 +41,7 @@ public class BlockGraveyardSoil extends Block {
                 if (k < 10) {
                     EntityGhost ghost = IafEntityRegistry.GHOST.get().create(worldIn);
                     ghost.updatePositionAndAngles(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F,
-                        ThreadLocalRandom.current().nextFloat() * 360F, 0);
+                            ThreadLocalRandom.current().nextFloat() * 360F, 0);
                     if (!worldIn.isClient) {
                         ghost.initialize(worldIn, worldIn.getLocalDifficulty(pos), SpawnReason.SPAWNER, null, null);
                         worldIn.spawnEntity(ghost);

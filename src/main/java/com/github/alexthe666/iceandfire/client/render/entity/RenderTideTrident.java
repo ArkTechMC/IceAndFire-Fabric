@@ -15,7 +15,7 @@ import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.NotNull;
 
 public class RenderTideTrident extends EntityRenderer<EntityTideTrident> {
-    public static final Identifier TRIDENT = new Identifier(IceAndFire.MOD_ID,"textures/models/misc/tide_trident.png");
+    public static final Identifier TRIDENT = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/tide_trident.png");
     private final ModelTideTrident tridentModel = new ModelTideTrident();
 
     public RenderTideTrident(EntityRendererFactory.Context context) {

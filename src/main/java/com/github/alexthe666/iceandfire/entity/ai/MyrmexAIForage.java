@@ -4,9 +4,9 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.PathResult;
-import com.iafenvoy.iafextra.event.EventBus;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
@@ -29,9 +29,9 @@ public class MyrmexAIForage extends Goal {
     private static final int RADIUS = 16;
     private final EntityMyrmexWorker myrmex;
     private final BlockSorter targetSorter;
+    private final int chance;
     private BlockPos targetBlock = null;
     private int wanderRadius;
-    private final int chance;
     private PathResult path;
     private int failedToFindPath = 0;
 
@@ -171,16 +171,6 @@ public class MyrmexAIForage extends Goal {
         return deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
     }
 
-    public class BlockSorter implements Comparator<BlockPos> {
-
-        @Override
-        public int compare(BlockPos pos1, BlockPos pos2) {
-            double distance1 = MyrmexAIForage.this.getDistanceSq(pos1);
-            double distance2 = MyrmexAIForage.this.getDistanceSq(pos2);
-            return Double.compare(distance1, distance2);
-        }
-    }
-
     private List<BlockPos> getEdibleBlocks() {
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos.stream(this.myrmex.getBlockPos().add(-RADIUS, -RADIUS / 2, -RADIUS),
@@ -225,6 +215,16 @@ public class MyrmexAIForage extends Goal {
             return true;
         }
         return false;
+    }
+
+    public class BlockSorter implements Comparator<BlockPos> {
+
+        @Override
+        public int compare(BlockPos pos1, BlockPos pos2) {
+            double distance1 = MyrmexAIForage.this.getDistanceSq(pos1);
+            double distance2 = MyrmexAIForage.this.getDistanceSq(pos2);
+            return Double.compare(distance1, distance2);
+        }
     }
 
 }

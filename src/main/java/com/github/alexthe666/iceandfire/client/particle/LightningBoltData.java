@@ -39,6 +39,11 @@ public class LightningBoltData {
         this.segments = segments;
     }
 
+    private static Vec3d findRandomOrthogonalVector(Vec3d vec, Random rand) {
+        Vec3d newVec = new Vec3d(-0.5 + rand.nextDouble(), -0.5 + rand.nextDouble(), -0.5 + rand.nextDouble());
+        return vec.crossProduct(newVec).normalize();
+    }
+
     public LightningBoltData count(int count) {
         this.count = count;
         return this;
@@ -125,11 +130,6 @@ public class LightningBoltData {
         return quads;
     }
 
-    private static Vec3d findRandomOrthogonalVector(Vec3d vec, Random rand) {
-        Vec3d newVec = new Vec3d(-0.5 + rand.nextDouble(), -0.5 + rand.nextDouble(), -0.5 + rand.nextDouble());
-        return vec.crossProduct(newVec).normalize();
-    }
-
     private Pair<BoltQuads, QuadCache> createQuads(QuadCache cache, Vec3d startPos, Vec3d end, float size) {
         Vec3d diff = end.subtract(startPos);
         Vec3d rightAdd = diff.crossProduct(new Vec3d(0.5, 0.5, 0.5)).normalize().multiply(size);
@@ -148,47 +148,6 @@ public class LightningBoltData {
         quads.addQuad(startBack, endBack, endRight, startRight);
 
         return Pair.of(quads, new QuadCache(end, endRight, endBack));
-    }
-
-    private static class QuadCache {
-
-        private final Vec3d prevEnd, prevEndRight, prevEndBack;
-
-        private QuadCache(Vec3d prevEnd, Vec3d prevEndRight, Vec3d prevEndBack) {
-            this.prevEnd = prevEnd;
-            this.prevEndRight = prevEndRight;
-            this.prevEndBack = prevEndBack;
-        }
-    }
-
-    protected static class BoltInstructions {
-
-        private final Vec3d start;
-        private final Vec3d perpendicularDist;
-        private final QuadCache cache;
-        private final float progress;
-        private final boolean isBranch;
-
-        private BoltInstructions(Vec3d start, float progress, Vec3d perpendicularDist, QuadCache cache, boolean isBranch) {
-            this.start = start;
-            this.perpendicularDist = perpendicularDist;
-            this.progress = progress;
-            this.cache = cache;
-            this.isBranch = isBranch;
-        }
-    }
-
-    public class BoltQuads {
-
-        private final List<Vec3d> vecs = new ArrayList<>();
-
-        protected void addQuad(Vec3d... quadVecs) {
-            this.vecs.addAll(Arrays.asList(quadVecs));
-        }
-
-        public List<Vec3d> getVecs() {
-            return this.vecs;
-        }
     }
 
     public interface SpreadFunction {
@@ -219,10 +178,14 @@ public class LightningBoltData {
 
     public interface SegmentSpreader {
 
-        /** Don't remember where the last segment left off, just randomly move from the straight-line vector. */
+        /**
+         * Don't remember where the last segment left off, just randomly move from the straight-line vector.
+         */
         SegmentSpreader NO_MEMORY = (perpendicularDist, randVec, maxDiff, scale, progress) -> randVec.multiply(maxDiff);
 
-        /** Move from where the previous segment ended by a certain memory factor. Higher memory will restrict perpendicular movement. */
+        /**
+         * Move from where the previous segment ended by a certain memory factor. Higher memory will restrict perpendicular movement.
+         */
         static SegmentSpreader memory(float memoryFactor) {
             return (perpendicularDist, randVec, maxDiff, spreadScale, progress) -> {
                 float nextDiff = maxDiff * (1 - memoryFactor);
@@ -240,21 +203,28 @@ public class LightningBoltData {
 
     public interface SpawnFunction {
 
-        /** Allow for bolts to be spawned each update call without any delay. */
+        /**
+         * Allow for bolts to be spawned each update call without any delay.
+         */
         SpawnFunction NO_DELAY = (rand) -> Pair.of(0F, 0F);
-        /** Will re-spawn a bolt each time one expires. */
+        /**
+         * Will re-spawn a bolt each time one expires.
+         */
         SpawnFunction CONSECUTIVE = new SpawnFunction() {
             @Override
             public Pair<Float, Float> getSpawnDelayBounds(Random rand) {
                 return Pair.of(0F, 0F);
             }
+
             @Override
             public boolean isConsecutive() {
                 return true;
             }
         };
 
-        /** Spawn bolts with a specified constant delay. */
+        /**
+         * Spawn bolts with a specified constant delay.
+         */
         static SpawnFunction delay(float delay) {
             return (rand) -> Pair.of(delay, delay);
         }
@@ -280,10 +250,14 @@ public class LightningBoltData {
 
     public interface FadeFunction {
 
-        /** No fade; render the bolts entirely throughout their lifespan. */
+        /**
+         * No fade; render the bolts entirely throughout their lifespan.
+         */
         FadeFunction NONE = (totalBolts, lifeScale) -> Pair.of(0, totalBolts);
 
-        /** Remder bolts with a segment-by-segment 'fade' in and out, with a specified fade duration (applied to start and finish). */
+        /**
+         * Remder bolts with a segment-by-segment 'fade' in and out, with a specified fade duration (applied to start and finish).
+         */
         static FadeFunction fade(float fade) {
             return (totalBolts, lifeScale) -> {
                 int start = lifeScale > (1 - fade) ? (int) (totalBolts * (lifeScale - (1 - fade)) / fade) : 0;
@@ -295,18 +269,48 @@ public class LightningBoltData {
         Pair<Integer, Integer> getRenderBounds(int totalBolts, float lifeScale);
     }
 
+    private static class QuadCache {
+
+        private final Vec3d prevEnd, prevEndRight, prevEndBack;
+
+        private QuadCache(Vec3d prevEnd, Vec3d prevEndRight, Vec3d prevEndBack) {
+            this.prevEnd = prevEnd;
+            this.prevEndRight = prevEndRight;
+            this.prevEndBack = prevEndBack;
+        }
+    }
+
+    protected static class BoltInstructions {
+
+        private final Vec3d start;
+        private final Vec3d perpendicularDist;
+        private final QuadCache cache;
+        private final float progress;
+        private final boolean isBranch;
+
+        private BoltInstructions(Vec3d start, float progress, Vec3d perpendicularDist, QuadCache cache, boolean isBranch) {
+            this.start = start;
+            this.perpendicularDist = perpendicularDist;
+            this.progress = progress;
+            this.cache = cache;
+            this.isBranch = isBranch;
+        }
+    }
+
     public static class BoltRenderInfo {
 
         public static final BoltRenderInfo DEFAULT = new BoltRenderInfo();
         public static final BoltRenderInfo ELECTRICITY = electricity();
-
-        /** How much variance is allowed in segment lengths (parallel to straight line). */
+        private final RandomFunction randomFunction = RandomFunction.GAUSSIAN;
+        private final SpreadFunction spreadFunction = SpreadFunction.SINE;
+        /**
+         * How much variance is allowed in segment lengths (parallel to straight line).
+         */
         private float parallelNoise = 0.1F;
         /**
          * How much variance is allowed perpendicular to the straight line vector. Scaled by distance and spread function.
          */
         private float spreadFactor = 0.1F;
-
         /**
          * The chance of creating an additional branch after a certain segment.
          */
@@ -315,16 +319,8 @@ public class LightningBoltData {
          * The chance of a branch continuing (post-initiation).
          */
         private float branchContinuationFactor = 0.0F;
-
         private Vector4f color = new Vector4f(0.45F, 0.45F, 0.5F, 0.8F);
-
-        private final RandomFunction randomFunction = RandomFunction.GAUSSIAN;
-        private final SpreadFunction spreadFunction = SpreadFunction.SINE;
         private SegmentSpreader segmentSpreader = SegmentSpreader.NO_MEMORY;
-
-        public static BoltRenderInfo electricity() {
-            return new BoltRenderInfo(0.5F, 0.25F, 0.25F, 0.15F, new Vector4f(0.70F, 0.45F, 0.89F, 0.8F), 0.8F);
-        }
 
         public BoltRenderInfo() {
         }
@@ -336,6 +332,23 @@ public class LightningBoltData {
             this.branchContinuationFactor = branchContinuationFactor;
             this.color = color;
             this.segmentSpreader = SegmentSpreader.memory(closeness);
+        }
+
+        public static BoltRenderInfo electricity() {
+            return new BoltRenderInfo(0.5F, 0.25F, 0.25F, 0.15F, new Vector4f(0.70F, 0.45F, 0.89F, 0.8F), 0.8F);
+        }
+    }
+
+    public class BoltQuads {
+
+        private final List<Vec3d> vecs = new ArrayList<>();
+
+        protected void addQuad(Vec3d... quadVecs) {
+            this.vecs.addAll(Arrays.asList(quadVecs));
+        }
+
+        public List<Vec3d> getVecs() {
+            return this.vecs;
         }
     }
 }

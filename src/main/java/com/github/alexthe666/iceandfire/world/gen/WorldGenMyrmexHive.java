@@ -11,9 +11,6 @@ import com.github.alexthe666.iceandfire.world.IafWorldData;
 import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import com.mojang.serialization.Codec;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnReason;
@@ -30,19 +27,23 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements TypedFeature {
 
     private static final BlockState DESERT_RESIN = IafBlockRegistry.MYRMEX_DESERT_RESIN.get().getDefaultState();
     private static final BlockState STICKY_DESERT_RESIN = IafBlockRegistry.MYRMEX_DESERT_RESIN_STICKY.get().getDefaultState();
     private static final BlockState JUNGLE_RESIN = IafBlockRegistry.MYRMEX_JUNGLE_RESIN.get().getDefaultState();
     private static final BlockState STICKY_JUNGLE_RESIN = IafBlockRegistry.MYRMEX_JUNGLE_RESIN_STICKY.get().getDefaultState();
+    private final boolean jungle;
     public MyrmexHive hive;
     private int entrances = 0;
     private int totalRooms;
     private boolean hasFoodRoom;
     private boolean hasNursery;
     private boolean small;
-    private final boolean jungle;
     private BlockPos centerOfHive;
 
     public WorldGenMyrmexHive(boolean small, boolean jungle, Codec<DefaultFeatureConfig> configFactoryIn) {
@@ -113,7 +114,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
 
             for (int i = 0; i < 4 + rand.nextInt(3); i++) {
                 EntityMyrmexBase myrmex = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(),
-                    world.toServerWorld());
+                        world.toServerWorld());
                 myrmex.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
                 myrmex.setHive(this.hive);
                 myrmex.updatePositionAndAngles(ground.getX() + 0.5D, ground.getY() + 1D, ground.getZ() + 0.5D, 0, 0);
@@ -122,7 +123,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             }
             for (int i = 0; i < 2 + rand.nextInt(2); i++) {
                 EntityMyrmexBase myrmex = new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(),
-                    world.toServerWorld());
+                        world.toServerWorld());
                 myrmex.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
                 myrmex.setHive(this.hive);
                 myrmex.updatePositionAndAngles(ground.getX() + 0.5D, ground.getY() + 1D, ground.getZ() + 0.5D, 0, 0);
@@ -131,7 +132,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             }
             for (int i = 0; i < rand.nextInt(2); i++) {
                 EntityMyrmexBase myrmex = new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(),
-                    world.toServerWorld());
+                        world.toServerWorld());
                 myrmex.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
                 myrmex.setHive(this.hive);
                 myrmex.updatePositionAndAngles(ground.getX() + 0.5D, ground.getY() + 1D, ground.getZ() + 0.5D, 0, 0);
@@ -216,8 +217,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         BlockPos up = position.up();
         this.hive.getEntranceBottoms().put(up, direction);
         while (up.getY() < world.getTopPosition(this.small ? Heightmap.Type.MOTION_BLOCKING_NO_LEAVES : Heightmap.Type.WORLD_SURFACE_WG, up).getY()
-                && ! world.getBlockState(up).isIn(BlockTags.LOGS))
-        {
+                && !world.getBlockState(up).isIn(BlockTags.LOGS)) {
             this.generateCircleRespectSky(world, rand, up, size, height, direction);
             up = up.up().offset(direction);
         }
@@ -363,7 +363,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F)
-                && (!world.isAir(blockpos) || world.isAir(blockpos) && !this.hasResinUnder(blockpos, world))) {
+                    && (!world.isAir(blockpos) || world.isAir(blockpos) && !this.hasResinUnder(blockpos, world))) {
                 world.setBlockState(blockpos, rand.nextInt(3) == 0 ? fill2 : fill, 2);
             }
         }
@@ -378,7 +378,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F)
-                && !world.isAir(blockpos)) {
+                    && !world.isAir(blockpos)) {
                 world.setBlockState(blockpos, rand.nextInt(3) == 0 ? fill2 : fill, 2);
             }
         }
@@ -493,6 +493,15 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         }
     }
 
+    @Override
+    public IafWorldData.FeatureType getFeatureType() {
+        return IafWorldData.FeatureType.SURFACE;
+    }
+
+    @Override
+    public String getId() {
+        return "myrmex_hive";
+    }
 
     public enum RoomType {
         DEFAULT(false),
@@ -519,15 +528,5 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             }
             return list.get(rand.nextInt(list.size()));
         }
-    }
-
-    @Override
-    public IafWorldData.FeatureType getFeatureType() {
-        return IafWorldData.FeatureType.SURFACE;
-    }
-
-    @Override
-    public String getId() {
-        return "myrmex_hive";
     }
 }

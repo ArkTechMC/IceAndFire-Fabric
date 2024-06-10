@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.PathResult;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,16 +11,16 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class MyrmexAIAttackMelee extends Goal {
-    protected EntityMyrmexBase myrmex;
-    private int attackTick;
     private final double speedTowardsTarget;
     private final boolean longMemory;
+    private final boolean canPenalize = false;
+    protected EntityMyrmexBase myrmex;
+    private int attackTick;
     private int delayCounter;
     private double targetX;
     private double targetY;
     private double targetZ;
     private int failedPathFindingPenalty = 0;
-    private final boolean canPenalize = false;
     private PathResult attackPath;
 
     public MyrmexAIAttackMelee(EntityMyrmexBase dragon, double speedIn, boolean useLongMemory) {

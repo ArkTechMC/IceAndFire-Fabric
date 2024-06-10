@@ -1,11 +1,13 @@
 package com.github.alexthe666.citadel.server.entity.collision;
 
+import dev.arktechmc.iafextra.util.PathUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldView;
 
 public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
 
@@ -43,7 +45,7 @@ public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
 
     protected static PathNodeType getNodes(BlockView p_237238_0_, BlockPos p_237238_1_) {
         BlockState blockstate = p_237238_0_.getBlockState(p_237238_1_);
-        PathNodeType type = blockstate.getBlockPathType(p_237238_0_, p_237238_1_, null);
+        PathNodeType type = PathUtil.getAiPathNodeType(blockstate, (WorldView) p_237238_0_, p_237238_1_);
         if (type != null) return type;
         if (blockstate.isAir()) {
             return PathNodeType.OPEN;

@@ -14,12 +14,12 @@ public class DragonType {
         this.name = name;
     }
 
-    public static String getNameFromInt(int type){
-        if(type == 2){
+    public static String getNameFromInt(int type) {
+        if (type == 2) {
             return "lightning";
-        }else if (type == 1){
+        } else if (type == 1) {
             return "ice";
-        }else{
+        } else {
             return "fire";
         }
     }

@@ -40,9 +40,9 @@ public class LegSolver {
         public final float forward;
         public final float side;
         private final float range;
+        private final boolean isWing;
         private float height;
         private float prevHeight;
-        private final boolean isWing;
 
         public Leg(float forward, float side, float range, boolean isWing) {
             this.forward = forward;

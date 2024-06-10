@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadScuttler extends MobEntityRenderer<EntityDreadScuttler, ModelDreadScuttler> {
 
-    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_scuttler_eyes.png");
-    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_scuttler.png");
+    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_scuttler_eyes.png");
+    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_scuttler.png");
 
     public RenderDreadScuttler(EntityRendererFactory.Context context) {
         super(context, new ModelDreadScuttler(), 0.75F);

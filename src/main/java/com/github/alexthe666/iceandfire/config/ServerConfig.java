@@ -1,7 +1,5 @@
 package com.github.alexthe666.iceandfire.config;
 
-import io.github.fabricators_of_create.porting_lib.config.ConfigType;
-import io.github.fabricators_of_create.porting_lib.config.ModConfig;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 public class ServerConfig {
@@ -68,7 +66,7 @@ public class ServerConfig {
     public final ModConfigSpec.BooleanValue spawnCockatrices;
     public final ModConfigSpec.IntValue cockatriceSpawnRate;
     public final ModConfigSpec.IntValue stymphalianBirdTargetSearchLength;
-    public final ModConfigSpec.IntValue stymphalianBirdFeatherDropChance ;
+    public final ModConfigSpec.IntValue stymphalianBirdFeatherDropChance;
     public final ModConfigSpec.DoubleValue stymphalianBirdFeatherAttackStength;
     public final ModConfigSpec.IntValue stymphalianBirdFlockLength;
     public final ModConfigSpec.IntValue stymphalianBirdFlightHeight;
@@ -85,14 +83,14 @@ public class ServerConfig {
     public final ModConfigSpec.IntValue myrmexPregnantTicks;
     public final ModConfigSpec.IntValue myrmexEggTicks;
     public final ModConfigSpec.IntValue myrmexLarvaTicks;
-    public final ModConfigSpec.IntValue myrmexColonyGenChance ;
+    public final ModConfigSpec.IntValue myrmexColonyGenChance;
     public final ModConfigSpec.IntValue myrmexColonySize;
-    public final ModConfigSpec.DoubleValue myrmexBaseAttackStrength ;
+    public final ModConfigSpec.DoubleValue myrmexBaseAttackStrength;
     public final ModConfigSpec.IntValue myrmexMaximumWanderRadius;
     public final ModConfigSpec.BooleanValue myrmexHiveIgnoreDaytime;
     public final ModConfigSpec.BooleanValue spawnAmphitheres;
     public final ModConfigSpec.IntValue amphithereSpawnRate;
-    public final ModConfigSpec.IntValue amphithereVillagerSearchLength ;
+    public final ModConfigSpec.IntValue amphithereVillagerSearchLength;
     public final ModConfigSpec.IntValue amphithereTameTime;
     public final ModConfigSpec.DoubleValue amphithereFlightSpeed;
     public final ModConfigSpec.DoubleValue amphithereMaxHealth;
@@ -119,8 +117,6 @@ public class ServerConfig {
     public final ModConfigSpec.BooleanValue explosiveDragonBreath;
     public final ModConfigSpec.DoubleValue weezerTinkersDisarmChance; // FIXME :: Unused
     public final ModConfigSpec.BooleanValue chunkLoadSummonCrystal;
-    public ModConfigSpec.IntValue dangerousWorldGenDistanceLimit;
-    public ModConfigSpec.IntValue dangerousWorldGenSeparationLimit;
     public final ModConfigSpec.DoubleValue dragonFlightSpeedMod;
     public final ModConfigSpec.DoubleValue hippogryphFlightSpeedMod;
     public final ModConfigSpec.DoubleValue hippocampusSwimSpeedMod;
@@ -128,12 +124,14 @@ public class ServerConfig {
     public final ModConfigSpec.DoubleValue ghostAttackStrength;
     public final ModConfigSpec.BooleanValue generateGraveyards;
     public final ModConfigSpec.BooleanValue ghostSpawnFromPlayerDeaths;
-    public ModConfigSpec.IntValue dragonPathfindingThreads;
-    public ModConfigSpec.IntValue maxDragonPathingNodes;
-    public ModConfigSpec.BooleanValue pathfindingDebug;
     public final ModConfigSpec.BooleanValue dragonWeaponFireAbility;
     public final ModConfigSpec.BooleanValue dragonWeaponIceAbility;
     public final ModConfigSpec.BooleanValue dragonWeaponLightningAbility;
+    public ModConfigSpec.IntValue dangerousWorldGenDistanceLimit;
+    public ModConfigSpec.IntValue dangerousWorldGenSeparationLimit;
+    public ModConfigSpec.IntValue dragonPathfindingThreads;
+    public ModConfigSpec.IntValue maxDragonPathingNodes;
+    public ModConfigSpec.BooleanValue pathfindingDebug;
     public ModConfigSpec.IntValue villagerHouseWeight;
     public ModConfigSpec.BooleanValue allowAttributeOverriding;
 
@@ -262,7 +260,7 @@ public class ServerConfig {
         this.myrmexColonyGenChance = buildInt(builder, "Myrmex Colony Gen Chance", "all", 150, 1, 10000, "One out of this number chance per chunk to generate a myrmex hive.");
         this.myrmexColonySize = buildInt(builder, "Myrmex Colony Max Size", "all", 80, 10, 10000, "How many maximum individuals a myrmex colony can have.");
         this.myrmexBaseAttackStrength = buildDouble(builder, "Myrmex Base Attack Strength", "all", 3, 1, 10000, "Base Myrmex(worker) attack strength");
-        this.myrmexMaximumWanderRadius = buildInt(builder,"Myrmex Maximum Wander Radius","all",50,25,4000,"The maximum radius myrmex area allowed to wander/forage");
+        this.myrmexMaximumWanderRadius = buildInt(builder, "Myrmex Maximum Wander Radius", "all", 50, 25, 4000, "The maximum radius myrmex area allowed to wander/forage");
         this.myrmexHiveIgnoreDaytime = buildBoolean(builder, "Myrmex Hive Ignore Daytime", "all", false, "Myrmex hives will ignore daytime");
         builder.pop();
         builder.push("Amphitheres");
@@ -327,15 +325,15 @@ public class ServerConfig {
         this.pathfindingDebug = buildBoolean(builder, "Debug Pathfinding Mode", "all", false, "Enables the option to draw the pathfinding nodes when enabled (use a stick on an entity)");
     }
 
-    private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment){
+    private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment) {
         return builder.comment(comment).translation(name).define(name, defaultValue);
     }
 
-    private static ModConfigSpec.IntValue buildInt(ModConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment){
+    private static ModConfigSpec.IntValue buildInt(ModConfigSpec.Builder builder, String name, String catagory, int defaultValue, int min, int max, String comment) {
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 
-    private static ModConfigSpec.DoubleValue buildDouble(ModConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment){
+    private static ModConfigSpec.DoubleValue buildDouble(ModConfigSpec.Builder builder, String name, String catagory, double defaultValue, double min, double max, String comment) {
         return builder.comment(comment).translation(name).defineInRange(name, defaultValue, min, max);
     }
 }

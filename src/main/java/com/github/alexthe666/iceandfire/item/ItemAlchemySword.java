@@ -3,8 +3,8 @@ package com.github.alexthe666.iceandfire.item;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
@@ -41,8 +41,8 @@ public class ItemAlchemySword extends SwordItem {
             if (target instanceof EntityFireDragon) {
                 target.damage(attacker.getWorld().getDamageSources().drown(), 13.5F);
             }
-
-            EntityDataProvider.getCapability(target).ifPresent(data -> data.frozenData.setFrozen(target, 200));
+            EntityDataComponent data=EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+            data.frozenData.setFrozen(target, 200);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());

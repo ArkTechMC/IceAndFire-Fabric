@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderGorgon extends MobEntityRenderer<EntityGorgon, ModelGorgon> {
 
-    public static final Identifier PASSIVE_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/gorgon/gorgon_passive.png");
-    public static final Identifier AGRESSIVE_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/gorgon/gorgon_active.png");
-    public static final Identifier DEAD_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/gorgon/gorgon_decapitated.png");
+    public static final Identifier PASSIVE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_passive.png");
+    public static final Identifier AGRESSIVE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_active.png");
+    public static final Identifier DEAD_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_decapitated.png");
 
     public RenderGorgon(EntityRendererFactory.Context context) {
         super(context, new ModelGorgon(), 0.4F);

@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.client;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class IafKeybindRegistry {
     public static KeyBinding dragon_fireAttack;

@@ -13,7 +13,7 @@ import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateCyclops;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -35,8 +35,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -45,8 +46,6 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraftforge.common.MinecraftForge;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBlacklistedFromStatues, IVillagerFear, IHumanoid, IHasCustomizableAttributes {
@@ -74,16 +73,16 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.cyclopsMaxHealth)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.cyclopsAttackStrength)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 20.0D);
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.cyclopsMaxHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.cyclopsAttackStrength)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 20.0D);
     }
 
     @Override
@@ -160,9 +159,9 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             return true;
         } else if (attackDescision == 1) {
             if (!entityIn.hasPassenger(this)
-                && entityIn.getWidth() < 1.95F
-                && !(entityIn instanceof EntityDragonBase)
-                && !entityIn.getType().isIn((Registries.ENTITY_TYPE.tags().createTagKey(IafTagRegistry.CYCLOPS_UNLIFTABLES)))) {
+                    && entityIn.getWidth() < 1.95F
+                    && !(entityIn instanceof EntityDragonBase)
+                    && !entityIn.getType().isIn((TagKey.of(RegistryKeys.ENTITY_TYPE, IafTagRegistry.CYCLOPS_UNLIFTABLES)))) {
                 this.setAnimation(ANIMATION_EATPLAYER);
                 entityIn.stopRiding();
                 entityIn.startRiding(this, true);

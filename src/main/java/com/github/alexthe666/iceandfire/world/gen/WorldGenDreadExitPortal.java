@@ -1,10 +1,11 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import java.util.Random;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class WorldGenDreadExitPortal {
     private static final Identifier STRUCTURE = new Identifier(IceAndFire.MOD_ID, "dread_exit_portal");

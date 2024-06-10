@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -81,7 +81,8 @@ public class ItemSirenFlute extends Item {
 
         if (pointedEntity != null) {
             if (pointedEntity instanceof LivingEntity) {
-                EntityDataProvider.getCapability(pointedEntity).ifPresent(data -> data.miscData.setLoveTicks(600));
+                EntityDataComponent data=EntityDataComponent.ENTITY_DATA_COMPONENT.get(pointedEntity);
+                data.miscData.setLoveTicks(600);
                 itemStackIn.damage(2, player, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             }
         }

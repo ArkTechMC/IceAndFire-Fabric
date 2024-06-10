@@ -42,20 +42,20 @@ public class MyrmexAIFindHidingSpot extends Goal {
 
     @Override
     public void tick() {
-       if (this.targetBlock != null) {
-           this.myrmex.getNavigation().startMovingTo(this.targetBlock.getX() + 0.5D, this.targetBlock.getY(), this.targetBlock.getZ() + 0.5D, 1D);
-           if (this.areMyrmexNear(5) || this.myrmex.isOnResin()) {
-               if (this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
-                   this.wanderRadius += RADIUS;
-                   this.targetBlock = this.getTargetPosition(this.wanderRadius);
-               }
-           } else {
-               if (this.myrmex.getTarget() == null && this.myrmex.getCustomer() == null && this.myrmex.visibleTicks == 0 && this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
-                   this.myrmex.setHiding(true);
-                   this.myrmex.getNavigation().stop();
-               }
-           }
-       }
+        if (this.targetBlock != null) {
+            this.myrmex.getNavigation().startMovingTo(this.targetBlock.getX() + 0.5D, this.targetBlock.getY(), this.targetBlock.getZ() + 0.5D, 1D);
+            if (this.areMyrmexNear(5) || this.myrmex.isOnResin()) {
+                if (this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
+                    this.wanderRadius += RADIUS;
+                    this.targetBlock = this.getTargetPosition(this.wanderRadius);
+                }
+            } else {
+                if (this.myrmex.getTarget() == null && this.myrmex.getCustomer() == null && this.myrmex.visibleTicks == 0 && this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
+                    this.myrmex.setHiding(true);
+                    this.myrmex.getNavigation().stop();
+                }
+            }
+        }
 
     }
 

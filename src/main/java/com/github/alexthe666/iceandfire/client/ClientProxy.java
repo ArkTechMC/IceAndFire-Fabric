@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.client;
 
 import com.github.alexthe666.iceandfire.CommonProxy;
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.gui.GuiMyrmexAddRoom;
 import com.github.alexthe666.iceandfire.client.gui.GuiMyrmexStaff;
 import com.github.alexthe666.iceandfire.client.gui.bestiary.GuiBestiary;
@@ -10,7 +9,6 @@ import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerDragonAr
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
-import com.github.alexthe666.iceandfire.event.ClientEvents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
@@ -23,15 +21,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, value = Dist.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     public static Set<UUID> currentDragonRiders = new HashSet<UUID>();
@@ -52,19 +46,11 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void init() {
-        IafKeybindRegistry.init();
-        MinecraftForge.EVENT_BUS.register(new ClientEvents());
     }
 
     @Override
     public void postInit() {
 
-    }
-
-    @Override
-    public void clientInit() {
-        super.clientInit();
-        IafClientSetup.clientInit();
     }
 
     @Environment(EnvType.CLIENT)

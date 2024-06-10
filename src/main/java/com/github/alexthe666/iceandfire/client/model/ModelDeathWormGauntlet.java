@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.client.model;
 
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.google.common.collect.ImmutableList;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -115,15 +115,14 @@ public class ModelDeathWormGauntlet extends ModelDragonBase {
             return;
         }
 
-        EntityDataProvider.getCapability(holder).ifPresent(data -> {
-            float lungeTicks = data.miscData.lungeTicks + partialTick;
-            this.progressRotation(this.TopJaw, lungeTicks, (float) Math.toRadians(-30), 0, 0);
-            this.progressRotation(this.BottomJaw, lungeTicks, (float) Math.toRadians(30), 0, 0);
-            this.progressPosition(this.JawExtender, lungeTicks, 0, 0, -4);
-            this.progressPosition(this.JawExtender2, lungeTicks, 0, 0, -10);
-            this.progressPosition(this.JawExtender3, lungeTicks, 0, 0, -10);
-            this.progressPosition(this.JawExtender4, lungeTicks, 0, 0, -10);
-        });
+        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(holder);
+        float lungeTicks = data.miscData.lungeTicks + partialTick;
+        this.progressRotation(this.TopJaw, lungeTicks, (float) Math.toRadians(-30), 0, 0);
+        this.progressRotation(this.BottomJaw, lungeTicks, (float) Math.toRadians(30), 0, 0);
+        this.progressPosition(this.JawExtender, lungeTicks, 0, 0, -4);
+        this.progressPosition(this.JawExtender2, lungeTicks, 0, 0, -10);
+        this.progressPosition(this.JawExtender3, lungeTicks, 0, 0, -10);
+        this.progressPosition(this.JawExtender4, lungeTicks, 0, 0, -10);
 
         /*animator.setAnimation(EntityDeathWorm.ANIMATION_BITE);
         animator.startKeyframe(3);

@@ -30,12 +30,12 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return createBaseHorseAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 4.0D);
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 25.0D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 4.0D);
     }
 
 
@@ -67,10 +67,9 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
         if (uuid != null) {
             try {
                 this.setCommanderId(uuid);
-            } catch (Throwable throwable) {
+            } catch (Throwable ignored) {
             }
         }
-
     }
 
     @Override

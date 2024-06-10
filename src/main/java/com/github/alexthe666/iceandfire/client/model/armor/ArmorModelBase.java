@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class ArmorModelBase extends BipedEntityModel<LivingEntity> {
     protected static float INNER_MODEL_OFFSET = 0.38F;
     protected static float OUTER_MODEL_OFFSET = 0.45F;
+
     public ArmorModelBase(ModelPart p_170677_) {
         super(p_170677_);
     }

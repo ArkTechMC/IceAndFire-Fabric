@@ -1,10 +1,9 @@
 package com.github.alexthe666.citadel.mixin.client;
 
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.client.event.EventGetOutlineColor;
 import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
-import com.iafenvoy.iafextra.event.Event;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
@@ -84,13 +83,13 @@ public class LevelRendererMixin {
     }
 
     @Redirect(
-            method = "renderSky",
+            method = "renderSky(Lnet/minecraft/client/util/math/MatrixStack;Lorg/joml/Matrix4f;FLnet/minecraft/client/render/Camera;ZLjava/lang/Runnable;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;getSkyAngle(F)F"),
             expect = 2
     )
     private float citadel_getTimeOfDay(ClientWorld instance, float partialTicks) {
         //default implementation does not lerp the time of day
-        float lerpBy = Citadel.PROXY.isGamePaused() ? 0F : partialTicks;
+        float lerpBy = MinecraftClient.getInstance().isPaused() ? 0F : partialTicks;
         float lerpedDayTime = (instance.getDimension().fixedTime().orElse(instance.getLunarTime()) + lerpBy) / 24000.0F;
         double d0 = MathHelper.fractionalPart((double) lerpedDayTime - 0.25D);
         double d1 = 0.5D - Math.cos(d0 * Math.PI) / 2.0D;

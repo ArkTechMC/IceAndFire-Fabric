@@ -50,8 +50,8 @@ public class GorgonAIStareAttack extends Goal {
                 return;
             }
             this.entity.getLookControl().lookAt(LivingEntity.getX(),
-                LivingEntity.getY() + LivingEntity.getStandingEyeHeight(), LivingEntity.getZ(),
-                this.entity.getMaxHeadRotation(), this.entity.getMaxLookPitchChange());
+                    LivingEntity.getY() + LivingEntity.getStandingEyeHeight(), LivingEntity.getZ(),
+                    this.entity.getMaxHeadRotation(), this.entity.getMaxLookPitchChange());
 
             final double d0 = this.entity.squaredDistanceTo(LivingEntity.getX(), LivingEntity.getBoundingBox().minY, LivingEntity.getZ());
             final boolean flag = this.entity.getVisibilityCache().canSee(LivingEntity);
@@ -96,8 +96,8 @@ public class GorgonAIStareAttack extends Goal {
 
                 this.entity.getMoveControl().strafeTo(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
                 this.entity.getLookControl().lookAt(LivingEntity.getX(),
-                    LivingEntity.getY() + LivingEntity.getStandingEyeHeight(), LivingEntity.getZ(),
-                    this.entity.getMaxHeadRotation(), this.entity.getMaxLookPitchChange());
+                        LivingEntity.getY() + LivingEntity.getStandingEyeHeight(), LivingEntity.getZ(),
+                        this.entity.getMaxHeadRotation(), this.entity.getMaxLookPitchChange());
                 this.entity.forcePreyToLook(LivingEntity);
             } else {
                 this.entity.getLookControl().lookAt(LivingEntity, 30.0F, 30.0F);

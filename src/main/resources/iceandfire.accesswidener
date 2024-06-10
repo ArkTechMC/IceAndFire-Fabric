@@ -22,3 +22,4 @@ accessible field net/minecraft/entity/ai/pathing/PathNodeMaker entityBlockZSize 
 extendable method net/minecraft/client/gui/widget/PressableWidget getTextureY ()I
 accessible class net/minecraft/client/render/RenderPhase$DepthTest
 mutable field net/minecraft/client/render/RenderPhase beginAction Ljava/lang/Runnable;
+accessible method net/minecraft/entity/damage/DamageTracker getBiggestFall ()Lnet/minecraft/entity/damage/DamageRecord;

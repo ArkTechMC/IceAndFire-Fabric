@@ -39,14 +39,28 @@ public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity,
     private static final float INITIAL_HEIGHT = 0.9F;
     public static Animation ANIMATION_SPAWN = Animation.create(40);
     public static Animation ANIMATION_BITE = Animation.create(15);
+    private final int hostileTicks = 0;
     private int animationTick;
     private Animation currentAnimation;
-    private final int hostileTicks = 0;
     private float firstWidth = 1.0F;
     private float firstHeight = 1.0F;
 
     public EntityDreadBeast(EntityType type, World worldIn) {
         super(type, worldIn);
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.45D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 1.0D);
     }
 
     @Override
@@ -69,20 +83,6 @@ public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity,
                 return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
             }
         }));
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 30.0D)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.45D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4.0D)
-                //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
-                //ARMOR
-                .add(EntityAttributes.GENERIC_ARMOR, 1.0D);
     }
 
     @Override

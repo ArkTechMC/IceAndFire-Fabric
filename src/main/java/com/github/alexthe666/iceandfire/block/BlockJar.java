@@ -28,9 +28,9 @@ import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry
 
 public class BlockJar extends BlockWithEntity {
     protected static final VoxelShape AABB = Block.createCuboidShape(3, 0, 3, 13, 16, 13);
-    public Item itemBlock;
     private final boolean empty;
     private final int pixieType;
+    public Item itemBlock;
 
     public BlockJar(int pixieType) {
         super(

@@ -4,15 +4,16 @@ import com.github.alexthe666.citadel.Citadel;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.Framebuffer;
+import net.minecraft.client.gl.PostEffectProcessor;
+import net.minecraft.util.Identifier;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.Framebuffer;
-import net.minecraft.client.gl.PostEffectProcessor;
-import net.minecraft.util.Identifier;
 
 public class PostEffectRegistry {
 
@@ -20,8 +21,8 @@ public class PostEffectRegistry {
 
     private static final Map<Identifier, PostEffect> postEffects = new HashMap<>();
 
-    public static void clear(){
-        for(PostEffect postEffect : postEffects.values()){
+    public static void clear() {
+        for (PostEffect postEffect : postEffects.values()) {
             postEffect.close();
         }
         postEffects.clear();

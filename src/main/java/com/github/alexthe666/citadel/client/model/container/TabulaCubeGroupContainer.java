@@ -8,12 +8,10 @@ import java.util.List;
  * @since 1.0.0
  */
 public class TabulaCubeGroupContainer {
-    private String name;
-    private String identifier;
-
     private final List<TabulaCubeContainer> cubes = new ArrayList<>();
     private final List<TabulaCubeGroupContainer> cubeGroups = new ArrayList<>();
-
+    private String name;
+    private String identifier;
     private boolean txMirror;
     private boolean hidden;
 

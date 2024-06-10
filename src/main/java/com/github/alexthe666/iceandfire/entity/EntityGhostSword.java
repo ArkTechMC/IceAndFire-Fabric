@@ -26,6 +26,10 @@ import java.util.List;
 
 public class EntityGhostSword extends PersistentProjectileEntity {
 
+    private IntOpenHashSet piercedEntities;
+    private List<Entity> hitEntities;
+    private int knockbackStrength;
+
     public EntityGhostSword(EntityType<? extends PersistentProjectileEntity> type, World worldIn) {
         super(type, worldIn);
         this.setDamage(9F);
@@ -99,7 +103,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
                 }
             }
 
-            if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+            if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS) {
                 if (raytraceresult.getType() != HitResult.Type.BLOCK) {
                     this.onCollision(raytraceresult);
 
@@ -122,7 +126,6 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-
     @Override
     public void playSound(@NotNull SoundEvent soundIn, float volume, float pitch) {
         if (!this.isSilent() && soundIn != SoundEvents.ENTITY_ARROW_HIT && soundIn != SoundEvents.ENTITY_ARROW_HIT_PLAYER) {
@@ -139,10 +142,6 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     protected @NotNull ItemStack asItemStack() {
         return ItemStack.EMPTY;
     }
-
-    private IntOpenHashSet piercedEntities;
-    private List<Entity> hitEntities;
-    private int knockbackStrength;
 
     @Override
     public void setPunch(int knockbackStrengthIn) {

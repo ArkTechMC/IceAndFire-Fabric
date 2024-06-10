@@ -1,11 +1,12 @@
 package com.github.alexthe666.iceandfire.util;
 
 import com.google.common.collect.AbstractIterator;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
+
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 
 public class ShapeBuilder {
@@ -33,9 +34,11 @@ public class ShapeBuilder {
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOff, int c1, int c2, int c3) {
         return this.getAllInCutOffSphereMutable(radiusX, yCutOff, yCutOff, c1, c2, c3);
     }
+
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOffMax, int yCutOffMin, BlockPos center) {
         return this.getAllInCutOffSphereMutable(radiusX, yCutOffMax, yCutOffMin, center.getX(), center.getY(), center.getZ());
     }
+
     public ShapeBuilder getAllInCutOffSphereMutable(int radiusX, int yCutOffMax, int yCutOffMin, int c1, int c2, int c3) {
         int r2 = radiusX * radiusX;
         this.blocks = () -> new AbstractIterator<>() {

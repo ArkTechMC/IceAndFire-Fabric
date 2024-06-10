@@ -82,7 +82,7 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                 }
                 matrixStackIn.push();
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
-                matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(riderRot+180));
+                matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(riderRot + 180));
                 matrixStackIn.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
                 matrixStackIn.translate(0, -0.25F, 0);
                 this.renderEntity(passenger, 0, 0, 0, 0.0F, partialTicks, matrixStackIn, bufferIn, packedLightIn);

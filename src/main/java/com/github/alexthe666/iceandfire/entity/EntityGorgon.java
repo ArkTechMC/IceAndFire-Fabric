@@ -31,7 +31,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraft.world.entity.ai.goal.*;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHumanoid, IHasCustomizableAttributes {
@@ -70,14 +69,14 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.gorgonMaxHealth)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 1.0D);
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.gorgonMaxHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 1.0D);
     }
 
     @Override
@@ -188,7 +187,6 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         if (this.deathTime >= 200) {
             if (!this.getWorld().isClient && (this.shouldAlwaysDropXp() || this.playerHitTimer > 0 && this.shouldDropXp() && this.getWorld().getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS))) {
                 int i = this.getXpToDrop();
-                i = net.minecraftforge.event.ForgeEventFactory.getExperienceDrop(this, this.attackingPlayer, i);
                 while (i > 0) {
                     int j = ExperienceOrbEntity.roundToOrbSize(i);
                     i -= j;
@@ -215,7 +213,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         LivingEntity attackTarget = this.getTarget();
         if (attackTarget != null) {
             boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS);
-            if (!blindness && this.deathTime == 0 && attackTarget instanceof MobEntity && !(attackTarget instanceof PlayerEntity)) {
+            if (!blindness && this.deathTime == 0 && attackTarget instanceof MobEntity) {
                 this.forcePreyToLook(attackTarget);
             }
             if (isEntityLookingAt(attackTarget, this, 0.4)) {

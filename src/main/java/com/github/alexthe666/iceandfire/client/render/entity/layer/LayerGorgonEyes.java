@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class LayerGorgonEyes extends FeatureRenderer<EntityGorgon, ModelGorgon> {
-    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/gorgon/gorgon_eyes.png");
+    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_eyes.png");
     private final RenderGorgon render;
 
     public LayerGorgonEyes(RenderGorgon renderIn) {

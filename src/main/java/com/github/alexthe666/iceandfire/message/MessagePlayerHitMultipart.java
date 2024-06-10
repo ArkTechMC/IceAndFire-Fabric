@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
-import com.iafenvoy.iafextra.network.C2SMessage;
+import dev.arktechmc.iafextra.network.C2SMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

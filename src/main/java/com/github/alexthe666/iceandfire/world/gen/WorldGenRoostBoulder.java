@@ -1,11 +1,12 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
-import java.util.stream.Collectors;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldAccess;
+
+import java.util.stream.Collectors;
 
 public class WorldGenRoostBoulder {
 

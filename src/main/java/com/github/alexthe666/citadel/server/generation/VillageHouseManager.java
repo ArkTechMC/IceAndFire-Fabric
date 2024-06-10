@@ -3,14 +3,15 @@ package com.github.alexthe666.citadel.server.generation;
 import com.github.alexthe666.citadel.Citadel;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.util.Identifier;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class VillageHouseManager {
     public static final List<Identifier> VILLAGE_REPLACEMENT_POOLS = List.of(

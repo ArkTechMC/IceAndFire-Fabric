@@ -21,15 +21,15 @@ public class BlockIceSpikes extends Block {
 
     public BlockIceSpikes() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.PALE_PURPLE)
-                .nonOpaque()
-                .dynamicBounds()
-                .ticksRandomly()
-                .sounds(BlockSoundGroup.GLASS)
-                .strength(2.5F)
-                .requiresTool()
+                Settings
+                        .create()
+                        .mapColor(MapColor.PALE_PURPLE)
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .ticksRandomly()
+                        .sounds(BlockSoundGroup.GLASS)
+                        .strength(2.5F)
+                        .requiresTool()
         );
     }
 

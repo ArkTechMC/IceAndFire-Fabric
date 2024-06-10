@@ -18,8 +18,8 @@ import java.util.function.Predicate;
 public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
-    protected ItemEntity targetEntity;
     protected final int targetChance;
+    protected ItemEntity targetEntity;
     private List<ItemEntity> list = IAFMath.emptyItemEntityList;
 
     public HippogryphAITargetItems(MobEntity creature, boolean checkSight) {
@@ -102,6 +102,10 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
         return !this.mob.getNavigation().isIdle();
     }
 
+    protected double getAttackReachSqr(Entity attackTarget) {
+        return this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + attackTarget.getWidth();
+    }
+
     public static class Sorter implements Comparator<Entity> {
         private final Entity theEntity;
 
@@ -115,9 +119,5 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
             final double d1 = this.theEntity.squaredDistanceTo(p_compare_2_);
             return Double.compare(d0, d1);
         }
-    }
-
-    protected double getAttackReachSqr(Entity attackTarget) {
-        return this.mob.getWidth() * 2.0F * this.mob.getWidth() * 2.0F + attackTarget.getWidth();
     }
 }

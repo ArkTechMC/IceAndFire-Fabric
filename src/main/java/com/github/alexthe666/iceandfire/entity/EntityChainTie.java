@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.block.WallBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -123,14 +123,13 @@ public class EntityChainTie extends AbstractDecorationEntity {
         List<LivingEntity> list = this.getWorld().getNonSpectatingEntities(LivingEntity.class, new Box(this.getX() - d0, this.getY() - d0, this.getZ() - d0, this.getX() + d0, this.getY() + d0, this.getZ() + d0));
 
         for (LivingEntity livingEntity : list) {
-            EntityDataProvider.getCapability(livingEntity).ifPresent(data -> {
-                if (data.chainData.isChainedTo(this)) {
-                    data.chainData.removeChain(this);
-                    ItemEntity entityitem = new ItemEntity(this.getWorld(), this.getX(), this.getY() + 1, this.getZ(), new ItemStack(IafItemRegistry.CHAIN.get()));
-                    entityitem.resetPickupDelay();
-                    this.getWorld().spawnEntity(entityitem);
-                }
-            });
+            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+            if (data.chainData.isChainedTo(this)) {
+                data.chainData.removeChain(this);
+                ItemEntity entityitem = new ItemEntity(this.getWorld(), this.getX(), this.getY() + 1, this.getZ(), new ItemStack(IafItemRegistry.CHAIN.get()));
+                entityitem.resetPickupDelay();
+                this.getWorld().spawnEntity(entityitem);
+            }
         }
     }
 
@@ -144,13 +143,12 @@ public class EntityChainTie extends AbstractDecorationEntity {
             List<LivingEntity> list = this.getWorld().getNonSpectatingEntities(LivingEntity.class, new Box(this.getX() - radius, this.getY() - radius, this.getZ() - radius, this.getX() + radius, this.getY() + radius, this.getZ() + radius));
 
             for (LivingEntity livingEntity : list) {
-                EntityDataProvider.getCapability(livingEntity).ifPresent(data -> {
-                    if (data.chainData.isChainedTo(player)) {
-                        data.chainData.removeChain(player);
-                        data.chainData.attachChain(this);
-                        flag.set(true);
-                    }
-                });
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+                if (data.chainData.isChainedTo(player)) {
+                    data.chainData.removeChain(player);
+                    data.chainData.attachChain(this);
+                    flag.set(true);
+                }
             }
 
             if (!flag.get()) {

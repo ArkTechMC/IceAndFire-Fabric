@@ -1,12 +1,12 @@
 package com.github.alexthe666.citadel.animation;
 
-import com.iafenvoy.iafextra.event.Cancelable;
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Cancelable;
+import dev.arktechmc.iafextra.event.Event;
 import net.minecraft.entity.Entity;
 
 public class AnimationEvent<T extends Entity & IAnimatedEntity> extends Event {
-    protected Animation animation;
     private final T entity;
+    protected Animation animation;
 
     AnimationEvent(T entity, Animation animation) {
         this.entity = entity;

@@ -66,6 +66,20 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn) && randomIn.nextInt(IafConfig.lichSpawnChance) == 0;
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 2.0D);
+    }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
@@ -85,21 +99,6 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
                 return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
             }
         }));
-    }
-
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50.0D)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
-                //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
-                //ARMOR
-                .add(EntityAttributes.GENERIC_ARMOR, 2.0D);
     }
 
     @Override

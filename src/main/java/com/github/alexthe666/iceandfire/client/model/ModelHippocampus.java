@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
+    private final ModelAnimator animator;
     public AdvancedModelBox Body;
     public AdvancedModelBox FrontThighR;
     public AdvancedModelBox FrontThighL;
@@ -46,7 +47,6 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
     public AdvancedModelBox StirrupL;
     public AdvancedModelBox StirrupIronR;
     public AdvancedModelBox StirrupIronL;
-    private final ModelAnimator animator;
 
     public ModelHippocampus() {
         this.animator = ModelAnimator.create();
@@ -311,7 +311,7 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
             this.swing(this.FinRBack, speed_idle, degree_idle * 0.25F, true, 0, -0.1F, f2, 1);
         }
         this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, f2, 1);
-        if(hippo.tail_buffer != null){
+        if (hippo.tail_buffer != null) {
             hippo.tail_buffer.applyChainSwingBuffer(TAIL);
         }
     }

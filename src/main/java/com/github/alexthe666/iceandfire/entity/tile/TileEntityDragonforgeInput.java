@@ -3,11 +3,9 @@ package com.github.alexthe666.iceandfire.entity.tile;
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeInput;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -16,8 +14,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import org.jetbrains.annotations.NotNull;
 
 public class TileEntityDragonforgeInput extends BlockEntity {
@@ -28,12 +24,6 @@ public class TileEntityDragonforgeInput extends BlockEntity {
 
     public TileEntityDragonforgeInput(BlockPos pos, BlockState state) {
         super(IafTileEntityRegistry.DRAGONFORGE_INPUT.get(), pos, state);
-    }
-
-    public void onHitWithFlame() {
-        if (this.core != null) {
-            this.core.transferPower(1);
-        }
     }
 
     public static void tick(final World level, final BlockPos position, final BlockState state, final TileEntityDragonforgeInput forgeInput) {
@@ -59,15 +49,15 @@ public class TileEntityDragonforgeInput extends BlockEntity {
         }
     }
 
+    public void onHitWithFlame() {
+        if (this.core != null) {
+            this.core.transferPower(1);
+        }
+    }
+
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-
-    @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        this.readNbt(packet.getNbt());
     }
 
     @Override
@@ -161,14 +151,5 @@ public class TileEntityDragonforgeInput extends BlockEntity {
         }
 
         return null;
-    }
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(@NotNull final Capability<T> capability, final Direction facing) {
-        if (this.core != null && capability == ForgeCapabilities.ITEM_HANDLER) {
-            return this.core.getCapability(capability, facing);
-        }
-
-        return super.getCapability(capability, facing);
     }
 }

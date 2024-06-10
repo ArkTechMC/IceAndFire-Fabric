@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeBricks;
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeCore;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
@@ -9,6 +8,7 @@ import com.github.alexthe666.iceandfire.inventory.ContainerDragonForge;
 import com.github.alexthe666.iceandfire.message.MessageUpdateDragonforge;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -20,7 +20,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -30,9 +29,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -44,13 +40,11 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     private static final int[] SLOTS_BOTTOM = new int[]{2};
     private static final int[] SLOTS_SIDES = new int[]{0, 1};
     private static final Direction[] HORIZONTALS = new Direction[]{
-        Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
+            Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
     };
     public int fireType;
     public int cookTime;
     public int lastDragonFlameTimer = 0;
-    net.minecraftforge.common.util.LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper
-        .create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
     private DefaultedList<ItemStack> forgeItemStacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
     private boolean prevAssembled;
     private boolean canAddFlameAgain = true;
@@ -97,13 +91,13 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
                     }
                 } else {
                     if (entityDragonforge.cookTime > 0) {
-                        IceAndFire.sendMSGToAll(new MessageUpdateDragonforge(pos.asLong(), entityDragonforge.cookTime));
+                        IafServerNetworkHandler.sendToAll(new MessageUpdateDragonforge(pos.asLong(), entityDragonforge.cookTime));
                         entityDragonforge.cookTime = 0;
                     }
                 }
             } else if (!entityDragonforge.isBurning() && entityDragonforge.cookTime > 0) {
                 entityDragonforge.cookTime = MathHelper.clamp(entityDragonforge.cookTime - 2, 0,
-                    entityDragonforge.getMaxCookTime());
+                        entityDragonforge.getMaxCookTime());
             }
 
             if (flag != entityDragonforge.isBurning()) {
@@ -182,7 +176,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     public void setStack(int index, ItemStack stack) {
         ItemStack itemstack = this.forgeItemStacks.get(index);
         boolean flag = !stack.isEmpty() && ItemStack.areItemsEqual(stack, itemstack)
-            && ItemStack.areEqual(stack, itemstack);
+                && ItemStack.areEqual(stack, itemstack);
         this.forgeItemStacks.set(index, stack);
 
         if (stack.getCount() > this.getMaxCountPerStack()) {
@@ -190,7 +184,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         }
 
         if (index == 0 && !flag
-            || this.cookTime > this.getMaxCookTime()) {
+                || this.cookTime > this.getMaxCookTime()) {
             this.cookTime = 0;
             this.markDirty();
         }
@@ -221,14 +215,14 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
     public int getFireType(Block block) {
         if (block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get()
-            || block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get()) {
+                || block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get()) {
             return 0;
         }
         if (block == IafBlockRegistry.DRAGONFORGE_ICE_CORE.get() || block == IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get()) {
             return 1;
         }
         if (block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.get()
-            || block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get()) {
+                || block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get()) {
             return 2;
         }
         return 0;
@@ -258,11 +252,11 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public Optional<DragonForgeRecipe> getCurrentRecipe() {
-        return this.world.getRecipeManager().getFirstMatch(IafRecipeRegistry.DRAGON_FORGE_TYPE.get(), this, this.world);
+        return this.world.getRecipeManager().getFirstMatch(IafRecipeRegistry.DRAGON_FORGE_TYPE, this, this.world);
     }
 
     public List<DragonForgeRecipe> getRecipes() {
-        return this.world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE.get());
+        return this.world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE);
     }
 
     public boolean canSmelt() {
@@ -281,7 +275,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
         int calculatedOutputCount = outputStack.getCount() + forgeRecipeOutput.getCount();
         return (calculatedOutputCount <= this.getMaxCountPerStack()
-            && calculatedOutputCount <= outputStack.getMaxCount());
+                && calculatedOutputCount <= outputStack.getMaxCount());
     }
 
     @Override
@@ -290,7 +284,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
             return false;
         } else {
             return player.squaredDistanceTo(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D,
-                this.pos.getZ() + 0.5D) <= 64.0D;
+                    this.pos.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -354,21 +348,6 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(
-        net.minecraftforge.common.capabilities.@NotNull Capability<T> capability, Direction facing) {
-        if (!this.removed && facing != null
-            && capability == ForgeCapabilities.ITEM_HANDLER) {
-            if (facing == Direction.UP)
-                return this.handlers[0].cast();
-            if (facing == Direction.DOWN)
-                return this.handlers[1].cast();
-            else
-                return this.handlers[2].cast();
-        }
-        return super.getCapability(capability, facing);
-    }
-
-    @Override
     protected @NotNull Text getContainerName() {
         return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(this.fireType));
     }
@@ -384,26 +363,26 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
             } else {
                 this.cookTime = 0;
             }
-            IceAndFire.sendMSGToAll(new MessageUpdateDragonforge(this.pos.asLong(), this.cookTime));
+            IafServerNetworkHandler.sendToAll(new MessageUpdateDragonforge(this.pos.asLong(), this.cookTime));
         }
         this.lastDragonFlameTimer = 40;
     }
 
     private boolean checkBoneCorners(BlockPos pos) {
         return this.doesBlockEqual(pos.north().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-            && this.doesBlockEqual(pos.north().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-            && this.doesBlockEqual(pos.south().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-            && this.doesBlockEqual(pos.south().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get());
+                && this.doesBlockEqual(pos.north().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
+                && this.doesBlockEqual(pos.south().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
+                && this.doesBlockEqual(pos.south().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get());
     }
 
     private boolean checkBrickCorners(BlockPos pos) {
         return this.doesBlockEqual(pos.north().east(), this.getBrick()) && this.doesBlockEqual(pos.north().west(), this.getBrick())
-            && this.doesBlockEqual(pos.south().east(), this.getBrick()) && this.doesBlockEqual(pos.south().west(), this.getBrick());
+                && this.doesBlockEqual(pos.south().east(), this.getBrick()) && this.doesBlockEqual(pos.south().west(), this.getBrick());
     }
 
     private boolean checkBrickSlots(BlockPos pos) {
         return this.doesBlockEqual(pos.north(), this.getBrick()) && this.doesBlockEqual(pos.east(), this.getBrick())
-            && this.doesBlockEqual(pos.west(), this.getBrick()) && this.doesBlockEqual(pos.south(), this.getBrick());
+                && this.doesBlockEqual(pos.west(), this.getBrick()) && this.doesBlockEqual(pos.south(), this.getBrick());
     }
 
     private boolean checkY(BlockPos pos) {
@@ -416,18 +395,13 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        this.readNbt(packet.getNbt());
-    }
-
-    @Override
     public @NotNull NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
 
     public boolean assembled() {
         return this.checkBoneCorners(this.pos.down()) && this.checkBrickSlots(this.pos.down()) && this.checkBrickCorners(this.pos)
-            && this.atleastThreeAreBricks(this.pos) && this.checkY(this.pos) && this.checkBoneCorners(this.pos.up()) && this.checkBrickSlots(this.pos.up());
+                && this.atleastThreeAreBricks(this.pos) && this.checkY(this.pos) && this.checkBoneCorners(this.pos.up()) && this.checkBrickSlots(this.pos.up());
     }
 
     private Block getBrick() {

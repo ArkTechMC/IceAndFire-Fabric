@@ -11,18 +11,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops> {
 
-    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_0.png");
-    public static final Identifier BLINK_0_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_0_blink.png");
-    public static final Identifier BLINDED_0_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_0_injured.png");
-    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_1.png");
-    public static final Identifier BLINK_1_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_1_blink.png");
-    public static final Identifier BLINDED_1_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_1_injured.png");
-    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_2.png");
-    public static final Identifier BLINK_2_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_2_blink.png");
-    public static final Identifier BLINDED_2_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_2_injured.png");
-    public static final Identifier TEXTURE_3 = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_3.png");
-    public static final Identifier BLINK_3_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_3_blink.png");
-    public static final Identifier BLINDED_3_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/cyclops/cyclops_3_injured.png");
+    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_0.png");
+    public static final Identifier BLINK_0_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_0_blink.png");
+    public static final Identifier BLINDED_0_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_0_injured.png");
+    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_1.png");
+    public static final Identifier BLINK_1_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_1_blink.png");
+    public static final Identifier BLINDED_1_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_1_injured.png");
+    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_2.png");
+    public static final Identifier BLINK_2_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_2_blink.png");
+    public static final Identifier BLINDED_2_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_2_injured.png");
+    public static final Identifier TEXTURE_3 = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_3.png");
+    public static final Identifier BLINK_3_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_3_blink.png");
+    public static final Identifier BLINDED_3_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_3_injured.png");
 
     public RenderCyclops(EntityRendererFactory.Context context) {
         super(context, new ModelCyclops(), 1.6F);

@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.client.model.util;
 
 /**
  * Common interface for all dragon model type enumerations. If you are an addon author adding new dragon types, you will need to create an enumeration which implements this interface. Then register it into the {@link DragonAnimationsLibrary} with an enumeration of poses.<br/>
- * @see IEnumDragonPoses
  *
+ * @see IEnumDragonPoses
  */
 public interface IEnumDragonModelTypes {
     /**

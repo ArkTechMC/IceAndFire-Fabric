@@ -15,17 +15,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlockFallingReturningState extends FallingBlock {
     public static final BooleanProperty REVERTS = BooleanProperty.of("revert");
-    public Item itemBlock;
     private final BlockState returnState;
+    public Item itemBlock;
 
     public BlockFallingReturningState(float hardness, float resistance, BlockSoundGroup sound, MapColor color, BlockState revertState) {
         super(
-            Settings
-                .create()
-                .mapColor(color)
-                .sounds(sound)
-                .strength(hardness, resistance)
-                .ticksRandomly()
+                Settings
+                        .create()
+                        .mapColor(color)
+                        .sounds(sound)
+                        .strength(hardness, resistance)
+                        .ticksRandomly()
         );
 
         this.returnState = revertState;
@@ -35,12 +35,12 @@ public class BlockFallingReturningState extends FallingBlock {
     @SuppressWarnings("deprecation")
     public BlockFallingReturningState(float hardness, float resistance, BlockSoundGroup sound, boolean slippery, MapColor color, BlockState revertState) {
         super(
-            Settings
-                .create()
-                .mapColor(color)
-                .sounds(sound)
-                .strength(hardness, resistance)
-                .ticksRandomly()
+                Settings
+                        .create()
+                        .mapColor(color)
+                        .sounds(sound)
+                        .strength(hardness, resistance)
+                        .ticksRandomly()
         );
 
         this.returnState = revertState;

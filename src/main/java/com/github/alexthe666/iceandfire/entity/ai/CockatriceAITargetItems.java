@@ -15,8 +15,8 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
 
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
-    protected ItemEntity targetEntity;
     protected final int targetChance;
+    protected ItemEntity targetEntity;
     private List<ItemEntity> list = IAFMath.emptyItemEntityList;
 
     public CockatriceAITargetItems(EntityCockatrice creature, boolean checkSight) {

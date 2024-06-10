@@ -1,9 +1,10 @@
 package com.github.alexthe666.citadel.server.generation;
 
+import com.google.common.collect.ImmutableList;
+import net.minecraft.world.gen.surfacebuilder.MaterialRules;
+
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.world.gen.surfacebuilder.MaterialRules;
-import com.google.common.collect.ImmutableList;
 
 public class SurfaceRulesManager {
     private static final List<MaterialRules.MaterialRule> OVERWORLD_REGISTRY = new ArrayList();

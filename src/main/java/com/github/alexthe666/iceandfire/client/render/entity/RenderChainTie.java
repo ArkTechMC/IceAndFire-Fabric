@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class RenderChainTie extends EntityRenderer<EntityChainTie> {
-    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/misc/chain_tie.png");
+    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/chain_tie.png");
     private final ModelChainTie leashKnotModel = new ModelChainTie();
 
     public RenderChainTie(EntityRendererFactory.Context context) {

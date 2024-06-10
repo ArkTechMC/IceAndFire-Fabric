@@ -49,13 +49,13 @@ public class Whitespace {
         return this.down;
     }
 
-    public void setDown(boolean downIn){
+    public void setDown(boolean downIn) {
         this.down = downIn;
     }
 
     @Override
-    public boolean equals(Object other){
-        if(other instanceof Whitespace ws)
+    public boolean equals(Object other) {
+        if (other instanceof Whitespace ws)
             return ws.x == this.x && ws.y == this.y && ws.height == this.height && ws.width == this.width && ws.down == this.down;
         return false;
     }

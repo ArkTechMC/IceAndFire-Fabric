@@ -1,13 +1,10 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.client.render.entity.RenderTideTridentItem;
 import com.github.alexthe666.iceandfire.entity.EntityTideTrident;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.PiercingEnchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
@@ -27,30 +24,14 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.util.NonNullLazy;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class ItemTideTrident extends TridentItem {
 
     public ItemTideTrident() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(400));
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-
-        consumer.accept(new IClientItemExtensions() {
-            static final NonNullLazy<BuiltinModelItemRenderer> renderer = NonNullLazy.of(() -> new RenderTideTridentItem(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels()));
-
-            @Override
-            public BuiltinModelItemRenderer getCustomRenderer() {
-                return renderer.get();
-            }
-        });
     }
 
     @Override
@@ -125,13 +106,6 @@ public class ItemTideTrident extends TridentItem {
         }
 
         return builder.build();
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
-        if (enchantment instanceof PiercingEnchantment)
-            return true;
-        return enchantment.target.isAcceptableItem(stack.getItem());
     }
 
     @Override

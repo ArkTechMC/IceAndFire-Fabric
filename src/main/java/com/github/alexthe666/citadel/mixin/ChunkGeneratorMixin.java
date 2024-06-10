@@ -1,8 +1,8 @@
 package com.github.alexthe666.citadel.mixin;
 
 import com.github.alexthe666.citadel.server.event.EventMergeStructureSpawns;
-import com.iafenvoy.iafextra.event.Event;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.collection.Pool;

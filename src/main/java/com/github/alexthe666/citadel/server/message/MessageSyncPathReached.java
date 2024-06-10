@@ -3,7 +3,7 @@ package com.github.alexthe666.citadel.server.message;
 import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.client.render.pathfinding.PathfindingDebugRenderer;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
-import com.iafenvoy.iafextra.network.S2CMessage;
+import dev.arktechmc.iafextra.network.S2CMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;

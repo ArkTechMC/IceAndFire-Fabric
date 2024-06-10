@@ -18,11 +18,11 @@ public class BlockMyrmexResin extends Block {
 
     public BlockMyrmexResin(boolean sticky) {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.LIGHT_BLUE_GRAY)
-                .strength(2.5F)
-                .sounds(sticky ? BlockSoundGroup.SLIME : BlockSoundGroup.GRAVEL)
+                Settings
+                        .create()
+                        .mapColor(MapColor.LIGHT_BLUE_GRAY)
+                        .strength(2.5F)
+                        .sounds(sticky ? BlockSoundGroup.SLIME : BlockSoundGroup.GRAVEL)
         );
 
         this.sticky = sticky;

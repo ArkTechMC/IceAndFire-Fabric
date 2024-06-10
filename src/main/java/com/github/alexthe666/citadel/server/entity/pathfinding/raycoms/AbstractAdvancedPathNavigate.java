@@ -10,25 +10,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
-    /**
-     * Type of restriction.
-     */
-    public enum RestrictionType {
-        NONE,
-        XZ,
-        XYZ
-    }
-
     //  Parent class private members
     protected final MobEntity ourEntity;
-    protected BlockPos destination;
-    protected double walkSpeedFactor = 1.0D;
-    protected BlockPos originalDestination;
-
     /**
      * The navigators node costs
      */
     private final PathingOptions pathingOptions = new PathingOptions();
+    protected BlockPos destination;
+    protected double walkSpeedFactor = 1.0D;
+    protected BlockPos originalDestination;
 
     public AbstractAdvancedPathNavigate(
             final MobEntity entityLiving,
@@ -158,4 +148,13 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
     public abstract void setStuckHandler(final IStuckHandler stuckHandler);
 
     public abstract void setSwimSpeedFactor(double factor);
+
+    /**
+     * Type of restriction.
+     */
+    public enum RestrictionType {
+        NONE,
+        XZ,
+        XYZ
+    }
 }

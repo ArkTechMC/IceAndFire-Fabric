@@ -15,7 +15,10 @@ public class IafContainerRegistry {
     public static final LazyRegistrar<ScreenHandlerType<?>> CONTAINERS = LazyRegistrar
             .create(Registries.SCREEN_HANDLER, IceAndFire.MOD_ID);
 
-    public static final RegistryObject<ScreenHandlerType<ContainerLectern>> IAF_LECTERN_CONTAINER = register(
+    public static <C extends ScreenHandler> RegistryObject<ScreenHandlerType<C>> register(Supplier<ScreenHandlerType<C>> type,
+                                                                                          String name) {
+        return CONTAINERS.register(name, type);
+    }    public static final RegistryObject<ScreenHandlerType<ContainerLectern>> IAF_LECTERN_CONTAINER = register(
             () -> new ScreenHandlerType<>(ContainerLectern::new, FeatureFlags.VANILLA_FEATURES), "iaf_lectern");
     public static final RegistryObject<ScreenHandlerType<ContainerPodium>> PODIUM_CONTAINER = register(
             () -> new ScreenHandlerType<>(ContainerPodium::new, FeatureFlags.VANILLA_FEATURES), "podium");
@@ -28,9 +31,6 @@ public class IafContainerRegistry {
     public static final RegistryObject<ScreenHandlerType<ContainerDragonForge>> DRAGON_FORGE_CONTAINER = register(
             () -> new ScreenHandlerType<>(ContainerDragonForge::new, FeatureFlags.VANILLA_FEATURES), "dragon_forge");
 
-    public static <C extends ScreenHandler> RegistryObject<ScreenHandlerType<C>> register(Supplier<ScreenHandlerType<C>> type,
-                                                                                          String name) {
-        return CONTAINERS.register(name, type);
-    }
+
 
 }

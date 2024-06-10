@@ -15,7 +15,10 @@ public class IafTileEntityRegistry {
     public static final LazyRegistrar<BlockEntityType<?>> TYPES = LazyRegistrar
             .create(Registries.BLOCK_ENTITY_TYPE, IceAndFire.MOD_ID);
 
-    //@formatter:off
+    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerTileEntity(
+            Supplier<BlockEntityType.Builder<T>> supplier, String entityName) {
+        return TYPES.register(entityName, () -> supplier.get().build(null));
+    }    //@formatter:off
     public static final RegistryObject<BlockEntityType<TileEntityLectern>> IAF_LECTERN = registerTileEntity(() -> BlockEntityType.Builder.create(TileEntityLectern::new, IafBlockRegistry.LECTERN.get()), "lectern");
     public static final RegistryObject<BlockEntityType<TileEntityPodium>> PODIUM = registerTileEntity(() -> BlockEntityType.Builder.create(TileEntityPodium::new, IafBlockRegistry.PODIUM_OAK.get(), IafBlockRegistry.PODIUM_BIRCH.get(), IafBlockRegistry.PODIUM_SPRUCE.get(), IafBlockRegistry.PODIUM_JUNGLE.get(), IafBlockRegistry.PODIUM_DARK_OAK.get(), IafBlockRegistry.PODIUM_ACACIA.get()), "podium");
     public static final RegistryObject<BlockEntityType<TileEntityEggInIce>> EGG_IN_ICE = registerTileEntity(() -> BlockEntityType.Builder.create(TileEntityEggInIce::new, IafBlockRegistry.EGG_IN_ICE.get()), "egginice");
@@ -30,8 +33,5 @@ public class IafTileEntityRegistry {
     public static final RegistryObject<BlockEntityType<TileEntityGhostChest>> GHOST_CHEST = registerTileEntity(() -> BlockEntityType.Builder.create(TileEntityGhostChest::new, IafBlockRegistry.GHOST_CHEST.get()), "ghost_chest");
 
 
-    public static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> registerTileEntity(
-            Supplier<BlockEntityType.Builder<T>> supplier, String entityName) {
-        return TYPES.register(entityName, () -> supplier.get().build(null));
-    }
+
 }

@@ -31,12 +31,26 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
     public static final Animation ANIMATION_STING = Animation.create(15);
     public static final Identifier DESERT_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/myrmex_soldier_desert");
     public static final Identifier JUNGLE_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/myrmex_soldier_jungle");
-    private static final Identifier TEXTURE_DESERT = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_desert_soldier.png");
-    private static final Identifier TEXTURE_JUNGLE = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_jungle_soldier.png");
+    private static final Identifier TEXTURE_DESERT = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_desert_soldier.png");
+    private static final Identifier TEXTURE_JUNGLE = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_jungle_soldier.png");
     public EntityMyrmexBase guardingEntity = null;
 
     public EntityMyrmexSoldier(EntityType<EntityMyrmexSoldier> t, World worldIn) {
         super(t, worldIn);
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 40)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 2D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 6.0D);
     }
 
     @Override
@@ -113,24 +127,11 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
         }));
     }
 
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 40)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 2D)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 6.0D);
-    }
-
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.myrmexBaseAttackStrength * 2D);
     }
+
     @Override
     public Identifier getAdultTexture() {
         return this.isJungle() ? TEXTURE_JUNGLE : TEXTURE_DESERT;

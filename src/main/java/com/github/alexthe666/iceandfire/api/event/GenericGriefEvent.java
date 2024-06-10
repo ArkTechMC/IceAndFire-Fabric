@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.api.event;
 
-import com.iafenvoy.iafextra.event.Cancelable;
-import com.iafenvoy.iafextra.event.LivingEvent;
+import dev.arktechmc.iafextra.event.Cancelable;
+import dev.arktechmc.iafextra.event.LivingEvent;
 import net.minecraft.entity.LivingEntity;
 
 /**

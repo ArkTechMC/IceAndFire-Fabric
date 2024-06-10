@@ -5,9 +5,9 @@ package com.github.alexthe666.citadel.animation;
  * @since 1.0.0
  */
 public class Animation {
+    private final int duration;
     @Deprecated
     private int id;
-    private final int duration;
 
     private Animation(int duration) {
         this.duration = duration;

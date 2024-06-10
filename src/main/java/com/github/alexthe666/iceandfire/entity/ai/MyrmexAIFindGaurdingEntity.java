@@ -24,8 +24,8 @@ public class MyrmexAIFindGaurdingEntity<T extends EntityMyrmexBase> extends Trac
             @Override
             public boolean test(EntityMyrmexBase myrmex) {
                 return !(myrmex instanceof EntityMyrmexSoldier) && myrmex.getGrowthStage() > 1
-                    && EntityMyrmexBase.haveSameHive(MyrmexAIFindGaurdingEntity.this.myrmex, myrmex)
-                    && !myrmex.isBeingGuarded && myrmex.needsGaurding();
+                        && EntityMyrmexBase.haveSameHive(MyrmexAIFindGaurdingEntity.this.myrmex, myrmex)
+                        && !myrmex.isBeingGuarded && myrmex.needsGaurding();
             }
         };
         this.myrmex = myrmex;

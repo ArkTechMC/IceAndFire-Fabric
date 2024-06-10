@@ -39,15 +39,15 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     private static final TrackedData<Integer> HEAD_COUNT = DataTracker.registerData(EntityHydra.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> SEVERED_HEAD = DataTracker.registerData(EntityHydra.class, TrackedDataHandlerRegistry.INTEGER);
     private static final float[][] ROTATE = new float[][]{
-        {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},// 1 total heads
-        {10F, -10F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},// 2 total heads
-        {10F, 0F, -10F, 0F, 0F, 0F, 0F, 0F, 0F},// 3 total heads
-        {25F, 10F, -10F, -25F, 0F, 0F, 0F, 0F, 0F},//etc...
-        {30F, 15F, 0F, -15F, -30F, 0F, 0F, 0F, 0F},
-        {40F, 25F, 5F, -5F, -25F, -40F, 0F, 0F, 0F},
-        {40F, 30F, 15F, 0F, -15F, -30F, -40F, 0F, 0F},
-        {45F, 30F, 20F, 5F, -5F, -20F, -30F, -45F, 0F},
-        {50F, 37F, 25F, 15F, 0, -15F, -25F, -37F, -50F},
+            {0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},// 1 total heads
+            {10F, -10F, 0F, 0F, 0F, 0F, 0F, 0F, 0F},// 2 total heads
+            {10F, 0F, -10F, 0F, 0F, 0F, 0F, 0F, 0F},// 3 total heads
+            {25F, 10F, -10F, -25F, 0F, 0F, 0F, 0F, 0F},//etc...
+            {30F, 15F, 0F, -15F, -30F, 0F, 0F, 0F, 0F},
+            {40F, 25F, 5F, -5F, -25F, -40F, 0F, 0F, 0F},
+            {40F, 30F, 15F, 0F, -15F, -30F, -40F, 0F, 0F},
+            {45F, 30F, 20F, 5F, -5F, -20F, -30F, -45F, 0F},
+            {50F, 37F, 25F, 15F, 0, -15F, -25F, -37F, -50F},
     };
     public boolean[] isStriking = new boolean[HEADS];
     public float[] strikingProgress = new float[HEADS];
@@ -78,14 +78,14 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.hydraMaxHealth)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 1.0D);
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.hydraMaxHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 1.0D);
     }
 
     @Override

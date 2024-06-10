@@ -11,21 +11,17 @@ public class TabulaCubeContainer {
     private final String name;
     private final String identifier;
     private final String parentIdentifier;
-
+    private final boolean txMirror;
+    private final boolean hidden;
+    private final List<TabulaCubeContainer> children = new ArrayList<>();
     private int[] dimensions = new int[3];
     private double[] position = new double[3];
     private double[] offset = new double[3];
     private double[] rotation = new double[3];
     private double[] scale = new double[3];
-
     private int[] txOffset = new int[2];
-    private final boolean txMirror;
-
     private double mcScale = 1.0;
     private double opacity = 100.0;
-    private final boolean hidden;
-
-    private final List<TabulaCubeContainer> children = new ArrayList<>();
 
     public TabulaCubeContainer(String name, String identifier, String parentIdentifier, int[] dimensions, double[] position, double[] offset, double[] rotation, double[] scale, int[] textureOffset, boolean textureMirror, double opacity, double mcScale, boolean hidden) {
         this.name = name;

@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.datagen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.iafenvoy.iafextra.util.IdUtil;
+import dev.arktechmc.iafextra.util.IdUtil;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.registry.Registerable;

@@ -1,6 +1,6 @@
 package com.github.alexthe666.citadel.client.event;
 
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Event;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;

@@ -30,6 +30,10 @@ public class BlockFallingGeneric extends FallingBlock {
         );
     }*/
 
+    public BlockFallingGeneric(Settings props) {
+        super(props);
+    }
+
     public static BlockFallingGeneric builder(float hardness, float resistance, BlockSoundGroup sound, MapColor color, Instrument instrument) {
         Settings props = Settings.create()
                 .mapColor(color)
@@ -38,11 +42,6 @@ public class BlockFallingGeneric extends FallingBlock {
                 .strength(hardness, resistance);
         return new BlockFallingGeneric(props);
     }
-
-    public BlockFallingGeneric(Settings props) {
-        super(props);
-    }
-
 
     public int getDustColor(BlockState blkst) {
         return -8356741;

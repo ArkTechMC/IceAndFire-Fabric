@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.mixin;
 
-import com.github.alexthe666.citadel.CitadelConstants;
 import com.github.alexthe666.citadel.server.world.ModifiableTickRateServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,17 +17,17 @@ public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
     @Unique
     private long masterMs;
 
-    @Inject(
-            method = "runServer()V",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/server/MinecraftServer;startMetricsRecordingTick()V",
-                    shift = At.Shift.BEFORE
-            )
-    )
-    protected void citadel_beforeServerTick(CallbackInfo ci) {
-        this.masterTick();
-    }
+//    @Inject(
+//            method = "runServer()V",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/server/MinecraftServer;startMetricsRecordingTick()V",
+//                    shift = At.Shift.BEFORE
+//            )
+//    )
+//    protected void citadel_beforeServerTick(CallbackInfo ci) {
+//        this.masterTick();
+//    }
 
     @Unique
     private void masterTick() {

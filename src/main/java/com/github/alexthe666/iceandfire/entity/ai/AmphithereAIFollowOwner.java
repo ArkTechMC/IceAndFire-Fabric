@@ -54,7 +54,7 @@ public class AmphithereAIFollowOwner extends Goal {
     @Override
     public boolean shouldContinue() {
         return !this.noPath() && this.ampithere.squaredDistanceTo(this.owner) > this.maxDist * this.maxDist
-            && !this.ampithere.isSitting();
+                && !this.ampithere.isSitting();
     }
 
     private boolean noPath() {
@@ -82,7 +82,7 @@ public class AmphithereAIFollowOwner extends Goal {
     @Override
     public void tick() {
         this.ampithere.getLookControl().lookAt(this.owner, 10.0F,
-            this.ampithere.getMaxLookPitchChange());
+                this.ampithere.getMaxLookPitchChange());
 
         if (!this.ampithere.isSitting()) {
             if (--this.timeToRecalcPath <= 0) {
@@ -98,7 +98,7 @@ public class AmphithereAIFollowOwner extends Goal {
                             for (int i1 = 0; i1 <= 4; ++i1) {
                                 if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.canTeleportToBlock(new BlockPos(i, j, k))) {
                                     this.ampithere.refreshPositionAndAngles(i + l + 0.5F, k, j + i1 + 0.5F,
-                                        this.ampithere.getYaw(), this.ampithere.getPitch());
+                                            this.ampithere.getYaw(), this.ampithere.getPitch());
                                     this.ampithere.getNavigation().stop();
                                     return;
                                 }

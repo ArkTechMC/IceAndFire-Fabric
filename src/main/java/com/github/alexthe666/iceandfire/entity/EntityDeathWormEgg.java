@@ -13,10 +13,9 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import net.minecraftforge.entity.IEntityAdditionalSpawnData;
 import org.jetbrains.annotations.NotNull;
 
-public class EntityDeathWormEgg extends ThrownItemEntity implements IEntityAdditionalSpawnData {
+public class EntityDeathWormEgg extends ThrownItemEntity {
 
     private boolean giant;
 
@@ -34,16 +33,6 @@ public class EntityDeathWormEgg extends ThrownItemEntity implements IEntityAddit
                               World worldIn, boolean giant) {
         super(type, x, y, z, worldIn);
         this.giant = giant;
-    }
-
-    @Override
-    public void writeSpawnData(PacketByteBuf buffer) {
-        buffer.writeBoolean(this.giant);
-    }
-
-    @Override
-    public void readSpawnData(PacketByteBuf additionalData) {
-        this.giant = additionalData.readBoolean();
     }
 
     @Override

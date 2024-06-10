@@ -13,11 +13,9 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.client.extensions.common.IClientBlockExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
-import java.util.function.Consumer;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.PIXIE_HOUSE;
 
@@ -26,16 +24,16 @@ public class BlockPixieHouse extends BlockWithEntity {
 
     public BlockPixieHouse() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.OAK_TAN)
-                .instrument(Instrument.BASS)
-                .burnable()
-                .nonOpaque()
-                .dynamicBounds()
-                .strength(2.0F, 5.0F)
-                .ticksRandomly()
-		);
+                Settings
+                        .create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .instrument(Instrument.BASS)
+                        .burnable()
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .strength(2.0F, 5.0F)
+                        .ticksRandomly()
+        );
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
@@ -72,11 +70,6 @@ public class BlockPixieHouse extends BlockWithEntity {
         } else {
             return true;
         }
-    }
-
-    @Override
-    public void initializeClient(@NotNull Consumer<IClientBlockExtensions> consumer) {
-        super.initializeClient(consumer);
     }
 
     @Override

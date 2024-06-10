@@ -2,7 +2,6 @@ package com.github.alexthe666.citadel.client.model.container;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import java.util.List;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
@@ -13,6 +12,8 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.util.math.AffineTransformation;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+
+import java.util.List;
 
 public class BakedTabulaModel implements BakedModel {
     private final ImmutableList<BakedQuad> quads;

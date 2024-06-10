@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 
 //TODO: We do the same thing here as we do for the other GUI entity screens, that's dumb
 public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
-    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/hippogryph.png");
+    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/hippogryph.png");
     private float mousePosx;
     private float mousePosY;
 
@@ -55,8 +55,8 @@ public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
             if (hippo.isChested()) {
                 pGuiGraphics.drawTexture(TEXTURE, i + 79, j + 17, 0, this.backgroundHeight, 5 * 18, 54);
             }
-            InventoryScreen.drawEntity(pGuiGraphics,i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY,
-                hippo);
+            InventoryScreen.drawEntity(pGuiGraphics, i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY,
+                    hippo);
         }
     }
 

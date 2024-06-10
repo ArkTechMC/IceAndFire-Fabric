@@ -35,6 +35,33 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
         super(configuration);
     }
 
+    private static void generateShell(final FeatureContext<DefaultFeatureConfig> context, int size) {
+        int x = size + context.getRandom().nextInt(2);
+        int y = 12 + context.getRandom().nextInt(2);
+        int z = size + context.getRandom().nextInt(2);
+        float radius = (x + y + z) * 0.333F + 0.5F;
+
+        for (BlockPos position : BlockPos.stream(context.getOrigin().add(-x, -y, -z), context.getOrigin().add(x, y, z)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
+            boolean doorwayX = position.getX() >= context.getOrigin().getX() - 2 + context.getRandom().nextInt(2) && position.getX() <= context.getOrigin().getX() + 2 + context.getRandom().nextInt(2);
+            boolean doorwayZ = position.getZ() >= context.getOrigin().getZ() - 2 + context.getRandom().nextInt(2) && position.getZ() <= context.getOrigin().getZ() + 2 + context.getRandom().nextInt(2);
+            boolean isNotInDoorway = !doorwayX && !doorwayZ && position.getY() > context.getOrigin().getY() || position.getY() > context.getOrigin().getY() + y - (3 + context.getRandom().nextInt(2));
+
+            if (position.getSquaredDistance(context.getOrigin()) <= radius * radius) {
+                BlockState state = context.getWorld().getBlockState(position);
+
+                if (!(state.getBlock() instanceof AbstractChestBlock) && state.getHardness(context.getWorld(), position) >= 0 && isNotInDoorway) {
+                    context.getWorld().setBlockState(position, Blocks.STONE.getDefaultState(), Block.NOTIFY_ALL);
+                }
+                if (position.getY() == context.getOrigin().getY()) {
+                    context.getWorld().setBlockState(position, Blocks.MOSSY_COBBLESTONE.getDefaultState(), Block.NOTIFY_ALL);
+                }
+                if (position.getY() <= context.getOrigin().getY() - 1 && !state.isOpaque()) {
+                    context.getWorld().setBlockState(position, Blocks.COBBLESTONE.getDefaultState(), Block.NOTIFY_ALL);
+                }
+            }
+        }
+    }
+
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
         if (!WorldUtil.canGenerate(IafConfig.spawnCyclopsCaveChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
@@ -115,33 +142,6 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
         context.getWorld().spawnEntity(cyclops);
 
         return true;
-    }
-
-    private static void generateShell(final FeatureContext<DefaultFeatureConfig> context, int size) {
-        int x = size + context.getRandom().nextInt(2);
-        int y = 12 + context.getRandom().nextInt(2);
-        int z = size + context.getRandom().nextInt(2);
-        float radius = (x + y + z) * 0.333F + 0.5F;
-
-        for (BlockPos position : BlockPos.stream(context.getOrigin().add(-x, -y, -z), context.getOrigin().add(x, y, z)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
-            boolean doorwayX = position.getX() >= context.getOrigin().getX() - 2 + context.getRandom().nextInt(2) && position.getX() <= context.getOrigin().getX() + 2 + context.getRandom().nextInt(2);
-            boolean doorwayZ = position.getZ() >= context.getOrigin().getZ() - 2 + context.getRandom().nextInt(2) && position.getZ() <= context.getOrigin().getZ() + 2 + context.getRandom().nextInt(2);
-            boolean isNotInDoorway = !doorwayX && !doorwayZ && position.getY() > context.getOrigin().getY() || position.getY() > context.getOrigin().getY() + y - (3 + context.getRandom().nextInt(2));
-
-            if (position.getSquaredDistance(context.getOrigin()) <= radius * radius) {
-                BlockState state = context.getWorld().getBlockState(position);
-
-                if (!(state.getBlock() instanceof AbstractChestBlock) && state.getHardness(context.getWorld(), position) >= 0 && isNotInDoorway) {
-                    context.getWorld().setBlockState(position, Blocks.STONE.getDefaultState(), Block.NOTIFY_ALL);
-                }
-                if (position.getY() == context.getOrigin().getY()) {
-                    context.getWorld().setBlockState(position, Blocks.MOSSY_COBBLESTONE.getDefaultState(), Block.NOTIFY_ALL);
-                }
-                if (position.getY() <= context.getOrigin().getY() - 1 && !state.isOpaque()) {
-                    context.getWorld().setBlockState(position, Blocks.COBBLESTONE.getDefaultState(), Block.NOTIFY_ALL);
-                }
-            }
-        }
     }
 
     private void generateSheepPen(final ServerWorldAccess level, final BlockPos position, final net.minecraft.util.math.random.Random random, final BlockPos origin, float radius) {

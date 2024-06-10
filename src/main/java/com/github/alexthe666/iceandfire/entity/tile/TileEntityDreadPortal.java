@@ -18,6 +18,10 @@ public class TileEntityDreadPortal extends BlockEntity {
         super(IafTileEntityRegistry.DREAD_PORTAL.get(), pos, state);
     }
 
+    public static void tick(World level, BlockPos pos, BlockState state, TileEntityDreadPortal dreadPortal) {
+        ++dreadPortal.age;
+    }
+
     @Override
     public void writeNbt(@NotNull NbtCompound compound) {
         super.writeNbt(compound);
@@ -42,10 +46,6 @@ public class TileEntityDreadPortal extends BlockEntity {
         }
 
         this.exactTeleport = compound.getBoolean("ExactTeleport");
-    }
-
-    public static void tick(World level, BlockPos pos, BlockState state, TileEntityDreadPortal dreadPortal) {
-        ++dreadPortal.age;
     }
 
     @Override

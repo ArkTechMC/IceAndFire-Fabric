@@ -57,7 +57,7 @@ public class GhostAICharge extends Goal {
                     this.moveToPos = Vec3d.ofCenter(moveToPos);
                 } else {
                     this.ghost.getNavigation().startMovingTo(this.moveToPos.x + 0.5D, this.moveToPos.y + 0.5D,
-                        this.moveToPos.z + 0.5D, 1F);
+                            this.moveToPos.z + 0.5D, 1F);
                     if (this.ghost.squaredDistanceTo(this.moveToPos.add(0.5D, 0.5D, 0.5D)) < 9D) {
                         if (this.ghost.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
                             this.ghost.setAnimation(EntityGhost.ANIMATION_SCARE);

@@ -19,13 +19,10 @@ public class LightningRender {
 
     private static final float REFRESH_TIME = 3F;
     private static final double MAX_OWNER_TRACK_TIME = 100;
-
-    private Timestamp refreshTimestamp = new Timestamp();
-
     private final Random random = new Random();
     private final MinecraftClient minecraft = MinecraftClient.getInstance();
-
     private final Map<Object, BoltOwnerData> boltOwners = new Object2ObjectOpenHashMap<>();
+    private Timestamp refreshTimestamp = new Timestamp();
 
     public void render(float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn) {
         VertexConsumer buffer = bufferIn.getBuffer(RenderLayer.getLightning());
@@ -98,8 +95,8 @@ public class LightningRender {
             Pair<Integer, Integer> bounds = this.bolt.getFadeFunction().getRenderBounds(this.renderQuads.size(), lifeScale);
             for (int i = bounds.getLeft(); i < bounds.getRight(); i++) {
                 this.renderQuads.get(i).getVecs().forEach(v -> buffer.vertex(matrix, (float) v.x, (float) v.y, (float) v.z)
-                    .color(this.bolt.getColor().x(), this.bolt.getColor().y(), this.bolt.getColor().z(), this.bolt.getColor().w())
-                    .next());
+                        .color(this.bolt.getColor().x(), this.bolt.getColor().y(), this.bolt.getColor().z(), this.bolt.getColor().w())
+                        .next());
             }
         }
 

@@ -12,12 +12,11 @@ import java.util.concurrent.Future;
  * Creates a pathResult of a certain path.
  */
 public class PathResult<T extends Callable<Path>> {
+    private static boolean threadException = false;
     /**
      * The pathfinding status
      */
     protected PathFindingStatus status = PathFindingStatus.IN_PROGRESS_COMPUTING;
-    private static boolean threadException = false;
-
     /**
      * Whether the pathfinding job reached its destination
      */

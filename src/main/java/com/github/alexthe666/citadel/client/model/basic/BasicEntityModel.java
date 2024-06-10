@@ -1,12 +1,13 @@
 package com.github.alexthe666.citadel.client.model.basic;
 
-import java.util.function.Function;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+
+import java.util.function.Function;
 
 public abstract class BasicEntityModel<T extends Entity> extends EntityModel<T> {
     public int textureWidth = 64;

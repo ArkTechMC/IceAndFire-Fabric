@@ -50,7 +50,7 @@ public class MyrmexAIFollowSummoner extends Goal {
     @Override
     public boolean shouldContinue() {
         return this.tameable.getTarget() == null
-            && this.tameable.squaredDistanceTo(this.owner) > this.maxDist * this.maxDist;
+                && this.tameable.squaredDistanceTo(this.owner) > this.maxDist * this.maxDist;
     }
 
     @Override
@@ -77,7 +77,7 @@ public class MyrmexAIFollowSummoner extends Goal {
             return;
         }
         this.tameable.getLookControl().lookAt(this.owner, 10.0F,
-            this.tameable.getMaxLookPitchChange());
+                this.tameable.getMaxLookPitchChange());
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = 10;
             this.tameable.getMoveControl().moveTo(this.owner.getX(), this.owner.getY() + this.owner.getStandingEyeHeight(), this.owner.getZ(), 0.25D);
@@ -91,7 +91,7 @@ public class MyrmexAIFollowSummoner extends Goal {
                         for (int i1 = 0; i1 <= 4; ++i1) {
                             if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.isEmptyBlock(new BlockPos(i + l, k, j + i1)) && this.isEmptyBlock(new BlockPos(i + l, k + 1, j + i1))) {
                                 this.tameable.refreshPositionAndAngles(i + l + 0.5F, k + 1.5, j + i1 + 0.5F,
-                                    this.tameable.getYaw(), this.tameable.getPitch());
+                                        this.tameable.getYaw(), this.tameable.getPitch());
                                 return;
                             }
                         }

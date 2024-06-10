@@ -22,11 +22,11 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
     private final double initialX;
     private final double initialY;
     private final double initialZ;
+    private final int touchedTime = 0;
+    private final float speedBonus;
     private double targetX;
     private double targetY;
     private double targetZ;
-    private final int touchedTime = 0;
-    private final float speedBonus;
     private EntityDragonBase dragon;
 
     public ParticleDragonFlame(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, float dragonSize) {

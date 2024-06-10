@@ -1,8 +1,8 @@
 package com.github.alexthe666.citadel.animation;
 
 import com.github.alexthe666.citadel.server.message.AnimationMessage;
-import com.iafenvoy.iafextra.event.EventBus;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import org.apache.commons.lang3.ArrayUtils;
 

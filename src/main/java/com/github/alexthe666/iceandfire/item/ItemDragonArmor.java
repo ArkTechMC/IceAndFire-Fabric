@@ -29,14 +29,6 @@ public class ItemDragonArmor extends Item {
             this.baseName = Pattern.compile("[a-z]+_[a-z]+_[a-z]+");
     }
 
-    @Override
-    public @NotNull String getTranslationKey() {
-        String fullName = Registries.ITEM.getId(this).getPath();
-        Matcher matcher = this.baseName.matcher(fullName);
-        this.name = matcher.find() ? matcher.group() : fullName;
-        return "item." + IceAndFire.MOD_ID + "." + this.name;
-    }
-
     static String getNameForSlot(int slot) {
         return switch (slot) {
             case 0 -> "head";
@@ -45,6 +37,14 @@ public class ItemDragonArmor extends Item {
             case 3 -> "tail";
             default -> "";
         };
+    }
+
+    @Override
+    public @NotNull String getTranslationKey() {
+        String fullName = Registries.ITEM.getId(this).getPath();
+        Matcher matcher = this.baseName.matcher(fullName);
+        this.name = matcher.find() ? matcher.group() : fullName;
+        return "item." + IceAndFire.MOD_ID + "." + this.name;
     }
 
     @Override

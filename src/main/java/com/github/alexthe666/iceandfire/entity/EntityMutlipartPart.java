@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.message.MessageMultipartInteract;
-import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -42,21 +42,6 @@ public abstract class EntityMutlipartPart extends Entity {
         this.multipartSize = t.getDimensions();
     }
 
-    @Override
-    protected void readCustomDataFromNbt(@NotNull NbtCompound compound) {
-
-    }
-
-    @Override
-    protected void writeCustomDataToNbt(@NotNull NbtCompound compound) {
-
-    }
-
-    @Override
-    protected void onSwimmingStart() {
-
-    }
-
     public EntityMutlipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX,
                                float sizeY, float damageMultiplier) {
         super(t, parent.getWorld());
@@ -70,13 +55,41 @@ public abstract class EntityMutlipartPart extends Entity {
         this.damageMultiplier = damageMultiplier;
     }
 
-
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 2D)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.1D);
+    }
+
+    public static boolean sharesRider(Entity parent, Entity entityIn) {
+        for (Entity entity : parent.getPassengerList()) {
+            if (entity.equals(entityIn)) {
+                return true;
+            }
+
+            if (sharesRider(entity, entityIn)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    protected void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+
+    }
+
+    @Override
+    protected void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+
+    }
+
+    @Override
+    protected void onSwimmingStart() {
+
     }
 
     @Override
@@ -189,7 +202,6 @@ public abstract class EntityMutlipartPart extends Entity {
         return f1;
     }
 
-
     @Override
     public void remove(@NotNull RemovalReason reason) {
         super.remove(RemovalReason.DISCARDED);
@@ -228,20 +240,6 @@ public abstract class EntityMutlipartPart extends Entity {
         }
     }
 
-    public static boolean sharesRider(Entity parent, Entity entityIn) {
-        for (Entity entity : parent.getPassengerList()) {
-            if (entity.equals(entityIn)) {
-                return true;
-            }
-
-            if (sharesRider(entity, entityIn)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     @Override
     public @NotNull ActionResult interact(@NotNull PlayerEntity player, @NotNull Hand hand) {
         Entity parent = this.getParent();
@@ -266,6 +264,6 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     public boolean shouldContinuePersisting() {
-        return isAddedToWorld() || this.isRemoved();
+        return this.getWorld() != null || this.isRemoved();
     }
 }

@@ -5,7 +5,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.item.IafArmorMaterial;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemScaleArmor;
-import com.iafenvoy.iafextra.util.IdUtil;
+import dev.arktechmc.iafextra.util.IdUtil;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;

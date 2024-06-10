@@ -1,10 +1,7 @@
 package com.github.alexthe666.iceandfire.recipe;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -13,14 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potions;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class IafRecipeRegistry {
-    public static final LazyRegistrar<RecipeType<?>> RECIPE_TYPE = LazyRegistrar.create(RegistryKeys.RECIPE_TYPE, IceAndFire.MOD_ID);
-    public static final RegistryObject<RecipeType<DragonForgeRecipe>> DRAGON_FORGE_TYPE = RECIPE_TYPE.register("dragonforge", () -> RecipeType.register("dragonforge"));
+    public static final RecipeType<DragonForgeRecipe> DRAGON_FORGE_TYPE = RecipeType.register("dragonforge");
 
     public static void registerDispenser() {
         DispenserBlock.registerBehavior(IafItemRegistry.STYMPHALIAN_ARROW.get(), new ProjectileDispenserBehavior() {
@@ -115,5 +110,8 @@ public class IafRecipeRegistry {
             }
         });
         BrewingRecipeRegistry.registerPotionRecipe(Potions.WATER, IafItemRegistry.SHINY_SCALES.get(), Potions.WATER_BREATHING);
+    }
+
+    public static void init() {
     }
 }

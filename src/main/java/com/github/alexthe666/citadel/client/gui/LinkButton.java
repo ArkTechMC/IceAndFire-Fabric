@@ -36,6 +36,11 @@ public class LinkButton extends ButtonWidget {
 //        return this.hovered ? book.getWidgetColor() : this.active ? 0X94745A : 10526880;
 //    }
 
+    public static void drawTextOf(DrawContext guiGraphics, TextRenderer font, Text component, int x, int y, int color) {
+        OrderedText formattedcharsequence = component.asOrderedText();
+        guiGraphics.drawText(font, formattedcharsequence, x - font.getWidth(formattedcharsequence) / 2, y, color, false);
+    }
+
     @Override
     public int getTextureY() {
         int i = 1;
@@ -47,7 +52,6 @@ public class LinkButton extends ButtonWidget {
 
         return 46 + i * 20;
     }
-
 
     @Override
     public void renderButton(DrawContext guiGraphics, int guiX, int guiY, float partialTicks) {
@@ -82,11 +86,6 @@ public class LinkButton extends ButtonWidget {
             guiGraphics.drawItem(this.previewStack, this.getX() + 2, this.getY() + 1);
         }
         drawTextOf(guiGraphics, font, this.getMessage(), this.getX() + itemTextOffset + this.width / 2, this.getY() + (this.height - 8) / 2, j | MathHelper.ceil(this.alpha * 255.0F) << 24);
-    }
-
-    public static void drawTextOf(DrawContext guiGraphics, TextRenderer font, Text component, int x, int y, int color) {
-        OrderedText formattedcharsequence = component.asOrderedText();
-        guiGraphics.drawText(font, formattedcharsequence, x - font.getWidth(formattedcharsequence) / 2, y, color, false);
     }
 
     @Override

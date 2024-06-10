@@ -36,6 +36,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
@@ -47,8 +48,7 @@ import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -56,20 +56,18 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.EntityView;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class EntityHippocampus extends TameableEntity implements ISyncMount, IAnimatedEntity, ICustomMoveController, InventoryChangedListener, Saddleable {
+public class EntityHippocampus extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, ICustomMoveController, InventoryChangedListener, Saddleable {
 
     public static final int INV_SLOT_SADDLE = 0;
     public static final int INV_SLOT_CHEST = 1;
@@ -121,11 +119,6 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
         return 0;
     }
 
-    @Override
-    protected @NotNull EntityNavigation createNavigation(@NotNull World level) {
-        return new AmphibiousSwimNavigation(this, level);
-    }
-
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
@@ -134,6 +127,11 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D);
+    }
+
+    @Override
+    protected @NotNull EntityNavigation createNavigation(@NotNull World level) {
+        return new AmphibiousSwimNavigation(this, level);
     }
 
     @Override
@@ -163,11 +161,6 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
     @Override
     public @NotNull EntityGroup getGroup() {
         return EntityGroup.AQUATIC;
-    }
-
-    @Override
-    public boolean isPushedByFluid(FluidType fluid) {
-        return false;
     }
 
     @Override
@@ -336,7 +329,6 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
             if (this.isGoingUp()) {
                 if (!this.isTouchingWater() && this.isOnGround()) {
                     this.jump();
-                    net.minecraftforge.common.ForgeHooks.onLivingJump(this);
                 } else if (this.isTouchingWater()) {
                     this.setVelocity(vec3.add(0, 0.04F, 0));
                 }
@@ -443,7 +435,6 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
 
         this.inventory.addListener(this);
         this.updateContainerEquipment();
-        this.itemHandler = LazyOptional.of(() -> new InvWrapper(this.inventory));
     }
 
     protected void updateContainerEquipment() {
@@ -451,23 +442,6 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
             this.setSaddled(!this.inventory.getStack(INV_SLOT_SADDLE).isEmpty());
             this.setChested(!this.inventory.getStack(INV_SLOT_CHEST).isEmpty());
             this.setArmor(getIntFromArmor(this.inventory.getStack(INV_SLOT_ARMOR)));
-        }
-    }
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-        if (this.isAlive() && capability == ForgeCapabilities.ITEM_HANDLER && this.itemHandler != null)
-            return this.itemHandler.cast();
-        return super.getCapability(capability, facing);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        if (this.itemHandler != null) {
-            LazyOptional<?> oldHandler = this.itemHandler;
-            this.itemHandler = null;
-            oldHandler.invalidate();
         }
     }
 
@@ -570,11 +544,6 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
     }
 
     @Override
-    public boolean canDrownInFluidType(FluidType type) {
-        return false;
-    }
-
-    @Override
     public void travel(@NotNull Vec3d pTravelVector) {
         if (this.isLogicalSideForUpdatingMovement() && this.isTouchingWater()) {
             this.updateVelocity(0.1F, pTravelVector);
@@ -667,14 +636,14 @@ public class EntityHippocampus extends TameableEntity implements ISyncMount, IAn
         }
     }
 
-    public void openInventory(PlayerEntity player) {
-        if (!this.getWorld().isClient)
-            NetworkHooks.openScreen((ServerPlayerEntity) player, this.getMenuProvider());
-        IceAndFire.PROXY.setReferencedMob(this);
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new HippocampusContainerMenu(syncId, this.inventory, inv, this);
     }
 
-    public NamedScreenHandlerFactory getMenuProvider() {
-        return new SimpleNamedScreenHandlerFactory((containerId, playerInventory, player) -> new HippocampusContainerMenu(containerId, this.inventory, playerInventory, this), CONTAINER_TITLE);
+    public void openInventory(PlayerEntity player) {
+        IceAndFire.PROXY.setReferencedMob(this);
     }
 
     @Override

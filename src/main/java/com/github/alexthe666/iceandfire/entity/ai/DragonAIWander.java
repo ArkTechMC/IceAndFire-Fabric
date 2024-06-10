@@ -9,10 +9,10 @@ import java.util.EnumSet;
 
 public class DragonAIWander extends Goal {
     private final EntityDragonBase dragon;
+    private final double speed;
     private double xPosition;
     private double yPosition;
     private double zPosition;
-    private final double speed;
     private int executionChance;
     private boolean mustUpdate;
 

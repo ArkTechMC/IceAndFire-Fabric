@@ -1,6 +1,6 @@
 package com.github.alexthe666.citadel.client.event;
 
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Event;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;

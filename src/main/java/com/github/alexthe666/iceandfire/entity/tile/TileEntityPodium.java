@@ -1,11 +1,10 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.inventory.ContainerPodium;
 import com.github.alexthe666.iceandfire.item.ItemDragonEgg;
 import com.github.alexthe666.iceandfire.item.ItemMyrmexEgg;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePodium;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,7 +13,6 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -23,9 +21,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 
 public class TileEntityPodium extends LockableContainerBlockEntity implements SidedInventory {
@@ -33,10 +28,6 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     private static final int[] slotsTop = new int[]{0};
     public int ticksExisted;
     public int prevTicksExisted;
-    IItemHandler handlerUp = new SidedInvWrapper(this, Direction.UP);
-    IItemHandler handlerDown = new SidedInvWrapper(this, Direction.DOWN);
-    net.minecraftforge.common.util.LazyOptional<? extends IItemHandler>[] handlers = SidedInvWrapper
-        .create(this, Direction.UP, Direction.DOWN);
     private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
     public TileEntityPodium(BlockPos pos, BlockState state) {
@@ -47,11 +38,6 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     public static void tick(World level, BlockPos pos, BlockState state, TileEntityPodium entityPodium) {
         entityPodium.prevTicksExisted = entityPodium.ticksExisted;
         entityPodium.ticksExisted++;
-    }
-
-    @Override
-    public net.minecraft.util.math.Box getRenderBoundingBox() {
-        return new net.minecraft.util.math.Box(this.pos, this.pos.add(1, 3, 1));
     }
 
     @Override
@@ -176,11 +162,6 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        this.readNbt(packet.getNbt());
-    }
-
-    @Override
     public @NotNull NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
@@ -212,19 +193,6 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
                 return false;
         }
         return true;
-    }
-
-    @Override
-    public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(
-        net.minecraftforge.common.capabilities.@NotNull Capability<T> capability, Direction facing) {
-        if (!this.removed && facing != null
-            && capability == ForgeCapabilities.ITEM_HANDLER) {
-            if (facing == Direction.DOWN)
-                return this.handlers[1].cast();
-            else
-                return this.handlers[0].cast();
-        }
-        return super.getCapability(capability, facing);
     }
 
     @Override

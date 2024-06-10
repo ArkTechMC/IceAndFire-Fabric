@@ -2,12 +2,6 @@ package com.github.alexthe666.citadel.client.render.pathfinding;
 
 import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
-
-import java.util.ConcurrentModificationException;
-import java.util.HashSet;
-import java.util.Set;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilderStorage;
@@ -15,6 +9,12 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+
+import java.util.ConcurrentModificationException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class PathfindingDebugRenderer {
     public static final BufferBuilderStorage renderBuffers = new BufferBuilderStorage();

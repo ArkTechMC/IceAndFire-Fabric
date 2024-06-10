@@ -16,36 +16,30 @@ import com.github.alexthe666.iceandfire.client.render.tile.*;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.ItemDragonBow;
 import com.github.alexthe666.iceandfire.item.ItemDragonHorn;
 import com.github.alexthe666.iceandfire.item.ItemSummoningCrystal;
+import dev.arktechmc.iafextra.resource.TabulaResourceManager;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.minecraft.client.gl.ShaderProgram;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.resource.ResourceFactory;
+import net.minecraft.resource.ResourceType;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterShadersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import java.io.IOException;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD, modid = IceAndFire.MOD_ID)
 public class IafClientSetup {
-
+    public static final Identifier GHOST_CHEST_LOCATION = new Identifier(IceAndFire.MOD_ID, "models/ghost/ghost_chest");
+    public static final Identifier GHOST_CHEST_LEFT_LOCATION = new Identifier(IceAndFire.MOD_ID, "models/ghost/ghost_chest_left");
+    public static final Identifier GHOST_CHEST_RIGHT_LOCATION = new Identifier(IceAndFire.MOD_ID, "models/ghost/ghost_chest_right");
     public static TabulaModel FIRE_DRAGON_BASE_MODEL;
     public static TabulaModel ICE_DRAGON_BASE_MODEL;
     public static TabulaModel SEA_SERPENT_BASE_MODEL;
     public static TabulaModel LIGHTNING_DRAGON_BASE_MODEL;
-    private static ShaderProgram rendertypeDreadPortalShader;
-    public static final Identifier GHOST_CHEST_LOCATION = new Identifier(IceAndFire.MOD_ID, "models/ghost/ghost_chest");
-    public static final Identifier GHOST_CHEST_LEFT_LOCATION = new Identifier(IceAndFire.MOD_ID, "models/ghost/ghost_chest_left");
-    public static final Identifier GHOST_CHEST_RIGHT_LOCATION = new Identifier(IceAndFire.MOD_ID, "models/ghost/ghost_chest_right");
-
 
     public static void clientInit() {
         EntityRendererRegistry.register(IafEntityRegistry.FIRE_DRAGON.get(), x -> new RenderDragonBase(x, FIRE_DRAGON_BASE_MODEL, 0));
@@ -119,100 +113,59 @@ public class IafClientSetup {
 
     }
 
-    @SubscribeEvent
-    public static void setupShaders(RegisterShadersEvent event) throws IOException {
-        ResourceFactory provider = event.getResourceProvider();
-        event.registerShader(new ShaderProgram(provider, new Identifier(IceAndFire.MOD_ID, "rendertype_dread_portal"), VertexFormats.POSITION_COLOR), (p_172782_) -> {
-            rendertypeDreadPortalShader = p_172782_;
-        });
+    public static void setupClient() {
+        IafGuiRegistry.register();
+        EnumSeaSerpentAnimations.initializeSerpentModels();
+        DragonAnimationsLibrary.register(EnumDragonPoses.values(), EnumDragonModelTypes.values());
+
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TabulaResourceManager());
+
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.GOLD_PILE.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.SILVER_PILE.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.LECTERN.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PODIUM_OAK.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PODIUM_BIRCH.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PODIUM_SPRUCE.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PODIUM_JUNGLE.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PODIUM_ACACIA.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PODIUM_DARK_OAK.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.FIRE_LILY.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.FROST_LILY.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.LIGHTNING_LILY.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.DRAGON_ICE_SPIKES.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.MYRMEX_DESERT_RESIN_BLOCK.get(), RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.MYRMEX_DESERT_RESIN_GLASS.get(), RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.MYRMEX_JUNGLE_RESIN_BLOCK.get(), RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.MYRMEX_JUNGLE_RESIN_GLASS.get(), RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.MYRMEX_DESERT_BIOLIGHT.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.MYRMEX_JUNGLE_BIOLIGHT.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.DREAD_STONE_FACE.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.DREAD_TORCH.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.BURNT_TORCH.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.EGG_IN_ICE.get(), RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.JAR_EMPTY.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.JAR_PIXIE_0.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.JAR_PIXIE_1.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.JAR_PIXIE_2.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.JAR_PIXIE_3.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.JAR_PIXIE_4.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_BROWN.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_RED.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PIXIE_HOUSE_OAK.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PIXIE_HOUSE_BIRCH.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PIXIE_HOUSE_SPRUCE.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.PIXIE_HOUSE_DARK_OAK.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.DREAD_SPAWNER.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.DREAD_TORCH_WALL.get(), RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlockRegistry.BURNT_TORCH_WALL.get(), RenderLayer.getCutout());
+
+        ModelPredicateProviderRegistry.register(IafItemRegistry.DRAGON_BOW.get(), new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1 : 0);
+        ModelPredicateProviderRegistry.register(IafItemRegistry.DRAGON_BOW.get(), new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity == null ? 0 : livingEntity.getActiveItem() != itemStack ? 0 : (float) (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20);
+
+        ModelPredicateProviderRegistry.register(IafItemRegistry.DRAGON_HORN.get(), new Identifier("iceorfire"), (stack, level, entity, p) -> ItemDragonHorn.getDragonType(stack) * 0.25F);
+        ModelPredicateProviderRegistry.register(IafItemRegistry.SUMMONING_CRYSTAL_FIRE.get(), new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(IafItemRegistry.SUMMONING_CRYSTAL_ICE.get(), new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(IafItemRegistry.SUMMONING_CRYSTAL_LIGHTNING.get(), new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(IafItemRegistry.TIDE_TRIDENT.get(), new Identifier("throwing"), (stack, level, entity, p) -> entity != null && entity.isUsingItem() && entity.getMainHandStack() == stack ? 1.0F : 0.0F);
     }
-
-    public static ShaderProgram getRendertypeDreadPortalShader() {
-        return rendertypeDreadPortalShader;
-    }
-
-    @SubscribeEvent
-    public static void setupClient(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            IafGuiRegistry.register();
-            EnumSeaSerpentAnimations.initializeSerpentModels();
-            DragonAnimationsLibrary.register(EnumDragonPoses.values(), EnumDragonModelTypes.values());
-
-            try {
-                SEA_SERPENT_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/seaserpent/seaserpent_base"), new SeaSerpentTabulaModelAnimator());
-                FIRE_DRAGON_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/firedragon/firedragon_ground"), new FireDragonTabulaModelAnimator());
-                ICE_DRAGON_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/icedragon/icedragon_ground"), new IceDragonTabulaModelAnimator());
-                LIGHTNING_DRAGON_BASE_MODEL = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_ground"), new LightningTabulaDragonAnimator());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.GOLD_PILE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.SILVER_PILE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.LECTERN.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PODIUM_OAK.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PODIUM_BIRCH.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PODIUM_SPRUCE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PODIUM_JUNGLE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PODIUM_ACACIA.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PODIUM_DARK_OAK.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.FIRE_LILY.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.FROST_LILY.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.LIGHTNING_LILY.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.DRAGON_ICE_SPIKES.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.MYRMEX_DESERT_RESIN_BLOCK.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.MYRMEX_DESERT_RESIN_GLASS.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.MYRMEX_JUNGLE_RESIN_BLOCK.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.MYRMEX_JUNGLE_RESIN_GLASS.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.MYRMEX_DESERT_BIOLIGHT.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.MYRMEX_JUNGLE_BIOLIGHT.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.DREAD_STONE_FACE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.DREAD_TORCH.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.BURNT_TORCH.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.EGG_IN_ICE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.JAR_EMPTY.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.JAR_PIXIE_0.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.JAR_PIXIE_1.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.JAR_PIXIE_2.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.JAR_PIXIE_3.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.JAR_PIXIE_4.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_BROWN.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_RED.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PIXIE_HOUSE_OAK.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PIXIE_HOUSE_BIRCH.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PIXIE_HOUSE_SPRUCE.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.PIXIE_HOUSE_DARK_OAK.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.DREAD_SPAWNER.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.DREAD_TORCH_WALL.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(IafBlockRegistry.BURNT_TORCH_WALL.get(), RenderType.cutout());
-            ItemPropertyFunction pulling = ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
-            ItemPropertyFunction pull = (stack, worldIn, entity, p) -> {
-                if (entity == null) {
-                    return 0.0F;
-                } else {
-                    ItemDragonBow item = ((ItemDragonBow) stack.getItem());
-                    return entity.getUseItem() != stack ? 0.0F : (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
-                }
-            };
-
-            ItemProperties.register(IafItemRegistry.DRAGON_BOW.get().asItem(), new ResourceLocation("pulling"), pulling);
-            ItemProperties.register(IafItemRegistry.DRAGON_BOW.get().asItem(), new ResourceLocation("pull"), pull);
-            ItemProperties.register(IafItemRegistry.DRAGON_HORN.get(), new ResourceLocation("iceorfire"), (stack, level, entity, p) -> {
-                return ItemDragonHorn.getDragonType(stack) * 0.25F;
-            });
-            ItemProperties.register(IafItemRegistry.SUMMONING_CRYSTAL_FIRE.get(), new ResourceLocation("has_dragon"), (stack, level, entity, p) -> {
-                return ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F;
-            });
-            ItemProperties.register(IafItemRegistry.SUMMONING_CRYSTAL_ICE.get(), new ResourceLocation("has_dragon"), (stack, level, entity, p) -> {
-                return ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F;
-            });
-            ItemProperties.register(IafItemRegistry.SUMMONING_CRYSTAL_LIGHTNING.get(), new ResourceLocation("has_dragon"), (stack, level, entity, p) -> {
-                return ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F;
-            });
-            ItemProperties.register(IafItemRegistry.TIDE_TRIDENT.get(), new ResourceLocation("throwing"), (stack, level, entity, p) -> {
-                return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
-            });
-        });
-    }
-
 }

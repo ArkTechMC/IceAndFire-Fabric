@@ -49,7 +49,7 @@ public class ItemPixieWand extends Item {
             d3 = d3 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d4 = d4 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             EntityPixieCharge charge = new EntityPixieCharge(IafEntityRegistry.PIXIE_CHARGE.get(), worldIn, playerIn,
-                d2, d3, d4);
+                    d2, d3, d4);
             charge.setPosition(playerIn.getX(), playerIn.getY() + 1, playerIn.getZ());
             if (!worldIn.isClient) {
                 worldIn.spawnEntity(charge);

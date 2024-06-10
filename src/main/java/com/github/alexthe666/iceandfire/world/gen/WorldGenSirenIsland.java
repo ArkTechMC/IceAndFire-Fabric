@@ -20,6 +20,7 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implements TypedFeature {
 
     private final int MAX_ISLAND_RADIUS = 10;
+
     public WorldGenSirenIsland(final Codec<DefaultFeatureConfig> configuration) {
         super(configuration);
     }

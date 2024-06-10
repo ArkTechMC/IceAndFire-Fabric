@@ -8,24 +8,19 @@ import java.util.List;
  * @since 1.0.0
  */
 public class TabulaAnimationComponentContainer {
-    private String name;
-    private String identifier;
-
-    private int startKey;
-    private int length;
-
     private final double[] posChange = new double[3];
     private final double[] rotChange = new double[3];
     private final double[] scaleChange = new double[3];
-    private double opacityChange;
-
     private final double[] posOffset = new double[3];
     private final double[] rotOffset = new double[3];
     private final double[] scaleOffset = new double[3];
-    private double opacityOffset;
-
     private final List<double[]> progressionCoords = new ArrayList<>();
-
+    private String name;
+    private String identifier;
+    private int startKey;
+    private int length;
+    private double opacityChange;
+    private double opacityOffset;
     private boolean hidden;
 
     public String getName() {

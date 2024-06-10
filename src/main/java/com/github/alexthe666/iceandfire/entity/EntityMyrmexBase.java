@@ -3,6 +3,10 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.IPassabilityNavigator;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.BlockMyrmexConnectedResin;
@@ -13,10 +17,6 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.IPassabilityNavigator;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.PathResult;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.collect.Sets;
@@ -36,6 +36,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
@@ -783,12 +784,6 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         this.setCustomer(null);
     }
 
-    @Override
-    public Entity changeDimension(@NotNull ServerWorld server, net.minecraftforge.common.util.@NotNull ITeleporter teleporter) {
-        this.resetCustomer();
-        return super.moveToWorld(server, teleporter);
-    }
-
     public SimpleInventory getVillagerInventory() {
         return this.villagerInventory;
     }
@@ -800,15 +795,18 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         if (ItemStack.areItemsEqual(superStack, stack) && ItemStack.areEqual(superStack, stack)) {
             return stack;
         } else {
-            EquipmentSlot inventorySlot = stack.getEquipmentSlot();
-            int i = inventorySlot.getEntitySlotId() - 300;
-            if (i >= 0 && i < this.villagerInventory.size()) {
-                this.villagerInventory.setStack(i, stack);
-                return stack;
-            } else {
-                return ItemStack.EMPTY;
+            if (stack.getItem() instanceof ArmorItem armorItem) {
+                EquipmentSlot inventorySlot = armorItem.getSlotType();
+                int i = inventorySlot.getEntitySlotId() - 300;
+                if (i >= 0 && i < this.villagerInventory.size()) {
+                    this.villagerInventory.setStack(i, stack);
+                    return stack;
+                } else {
+                    return ItemStack.EMPTY;
+                }
             }
         }
+        return ItemStack.EMPTY;
     }
 
     protected void addTrades(TradeOfferList givenMerchantOffers, TradeOffers.Factory[] newTrades, int maxNumbers) {

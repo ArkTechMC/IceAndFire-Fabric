@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "iceandfire",
   "version": "${version}",
-  "name": "IceAndFire Fabric",
+  "name": "Ice And Fire",
   "description": "",
   "authors": [],
   "contact": {
@@ -13,10 +13,21 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.iafenvoy.iafextra.IceAndFireClient"
+      "dev.arktechmc.iafextra.IceAndFireClient"
     ],
     "main": [
-      "com.iafenvoy.iafextra.IceAndFire"
+      "dev.arktechmc.iafextra.IceAndFire"
+    ],
+    "emi": [
+      "com.github.alexthe666.iceandfire.compat.emi.IceAndFirePlugin"
+    ],
+    "cardinal-components-entity": [
+      "dev.arktechmc.iafextra.data.ModComponentEntry"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "iceandfire:entity_data"
     ]
   },
   "mixins": [
@@ -26,8 +37,8 @@
   ],
   "accessWidener": "iceandfire.accesswidener",
   "depends": {
-    "fabricloader": ">=${loader_version}",
+    "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "1.20.1"
   }
 }

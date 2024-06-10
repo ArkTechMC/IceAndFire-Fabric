@@ -50,7 +50,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
 
             HitResult raytraceresult = ProjectileUtil.getCollision(this, this::canHitMob);
 
-            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+            if (raytraceresult.getType() != HitResult.Type.MISS) {
                 this.onCollision(raytraceresult);
             }
 

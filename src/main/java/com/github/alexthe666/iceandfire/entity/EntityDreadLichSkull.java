@@ -11,6 +11,7 @@ import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShieldItem;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -20,7 +21,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -159,17 +159,12 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
     }
 
     protected void damageShield(PlayerEntity player, float damage) {
-        if (damage >= 3.0F && player.getActiveItem().getItem().canPerformAction(player.getActiveItem(), ToolActions.SHIELD_BLOCK)) {
-            ItemStack copyBeforeUse = player.getActiveItem().copy();
+        if (damage >= 3.0F && player.getActiveItem().getItem() instanceof ShieldItem) {
             int i = 1 + MathHelper.floor(damage);
-            player.getActiveItem().damage(i, player, (playerSheild) -> {
-                playerSheild.sendToolBreakStatus(playerSheild.getActiveHand());
-            });
+            player.getActiveItem().damage(i, player, (playerSheild) -> playerSheild.sendToolBreakStatus(playerSheild.getActiveHand()));
 
             if (player.getActiveItem().isEmpty()) {
                 Hand Hand = player.getActiveHand();
-                net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, copyBeforeUse, Hand);
-
                 if (Hand == net.minecraft.util.Hand.MAIN_HAND) {
                     this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 } else {

@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.stream.Collectors;
 
 public class PathNavigateDeathWormLand extends EntityNavigation {
-    private boolean shouldAvoidSun;
     private final EntityDeathWorm worm;
+    private boolean shouldAvoidSun;
 
     public PathNavigateDeathWormLand(EntityDeathWorm worm, World worldIn) {
         super(worm, worldIn);

@@ -1,29 +1,19 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.citadel.server.item.CustomArmorMaterial;
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.client.model.armor.ModelTrollArmor;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
-import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.minecraft.world.item.*;
-import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
 
 public class ItemTrollArmor extends ArmorItem {
 
@@ -38,12 +28,6 @@ public class ItemTrollArmor extends ArmorItem {
         return "%s_troll_leather_%s".formatted(troll.name().toLowerCase(Locale.ROOT), getArmorPart(slot));
     }
 
-    @Override
-    public @NotNull ArmorMaterial getMaterial() {
-        return this.troll.material;
-    }
-
-
     private static String getArmorPart(EquipmentSlot slot) {
         return switch (slot) {
             case HEAD -> "helmet";
@@ -52,6 +36,11 @@ public class ItemTrollArmor extends ArmorItem {
             case FEET -> "boots";
             default -> "";
         };
+    }
+
+    @Override
+    public @NotNull ArmorMaterial getMaterial() {
+        return this.troll.material;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.client.ClientProxy;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageGetMyrmexHive;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -21,8 +22,8 @@ import net.minecraft.util.math.Direction;
 import org.jetbrains.annotations.NotNull;
 
 public class GuiMyrmexAddRoom extends Screen {
-    private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/myrmex_staff_jungle.png");
-    private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/myrmex_staff_desert.png");
+    private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_jungle.png");
+    private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_desert.png");
     private final boolean jungle;
     private final BlockPos interactPos;
     private final Direction facing;
@@ -36,7 +37,7 @@ public class GuiMyrmexAddRoom extends Screen {
     }
 
     public static void onGuiClosed() {
-        IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
+        IafClientNetworkHandler.send(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
     }
 
     @Override

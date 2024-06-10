@@ -1,6 +1,8 @@
 package com.github.alexthe666.citadel.item;
 
 import com.github.alexthe666.citadel.Citadel;
+import com.github.alexthe666.citadel.client.gui.GuiCitadelBook;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,9 +21,9 @@ public class ItemCitadelBook extends Item {
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStackIn = playerIn.getStackInHand(handIn);
         if (worldIn.isClient) {
-            Citadel.PROXY.openBookGUI(itemStackIn);
+            MinecraftClient.getInstance().setScreen(new GuiCitadelBook(itemStackIn));
         }
-        return new TypedActionResult<ItemStack>(ActionResult.PASS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
 }

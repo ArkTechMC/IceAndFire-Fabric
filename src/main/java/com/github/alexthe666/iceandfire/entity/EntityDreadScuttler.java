@@ -53,6 +53,20 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
         super(type, worldIn);
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.34D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 12.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 10.0D);
+    }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
@@ -74,21 +88,6 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
             }
         }));
     }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.34D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7.0D)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 12.0D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 10.0D);
-    }
-
 
     @Override
     protected void initDataTracker() {

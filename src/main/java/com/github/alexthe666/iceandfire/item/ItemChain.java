@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityChainTie;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallBlock;
 import net.minecraft.client.item.TooltipContext;
@@ -38,18 +38,17 @@ public class ItemChain extends Item {
         int k = fence.getZ();
 
         for (LivingEntity livingEntity : worldIn.getNonSpectatingEntities(LivingEntity.class, new Box((double) i - d0, (double) j - d0, (double) k - d0, (double) i + d0, (double) j + d0, (double) k + d0))) {
-            EntityDataProvider.getCapability(livingEntity).ifPresent(data -> {
-                if (data.chainData.isChainedTo(player)) {
-                    EntityChainTie entityleashknot = EntityChainTie.getKnotForPosition(worldIn, fence);
+            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+            if (data.chainData.isChainedTo(player)) {
+                EntityChainTie entityleashknot = EntityChainTie.getKnotForPosition(worldIn, fence);
 
-                    if (entityleashknot == null) {
-                        entityleashknot = EntityChainTie.createTie(worldIn, fence);
-                    }
-
-                    data.chainData.removeChain(player);
-                    data.chainData.attachChain(entityleashknot);
+                if (entityleashknot == null) {
+                    entityleashknot = EntityChainTie.createTie(worldIn, fence);
                 }
-            });
+
+                data.chainData.removeChain(player);
+                data.chainData.attachChain(entityleashknot);
+            }
         }
     }
 
@@ -65,53 +64,52 @@ public class ItemChain extends Item {
 
     @Override
     public @NotNull ActionResult useOnEntity(@NotNull ItemStack stack, @NotNull PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
-        EntityDataProvider.getCapability(target).ifPresent(targetData -> {
-            if (targetData.chainData.isChainedTo(playerIn)) {
-                return;
-            }
+        EntityDataComponent targetData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+        if (targetData.chainData.isChainedTo(playerIn)) {
+            return ActionResult.PASS;
+        }
 
-            if (this.sticky) {
-                double d0 = 60.0D;
-                double i = playerIn.getX();
-                double j = playerIn.getY();
-                double k = playerIn.getZ();
-                List<LivingEntity> nearbyEntities = playerIn.getWorld().getEntitiesByClass(LivingEntity.class, new Box(i - d0, j - d0, k - d0, i + d0, j + d0, k + d0),livingEntity -> true);
+        if (this.sticky) {
+            double d0 = 60.0D;
+            double i = playerIn.getX();
+            double j = playerIn.getY();
+            double k = playerIn.getZ();
+            List<LivingEntity> nearbyEntities = playerIn.getWorld().getEntitiesByClass(LivingEntity.class, new Box(i - d0, j - d0, k - d0, i + d0, j + d0, k + d0), livingEntity -> true);
 
-                if (playerIn.isSneaking()) {
-                    targetData.chainData.clearChains();
-
-                    for (LivingEntity livingEntity : nearbyEntities) {
-                        EntityDataProvider.getCapability(livingEntity).ifPresent(nearbyData -> nearbyData.chainData.removeChain(target));
-                    }
-
-                    return;
-                }
-
-                AtomicBoolean flag = new AtomicBoolean(false);
+            if (playerIn.isSneaking()) {
+                targetData.chainData.clearChains();
 
                 for (LivingEntity livingEntity : nearbyEntities) {
-                    EntityDataProvider.getCapability(livingEntity).ifPresent(nearbyData -> {
-                        if (nearbyData.chainData.isChainedTo(playerIn)) {
-                            targetData.chainData.removeChain(playerIn);
-                            nearbyData.chainData.removeChain(playerIn);
-                            nearbyData.chainData.attachChain(target);
-
-                            flag.set(true);
-                        }
-                    });
+                    EntityDataComponent nearbyData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+                    nearbyData.chainData.removeChain(target);
                 }
 
-                if (!flag.get()) {
-                    targetData.chainData.attachChain(playerIn);
+                return ActionResult.SUCCESS;
+            }
+
+            AtomicBoolean flag = new AtomicBoolean(false);
+
+            for (LivingEntity livingEntity : nearbyEntities) {
+                EntityDataComponent nearbyData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+                if (nearbyData.chainData.isChainedTo(playerIn)) {
+                    targetData.chainData.removeChain(playerIn);
+                    nearbyData.chainData.removeChain(playerIn);
+                    nearbyData.chainData.attachChain(target);
+
+                    flag.set(true);
                 }
-            } else {
+            }
+
+            if (!flag.get()) {
                 targetData.chainData.attachChain(playerIn);
             }
+        } else {
+            targetData.chainData.attachChain(playerIn);
+        }
 
-            if (!playerIn.isCreative()) {
-                stack.decrement(1);
-            }
-        });
+        if (!playerIn.isCreative()) {
+            stack.decrement(1);
+        }
 
         return ActionResult.SUCCESS;
     }

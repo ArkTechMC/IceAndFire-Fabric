@@ -7,7 +7,7 @@ import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouseModel;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -85,14 +85,6 @@ public class TileEntityPixieHouse extends BlockEntity {
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-    @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-        this.readNbt(packet.getNbt());
-        if (!this.world.isClient) {
-            IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouseModel(this.pos.asLong(), packet.getNbt().getInt("HouseType")));
-        }
     }
 
     @Override

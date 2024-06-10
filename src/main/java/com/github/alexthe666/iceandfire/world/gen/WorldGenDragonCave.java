@@ -9,11 +9,8 @@ import com.github.alexthe666.iceandfire.util.ShapeBuilder;
 import com.github.alexthe666.iceandfire.world.IafWorldData;
 import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
+import io.github.fabricators_of_create.porting_lib.tags.TagHelper;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.EntityType;
@@ -31,8 +28,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.tags.ITagManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +36,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> implements TypedFeature {
+    private static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
     public Identifier DRAGON_CHEST;
     public Identifier DRAGON_MALE_CHEST;
     public WorldGenCaveStalactites CEILING_DECO;
@@ -48,7 +44,6 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
     public BlockState PALETTE_BLOCK2;
     public TagKey<Block> dragonTypeOreTag;
     public BlockState TREASURE_PILE;
-    private static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
     public boolean isMale;
 
     protected WorldGenDragonCave(Codec<DefaultFeatureConfig> codec) {
@@ -69,8 +64,8 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
 
         int j = 40;
         // Update the position so it doesn't go above the ocean floor
-        for(int k = 0; k < 20; ++k) {
-            for(int l = 0; l < 20; ++l) {
+        for (int k = 0; k < 20; ++k) {
+            for (int l = 0; l < 20; ++l) {
                 j = Math.min(j, worldIn.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, position.getX() + k, position.getZ() + l));
             }
         }
@@ -122,12 +117,10 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
     }
 
     public void createShell(WorldAccess worldIn, Random rand, Set<BlockPos> positions) {
-        ITagManager<Block> tagManager = Registries.BLOCK.tags();
-
-        List<Block> rareOres = this.getBlockList(tagManager, IafBlockTags.DRAGON_CAVE_RARE_ORES);
-        List<Block> uncommonOres = this.getBlockList(tagManager, IafBlockTags.DRAGON_CAVE_UNCOMMON_ORES);
-        List<Block> commonOres = this.getBlockList(tagManager, IafBlockTags.DRAGON_CAVE_COMMON_ORES);
-        List<Block> dragonTypeOres = this.getBlockList(tagManager, this.dragonTypeOreTag);
+        List<Block> rareOres = this.getBlockList(IafBlockTags.DRAGON_CAVE_RARE_ORES);
+        List<Block> uncommonOres = this.getBlockList(IafBlockTags.DRAGON_CAVE_UNCOMMON_ORES);
+        List<Block> commonOres = this.getBlockList(IafBlockTags.DRAGON_CAVE_COMMON_ORES);
+        List<Block> dragonTypeOres = this.getBlockList(this.dragonTypeOreTag);
 
         positions.forEach(blockPos -> {
             if (!(worldIn.getBlockState(blockPos).getBlock() instanceof BlockWithEntity) && worldIn.getBlockState(blockPos).getHardness(worldIn, blockPos) >= 0) {
@@ -162,12 +155,8 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         });
     }
 
-    private List<Block> getBlockList(final ITagManager<Block> tagManager, final TagKey<Block> tagKey) {
-        if (tagManager == null) {
-            return List.of();
-        }
-
-        return tagManager.getTag(tagKey).stream().toList();
+    private List<Block> getBlockList(final TagKey<Block> tagKey) {
+        return TagHelper.getContents(Registries.BLOCK, tagKey);
     }
 
     public void hollowOut(WorldAccess worldIn, Set<BlockPos> positions) {
@@ -236,16 +225,6 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
 
     public abstract EntityType<? extends EntityDragonBase> getDragonType();
 
-    private static class SphereInfo {
-        int radius;
-        BlockPos pos;
-
-        private SphereInfo(int radius, BlockPos pos) {
-            this.radius = radius;
-            this.pos = pos;
-        }
-    }
-
     @Override
     public IafWorldData.FeatureType getFeatureType() {
         return IafWorldData.FeatureType.UNDERGROUND;
@@ -254,5 +233,15 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
     @Override
     public String getId() {
         return "dragon_cave";
+    }
+
+    private static class SphereInfo {
+        int radius;
+        BlockPos pos;
+
+        private SphereInfo(int radius, BlockPos pos) {
+            this.radius = radius;
+            this.pos = pos;
+        }
     }
 }

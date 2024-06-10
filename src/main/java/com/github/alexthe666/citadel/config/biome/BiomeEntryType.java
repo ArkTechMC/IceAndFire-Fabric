@@ -5,7 +5,7 @@ public enum BiomeEntryType {
 
     private final boolean depreciated;
 
-    BiomeEntryType(boolean depreciated){
+    BiomeEntryType(boolean depreciated) {
         this.depreciated = depreciated;
     }
 

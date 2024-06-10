@@ -9,7 +9,6 @@ import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetOutOfWater;
 import com.github.alexthe666.iceandfire.entity.ai.SirenAIFindWaterTarget;
 import com.github.alexthe666.iceandfire.entity.ai.SirenAIWander;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.util.ChainBuffer;
 import com.github.alexthe666.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.github.alexthe666.iceandfire.entity.util.IHearsSiren;
@@ -19,7 +18,8 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageSirenSong;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -85,6 +85,32 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         this.setStepHeight(1F);
     }
 
+    public static boolean isWearingEarplugs(LivingEntity entity) {
+        ItemStack helmet = entity.getEquippedStack(EquipmentSlot.HEAD);
+        return helmet.getItem() == IafItemRegistry.EARPLUGS.get() || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.sirenMaxHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D);
+    }
+
+    public static float updateRotation(float angle, float targetAngle, float maxIncrease) {
+        float f = MathHelper.wrapDegrees(targetAngle - angle);
+        if (f > maxIncrease) {
+            f = maxIncrease;
+        }
+        if (f < -maxIncrease) {
+            f = -maxIncrease;
+        }
+        return angle + f;
+    }
+
     @Override
     protected void initGoals() {
         super.initGoals();
@@ -108,11 +134,6 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
                 return EntitySiren.this.isAgressive();
             }
         }));
-    }
-
-    public static boolean isWearingEarplugs(LivingEntity entity) {
-        ItemStack helmet = entity.getEquippedStack(EquipmentSlot.HEAD);
-        return helmet.getItem() == IafItemRegistry.EARPLUGS.get() || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
     }
 
     @Override
@@ -324,11 +345,10 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
                     continue;
                 }
 
-                EntityDataProvider.getCapability(entity).ifPresent(data -> {
-                    if (data.sirenData.isCharmed || data.sirenData.charmedBy == null) {
-                        data.sirenData.setCharmed(this);
-                    }
-                });
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entities);
+                if (data.sirenData.isCharmed || data.sirenData.charmedBy == null) {
+                    data.sirenData.setCharmed(this);
+                }
             }
         }
     }
@@ -432,17 +452,6 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         this.dataTracker.set(SING_POSE, MathHelper.clamp(pose, 0, 2));
     }
 
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.sirenMaxHealth)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0D);
-    }
-
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.sirenMaxHealth);
@@ -466,17 +475,6 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         this.setHairColor(this.getRandom().nextInt(3));
         this.setSingingPose(this.getRandom().nextInt(3));
         return spawnDataIn;
-    }
-
-    public static float updateRotation(float angle, float targetAngle, float maxIncrease) {
-        float f = MathHelper.wrapDegrees(targetAngle - angle);
-        if (f > maxIncrease) {
-            f = maxIncrease;
-        }
-        if (f < -maxIncrease) {
-            f = -maxIncrease;
-        }
-        return angle + f;
     }
 
     @Override

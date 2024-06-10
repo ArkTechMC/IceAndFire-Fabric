@@ -1,13 +1,12 @@
 package com.github.alexthe666.citadel.client.event;
 
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Event;
 import net.minecraft.client.gui.DrawContext;
 
 public class EventRenderSplashText extends Event {
-    private String splashText;
-
     private final DrawContext guiGraphics;
     private final float partialTicks;
+    private String splashText;
 
     public EventRenderSplashText(String splashText, DrawContext guiGraphics, float partialTicks) {
         this.splashText = splashText;

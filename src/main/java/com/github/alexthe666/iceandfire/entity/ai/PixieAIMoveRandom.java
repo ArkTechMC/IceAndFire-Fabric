@@ -29,11 +29,11 @@ public class PixieAIMoveRandom extends Goal {
 
     protected boolean isDirectPathBetweenPoints(BlockPos posVec31, BlockPos posVec32) {
         return this.pixie.getWorld().raycast(
-                new RaycastContext(new Vec3d(posVec31.getX() + 0.5D, posVec31.getY() + 0.5D, posVec31.getZ() + 0.5D),
-                    new Vec3d(posVec32.getX() + 0.5D, posVec32.getY() + this.pixie.getHeight() * 0.5D,
-                        posVec32.getZ() + 0.5D),
-                    RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this.pixie))
-            .getType() == HitResult.Type.MISS;
+                        new RaycastContext(new Vec3d(posVec31.getX() + 0.5D, posVec31.getY() + 0.5D, posVec31.getZ() + 0.5D),
+                                new Vec3d(posVec32.getX() + 0.5D, posVec32.getY() + this.pixie.getHeight() * 0.5D,
+                                        posVec32.getZ() + 0.5D),
+                                RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this.pixie))
+                .getType() == HitResult.Type.MISS;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class PixieAIMoveRandom extends Goal {
         if (this.pixie.getWorld().isAir(this.target)) {
 
             this.pixie.getMoveControl().moveTo(this.target.getX() + 0.5D, this.target.getY() + 0.5D, this.target.getZ() + 0.5D,
-                0.25D);
+                    0.25D);
             if (this.pixie.getTarget() == null) {
                 this.pixie.getLookControl().lookAt(this.target.getX() + 0.5D, this.target.getY() + 0.5D,
                         this.target.getZ() + 0.5D, 180.0F, 20.0F);

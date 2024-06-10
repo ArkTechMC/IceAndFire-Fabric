@@ -22,9 +22,8 @@ import net.minecraft.util.math.intprovider.UniformIntProvider;
 import java.util.function.Supplier;
 
 public class IafBlockRegistry {
-    public static LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, IceAndFire.MOD_ID);
     public static final BlockSoundGroup SOUND_TYPE_GOLD = new BlockSoundGroup(1.0F, 1.0F, IafSoundRegistry.GOLD_PILE_BREAK, IafSoundRegistry.GOLD_PILE_STEP, IafSoundRegistry.GOLD_PILE_BREAK, IafSoundRegistry.GOLD_PILE_STEP, IafSoundRegistry.GOLD_PILE_STEP);
-
+    public static LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, IceAndFire.MOD_ID);
     public static final RegistryObject<Block> LECTERN = register("lectern", BlockLectern::new);
     public static final RegistryObject<Block> PODIUM_OAK = register("podium_oak", BlockPodium::new);
     public static final RegistryObject<Block> PODIUM_BIRCH = register("podium_birch", BlockPodium::new);
@@ -126,6 +125,7 @@ public class IafBlockRegistry {
     public static final RegistryObject<Block> DRAGONSTEEL_LIGHTNING_BLOCK = register("dragonsteel_lightning_block", () -> BlockGeneric.builder(10.0F, 1000.0F, BlockSoundGroup.METAL, MapColor.IRON_GRAY, null, null, false));
     public static final RegistryObject<BlockDreadBase> DREAD_STONE = register("dread_stone", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final RegistryObject<BlockDreadBase> DREAD_STONE_BRICKS = register("dread_stone_bricks", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final RegistryObject<Block> DREAD_STONE_BRICKS_STAIRS = register("dread_stone_stairs", () -> new BlockGenericStairs(DREAD_STONE_BRICKS.get().getDefaultState()));
     public static final RegistryObject<BlockDreadBase> DREAD_STONE_BRICKS_CHISELED = register("dread_stone_bricks_chiseled", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final RegistryObject<BlockDreadBase> DREAD_STONE_BRICKS_CRACKED = register("dread_stone_bricks_cracked", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final RegistryObject<BlockDreadBase> DREAD_STONE_BRICKS_MOSSY = register("dread_stone_bricks_mossy", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
@@ -133,7 +133,6 @@ public class IafBlockRegistry {
     public static final RegistryObject<Block> DREAD_STONE_FACE = register("dread_stone_face", BlockDreadStoneFace::new);
     public static final RegistryObject<TorchBlock> DREAD_TORCH = registerWallBlock("dread_torch", BlockDreadTorch::new);
     public static final RegistryObject<BlockDreadTorchWall> DREAD_TORCH_WALL = registerWallTorch("dread_torch_wall", BlockDreadTorchWall::new);
-    public static final RegistryObject<Block> DREAD_STONE_BRICKS_STAIRS = register("dread_stone_stairs", () -> new BlockGenericStairs(DREAD_STONE_BRICKS.get().getDefaultState()));
     public static final RegistryObject<Block> DREAD_STONE_BRICKS_SLAB = register("dread_stone_slab", () -> new SlabBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(10F, 10000F)));
     public static final RegistryObject<Block> DREADWOOD_LOG = register("dreadwood_log", BlockDreadWoodLog::new);
     public static final RegistryObject<BlockDreadBase> DREADWOOD_PLANKS = register("dreadwood_planks", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.WOOD, MapColor.OAK_TAN, Instrument.BASS, true));

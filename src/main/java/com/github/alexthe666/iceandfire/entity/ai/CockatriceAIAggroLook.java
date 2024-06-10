@@ -20,7 +20,7 @@ public class CockatriceAIAggroLook extends ActiveTargetGoal<PlayerEntity> {
         this.cockatrice = cockatriceIn;
         Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (target) -> {
             return EntityGorgon.isEntityLookingAt(target, this.cockatrice,
-                EntityCockatrice.VIEW_RADIUS) && this.cockatrice.distanceTo(target) < this.getFollowRange();
+                    EntityCockatrice.VIEW_RADIUS) && this.cockatrice.distanceTo(target) < this.getFollowRange();
         };
         this.predicate = TargetPredicate.createAttackable().setBaseMaxDistance(25.0D).setPredicate(LIVING_ENTITY_SELECTOR);
     }
@@ -33,7 +33,7 @@ public class CockatriceAIAggroLook extends ActiveTargetGoal<PlayerEntity> {
         if (this.cockatrice.isTamed())
             return false;
         this.player = this.cockatrice.getWorld().getClosestPlayer(this.predicate, this.cockatrice.getX(),
-            this.cockatrice.getY(), this.cockatrice.getZ());
+                this.cockatrice.getY(), this.cockatrice.getZ());
         return this.player != null;
     }
 

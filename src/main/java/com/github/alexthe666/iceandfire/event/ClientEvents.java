@@ -1,71 +1,62 @@
 package com.github.alexthe666.iceandfire.event;
 
-import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.ClientProxy;
 import com.github.alexthe666.iceandfire.client.IafKeybindRegistry;
-import com.github.alexthe666.iceandfire.client.gui.IceAndFireMainMenu;
 import com.github.alexthe666.iceandfire.client.particle.CockatriceBeamRender;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderChain;
 import com.github.alexthe666.iceandfire.client.render.tile.RenderFrozenState;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.util.ICustomMoveController;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
-import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.option.Perspective;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.ScreenEvent;
-import net.minecraftforge.client.event.ViewportEvent;
-import net.minecraftforge.event.entity.EntityMountEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
 @Environment(EnvType.CLIENT)
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
 
     private static final Identifier SIREN_SHADER = new Identifier(IceAndFire.MOD_ID, "shaders/post/siren.json");
-
+    // TODO: add this to client side config
+    public final boolean AUTO_ADAPT_3RD_PERSON = true;
     private final Random rand = new Random();
+
+//    public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
+//        PlayerEntity player = MinecraftClient.getInstance().player;
+//        if (player.getVehicle() != null) {
+//            if (player.getVehicle() instanceof EntityDragonBase) {
+//                int currentView = IceAndFire.PROXY.getDragon3rdPersonView();
+//                float scale = ((EntityDragonBase) player.getVehicle()).getRenderSize() / 3;
+//                if (MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_BACK ||
+//                        MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_FRONT) {
+//                    if (currentView == 1) {
+//                        info.camera.move(-info.camera.getMaxZoom(scale * 1.2F), 0F, 0);
+//                    } else if (currentView == 2) {
+//                        info.camera.move(-info.camera.getMaxZoom(scale * 3F), 0F, 0);
+//                    } else if (currentView == 3) {
+//                        info.camera.move(-info.camera.getMaxZoom(scale * 5F), 0F, 0);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private static boolean shouldCancelRender(LivingEntity living) {
         if (living.getVehicle() != null && living.getVehicle() instanceof EntityDragonBase) {
             return ClientProxy.currentDragonRiders.contains(living.getUuid()) || living == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.getPerspective().isFirstPerson();
         }
         return false;
-    }
-
-    @SubscribeEvent
-    public void onCameraSetup(ViewportEvent.ComputeCameraAngles event) {
-        PlayerEntity player = MinecraftClient.getInstance().player;
-        if (player.getVehicle() != null) {
-            if (player.getVehicle() instanceof EntityDragonBase) {
-                int currentView = IceAndFire.PROXY.getDragon3rdPersonView();
-                float scale = ((EntityDragonBase) player.getVehicle()).getRenderSize() / 3;
-                if (MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_BACK ||
-                        MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_FRONT) {
-                    if (currentView == 1) {
-                        event.getCamera().move(-event.getCamera().getMaxZoom(scale * 1.2F), 0F, 0);
-                    } else if (currentView == 2) {
-                        event.getCamera().move(-event.getCamera().getMaxZoom(scale * 3F), 0F, 0);
-                    } else if (currentView == 3) {
-                        event.getCamera().move(-event.getCamera().getMaxZoom(scale * 5F), 0F, 0);
-                    }
-                }
-            }
-        }
     }
 
     public static void onLivingUpdate(LivingEntity entity) {
@@ -107,94 +98,42 @@ public class ClientEvents {
                 }
                 IceAndFire.PROXY.setDragon3rdPersonView(currentView);
             }
-
-            if (player.getWorld().isClient) {
-                GameRenderer renderer = MinecraftClient.getInstance().gameRenderer;
-
-                EntityDataProvider.getCapability(player).ifPresent(data -> {
-                    if (IafConfig.sirenShader && data.sirenData.charmedBy == null && renderer.currentEffect() != null) {
-                        if (SIREN_SHADER.toString().equals(renderer.currentEffect().getName()))
-                            renderer.shutdownEffect();
-                    }
-
-                    if (data.sirenData.charmedBy == null) {
-                        return;
-                    }
-
-                    if (IafConfig.sirenShader && !data.sirenData.isCharmed && renderer.currentEffect() != null && SIREN_SHADER.toString().equals(renderer.currentEffect().getName())) {
-                        renderer.shutdownEffect();
-                    }
-
-                    if (data.sirenData.isCharmed) {
-                        if (player.getWorld().isClient && rand.nextInt(40) == 0) {
-                            IceAndFire.PROXY.spawnParticle(EnumParticles.Siren_Appearance, player.getX(), player.getY(), player.getZ(), data.sirenData.charmedBy.getHairColor(), 0, 0);
-                        }
-
-                        if (IafConfig.sirenShader && renderer.currentEffect() == null) {
-                            renderer.loadEffect(SIREN_SHADER);
-                        }
-
-                    }
-                });
-            }
         }
     }
 
-    @SubscribeEvent
-    public void onPreRenderLiving(RenderLivingEvent.Pre event) {
-        if (shouldCancelRender(event.getEntity())) {
-            event.setCanceled(true);
-        }
+    public static boolean onPreRenderLiving(LivingEntity entity, LivingEntityRenderer<?, ?> renderer, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
+        return shouldCancelRender(entity);
     }
 
-    @SubscribeEvent
-    public void onPostRenderLiving(RenderLivingEvent.Post event) {
-        if (shouldCancelRender(event.getEntity())) {
-            event.setCanceled(true);
+    public static void onPostRenderLiving(LivingEntity entity, LivingEntityRenderer<?, ?> renderer, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
+        if (shouldCancelRender(entity)) return;
+        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
+        for (LivingEntity target : data.miscData.getTargetedByScepter()) {
+            CockatriceBeamRender.render(entity, target, matrixStack, buffers, partialRenderTick);
         }
-
-        LivingEntity entity = event.getEntity();
-
-        EntityDataProvider.getCapability(entity).ifPresent(data -> {
-            for (LivingEntity target : data.miscData.getTargetedByScepter()) {
-                CockatriceBeamRender.render(entity, target, event.getPoseStack(), event.getMultiBufferSource(), event.getPartialTick());
-            }
-
-            if (data.frozenData.isFrozen) {
-                RenderFrozenState.render(event.getEntity(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.frozenData.frozenTicks);
-            }
-
-            RenderChain.render(entity, event.getPartialTick(), event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), data.chainData.getChainedTo());
-        });
+        if (data.frozenData.isFrozen) {
+            RenderFrozenState.render(entity, matrixStack, buffers, light, data.frozenData.frozenTicks);
+        }
+        RenderChain.render(entity, partialRenderTick, matrixStack, buffers, light, data.chainData.getChainedTo());
     }
 
-    @SubscribeEvent
-    public void onGuiOpened(ScreenEvent.Opening event) {
-        if (IafConfig.customMainMenu && event.getScreen() instanceof TitleScreen && !(event.getScreen() instanceof IceAndFireMainMenu)) {
-            event.setNewScreen(new IceAndFireMainMenu());
-        }
-    }
-
-    // TODO: add this to client side config
-    public final boolean AUTO_ADAPT_3RD_PERSON = true;
-
-    @SubscribeEvent
-    public void onEntityMount(EntityMountEvent event) {
-        if (event.getEntityBeingMounted() instanceof EntityDragonBase dragon && event.getLevel().isClientSide && event.getEntityMounting() == MinecraftClient.getInstance().player) {
-            if (dragon.isTamed() && dragon.isOwner(MinecraftClient.getInstance().player)) {
-                if (this.AUTO_ADAPT_3RD_PERSON) {
-                    // Auto adjust 3rd person camera's according to dragon's size
-                    IceAndFire.PROXY.setDragon3rdPersonView(2);
-                }
-                if (IafConfig.dragonAuto3rdPerson) {
-                    if (event.isDismounting()) {
-                        MinecraftClient.getInstance().options.setPerspective(Perspective.values()[IceAndFire.PROXY.getPreviousViewType()]);
-                    } else {
-                        IceAndFire.PROXY.setPreviousViewType(MinecraftClient.getInstance().options.getPerspective().ordinal());
-                        MinecraftClient.getInstance().options.setPerspective(Perspective.values()[1]);
-                    }
-                }
-            }
-        }
-    }
+//    @SubscribeEvent
+//    public void onEntityMount(EntityMountEvent event) {
+//        if (event.getEntityBeingMounted() instanceof EntityDragonBase dragon && event.getLevel().isClientSide && event.getEntityMounting() == MinecraftClient.getInstance().player) {
+//            if (dragon.isTamed() && dragon.isOwner(MinecraftClient.getInstance().player)) {
+//                if (this.AUTO_ADAPT_3RD_PERSON) {
+//                    // Auto adjust 3rd person camera's according to dragon's size
+//                    IceAndFire.PROXY.setDragon3rdPersonView(2);
+//                }
+//                if (IafConfig.dragonAuto3rdPerson) {
+//                    if (event.isDismounting()) {
+//                        MinecraftClient.getInstance().options.setPerspective(Perspective.values()[IceAndFire.PROXY.getPreviousViewType()]);
+//                    } else {
+//                        IceAndFire.PROXY.setPreviousViewType(MinecraftClient.getInstance().options.getPerspective().ordinal());
+//                        MinecraftClient.getInstance().options.setPerspective(Perspective.values()[1]);
+//                    }
+//                }
+//            }
+//        }
+//    }
 }

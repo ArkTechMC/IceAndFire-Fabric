@@ -80,7 +80,7 @@ public class IafDragonFlightManager {
 
         } else if (this.target == null || this.dragon.squaredDistanceTo(this.target.x, this.target.y, this.target.z) < 4
                 || !this.dragon.getWorld().isAir(BlockPos.ofFloored(this.target.x, this.target.y, this.target.z))
-                        && (this.dragon.isHovering() || this.dragon.isFlying())
+                && (this.dragon.isHovering() || this.dragon.isFlying())
                 || this.dragon.getCommand() == 2 && this.dragon.shouldTPtoOwner()) {
             BlockPos viewBlock = null;
 
@@ -104,7 +104,7 @@ public class IafDragonFlightManager {
                 }
                 viewBlock = upPos;
 
-            }else if(viewBlock == null){
+            } else if (viewBlock == null) {
                 viewBlock = DragonUtils.getBlockInView(this.dragon);
                 if (this.dragon.isTouchingWater()) {
                     // If the dragon is in water, take off to reach the air target

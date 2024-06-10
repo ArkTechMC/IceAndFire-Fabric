@@ -19,11 +19,11 @@ public class DragonAIReturnToRoost extends Goal {
     @Override
     public boolean canStart() {
         return this.dragon.canMove() && this.dragon.lookingForRoostAIFlag
-            && (this.dragon.getTarget() == null || !this.dragon.getTarget().isAlive())
-            && this.dragon.getPositionTarget() != null
-            && DragonUtils.isInHomeDimension(this.dragon)
-            && this.dragon.getDistanceSquared(Vec3d.ofCenter(this.dragon.getPositionTarget())) > this.dragon.getWidth()
-            * this.dragon.getWidth();
+                && (this.dragon.getTarget() == null || !this.dragon.getTarget().isAlive())
+                && this.dragon.getPositionTarget() != null
+                && DragonUtils.isInHomeDimension(this.dragon)
+                && this.dragon.getDistanceSquared(Vec3d.ofCenter(this.dragon.getPositionTarget())) > this.dragon.getWidth()
+                * this.dragon.getWidth();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class DragonAIReturnToRoost extends Goal {
                 this.dragon.setFlying(false);
                 this.dragon.setHovering(false);
                 this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(),
-                    this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
+                        this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
             } else {
                 double yAddition = 15 + this.dragon.getRandom().nextInt(3);
                 if (xzDist < 40) {
@@ -47,9 +47,9 @@ public class DragonAIReturnToRoost extends Goal {
                         this.dragon.setFlying(false);
                         this.dragon.setHovering(false);
                         this.dragon.flightManager.setFlightTarget(
-                            Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
+                                Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
                         this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(),
-                            this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
+                                this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
                         return;
                     }
                 }
@@ -58,9 +58,9 @@ public class DragonAIReturnToRoost extends Goal {
                 }
                 if (this.dragon.isFlying()) {
                     this.dragon.flightManager.setFlightTarget(
-                        Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
+                            Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
                     this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(),
-                        yAddition + this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1F);
+                            yAddition + this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1F);
                 }
                 this.dragon.flyTicks = 0;
             }

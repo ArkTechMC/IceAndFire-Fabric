@@ -7,10 +7,8 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageGetMyrmexHive;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.collect.Lists;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -21,19 +19,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class GuiMyrmexStaff extends Screen {
-    private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/myrmex_staff_jungle.png");
-    private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/myrmex_staff_desert.png");
+    private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_jungle.png");
+    private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_desert.png");
     private static final WorldGenMyrmexHive.RoomType[] ROOMS = {WorldGenMyrmexHive.RoomType.FOOD, WorldGenMyrmexHive.RoomType.NURSERY, WorldGenMyrmexHive.RoomType.EMPTY};
     private static final int ROOMS_PER_PAGE = 5;
     private final List<Room> allRoomPos = Lists.newArrayList();
     private final List<MyrmexDeleteButton> allRoomButtonPos = Lists.newArrayList();
+    private final boolean jungle;
     public ChangePageButton previousPage;
     public ChangePageButton nextPage;
     int ticksSinceDeleted = 0;
     int currentPage = 0;
-    private final boolean jungle;
     private int hiveCount;
 
     public GuiMyrmexStaff(ItemStack staff) {
@@ -56,25 +57,25 @@ public class GuiMyrmexStaff extends Screen {
         this.populateRoomMap();
         this.addSelectableChild(
                 ButtonWidget.builder(
-                        ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
-                            boolean opposite = !ClientProxy.getReferedClientHive().reproduces;
-                            ClientProxy.getReferedClientHive().reproduces = opposite;
-                    })
+                                ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
+                                    boolean opposite = !ClientProxy.getReferedClientHive().reproduces;
+                                    ClientProxy.getReferedClientHive().reproduces = opposite;
+                                })
                         .position(i + 124, j + 15)
                         .size(120, 20)
                         .build());
         this.addSelectableChild(
-            this.previousPage = new ChangePageButton(i + 5, j + 150, false, this.jungle ? 2 : 1, (p_214132_1_) -> {
-                if (this.currentPage > 0) {
-                    this.currentPage--;
-                }
-            }));
+                this.previousPage = new ChangePageButton(i + 5, j + 150, false, this.jungle ? 2 : 1, (p_214132_1_) -> {
+                    if (this.currentPage > 0) {
+                        this.currentPage--;
+                    }
+                }));
         this.addSelectableChild(
-            this.nextPage = new ChangePageButton(i + 225, j + 150, true, this.jungle ? 2 : 1, (p_214132_1_) -> {
-                if (this.currentPage < this.allRoomButtonPos.size() / ROOMS_PER_PAGE) {
-                    this.currentPage++;
-                }
-            }));
+                this.nextPage = new ChangePageButton(i + 225, j + 150, true, this.jungle ? 2 : 1, (p_214132_1_) -> {
+                    if (this.currentPage < this.allRoomButtonPos.size() / ROOMS_PER_PAGE) {
+                        this.currentPage++;
+                    }
+                }));
         int totalRooms = this.allRoomPos.size();
         for (int rooms = 0; rooms < this.allRoomPos.size(); rooms++) {
             int yIndex = rooms % ROOMS_PER_PAGE;
@@ -177,7 +178,7 @@ public class GuiMyrmexStaff extends Screen {
     @Override
     public void removed() {
         if (ClientProxy.getReferedClientHive() != null) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
+            IafClientNetworkHandler.send(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
         }
     }
 

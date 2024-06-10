@@ -19,6 +19,8 @@ import org.joml.Vector4f;
  */
 @Environment(EnvType.CLIENT)
 public class BasicModelPart {
+    private final ObjectList<ModelBox> cubeList = new ObjectArrayList<>();
+    private final ObjectList<BasicModelPart> childModels = new ObjectArrayList<>();
     public float textureWidth = 64.0F;
     public float textureHeight = 32.0F;
     public int textureOffsetX;
@@ -31,8 +33,6 @@ public class BasicModelPart {
     public float rotateAngleZ;
     public boolean mirror;
     public boolean showModel = true;
-    private final ObjectList<ModelBox> cubeList = new ObjectArrayList<>();
-    private final ObjectList<BasicModelPart> childModels = new ObjectArrayList<>();
 
     public BasicModelPart(BasicEntityModel model) {
         this.setTextureSize(model.textureWidth, model.textureHeight);
@@ -193,13 +193,13 @@ public class BasicModelPart {
 
     @Environment(EnvType.CLIENT)
     public static class ModelBox {
-        private final TexturedQuad[] quads;
         public final float posX1;
         public final float posY1;
         public final float posZ1;
         public final float posX2;
         public final float posY2;
         public final float posZ2;
+        private final TexturedQuad[] quads;
 
         public ModelBox(int texOffX, int texOffY, float x, float y, float z, float width, float height, float depth, float deltaX, float deltaY, float deltaZ, boolean mirorIn, float texWidth, float texHeight) {
             this.posX1 = x;
@@ -260,14 +260,14 @@ public class BasicModelPart {
             this(new Vector3f(x, y, z), texU, texV);
         }
 
-        public PositionTextureVertex setTextureUV(float texU, float texV) {
-            return new PositionTextureVertex(this.position, texU, texV);
-        }
-
         public PositionTextureVertex(Vector3f posIn, float texU, float texV) {
             this.position = posIn;
             this.textureU = texU;
             this.textureV = texV;
+        }
+
+        public PositionTextureVertex setTextureUV(float texU, float texV) {
+            return new PositionTextureVertex(this.position, texU, texV);
         }
     }
 

@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,16 +10,16 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class DragonAIAttackMelee extends Goal {
+    private final boolean longMemory;
+    private final boolean canPenalize = false;
+    private final double speedTowardsTarget;
     protected EntityDragonBase dragon;
     private int attackTick;
-    private final boolean longMemory;
     private int delayCounter;
     private double targetX;
     private double targetY;
     private double targetZ;
     private int failedPathFindingPenalty = 0;
-    private final boolean canPenalize = false;
-    private final double speedTowardsTarget;
 
     public DragonAIAttackMelee(EntityDragonBase dragon, double speedIn, boolean useLongMemory) {
         this.dragon = dragon;
@@ -77,7 +77,7 @@ public class DragonAIAttackMelee extends Goal {
     @Override
     public void tick() {
         LivingEntity entity = this.dragon.getTarget();
-        if(this.delayCounter > 0){
+        if (this.delayCounter > 0) {
             this.delayCounter--;
         }
         if (entity != null) {

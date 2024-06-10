@@ -353,15 +353,6 @@ public class MNode implements Comparable<MNode> {
     }
 
     /**
-     * Setup rails params.
-     *
-     * @param isOnRails if on rails.
-     */
-    public void setOnRails(final boolean isOnRails) {
-        this.isOnRails = isOnRails;
-    }
-
-    /**
      * Check if is on rails.
      *
      * @return true if so.
@@ -371,10 +362,12 @@ public class MNode implements Comparable<MNode> {
     }
 
     /**
-     * Marks the node as reached by the worker
+     * Setup rails params.
+     *
+     * @param isOnRails if on rails.
      */
-    public void setReachedByWorker(boolean bool) {
-        this.isReachedByWorker = bool;
+    public void setOnRails(final boolean isOnRails) {
+        this.isOnRails = isOnRails;
     }
 
     /**
@@ -389,8 +382,8 @@ public class MNode implements Comparable<MNode> {
     /**
      * Marks the node as reached by the worker
      */
-    public void setCornerNode(boolean isCornerNode) {
-        this.isCornerNode = isCornerNode;
+    public void setReachedByWorker(boolean bool) {
+        this.isReachedByWorker = bool;
     }
 
     /**
@@ -400,5 +393,12 @@ public class MNode implements Comparable<MNode> {
      */
     public boolean isCornerNode() {
         return this.isCornerNode;
+    }
+
+    /**
+     * Marks the node as reached by the worker
+     */
+    public void setCornerNode(boolean isCornerNode) {
+        this.isCornerNode = isCornerNode;
     }
 }

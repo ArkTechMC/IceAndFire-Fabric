@@ -7,20 +7,10 @@ import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
-
-import java.util.List;
-import java.util.Random;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.model.BookModel;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.resource.language.I18n;
@@ -32,10 +22,15 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
+import org.jetbrains.annotations.NotNull;
+import org.joml.Matrix4f;
+
+import java.util.List;
+import java.util.Random;
 
 public class GuiLectern extends HandledScreen<ContainerLectern> {
-    private static final Identifier ENCHANTMENT_TABLE_GUI_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/lectern.png");
-    private static final Identifier ENCHANTMENT_TABLE_BOOK_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lectern_book.png");
+    private static final Identifier ENCHANTMENT_TABLE_GUI_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/lectern.png");
+    private static final Identifier ENCHANTMENT_TABLE_BOOK_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lectern_book.png");
     private static BookModel bookModel;
     private final Random random = new Random();
     private final Text nameable;
@@ -192,7 +187,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                         ms.getMatrices().pop();
                         fontrenderer = this.client.textRenderer;
                         fontrenderer.draw(s, k1 + 84 - fontrenderer.getWidth(s),
-                            j + 13 + 19 * i1 + 7, j3, true, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+                                j + 13 + 19 * i1 + 7, j3, true, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
                     } else {
                         ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 185, 108, 19);
                         ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 239, 16, 16);

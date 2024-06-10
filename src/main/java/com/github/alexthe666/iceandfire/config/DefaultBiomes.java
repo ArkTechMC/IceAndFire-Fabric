@@ -102,7 +102,7 @@ public class DefaultBiomes {
     public static final SpawnBiomeData BEACHES = new SpawnBiomeData()
             .addBiomeEntry(BiomeEntryType.BIOME_TAG, false, IS_OVERWORLD.id().toString(), 0)
             .addBiomeEntry(BiomeEntryType.BIOME_TAG, false, IS_BEACH.id().toString(), 0)
-            .addBiomeEntry(BiomeEntryType.BIOME_TAG, true, IS_OCEAN.id().toString(),0)
+            .addBiomeEntry(BiomeEntryType.BIOME_TAG, true, IS_OCEAN.id().toString(), 0)
             .addBiomeEntry(BiomeEntryType.REGISTRY_NAME, false, "byg:dacite_shore", 1)
             .addBiomeEntry(BiomeEntryType.REGISTRY_NAME, false, "byg:basalt_barrera", 2);
 

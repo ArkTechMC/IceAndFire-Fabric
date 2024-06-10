@@ -38,11 +38,11 @@ public class PixieAIEnterHouse extends Goal {
         for (int i = 0; i < 3; ++i) {
             BlockPos blockpos1 = EntityPixie.findAHouse(this.pixie, this.pixie.getWorld());
             this.pixie.getMoveControl().moveTo(blockpos1.getX() + 0.5D, blockpos1.getY() + 0.5D,
-                blockpos1.getZ() + 0.5D, 0.25D);
+                    blockpos1.getZ() + 0.5D, 0.25D);
             this.pixie.setHousePosition(blockpos1);
             if (this.pixie.getTarget() == null) {
                 this.pixie.getLookControl().lookAt(blockpos1.getX() + 0.5D, blockpos1.getY() + 0.5D,
-                    blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
+                        blockpos1.getZ() + 0.5D, 180.0F, 20.0F);
             }
         }
     }

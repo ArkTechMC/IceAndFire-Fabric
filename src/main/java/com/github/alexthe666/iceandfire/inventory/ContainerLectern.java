@@ -7,7 +7,7 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemBestiary;
 import com.github.alexthe666.iceandfire.message.MessageUpdateLectern;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -158,9 +158,9 @@ public class ContainerLectern extends ScreenHandler {
         }
 
         if ((manuscriptStack.isEmpty() ||
-            manuscriptStack.getCount() < i ||
-            manuscriptStack.getItem() != IafItemRegistry.MANUSCRIPT.get())
-            && !playerIn.isCreative()) {
+                manuscriptStack.getCount() < i ||
+                manuscriptStack.getItem() != IafItemRegistry.MANUSCRIPT.get())
+                && !playerIn.isCreative()) {
             return false;
         } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty()) {
             EnumBestiaryPages page = this.getPossiblePages()[MathHelper.clamp(id, 0, 2)];
@@ -177,8 +177,7 @@ public class ContainerLectern extends ScreenHandler {
                                 entityLectern.randomizePages(bookStack, manuscriptStack);
                             }
 
-                        }
-                        else {
+                        } else {
                             IafClientNetworkHandler.send(new MessageUpdateLectern(IceAndFire.PROXY.getRefrencedTE().getPos().asLong(), 0, 0, 0, true, page.ordinal()));
                         }
 

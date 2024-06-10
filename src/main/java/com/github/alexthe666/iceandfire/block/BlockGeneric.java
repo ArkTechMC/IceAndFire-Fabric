@@ -31,6 +31,10 @@ public class BlockGeneric extends Block {
         );
     }*/
 
+    public BlockGeneric(Settings props) {
+        super(props);
+    }
+
     public static BlockGeneric builder(float hardness, float resistance, BlockSoundGroup sound, MapColor color, Instrument instrument, PistonBehavior reaction, boolean ignited) {
         Settings props = Settings.create()
                 .mapColor(color)
@@ -65,10 +69,6 @@ public class BlockGeneric extends Block {
             props.burnable();
         }
         return new BlockGeneric(props);
-    }
-
-    public BlockGeneric(Settings props) {
-        super(props);
     }
 
     public boolean isOpaqueCube(BlockState state) {

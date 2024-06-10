@@ -12,8 +12,8 @@ public class CustomArmorMaterial implements ArmorMaterial {
     private final int encantability;
     private final SoundEvent sound;
     private final float toughness;
-    private Ingredient ingredient = null;
     public float knockbackResistance = 0.0F;
+    private Ingredient ingredient = null;
 
     public CustomArmorMaterial(String name, int durability, int[] damageReduction, int encantability, SoundEvent sound, float toughness, float knockbackResistance) {
         this.name = name;
@@ -50,7 +50,7 @@ public class CustomArmorMaterial implements ArmorMaterial {
         return this.ingredient == null ? Ingredient.EMPTY : this.ingredient;
     }
 
-    public void setRepairMaterial(Ingredient ingredient){
+    public void setRepairMaterial(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 

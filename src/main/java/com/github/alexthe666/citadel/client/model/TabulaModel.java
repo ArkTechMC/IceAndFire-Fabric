@@ -20,10 +20,10 @@ import java.util.Map;
  */
 @Environment(EnvType.CLIENT)
 public class TabulaModel extends AdvancedEntityModel {
+    public ModelAnimator llibAnimator;
     protected Map<String, AdvancedModelBox> cubes = new HashMap<>();
     protected List<AdvancedModelBox> rootBoxes = new ArrayList<>();
     protected ITabulaModelAnimator tabulaAnimator;
-    public ModelAnimator llibAnimator;
     protected Map<String, AdvancedModelBox> identifierMap = new HashMap<>();
     protected double[] scale;
 

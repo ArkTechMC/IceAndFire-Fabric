@@ -13,7 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class GuiHippocampus extends HandledScreen<HippocampusContainerMenu> {
-    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/hippogryph.png");
+    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/hippogryph.png");
     private float mousePosx;
     private float mousePosY;
 
@@ -34,7 +34,7 @@ public class GuiHippocampus extends HandledScreen<HippocampusContainerMenu> {
     }
 
     @Override
-    public void render(DrawContext pGuiGraphics,  int mouseX, int mouseY, float partialTicks) {
+    public void render(DrawContext pGuiGraphics, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(pGuiGraphics);
         this.mousePosx = mouseX;
         this.mousePosY = mouseY;
@@ -52,8 +52,8 @@ public class GuiHippocampus extends HandledScreen<HippocampusContainerMenu> {
             if (hippo.isChested()) {
                 pGuiGraphics.drawTexture(TEXTURE, i + 79, j + 17, 0, this.backgroundHeight, 5 * 18, 54);
             }
-            InventoryScreen.drawEntity(pGuiGraphics,i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY,
-                hippo);
+            InventoryScreen.drawEntity(pGuiGraphics, i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY,
+                    hippo);
         }
     }
 }

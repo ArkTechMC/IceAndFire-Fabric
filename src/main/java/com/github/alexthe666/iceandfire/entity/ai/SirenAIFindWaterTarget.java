@@ -25,7 +25,7 @@ public class SirenAIFindWaterTarget extends Goal {
         if (this.mob.getRandom().nextFloat() < 0.5F) {
             Path path = this.mob.getNavigation().getCurrentPath();
             if (path != null
-                && path.getEnd() != null /*
+                    && path.getEnd() != null /*
              * TODO: path is nullable here !this.mob.getNavigator().noPath() &&
              * !this.mob.isDirectPathBetweenPoints(this.mob.getPositionVec(),
              * new Vector3d(path.getFinalPathPoint().x,

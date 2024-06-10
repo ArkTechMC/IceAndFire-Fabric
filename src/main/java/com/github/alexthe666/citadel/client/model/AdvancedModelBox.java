@@ -23,24 +23,24 @@ import org.joml.Vector4f;
  */
 @Environment(EnvType.CLIENT)
 public class AdvancedModelBox extends BasicModelPart {
+    private final AdvancedEntityModel model;
     public float defaultRotationX, defaultRotationY, defaultRotationZ;
     public float defaultOffsetX, defaultOffsetY, defaultOffsetZ;
     public float defaultPositionX, defaultPositionY, defaultPositionZ;
     public float scaleX = 1.0F, scaleY = 1.0F, scaleZ = 1.0F;
     public int textureOffsetX, textureOffsetY;
     public boolean scaleChildren;
-    private final AdvancedEntityModel model;
-    private AdvancedModelBox parent;
-    private int displayList;
-    private boolean compiled;
     public ObjectList<TabulaModelRenderUtils.ModelBox> cubeList;
     public ObjectList<BasicModelPart> childModels;
-    private float textureWidth;
-    private float textureHeight;
     public float offsetX;
     public float offsetY;
     public float offsetZ;
     public String boxName = "";
+    private AdvancedModelBox parent;
+    private int displayList;
+    private boolean compiled;
+    private float textureWidth;
+    private float textureHeight;
 
     public AdvancedModelBox(AdvancedEntityModel model, String name) {
         super(model);

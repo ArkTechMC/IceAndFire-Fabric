@@ -16,9 +16,8 @@ import net.minecraft.util.math.Vec3i;
     dragon logic separation for client, server and shared sides.
  */
 public class IafDragonLogic {
-    long ticksAfterClearingTarget;
-
     private final EntityDragonBase dragon;
+    long ticksAfterClearingTarget;
 
     public IafDragonLogic(EntityDragonBase dragon) {
         this.dragon = dragon;

@@ -63,6 +63,20 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
         super(t, worldIn);
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 2D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.stymphalianBirdTargetSearchLength))
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 4.0D);
+    }
+
     @Override
     protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
     }
@@ -78,21 +92,6 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
         this.targetSelector.add(2, new StymphalianBirdAITarget(this, LivingEntity.class, true));
-    }
-
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 2D)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.stymphalianBirdTargetSearchLength))
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 4.0D);
     }
 
     @Override
@@ -278,10 +277,10 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                             double d2 = target.getZ() - wingZ;
                             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
                             EntityStymphalianFeather entityarrow = new EntityStymphalianFeather(
-                                IafEntityRegistry.STYMPHALIAN_FEATHER.get(), this.getWorld(), this);
+                                    IafEntityRegistry.STYMPHALIAN_FEATHER.get(), this.getWorld(), this);
                             entityarrow.setPosition(wingX, wingY, wingZ);
                             entityarrow.setVelocity(d0, d1 + d3 * 0.10000000298023224D, d2, 1.6F,
-                                14 - this.getWorld().getDifficulty().getId() * 4);
+                                    14 - this.getWorld().getDifficulty().getId() * 4);
                             this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
                             this.getWorld().spawnEntity(entityarrow);
                         }

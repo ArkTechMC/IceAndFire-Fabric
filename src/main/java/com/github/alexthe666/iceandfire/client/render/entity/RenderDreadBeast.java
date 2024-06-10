@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadBeast extends MobEntityRenderer<EntityDreadBeast, ModelDreadBeast> {
 
-    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_beast_eyes.png");
-    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_beast_1.png");
-    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_beast_2.png");
+    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_beast_eyes.png");
+    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_beast_1.png");
+    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_beast_2.png");
 
     public RenderDreadBeast(EntityRendererFactory.Context context) {
         super(context, new ModelDreadBeast(), 0.5F);

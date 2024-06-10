@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.animation;
 
-import java.util.Optional;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
@@ -8,6 +7,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
+
+import java.util.Optional;
 
 /**
  * @author paul101
@@ -42,9 +43,9 @@ public class LegSolver {
         public final float forward;
         public final float side;
         private final float range;
+        private final boolean isWing;
         private float height;
         private float prevHeight;
-        private final boolean isWing;
 
         public Leg(float forward, float side, float range, boolean isWing) {
             this.forward = forward;
@@ -68,10 +69,10 @@ public class LegSolver {
             BlockPos pos = new BlockPos((int) Math.floor(x), (int) Math.floor(y + 1e-3), (int) Math.floor(z));
             Vec3d vec3 = new Vec3d(x, y, z);
             float dist = this.getDistance(entity.getWorld(), pos, vec3);
-            if ((double)(1.0F - dist) < 0.001D) {
+            if ((double) (1.0F - dist) < 0.001D) {
                 dist = this.getDistance(entity.getWorld(), pos.down(), vec3) + (float) y % 1;
             } else {
-                dist = (float)((double)dist - (1.0D - y % 1.0D));
+                dist = (float) ((double) dist - (1.0D - y % 1.0D));
             }
             if (entity.isOnGround() && height <= dist) {
                 return height == dist ? height : Math.min(height + this.getFallSpeed(), dist);
@@ -84,17 +85,18 @@ public class LegSolver {
         private float getDistance(World world, BlockPos pos, Vec3d position) {
             BlockState state = world.getBlockState(pos);
             VoxelShape shape = state.getCollisionShape(world, pos);
-            if(shape.isEmpty()){
+            if (shape.isEmpty()) {
                 return 1.0F;
             }
             Optional<Vec3d> closest = shape.getClosestPointTo(position);
-            if(closest.isEmpty()){
+            if (closest.isEmpty()) {
                 return 1.0F;
-            }else{
-                float closestY = Math.min((float)closest.get().y, 1.0F);
+            } else {
+                float closestY = Math.min((float) closest.get().y, 1.0F);
                 return position.y < 0.0 ? closestY : 1.0F - closestY;
             }
         }
+
         private float getFallSpeed() {
             return 0.25F;
         }

@@ -9,12 +9,10 @@ import java.util.Map;
  * @since 1.0.0
  */
 public class TabulaAnimationContainer {
+    private final Map<String, List<TabulaAnimationComponentContainer>> sets = new HashMap<>();
     private String name;
     private String identifier;
-
     private boolean loops;
-
-    private final Map<String, List<TabulaAnimationComponentContainer>> sets = new HashMap<>();
 
     public String getName() {
         return this.name;

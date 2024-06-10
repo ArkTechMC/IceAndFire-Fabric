@@ -7,6 +7,9 @@ import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.*;
 import com.github.alexthe666.citadel.server.message.MessageSyncPath;
 import com.github.alexthe666.citadel.server.message.MessageSyncPathReached;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.util.BlockUtil;
+import dev.arktechmc.iafextra.util.PathUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
@@ -24,7 +27,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.level.block.*;
 
 import java.lang.ref.WeakReference;
 import java.util.*;
@@ -284,7 +286,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
 
         for (final Map.Entry<PlayerEntity, UUID> entry : trackingMap.entrySet()) {
             if (entry.getValue().equals(mob.getUuid())) {
-                Citadel.sendNonLocal(new MessageSyncPathReached(reached), (ServerPlayerEntity) entry.getKey());
+                IafServerNetworkHandler.send(new MessageSyncPathReached(reached), (ServerPlayerEntity) entry.getKey());
             }
         }
     }
@@ -322,7 +324,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
         }
 
         BlockState down = world.getBlockState(pos.down());
-        while (!bs.blocksMovement() && !down.blocksMovement() && !down.getBlock().isLadder(down, world, pos.down(), entity) && bs.getFluidState().isEmpty()) {
+        while (!bs.blocksMovement() && !down.blocksMovement() && !BlockUtil.isLadder(down.getBlock())) {
             pos.move(Direction.DOWN, 1);
             bs = down;
             down = world.getBlockState(pos.down());
@@ -438,7 +440,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
             if (entry.getKey().isRemoved()) {
                 iter.remove();
             } else if (entry.getValue().equals(mob.getUuid())) {
-                Citadel.sendNonLocal(new MessageSyncPath(this.debugNodesVisited, this.debugNodesNotVisited, this.debugNodesPath), (ServerPlayerEntity) entry.getKey());
+                IafServerNetworkHandler.send(new MessageSyncPath(this.debugNodesVisited, this.debugNodesNotVisited, this.debugNodesPath), (ServerPlayerEntity) entry.getKey());
             }
         }
     }
@@ -1307,8 +1309,8 @@ public abstract class AbstractPathJob implements Callable<Path> {
 
                 // TODO: I'd be cool if dragons could squash multiple snow layers when walking over them
                 if (shape.isEmpty() || shape.getMax(Direction.Axis.Y) <= 0.125 && !this.isLiquid((block)) && (block.getBlock() != Blocks.SNOW || block.get(SnowBlock.LAYERS) == 1)) {
-                    final PathNodeType pathType = block.getBlockPathType(this.world, pos, null);
-                    return pathType == null || pathType.getDanger() == null;
+                    final PathNodeType pathType = PathUtil.getAiPathNodeType(block, this.world, pos);
+                    return pathType == null || PathUtil.getDanger(pathType) == null;
                 }
                 return false;
             }
@@ -1465,7 +1467,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
      * @return true if the block is a ladder.
      */
     protected boolean isLadder(final Block block, final BlockPos pos) {
-        return block.isLadder(this.world.getBlockState(pos), this.world, pos, this.entity.get());
+        return BlockUtil.isLadder(block);
     }
 
     protected boolean isLadder(final BlockPos pos) {

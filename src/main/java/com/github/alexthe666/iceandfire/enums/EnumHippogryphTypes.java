@@ -2,13 +2,14 @@ package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.biome.Biome;
 
 public enum EnumHippogryphTypes {
     BLACK(false),
@@ -28,8 +29,8 @@ public enum EnumHippogryphTypes {
 
     EnumHippogryphTypes(boolean developer) {
         this.developer = developer;
-        this.TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + ".png");
-        this.TEXTURE_BLINK = new Identifier(IceAndFire.MOD_ID,"textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + "_blink.png");
+        this.TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + ".png");
+        this.TEXTURE_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + "_blink.png");
 
     }
 

@@ -1,11 +1,11 @@
 package com.github.alexthe666.citadel.client.gui.data;
 
 public class RecipeData {
+    private final int page;
     private String recipe;
     private int x;
     private int y;
     private double scale;
-    private final int page;
 
     public RecipeData(String recipe, int x, int y, double scale, int page) {
         this.recipe = recipe;

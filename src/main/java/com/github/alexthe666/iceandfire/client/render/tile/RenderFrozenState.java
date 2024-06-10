@@ -21,7 +21,7 @@ public class RenderFrozenState {
         float sideExpand = -0.125F;
         float sideExpandY = 0.325F;
         Box axisalignedbb1 = new Box(-entity.getWidth() / 2F - sideExpand, 0, -entity.getWidth() / 2F - sideExpand,
-            entity.getWidth() / 2F + sideExpand, entity.getHeight() + sideExpandY, entity.getWidth() / 2F + sideExpand);
+                entity.getWidth() / 2F + sideExpand, entity.getHeight() + sideExpandY, entity.getWidth() / 2F + sideExpand);
         matrixStack.push();
         renderMovingAABB(axisalignedbb1, matrixStack, bufferIn, light, 255, frozenTicks);
         matrixStack.pop();

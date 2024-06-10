@@ -1,7 +1,7 @@
 package com.github.alexthe666.citadel.mixin.client;
 
 import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;

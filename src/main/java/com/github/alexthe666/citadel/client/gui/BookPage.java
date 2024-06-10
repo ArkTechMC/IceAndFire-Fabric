@@ -16,7 +16,6 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class BookPage {
     public static final Gson GSON = (new GsonBuilder()).registerTypeAdapter(BookPage.class, new Deserializer()).create();
-    public String translatableTitle = null;
     private final String parent;
     private final String textFileToReadFrom;
     private final List<LinkData> linkedButtons;
@@ -27,6 +26,7 @@ public class BookPage {
     private final List<EntityRenderData> entityRenders;
     private final List<ImageData> images;
     private final String title;
+    public String translatableTitle = null;
 
     public BookPage(String parent, String textFileToReadFrom, List<LinkData> linkedButtons, List<EntityLinkData> linkedEntities, List<ItemRenderData> itemRenders, List<RecipeData> recipes, List<TabulaRenderData> tabulaRenders, List<EntityRenderData> entityRenders, List<ImageData> images, String title) {
         this.parent = parent;

@@ -27,13 +27,13 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
 
     public BlockDreadWoodLock() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.OAK_TAN)
-                .instrument(Instrument.BASS)
-                .burnable()
-                .strength(-1.0F, 1000000F)
-                .sounds(BlockSoundGroup.WOOD)
+                Settings
+                        .create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .instrument(Instrument.BASS)
+                        .burnable()
+                        .strength(-1.0F, 1000000F)
+                        .sounds(BlockSoundGroup.WOOD)
         );
         this.setDefaultState(this.getStateManager().getDefaultState().with(PLAYER_PLACED, Boolean.FALSE));
     }

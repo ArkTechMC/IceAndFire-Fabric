@@ -13,6 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelCyclops extends ModelDragonBase<EntityCyclops> {
+    private final ModelAnimator animator;
     public AdvancedModelBox body;
     public AdvancedModelBox UpperBody;
     public AdvancedModelBox Loin;
@@ -39,7 +40,6 @@ public class ModelCyclops extends ModelDragonBase<EntityCyclops> {
     public AdvancedModelBox LoinBack;
     public AdvancedModelBox rightleg2;
     public AdvancedModelBox leftleg2;
-    private final ModelAnimator animator;
 
     public ModelCyclops() {
         this.texWidth = 128;

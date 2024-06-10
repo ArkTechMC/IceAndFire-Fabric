@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 public class GuiPodium extends HandledScreen<ContainerPodium> {
 
-    public static final Identifier PODUIM_TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/gui/podium.png");
+    public static final Identifier PODUIM_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/podium.png");
 
     public GuiPodium(ContainerPodium container, PlayerInventory inv, Text name) {
         super(container, inv, name);

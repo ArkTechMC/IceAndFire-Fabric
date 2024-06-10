@@ -10,7 +10,7 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexTrades;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -57,6 +57,20 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     public EntityMyrmexQueen(EntityType<EntityMyrmexQueen> t, World worldIn) {
         super(t, worldIn);
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 120D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 3.5D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 15.0D);
     }
 
     @Override
@@ -257,20 +271,6 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     @Override
     public boolean shouldMoveThroughHive() {
         return false;
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 120D)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 3.5D)
-                //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
-                //ARMOR
-                .add(EntityAttributes.GENERIC_ARMOR, 15.0D);
     }
 
     @Override

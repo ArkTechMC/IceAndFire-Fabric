@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderStymphalianBird extends MobEntityRenderer<EntityStymphalianBird, ModelStymphalianBird> {
 
-    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/stymphalianbird/stymphalian_bird.png");
+    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/stymphalianbird/stymphalian_bird.png");
 
     public RenderStymphalianBird(EntityRendererFactory.Context context) {
         super(context, new ModelStymphalianBird(), 0.6F);

@@ -49,7 +49,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
-import net.minecraftforge.common.IPlantable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -77,6 +76,10 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
             return entity instanceof LivingEntity && !(entity instanceof EntitySeaSerpent) && DragonUtils.isAlive((LivingEntity) entity) && entity.isInsideWaterOrBubbleColumn();
         }
     };
+    private final float[] tailYaw = new float[5];
+    private final float[] prevTailYaw = new float[5];
+    private final float[] tailPitch = new float[5];
+    private final float[] prevTailPitch = new float[5];
     public int swimCycle;
     public float jumpProgress = 0.0F;
     public float wantJumpProgress = 0.0F;
@@ -85,19 +88,15 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public float breathProgress = 0.0F;
     //true  = melee, false = ranged
     public boolean attackDecision = false;
+    public int jumpCooldown = 0;
     private int animationTick;
     private Animation currentAnimation;
     private EntityMutlipartPart[] segments = new EntityMutlipartPart[9];
     private float lastScale;
     private boolean isLandNavigator;
     private boolean changedSwimBehavior = false;
-    public int jumpCooldown = 0;
     private int ticksSinceRoar = 0;
     private boolean isBreathing;
-    private final float[] tailYaw = new float[5];
-    private final float[] prevTailYaw = new float[5];
-    private final float[] tailPitch = new float[5];
-    private final float[] prevTailPitch = new float[5];
 
     public EntitySeaSerpent(EntityType<EntitySeaSerpent> t, World worldIn) {
         super(t, worldIn);
@@ -121,6 +120,20 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     public static boolean isWaterBlock(World world, BlockPos pos) {
         return world.getFluidState(pos).isIn(FluidTags.WATER);
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.seaSerpentBaseHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
+                //FALLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.dragonTargetSearchLength))
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 3.0D);
     }
 
     @Override
@@ -183,21 +196,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         return EntityGroup.AQUATIC;
     }
 
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.seaSerpentBaseHealth)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
-            //FALLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.dragonTargetSearchLength))
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 3.0D);
-    }
-
-
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.seaSerpentBaseHealth);
@@ -210,10 +208,10 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.segments = new EntityMutlipartPart[9];
         for (int i = 0; i < this.segments.length; i++) {
             if (i > 3) {
-                Entity parentToSet = i <= 4 ? this : this.segments[i-1];
+                Entity parentToSet = i <= 4 ? this : this.segments[i - 1];
                 this.segments[i] = new EntitySlowPart(parentToSet, 0.5F * scale, 180, 0, 0.5F * scale, 0.5F * scale, 1);
             } else {
-                Entity parentToSet = i == 0 ? this : this.segments[i-1];
+                Entity parentToSet = i == 0 ? this : this.segments[i - 1];
                 this.segments[i] = new EntitySlowPart(parentToSet, -0.4F * scale, 180, 0, 0.45F * scale, 0.4F * scale, 1);
             }
             this.segments[i].copyPositionAndRotation(this);
@@ -273,7 +271,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public void tick() {
         super.tick();
-        if(this.jumpCooldown > 0){
+        if (this.jumpCooldown > 0) {
             this.jumpCooldown--;
         }
         this.calculateDimensions();
@@ -297,15 +295,15 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
 
-    public float getPieceYaw(int index, float partialTicks){
-        if(index < this.segments.length && index >= 0){
+    public float getPieceYaw(int index, float partialTicks) {
+        if (index < this.segments.length && index >= 0) {
             return this.prevTailYaw[index] + (this.tailYaw[index] - this.prevTailYaw[index]) * partialTicks;
         }
         return 0;
     }
 
-    public float getPiecePitch(int index, float partialTicks){
-        if(index < this.segments.length && index >= 0){
+    public float getPiecePitch(int index, float partialTicks) {
+        if (index < this.segments.length && index >= 0) {
             return this.prevTailPitch[index] + (this.tailPitch[index] - this.prevTailPitch[index]) * partialTicks;
         }
         return 0;
@@ -632,7 +630,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                         BlockState state = this.getWorld().getBlockState(pos);
                         FluidState fluidState = this.getWorld().getFluidState(pos);
                         Block block = state.getBlock();
-                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable || state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {
+                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {//TODO: state.getBlock() instanceof IPlantable || in ()
                             if (block != Blocks.AIR) {
                                 if (!this.getWorld().isClient) {
                                     this.getWorld().breakBlock(pos, true);
@@ -770,7 +768,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                     d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(
-                        IafEntityRegistry.SEA_SERPENT_BUBBLES.get(), this.getWorld(), this, d2, d3, d4);
+                            IafEntityRegistry.SEA_SERPENT_BUBBLES.get(), this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);

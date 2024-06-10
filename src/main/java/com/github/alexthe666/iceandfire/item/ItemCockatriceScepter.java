@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityGorgon;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -48,8 +48,15 @@ public class ItemCockatriceScepter extends Item {
             stack.damage(this.specialWeaponDmg, livingEntity, player -> player.sendToolBreakStatus(livingEntity.getActiveHand()));
             this.specialWeaponDmg = 0;
         }
+        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+        data.miscData.getTargetedByScepter().clear();
+    }
 
-        EntityDataProvider.getCapability(livingEntity).ifPresent(data -> data.miscData.getTargetedByScepter().clear());
+    @Override
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        if (user instanceof PlayerEntity player)
+            player.getItemCooldownManager().set(this, 20);
+        return super.finishUsing(stack, world, user);
     }
 
     @Override
@@ -114,8 +121,8 @@ public class ItemCockatriceScepter extends Item {
                 if (!target.isAlive()) {
                     return;
                 }
-
-                EntityDataProvider.getCapability(player).ifPresent(data -> data.miscData.addScepterTarget(target));
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(player);
+                data.miscData.addScepterTarget(target);
             }
 
             this.attackTargets(player);
@@ -123,32 +130,30 @@ public class ItemCockatriceScepter extends Item {
     }
 
     private void attackTargets(final LivingEntity caster) {
-        EntityDataProvider.getCapability(caster).ifPresent(data -> {
-            List<LivingEntity> targets = new ArrayList<>(data.miscData.getTargetedByScepter());
-
-            for (LivingEntity target : targets) {
-                if (!EntityGorgon.isEntityLookingAt(caster, target, 0.2F) || !caster.isAlive() || !target.isAlive()) {
-                    data.miscData.removeScepterTarget(target);
-                    continue;
-                }
-
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40, 2));
-
-                if (caster.age % 20 == 0) {
-                    this.specialWeaponDmg++;
-                    target.damage(caster.getWorld().damageSources.wither(), 2);
-                }
-
-                this.drawParticleBeam(caster, target);
+        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(caster);
+        List<LivingEntity> targets = new ArrayList<>(data.miscData.getTargetedByScepter());
+        for (LivingEntity target : targets) {
+            if (!EntityGorgon.isEntityLookingAt(caster, target, 0.2F) || !caster.isAlive() || !target.isAlive()) {
+                data.miscData.removeScepterTarget(target);
+                continue;
             }
-        });
+
+            target.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40, 2));
+
+            if (caster.age % 20 == 0) {
+                this.specialWeaponDmg++;
+                target.damage(caster.getWorld().damageSources.wither(), 2);
+            }
+
+            this.drawParticleBeam(caster, target);
+        }
     }
 
     private void drawParticleBeam(LivingEntity origin, LivingEntity target) {
         double d5 = 80F;
         double d0 = target.getX() - origin.getX();
         double d1 = target.getY() + (double) (target.getHeight() * 0.5F)
-            - (origin.getY() + (double) origin.getStandingEyeHeight() * 0.5D);
+                - (origin.getY() + (double) origin.getStandingEyeHeight() * 0.5D);
         double d2 = target.getZ() - origin.getZ();
         double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
         d0 = d0 / d3;

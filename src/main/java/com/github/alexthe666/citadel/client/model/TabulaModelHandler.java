@@ -30,8 +30,8 @@ public enum TabulaModelHandler implements JsonDeserializationContext {
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Transformation.class, new Transformation.Deserializer()).registerTypeAdapter(ModelTransformation.class, new ModelTransformation.Deserializer()).create();
     private final JsonParser parser = new JsonParser();
     private final TabulaModelBlock.Deserializer TabulaModelBlockDeserializer = new TabulaModelBlock.Deserializer();
-    private ResourceManager manager;
     private final Set<String> enabledDomains = new HashSet<>();
+    private ResourceManager manager;
 
     public void addDomain(String domain) {
         this.enabledDomains.add(domain.toLowerCase(Locale.ROOT));

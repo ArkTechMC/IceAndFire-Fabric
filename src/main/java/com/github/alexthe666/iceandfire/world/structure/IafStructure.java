@@ -2,10 +2,6 @@ package com.github.alexthe666.iceandfire.world.structure;
 
 import com.github.alexthe666.citadel.config.biome.SpawnBiomeData;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.Optional;
-import java.util.Set;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.Identifier;
@@ -15,6 +11,10 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
 import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Optional;
+import java.util.Set;
 
 public class IafStructure extends Structure {
 

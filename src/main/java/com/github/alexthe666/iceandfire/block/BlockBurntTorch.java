@@ -15,15 +15,15 @@ public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlo
 
     public BlockBurntTorch() {
         super(
-            Settings.create()
-                    .mapColor(MapColor.OAK_TAN)
-                    .burnable()
-                    .luminance((state) -> 0)
-                    .sounds(BlockSoundGroup.WOOD)
-                    .nonOpaque()
-                    .dynamicBounds()
-                    .noCollision(),
-            DustParticleEffect.DEFAULT
+                Settings.create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .burnable()
+                        .luminance((state) -> 0)
+                        .sounds(BlockSoundGroup.WOOD)
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .noCollision(),
+                DustParticleEffect.DEFAULT
         );
     }
 

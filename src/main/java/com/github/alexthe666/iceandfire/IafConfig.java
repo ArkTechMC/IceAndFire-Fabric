@@ -148,7 +148,7 @@ public class IafConfig extends ModConfig {
         super(type, spec, modId);
     }
 
-    public static void bakeClient(final ModConfig config) {
+    public static void bakeClient() {
         try {
             customMainMenu = ConfigHolder.CLIENT.customMainMenu.get();
             useVanillaFont = ConfigHolder.CLIENT.useVanillaFont.get();
@@ -159,7 +159,7 @@ public class IafConfig extends ModConfig {
         }
     }
 
-    public static void bakeServer(final ModConfig config) {
+    public static void bakeServer() {
         try {
             generateDragonSkeletons = ConfigHolder.SERVER.generateDragonSkeletons.get();
             generateDragonSkeletonChance = ConfigHolder.SERVER.generateDragonSkeletonChance.get();

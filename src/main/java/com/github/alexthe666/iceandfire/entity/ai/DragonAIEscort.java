@@ -8,8 +8,8 @@ import java.util.EnumSet;
 
 public class DragonAIEscort extends Goal {
     private final EntityDragonBase dragon;
-    private BlockPos previousPosition;
     private final float maxRange = 2000F;
+    private BlockPos previousPosition;
 
     public DragonAIEscort(EntityDragonBase entityIn, double movementSpeedIn) {
         this.dragon = entityIn;

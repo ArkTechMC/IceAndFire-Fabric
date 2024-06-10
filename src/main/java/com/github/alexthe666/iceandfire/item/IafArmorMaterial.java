@@ -20,7 +20,7 @@ public class IafArmorMaterial extends CustomArmorMaterial {
     }
 
     @Override
-    public float getKnockbackResistance(){
+    public float getKnockbackResistance() {
         return 0;
     }
 }

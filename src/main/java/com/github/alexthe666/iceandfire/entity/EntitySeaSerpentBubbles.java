@@ -62,7 +62,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
         if (this.getWorld().isClient || (shootingEntity == null || !shootingEntity.isAlive()) && this.getWorld().isChunkLoaded(this.getBlockPos())) {
             this.baseTick();
             HitResult raytraceresult = ProjectileUtil.getCollision(this, this::canHit);
-            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+            if (raytraceresult.getType() != HitResult.Type.MISS ) {
                 this.onCollision(raytraceresult);
             }
 

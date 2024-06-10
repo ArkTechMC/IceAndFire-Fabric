@@ -1,6 +1,6 @@
 package com.github.alexthe666.citadel.client.event;
 
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Event;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.world.ClientWorld;
@@ -9,8 +9,8 @@ import net.minecraft.client.world.ClientWorld;
 @Event.HasResult
 public class EventGetStarBrightness extends Event {
     private final ClientWorld clientLevel;
-    private float brightness;
     private final float partialTicks;
+    private float brightness;
 
     public EventGetStarBrightness(ClientWorld clientLevel, float brightness, float partialTicks) {
         this.clientLevel = clientLevel;

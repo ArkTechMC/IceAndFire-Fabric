@@ -41,6 +41,8 @@ public class ChunkCache implements WorldView {
      * Dimensiontype.
      */
     private final DimensionType dimType;
+    private final int minBuildHeight;
+    private final int maxBuildHeight;
     protected int chunkX;
     protected int chunkZ;
     protected WorldChunk[][] chunkArray;
@@ -52,9 +54,6 @@ public class ChunkCache implements WorldView {
      * Reference to the World object.
      */
     protected World world;
-
-    private final int minBuildHeight;
-    private final int maxBuildHeight;
 
     public ChunkCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn, final DimensionType type) {
         this.world = worldIn;

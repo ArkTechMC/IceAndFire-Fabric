@@ -1,10 +1,11 @@
 package com.github.alexthe666.citadel.client.texture;
 
 import com.mojang.blaze3d.platform.TextureUtil;
-import java.awt.image.BufferedImage;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.util.math.ColorHelper;
+
+import java.awt.image.BufferedImage;
 
 public class VideoFrameTexture extends NativeImageBackedTexture {
 
@@ -23,8 +24,8 @@ public class VideoFrameTexture extends NativeImageBackedTexture {
     }
 
     public void setPixelsFromBufferedImage(BufferedImage bufferedImage) {
-        for(int i = 0; i < Math.min(this.getImage().getWidth(), bufferedImage.getWidth()); i++){
-            for(int j = 0; j < Math.min(this.getImage().getHeight(), bufferedImage.getHeight()); j++){
+        for (int i = 0; i < Math.min(this.getImage().getWidth(), bufferedImage.getWidth()); i++) {
+            for (int j = 0; j < Math.min(this.getImage().getHeight(), bufferedImage.getHeight()); j++) {
                 int color = bufferedImage.getRGB(i, j);
                 int r = color >> 16 & 255;
                 int g = color >> 8 & 255;

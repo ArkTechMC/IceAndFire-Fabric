@@ -50,6 +50,20 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         super(type, worldIn);
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 2.0D);
+    }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
@@ -70,20 +84,6 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
                 return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
             }
         }));
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 20.0D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0D)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 2.0D);
     }
 
     @Override

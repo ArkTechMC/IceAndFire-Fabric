@@ -17,6 +17,12 @@ public class BlockReturningState extends Block {
     public static final BooleanProperty REVERTS = BooleanProperty.of("revert");
     private final BlockState returnState;
 
+    public BlockReturningState(Settings props, BlockState returnToState) {
+        super(props);
+        this.returnState = returnToState;
+        this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
+    }
+
     public static BlockReturningState builder(float hardness, float resistance, BlockSoundGroup sound, boolean slippery, MapColor color, Instrument instrument, PistonBehavior reaction, boolean ignited, BlockState returnToState) {
         Settings props = Settings.create().mapColor(color).sounds(sound).strength(hardness, resistance).slipperiness(0.98F).ticksRandomly();
 
@@ -34,6 +40,7 @@ public class BlockReturningState extends Block {
 
         return new BlockReturningState(props, returnToState);
     }
+
     public static BlockReturningState builder(float hardness, float resistance, BlockSoundGroup sound, MapColor color, Instrument instrument, PistonBehavior reaction, boolean ignited, BlockState returnToState) {
         Settings props = Settings.create().mapColor(color).sounds(sound).strength(hardness, resistance).ticksRandomly();
 
@@ -50,12 +57,6 @@ public class BlockReturningState extends Block {
         }
 
         return new BlockReturningState(props, returnToState);
-    }
-
-    public BlockReturningState(Settings props, BlockState returnToState) {
-        super(props);
-        this.returnState = returnToState;
-        this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
     }
 
     // FIXME :: Unused because isRandomlyTicking is not used -> The chunk check might be a performance problem anyway (and potentially not needed)

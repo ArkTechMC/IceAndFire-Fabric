@@ -18,9 +18,9 @@ import org.jetbrains.annotations.NotNull;
 //TODO: All containers etc should be rewritten
 public class ContainerDragonForge extends ScreenHandler {
 
+    protected final World world;
     private final Inventory tileFurnace;
     public int fireType;
-    protected final World world;
 
     public ContainerDragonForge(int i, PlayerInventory playerInventory) {
         this(i, new SimpleInventory(3), playerInventory, new ArrayPropertyDelegate(0));

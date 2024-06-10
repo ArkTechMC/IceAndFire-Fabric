@@ -1,12 +1,12 @@
 package com.github.alexthe666.citadel.client.gui.data;
 
 public class ItemRenderData {
+    private final int page;
     private String item;
     private String item_tag = "";
     private int x;
     private int y;
     private double scale;
-    private final int page;
 
     public ItemRenderData(String item, int x, int y, double scale, int page) {
         this.item = item;

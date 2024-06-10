@@ -6,9 +6,11 @@ public enum EnumDragonModelTypes implements IEnumDragonModelTypes {
     LIGHTNING_DRAGON_MODEL("lightning");
 
     String modelType;
+
     EnumDragonModelTypes(String modelType) {
         this.modelType = modelType;
     }
+
     @Override
     public String getModelType() {
         return this.modelType;

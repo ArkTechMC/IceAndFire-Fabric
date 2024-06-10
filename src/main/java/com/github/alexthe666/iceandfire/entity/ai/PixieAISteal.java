@@ -95,7 +95,7 @@ public class PixieAISteal extends Goal {
             } else {
                 //If the pixie couldn't steal anything
                 this.temptedEntity.flipAI(true);
-                this.delayTemptCounter = 10 *20;
+                this.delayTemptCounter = 10 * 20;
             }
         } else {
             this.temptedEntity.getMoveControl().moveTo(this.temptingPlayer.getX(), this.temptingPlayer.getY() + 1.5F, this.temptingPlayer.getZ(), 1D);

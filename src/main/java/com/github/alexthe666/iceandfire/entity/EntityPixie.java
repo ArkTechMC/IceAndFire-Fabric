@@ -9,7 +9,7 @@ import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -46,18 +46,16 @@ import org.jetbrains.annotations.NotNull;
 public class EntityPixie extends TameableEntity {
 
     public static final float[][] PARTICLE_RGB = new float[][]{new float[]{1F, 0.752F, 0.792F}, new float[]{0.831F, 0.662F, 1F}, new float[]{0.513F, 0.843F, 1F}, new float[]{0.654F, 0.909F, 0.615F}, new float[]{0.996F, 0.788F, 0.407F}};
+    public static final int STEAL_COOLDOWN = 3000;
     private static final TrackedData<Integer> COLOR = DataTracker.registerData(EntityPixie.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> COMMAND = DataTracker.registerData(EntityPixie.class, TrackedDataHandlerRegistry.INTEGER);
-
-    public static final int STEAL_COOLDOWN = 3000;
-
     public StatusEffect[] positivePotions = new StatusEffect[]{StatusEffects.STRENGTH, StatusEffects.JUMP_BOOST, StatusEffects.SPEED, StatusEffects.LUCK, StatusEffects.HASTE};
     public StatusEffect[] negativePotions = new StatusEffect[]{StatusEffects.WEAKNESS, StatusEffects.NAUSEA, StatusEffects.SLOWNESS, StatusEffects.UNLUCK, StatusEffects.MINING_FATIGUE};
     public boolean slowSpeed = false;
     public int ticksUntilHouseAI;
     public int ticksHeldItemFor;
-    private BlockPos housePos;
     public int stealCooldown = 0;
+    private BlockPos housePos;
     private boolean isSitting;
 
     public EntityPixie(EntityType type, World worldIn) {
@@ -92,6 +90,14 @@ public class EntityPixie extends TameableEntity {
         return entity.getBlockPos();
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 10D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D);
+    }
+
     public boolean isPixieSitting() {
         if (this.getWorld().isClient) {
             boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
@@ -123,14 +129,6 @@ public class EntityPixie extends TameableEntity {
     @Override
     public int getXpToDrop() {
         return 3;
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 10D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D);
     }
 
     @Override

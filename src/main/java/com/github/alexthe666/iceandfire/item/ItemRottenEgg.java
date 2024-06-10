@@ -31,7 +31,7 @@ public class ItemRottenEgg extends Item {
 
         if (!worldIn.isClient) {
             EntityCockatriceEgg entityegg = new EntityCockatriceEgg(IafEntityRegistry.COCKATRICE_EGG.get(), worldIn,
-                playerIn);
+                    playerIn);
             entityegg.setVelocity(playerIn, playerIn.getPitch(), playerIn.getYaw(), 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(entityegg);
         }

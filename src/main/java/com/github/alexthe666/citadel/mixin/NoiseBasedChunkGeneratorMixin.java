@@ -1,19 +1,17 @@
 package com.github.alexthe666.citadel.mixin;
 
-import com.github.alexthe666.citadel.CitadelConstants;
 import com.github.alexthe666.citadel.server.generation.SurfaceRulesManager;
+import net.minecraft.util.Util;
+import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
+import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.HashMap;
 import java.util.function.Function;
-import net.minecraft.util.Util;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
-import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 @Mixin(NoiseChunkGenerator.class)
 public class NoiseBasedChunkGeneratorMixin {
@@ -39,9 +37,9 @@ public class NoiseBasedChunkGeneratorMixin {
     }
 
     @Unique
-    private MaterialRules.MaterialRule getMergedRulesFor(ChunkGeneratorSettings settings){
+    private MaterialRules.MaterialRule getMergedRulesFor(ChunkGeneratorSettings settings) {
         MaterialRules.MaterialRule merged = this.mergedRulesMap.get(settings);
-        if(merged == null){
+        if (merged == null) {
             merged = this.rulesToMerge.apply(settings.surfaceRule());
             this.mergedRulesMap.put(settings, merged);
         }

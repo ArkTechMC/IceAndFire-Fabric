@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
+    private final ModelAnimator animator;
     public AdvancedModelBox Body;
     public AdvancedModelBox Head;
     public AdvancedModelBox Spine1;
@@ -50,7 +51,6 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
     public AdvancedModelBox TopJaw;
     public AdvancedModelBox BottomJaw;
     public AdvancedModelBox JawHook;
-    private final ModelAnimator animator;
 
     public ModelDeathWorm() {
         this.animator = ModelAnimator.create();
@@ -289,10 +289,10 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
         this.progressRotation(this.Tail2, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
         this.progressRotation(this.Tail3, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
         this.progressRotation(this.Tail4, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
-        if(worm.tail_buffer != null)
+        if (worm.tail_buffer != null)
             worm.tail_buffer.applyChainSwingBuffer(WORM);
 
-        if(worm.getWormJumping() > 0){
+        if (worm.getWormJumping() > 0) {
             this.Body.rotateAngleX += f4 * ((float) Math.PI / 180F);
         }
     }

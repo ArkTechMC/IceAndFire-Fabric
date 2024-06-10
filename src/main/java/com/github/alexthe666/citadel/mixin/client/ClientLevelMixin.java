@@ -2,8 +2,8 @@ package com.github.alexthe666.citadel.mixin.client;
 
 import com.github.alexthe666.citadel.client.event.EventGetStarBrightness;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
-import com.iafenvoy.iafextra.event.Event;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.registry.DynamicRegistryManager;

@@ -11,8 +11,8 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadHorse extends MobEntityRenderer<EntityDreadHorse, HorseEntityModel<EntityDreadHorse>> {
-    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_knight_horse.png");
-    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_knight_horse_eyes.png");
+    public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_knight_horse.png");
+    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_knight_horse_eyes.png");
 
     public RenderDreadHorse(EntityRendererFactory.Context context) {
         super(context, new HorseEntityModel<>(context.getPart(EntityModelLayers.HORSE)), 0.75F);

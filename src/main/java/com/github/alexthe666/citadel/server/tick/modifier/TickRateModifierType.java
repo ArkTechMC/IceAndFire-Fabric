@@ -16,7 +16,16 @@ public enum TickRateModifierType {
         this.id = id;
     }
 
-    public Class<? extends TickRateModifier> getTickRateClass(){
+    public static TickRateModifierType fromId(int id) {
+        for (TickRateModifierType type : TickRateModifierType.values()) {
+            if (type.id == id) {
+                return type;
+            }
+        }
+        return TickRateModifierType.CELESTIAL;
+    }
+
+    public Class<? extends TickRateModifier> getTickRateClass() {
         return this.clazz;
     }
 
@@ -24,16 +33,7 @@ public enum TickRateModifierType {
         return this.local;
     }
 
-    public int toId(){
+    public int toId() {
         return this.id;
-    }
-
-    public static TickRateModifierType fromId(int id){
-        for(TickRateModifierType type : TickRateModifierType.values()){
-            if(type.id == id){
-                return type;
-            }
-        }
-        return TickRateModifierType.CELESTIAL;
     }
 }

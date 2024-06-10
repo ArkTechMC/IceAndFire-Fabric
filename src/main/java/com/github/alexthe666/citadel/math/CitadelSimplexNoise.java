@@ -46,14 +46,6 @@ public class CitadelSimplexNoise {  // Simplex noise in 2D, 3D and 4D
     // To remove the need for index wrapping, double the permutation table length
     private static final short[] perm = new short[512];
     private static final short[] permMod12 = new short[512];
-
-    static {
-        for (int i = 0; i < 512; i++) {
-            perm[i] = p[i & 255];
-            permMod12[i] = (short) (perm[i] % 12);
-        }
-    }
-
     // Skewing and unskewing factors for 2, 3, and 4 dimensions
     private static final double F2 = 0.5 * (Math.sqrt(3.0) - 1.0);
     private static final double G2 = (3.0 - Math.sqrt(3.0)) / 6.0;
@@ -61,6 +53,13 @@ public class CitadelSimplexNoise {  // Simplex noise in 2D, 3D and 4D
     private static final double G3 = 1.0 / 6.0;
     private static final double F4 = (Math.sqrt(5.0) - 1.0) / 4.0;
     private static final double G4 = (5.0 - Math.sqrt(5.0)) / 20.0;
+
+    static {
+        for (int i = 0; i < 512; i++) {
+            perm[i] = p[i & 255];
+            permMod12[i] = (short) (perm[i] % 12);
+        }
+    }
 
     // This method is a *lot* faster than using (int)Math.floor(x)
     private static int fastfloor(double x) {

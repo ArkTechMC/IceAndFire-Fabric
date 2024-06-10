@@ -7,7 +7,6 @@
     "BiomeSourceMixin",
     "ChunkGeneratorMixin",
     "ChunkStatusMixin",
-    "LevelMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
     "MultiNoiseBiomeSourceMixin",

@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelMyrmexQueen extends ModelMyrmexBase {
+    private final ModelAnimator animator;
     public AdvancedModelBox Body2;
     public AdvancedModelBox Body3;
     public AdvancedModelBox Body1;
@@ -49,7 +50,6 @@ public class ModelMyrmexQueen extends ModelMyrmexBase {
     public AdvancedModelBox legBottomR2;
     public AdvancedModelBox legMidR2_1;
     public AdvancedModelBox legBottomR2_1;
-    private final ModelAnimator animator;
 
     public ModelMyrmexQueen() {
         this.texWidth = 128;

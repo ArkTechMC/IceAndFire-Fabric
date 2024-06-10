@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShieldItem;
@@ -15,7 +14,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityStymphalianFeather extends PersistentProjectileEntity {
@@ -58,7 +56,7 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
                 LivingEntity LivingEntity = (LivingEntity) entityHit.getEntity();
                 LivingEntity.setStuckArrowCount(LivingEntity.getStuckArrowCount() - 1);
                 ItemStack itemstack1 = LivingEntity.isUsingItem() ? LivingEntity.getActiveItem() : ItemStack.EMPTY;
-                if (itemstack1.getItem().canPerformAction(itemstack1, ToolActions.SHIELD_BLOCK)) {
+                if (itemstack1.getItem() instanceof ShieldItem) {
                     this.damageShield(LivingEntity, 1.0F);
                 }
             }
@@ -73,10 +71,6 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
             Hand Hand = entity.getActiveHand();
             copyBeforeUse.damage(i, entity, (player1) -> player1.sendToolBreakStatus(Hand));
             if (entity.getActiveItem().isEmpty()) {
-                if (entity instanceof PlayerEntity) {
-                    net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem((PlayerEntity) entity, copyBeforeUse, Hand);
-                }
-
                 if (Hand == net.minecraft.util.Hand.MAIN_HAND) {
                     this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 } else {

@@ -7,10 +7,10 @@ public class BlockGenericStairs extends StairsBlock {
 
     public BlockGenericStairs(BlockState modelState) {
         super(
-            modelState,
-            Settings
-                .create()
-                .strength(20F)
+                modelState,
+                Settings
+                        .create()
+                        .strength(20F)
         );
     }
 }

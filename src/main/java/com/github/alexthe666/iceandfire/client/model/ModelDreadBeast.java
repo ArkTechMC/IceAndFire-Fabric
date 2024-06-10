@@ -263,7 +263,7 @@ public class ModelDreadBeast extends ModelDragonBase<EntityDreadBeast> {
             this.animator.move(this.Body, 0, 0, 0);
             this.animator.endKeyframe();
             this.animator.resetKeyframe(5);
-    }
+        }
     }
 
     @Override

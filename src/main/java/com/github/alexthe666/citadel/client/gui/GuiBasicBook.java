@@ -157,9 +157,7 @@ public abstract class GuiBasicBook extends Screen {
         quaternion1.conjugate();
         entityrenderdispatcher.setRotation(quaternion1);
         entityrenderdispatcher.setRenderShadows(false);
-        RenderSystem.runAsFancy(() -> {
-            entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.getMatrices(), bufferSource, 240);
-        });
+        RenderSystem.runAsFancy(() -> entityrenderdispatcher.render(entity, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, guiGraphics.getMatrices(), bufferSource, 240));
         entityrenderdispatcher.setRenderShadows(true);
         entity.setYaw(0);
         entity.setPitch(0);

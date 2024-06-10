@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
@@ -12,13 +13,13 @@ import com.github.alexthe666.iceandfire.entity.ai.HippogryphAITargetItems;
 import com.github.alexthe666.iceandfire.entity.ai.HippogryphAIWander;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
-import com.github.alexthe666.iceandfire.inventory.ContainerHippogryph;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageHippogryphArmor;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.message.HippogryphGuiMessage;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -37,7 +38,6 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,8 +46,6 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -62,8 +60,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityHippogryph extends TameableEntity implements ISyncMount, IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, IFlyingMount, ICustomMoveController, IHasCustomizableAttributes {
@@ -349,18 +345,8 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public void openGUI(PlayerEntity playerEntity) {
-        if (!this.getWorld().isClient && (!this.hasPassengers() || this.hasPassenger(playerEntity))) {
-            NetworkHooks.openScreen((ServerPlayerEntity) playerEntity, new NamedScreenHandlerFactory() {
-                @Override
-                public ScreenHandler createMenu(int p_createMenu_1_, @NotNull PlayerInventory p_createMenu_2_, @NotNull PlayerEntity p_createMenu_3_) {
-                    return new ContainerHippogryph(p_createMenu_1_, EntityHippogryph.this.hippogryphInventory, p_createMenu_2_, EntityHippogryph.this);
-                }
-
-                @Override
-                public @NotNull Text getDisplayName() {
-                    return Text.translatable("entity.iceandfire.hippogryph");
-                }
-            });
+        if (!this.getWorld().isClient && (!this.hasPassengers() || this.hasPassenger(playerEntity)) && playerEntity instanceof ServerPlayerEntity serverPlayer) {
+            IafServerNetworkHandler.send(new HippogryphGuiMessage(this), serverPlayer);
         }
         IceAndFire.PROXY.setReferencedMob(this);
     }

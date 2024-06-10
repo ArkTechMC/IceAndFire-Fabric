@@ -23,10 +23,10 @@ import org.joml.Matrix4f;
 
 public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
 
-    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/ghost/ghost_white.png");
-    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/ghost/ghost_blue.png");
-    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID,"textures/models/ghost/ghost_green.png");
-    public static final Identifier TEXTURE_SHOPPING_LIST = new Identifier(IceAndFire.MOD_ID,"textures/models/ghost/haunted_shopping_list.png");
+    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/ghost/ghost_white.png");
+    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/ghost/ghost_blue.png");
+    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/ghost/ghost_green.png");
+    public static final Identifier TEXTURE_SHOPPING_LIST = new Identifier(IceAndFire.MOD_ID, "textures/models/ghost/haunted_shopping_list.png");
 
     public RenderGhost(EntityRendererFactory.Context renderManager) {
         super(renderManager, new ModelGhost(0.0F), 0.55F);
@@ -34,27 +34,24 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
     }
 
     public static Identifier getGhostOverlayForType(int ghost) {
-        switch (ghost) {
-            case 1:
-                return TEXTURE_1;
-            case 2:
-                return TEXTURE_2;
-            case -1:
-                return TEXTURE_SHOPPING_LIST;
-            default:
-                return TEXTURE_0;
-        }
+        return switch (ghost) {
+            case 1 -> TEXTURE_1;
+            case 2 -> TEXTURE_2;
+            case -1 -> TEXTURE_SHOPPING_LIST;
+            default -> TEXTURE_0;
+        };
     }
 
     @Override
     public void render(@NotNull EntityGhost entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
         this.shadowRadius = 0;
-        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Pre<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn)))
-            return;
+        //TODO: Event
+//        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Pre<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn)))
+//            return;
         matrixStackIn.push();
         this.model.handSwingProgress = this.getHandSwingProgress(entityIn, partialTicks);
 
-        boolean shouldSit = entityIn.hasVehicle() && (entityIn.getVehicle() != null && entityIn.getVehicle().shouldRiderSit());
+        boolean shouldSit = entityIn.hasVehicle() && entityIn.getVehicle() != null;
         this.model.riding = shouldSit;
         this.model.child = entityIn.isBaby();
         float f = MathHelper.lerpAngleDegrees(partialTicks, entityIn.prevBodyYaw, entityIn.bodyYaw);
@@ -157,12 +154,13 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
         }
 
         matrixStackIn.pop();
-        net.minecraftforge.client.event.RenderNameTagEvent renderNameplateEvent = new net.minecraftforge.client.event.RenderNameTagEvent(entityIn, entityIn.getDisplayName(), this, matrixStackIn, bufferIn, packedLightIn, partialTicks);
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
-        if (renderNameplateEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameplateEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.hasLabel(entityIn))) {
-            this.renderLabelIfPresent(entityIn, renderNameplateEvent.getContent(), matrixStackIn, bufferIn, packedLightIn);
-        }
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Post<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn));
+        //TODO: Event
+//        net.minecraftforge.client.event.RenderNameTagEvent renderNameplateEvent = new net.minecraftforge.client.event.RenderNameTagEvent(entityIn, entityIn.getDisplayName(), this, matrixStackIn, bufferIn, packedLightIn, partialTicks);
+//        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
+//        if (renderNameplateEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameplateEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.hasLabel(entityIn))) {
+//            this.renderLabelIfPresent(entityIn, renderNameplateEvent.getContent(), matrixStackIn, bufferIn, packedLightIn);
+//        }
+//        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Post<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn));
     }
 
     @Override

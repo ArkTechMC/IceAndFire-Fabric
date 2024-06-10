@@ -22,6 +22,10 @@ public class RenderLightningDragon extends RenderDragonBase {
         super(context, model, dragonType);
     }
 
+    private static float getBoundedScale(float scale, float min, float max) {
+        return min + scale * (max - min);
+    }
+
     @Override
     public boolean shouldRender(@NotNull EntityDragonBase livingEntityIn, @NotNull Frustum camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
@@ -49,9 +53,9 @@ public class RenderLightningDragon extends RenderDragonBase {
                 Vec3d Vector3d = new Vec3d(lightningDragon.getLightningTargetX(), lightningDragon.getLightningTargetY(), lightningDragon.getLightningTargetZ());
                 float energyScale = 0.4F * lightningDragon.getScaleFactor();
                 LightningBoltData bolt = new LightningBoltData(LightningBoltData.BoltRenderInfo.ELECTRICITY, Vector3d1, Vector3d, 15)
-                    .size(0.05F * getBoundedScale(energyScale, 0.5F, 2))
-                    .lifespan(4)
-                    .spawn(LightningBoltData.SpawnFunction.NO_DELAY);
+                        .size(0.05F * getBoundedScale(energyScale, 0.5F, 2))
+                        .lifespan(4)
+                        .spawn(LightningBoltData.SpawnFunction.NO_DELAY);
                 this.lightningRender.update(null, bolt, partialTicks);
                 matrixStackIn.translate(-lightningDragon.getX(), -lightningDragon.getY(), -lightningDragon.getZ());
                 this.lightningRender.render(partialTicks, matrixStackIn, bufferIn);
@@ -59,9 +63,5 @@ public class RenderLightningDragon extends RenderDragonBase {
         }
         matrixStackIn.pop();
 
-    }
-
-    private static float getBoundedScale(float scale, float min, float max) {
-        return min + scale * (max - min);
     }
 }

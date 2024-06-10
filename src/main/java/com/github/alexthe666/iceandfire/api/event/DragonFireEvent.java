@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.api.event;
 
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iafextra.event.Cancelable;
-import com.iafenvoy.iafextra.event.LivingEvent;
+import dev.arktechmc.iafextra.event.Cancelable;
+import dev.arktechmc.iafextra.event.LivingEvent;
 
 /**
  * DragonFireEvent is fired right before a Dragon breathes fire or ice. <br>

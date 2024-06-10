@@ -7,8 +7,6 @@ import com.github.alexthe666.iceandfire.datagen.IafStructurePieces;
 import com.github.alexthe666.iceandfire.world.IafStructureTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.HashMap;
-import java.util.Optional;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
@@ -26,6 +24,9 @@ import net.minecraft.world.gen.heightprovider.HeightProvider;
 import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 public class GorgonTempleStructure extends IafStructure {
 
     public static final Codec<GorgonTempleStructure> ENTRY_CODEC = RecordCodecBuilder.<GorgonTempleStructure>mapCodec(instance ->
@@ -40,6 +41,26 @@ public class GorgonTempleStructure extends IafStructure {
 
     public GorgonTempleStructure(Config config, RegistryEntry<StructurePool> startPool, Optional<Identifier> startJigsawName, int size, HeightProvider startHeight, Optional<Heightmap.Type> projectStartToHeightmap, int maxDistanceFromCenter) {
         super(config, startPool, startJigsawName, size, startHeight, projectStartToHeightmap, maxDistanceFromCenter);
+    }
+
+    public static GorgonTempleStructure buildStructureConfig(Registerable<Structure> context) {
+        RegistryEntryLookup<StructurePool> templatePoolHolderGetter = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
+        RegistryEntry<StructurePool> graveyardHolder = templatePoolHolderGetter.getOrThrow(IafStructurePieces.GORGON_TEMPLE_START);
+
+        return new GorgonTempleStructure(
+                new Config(
+                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTagGenerator.HAS_GORGON_TEMPLE),
+                        new HashMap<>(),
+                        GenerationStep.Feature.SURFACE_STRUCTURES,
+                        StructureTerrainAdaptation.BEARD_THIN
+                ),
+                graveyardHolder,
+                Optional.empty(),
+                2,
+                ConstantHeightProvider.ZERO,
+                Optional.of(Heightmap.Type.WORLD_SURFACE_WG),
+                16
+        );
     }
 
     @Override
@@ -72,25 +93,5 @@ public class GorgonTempleStructure extends IafStructure {
     @Override
     public StructureType<?> getType() {
         return IafStructureTypes.GORGON_TEMPLE.get();
-    }
-
-    public static GorgonTempleStructure buildStructureConfig(Registerable<Structure> context) {
-        RegistryEntryLookup<StructurePool> templatePoolHolderGetter = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
-        RegistryEntry<StructurePool> graveyardHolder = templatePoolHolderGetter.getOrThrow(IafStructurePieces.GORGON_TEMPLE_START);
-
-        return new GorgonTempleStructure(
-                new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTagGenerator.HAS_GORGON_TEMPLE),
-                        new HashMap<>(),
-                        GenerationStep.Feature.SURFACE_STRUCTURES,
-                        StructureTerrainAdaptation.BEARD_THIN
-                ),
-                graveyardHolder,
-                Optional.empty(),
-                2,
-                ConstantHeightProvider.ZERO,
-                Optional.of(Heightmap.Type.WORLD_SURFACE_WG),
-                16
-        );
     }
 }

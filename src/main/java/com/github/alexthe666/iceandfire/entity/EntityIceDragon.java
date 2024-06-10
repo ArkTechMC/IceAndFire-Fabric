@@ -11,9 +11,9 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
-import com.iafenvoy.iafextra.event.EventBus;
-import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -78,16 +78,12 @@ public class EntityIceDragon extends EntityDragonBase {
 
     @Override
     public String getVariantName(int variant) {
-        switch (variant) {
-            default:
-                return "blue_";
-            case 1:
-                return "white_";
-            case 2:
-                return "sapphire_";
-            case 3:
-                return "silver_";
-        }
+        return switch (variant) {
+            default -> "blue_";
+            case 1 -> "white_";
+            case 2 -> "sapphire_";
+            case 3 -> "silver_";
+        };
     }
 
     @Override
@@ -97,30 +93,22 @@ public class EntityIceDragon extends EntityDragonBase {
 
     @Override
     public Item getVariantScale(int variant) {
-        switch (variant) {
-            default:
-                return IafItemRegistry.DRAGONSCALES_BLUE.get();
-            case 1:
-                return IafItemRegistry.DRAGONSCALES_WHITE.get();
-            case 2:
-                return IafItemRegistry.DRAGONSCALES_SAPPHIRE.get();
-            case 3:
-                return IafItemRegistry.DRAGONSCALES_SILVER.get();
-        }
+        return switch (variant) {
+            default -> IafItemRegistry.DRAGONSCALES_BLUE.get();
+            case 1 -> IafItemRegistry.DRAGONSCALES_WHITE.get();
+            case 2 -> IafItemRegistry.DRAGONSCALES_SAPPHIRE.get();
+            case 3 -> IafItemRegistry.DRAGONSCALES_SILVER.get();
+        };
     }
 
     @Override
     public Item getVariantEgg(int variant) {
-        switch (variant) {
-            default:
-                return IafItemRegistry.DRAGONEGG_BLUE.get();
-            case 1:
-                return IafItemRegistry.DRAGONEGG_WHITE.get();
-            case 2:
-                return IafItemRegistry.DRAGONEGG_SAPPHIRE.get();
-            case 3:
-                return IafItemRegistry.DRAGONEGG_SILVER.get();
-        }
+        return switch (variant) {
+            default -> IafItemRegistry.DRAGONEGG_BLUE.get();
+            case 1 -> IafItemRegistry.DRAGONEGG_WHITE.get();
+            case 2 -> IafItemRegistry.DRAGONEGG_SAPPHIRE.get();
+            case 3 -> IafItemRegistry.DRAGONEGG_SILVER.get();
+        };
     }
 
     @Override

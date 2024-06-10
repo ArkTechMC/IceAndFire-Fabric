@@ -10,13 +10,23 @@ import net.minecraft.world.World;
 
 public abstract class LocalTickRateModifier extends TickRateModifier {
 
-    private double range;
     private final RegistryKey<World> dimension;
+    private double range;
 
     public LocalTickRateModifier(TickRateModifierType localPosition, double range, RegistryKey<World> dimension, int durationInMasterTicks, float tickRateMultiplier) {
         super(localPosition, durationInMasterTicks, tickRateMultiplier);
         this.range = range;
         this.dimension = dimension;
+    }
+
+    public LocalTickRateModifier(NbtCompound tag) {
+        super(tag);
+        this.range = tag.getDouble("Range");
+        RegistryKey<World> dimFromTag = World.OVERWORLD;
+        if (tag.contains("Dimension")) {
+            dimFromTag = RegistryKey.of(RegistryKeys.WORLD, new Identifier(tag.getString("dimension")));
+        }
+        this.dimension = dimFromTag;
     }
 
     @Override
@@ -25,16 +35,6 @@ public abstract class LocalTickRateModifier extends TickRateModifier {
         tag.putDouble("Range", this.range);
         tag.putString("Dimension", this.dimension.getValue().toString());
         return tag;
-    }
-
-    public LocalTickRateModifier(NbtCompound tag) {
-        super(tag);
-        this.range = tag.getDouble("Range");
-        RegistryKey<World> dimFromTag = World.OVERWORLD;
-        if(tag.contains("Dimension")){
-            dimFromTag = RegistryKey.of(RegistryKeys.WORLD, new Identifier(tag.getString("dimension")));
-        }
-        this.dimension = dimFromTag;
     }
 
     public double getRange() {

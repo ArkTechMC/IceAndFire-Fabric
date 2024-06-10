@@ -20,12 +20,12 @@ public class BlockDreadStoneFace extends HorizontalFacingBlock implements IDread
 
     public BlockDreadStoneFace() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.STONE_GRAY)
-                .instrument(Instrument.BASEDRUM)
-                .sounds(BlockSoundGroup.STONE)
-                .strength(-1F, 10000F)
+                Settings
+                        .create()
+                        .mapColor(MapColor.STONE_GRAY)
+                        .instrument(Instrument.BASEDRUM)
+                        .sounds(BlockSoundGroup.STONE)
+                        .strength(-1F, 10000F)
         );
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(PLAYER_PLACED, Boolean.FALSE));

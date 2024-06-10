@@ -78,6 +78,18 @@ public class IafEntityRegistry {
     public static final RegistryObject<EntityType<EntityHydraArrow>> HYDRA_ARROW = registerEntity(EntityType.Builder.<EntityHydraArrow>create(EntityHydraArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "hydra_arrow");
     public static final RegistryObject<EntityType<EntityGhost>> GHOST = registerEntity(EntityType.Builder.create(EntityGhost::new, SpawnGroup.MONSTER).setDimensions(0.8F, 1.9F).makeFireImmune(), "ghost");
     public static final RegistryObject<EntityType<EntityGhostSword>> GHOST_SWORD = registerEntity(EntityType.Builder.<EntityGhostSword>create(EntityGhostSword::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "ghost_sword");
+    public static HashMap<String, Boolean> LOADED_ENTITIES;
+
+    static {
+        LOADED_ENTITIES = new HashMap<>();
+        LOADED_ENTITIES.put("HIPPOGRYPH", false);
+        LOADED_ENTITIES.put("DREAD_LICH", false);
+        LOADED_ENTITIES.put("COCKATRICE", false);
+        LOADED_ENTITIES.put("AMPHITHERE", false);
+        LOADED_ENTITIES.put("TROLL_F", false);
+        LOADED_ENTITIES.put("TROLL_S", false);
+        LOADED_ENTITIES.put("TROLL_M", false);
+    }
 
     private static <T extends Entity> RegistryObject<EntityType<T>> registerEntity(EntityType.Builder<T> builder, String entityName) {
         return ENTITIES.register(entityName, () -> builder.build(entityName));
@@ -127,19 +139,6 @@ public class IafEntityRegistry {
         SpawnRestriction.register(DREAD_LICH.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityDreadLich::canLichSpawnOn);
         SpawnRestriction.register(COCKATRICE.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityCockatrice::canMobSpawn);
         SpawnRestriction.register(AMPHITHERE.get(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, EntityAmphithere::canAmphithereSpawnOn);
-    }
-
-    public static HashMap<String, Boolean> LOADED_ENTITIES;
-
-    static {
-        LOADED_ENTITIES = new HashMap<>();
-        LOADED_ENTITIES.put("HIPPOGRYPH", false);
-        LOADED_ENTITIES.put("DREAD_LICH", false);
-        LOADED_ENTITIES.put("COCKATRICE", false);
-        LOADED_ENTITIES.put("AMPHITHERE", false);
-        LOADED_ENTITIES.put("TROLL_F", false);
-        LOADED_ENTITIES.put("TROLL_S", false);
-        LOADED_ENTITIES.put("TROLL_M", false);
     }
 
     public static void addSpawners() {

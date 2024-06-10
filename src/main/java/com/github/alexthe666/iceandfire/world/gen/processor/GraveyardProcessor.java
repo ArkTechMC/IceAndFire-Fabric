@@ -15,9 +15,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class GraveyardProcessor extends StructureProcessor {
 
-    private final float integrity = 1.0F;
     public static final GraveyardProcessor INSTANCE = new GraveyardProcessor();
     public static final Codec<GraveyardProcessor> CODEC = Codec.unit(() -> INSTANCE);
+    private final float integrity = 1.0F;
 
     public GraveyardProcessor() {
     }

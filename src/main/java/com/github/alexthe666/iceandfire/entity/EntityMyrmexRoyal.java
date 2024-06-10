@@ -1,12 +1,12 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.citadel.animation.Animation;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexTrades;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
 import com.google.common.base.Predicate;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -46,8 +46,8 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     public static final Animation ANIMATION_STING = Animation.create(15);
     public static final Identifier DESERT_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/myrmex_royal_desert");
     public static final Identifier JUNGLE_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/myrmex_royal_jungle");
-    private static final Identifier TEXTURE_DESERT = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_desert_royal.png");
-    private static final Identifier TEXTURE_JUNGLE = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_jungle_royal.png");
+    private static final Identifier TEXTURE_DESERT = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_desert_royal.png");
+    private static final Identifier TEXTURE_JUNGLE = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_jungle_royal.png");
     private static final TrackedData<Boolean> FLYING = DataTracker.registerData(EntityMyrmexRoyal.class, TrackedDataHandlerRegistry.BOOLEAN);
     public int releaseTicks = 0;
     public int daylightTicks = 0;
@@ -64,16 +64,6 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.switchNavigator(true);
     }
 
-    @Override
-    protected TradeOffers.Factory[] getLevel1Trades() {
-        return this.isJungle() ? MyrmexTrades.JUNGLE_ROYAL.get(1) : MyrmexTrades.DESERT_ROYAL.get(1);
-    }
-
-    @Override
-    protected TradeOffers.Factory[] getLevel2Trades() {
-        return this.isJungle() ? MyrmexTrades.JUNGLE_ROYAL.get(2) : MyrmexTrades.DESERT_ROYAL.get(2);
-    }
-
     public static BlockPos getPositionRelativetoGround(Entity entity, World world, double x, double z, Random rand) {
         BlockPos pos = BlockPos.ofFloored(x, entity.getBlockY(), z);
         for (int yDown = 0; yDown < 10; yDown++) {
@@ -82,6 +72,30 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
             }
         }
         return pos;
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 2D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 9.0D);
+    }
+
+    @Override
+    protected TradeOffers.Factory[] getLevel1Trades() {
+        return this.isJungle() ? MyrmexTrades.JUNGLE_ROYAL.get(1) : MyrmexTrades.DESERT_ROYAL.get(1);
+    }
+
+    @Override
+    protected TradeOffers.Factory[] getLevel2Trades() {
+        return this.isJungle() ? MyrmexTrades.JUNGLE_ROYAL.get(2) : MyrmexTrades.DESERT_ROYAL.get(2);
     }
 
     @Override
@@ -203,7 +217,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
                             this.mate.remove(RemovalReason.KILLED);
                             this.remove(RemovalReason.KILLED);
                             EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(),
-                                this.getWorld());
+                                    this.getWorld());
                             queen.copyPositionAndRotation(this);
                             queen.setJungleVariant(this.isJungle());
                             queen.setMadeHome(false);
@@ -280,20 +294,6 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     @Override
     public boolean shouldMoveThroughHive() {
         return false;
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 50D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 2D)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 9.0D);
     }
 
     @Override
@@ -386,6 +386,11 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         Vec3d vector3d = Vec3d.ofCenter(posVec31);
         Vec3d vector3d1 = Vec3d.ofCenter(posVec32);
         return this.getWorld().raycast(new RaycastContext(vector3d, vector3d1, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)).getType() == HitResult.Type.MISS;
+    }
+
+    @Override
+    public boolean isClient() {
+        return this.getWorld().isClient;
     }
 
     class FlyMoveHelper extends MoveControl {
@@ -526,10 +531,5 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
             }
 
         }
-    }
-
-    @Override
-    public boolean isClient() {
-        return this.getWorld().isClient;
     }
 }

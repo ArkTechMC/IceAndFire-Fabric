@@ -2,9 +2,9 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
 import com.google.common.collect.Multimap;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -80,7 +80,8 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
         if (this.isDragonsteelIce(item.getMaterial()) && IafConfig.dragonWeaponIceAbility) {
-            EntityDataProvider.getCapability(target).ifPresent(data -> data.frozenData.setFrozen(target, 300));
+            EntityDataComponent data=EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+            data.frozenData.setFrozen(target, 300);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }

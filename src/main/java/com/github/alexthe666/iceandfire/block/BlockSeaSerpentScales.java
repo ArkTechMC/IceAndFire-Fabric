@@ -19,12 +19,12 @@ public class BlockSeaSerpentScales extends Block {
 
     public BlockSeaSerpentScales(String name, Formatting color) {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.STONE_GRAY)
-                .strength(30F, 500F)
-                .sounds(BlockSoundGroup.STONE)
-                .requiresTool()
+                Settings
+                        .create()
+                        .mapColor(MapColor.STONE_GRAY)
+                        .strength(30F, 500F)
+                        .sounds(BlockSoundGroup.STONE)
+                        .requiresTool()
         );
 
         this.color = color;

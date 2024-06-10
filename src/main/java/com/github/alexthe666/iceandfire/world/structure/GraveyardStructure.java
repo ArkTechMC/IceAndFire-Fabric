@@ -7,8 +7,6 @@ import com.github.alexthe666.iceandfire.datagen.IafStructurePieces;
 import com.github.alexthe666.iceandfire.world.IafStructureTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.HashMap;
-import java.util.Optional;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
@@ -25,6 +23,9 @@ import net.minecraft.world.gen.heightprovider.HeightProvider;
 import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
 
+import java.util.HashMap;
+import java.util.Optional;
+
 public class GraveyardStructure extends IafStructure {
 
     public static final Codec<GraveyardStructure> ENTRY_CODEC = RecordCodecBuilder.<GraveyardStructure>mapCodec(instance ->
@@ -39,6 +40,27 @@ public class GraveyardStructure extends IafStructure {
 
     public GraveyardStructure(Config config, RegistryEntry<StructurePool> startPool, Optional<Identifier> startJigsawName, int size, HeightProvider startHeight, Optional<Heightmap.Type> projectStartToHeightmap, int maxDistanceFromCenter) {
         super(config, startPool, startJigsawName, size, startHeight, projectStartToHeightmap, maxDistanceFromCenter);
+    }
+
+    public static GraveyardStructure buildStructureConfig(Registerable<Structure> context) {
+        RegistryEntryLookup<StructurePool> templatePoolHolderGetter = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
+        RegistryEntry<StructurePool> graveyardHolder = templatePoolHolderGetter.getOrThrow(IafStructurePieces.GRAVEYARD_START);
+
+        return new GraveyardStructure(
+                new Config(
+                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTagGenerator.HAS_GRAVEYARD),
+                        new HashMap<>(),
+                        //Arrays.stream(MobCategory.values()).collect(Collectors.toMap(category -> category, category -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
+                        GenerationStep.Feature.SURFACE_STRUCTURES,
+                        StructureTerrainAdaptation.BEARD_THIN
+                ),
+                graveyardHolder,
+                Optional.empty(),
+                1,
+                ConstantHeightProvider.ZERO,
+                Optional.of(Heightmap.Type.WORLD_SURFACE_WG),
+                16
+        );
     }
 
     @Override
@@ -71,27 +93,6 @@ public class GraveyardStructure extends IafStructure {
     @Override
     public StructureType<?> getType() {
         return IafStructureTypes.GRAVEYARD.get();
-    }
-
-    public static GraveyardStructure buildStructureConfig(Registerable<Structure> context) {
-        RegistryEntryLookup<StructurePool> templatePoolHolderGetter = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
-        RegistryEntry<StructurePool> graveyardHolder = templatePoolHolderGetter.getOrThrow(IafStructurePieces.GRAVEYARD_START);
-
-        return new GraveyardStructure(
-                new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTagGenerator.HAS_GRAVEYARD),
-                        new HashMap<>(),
-                        //Arrays.stream(MobCategory.values()).collect(Collectors.toMap(category -> category, category -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
-                        GenerationStep.Feature.SURFACE_STRUCTURES,
-                        StructureTerrainAdaptation.BEARD_THIN
-                ),
-                graveyardHolder,
-                Optional.empty(),
-                1,
-                ConstantHeightProvider.ZERO,
-                Optional.of(Heightmap.Type.WORLD_SURFACE_WG),
-                16
-        );
     }
 
 }

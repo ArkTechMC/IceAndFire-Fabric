@@ -41,17 +41,17 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
         // setScale(this.getDragonAge());
     }
 
-    @Override
-    public boolean isBreedingItem(@NotNull ItemStack stack) {
-        return false;
-    }
-
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 10)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0D);
+    }
+
+    @Override
+    public boolean isBreedingItem(@NotNull ItemStack stack) {
+        return false;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public float getYaw() {
-        return this.getDataTracker().get(DRAGON_DIRECTION).floatValue();
+        return this.getDataTracker().get(DRAGON_DIRECTION);
     }
 
     public void setYaw(float var1) {
@@ -98,7 +98,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public int getDragonType() {
-        return this.getDataTracker().get(DRAGON_TYPE).intValue();
+        return this.getDataTracker().get(DRAGON_TYPE);
     }
 
     public void setDragonType(int var1) {
@@ -106,7 +106,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public int getStage() {
-        return this.getDataTracker().get(DRAGON_STAGE).intValue();
+        return this.getDataTracker().get(DRAGON_STAGE);
     }
 
     public void setStage(int var1) {
@@ -114,7 +114,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public int getDragonAge() {
-        return this.getDataTracker().get(DRAGON_AGE).intValue();
+        return this.getDataTracker().get(DRAGON_AGE);
     }
 
     public void setDragonAge(int var1) {

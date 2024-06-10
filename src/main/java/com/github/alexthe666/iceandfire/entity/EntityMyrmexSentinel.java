@@ -51,6 +51,20 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
         super(t, worldIn);
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 60D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 3D)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 12.0D);
+    }
+
     @Override
     protected TradeOffers.Factory[] getLevel1Trades() {
         return this.isJungle() ? MyrmexTrades.JUNGLE_SENTINEL.get(1) : MyrmexTrades.DESERT_SENTINEL.get(1);
@@ -171,25 +185,10 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
         }));
     }
 
-
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
         this.dataTracker.startTracking(HIDING, Boolean.FALSE);
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 60D)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 3D)
-                //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
-                //ARMOR
-                .add(EntityAttributes.GENERIC_ARMOR, 12.0D);
     }
 
     @Override
@@ -305,11 +304,6 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
     @Override
     public boolean canMove() {
         return super.canMove() && this.getHeldEntity() == null && !this.isHiding();
-    }
-
-    @Override
-    public boolean shouldRiderSit() {
-        return false;
     }
 
 

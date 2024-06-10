@@ -14,8 +14,8 @@ import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormLand;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormSand;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.event.EventBus;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
+import dev.arktechmc.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.LookControl;
@@ -71,21 +71,20 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     private static final TrackedData<Integer> WORM_AGE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<BlockPos> HOME = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BLOCK_POS);
     public static Animation ANIMATION_BITE = Animation.create(10);
-
+    private final float prevScale = 0.0F;
+    private final LookControl lookHelper;
     public ChainBuffer tail_buffer;
     public float jumpProgress;
     public float prevJumpProgress;
+    public DeathwormAITargetItems targetItemsGoal;
     private int animationTick;
     private boolean willExplode = false;
     private int ticksTillExplosion = 60;
     private Animation currentAnimation;
     private EntityMutlipartPart[] segments = new EntityMutlipartPart[6];
     private boolean isSandNavigator;
-    private final float prevScale = 0.0F;
-    private final LookControl lookHelper;
     private int growthCounter = 0;
     private PlayerEntity thrower;
-    public DeathwormAITargetItems targetItemsGoal;
 
     public EntityDeathWorm(EntityType<EntityDeathWorm> type, World worldIn) {
         super(type, worldIn);
@@ -99,6 +98,20 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         }
         this.setStepHeight(1F);
         this.switchNavigator(false);
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.deathWormMaxHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.deathWormAttackStrength)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafConfig.deathWormTargetSearchLength)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 3);
     }
 
     @Override
@@ -134,20 +147,6 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
                 return false;
             }
         }));
-    }
-
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.deathWormMaxHealth)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.deathWormAttackStrength)
-                //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafConfig.deathWormTargetSearchLength)
-                //ARMOR
-                .add(EntityAttributes.GENERIC_ARMOR, 3);
     }
 
     @Override

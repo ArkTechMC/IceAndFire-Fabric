@@ -18,14 +18,14 @@ public interface IComandableMob {
             this.setCommand(command);
             this.sendCommandMessage(owner, command, ourselves.getName());
 
-            if(ourselves instanceof TameableEntity){
-                ((TameableEntity)(ourselves)).setSitting(command == 1);
+            if (ourselves instanceof TameableEntity) {
+                ((TameableEntity) (ourselves)).setSitting(command == 1);
             }
         }
         return ActionResult.PASS;
     }
 
-    default void sendCommandMessage(PlayerEntity owner, int command, Text name){
+    default void sendCommandMessage(PlayerEntity owner, int command, Text name) {
 
     }
 

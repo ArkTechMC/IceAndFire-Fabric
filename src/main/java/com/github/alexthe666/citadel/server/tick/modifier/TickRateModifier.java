@@ -23,6 +23,16 @@ public abstract class TickRateModifier {
         this.tickRateMultiplier = tag.getFloat("SpeedMultiplier");
     }
 
+    public static TickRateModifier fromTag(NbtCompound tag) {
+        TickRateModifierType typeFromNbt = TickRateModifierType.fromId(tag.getInt("TickRateType"));
+        try {
+            return typeFromNbt.getTickRateClass().getConstructor(NbtCompound.class).newInstance(tag);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public TickRateModifierType getType() {
         return this.type;
     }
@@ -31,12 +41,12 @@ public abstract class TickRateModifier {
         return this.maxDuration;
     }
 
-    public float getTickRateMultiplier() {
-        return this.tickRateMultiplier;
-    }
-
     public void setMaxDuration(float maxDuration) {
         this.maxDuration = maxDuration;
+    }
+
+    public float getTickRateMultiplier() {
+        return this.tickRateMultiplier;
     }
 
     public void setTickRateMultiplier(float tickRateMultiplier) {
@@ -50,16 +60,6 @@ public abstract class TickRateModifier {
         tag.putFloat("Duration", this.duration);
         tag.putFloat("SpeedMultiplier", this.tickRateMultiplier);
         return tag;
-    }
-
-    public static TickRateModifier fromTag(NbtCompound tag) {
-        TickRateModifierType typeFromNbt = TickRateModifierType.fromId(tag.getInt("TickRateType"));
-        try {
-            return typeFromNbt.getTickRateClass().getConstructor(NbtCompound.class).newInstance(tag);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     public boolean isGlobal() {

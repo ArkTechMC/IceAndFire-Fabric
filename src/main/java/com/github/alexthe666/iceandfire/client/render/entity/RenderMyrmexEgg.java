@@ -11,8 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderMyrmexEgg extends LivingEntityRenderer<EntityMyrmexEgg, AdvancedEntityModel<EntityMyrmexEgg>> {
 
-    public static final Identifier EGG_JUNGLE = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_jungle_egg.png");
-    public static final Identifier EGG_DESERT = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_desert_egg.png");
+    public static final Identifier EGG_JUNGLE = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_jungle_egg.png");
+    public static final Identifier EGG_DESERT = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_desert_egg.png");
 
     public RenderMyrmexEgg(EntityRendererFactory.Context context) {
         super(context, new ModelDragonEgg(), 0.3F);

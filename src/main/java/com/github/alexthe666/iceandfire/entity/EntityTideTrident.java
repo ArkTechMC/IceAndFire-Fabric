@@ -70,7 +70,7 @@ public class EntityTideTrident extends TridentEntity {
         }
 
         float f1 = 1.0F;
-        if (this.getWorld()instanceof ServerWorld && this.getWorld().isThundering() && EnchantmentHelper.hasChanneling(this.tridentStack)) {
+        if (this.getWorld() instanceof ServerWorld && this.getWorld().isThundering() && EnchantmentHelper.hasChanneling(this.tridentStack)) {
             BlockPos blockpos = entity.getBlockPos();
             if (this.getWorld().isSkyVisible(blockpos)) {
                 LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.getWorld());

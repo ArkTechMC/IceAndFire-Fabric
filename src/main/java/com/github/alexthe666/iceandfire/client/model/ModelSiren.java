@@ -12,6 +12,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelSiren extends ModelDragonBase<EntitySiren> {
+    private final ModelAnimator animator;
     public AdvancedModelBox Tail_1;
     public AdvancedModelBox Tail_2;
     public AdvancedModelBox Body;
@@ -31,7 +32,6 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
     public AdvancedModelBox Mouth;
     public AdvancedModelBox Jaw;
     public AdvancedModelBox Hair2;
-    private final ModelAnimator animator;
 
     public ModelSiren() {
         this.texWidth = 128;
@@ -250,10 +250,10 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
                     }
                     break;
             }
-        }else{
+        } else {
             this.faceTarget(f3, f4, 2, this.Neck, this.Head);
         }
-        if(entity.tail_buffer != null){
+        if (entity.tail_buffer != null) {
             entity.tail_buffer.applyChainSwingBuffer(TAIL_NO_BASE);
         }
     }

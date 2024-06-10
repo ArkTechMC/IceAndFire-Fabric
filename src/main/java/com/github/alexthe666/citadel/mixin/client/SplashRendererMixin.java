@@ -1,8 +1,8 @@
 package com.github.alexthe666.citadel.mixin.client;
 
 import com.github.alexthe666.citadel.client.event.EventRenderSplashText;
-import com.iafenvoy.iafextra.event.Event;
-import com.iafenvoy.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

@@ -25,7 +25,7 @@ public class DeathWormAIAttack extends Goal {
             this.jumpCooldown--;
         }
         return !(this.worm.getTarget() == null || this.worm.hasPassengers()
-            || !this.worm.isOnGround() && !this.worm.isInSandStrict() || this.jumpCooldown > 0);
+                || !this.worm.isOnGround() && !this.worm.isInSandStrict() || this.jumpCooldown > 0);
     }
 
     @Override
@@ -67,9 +67,9 @@ public class DeathWormAIAttack extends Goal {
             double d0 = this.worm.getVelocity().y;
             if (distanceXZSqrt < 12 && distanceXZSqrt > 2) {
                 return this.jumpCooldown <= 0
-                    && (d0 * d0 >= 0.03F || this.worm.getPitch() == 0.0F || Math.abs(this.worm.getPitch()) >= 10.0F
-                    || !this.worm.isTouchingWater())
-                    && !this.worm.isOnGround();
+                        && (d0 * d0 >= 0.03F || this.worm.getPitch() == 0.0F || Math.abs(this.worm.getPitch()) >= 10.0F
+                        || !this.worm.isTouchingWater())
+                        && !this.worm.isOnGround();
             }
         }
         return false;

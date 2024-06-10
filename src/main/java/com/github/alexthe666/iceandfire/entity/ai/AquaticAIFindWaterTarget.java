@@ -14,8 +14,8 @@ import java.util.Comparator;
 import java.util.EnumSet;
 
 public class AquaticAIFindWaterTarget extends Goal {
-    protected Sorter fleePosSorter;
     private final MobEntity mob;
+    protected Sorter fleePosSorter;
 
     public AquaticAIFindWaterTarget(MobEntity mob, int range, boolean avoidAttacker) {
         this.mob = mob;

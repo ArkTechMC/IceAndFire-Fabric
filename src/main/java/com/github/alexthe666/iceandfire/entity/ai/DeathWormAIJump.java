@@ -10,8 +10,8 @@ import net.minecraft.util.math.Vec3d;
 
 public class DeathWormAIJump extends DiveJumpingGoal {
 
-    private static final int[] JUMP_DISTANCES = new int[] {
-        0, 1, 4, 5, 6, 7
+    private static final int[] JUMP_DISTANCES = new int[]{
+            0, 1, 4, 5, 6, 7
     };
     private final EntityDeathWorm dolphin;
     private final int chance;
@@ -29,7 +29,7 @@ public class DeathWormAIJump extends DiveJumpingGoal {
             this.jumpCooldown--;
         }
         if (this.dolphin.getRandom().nextInt(this.chance) != 0 || this.dolphin.hasPassengers()
-            || this.dolphin.getTarget() != null) {
+                || this.dolphin.getTarget() != null) {
             return false;
         } else {
             Direction direction = this.dolphin.getMovementDirection();
@@ -53,7 +53,7 @@ public class DeathWormAIJump extends DiveJumpingGoal {
     @SuppressWarnings("deprecation")
     private boolean isAirAbove(BlockPos pos, int dx, int dz, int scale) {
         return this.dolphin.getWorld().getBlockState(pos.add(dx * scale, 1, dz * scale)).isAir()
-            && this.dolphin.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();
+                && this.dolphin.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();
     }
 
     /**
@@ -63,7 +63,7 @@ public class DeathWormAIJump extends DiveJumpingGoal {
     public boolean shouldContinue() {
         final double d0 = this.dolphin.getVelocity().y;
         return this.jumpCooldown > 0 && (d0 * d0 >= 0.03F || this.dolphin.getPitch() == 0.0F
-            || Math.abs(this.dolphin.getPitch()) >= 10.0F || !this.dolphin.isInSand()) && !this.dolphin.isOnGround();
+                || Math.abs(this.dolphin.getPitch()) >= 10.0F || !this.dolphin.isInSand()) && !this.dolphin.isOnGround();
     }
 
     @Override
@@ -79,7 +79,7 @@ public class DeathWormAIJump extends DiveJumpingGoal {
         Direction direction = this.dolphin.getMovementDirection();
         final float up = (this.dolphin.getScaleFactor() > 3 ? 0.7F : 0.4F) + this.dolphin.getRandom().nextFloat() * 0.4F;
         this.dolphin
-            .setVelocity(this.dolphin.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
+                .setVelocity(this.dolphin.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
         this.dolphin.getNavigation().stop();
         this.dolphin.setWormJumping(30);
         this.jumpCooldown = this.dolphin.getRandom().nextInt(65) + 32;

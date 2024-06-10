@@ -9,6 +9,7 @@ import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobMoveToLocation;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.PathJobRandomPos;
 import com.github.alexthe666.citadel.server.world.WorldChunkUtil;
+import dev.arktechmc.iafextra.util.BlockUtil;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.*;
@@ -21,7 +22,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.level.pathfinder.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -35,52 +35,36 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     public static final double MIN_Y_DISTANCE = 0.001;
     public static final int MAX_SPEED_ALLOWED = 2;
     public static final double MIN_SPEED_ALLOWED = 0.1;
-
-    private PathResult<AbstractPathJob> pathResult;
-
-    /**
-     * The world time when a path was added.
-     */
-    private long pathStartTime = 0;
-
     /**
      * Spawn pos of minecart.
      */
     private final BlockPos spawnedPos = BlockPos.ORIGIN;
-
+    public boolean overrideDefaultDimensions = false;
+    private PathResult<AbstractPathJob> pathResult;
+    /**
+     * The world time when a path was added.
+     */
+    private long pathStartTime = 0;
     /**
      * Desired position to reach
      */
     private BlockPos desiredPos;
-
     /**
      * Timeout for the desired pos, resets when its no longer wanted
      */
     private int desiredPosTimeout = 0;
-
     /**
      * The stuck handler to use
      */
     private IStuckHandler stuckHandler;
-
     /**
      * Whether we did set sneaking
      */
     private boolean isSneaking = true;
-
     private double swimSpeedFactor = 1.0;
-
-    public boolean overrideDefaultDimensions = false;
-
     private float width = 1;
 
     private float height = 1;
-
-    public enum MovementType {
-        WALKING,
-        FLYING,
-        CLIMBING
-    }
 
     /**
      * Instantiates the navigation of an ourEntity.
@@ -128,11 +112,35 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         this.overrideDefaultDimensions = true;
     }
 
+    /**
+     * Similar to WalkNodeProcessor.getGroundY but not broken.
+     * This checks if the block below the position we're trying to move to reaches into the block above, if so, it has to aim a little bit higher.
+     *
+     * @param world the world.
+     * @param pos   the position to check.
+     * @return the next y level to go to.
+     */
+    public static double getSmartGroundY(final BlockView world, final BlockPos pos) {
+        final BlockPos blockpos = pos.down();
+        final VoxelShape voxelshape = world.getBlockState(blockpos).getSidesShape(world, blockpos);
+        if (voxelshape.isEmpty() || voxelshape.getMax(Direction.Axis.Y) < 1.0) {
+            return pos.getY();
+        }
+        return blockpos.getY() + voxelshape.getMax(Direction.Axis.Y);
+    }
+
+    public static boolean isEqual(final BlockPos coords, final int x, final int y, final int z) {
+        return coords.getX() == x && coords.getY() == y && coords.getZ() == z;
+    }
+
+    public static boolean isEntityBlockLoaded(final WorldAccess world, final BlockPos pos) {
+        return WorldChunkUtil.isEntityBlockLoaded(world, pos);
+    }
+
     @Override
     public BlockPos getDestination() {
         return this.destination;
     }
-
 
     @Override
     public PathResult moveAwayFromXYZ(final BlockPos avoid, final double range, final double speedFactor, final boolean safeDestination) {
@@ -326,23 +334,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         this.stuckHandler.checkStuck(this);
     }
 
-    /**
-     * Similar to WalkNodeProcessor.getGroundY but not broken.
-     * This checks if the block below the position we're trying to move to reaches into the block above, if so, it has to aim a little bit higher.
-     *
-     * @param world the world.
-     * @param pos   the position to check.
-     * @return the next y level to go to.
-     */
-    public static double getSmartGroundY(final BlockView world, final BlockPos pos) {
-        final BlockPos blockpos = pos.down();
-        final VoxelShape voxelshape = world.getBlockState(blockpos).getSidesShape(world, blockpos);
-        if (voxelshape.isEmpty() || voxelshape.getMax(Direction.Axis.Y) < 1.0) {
-            return pos.getY();
-        }
-        return blockpos.getY() + voxelshape.getMax(Direction.Axis.Y);
-    }
-
     @Override
     public PathResult moveToXYZ(final double x, final double y, final double z, final double speedFactor) {
         final int newX = MathHelper.floor(x);
@@ -406,7 +397,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         }
         return true;
     }
-
 
     @Override
     protected @NotNull Vec3d getPos() {
@@ -528,7 +518,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
 
 
             final BlockPos pos = new BlockPos(pEx.x, pEx.y, pEx.z);
-            if (pEx.isOnLadder() && pExNext != null && (pEx.y != pExNext.y || this.entity.getY() > pEx.y) && this.world.getBlockState(pos).isLadder(this.world, pos, this.ourEntity)) {
+            if (pEx.isOnLadder() && pExNext != null && (pEx.y != pExNext.y || this.entity.getY() > pEx.y) && BlockUtil.isLadder(this.world.getBlockState(pos))) {
                 return this.handlePathPointOnLadder(pEx);
             } else if (this.ourEntity.isTouchingWater()) {
                 return this.handleEntityInWater(oldIndex, pEx);
@@ -632,7 +622,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
                 }
                 this.ourEntity.getMoveControl().moveTo(vec3.x, vec3.y, vec3.z, newSpeed);
             } else {
-                if (this.world.getBlockState(entityPos.down()).isLadder(this.world, entityPos.down(), this.ourEntity)) {
+                if (BlockUtil.isLadder(this.world.getBlockState(entityPos.down()))) {
                     this.ourEntity.setUpwardSpeed(-0.5f);
                 } else {
                     return false;
@@ -816,7 +806,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
                 && Math.abs(currentPoint.z - entity.getZ()) < slack.getZ();
     }
 
-
     @Override
     public void stop() {
         if (this.pathResult != null) {
@@ -865,12 +854,10 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         this.swimSpeedFactor = factor;
     }
 
-    public static boolean isEqual(final BlockPos coords, final int x, final int y, final int z) {
-        return coords.getX() == x && coords.getY() == y && coords.getZ() == z;
-    }
-
-    public static boolean isEntityBlockLoaded(final WorldAccess world, final BlockPos pos) {
-        return WorldChunkUtil.isEntityBlockLoaded(world, pos);
+    public enum MovementType {
+        WALKING,
+        FLYING,
+        CLIMBING
     }
 
 

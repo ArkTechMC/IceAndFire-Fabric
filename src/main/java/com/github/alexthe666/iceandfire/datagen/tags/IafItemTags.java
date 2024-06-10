@@ -3,19 +3,16 @@ package com.github.alexthe666.iceandfire.datagen.tags;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.ItemMobSkull;
-import com.github.alexthe666.iceandfire.item.ItemSeaSerpentScales;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataOutput;
 import net.minecraft.data.server.tag.ItemTagProvider;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.item.*;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -253,48 +250,48 @@ public class IafItemTags extends ItemTagProvider {
                 .add(IafItemRegistry.ICE_DRAGON_HEART.get())
                 .add(IafItemRegistry.LIGHTNING_DRAGON_HEART.get());
 
-        IafItemRegistry.ITEMS.getEntries().forEach(registryObject -> {
-            Item item = registryObject.get();
-
-            if (item instanceof ItemSeaSerpentScales) {
-                tag(SCALES_SEA_SERPENT).add(item);
-            } else if (item instanceof ArrowItem) {
-                tag(ItemTags.ARROWS).add(item);
-            } else if (item instanceof SwordItem) {
-                tag(ItemTags.SWORDS).add(item);
-            } else if (item instanceof PickaxeItem) {
-                tag(ItemTags.PICKAXES).add(item);
-            } else if (item instanceof AxeItem) {
-                tag(ItemTags.AXES).add(item);
-            } else if (item instanceof ShovelItem) {
-                tag(ItemTags.SHOVELS).add(item);
-            } else if (item instanceof HoeItem) {
-                tag(ItemTags.HOES).add(item);
-            } else if (item instanceof BowItem) {
-                tag(Tags.Items.TOOLS_BOWS).add(item);
-            } else if (item instanceof TridentItem) {
-                tag(Tags.Items.TOOLS_TRIDENTS).add(item);
-            } else if (item instanceof ArmorItem armorItem) {
-                tag(Tags.Items.ARMORS).add(item);
-
-                switch (armorItem.getType()) {
-                    case HELMET -> tag(Tags.Items.ARMORS_HELMETS).add(item);
-                    case CHESTPLATE -> tag(Tags.Items.ARMORS_CHESTPLATES).add(item);
-                    case LEGGINGS -> tag(Tags.Items.ARMORS_LEGGINGS).add(item);
-                    case BOOTS -> tag(Tags.Items.ARMORS_BOOTS).add(item);
-                }
-            } else if (item instanceof ItemMobSkull) {
-                tag(MOB_SKULLS).add(item);
-            }
-
-            if (item instanceof TieredItem || item instanceof BowItem || item instanceof TridentItem) {
-                tag(Tags.Items.TOOLS).add(item);
-
-                if (item instanceof TridentItem) {
-                    tag(ItemTags.TOOLS).add(item);
-                }
-            }
-        });
+//        IafItemRegistry.ITEMS.getEntries().forEach(registryObject -> {
+//            Item item = registryObject.get();
+//
+//            if (item instanceof ItemSeaSerpentScales) {
+//                tag(SCALES_SEA_SERPENT).add(item);
+//            } else if (item instanceof ArrowItem) {
+//                tag(ItemTags.ARROWS).add(item);
+//            } else if (item instanceof SwordItem) {
+//                tag(ItemTags.SWORDS).add(item);
+//            } else if (item instanceof PickaxeItem) {
+//                tag(ItemTags.PICKAXES).add(item);
+//            } else if (item instanceof AxeItem) {
+//                tag(ItemTags.AXES).add(item);
+//            } else if (item instanceof ShovelItem) {
+//                tag(ItemTags.SHOVELS).add(item);
+//            } else if (item instanceof HoeItem) {
+//                tag(ItemTags.HOES).add(item);
+//            } else if (item instanceof BowItem) {
+//                tag(Tags.Items.TOOLS_BOWS).add(item);
+//            } else if (item instanceof TridentItem) {
+//                tag(Tags.Items.TOOLS_TRIDENTS).add(item);
+//            } else if (item instanceof ArmorItem armorItem) {
+//                tag(Tags.Items.ARMORS).add(item);
+//
+//                switch (armorItem.getType()) {
+//                    case HELMET -> tag(Tags.Items.ARMORS_HELMETS).add(item);
+//                    case CHESTPLATE -> tag(Tags.Items.ARMORS_CHESTPLATES).add(item);
+//                    case LEGGINGS -> tag(Tags.Items.ARMORS_LEGGINGS).add(item);
+//                    case BOOTS -> tag(Tags.Items.ARMORS_BOOTS).add(item);
+//                }
+//            } else if (item instanceof ItemMobSkull) {
+//                tag(MOB_SKULLS).add(item);
+//            }
+//
+//            if (item instanceof TieredItem || item instanceof BowItem || item instanceof TridentItem) {
+//                tag(Tags.Items.TOOLS).add(item);
+//
+//                if (item instanceof TridentItem) {
+//                    tag(ItemTags.TOOLS).add(item);
+//                }
+//            }
+//        });
 
         // Might be used by other mods
         this.getOrCreateTagBuilder(createForgeKey(ORES_PATH + "/silver")).add(IafBlockRegistry.SILVER_ORE.get().asItem());

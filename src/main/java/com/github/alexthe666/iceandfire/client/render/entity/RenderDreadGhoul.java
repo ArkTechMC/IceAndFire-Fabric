@@ -12,17 +12,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadGhoul extends MobEntityRenderer<EntityDreadGhoul, ModelDreadGhoul> {
 
-    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_eyes.png");
+    public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_eyes.png");
 
-    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_closed_1.png");
-    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_closed_2.png");
-    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_closed_3.png");
-    public static final Identifier TEXTURE_0_MID = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_mid_1.png");
-    public static final Identifier TEXTURE_1_MID = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_mid_2.png");
-    public static final Identifier TEXTURE_2_MID = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_mid_3.png");
-    public static final Identifier TEXTURE_0_OPEN = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_open_1.png");
-    public static final Identifier TEXTURE_1_OPEN = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_open_2.png");
-    public static final Identifier TEXTURE_2_OPEN = new Identifier(IceAndFire.MOD_ID,"textures/models/dread/dread_ghoul_open_3.png");
+    public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_closed_1.png");
+    public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_closed_2.png");
+    public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_closed_3.png");
+    public static final Identifier TEXTURE_0_MID = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_mid_1.png");
+    public static final Identifier TEXTURE_1_MID = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_mid_2.png");
+    public static final Identifier TEXTURE_2_MID = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_mid_3.png");
+    public static final Identifier TEXTURE_0_OPEN = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_open_1.png");
+    public static final Identifier TEXTURE_1_OPEN = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_open_2.png");
+    public static final Identifier TEXTURE_2_OPEN = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_open_3.png");
 
     public RenderDreadGhoul(EntityRendererFactory.Context context) {
         super(context, new ModelDreadGhoul(0.0F), 0.5F);

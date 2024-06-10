@@ -14,14 +14,14 @@ public class BlockBurntTorchWall extends WallTorchBlock implements IDreadBlock {
 
     public BlockBurntTorchWall() {
         super(
-            Settings.create()
-                    .mapColor(MapColor.OAK_TAN)
-                    .burnable()
-                    .luminance((state) -> 0)
-                    .sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds()
+                Settings.create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .burnable()
+                        .luminance((state) -> 0)
+                        .sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds()
 //                    .lootFrom(IafBlockRegistry.BURNT_TORCH)
-                    .noCollision(),
-            DustParticleEffect.DEFAULT
+                        .noCollision(),
+                DustParticleEffect.DEFAULT
         );
     }
 

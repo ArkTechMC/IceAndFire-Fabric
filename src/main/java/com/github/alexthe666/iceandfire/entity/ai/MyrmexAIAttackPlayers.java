@@ -17,7 +17,7 @@ public class MyrmexAIAttackPlayers extends ActiveTargetGoal {
             @Override
             public boolean test(PlayerEntity entity) {
                 return entity != null && (myrmex.getHive() == null
-                    || myrmex.getHive().isPlayerReputationLowEnoughToFight(entity.getUuid()));
+                        || myrmex.getHive().isPlayerReputationLowEnoughToFight(entity.getUuid()));
             }
         });
         this.myrmex = myrmex;

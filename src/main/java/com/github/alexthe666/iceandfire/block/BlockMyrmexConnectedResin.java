@@ -27,22 +27,22 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
 
     public BlockMyrmexConnectedResin(boolean jungle, boolean glass) {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.STONE_GRAY)
-                .instrument(Instrument.BASEDRUM)
-                .strength(glass ? 1.5F : 3.5F)
-                .nonOpaque()
-                .dynamicBounds()
-                .sounds(glass ? BlockSoundGroup.GLASS : BlockSoundGroup.STONE)
+                Settings
+                        .create()
+                        .mapColor(MapColor.STONE_GRAY)
+                        .instrument(Instrument.BASEDRUM)
+                        .strength(glass ? 1.5F : 3.5F)
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .sounds(glass ? BlockSoundGroup.GLASS : BlockSoundGroup.STONE)
         );
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(UP, Boolean.FALSE)
-            .with(DOWN, Boolean.FALSE)
-            .with(NORTH, Boolean.FALSE)
-            .with(EAST, Boolean.FALSE)
-            .with(SOUTH, Boolean.FALSE)
-            .with(WEST, Boolean.FALSE)
+                .with(DOWN, Boolean.FALSE)
+                .with(NORTH, Boolean.FALSE)
+                .with(EAST, Boolean.FALSE)
+                .with(SOUTH, Boolean.FALSE)
+                .with(WEST, Boolean.FALSE)
         );
     }
 
@@ -70,12 +70,12 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
         BlockState blockstate4 = iblockreader.getBlockState(blockpos5);
         BlockState blockstate5 = iblockreader.getBlockState(blockpos6);
         return super.getPlacementState(context)
-            .with(NORTH, this.canFenceConnectTo(blockstate, false, Direction.SOUTH))
-            .with(EAST, this.canFenceConnectTo(blockstate1, false, Direction.WEST))
-            .with(SOUTH, this.canFenceConnectTo(blockstate2, false, Direction.NORTH))
-            .with(WEST, this.canFenceConnectTo(blockstate3, false, Direction.EAST))
-            .with(UP, this.canFenceConnectTo(blockstate4, false, Direction.UP))
-            .with(DOWN, this.canFenceConnectTo(blockstate5, false, Direction.DOWN));
+                .with(NORTH, this.canFenceConnectTo(blockstate, false, Direction.SOUTH))
+                .with(EAST, this.canFenceConnectTo(blockstate1, false, Direction.WEST))
+                .with(SOUTH, this.canFenceConnectTo(blockstate2, false, Direction.NORTH))
+                .with(WEST, this.canFenceConnectTo(blockstate3, false, Direction.EAST))
+                .with(UP, this.canFenceConnectTo(blockstate4, false, Direction.UP))
+                .with(DOWN, this.canFenceConnectTo(blockstate5, false, Direction.DOWN));
     }
 
     @Override

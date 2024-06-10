@@ -32,12 +32,12 @@ public class LocalPositionTickRateModifier extends LocalTickRateModifier {
         return this.center;
     }
 
-    public Vec3d getCenter(World level) {
-        return this.getCenter();
-    }
-
     public void setCenter(Vec3d center) {
         this.center = center;
+    }
+
+    public Vec3d getCenter(World level) {
+        return this.getCenter();
     }
 
 

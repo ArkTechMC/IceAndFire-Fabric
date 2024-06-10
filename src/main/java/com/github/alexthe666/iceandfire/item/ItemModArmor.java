@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.iafenvoy.iafextra.interfaces.IArmorTextureProvider;
+import dev.arktechmc.iafextra.interfaces.IArmorTextureProvider;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;

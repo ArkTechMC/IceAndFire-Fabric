@@ -1,11 +1,11 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexQueen;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.PathResult;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.Hand;
@@ -63,7 +63,7 @@ public class MyrmexAILeaveHive extends Goal {
     public void tick() {
         //If the path has been created but the destination couldn't be reached
         //or if the myrmex has reached the end of the path but isn't close enough to the entrance for some reason
-        if (!this.myrmex.pathReachesTarget(this.path, this.nextEntrance,12)) {
+        if (!this.myrmex.pathReachesTarget(this.path, this.nextEntrance, 12)) {
             MyrmexHive village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 1000);
             this.nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
             this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextEntrance.getX(), this.nextEntrance.getY() + 1, this.nextEntrance.getZ(), this.movementSpeed);

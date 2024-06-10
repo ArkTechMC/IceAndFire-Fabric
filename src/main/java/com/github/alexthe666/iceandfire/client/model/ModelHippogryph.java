@@ -13,6 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
+    private final ModelAnimator animator;
     public AdvancedModelBox Body;
     public AdvancedModelBox Neck;
     public AdvancedModelBox HindThighR;
@@ -75,7 +76,6 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     public AdvancedModelBox StirrupR;
     public AdvancedModelBox StirrupIronL;
     public AdvancedModelBox StirrupIronR;
-    private final ModelAnimator animator;
 
     public ModelHippogryph() {
         this.texWidth = 256;
@@ -540,7 +540,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     public void setAngles(EntityHippogryph entity, float f, float f1, float f2, float f3, float f4) {
         this.animate(entity, f, f1, f2, f3, f4, 1);
         EntityHippogryph hippo = entity;
-        if (this.child  ) {
+        if (this.child) {
             this.Body.setShouldScaleChildren(true);
             this.Head.setShouldScaleChildren(false);
             this.Body.setScale(0.5F, 0.5F, 0.5F);

@@ -36,8 +36,8 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     public static final Animation ANIMATION_STING = Animation.create(15);
     public static final Identifier DESERT_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/myrmex_worker_desert");
     public static final Identifier JUNGLE_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/myrmex_worker_jungle");
-    private static final Identifier TEXTURE_DESERT = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_desert_worker.png");
-    private static final Identifier TEXTURE_JUNGLE = new Identifier(IceAndFire.MOD_ID,"textures/models/myrmex/myrmex_jungle_worker.png");
+    private static final Identifier TEXTURE_DESERT = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_desert_worker.png");
+    private static final Identifier TEXTURE_JUNGLE = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_jungle_worker.png");
     public boolean keepSearching = true;
 
     public EntityMyrmexWorker(EntityType<EntityMyrmexWorker> t, World worldIn) {
@@ -46,16 +46,16 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength)
-            //FOLLOW RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 4D);
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 4D);
     }
 
     @Override

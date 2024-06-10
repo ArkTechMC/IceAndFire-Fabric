@@ -33,12 +33,12 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
         super(renderIn);
         this.render = renderIn;
         try {
-            this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/firedragon/firedragon_Ground"), null),
-                Collections.singletonList("HeadFront"));
-            this.iceHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/icedragon/icedragon_Ground"), null),
-                Collections.singletonList("HeadFront"));
-            this.lightningHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_Ground"), null),
-                Collections.singletonList("HeadFront"));
+            this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("models/tabula/firedragon/firedragon_ground"), null),
+                    Collections.singletonList("HeadFront"));
+            this.iceHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("models/tabula/icedragon/icedragon_ground"), null),
+                    Collections.singletonList("HeadFront"));
+            this.lightningHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("models/tabula/lightningdragon/lightningdragon_ground"), null),
+                    Collections.singletonList("HeadFront"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -74,40 +74,41 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     //TODO: do this with hideable/visble/showModel stuff instead
     //Removes all cubes except the cube names specified by the string list and their parents
     //We need to keep the parents to correctly render the head position
-    private TabulaModel onlyKeepCubes(TabulaModelAccessor model, List<String> strings){
+    private TabulaModel onlyKeepCubes(TabulaModelAccessor model, List<String> strings) {
         List<AdvancedModelBox> keepCubes = new ArrayList<>();
-        for (String str : strings){
+        for (String str : strings) {
             AdvancedModelBox cube = model.getCube(str);
             keepCubes.add(cube);
-            while (cube.getParent() != null){
+            while (cube.getParent() != null) {
                 keepCubes.add(cube.getParent());
                 cube = cube.getParent();
             }
         }
-        this.removeChildren(model,keepCubes);
+        this.removeChildren(model, keepCubes);
         model.getCubes().values().removeIf(advancedModelBox -> !keepCubes.contains(advancedModelBox));
         return model;
     }
 
-    private void removeChildren(TabulaModelAccessor model, List<AdvancedModelBox> keepCubes){
+    private void removeChildren(TabulaModelAccessor model, List<AdvancedModelBox> keepCubes) {
         model.getRootBox().forEach(modelRenderer -> {
             modelRenderer.childModels.removeIf(child -> !keepCubes.contains(child));
-            modelRenderer.childModels.forEach(childModel ->{
-                this.removeChildren((AdvancedModelBox) childModel,keepCubes);
+            modelRenderer.childModels.forEach(childModel -> {
+                this.removeChildren((AdvancedModelBox) childModel, keepCubes);
             });
         });
     }
 
-    private void removeChildren(AdvancedModelBox modelBox, List<AdvancedModelBox> keepCubes){
+    private void removeChildren(AdvancedModelBox modelBox, List<AdvancedModelBox> keepCubes) {
         modelBox.childModels.removeIf(modelRenderer -> !keepCubes.contains(modelRenderer));
         modelBox.childModels.forEach(modelRenderer -> {
-            this.removeChildren((AdvancedModelBox)modelRenderer,keepCubes);
+            this.removeChildren((AdvancedModelBox) modelRenderer, keepCubes);
         });
     }
 
     public boolean isAngleEqual(AdvancedModelBox original, AdvancedModelBox pose) {
         return pose != null && pose.rotateAngleX == original.rotateAngleX && pose.rotateAngleY == original.rotateAngleY && pose.rotateAngleZ == original.rotateAngleZ;
     }
+
     public boolean isPositionEqual(AdvancedModelBox original, AdvancedModelBox pose) {
         return pose.rotationPointX == original.rotationPointX && pose.rotationPointY == original.rotationPointY && pose.rotationPointZ == original.rotationPointZ;
     }
@@ -115,12 +116,12 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     public void copyPositions(TabulaModel model, TabulaModel modelTo) {
         for (AdvancedModelBox cube : model.getCubes().values()) {
             AdvancedModelBox modelToCube = modelTo.getCube(cube.boxName);
-            if (!this.isAngleEqual(cube,modelToCube)) {
+            if (!this.isAngleEqual(cube, modelToCube)) {
                 cube.rotateAngleX = modelToCube.rotateAngleX;
                 cube.rotateAngleY = modelToCube.rotateAngleY;
                 cube.rotateAngleZ = modelToCube.rotateAngleZ;
             }
-            if (!this.isPositionEqual(cube,modelToCube)) {
+            if (!this.isPositionEqual(cube, modelToCube)) {
                 cube.rotationPointX = modelToCube.rotationPointX;
                 cube.rotationPointY = modelToCube.rotationPointY;
                 cube.rotationPointZ = modelToCube.rotationPointZ;

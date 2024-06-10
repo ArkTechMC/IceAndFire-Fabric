@@ -11,7 +11,7 @@ public interface ICustomMoveController {
 
     void dismount(boolean dismount);
 
-    void setControlState(byte state);
-
     byte getControlState();
+
+    void setControlState(byte state);
 }

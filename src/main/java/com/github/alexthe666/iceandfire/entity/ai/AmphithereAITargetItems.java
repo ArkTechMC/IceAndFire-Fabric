@@ -18,8 +18,8 @@ import java.util.function.Predicate;
 public class AmphithereAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
-    protected ItemEntity targetEntity;
     protected final int targetChance;
+    protected ItemEntity targetEntity;
     private List<ItemEntity> list = IAFMath.emptyItemEntityList;
 
     public AmphithereAITargetItems(MobEntity creature, boolean checkSight) {

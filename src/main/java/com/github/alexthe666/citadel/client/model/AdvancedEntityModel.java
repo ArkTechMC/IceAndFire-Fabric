@@ -18,10 +18,10 @@ import java.util.Map;
  */
 @Environment(EnvType.CLIENT)
 public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityModel<T> {
-    private float movementScale = 1.0F;
     private final Map<String, TextureOffset> modelTextureMap = Maps.newHashMap();
     public int texWidth = 32;
     public int texHeight = 32;
+    private float movementScale = 1.0F;
 
     public AdvancedEntityModel() {
         super();

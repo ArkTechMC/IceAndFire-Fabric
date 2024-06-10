@@ -1,16 +1,12 @@
 package com.github.alexthe666.iceandfire.client.model.armor;
 
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.model.ModelData;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.model.ModelPartBuilder;
-import net.minecraft.client.model.ModelPartData;
-import net.minecraft.client.model.ModelTransform;
+import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 
 public class ModelDragonsteelIceArmor extends ArmorModelBase {
     private static final ModelPart INNER_MODEL = getModelData(Dilation.NONE.add(INNER_MODEL_OFFSET), 0.0F).getRoot().createPart(64, 64);
     private static final ModelPart OUTER_MODEL = getModelData(Dilation.NONE.add(OUTER_MODEL_OFFSET), 0.0F).getRoot().createPart(64, 64);
+
     public ModelDragonsteelIceArmor(boolean inner) {
         super(getBakedModel(inner));
     }

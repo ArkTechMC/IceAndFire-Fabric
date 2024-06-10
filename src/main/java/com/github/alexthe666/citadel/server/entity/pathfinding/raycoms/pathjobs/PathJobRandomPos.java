@@ -19,22 +19,17 @@ import net.minecraft.world.World;
  */
 public class PathJobRandomPos extends AbstractPathJob {
     /**
+     * Random pathing rand.
+     */
+    private static final Random random = Random.createThreadSafe();
+    /**
      * Direction to walk to.
      */
     protected final BlockPos destination;
-
     /**
      * Required avoidDistance.
      */
     protected final int minDistFromStart;
-
-
-    /**
-     * Random pathing rand.
-     */
-    private static final Random random = Random.createThreadSafe();
-
-
     /**
      * Minimum distance to the goal.
      */

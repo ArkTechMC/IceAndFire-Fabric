@@ -7,8 +7,6 @@ import com.github.alexthe666.iceandfire.inventory.ContainerDragonForge;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
-import java.util.List;
-import java.util.stream.Collectors;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -18,10 +16,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
+
 public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
-    private static final Identifier TEXTURE_FIRE = new Identifier(IceAndFire.MOD_ID,"textures/gui/dragonforge_fire.png");
-    private static final Identifier TEXTURE_ICE = new Identifier(IceAndFire.MOD_ID,"textures/gui/dragonforge_ice.png");
-    private static final Identifier TEXTURE_LIGHTNING = new Identifier(IceAndFire.MOD_ID,"textures/gui/dragonforge_lightning.png");
+    private static final Identifier TEXTURE_FIRE = new Identifier(IceAndFire.MOD_ID, "textures/gui/dragonforge_fire.png");
+    private static final Identifier TEXTURE_ICE = new Identifier(IceAndFire.MOD_ID, "textures/gui/dragonforge_ice.png");
+    private static final Identifier TEXTURE_LIGHTNING = new Identifier(IceAndFire.MOD_ID, "textures/gui/dragonforge_lightning.png");
     private final ContainerDragonForge tileFurnace;
     private final int dragonType;
 
@@ -65,7 +65,7 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
         int j = 0;
 
         List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager()
-                .listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE.get())
+                .listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE)
                 .stream().filter(item ->
                         item.isValidInput(this.tileFurnace.getSlot(0).getStack()) && item.isValidBlood(this.tileFurnace.getSlot(1).getStack())).toList();
         int maxCookTime = recipes.isEmpty() ? 100 : recipes.get(0).getCookTime();

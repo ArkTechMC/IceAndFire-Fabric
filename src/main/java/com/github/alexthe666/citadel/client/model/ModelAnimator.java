@@ -16,12 +16,12 @@ import java.util.HashMap;
  */
 @Environment(EnvType.CLIENT)
 public class ModelAnimator {
+    private final HashMap<AdvancedModelBox, Transform> transformMap;
+    private final HashMap<AdvancedModelBox, Transform> prevTransformMap;
     private int tempTick;
     private int prevTempTick;
     private boolean correctAnimation;
     private IAnimatedEntity entity;
-    private final HashMap<AdvancedModelBox, Transform> transformMap;
-    private final HashMap<AdvancedModelBox, Transform> prevTransformMap;
 
     public ModelAnimator() {
         this.tempTick = 0;

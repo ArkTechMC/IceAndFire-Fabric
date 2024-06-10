@@ -22,8 +22,8 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected final int targetChance;
     private final EntityDeathWorm worm;
-    protected ItemEntity targetEntity;
     private final List<ItemEntity> list = IAFMath.emptyItemEntityList;
+    protected ItemEntity targetEntity;
 
     public DeathwormAITargetItems(EntityDeathWorm creature, boolean checkSight) {
         this(creature, checkSight, false);

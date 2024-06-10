@@ -22,13 +22,13 @@ public class BlockGhostChest extends ChestBlock {
 
     public BlockGhostChest() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.OAK_TAN)
-                .instrument(Instrument.BASS)
-                .burnable()
-                .strength(2.5F)
-                .sounds(BlockSoundGroup.WOOD),
+                Settings
+                        .create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .instrument(Instrument.BASS)
+                        .burnable()
+                        .strength(2.5F)
+                        .sounds(BlockSoundGroup.WOOD),
                 IafTileEntityRegistry.GHOST_CHEST::get
         );
     }

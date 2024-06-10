@@ -11,10 +11,10 @@ import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
 import org.jetbrains.annotations.NotNull;
 
 /**
-    Some worldgen mods / datapacks split biomes between cave and surface<br>
-    By default dragon caves (or any underground generation) would only check against the cave biome, not the surface biome)<br>
-    Since the passed y position will be the lowest point of the world (e.g. -64)
-*/
+ * Some worldgen mods / datapacks split biomes between cave and surface<br>
+ * By default dragon caves (or any underground generation) would only check against the cave biome, not the surface biome)<br>
+ * Since the passed y position will be the lowest point of the world (e.g. -64)
+ */
 public class CustomBiomeFilter extends AbstractConditionalPlacementModifier {
     private static final CustomBiomeFilter INSTANCE = new CustomBiomeFilter();
     public static Codec<CustomBiomeFilter> CODEC = Codec.unit(() -> INSTANCE);

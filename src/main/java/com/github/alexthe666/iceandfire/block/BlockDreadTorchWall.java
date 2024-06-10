@@ -18,18 +18,18 @@ public class BlockDreadTorchWall extends WallTorchBlock implements IDreadBlock {
 
     public BlockDreadTorchWall() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.OAK_TAN)
-                .instrument(Instrument.BASS)
-                .burnable()
-                .luminance((state) -> 5)
-                .sounds(BlockSoundGroup.STONE)
-                .nonOpaque()
-                .dynamicBounds()
-                .noCollision()
-                .dropsLike(IafBlockRegistry.DREAD_TORCH.get()),
-            DustParticleEffect.DEFAULT
+                Settings
+                        .create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .instrument(Instrument.BASS)
+                        .burnable()
+                        .luminance((state) -> 5)
+                        .sounds(BlockSoundGroup.STONE)
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .noCollision()
+                        .dropsLike(IafBlockRegistry.DREAD_TORCH.get()),
+                DustParticleEffect.DEFAULT
         );
     }
 

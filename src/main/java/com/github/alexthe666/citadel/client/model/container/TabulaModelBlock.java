@@ -22,29 +22,21 @@ import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class TabulaModelBlock {
-    private static final Logger LOGGER = LogManager.getLogger();
     @VisibleForTesting
     static final Gson SERIALIZER = (new GsonBuilder()).registerTypeAdapter(TabulaModelBlock.class, new Deserializer()).registerTypeAdapter(ModelElement.class, new ModelElement.Deserializer()).registerTypeAdapter(ModelElementFace.class, new ModelElementFace.Deserializer()).registerTypeAdapter(ModelElementTexture.class, new ModelElementTexture.Deserializer()).registerTypeAdapter(Transformation.class, new Transformation.Deserializer()).registerTypeAdapter(ModelTransformation.class, new ModelTransformation.Deserializer()).registerTypeAdapter(ModelOverride.class, new ModelOverride.Deserializer()).create();
+    private static final Logger LOGGER = LogManager.getLogger();
+    public final boolean ambientOcclusion;
+    @VisibleForTesting
+    public final Map<String, String> textures;
     private final List<ModelElement> elements;
     private final boolean gui3d;
-    public final boolean ambientOcclusion;
     private final ModelTransformation cameraTransforms;
     private final List<ModelOverride> overrides;
     public String name = "";
     @VisibleForTesting
-    public final Map<String, String> textures;
-    @VisibleForTesting
     public TabulaModelBlock parent;
     @VisibleForTesting
     protected Identifier parentLocation;
-
-    public static TabulaModelBlock deserialize(Reader readerIn) {
-        return JsonUtils.gsonDeserialize(SERIALIZER, readerIn, TabulaModelBlock.class, false);
-    }
-
-    public static TabulaModelBlock deserialize(String jsonString) {
-        return deserialize(new StringReader(jsonString));
-    }
 
     public TabulaModelBlock(Identifier parentLocationIn, List<ModelElement> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ModelTransformation cameraTransformsIn, List<ModelOverride> overridesIn) {
         this.elements = elementsIn;
@@ -54,6 +46,29 @@ public class TabulaModelBlock {
         this.parentLocation = parentLocationIn;
         this.cameraTransforms = cameraTransformsIn;
         this.overrides = overridesIn;
+    }
+
+    public static TabulaModelBlock deserialize(Reader readerIn) {
+        return JsonUtils.gsonDeserialize(SERIALIZER, readerIn, TabulaModelBlock.class, false);
+    }
+
+    public static TabulaModelBlock deserialize(String jsonString) {
+        return deserialize(new StringReader(jsonString));
+    }
+
+    public static void checkModelHierarchy(Map<Identifier, TabulaModelBlock> p_178312_0_) {
+        for (TabulaModelBlock TabulaModelBlock : p_178312_0_.values()) {
+            try {
+                TabulaModelBlock TabulaModelBlock1 = TabulaModelBlock.parent;
+
+                for (TabulaModelBlock TabulaModelBlock2 = TabulaModelBlock1.parent; TabulaModelBlock1 != TabulaModelBlock2; TabulaModelBlock2 = TabulaModelBlock2.parent.parent) {
+                    TabulaModelBlock1 = TabulaModelBlock1.parent;
+                }
+
+                throw new LoopException();
+            } catch (NullPointerException var5) {
+            }
+        }
     }
 
     public List<ModelElement> getElements() {
@@ -159,21 +174,6 @@ public class TabulaModelBlock {
 
     private Transformation getTransform(ModelTransformationMode type) {
         return this.parent != null && !this.cameraTransforms.isTransformationDefined(type) ? this.parent.getTransform(type) : this.cameraTransforms.getTransformation(type);
-    }
-
-    public static void checkModelHierarchy(Map<Identifier, TabulaModelBlock> p_178312_0_) {
-        for (TabulaModelBlock TabulaModelBlock : p_178312_0_.values()) {
-            try {
-                TabulaModelBlock TabulaModelBlock1 = TabulaModelBlock.parent;
-
-                for (TabulaModelBlock TabulaModelBlock2 = TabulaModelBlock1.parent; TabulaModelBlock1 != TabulaModelBlock2; TabulaModelBlock2 = TabulaModelBlock2.parent.parent) {
-                    TabulaModelBlock1 = TabulaModelBlock1.parent;
-                }
-
-                throw new LoopException();
-            } catch (NullPointerException var5) {
-            }
-        }
     }
 
     @Environment(EnvType.CLIENT)

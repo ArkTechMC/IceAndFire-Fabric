@@ -6,7 +6,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CitadelServerData extends PersistentState {
     private static final Map<MinecraftServer, CitadelServerData> dataMap = new HashMap<>();
@@ -25,7 +27,7 @@ public class CitadelServerData extends PersistentState {
 
     public static CitadelServerData get(MinecraftServer server) {
         CitadelServerData fromMap = dataMap.get(server);
-        if(fromMap == null){
+        if (fromMap == null) {
             PersistentStateManager storage = server.getWorld(World.OVERWORLD).getPersistentStateManager();
             CitadelServerData data = storage.getOrCreate((tag) -> load(server, tag), () -> new CitadelServerData(server), IDENTIFIER);
             if (data != null) {
@@ -37,25 +39,26 @@ public class CitadelServerData extends PersistentState {
         return fromMap;
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
-        if(this.tickRateTracker != null){
-            tag.put("TickRateTracker", this.tickRateTracker.toTag());
-        }
-        return tag;
-    }
     public static CitadelServerData load(MinecraftServer server, NbtCompound tag) {
         CitadelServerData data = new CitadelServerData(server);
-        if(tag.contains("TickRateTracker")){
+        if (tag.contains("TickRateTracker")) {
             data.tickRateTracker = new ServerTickRateTracker(server, tag.getCompound("TickRateTracker"));
-        }else{
+        } else {
             data.tickRateTracker = new ServerTickRateTracker(server);
         }
         return data;
     }
 
-    public ServerTickRateTracker getOrCreateTickRateTracker(){
-        if(this.tickRateTracker == null){
+    @Override
+    public NbtCompound writeNbt(NbtCompound tag) {
+        if (this.tickRateTracker != null) {
+            tag.put("TickRateTracker", this.tickRateTracker.toTag());
+        }
+        return tag;
+    }
+
+    public ServerTickRateTracker getOrCreateTickRateTracker() {
+        if (this.tickRateTracker == null) {
             this.tickRateTracker = new ServerTickRateTracker(this.server);
         }
         return this.tickRateTracker;

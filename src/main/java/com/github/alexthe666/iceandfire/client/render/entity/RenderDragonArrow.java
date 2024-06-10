@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class RenderDragonArrow extends ProjectileEntityRenderer<EntityDragonArrow> {
-    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/misc/dragonbone_arrow.png");
+    private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/dragonbone_arrow.png");
 
     public RenderDragonArrow(EntityRendererFactory.Context context) {
         super(context);

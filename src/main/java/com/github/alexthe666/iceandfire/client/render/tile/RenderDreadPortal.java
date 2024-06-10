@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 public class RenderDreadPortal<T extends TileEntityDreadPortal> implements BlockEntityRenderer<T> {
-    public static final Identifier DREAD_PORTAL_BACKGROUND = new Identifier(IceAndFire.MOD_ID,"textures/environment/dread_portal_background.png");
-    public static final Identifier DREAD_PORTAL = new Identifier(IceAndFire.MOD_ID,"textures/environment/dread_portal.png");
+    public static final Identifier DREAD_PORTAL_BACKGROUND = new Identifier(IceAndFire.MOD_ID, "textures/environment/dread_portal_background.png");
+    public static final Identifier DREAD_PORTAL = new Identifier(IceAndFire.MOD_ID, "textures/environment/dread_portal.png");
 
 
     public RenderDreadPortal(BlockEntityRendererFactory.Context context) {

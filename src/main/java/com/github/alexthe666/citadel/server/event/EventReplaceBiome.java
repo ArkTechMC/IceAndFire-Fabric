@@ -1,7 +1,7 @@
 package com.github.alexthe666.citadel.server.event;
 
 import com.github.alexthe666.citadel.server.world.ExpandedBiomeSource;
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Event;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.World;
@@ -11,6 +11,12 @@ import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 @Event.HasResult
 public class EventReplaceBiome extends Event {
 
+    private final int x;
+    private final int y;
+    private final int z;
+    private final long worldSeed;
+    private final RegistryKey<World> worldDimension;
+    private final MultiNoiseUtil.MultiNoiseSampler climateSampler;
     public RegistryEntry<Biome> biomeToGenerate;
     public ExpandedBiomeSource biomeSource;
     public float continentalness;
@@ -19,14 +25,6 @@ public class EventReplaceBiome extends Event {
     public float humidity;
     public float weirdness;
     public float depth;
-
-    private final int x;
-    private final int y;
-    private final int z;
-
-    private final long worldSeed;
-    private final RegistryKey<World> worldDimension;
-    private final MultiNoiseUtil.MultiNoiseSampler climateSampler;
 
     public EventReplaceBiome(ExpandedBiomeSource biomeSource, RegistryEntry<Biome> biomeIn, int x, int y, int z, float continentalness, float erosion, float temperature, float humidity, float weirdness, float depth, long worldSeed, RegistryKey<World> worldDimension, MultiNoiseUtil.MultiNoiseSampler climateSampler) {
         this.biomeSource = biomeSource;
@@ -47,6 +45,10 @@ public class EventReplaceBiome extends Event {
 
     public RegistryEntry<Biome> getBiomeToGenerate() {
         return this.biomeToGenerate;
+    }
+
+    public void setBiomeToGenerate(RegistryEntry<Biome> biome) {
+        this.biomeToGenerate = biome;
     }
 
     public float getContinentalness() {
@@ -72,7 +74,6 @@ public class EventReplaceBiome extends Event {
     public float getDepth() {
         return this.depth;
     }
-
 
     public boolean testContinentalness(float min, float max) {
         return this.continentalness >= min && this.continentalness <= max;
@@ -100,10 +101,6 @@ public class EventReplaceBiome extends Event {
 
     public ExpandedBiomeSource getBiomeSource() {
         return this.biomeSource;
-    }
-
-    public void setBiomeToGenerate(RegistryEntry<Biome> biome) {
-        this.biomeToGenerate = biome;
     }
 
     public int getX() {

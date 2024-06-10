@@ -1,11 +1,11 @@
 package com.github.alexthe666.citadel.server.tick;
 
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.message.SyncClientTickRateMessage;
-import com.github.alexthe666.citadel.server.world.CitadelServerData;
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifierType;
-import com.iafenvoy.iafextra.StaticVariables;
+import com.github.alexthe666.citadel.server.world.CitadelServerData;
+import dev.arktechmc.iafextra.StaticVariables;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
@@ -28,20 +28,31 @@ public class ServerTickRateTracker extends TickRateTracker {
         this.fromTag(tag);
     }
 
+    public static ServerTickRateTracker getForServer(MinecraftServer server) {
+        return CitadelServerData.get(server).getOrCreateTickRateTracker();
+    }
+
+    public static void modifyTickRate(World level, TickRateModifier modifier) {
+        if (level instanceof ServerWorld serverLevel) {
+            getForServer(serverLevel.getServer()).addTickRateModifier(modifier);
+        }
+    }
+
     public void addTickRateModifier(TickRateModifier modifier) {
         this.tickRateModifierList.add(modifier);
         this.sync();
     }
+
     @Override
     public void tickEntityAtCustomRate(Entity entity) {
-        if(!entity.getWorld().isClient && entity.getWorld() instanceof ServerWorld){
-            ((ServerWorld)entity.getWorld()).tickEntity(entity);
+        if (!entity.getWorld().isClient && entity.getWorld() instanceof ServerWorld) {
+            ((ServerWorld) entity.getWorld()).tickEntity(entity);
         }
     }
 
     @Override
     protected void sync() {
-        Citadel.sendMSGToAll(new SyncClientTickRateMessage(this.toTag()));
+        IafServerNetworkHandler.sendToAll(new SyncClientTickRateMessage(this.toTag()));
     }
 
     public int getServerTickLengthMs() {
@@ -55,15 +66,5 @@ public class ServerTickRateTracker extends TickRateTracker {
             return 1;
         }
         return i;
-    }
-
-    public static ServerTickRateTracker getForServer(MinecraftServer server) {
-        return CitadelServerData.get(server).getOrCreateTickRateTracker();
-    }
-
-    public static void modifyTickRate(World level, TickRateModifier modifier) {
-        if (level instanceof ServerWorld serverLevel) {
-            getForServer(serverLevel.getServer()).addTickRateModifier(modifier);
-        }
     }
 }

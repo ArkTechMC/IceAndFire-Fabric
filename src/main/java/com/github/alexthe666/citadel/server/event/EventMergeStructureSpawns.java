@@ -1,6 +1,6 @@
 package com.github.alexthe666.citadel.server.event;
 
-import com.iafenvoy.iafextra.event.Event;
+import dev.arktechmc.iafextra.event.Event;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.collection.Pool;
@@ -18,8 +18,8 @@ public class EventMergeStructureSpawns extends Event {
     private final StructureAccessor structureManager;
     private final BlockPos pos;
     private final SpawnGroup category;
-    private Pool<SpawnSettings.SpawnEntry> structureSpawns;
     private final Pool<SpawnSettings.SpawnEntry> biomeSpawns;
+    private Pool<SpawnSettings.SpawnEntry> structureSpawns;
 
     public EventMergeStructureSpawns(StructureAccessor structureManager, BlockPos pos, SpawnGroup category, Pool<SpawnSettings.SpawnEntry> structureSpawns, Pool<SpawnSettings.SpawnEntry> biomeSpawns) {
         this.structureManager = structureManager;

@@ -2,10 +2,18 @@ package com.github.alexthe666.citadel.config.biome;
 
 import com.github.alexthe666.citadel.Citadel;
 import com.google.gson.*;
+import io.github.fabricators_of_create.porting_lib.tags.data.BiomeTagsProvider;
+import io.github.fabricators_of_create.porting_lib.util.BiomeManagerHelper;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.data.server.tag.TagProvider;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeKeys;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -66,7 +74,7 @@ public class SpawnBiomeData {
         }
     }
 
-    private class SpawnBiomeEntry {
+    private static class SpawnBiomeEntry {
         BiomeEntryType type;
         boolean negate;
         String value;
@@ -83,16 +91,15 @@ public class SpawnBiomeData {
                 return false;
             } else {
                 if (this.type == BiomeEntryType.BIOME_TAG) {
-                    if (biomeHolder.getTagKeys().anyMatch((biomeTagKey -> biomeTagKey.location() != null && biomeTagKey.location().toString().equals(this.value)))) {
+                    if (biomeHolder.isIn(TagKey.of(RegistryKeys.BIOME,new Identifier(this.value)))) {
                         return !this.negate;
                     }
-                    return this.negate;
                 } else {
                     if (registryName.toString().equals(this.value)) {
                         return !this.negate;
                     }
-                    return this.negate;
                 }
+                return this.negate;
             }
         }
     }

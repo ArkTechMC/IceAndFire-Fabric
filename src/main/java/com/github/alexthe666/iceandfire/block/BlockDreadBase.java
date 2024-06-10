@@ -26,6 +26,10 @@ public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDread
         this.registerDefaultState(this.stateDefinition.any().setValue(PLAYER_PLACED, Boolean.FALSE));
     }*/
 
+    public BlockDreadBase(Settings props) {
+        super(props);
+    }
+
     public static BlockDreadBase builder(float hardness, float resistance, BlockSoundGroup sound, MapColor color, Instrument instrument, boolean ignited) {
         Settings props = Settings.create()
                 .mapColor(color)
@@ -38,10 +42,6 @@ public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDread
             props.burnable();
         }
         return new BlockDreadBase(props);
-    }
-
-    public BlockDreadBase(Settings props) {
-        super(props);
     }
 
     @SuppressWarnings("deprecation")

@@ -1,26 +1,15 @@
 package com.github.alexthe666.citadel;
 
 import com.github.alexthe666.citadel.server.event.EventChangeEntityTickRate;
-import com.github.alexthe666.citadel.server.world.CitadelServerData;
-import com.github.alexthe666.citadel.server.world.ModifiableTickRateServer;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
+import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ServerProxy {
 
 
@@ -44,25 +33,7 @@ public class ServerProxy {
     public void openBookGUI(ItemStack book) {
     }
 
-    public Object getISTERProperties() {
-        return null;
-    }
-
     public void onClientInit() {
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onServerTick(TickEvent.ServerTickEvent event) {
-        ServerTickRateTracker tickRateTracker = CitadelServerData.get(event.getServer()).getOrCreateTickRateTracker();
-        if (event.getServer() instanceof ModifiableTickRateServer modifiableServer && event.phase == TickEvent.Phase.START) {
-            long l = tickRateTracker.getServerTickLengthMs();
-            if (l == MinecraftServer.MS_PER_TICK) {
-                modifiableServer.resetGlobalTickLengthMs();
-            } else {
-                modifiableServer.setGlobalTickLengthMs(tickRateTracker.getServerTickLengthMs());
-            }
-            tickRateTracker.masterTick();
-        }
     }
 
     /*
@@ -90,7 +61,7 @@ public class ServerProxy {
                 return false;
             } else if (!tracker.hasNormalTickRate(entity)) {
                 EventChangeEntityTickRate event = new EventChangeEntityTickRate(entity, tracker.getEntityTickLengthModifier(entity));
-                MinecraftForge.EVENT_BUS.post(event);
+                EventBus.post(event);
                 if (event.isCanceled()) {
                     return true;
                 } else {

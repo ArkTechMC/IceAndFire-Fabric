@@ -10,12 +10,6 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
 
 public class IafRenderType extends RenderLayer {
-
-    private static final Identifier STONE_TEXTURE = new Identifier("textures/block/stone.png");
-    protected static final ShaderProgram RENDERTYPE_DREAD_PORTAL_SHADER = new ShaderProgram(IafClientSetup::getRendertypeDreadPortalShader);
-    private static final RenderLayer DREADLANDS_PORTAL = of("dreadlands_portal", VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.QUADS, 256, false, false, MultiPhaseParameters.builder().program(RENDERTYPE_DREAD_PORTAL_SHADER).texture(Textures.create().add(RenderDreadPortal.DREAD_PORTAL_BACKGROUND, false, false).add(RenderDreadPortal.DREAD_PORTAL, false, false).build()).build(false));
-
-
     protected static final Transparency GHOST_TRANSPARANCY = new Transparency("translucent_ghost_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
@@ -23,6 +17,8 @@ public class IafRenderType extends RenderLayer {
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
     });
+    private static final Identifier STONE_TEXTURE = new Identifier("textures/block/stone.png");
+    private static final RenderLayer DREADLANDS_PORTAL = of("dreadlands_portal", VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.QUADS, 256, false, false, MultiPhaseParameters.builder().texture(Textures.create().add(RenderDreadPortal.DREAD_PORTAL_BACKGROUND, false, false).add(RenderDreadPortal.DREAD_PORTAL, false, false).build()).build(false));
 
     public IafRenderType(String nameIn, VertexFormat formatIn, VertexFormat.DrawMode drawModeIn, int bufferSizeIn, boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);

@@ -45,8 +45,8 @@ public class RenderTideTridentItem extends BuiltinModelItemRenderer {
             stackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(160.0F));
             VertexConsumer glintVertexBuilder = ItemRenderer.getDirectItemGlintConsumer(bufferIn, RenderLayer.getEntityCutoutNoCull(RenderTideTrident.TRIDENT), false, stack.hasGlint());
             MODEL.render(stackIn,
-                glintVertexBuilder, combinedLightIn,
-                combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+                    glintVertexBuilder, combinedLightIn,
+                    combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
             stackIn.pop();
         }
 

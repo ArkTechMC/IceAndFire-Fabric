@@ -21,8 +21,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class EntityPixieCharge extends AbstractFireballEntity {
 
-    public int ticksInAir;
     private final float[] rgb;
+    public int ticksInAir;
 
     public EntityPixieCharge(EntityType<? extends AbstractFireballEntity> t, World worldIn) {
         super(t, worldIn);
@@ -79,7 +79,7 @@ public class EntityPixieCharge extends AbstractFireballEntity {
 
             ++this.ticksInAir;
             HitResult raytraceresult = ProjectileUtil.getCollision(this, this::canHit);
-            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+            if (raytraceresult.getType() != HitResult.Type.MISS) {
                 this.onCollision(raytraceresult);
             }
 

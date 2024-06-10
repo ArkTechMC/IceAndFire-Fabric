@@ -13,16 +13,13 @@ public class TabulaModelContainer {
     private final String authorName;
 
     private final int projVersion;
-    private String[] metadata;
-
     private final double[] scale = new double[]{1.0, 1.0, 1.0};
-
     private final int textureWidth;
     private final int textureHeight;
-
     private final List<TabulaCubeGroupContainer> cubeGroups = new ArrayList<>();
-    private List<TabulaCubeContainer> cubes = new ArrayList<>();
     private final List<TabulaAnimationContainer> anims = new ArrayList<>();
+    private String[] metadata;
+    private List<TabulaCubeContainer> cubes = new ArrayList<>();
     private int cubeCount;
 
     public TabulaModelContainer(String name, String author, int textureWidth, int textureHeight, List<TabulaCubeContainer> cubes, int projectVersion) {

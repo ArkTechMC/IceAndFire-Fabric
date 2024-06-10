@@ -44,8 +44,6 @@ public interface ICustomCollisions {
         return vec3;
     }
 
-    boolean canPassThrough(BlockPos mutablePos, BlockState blockstate, VoxelShape voxelshape);
-
     //1.18 logic
     private static Vec3d collideBoundingBox2(Entity p_198895_, Vec3d p_198896_, Box p_198897_, World p_198898_, List<VoxelShape> p_198899_) {
         ImmutableList.Builder<VoxelShape> builder = ImmutableList.builderWithExpectedSize(p_198899_.size() + 1);
@@ -99,5 +97,7 @@ public interface ICustomCollisions {
             return new Vec3d(d0, d1, d2);
         }
     }
+
+    boolean canPassThrough(BlockPos mutablePos, BlockState blockstate, VoxelShape voxelshape);
 
 }

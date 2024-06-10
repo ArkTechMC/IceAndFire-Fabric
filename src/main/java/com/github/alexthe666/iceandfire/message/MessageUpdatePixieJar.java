@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
-import com.iafenvoy.iafextra.network.S2CMessage;
+import dev.arktechmc.iafextra.network.S2CMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -10,10 +10,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public class MessageUpdatePixieJar implements S2CMessage {
 
@@ -31,7 +27,7 @@ public class MessageUpdatePixieJar implements S2CMessage {
 
     @Override
     public Identifier getId() {
-        return new Identifier(IceAndFire.MOD_ID,"update_pixie_jar");
+        return new Identifier(IceAndFire.MOD_ID, "update_pixie_jar");
     }
 
     @Override
@@ -42,8 +38,8 @@ public class MessageUpdatePixieJar implements S2CMessage {
 
     @Override
     public void decode(PacketByteBuf buf) {
-        this.blockPos=buf.readLong();
-        this.isProducing=buf.readBoolean();
+        this.blockPos = buf.readLong();
+        this.isProducing = buf.readBoolean();
     }
 
     @Override

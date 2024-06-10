@@ -1,7 +1,8 @@
 package com.github.alexthe666.citadel.server.message;
 
 import com.github.alexthe666.citadel.Citadel;
-import com.iafenvoy.iafextra.network.S2CMessage;
+import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import dev.arktechmc.iafextra.network.S2CMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -39,6 +40,16 @@ public class AnimationMessage implements S2CMessage {
 
     @Override
     public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
-        Citadel.PROXY.handleAnimationPacket(this.entityID, this.index);
+        if (MinecraftClient.getInstance().world != null) {
+            IAnimatedEntity entity = (IAnimatedEntity) MinecraftClient.getInstance().world.getEntityById(this.entityID);
+            if (entity != null) {
+                if (this.index == -1) {
+                    entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
+                } else {
+                    entity.setAnimation(entity.getAnimations()[this.index]);
+                }
+                entity.setAnimationTick(0);
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 public class GuiDragon extends HandledScreen<ContainerDragon> {
-    private static final Identifier texture = new Identifier(IceAndFire.MOD_ID,"textures/gui/dragon.png");
+    private static final Identifier texture = new Identifier(IceAndFire.MOD_ID, "textures/gui/dragon.png");
 
     public GuiDragon(ContainerDragon dragonInv, PlayerInventory playerInv, Text name) {
         super(dragonInv, playerInv, name);

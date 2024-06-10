@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEntityRenderer<T> {
 
     private static final ModelPixieHouse MODEL = new ModelPixieHouse();
+    private static final RenderLayer TEXTURE_0 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/house/pixie_house_0.png"), false);
+    private static final RenderLayer TEXTURE_1 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/house/pixie_house_1.png"), false);
+    private static final RenderLayer TEXTURE_2 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/house/pixie_house_2.png"), false);
+    private static final RenderLayer TEXTURE_3 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/house/pixie_house_3.png"), false);
+    private static final RenderLayer TEXTURE_4 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/house/pixie_house_4.png"), false);
+    private static final RenderLayer TEXTURE_5 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/house/pixie_house_5.png"), false);
     private static ModelPixie MODEL_PIXIE;
-    private static final RenderLayer TEXTURE_0 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/house/pixie_house_0.png"), false);
-    private static final RenderLayer TEXTURE_1 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/house/pixie_house_1.png"), false);
-    private static final RenderLayer TEXTURE_2 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/house/pixie_house_2.png"), false);
-    private static final RenderLayer TEXTURE_3 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/house/pixie_house_3.png"), false);
-    private static final RenderLayer TEXTURE_4 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/house/pixie_house_4.png"), false);
-    private static final RenderLayer TEXTURE_5 = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID,"textures/models/pixie/house/pixie_house_5.png"), false);
     public BlockItem metaOverride;
 
     public RenderPixieHouse(BlockEntityRendererFactory.Context context) {
@@ -33,7 +33,7 @@ public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEn
     }
 
     @Override
-    public void render(@NotNull T entity, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T entity, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         int rotation = 0;
         int meta = 0;
         if (MODEL_PIXIE == null) {
@@ -51,8 +51,7 @@ public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEn
             Direction facing = entity.getWorld().getBlockState(entity.getPos()).get(BlockPixieHouse.FACING);
             if (facing == Direction.NORTH) {
                 rotation = 180;
-            }
-            else if (facing == Direction.EAST) {
+            } else if (facing == Direction.EAST) {
                 rotation = -90;
             } else if (facing == Direction.WEST) {
                 rotation = 90;
@@ -73,33 +72,33 @@ public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEn
             matrixStackIn.scale(0.55F, 0.55F, 0.55F);
             matrixStackIn.push();
             //GL11.glRotatef(MathHelper.clampAngle(entity.ticksExisted * 3), 0, 1, 0);
-            RenderLayer type = RenderJar.TEXTURE_0;
-            RenderLayer type2 = RenderJar.TEXTURE_0_GLO;
+            RenderLayer type;
+            RenderLayer type2;
             switch (entity.pixieType) {
-                default:
+                default -> {
                     type = RenderJar.TEXTURE_0;
                     type2 = RenderJar.TEXTURE_0_GLO;
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     type = RenderJar.TEXTURE_1;
                     type2 = RenderJar.TEXTURE_1_GLO;
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     type = RenderJar.TEXTURE_2;
                     type2 = RenderJar.TEXTURE_2_GLO;
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     type = RenderJar.TEXTURE_3;
                     type2 = RenderJar.TEXTURE_3_GLO;
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     type = RenderJar.TEXTURE_4;
                     type2 = RenderJar.TEXTURE_4_GLO;
-                    break;
-                case 5:
+                }
+                case 5 -> {
                     type = RenderJar.TEXTURE_5;
                     type2 = RenderJar.TEXTURE_5_GLO;
-                    break;
+                }
             }
             matrixStackIn.push();
             MODEL_PIXIE.animateInHouse(entity);

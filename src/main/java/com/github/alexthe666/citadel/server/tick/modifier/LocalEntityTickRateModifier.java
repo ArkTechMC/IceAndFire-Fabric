@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 
 public class LocalEntityTickRateModifier extends LocalTickRateModifier {
 
+    private final boolean isEntityValid = true;
     private int entityId;
     private EntityType expectedEntityType;
-    private final boolean isEntityValid = true;
 
     public LocalEntityTickRateModifier(int entityId, EntityType expectedEntityType, double range, RegistryKey<World> dimension, int durationInMasterTicks, float tickRateMultiplier) {
         super(TickRateModifierType.LOCAL_ENTITY, range, dimension, durationInMasterTicks, tickRateMultiplier);

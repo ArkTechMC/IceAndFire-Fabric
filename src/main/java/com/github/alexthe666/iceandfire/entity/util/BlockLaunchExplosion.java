@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.ItemEntity;
@@ -92,9 +93,9 @@ public class BlockLaunchExplosion extends Explosion {
                 if (!blockstate.isAir()) {
                     BlockPos blockpos1 = blockpos.toImmutable();
                     this.world.getProfiler().push("explosion_blocks");
-
                     Vec3d Vector3d = new Vec3d(this.x, this.y, this.z);
-                    blockstate.onBlockExploded(this.world, blockpos, this);
+                    this.world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
+                    blockstate.getBlock().onDestroyedByExplosion(this.world, blockpos, this);
                     FallingBlockEntity fallingBlockEntity = new FallingBlockEntity(EntityType.FALLING_BLOCK, this.world);
                     fallingBlockEntity.setFallingBlockPos(blockpos1);
                     fallingBlockEntity.setPosition(blockpos1.getX() + 0.5D, blockpos1.getY() + 0.5D, blockpos1.getZ() + 0.5D);

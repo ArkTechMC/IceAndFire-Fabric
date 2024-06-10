@@ -1,12 +1,13 @@
 package com.github.alexthe666.iceandfire.util;
 
-import java.util.Collections;
-import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
+
+import java.util.Collections;
+import java.util.List;
 
 public class IAFMath {
 

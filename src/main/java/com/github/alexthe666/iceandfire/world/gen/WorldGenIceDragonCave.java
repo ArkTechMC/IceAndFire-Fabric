@@ -19,9 +19,9 @@ public class WorldGenIceDragonCave extends WorldGenDragonCave {
         this.DRAGON_CHEST = ICE_DRAGON_CHEST;
         this.DRAGON_MALE_CHEST = ICE_DRAGON_CHEST_MALE;
         this.CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.FROZEN_STONE.get(), 3);
-        this.PALETTE_BLOCK1 = IafBlockRegistry.FROZEN_STONE.get().defaultBlockState();
-        this.PALETTE_BLOCK2 = IafBlockRegistry.FROZEN_COBBLESTONE.get().defaultBlockState();
-        this.TREASURE_PILE = IafBlockRegistry.SILVER_PILE.get().defaultBlockState();
+        this.PALETTE_BLOCK1 = IafBlockRegistry.FROZEN_STONE.get().getDefaultState();
+        this.PALETTE_BLOCK2 = IafBlockRegistry.FROZEN_COBBLESTONE.get().getDefaultState();
+        this.TREASURE_PILE = IafBlockRegistry.SILVER_PILE.get().getDefaultState();
         this.dragonTypeOreTag = IafBlockTags.ICE_DRAGON_CAVE_ORES;
     }
 

@@ -24,15 +24,15 @@ public class BlockPodium extends BlockWithEntity {
 
     public BlockPodium() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.OAK_TAN)
-                .instrument(Instrument.BASS)
-                .burnable()
-                .nonOpaque()
-                .dynamicBounds()
-                .strength(2.0F)
-                .sounds(BlockSoundGroup.WOOD)
+                Settings
+                        .create()
+                        .mapColor(MapColor.OAK_TAN)
+                        .instrument(Instrument.BASS)
+                        .burnable()
+                        .nonOpaque()
+                        .dynamicBounds()
+                        .strength(2.0F)
+                        .sounds(BlockSoundGroup.WOOD)
         );
     }
 

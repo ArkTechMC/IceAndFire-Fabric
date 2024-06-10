@@ -31,16 +31,19 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
             }
 
         }
-
-        @Override
-        public BlockEntity getSpawnerBlockEntity() {
-            return TileEntityDreadSpawner.this;
-        }
     };
 
     public TileEntityDreadSpawner(BlockPos pos, BlockState state) {
         super(pos, state);
         this.type = IafTileEntityRegistry.DREAD_SPAWNER.get();
+    }
+
+    public static void clientTick(World p_155755_, BlockPos p_155756_, BlockState p_155757_, TileEntityDreadSpawner p_155758_) {
+        p_155758_.spawner.clientTick(p_155755_, p_155756_);
+    }
+
+    public static void serverTick(World p_155762_, BlockPos p_155763_, BlockState p_155764_, TileEntityDreadSpawner p_155765_) {
+        p_155765_.spawner.serverTick((ServerWorld) p_155762_, p_155763_);
     }
 
     @Override
@@ -53,14 +56,6 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
         super.writeNbt(p_59795_);
         this.spawner.writeNbt(p_59795_);
         return p_59795_;
-    }
-
-    public static void clientTick(World p_155755_, BlockPos p_155756_, BlockState p_155757_, TileEntityDreadSpawner p_155758_) {
-        p_155758_.spawner.clientTick(p_155755_, p_155756_);
-    }
-
-    public static void serverTick(World p_155762_, BlockPos p_155763_, BlockState p_155764_, TileEntityDreadSpawner p_155765_) {
-        p_155765_.spawner.serverTick((ServerWorld) p_155762_, p_155763_);
     }
 
     @Override

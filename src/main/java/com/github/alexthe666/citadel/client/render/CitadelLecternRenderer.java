@@ -17,10 +17,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class CitadelLecternRenderer implements BlockEntityRenderer<CitadelLecternBlockEntity> {
-    private final BookModel bookModel;
     public static final Identifier BOOK_PAGE_TEXTURE = new Identifier("citadel:textures/entity/lectern_book_pages.png");
     public static final Identifier BOOK_BINDING_TEXTURE = new Identifier("citadel:textures/entity/lectern_book_binding.png");
     private static final LecternBooks.BookData EMPTY_BOOK_DATA = new LecternBooks.BookData(0XC58439, 0XF4E9BF);
+    private final BookModel bookModel;
 
     public CitadelLecternRenderer(BlockEntityRendererFactory.Context context) {
         this.bookModel = new BookModel(context.getLayerModelPart(EntityModelLayers.BOOK));

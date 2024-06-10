@@ -43,6 +43,7 @@ public class ContainerDragon extends ScreenHandler {
             public void markDirty() {
                 this.inventory.markDirty();
             }
+
             @Override
             public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 0;
@@ -53,6 +54,7 @@ public class ContainerDragon extends ScreenHandler {
             public void markDirty() {
                 this.inventory.markDirty();
             }
+
             @Override
             public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 1;
@@ -64,6 +66,7 @@ public class ContainerDragon extends ScreenHandler {
             public void markDirty() {
                 this.inventory.markDirty();
             }
+
             @Override
             public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 2;
@@ -74,6 +77,7 @@ public class ContainerDragon extends ScreenHandler {
             public void markDirty() {
                 this.inventory.markDirty();
             }
+
             @Override
             public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 3;

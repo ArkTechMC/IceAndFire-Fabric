@@ -1,129 +1,13 @@
 package com.github.alexthe666.iceandfire;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.client.ClientProxy;
-import com.github.alexthe666.iceandfire.config.ConfigHolder;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
-import com.github.alexthe666.iceandfire.entity.props.SyncEntityData;
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
-import com.github.alexthe666.iceandfire.inventory.IafContainerRegistry;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.IafTabRegistry;
-import com.github.alexthe666.iceandfire.loot.IafLootRegistry;
-import com.github.alexthe666.iceandfire.message.*;
-import com.github.alexthe666.iceandfire.recipe.IafBannerPatterns;
-import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
-import com.github.alexthe666.iceandfire.recipe.IafRecipeSerializers;
-import com.github.alexthe666.iceandfire.world.*;
-import com.mojang.serialization.Codec;
-import me.pepperbell.simplenetworking.SimpleChannel;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(IceAndFire.MOD_ID)
-@Mod.EventBusSubscriber(modid = IceAndFire.MOD_ID)
 public class IceAndFire {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "iceandfire";
-    public static final SimpleChannel NETWORK_WRAPPER;
-    private static final String PROTOCOL_VERSION = Integer.toString(1);
-    public static boolean DEBUG = true;
-    public static String VERSION = "UNKNOWN";
-    public static CommonProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
-    private static int packetsRegistered = 0;
-
-    static {
-        NetworkRegistry.ChannelBuilder channel = NetworkRegistry.ChannelBuilder.named(new Identifier(IceAndFire.MOD_ID, "main_channel"));
-        String version = PROTOCOL_VERSION;
-        version.getClass();
-        channel = channel.clientAcceptedVersions(version::equals);
-        version = PROTOCOL_VERSION;
-        version.getClass();
-        NETWORK_WRAPPER = channel.serverAcceptedVersions(version::equals).networkProtocolVersion(() -> PROTOCOL_VERSION).simpleChannel();
-    }
+    public static CommonProxy PROXY = new CommonProxy();
 
     public IceAndFire() {
-        PROXY.setup();
-        try {
-            ModContainer mod = ModList.get().getModContainerById(IceAndFire.MOD_ID).orElseThrow(NullPointerException::new);
-            VERSION = mod.getModInfo().getVersion().toString();
-        } catch (Exception ignored) {
-        }
-        IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-
-        final ModLoadingContext modLoadingContext = ModLoadingContext.get();
-
-        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
-        modLoadingContext.registerConfig(ModConfig.Type.COMMON, ConfigHolder.SERVER_SPEC);
-        PROXY.init();
-
-        MinecraftForge.EVENT_BUS.addListener(this::onServerStarted);
-
-
-        final DeferredRegister<Codec<? extends BiomeModifier>> biomeModifiers = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, IceAndFire.MOD_ID);
-        biomeModifiers.register(modBus);
-        biomeModifiers.register("iaf_mob_spawns", IafMobSpawnBiomeModifier::makeCodec);
-        biomeModifiers.register("iaf_features", IafFeatureBiomeModifier::makeCodec);
-
-        modBus.addListener(this::setup);
-        modBus.addListener(this::setupComplete);
-        modBus.addListener(this::setupClient);
     }
-
-    @SubscribeEvent
-    public void onServerStarted(ServerStartedEvent event) {
-        LOGGER.info(IafWorldRegistry.LOADED_FEATURES);
-        LOGGER.info(IafEntityRegistry.LOADED_ENTITIES);
-    }
-
-    public static <MSG> void sendMSGToServer(MSG message) {
-        NETWORK_WRAPPER.sendToServer(message);
-    }
-
-    public static <MSG> void sendMSGToAll(MSG message) {
-        for (ServerPlayerEntity player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            NETWORK_WRAPPER.sendTo(message, player.networkHandler.connection, NetworkDirection.PLAY_TO_CLIENT);
-        }
-    }
-
-    public static <MSG> void sendMSGToPlayer(MSG message, ServerPlayerEntity player) {
-        NETWORK_WRAPPER.sendTo(message, player.networkHandler.connection, NetworkDirection.PLAY_TO_CLIENT);
-    }
-
-    private void setup(final FMLCommonSetupEvent event) {
-    }
-
-    private void setupClient(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> PROXY.clientInit());
-    }
-
-    private void setupComplete(final FMLLoadCompleteEvent event) {
-        PROXY.postInit();
-    }
-
 }

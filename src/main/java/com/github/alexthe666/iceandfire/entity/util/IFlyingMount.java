@@ -26,5 +26,7 @@ public interface IFlyingMount {
         return false;
     }
 
-    default double getYSpeedMod(){ return 10; }
+    default double getYSpeedMod() {
+        return 10;
+    }
 }

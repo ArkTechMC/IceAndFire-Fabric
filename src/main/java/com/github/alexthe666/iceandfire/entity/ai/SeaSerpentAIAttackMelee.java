@@ -12,6 +12,7 @@ import java.util.EnumSet;
 
 public class SeaSerpentAIAttackMelee extends Goal {
     protected final int attackInterval = 20;
+    private final boolean canPenalize = false;
     protected EntitySeaSerpent attacker;
     /**
      * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
@@ -35,7 +36,6 @@ public class SeaSerpentAIAttackMelee extends Goal {
     private double targetY;
     private double targetZ;
     private int failedPathFindingPenalty = 0;
-    private final boolean canPenalize = false;
 
     public SeaSerpentAIAttackMelee(EntitySeaSerpent amphithere, double speedIn, boolean useLongMemory) {
         this.attacker = amphithere;

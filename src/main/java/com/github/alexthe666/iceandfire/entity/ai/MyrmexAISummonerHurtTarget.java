@@ -28,7 +28,7 @@ public class MyrmexAISummonerHurtTarget extends TrackTargetGoal {
             this.attacker = living.getAttacking();
             int i = living.getLastAttackTime();
             return i != this.timestamp && this.canTrack(this.attacker, TargetPredicate.DEFAULT)
-                && this.tameable.shouldAttackEntity(this.attacker, living);
+                    && this.tameable.shouldAttackEntity(this.attacker, living);
         }
     }
 

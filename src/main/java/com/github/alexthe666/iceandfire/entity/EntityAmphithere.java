@@ -7,11 +7,11 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateFlyingCreature;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -126,21 +126,6 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
                 || block == Blocks.AIR);
     }
 
-    @Override
-    public boolean canSpawn(WorldView worldIn) {
-        if (worldIn.doesNotIntersectEntities(this) && !worldIn.containsFluid(this.getBoundingBox())) {
-            BlockPos blockpos = this.getBlockPos();
-            if (blockpos.getY() < worldIn.getSeaLevel()) {
-                return false;
-            }
-
-            BlockState blockstate = worldIn.getBlockState(blockpos.down());
-            return blockstate.isOf(Blocks.GRASS_BLOCK) || blockstate.isIn(BlockTags.LEAVES);
-        }
-
-        return false;
-    }
-
     public static BlockPos getPositionInOrbit(EntityAmphithere entity, World world, BlockPos orbit, Random rand) {
         float possibleOrbitRadius = (entity.orbitRadius + 10.0F);
         float radius = 10;
@@ -159,6 +144,34 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         BlockPos radialPos = BlockPos.ofFloored(orbit.getX() + extraX, orbit.getY(), orbit.getZ() + extraZ);
         entity.orbitRadius = possibleOrbitRadius;
         return radialPos;
+    }
+
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.amphithereMaxHealth)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.amphithereAttackStrength)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.amphithereFlightSpeed)
+                //FOLLOW RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
+    }
+
+    @Override
+    public boolean canSpawn(WorldView worldIn) {
+        if (worldIn.doesNotIntersectEntities(this) && !worldIn.containsFluid(this.getBoundingBox())) {
+            BlockPos blockpos = this.getBlockPos();
+            if (blockpos.getY() < worldIn.getSeaLevel()) {
+                return false;
+            }
+
+            BlockState blockstate = worldIn.getBlockState(blockpos.down());
+            return blockstate.isOf(Blocks.GRASS_BLOCK) || blockstate.isIn(BlockTags.LEAVES);
+        }
+
+        return false;
     }
 
     @Override
@@ -570,19 +583,6 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         return super.isTeammate(entityIn);
     }
 
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-                //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.amphithereMaxHealth)
-                //SPEED
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
-                //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.amphithereAttackStrength)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.amphithereFlightSpeed)
-                //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
-    }
-
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.amphithereMaxHealth);
@@ -713,7 +713,8 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         }
         if (this.getUntamedRider() != null && this.getUntamedRider().isSneaking()) {
             if (this.getUntamedRider() instanceof LivingEntity rider) {
-                EntityDataProvider.getCapability(rider).ifPresent(data -> data.miscData.setDismounted(true));
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(rider);
+                data.miscData.setDismounted(true);
             }
 
             this.getUntamedRider().stopRiding();

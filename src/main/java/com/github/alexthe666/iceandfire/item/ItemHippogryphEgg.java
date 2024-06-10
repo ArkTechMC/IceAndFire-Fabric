@@ -65,7 +65,7 @@ public class ItemHippogryphEgg extends Item {
 
         if (!worldIn.isClient) {
             EntityHippogryphEgg entityegg = new EntityHippogryphEgg(IafEntityRegistry.HIPPOGRYPH_EGG.get(), worldIn,
-                playerIn, itemstack);
+                    playerIn, itemstack);
             entityegg.setVelocity(playerIn, playerIn.getPitch(), playerIn.getYaw(), 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(entityegg);
         }

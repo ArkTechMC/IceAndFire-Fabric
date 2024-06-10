@@ -30,8 +30,8 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
             @Override
             public boolean test(LivingEntity myrmex) {
                 return (myrmex instanceof EntityMyrmexBase && ((EntityMyrmexBase) myrmex).getGrowthStage() < 2
-                    && !((EntityMyrmexBase) myrmex).isInNursery()
-                    || myrmex instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) myrmex).isInNursery());
+                        && !((EntityMyrmexBase) myrmex).isInNursery()
+                        || myrmex instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) myrmex).isInNursery());
             }
         };
         this.myrmex = myrmex;
@@ -70,7 +70,7 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
     public void tick() {
         super.tick();
         if (this.targetEntity != null && this.targetEntity.isAlive()
-            && this.mob.squaredDistanceTo(this.targetEntity) < 2) {
+                && this.mob.squaredDistanceTo(this.targetEntity) < 2) {
             this.targetEntity.startRiding(this.myrmex);
         }
         this.stop();

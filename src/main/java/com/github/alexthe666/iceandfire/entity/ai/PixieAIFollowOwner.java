@@ -75,7 +75,7 @@ public class PixieAIFollowOwner extends Goal {
     @Override
     public void tick() {
         this.tameable.getLookControl().lookAt(this.owner, 10.0F,
-            this.tameable.getMaxLookPitchChange());
+                this.tameable.getMaxLookPitchChange());
 
         if (!this.tameable.isPixieSitting()) {
             if (--this.timeToRecalcPath <= 0) {
@@ -93,7 +93,7 @@ public class PixieAIFollowOwner extends Goal {
                             for (int i1 = 0; i1 <= 4; ++i1) {
                                 if ((l < 1 || i1 < 1 || l > 3 || i1 > 3) && this.isEmptyBlock(new BlockPos(i + l, k, j + i1)) && this.isEmptyBlock(new BlockPos(i + l, k + 1, j + i1))) {
                                     this.tameable.refreshPositionAndAngles(i + l + 0.5F, k + 1.5, j + i1 + 0.5F,
-                                        this.tameable.getYaw(), this.tameable.getPitch());
+                                            this.tameable.getYaw(), this.tameable.getPitch());
                                     return;
                                 }
                             }

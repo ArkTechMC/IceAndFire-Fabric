@@ -89,11 +89,6 @@ public class TileEntityEggInIce extends BlockEntity {
     }
 
     @Override
-    public void handleUpdateTag(NbtCompound parentNBTTagCompound) {
-        this.readNbt(parentNBTTagCompound);
-    }
-
-    @Override
     public @NotNull NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbtTagCompound = new NbtCompound();
         this.writeNbt(nbtTagCompound);
@@ -105,11 +100,6 @@ public class TileEntityEggInIce extends BlockEntity {
         NbtCompound nbtTagCompound = new NbtCompound();
         this.writeNbt(nbtTagCompound);
         return BlockEntityUpdateS2CPacket.create(this);
-    }
-
-    @Override
-    public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket pkt) {
-        this.readNbt(pkt.getNbt());   // read from the nbt in the packet
     }
 
     public void spawnEgg() {

@@ -2,11 +2,12 @@ package com.github.alexthe666.citadel.server.tick;
 
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifierType;
-import java.util.ArrayList;
-import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TickRateTracker {
 
@@ -89,7 +90,7 @@ public abstract class TickRateTracker {
         return this.getEntityTickLengthModifier(entity) == 1.0F;
     }
 
-    public boolean isTickingHandled(Entity entity){
+    public boolean isTickingHandled(Entity entity) {
         return this.specialTickRateEntities.contains(entity);
     }
 
@@ -99,7 +100,7 @@ public abstract class TickRateTracker {
         }
     }
 
-    protected void tickBlockedEntity(Entity entity){
+    protected void tickBlockedEntity(Entity entity) {
         this.tickEntityAtCustomRate(entity);
     }
 

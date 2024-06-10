@@ -12,8 +12,8 @@ import net.minecraft.util.math.Vec3d;
 
 public class SeaSerpentAIJump extends DiveJumpingGoal {
 
-    private static final int[] JUMP_DISTANCES = new int[] {
-        0, 2, 4, 5, 6, 7
+    private static final int[] JUMP_DISTANCES = new int[]{
+            0, 2, 4, 5, 6, 7
     };
     private final EntitySeaSerpent serpent;
     private final int chance;
@@ -27,7 +27,7 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
     @Override
     public boolean canStart() {
         if (this.serpent.getRandom().nextInt(this.chance) != 0 || this.serpent.getTarget() != null
-            || this.serpent.jumpCooldown != 0) {
+                || this.serpent.jumpCooldown != 0) {
             return false;
         } else {
             Direction direction = this.serpent.getMovementDirection();
@@ -46,12 +46,12 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
     private boolean canJumpTo(BlockPos pos, int dx, int dz, int scale) {
         BlockPos blockpos = pos.add(dx * scale, 0, dz * scale);
         return this.serpent.getWorld().getFluidState(blockpos).isIn(FluidTags.WATER)
-            && !this.serpent.getWorld().getBlockState(blockpos).blocksMovement();
+                && !this.serpent.getWorld().getBlockState(blockpos).blocksMovement();
     }
 
     private boolean isAirAbove(BlockPos pos, int dx, int dz, int scale) {
         return this.serpent.getWorld().getBlockState(pos.add(dx * scale, 1, dz * scale)).isAir()
-            && this.serpent.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();
+                && this.serpent.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();
     }
 
     /**
@@ -61,8 +61,8 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
     public boolean shouldContinue() {
         double d0 = this.serpent.getVelocity().y;
         return this.serpent.jumpCooldown > 0 && (d0 * d0 >= 0.03F || this.serpent.getPitch() == 0.0F
-            || Math.abs(this.serpent.getPitch()) >= 10.0F || !this.serpent.isTouchingWater())
-            && !this.serpent.isOnGround();
+                || Math.abs(this.serpent.getPitch()) >= 10.0F || !this.serpent.isTouchingWater())
+                && !this.serpent.isOnGround();
     }
 
     @Override
@@ -78,7 +78,7 @@ public class SeaSerpentAIJump extends DiveJumpingGoal {
         Direction direction = this.serpent.getMovementDirection();
         final float up = 1F + this.serpent.getRandom().nextFloat() * 0.8F;
         this.serpent
-            .setVelocity(this.serpent.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
+                .setVelocity(this.serpent.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
         this.serpent.setJumpingOutOfWater(true);
         this.serpent.getNavigation().stop();
         this.serpent.jumpCooldown = this.serpent.getRandom().nextInt(100) + 100;

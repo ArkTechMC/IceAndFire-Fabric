@@ -3,6 +3,10 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.IPassabilityNavigator;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathingStuckHandler;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.FoodUtils;
@@ -13,7 +17,6 @@ import com.github.alexthe666.iceandfire.client.model.util.LegSolverQuadruped;
 import com.github.alexthe666.iceandfire.datagen.tags.IafBlockTags;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
@@ -24,16 +27,12 @@ import com.github.alexthe666.iceandfire.item.ItemSummoningCrystal;
 import com.github.alexthe666.iceandfire.message.MessageDragonSetBurnBlock;
 import com.github.alexthe666.iceandfire.message.MessageStartRidingMob;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.IPassabilityNavigator;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.PathingStuckHandler;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.github.alexthe666.iceandfire.world.DragonPosWorldData;
 import com.google.common.base.Predicate;
-import com.iafenvoy.iafextra.event.EventBus;
-import com.iafenvoy.iafextra.network.IafClientNetworkHandler;
-import com.iafenvoy.iafextra.network.IafServerNetworkHandler;
-import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
+import dev.arktechmc.iafextra.data.EntityDataComponent;
+import dev.arktechmc.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
+import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -54,6 +53,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.InventoryChangedListener;
 import net.minecraft.inventory.SimpleInventory;
@@ -74,8 +74,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -87,25 +86,25 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import net.minecraft.world.explosion.Explosion;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public abstract class EntityDragonBase extends TameableEntity implements IPassabilityNavigator, ISyncMount, IFlyingMount, IMultipartEntity, IAnimatedEntity, IDragonFlute, IDeadMob, IVillagerFear, IAnimalFear, IDropArmor, IHasCustomizableAttributes, ICustomSizeNavigator, ICustomMoveController, InventoryChangedListener {
+public abstract class EntityDragonBase extends TameableEntity implements NamedScreenHandlerFactory, IPassabilityNavigator, ISyncMount, IFlyingMount, IMultipartEntity, IAnimatedEntity, IDragonFlute, IDeadMob, IVillagerFear, IAnimalFear, IDropArmor, IHasCustomizableAttributes, ICustomSizeNavigator, ICustomMoveController, InventoryChangedListener {
     public static final int FLIGHT_CHANCE_PER_TICK = 1500;
+    public static final float[] growth_stage_1 = new float[]{1F, 3F};
+    public static final float[] growth_stage_2 = new float[]{3F, 7F};
+    public static final float[] growth_stage_3 = new float[]{7F, 12.5F};
+    public static final float[] growth_stage_4 = new float[]{12.5F, 20F};
+    public static final float[] growth_stage_5 = new float[]{20F, 30F};
     protected static final TrackedData<Boolean> SWIMMING = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final UUID ARMOR_MODIFIER_UUID = UUID.fromString("556E1665-8B10-40C8-8F9D-CF9B1667F295");
     private static final TrackedData<Integer> HUNGER = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.INTEGER);
@@ -182,13 +181,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     public ReversedBuffer turn_buffer;
     public ChainBuffer tail_buffer;
     public int spacebarTicks;
-
-    public static final float[] growth_stage_1 = new float[]{1F, 3F};
-    public static final float[] growth_stage_2 = new float[]{3F, 7F};
-    public static final float[] growth_stage_3 = new float[]{7F, 12.5F};
-    public static final float[] growth_stage_4 = new float[]{12.5F, 20F};
-    public static final float[] growth_stage_5 = new float[]{20F, 30F};
-
     public float[][] growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
 
     public LegSolverQuadruped legSolver;
@@ -217,16 +209,21 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     public String armorResLoc = "0|0|0|0";
     public IafDragonFlightManager flightManager;
     public boolean lookingForRoostAIFlag = false;
+    public boolean allowLocalMotionControl = true;
+    public boolean allowMousePitchControl = true;
     protected int flyHovering;
     protected boolean hasHadHornUse = false;
     protected int fireTicks;
     protected int blockBreakCounter;
+    protected boolean gliding = false;
+    protected float glidingSpeedBonus = 0;
+    // For slowly raise rider position
+    protected float riderWalkingExtraY = 0;
     private int prevFlightCycle;
     private boolean isModelDead;
     private int animationTick;
     private Animation currentAnimation;
     private float lastScale;
-
     private EntityDragonPart headPart;
     private EntityDragonPart neckPart;
     private EntityDragonPart rightWingUpperPart;
@@ -238,8 +235,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     private EntityDragonPart tail3Part;
     private EntityDragonPart tail4Part;
     private boolean isOverAir;
-
-    private LazyOptional<?> itemHandler = null;
 
     public EntityDragonBase(EntityType t, World world, DragonType type, double minimumDamage, double maximumDamage, double minimumHealth, double maximumHealth, double minimumSpeed, double maximumSpeed) {
         super(t, world);
@@ -460,7 +455,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
         return this.createNavigator(worldIn, AdvancedPathNavigate.MovementType.WALKING);
     }
 
-
     protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type) {
         return this.createNavigator(worldIn, type, this.createStuckHandler());
     }
@@ -514,7 +508,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     }
 
     public boolean canDestroyBlock(BlockPos pos, BlockState state) {
-        return state.getBlock().canEntityDestroy(state, this.getWorld(), pos, this);
+        return state.getBlock().getHardness() <= 100;
     }
 
     @Override
@@ -528,13 +522,13 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     }
 
     public void openInventory(PlayerEntity player) {
-        if (!this.getWorld().isClient && player instanceof ServerPlayerEntity serverPlayer)
-            NetworkHooks.openScreen((ServerPlayerEntity) player, this.getMenuProvider());
         IceAndFire.PROXY.setReferencedMob(this);
     }
 
-    public NamedScreenHandlerFactory getMenuProvider() {
-        return new SimpleNamedScreenHandlerFactory((containerId, playerInventory, player) -> new ContainerDragon(containerId, this.dragonInventory, playerInventory, this), this.getDisplayName());
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new ContainerDragon(syncId, this.dragonInventory, player.getInventory(), this);
     }
 
     @Override
@@ -826,29 +820,11 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
 
         this.dragonInventory.addListener(this);
         this.updateContainerEquipment();
-        this.itemHandler = LazyOptional.of(() -> new InvWrapper(this.dragonInventory));
     }
 
     protected void updateContainerEquipment() {
         if (!this.getWorld().isClient) {
             this.updateAttributes();
-        }
-    }
-
-    @Override
-    public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, Direction facing) {
-        if (this.isAlive() && capability == ForgeCapabilities.ITEM_HANDLER && this.itemHandler != null)
-            return this.itemHandler.cast();
-        return super.getCapability(capability, facing);
-    }
-
-    @Override
-    public void invalidateCaps() {
-        super.invalidateCaps();
-        if (this.itemHandler != null) {
-            LazyOptional<?> oldHandler = this.itemHandler;
-            this.itemHandler = null;
-            oldHandler.invalidate();
         }
     }
 
@@ -1023,13 +999,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     }
 
     @Override
-    public void setInSittingPose(boolean sleeping) {
-        this.dataTracker.set(SLEEPING, sleeping);
-        if (sleeping)
-            this.getNavigation().stop();
-    }
-
-    @Override
     public void setSitting(boolean sitting) {
         byte b0 = this.dataTracker.get(TAMEABLE_FLAGS);
         if (sitting) {
@@ -1038,6 +1007,13 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
         } else {
             this.dataTracker.set(TAMEABLE_FLAGS, (byte) (b0 & -2));
         }
+    }
+
+    @Override
+    public void setInSittingPose(boolean sleeping) {
+        this.dataTracker.set(SLEEPING, sleeping);
+        if (sleeping)
+            this.getNavigation().stop();
     }
 
     public String getCustomPose() {
@@ -1318,7 +1294,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     public abstract Identifier getDeadLootTable();
 
     public ItemStack getItemFromLootTable() {
-        LootTable loottable = this.getWorld().getServer().getServerResources().managers().getLootData().getLootTable(this.getDeadLootTable());
+        LootTable loottable = this.getWorld().getServer().getLootManager().getLootTable(this.getDeadLootTable());
         LootContextParameterSet.Builder lootparams$builder = (new LootContextParameterSet.Builder((ServerWorld) this.getWorld())).add(LootContextParameters.THIS_ENTITY, this).add(LootContextParameters.ORIGIN, this.getPos()).add(LootContextParameters.DAMAGE_SOURCE, this.getWorld().getDamageSources().generic());
         for (ItemStack itemstack : loottable.generateLoot(lootparams$builder.build(LootContextTypes.ENTITY))) {
             return itemstack;
@@ -1329,7 +1305,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     public void eatFoodBonus(ItemStack stack) {
         // FIXME :: ?
     }
-
 
     @Override
     public boolean cannotDespawn() {
@@ -1461,7 +1436,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
         }
 
         if (doBreak) {
-            if (ForgeEventFactory.getMobGriefingEvent(this.getWorld(), this)) {
+            if (this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
                 if (DragonUtils.canGrief(this)) {
                     // TODO :: make `force` ignore the dragon stage?
                     if (!this.isModelDead() && this.getDragonStage() >= 3 && (this.canMove() || this.getControllingPassenger() != null)) {
@@ -1488,21 +1463,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
                 state.getHardness(this.getWorld(), pos) >= 0F &&
                 state.getHardness(this.getWorld(), pos) <= hardness &&
                 DragonUtils.canDragonBreak(state, entity) && this.canDestroyBlock(pos, state);
-    }
-
-    @Override
-    public boolean isBlockExplicitlyPassable(BlockState state, BlockPos pos, BlockPos entityPos) {
-        if (!this.isModelDead() && this.getDragonStage() >= 3) {
-            if (DragonUtils.canGrief(this) && pos.getY() >= this.getY()) {
-                return this.isBreakable(pos, state, IafConfig.dragonGriefing == 1 || this.getDragonStage() <= 3 ? 2.0F : 5.0F, this);
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean isBlockExplicitlyNotPassable(BlockState state, BlockPos pos, BlockPos entityPos) {
-        return false;
     }
 
     public void spawnGroundEffects() {
@@ -1544,11 +1504,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     }
 
     public abstract String getVariantName(int variant);
-
-    @Override
-    public boolean shouldRiderSit() {
-        return this.getControllingPassenger() != null;
-    }
 
     @Override
     public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
@@ -1689,7 +1644,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
         return super.damage(dmg, i);
 
     }
-
 
     @Override
     public void calculateDimensions() {
@@ -2010,11 +1964,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
         return super.isTouchingWater() && this.getFluidHeight(FluidTags.WATER) > MathHelper.floor(this.getDragonStage() / 2.0f);
     }
 
-    public boolean allowLocalMotionControl = true;
-    public boolean allowMousePitchControl = true;
-    protected boolean gliding = false;
-    protected float glidingSpeedBonus = 0;
-
     @Override
     public void travel(@NotNull Vec3d pTravelVector) {
         if (this.getAnimation() == ANIMATION_SHAKEPREY || !this.canMove() && !this.hasPassengers() || this.isSitting()) {
@@ -2328,7 +2277,8 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
             }
             // Shift key to dismount
             if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-                EntityDataProvider.getCapability(this.getControllingPassenger()).ifPresent(data -> data.miscData.setDismounted(true));
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(this.getControllingPassenger());
+                data.miscData.setDismounted(true);
                 this.getControllingPassenger().stopRiding();
             }
             // Reset attack target when being ridden
@@ -2374,7 +2324,8 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
                 }
             }
             if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-                EntityDataProvider.getCapability(this.getControllingPassenger()).ifPresent(data -> data.miscData.setDismounted(true));
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(this.getControllingPassenger());
+                data.miscData.setDismounted(true);
                 this.getControllingPassenger().stopRiding();
             }
             if (this.isFlying()) {
@@ -2539,7 +2490,8 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
 
     public boolean isChained() {
         AtomicBoolean isChained = new AtomicBoolean(false);
-        EntityDataProvider.getCapability(this).ifPresent(data -> isChained.set(data.chainData.getChainedTo().isEmpty()));
+        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(this);
+        isChained.set(data.chainData.getChainedTo().isEmpty());
         return isChained.get();
     }
 
@@ -2578,9 +2530,6 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     protected float getRideHorizontalBase() {
         return 0.00336283f * MathHelper.square(this.getRenderSize()) + 0.1934242516f * this.getRenderSize() - 0.02622133882f;
     }
-
-    // For slowly raise rider position
-    protected float riderWalkingExtraY = 0;
 
     public Vec3d getRiderPosition() {
         // The old position is seems to be given by a series compute of magic numbers
@@ -2875,7 +2824,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     }
 
     @Override
-    public void onRemovedFromWorld() {
+    public void onRemoved() {
         if (IafConfig.chunkLoadSummonCrystal) {
             if (this.isBoundToCrystal()) {
                 DragonPosWorldData data = DragonPosWorldData.get(this.getWorld());
@@ -2884,7 +2833,7 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
                 }
             }
         }
-        super.onRemovedFromWorld();
+        super.onRemoved();
     }
 
     @Override
@@ -2924,5 +2873,15 @@ public abstract class EntityDragonBase extends TameableEntity implements IPassab
     @Override
     public EntityView method_48926() {
         return this.getWorld();
+    }
+
+    @Override
+    public boolean isBlockExplicitlyPassable(BlockState state, BlockPos pos, BlockPos entityPos) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockExplicitlyNotPassable(BlockState state, BlockPos pos, BlockPos entityPos) {
+        return false;
     }
 }

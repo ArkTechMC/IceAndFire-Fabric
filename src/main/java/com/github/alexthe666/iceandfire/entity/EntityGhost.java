@@ -66,6 +66,19 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         this.moveControl = new MoveHelper(this);
     }
 
+    public static DefaultAttributeContainer.Builder bakeAttributes() {
+        return MobEntity.createMobAttributes()
+                //HEALTH
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.ghostMaxHealth)
+                //FOLLOW_RANGE
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64D)
+                //SPEED
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
+                //ATTACK
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.ghostAttackStrength)
+                //ARMOR
+                .add(EntityAttributes.GENERIC_ARMOR, 1D);
+    }
 
     @Override
     protected @NotNull Identifier getLootTableId() {
@@ -87,20 +100,6 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         return IafSoundRegistry.GHOST_DIE;
     }
 
-    public static DefaultAttributeContainer.Builder bakeAttributes() {
-        return MobEntity.createMobAttributes()
-            //HEALTH
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.ghostMaxHealth)
-            //FOLLOW_RANGE
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64D)
-            //SPEED
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
-            //ATTACK
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.ghostAttackStrength)
-            //ARMOR
-            .add(EntityAttributes.GENERIC_ARMOR, 1D);
-    }
-
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.ghostMaxHealth);
@@ -115,7 +114,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource source) {
         return super.isInvulnerableTo(source) || source.isIn(DamageTypeTags.IS_FIRE) || source.isOf(DamageTypes.IN_WALL) || source.isOf(DamageTypes.CACTUS)
-            || source.isOf(DamageTypes.DROWN) || source.isOf(DamageTypes.FALLING_BLOCK) || source.isOf(DamageTypes.FALLING_ANVIL) || source.isOf(DamageTypes.SWEET_BERRY_BUSH);
+                || source.isOf(DamageTypes.DROWN) || source.isOf(DamageTypes.FALLING_BLOCK) || source.isOf(DamageTypes.FALLING_ANVIL) || source.isOf(DamageTypes.SWEET_BERRY_BUSH);
     }
 
     @Override
@@ -223,10 +222,10 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
             if (this.isDaytimeMode()) {
                 this.setVelocity(Vec3d.ZERO);
                 this.setDaytimeCounter(this.getDaytimeCounter() + 1);
-                if(this.getDaytimeCounter() >= 100){
+                if (this.getDaytimeCounter() >= 100) {
                     this.setInvisible(true);
                 }
-            }else{
+            } else {
                 this.setInvisible(this.hasStatusEffect(StatusEffects.INVISIBILITY));
                 this.setDaytimeCounter(0);
             }

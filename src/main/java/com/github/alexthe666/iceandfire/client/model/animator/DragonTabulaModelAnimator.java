@@ -252,7 +252,7 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
                 this.transitionTo(cube, pose.getCube(cube.boxName), entity.prevModelDeadProgress + (entity.modelDeadProgress - entity.prevModelDeadProgress) * MinecraftClient.getInstance().getTickDelta(), 20, cube.boxName.equals("ThighR") || cube.boxName.equals("ThighL"));
             }
             //Ugly hack to make sure ice dragon models are touching the ground when dead
-            if (this instanceof IceDragonTabulaModelAnimator){
+            if (this instanceof IceDragonTabulaModelAnimator) {
                 if (cube.boxName.equals("BodyUpper")) {
                     cube.rotationPointY += 0.35F * MathHelper.lerp(partialTick, entity.prevModelDeadProgress, entity.modelDeadProgress);
                 }

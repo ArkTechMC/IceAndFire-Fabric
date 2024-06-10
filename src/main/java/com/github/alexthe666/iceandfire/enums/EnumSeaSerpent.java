@@ -8,7 +8,7 @@ import com.github.alexthe666.iceandfire.item.IafArmorMaterial;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentScales;
-import com.iafenvoy.iafextra.util.IdUtil;
+import dev.arktechmc.iafextra.util.IdUtil;
 import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.minecraft.block.Block;
 import net.minecraft.item.ArmorItem;
@@ -45,7 +45,7 @@ public enum EnumSeaSerpent {
 
     public static void initArmors() {
         for (EnumSeaSerpent color : EnumSeaSerpent.values()) {
-            color.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID,"sea_serpent_scales_") + color.resourceName, 30, new int[]{4, 8, 7, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2.5F);
+            color.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "sea_serpent_scales_") + color.resourceName, 30, new int[]{4, 8, 7, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2.5F);
             color.scaleBlock = IafBlockRegistry.register("sea_serpent_scale_block_" + color.resourceName, () -> new BlockSeaSerpentScales(color.resourceName, color.color));
             color.scale = IafItemRegistry.registerItem("sea_serpent_scales_" + color.resourceName, () ->
                     new ItemSeaSerpentScales(color.resourceName, color.color));

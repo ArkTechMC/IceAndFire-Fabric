@@ -74,7 +74,7 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
             }
 
             HitResult raytraceresult = ProjectileUtil.getCollision(this, this::canHit);
-            if (raytraceresult.getType() != HitResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+            if (raytraceresult.getType() != HitResult.Type.MISS) {
                 this.onCollision(raytraceresult);
             }
 

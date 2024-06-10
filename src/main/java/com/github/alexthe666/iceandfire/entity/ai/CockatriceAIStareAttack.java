@@ -74,7 +74,7 @@ public class CockatriceAIStareAttack extends Goal {
             this.entity.setTargetedEntity(LivingEntity.getId());
 
             this.entity.squaredDistanceTo(LivingEntity.getX(), LivingEntity.getBoundingBox().minY,
-                LivingEntity.getZ());
+                    LivingEntity.getZ());
             final boolean flag = this.entity.getVisibilityCache().canSee(LivingEntity);
             final boolean flag1 = this.seeTime > 0;
 

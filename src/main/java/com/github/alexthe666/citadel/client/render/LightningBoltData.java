@@ -1,10 +1,10 @@
 package com.github.alexthe666.citadel.client.render;
 
-import org.joml.Vector4f;
+import net.minecraft.util.math.Vec3d;
 import org.apache.commons.lang3.tuple.Pair;
+import org.joml.Vector4f;
 
 import java.util.*;
-import net.minecraft.util.math.Vec3d;
 
 /*
     Lightning bolt effect code used with permission from aidancbrady
@@ -36,6 +36,11 @@ public class LightningBoltData {
         this.start = start;
         this.end = end;
         this.segments = segments;
+    }
+
+    private static Vec3d findRandomOrthogonalVector(Vec3d vec, Random rand) {
+        Vec3d newVec = new Vec3d(-0.5 + rand.nextDouble(), -0.5 + rand.nextDouble(), -0.5 + rand.nextDouble());
+        return vec.crossProduct(newVec).normalize();
     }
 
     public LightningBoltData count(int count) {
@@ -124,11 +129,6 @@ public class LightningBoltData {
         return quads;
     }
 
-    private static Vec3d findRandomOrthogonalVector(Vec3d vec, Random rand) {
-        Vec3d newVec = new Vec3d(-0.5 + rand.nextDouble(), -0.5 + rand.nextDouble(), -0.5 + rand.nextDouble());
-        return vec.crossProduct(newVec).normalize();
-    }
-
     private Pair<BoltQuads, QuadCache> createQuads(QuadCache cache, Vec3d startPos, Vec3d end, float size) {
         Vec3d diff = end.subtract(startPos);
         Vec3d rightAdd = diff.crossProduct(new Vec3d(0.5, 0.5, 0.5)).normalize().multiply(size);
@@ -147,6 +147,125 @@ public class LightningBoltData {
         quads.addQuad(startBack, endBack, endRight, startRight);
 
         return Pair.of(quads, new QuadCache(end, endRight, endBack));
+    }
+
+    public interface SpreadFunction {
+
+        /**
+         * A steady linear increase in perpendicular noise.
+         */
+        SpreadFunction LINEAR_ASCENT = (progress) -> progress;
+        /**
+         * A steady linear increase in perpendicular noise, followed by a steady decrease after the halfway point.
+         */
+        SpreadFunction LINEAR_ASCENT_DESCENT = (progress) -> (progress - Math.max(0, 2 * progress - 1)) / 0.5F;
+        /**
+         * Represents a unit sine wave from 0 to PI, scaled by progress.
+         */
+        SpreadFunction SINE = (progress) -> (float) Math.sin(Math.PI * progress);
+
+        float getMaxSpread(float progress);
+    }
+
+    public interface RandomFunction {
+
+        RandomFunction UNIFORM = Random::nextFloat;
+        RandomFunction GAUSSIAN = rand -> (float) rand.nextGaussian();
+
+        float getRandom(Random rand);
+    }
+
+    public interface SegmentSpreader {
+
+        /**
+         * Don't remember where the last segment left off, just randomly move from the straight-line vector.
+         */
+        SegmentSpreader NO_MEMORY = (perpendicularDist, randVec, maxDiff, scale, progress) -> randVec.multiply(maxDiff);
+
+        /**
+         * Move from where the previous segment ended by a certain memory factor. Higher memory will restrict perpendicular movement.
+         */
+        static SegmentSpreader memory(float memoryFactor) {
+            return (perpendicularDist, randVec, maxDiff, spreadScale, progress) -> {
+                float nextDiff = maxDiff * (1 - memoryFactor);
+                Vec3d cur = randVec.multiply(nextDiff);
+                if (progress > 0.5F) {
+                    // begin to come back to the center after we pass halfway mark
+                    cur = cur.add(perpendicularDist.multiply(-1 * (1 - spreadScale)));
+                }
+                return perpendicularDist.add(cur);
+            };
+        }
+
+        Vec3d getSegmentAdd(Vec3d perpendicularDist, Vec3d randVec, float maxDiff, float scale, float progress);
+    }
+
+    public interface SpawnFunction {
+
+        /**
+         * Allow for bolts to be spawned each update call without any delay.
+         */
+        SpawnFunction NO_DELAY = (rand) -> Pair.of(0F, 0F);
+        /**
+         * Will re-spawn a bolt each time one expires.
+         */
+        SpawnFunction CONSECUTIVE = new SpawnFunction() {
+            @Override
+            public Pair<Float, Float> getSpawnDelayBounds(Random rand) {
+                return Pair.of(0F, 0F);
+            }
+
+            @Override
+            public boolean isConsecutive() {
+                return true;
+            }
+        };
+
+        /**
+         * Spawn bolts with a specified constant delay.
+         */
+        static SpawnFunction delay(float delay) {
+            return (rand) -> Pair.of(delay, delay);
+        }
+
+        /**
+         * Spawns bolts with a specified delay and specified noise value, which will be randomly applied at either end of the delay bounds.
+         */
+        static SpawnFunction noise(float delay, float noise) {
+            return (rand) -> Pair.of(delay - noise, delay + noise);
+        }
+
+        Pair<Float, Float> getSpawnDelayBounds(Random rand);
+
+        default float getSpawnDelay(Random rand) {
+            Pair<Float, Float> bounds = this.getSpawnDelayBounds(rand);
+            return bounds.getLeft() + (bounds.getRight() - bounds.getLeft()) * rand.nextFloat();
+        }
+
+        default boolean isConsecutive() {
+            return false;
+        }
+    }
+
+    public interface FadeFunction {
+
+        /**
+         * No fade; render the bolts entirely throughout their lifespan.
+         */
+        FadeFunction NONE = (totalBolts, lifeScale) -> Pair.of(0, totalBolts);
+
+        /**
+         * Remder bolts with a segment-by-segment 'fade' in and out, with a specified fade duration (applied to start and finish).
+         */
+        static FadeFunction fade(float fade) {
+            return (totalBolts, lifeScale) -> {
+                int start = lifeScale > (1 - fade) ? (int) (totalBolts * (lifeScale - (1 - fade)) / fade) : 0;
+                int end = lifeScale < fade ? (int) (totalBolts * (lifeScale / fade)) : totalBolts;
+                return Pair.of(start, end);
+            };
+        }
+
+        Pair<Integer, Integer> getRenderBounds(int totalBolts, float lifeScale);
     }
 
     private static class QuadCache {
@@ -177,6 +296,48 @@ public class LightningBoltData {
         }
     }
 
+    public static class BoltRenderInfo {
+
+        public static final BoltRenderInfo DEFAULT = new BoltRenderInfo();
+        public static final BoltRenderInfo ELECTRICITY = electricity();
+        private final RandomFunction randomFunction = RandomFunction.GAUSSIAN;
+        private final SpreadFunction spreadFunction = SpreadFunction.SINE;
+        /**
+         * How much variance is allowed in segment lengths (parallel to straight line).
+         */
+        private float parallelNoise = 0.1F;
+        /**
+         * How much variance is allowed perpendicular to the straight line vector. Scaled by distance and spread function.
+         */
+        private float spreadFactor = 0.1F;
+        /**
+         * The chance of creating an additional branch after a certain segment.
+         */
+        private float branchInitiationFactor = 0.0F;
+        /**
+         * The chance of a branch continuing (post-initiation).
+         */
+        private float branchContinuationFactor = 0.0F;
+        private Vector4f color = new Vector4f(0.45F, 0.45F, 0.5F, 0.8F);
+        private SegmentSpreader segmentSpreader = SegmentSpreader.NO_MEMORY;
+
+        public BoltRenderInfo() {
+        }
+
+        public BoltRenderInfo(float parallelNoise, float spreadFactor, float branchInitiationFactor, float branchContinuationFactor, Vector4f color, float closeness) {
+            this.parallelNoise = parallelNoise;
+            this.spreadFactor = spreadFactor;
+            this.branchInitiationFactor = branchInitiationFactor;
+            this.branchContinuationFactor = branchContinuationFactor;
+            this.color = color;
+            this.segmentSpreader = SegmentSpreader.memory(closeness);
+        }
+
+        public static BoltRenderInfo electricity() {
+            return new BoltRenderInfo(0.5F, 0.25F, 0.25F, 0.15F, new Vector4f(0.70F, 0.45F, 0.89F, 0.8F), 0.8F);
+        }
+    }
+
     public class BoltQuads {
 
         private final List<Vec3d> vecs = new ArrayList<>();
@@ -187,141 +348,6 @@ public class LightningBoltData {
 
         public List<Vec3d> getVecs() {
             return this.vecs;
-        }
-    }
-
-    public interface SpreadFunction {
-
-        /** A steady linear increase in perpendicular noise. */
-        SpreadFunction LINEAR_ASCENT = (progress) -> progress;
-        /** A steady linear increase in perpendicular noise, followed by a steady decrease after the halfway point. */
-        SpreadFunction LINEAR_ASCENT_DESCENT = (progress) -> (progress - Math.max(0, 2 * progress - 1)) / 0.5F;
-        /** Represents a unit sine wave from 0 to PI, scaled by progress. */
-        SpreadFunction SINE = (progress) -> (float) Math.sin(Math.PI * progress);
-
-        float getMaxSpread(float progress);
-    }
-
-    public interface RandomFunction {
-
-        RandomFunction UNIFORM = Random::nextFloat;
-        RandomFunction GAUSSIAN = rand -> (float) rand.nextGaussian();
-
-        float getRandom(Random rand);
-    }
-
-    public interface SegmentSpreader {
-
-        /** Don't remember where the last segment left off, just randomly move from the straight-line vector. */
-        SegmentSpreader NO_MEMORY = (perpendicularDist, randVec, maxDiff, scale, progress) -> randVec.multiply(maxDiff);
-
-        /** Move from where the previous segment ended by a certain memory factor. Higher memory will restrict perpendicular movement. */
-        static SegmentSpreader memory(float memoryFactor) {
-            return (perpendicularDist, randVec, maxDiff, spreadScale, progress) -> {
-                float nextDiff = maxDiff * (1 - memoryFactor);
-                Vec3d cur = randVec.multiply(nextDiff);
-                if (progress > 0.5F) {
-                    // begin to come back to the center after we pass halfway mark
-                    cur = cur.add(perpendicularDist.multiply(-1 * (1 - spreadScale)));
-                }
-                return perpendicularDist.add(cur);
-            };
-        }
-
-        Vec3d getSegmentAdd(Vec3d perpendicularDist, Vec3d randVec, float maxDiff, float scale, float progress);
-    }
-
-    public interface SpawnFunction {
-
-        /** Allow for bolts to be spawned each update call without any delay. */
-        SpawnFunction NO_DELAY = (rand) -> Pair.of(0F, 0F);
-        /** Will re-spawn a bolt each time one expires. */
-        SpawnFunction CONSECUTIVE = new SpawnFunction() {
-            @Override
-            public Pair<Float, Float> getSpawnDelayBounds(Random rand) {
-                return Pair.of(0F, 0F);
-            }
-            @Override
-            public boolean isConsecutive() {
-                return true;
-            }
-        };
-
-        /** Spawn bolts with a specified constant delay. */
-        static SpawnFunction delay(float delay) {
-            return (rand) -> Pair.of(delay, delay);
-        }
-
-        /**
-         * Spawns bolts with a specified delay and specified noise value, which will be randomly applied at either end of the delay bounds.
-         */
-        static SpawnFunction noise(float delay, float noise) {
-            return (rand) -> Pair.of(delay - noise, delay + noise);
-        }
-
-        Pair<Float, Float> getSpawnDelayBounds(Random rand);
-
-        default float getSpawnDelay(Random rand) {
-            Pair<Float, Float> bounds = this.getSpawnDelayBounds(rand);
-            return bounds.getLeft() + (bounds.getRight() - bounds.getLeft()) * rand.nextFloat();
-        }
-
-        default boolean isConsecutive() {
-            return false;
-        }
-    }
-
-    public interface FadeFunction {
-
-        /** No fade; render the bolts entirely throughout their lifespan. */
-        FadeFunction NONE = (totalBolts, lifeScale) -> Pair.of(0, totalBolts);
-
-        /** Remder bolts with a segment-by-segment 'fade' in and out, with a specified fade duration (applied to start and finish). */
-        static FadeFunction fade(float fade) {
-            return (totalBolts, lifeScale) -> {
-                int start = lifeScale > (1 - fade) ? (int) (totalBolts * (lifeScale - (1 - fade)) / fade) : 0;
-                int end = lifeScale < fade ? (int) (totalBolts * (lifeScale / fade)) : totalBolts;
-                return Pair.of(start, end);
-            };
-        }
-
-        Pair<Integer, Integer> getRenderBounds(int totalBolts, float lifeScale);
-    }
-
-    public static class BoltRenderInfo {
-
-        public static final BoltRenderInfo DEFAULT = new BoltRenderInfo();
-        public static final BoltRenderInfo ELECTRICITY = electricity();
-
-        /** How much variance is allowed in segment lengths (parallel to straight line). */
-        private float parallelNoise = 0.1F;
-        /** How much variance is allowed perpendicular to the straight line vector. Scaled by distance and spread function. */
-        private float spreadFactor = 0.1F;
-
-        /** The chance of creating an additional branch after a certain segment. */
-        private float branchInitiationFactor = 0.0F;
-        /** The chance of a branch continuing (post-initiation). */
-        private float branchContinuationFactor = 0.0F;
-
-        private Vector4f color = new Vector4f(0.45F, 0.45F, 0.5F, 0.8F);
-
-        private final RandomFunction randomFunction = RandomFunction.GAUSSIAN;
-        private final SpreadFunction spreadFunction = SpreadFunction.SINE;
-        private SegmentSpreader segmentSpreader = SegmentSpreader.NO_MEMORY;
-
-        public static BoltRenderInfo electricity() {
-            return new BoltRenderInfo(0.5F, 0.25F, 0.25F, 0.15F, new Vector4f(0.70F, 0.45F, 0.89F, 0.8F), 0.8F);
-        }
-
-        public BoltRenderInfo(){}
-
-        public BoltRenderInfo(float parallelNoise, float spreadFactor, float branchInitiationFactor, float branchContinuationFactor, Vector4f color, float closeness) {
-            this.parallelNoise = parallelNoise;
-            this.spreadFactor = spreadFactor;
-            this.branchInitiationFactor = branchInitiationFactor;
-            this.branchContinuationFactor = branchContinuationFactor;
-            this.color = color;
-            this.segmentSpreader = SegmentSpreader.memory(closeness);
         }
     }
 }

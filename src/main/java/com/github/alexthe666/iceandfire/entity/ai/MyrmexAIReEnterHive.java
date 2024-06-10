@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.iceandfire.pathfinding.raycoms.PathResult;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
@@ -16,13 +16,6 @@ public class MyrmexAIReEnterHive extends Goal {
     private PathResult path;
     private BlockPos currentTarget = BlockPos.ORIGIN;
     private Phases currentPhase = Phases.GOTOENTRANCE;
-
-    private enum Phases {
-        GOTOENTRANCE,
-        GOTOEXIT,
-        GOTOCENTER
-    }
-
     private MyrmexHive hive;
 
     public MyrmexAIReEnterHive(EntityMyrmexBase entityIn, double movementSpeedIn) {
@@ -87,5 +80,11 @@ public class MyrmexAIReEnterHive extends Goal {
     public void stop() {
         this.currentTarget = BlockPos.ORIGIN;
         this.currentPhase = Phases.GOTOENTRANCE;
+    }
+
+    private enum Phases {
+        GOTOENTRANCE,
+        GOTOEXIT,
+        GOTOCENTER
     }
 }

@@ -20,19 +20,27 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WorldRenderMacros extends UiRenderMacros {
-    private static final int MAX_DEBUG_TEXT_RENDER_DIST_SQUARED = 8 * 8 * 16;
     public static final RenderLayer LINES = RenderTypes.LINES;
     public static final RenderLayer LINES_WITH_WIDTH = RenderTypes.LINES_WITH_WIDTH;
     public static final RenderLayer GLINT_LINES = RenderTypes.GLINT_LINES;
     public static final RenderLayer GLINT_LINES_WITH_WIDTH = RenderTypes.GLINT_LINES_WITH_WIDTH;
     public static final RenderLayer COLORED_TRIANGLES = RenderTypes.COLORED_TRIANGLES;
     public static final RenderLayer COLORED_TRIANGLES_NC_ND = RenderTypes.COLORED_TRIANGLES_NC_ND;
-
+    private static final int MAX_DEBUG_TEXT_RENDER_DIST_SQUARED = 8 * 8 * 16;
     private static final LinkedList<RenderLayer> buffers = new LinkedList<>();
     /**
      * Always use {@link #getBufferSource} when actually using the buffer source
      */
     private static Immediate bufferSource;
+
+    static {
+        putBufferTail(WorldRenderMacros.COLORED_TRIANGLES);
+        putBufferTail(WorldRenderMacros.LINES);
+        putBufferTail(WorldRenderMacros.LINES_WITH_WIDTH);
+        putBufferTail(WorldRenderMacros.GLINT_LINES);
+        putBufferTail(WorldRenderMacros.GLINT_LINES_WITH_WIDTH);
+        putBufferTail(WorldRenderMacros.COLORED_TRIANGLES_NC_ND);
+    }
 
     /**
      * Put type at the first position.
@@ -79,15 +87,6 @@ public class WorldRenderMacros extends UiRenderMacros {
             buffers.add(index + 1, bufferType);
         }
         bufferSource = null;
-    }
-
-    static {
-        putBufferTail(WorldRenderMacros.COLORED_TRIANGLES);
-        putBufferTail(WorldRenderMacros.LINES);
-        putBufferTail(WorldRenderMacros.LINES_WITH_WIDTH);
-        putBufferTail(WorldRenderMacros.GLINT_LINES);
-        putBufferTail(WorldRenderMacros.GLINT_LINES_WITH_WIDTH);
-        putBufferTail(WorldRenderMacros.COLORED_TRIANGLES_NC_ND);
     }
 
     public static Immediate getBufferSource() {
@@ -944,18 +943,6 @@ public class WorldRenderMacros extends UiRenderMacros {
     }
 
     private static final class RenderTypes extends RenderLayer {
-        private RenderTypes(final String nameIn,
-                            final VertexFormat formatIn,
-                            final VertexFormat.DrawMode drawModeIn,
-                            final int bufferSizeIn,
-                            final boolean useDelegateIn,
-                            final boolean needsSortingIn,
-                            final Runnable setupTaskIn,
-                            final Runnable clearTaskIn) {
-            super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
-            throw new IllegalStateException();
-        }
-
         private static final RenderLayer GLINT_LINES = of("structurize_glint_lines",
                 VertexFormats.POSITION_COLOR,
                 VertexFormat.DrawMode.DEBUG_LINES,
@@ -975,7 +962,6 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texturing(DEFAULT_TEXTURING)
                         .writeMaskState(COLOR_MASK)
                         .build(false));
-
         private static final RenderLayer GLINT_LINES_WITH_WIDTH = of("structurize_glint_lines_with_width",
                 VertexFormats.POSITION_COLOR,
                 VertexFormat.DrawMode.TRIANGLES,
@@ -995,7 +981,6 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texturing(DEFAULT_TEXTURING)
                         .writeMaskState(ALL_MASK)
                         .build(false));
-
         private static final RenderLayer LINES = of("structurize_lines",
                 VertexFormats.POSITION_COLOR,
                 VertexFormat.DrawMode.DEBUG_LINES,
@@ -1015,7 +1000,6 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texturing(DEFAULT_TEXTURING)
                         .writeMaskState(COLOR_MASK)
                         .build(false));
-
         private static final RenderLayer LINES_WITH_WIDTH = of("structurize_lines_with_width",
                 VertexFormats.POSITION_COLOR,
                 VertexFormat.DrawMode.TRIANGLES,
@@ -1035,7 +1019,6 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texturing(DEFAULT_TEXTURING)
                         .writeMaskState(ALL_MASK)
                         .build(false));
-
         private static final RenderLayer COLORED_TRIANGLES = of("structurize_colored_triangles",
                 VertexFormats.POSITION_COLOR,
                 VertexFormat.DrawMode.TRIANGLES,
@@ -1055,7 +1038,6 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texturing(DEFAULT_TEXTURING)
                         .writeMaskState(ALL_MASK)
                         .build(false));
-
         private static final RenderLayer COLORED_TRIANGLES_NC_ND = of("structurize_colored_triangles_nc_nd",
                 VertexFormats.POSITION_COLOR,
                 VertexFormat.DrawMode.TRIANGLES,
@@ -1075,6 +1057,18 @@ public class WorldRenderMacros extends UiRenderMacros {
                         .texturing(DEFAULT_TEXTURING)
                         .writeMaskState(COLOR_MASK)
                         .build(false));
+
+        private RenderTypes(final String nameIn,
+                            final VertexFormat formatIn,
+                            final VertexFormat.DrawMode drawModeIn,
+                            final int bufferSizeIn,
+                            final boolean useDelegateIn,
+                            final boolean needsSortingIn,
+                            final Runnable setupTaskIn,
+                            final Runnable clearTaskIn) {
+            super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
+            throw new IllegalStateException();
+        }
     }
 
     public static class AlwaysDepthTestStateShard extends RenderPhase.DepthTest {

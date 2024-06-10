@@ -4,14 +4,14 @@ import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 public class ServerConfig {
 
-    public final ModConfigSpec.BooleanValue citadelEntityTracker;
-    public final ModConfigSpec.BooleanValue skipDatapackWarnings;
-    public final ModConfigSpec.DoubleValue chunkGenSpawnModifier;
-    public final ModConfigSpec.BooleanValue aprilFoolsContent;
     public static boolean citadelEntityTrack;
     public static boolean skipWarnings;
     public static double chunkGenSpawnModifierVal = 1.0D;
     public static boolean aprilFools;
+    public final ModConfigSpec.BooleanValue citadelEntityTracker;
+    public final ModConfigSpec.BooleanValue skipDatapackWarnings;
+    public final ModConfigSpec.DoubleValue chunkGenSpawnModifier;
+    public final ModConfigSpec.BooleanValue aprilFoolsContent;
 
     public ServerConfig(final ModConfigSpec.Builder builder) {
         builder.push("general");

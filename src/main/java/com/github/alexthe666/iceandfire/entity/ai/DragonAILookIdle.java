@@ -40,9 +40,9 @@ public class DragonAILookIdle extends Goal {
 
     @Override
     public void tick() {
-    	if (this.idleTime > 0) {
-    		--this.idleTime;
-    	}
+        if (this.idleTime > 0) {
+            --this.idleTime;
+        }
         this.dragon.getLookControl().lookAt(this.dragon.getX() + this.lookX, this.dragon.getY() + this.dragon.getStandingEyeHeight(), this.dragon.getZ() + this.lookZ, this.dragon.getMaxHeadRotation(), this.dragon.getMaxLookPitchChange());
     }
 }

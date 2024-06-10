@@ -19,8 +19,20 @@ import net.minecraft.util.Clearable;
 import net.minecraft.util.math.BlockPos;
 
 public class CitadelLecternBlockEntity extends BlockEntity implements Clearable, NamedScreenHandlerFactory {
-    private ItemStack book = ItemStack.EMPTY;
+    //dummy container for page turning
+    private final PropertyDelegate dataAccess = new PropertyDelegate() {
+        public int get(int i) {
+            return 0;
+        }
 
+        public void set(int i, int j) {
+        }
+
+        public int size() {
+            return 1;
+        }
+    };
+    private ItemStack book = ItemStack.EMPTY;
     private final Inventory bookAccess = new Inventory() {
         public int size() {
             return 1;
@@ -84,19 +96,6 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
         public void clear() {
         }
     };
-    //dummy container for page turning
-    private final PropertyDelegate dataAccess = new PropertyDelegate() {
-        public int get(int i) {
-            return 0;
-        }
-
-        public void set(int i, int j) {
-        }
-
-        public int size() {
-            return 1;
-        }
-    };
 
     public CitadelLecternBlockEntity(BlockPos pos, BlockState state) {
         super(Citadel.LECTERN_BE.get(), pos, state);
@@ -106,12 +105,12 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
         return this.book;
     }
 
-    public boolean hasBook() {
-        return LecternBooks.isLecternBook(this.book);
-    }
-
     public void setBook(ItemStack stack) {
         this.setBook(stack, null);
+    }
+
+    public boolean hasBook() {
+        return LecternBooks.isLecternBook(this.book);
     }
 
     void onBookItemRemove() {

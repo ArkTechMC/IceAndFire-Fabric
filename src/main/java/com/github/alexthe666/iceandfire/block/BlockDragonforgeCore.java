@@ -33,13 +33,13 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
     public BlockDragonforgeCore(int isFire, boolean activated) {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.IRON_GRAY)
-                .dynamicBounds()
-                .strength(40, 500)
-                .sounds(BlockSoundGroup.METAL)
-                .luminance((state) -> activated ? 15 : 0)
+                Settings
+                        .create()
+                        .mapColor(MapColor.IRON_GRAY)
+                        .dynamicBounds()
+                        .strength(40, 500)
+                        .sounds(BlockSoundGroup.METAL)
+                        .luminance((state) -> activated ? 15 : 0)
         );
 
         this.isFire = isFire;
@@ -47,7 +47,7 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
     }
 
     static String name(int dragonType, boolean activated) {
-        return "dragonforge_%s_core%s".formatted(DragonType.getNameFromInt(dragonType), activated ? "": "_disabled");
+        return "dragonforge_%s_core%s".formatted(DragonType.getNameFromInt(dragonType), activated ? "" : "_disabled");
     }
 
     public static void setState(int dragonType, boolean active, World worldIn, BlockPos pos) {
@@ -69,10 +69,10 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
             if (dragonType == 0) {
                 worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().getDefaultState(), 3);
                 worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().getDefaultState(), 3);
-            } else if(dragonType == 1) {
+            } else if (dragonType == 1) {
                 worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().getDefaultState(), 3);
                 worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().getDefaultState(), 3);
-            }else if(dragonType == 2) {
+            } else if (dragonType == 2) {
                 worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().getDefaultState(), 3);
                 worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().getDefaultState(), 3);
             }
@@ -84,11 +84,6 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
             tileentity.cancelRemoval();
             worldIn.addBlockEntity(tileentity);
         }
-    }
-
-    @Override
-    public @NotNull PistonBehavior getPistonPushReaction(@NotNull BlockState state) {
-        return PistonBehavior.BLOCK;
     }
 
     @Override

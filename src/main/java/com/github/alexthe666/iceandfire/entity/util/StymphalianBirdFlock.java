@@ -14,12 +14,12 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StymphalianBirdFlock {
+    private final int distance = 15;
     private EntityStymphalianBird leader;
     private ArrayList<EntityStymphalianBird> members = new ArrayList<>();
     private BlockPos leaderTarget;
     private BlockPos prevLeaderTarget;
     private Random random;
-    private final int distance = 15;
 
     private StymphalianBirdFlock() {
     }

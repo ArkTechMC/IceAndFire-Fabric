@@ -81,70 +81,70 @@ public enum EnumDragonTextures {
     public final Identifier LIGHTNING_MALE_OVERLAY;
 
     EnumDragonTextures(String fireVariant, String iceVariant, String lightningVariant) {
-        this.FIRESTAGE1TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "1.png");
-        this.FIRESTAGE2TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "2.png");
-        this.FIRESTAGE3TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "3.png");
-        this.FIRESTAGE4TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "4.png");
-        this.FIRESTAGE5TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "5.png");
-        this.FIRESTAGE1SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "1_sleeping.png");
-        this.FIRESTAGE2SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "2_sleeping.png");
-        this.FIRESTAGE3SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "3_sleeping.png");
-        this.FIRESTAGE4SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "4_sleeping.png");
-        this.FIRESTAGE5SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "5_sleeping.png");
-        this.FIRESTAGE1EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "1_eyes.png");
-        this.FIRESTAGE2EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "2_eyes.png");
-        this.FIRESTAGE3EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "3_eyes.png");
-        this.FIRESTAGE4EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "4_eyes.png");
-        this.FIRESTAGE5EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + fireVariant + "5_eyes.png");
-        this.FIRESTAGE1SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/fire_skeleton_1.png");
-        this.FIRESTAGE2SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/fire_skeleton_2.png");
-        this.FIRESTAGE3SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/fire_skeleton_3.png");
-        this.FIRESTAGE4SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/fire_skeleton_4.png");
-        this.FIRESTAGE5SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/fire_skeleton_5.png");
-        this.ICESTAGE1TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "1.png");
-        this.ICESTAGE2TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "2.png");
-        this.ICESTAGE3TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "3.png");
-        this.ICESTAGE4TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "4.png");
-        this.ICESTAGE5TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "5.png");
-        this.ICESTAGE1SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "1_sleeping.png");
-        this.ICESTAGE2SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "2_sleeping.png");
-        this.ICESTAGE3SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "3_sleeping.png");
-        this.ICESTAGE4SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "4_sleeping.png");
-        this.ICESTAGE5SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "5_sleeping.png");
-        this.ICESTAGE1EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "1_eyes.png");
-        this.ICESTAGE2EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "2_eyes.png");
-        this.ICESTAGE3EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "3_eyes.png");
-        this.ICESTAGE4EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "4_eyes.png");
-        this.ICESTAGE5EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + iceVariant + "5_eyes.png");
-        this.ICESTAGE1SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/ice_skeleton_1.png");
-        this.ICESTAGE2SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/ice_skeleton_2.png");
-        this.ICESTAGE3SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/ice_skeleton_3.png");
-        this.ICESTAGE4SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/ice_skeleton_4.png");
-        this.ICESTAGE5SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/ice_skeleton_5.png");
-        this.FIRE_MALE_OVERLAY = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/male_" + fireVariant.substring(0, fireVariant.length() - 1) + ".png");
-        this.ICE_MALE_OVERLAY = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/male_" + iceVariant.substring(0, iceVariant.length() - 1) + ".png");
+        this.FIRESTAGE1TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "1.png");
+        this.FIRESTAGE2TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "2.png");
+        this.FIRESTAGE3TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "3.png");
+        this.FIRESTAGE4TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "4.png");
+        this.FIRESTAGE5TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "5.png");
+        this.FIRESTAGE1SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "1_sleeping.png");
+        this.FIRESTAGE2SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "2_sleeping.png");
+        this.FIRESTAGE3SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "3_sleeping.png");
+        this.FIRESTAGE4SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "4_sleeping.png");
+        this.FIRESTAGE5SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "5_sleeping.png");
+        this.FIRESTAGE1EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "1_eyes.png");
+        this.FIRESTAGE2EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "2_eyes.png");
+        this.FIRESTAGE3EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "3_eyes.png");
+        this.FIRESTAGE4EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "4_eyes.png");
+        this.FIRESTAGE5EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + fireVariant + "5_eyes.png");
+        this.FIRESTAGE1SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/fire_skeleton_1.png");
+        this.FIRESTAGE2SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/fire_skeleton_2.png");
+        this.FIRESTAGE3SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/fire_skeleton_3.png");
+        this.FIRESTAGE4SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/fire_skeleton_4.png");
+        this.FIRESTAGE5SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/fire_skeleton_5.png");
+        this.ICESTAGE1TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "1.png");
+        this.ICESTAGE2TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "2.png");
+        this.ICESTAGE3TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "3.png");
+        this.ICESTAGE4TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "4.png");
+        this.ICESTAGE5TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "5.png");
+        this.ICESTAGE1SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "1_sleeping.png");
+        this.ICESTAGE2SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "2_sleeping.png");
+        this.ICESTAGE3SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "3_sleeping.png");
+        this.ICESTAGE4SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "4_sleeping.png");
+        this.ICESTAGE5SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "5_sleeping.png");
+        this.ICESTAGE1EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "1_eyes.png");
+        this.ICESTAGE2EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "2_eyes.png");
+        this.ICESTAGE3EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "3_eyes.png");
+        this.ICESTAGE4EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "4_eyes.png");
+        this.ICESTAGE5EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + iceVariant + "5_eyes.png");
+        this.ICESTAGE1SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/ice_skeleton_1.png");
+        this.ICESTAGE2SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/ice_skeleton_2.png");
+        this.ICESTAGE3SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/ice_skeleton_3.png");
+        this.ICESTAGE4SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/ice_skeleton_4.png");
+        this.ICESTAGE5SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/ice_skeleton_5.png");
+        this.FIRE_MALE_OVERLAY = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/male_" + fireVariant.substring(0, fireVariant.length() - 1) + ".png");
+        this.ICE_MALE_OVERLAY = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/male_" + iceVariant.substring(0, iceVariant.length() - 1) + ".png");
 
-        this.LIGHTNINGSTAGE1TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "1.png");
-        this.LIGHTNINGSTAGE2TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "2.png");
-        this.LIGHTNINGSTAGE3TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "3.png");
-        this.LIGHTNINGSTAGE4TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "4.png");
-        this.LIGHTNINGSTAGE5TEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "5.png");
-        this.LIGHTNINGSTAGE1SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "1_sleeping.png");
-        this.LIGHTNINGSTAGE2SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "2_sleeping.png");
-        this.LIGHTNINGSTAGE3SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "3_sleeping.png");
-        this.LIGHTNINGSTAGE4SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "4_sleeping.png");
-        this.LIGHTNINGSTAGE5SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "5_sleeping.png");
-        this.LIGHTNINGSTAGE1EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "1_eyes.png");
-        this.LIGHTNINGSTAGE2EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "2_eyes.png");
-        this.LIGHTNINGSTAGE3EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "3_eyes.png");
-        this.LIGHTNINGSTAGE4EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "4_eyes.png");
-        this.LIGHTNINGSTAGE5EYESTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + lightningVariant + "5_eyes.png");
-        this.LIGHTNINGSTAGE1SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/lightning_skeleton_1.png");
-        this.LIGHTNINGSTAGE2SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/lightning_skeleton_2.png");
-        this.LIGHTNINGSTAGE3SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/lightning_skeleton_3.png");
-        this.LIGHTNINGSTAGE4SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/lightning_skeleton_4.png");
-        this.LIGHTNINGSTAGE5SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/lightning_skeleton_5.png");
-        this.LIGHTNING_MALE_OVERLAY = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/male_" + lightningVariant.substring(0, lightningVariant.length() - 1) + ".png");
+        this.LIGHTNINGSTAGE1TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "1.png");
+        this.LIGHTNINGSTAGE2TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "2.png");
+        this.LIGHTNINGSTAGE3TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "3.png");
+        this.LIGHTNINGSTAGE4TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "4.png");
+        this.LIGHTNINGSTAGE5TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "5.png");
+        this.LIGHTNINGSTAGE1SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "1_sleeping.png");
+        this.LIGHTNINGSTAGE2SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "2_sleeping.png");
+        this.LIGHTNINGSTAGE3SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "3_sleeping.png");
+        this.LIGHTNINGSTAGE4SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "4_sleeping.png");
+        this.LIGHTNINGSTAGE5SLEEPINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "5_sleeping.png");
+        this.LIGHTNINGSTAGE1EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "1_eyes.png");
+        this.LIGHTNINGSTAGE2EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "2_eyes.png");
+        this.LIGHTNINGSTAGE3EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "3_eyes.png");
+        this.LIGHTNINGSTAGE4EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "4_eyes.png");
+        this.LIGHTNINGSTAGE5EYESTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + lightningVariant + "5_eyes.png");
+        this.LIGHTNINGSTAGE1SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/lightning_skeleton_1.png");
+        this.LIGHTNINGSTAGE2SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/lightning_skeleton_2.png");
+        this.LIGHTNINGSTAGE3SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/lightning_skeleton_3.png");
+        this.LIGHTNINGSTAGE4SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/lightning_skeleton_4.png");
+        this.LIGHTNINGSTAGE5SKELETONTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/lightning_skeleton_5.png");
+        this.LIGHTNING_MALE_OVERLAY = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/male_" + lightningVariant.substring(0, lightningVariant.length() - 1) + ".png");
 
     }
 
@@ -390,13 +390,13 @@ public enum EnumDragonTextures {
 
         Armor(String resource) {
             if (!resource.isEmpty()) {
-                this.FIRETEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/" + resource + ".png");
-                this.ICETEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/icedragon/" + resource + ".png");
-                this.LIGHTNINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/lightningdragon/" + resource + ".png");
+                this.FIRETEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/" + resource + ".png");
+                this.ICETEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/" + resource + ".png");
+                this.LIGHTNINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/" + resource + ".png");
             } else {
-                this.FIRETEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/empty.png");
-                this.ICETEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/empty.png");
-                this.LIGHTNINGTEXTURE = new Identifier(IceAndFire.MOD_ID,"textures/models/firedragon/empty.png");
+                this.FIRETEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/empty.png");
+                this.ICETEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/empty.png");
+                this.LIGHTNINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/empty.png");
             }
         }
 

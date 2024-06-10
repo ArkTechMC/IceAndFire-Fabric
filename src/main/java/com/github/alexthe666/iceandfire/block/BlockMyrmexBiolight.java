@@ -23,16 +23,16 @@ public class BlockMyrmexBiolight extends PlantBlock {
 
     public BlockMyrmexBiolight() {
         super(
-            Settings
-                .create()
-                .mapColor(MapColor.DARK_GREEN)
-                .pistonBehavior(PistonBehavior.DESTROY)
-                .nonOpaque()
-                .noCollision()
-                .dynamicBounds()
-                .strength(0)
-                .luminance((state) -> 7)
-                .sounds(BlockSoundGroup.GRASS).ticksRandomly()
+                Settings
+                        .create()
+                        .mapColor(MapColor.DARK_GREEN)
+                        .pistonBehavior(PistonBehavior.DESTROY)
+                        .nonOpaque()
+                        .noCollision()
+                        .dynamicBounds()
+                        .strength(0)
+                        .luminance((state) -> 7)
+                        .sounds(BlockSoundGroup.GRASS).ticksRandomly()
         );
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(CONNECTED_DOWN, Boolean.FALSE));

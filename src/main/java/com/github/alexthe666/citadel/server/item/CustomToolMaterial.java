@@ -4,12 +4,12 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
 
 public class CustomToolMaterial implements ToolMaterial {
-   private final String name;
-   private final int harvestLevel;
-   private final int durability;
-   private final float damage;
-   private final float speed;
-   private final int enchantability;
+    private final String name;
+    private final int harvestLevel;
+    private final int durability;
+    private final float damage;
+    private final float speed;
+    private final int enchantability;
     private Ingredient ingredient = null;
 
     public CustomToolMaterial(String name, int harvestLevel, int durability, float damage, float speed, int enchantability) {
@@ -55,7 +55,7 @@ public class CustomToolMaterial implements ToolMaterial {
         return this.ingredient == null ? Ingredient.EMPTY : this.ingredient;
     }
 
-    public void setRepairMaterial(Ingredient ingredient){
+    public void setRepairMaterial(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 }

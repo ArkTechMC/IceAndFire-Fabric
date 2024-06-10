@@ -5,7 +5,6 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.client.IafClientSetup.*;
@@ -29,10 +28,8 @@ public class RenderGhostChest extends ChestBlockEntityRenderer<TileEntityGhostCh
         };
     }
 
-    @Override
-    protected @NotNull SpriteIdentifier getMaterial(@NotNull TileEntityGhostChest tileEntity, @NotNull ChestType chestType) {
-
-        return getChestMaterial(chestType, GHOST_CHEST, GHOST_CHEST_LEFT, GHOST_CHEST_RIGHT);
-    }
-
+//    @Override
+//    protected @NotNull SpriteIdentifier getMaterial(@NotNull TileEntityGhostChest tileEntity, @NotNull ChestType chestType) {
+//        return getChestMaterial(chestType, GHOST_CHEST, GHOST_CHEST_LEFT, GHOST_CHEST_RIGHT);
+//    }
 }

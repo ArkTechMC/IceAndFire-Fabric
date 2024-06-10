@@ -10,6 +10,7 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class AmphithereAIAttackMelee extends Goal {
+    private final boolean canPenalize = false;
     protected EntityAmphithere attacker;
     /**
      * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
@@ -32,7 +33,6 @@ public class AmphithereAIAttackMelee extends Goal {
     private double targetY;
     private double targetZ;
     private int failedPathFindingPenalty = 0;
-    private final boolean canPenalize = false;
 
     public AmphithereAIAttackMelee(EntityAmphithere amphithere, double speedIn, boolean useLongMemory) {
         this.attacker = amphithere;
