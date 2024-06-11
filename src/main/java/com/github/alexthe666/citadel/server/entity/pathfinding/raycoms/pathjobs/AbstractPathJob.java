@@ -7,10 +7,10 @@ import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.*;
 import com.github.alexthe666.citadel.server.message.MessageSyncPath;
 import com.github.alexthe666.citadel.server.message.MessageSyncPathReached;
+import com.mojang.datafixers.util.Pair;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import dev.arktechmc.iafextra.util.BlockUtil;
 import dev.arktechmc.iafextra.util.PathUtil;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BlockHalf;
 import net.minecraft.entity.LivingEntity;
@@ -37,7 +37,7 @@ import static com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.Su
 import static com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.SurfaceType.isWater;
 
 /**
- * Abstract class for Jobs that run in the multithreaded path finder.
+ * Abstract class for Jobs that run in the multithreaded pathfinder.
  */
 public abstract class AbstractPathJob implements Callable<Path> {
     /**

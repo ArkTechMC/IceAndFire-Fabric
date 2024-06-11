@@ -26,8 +26,7 @@ public class TabulaModelHandlerHelper {
                 path = "." + path;
             }
             stream = new FileInputStream(path);
-        }
-        else stream = TabulaModelHandlerHelper.class.getResourceAsStream(path);
+        } else stream = TabulaModelHandlerHelper.class.getResourceAsStream(path);
         return TabulaModelHandler.INSTANCE.loadTabulaModel(getModelJsonStream(path, stream));
     }
 

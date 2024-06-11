@@ -22,6 +22,7 @@ import java.util.Map;
 public class IafWorldData extends PersistentState {
     private static final String IDENTIFIER = IceAndFire.MOD_ID + "_general";
     private static final Map<FeatureType, List<Pair<String, BlockPos>>> LAST_GENERATED = new HashMap<>();
+
     public IafWorldData() { /* Nothing to do */ }
 
     public IafWorldData(final NbtCompound tag) {

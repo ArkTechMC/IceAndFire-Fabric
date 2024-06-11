@@ -13,19 +13,19 @@ public class LineData {
         this.page = page;
     }
 
-    public int getxIndex() {
+    public int getXIndex() {
         return this.xIndex;
     }
 
-    public void setxIndex(int xIndex) {
+    public void setXIndex(int xIndex) {
         this.xIndex = xIndex;
     }
 
-    public int getyIndex() {
+    public int getYIndex() {
         return this.yIndex;
     }
 
-    public void setyIndex(int yIndex) {
+    public void setYIndex(int yIndex) {
         this.yIndex = yIndex;
     }
 

@@ -20,9 +20,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientProxy extends ServerProxy {
+    private static ItemStack lastHoveredItem = null;
     private final Map<ItemStack, Float> prevMouseOverProgresses = new HashMap<>();
     private final Map<ItemStack, Float> mouseOverProgresses = new HashMap<>();
-    private static ItemStack lastHoveredItem = null;
 
     public ClientProxy() {
         super();

@@ -19,14 +19,14 @@ public class IafEntityTags extends VanillaEntityTypeTagProvider {
         super(output, provider);
     }
 
+    private static TagKey<EntityType<?>> createKey(final String name) {
+        return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, name));
+    }
+
     @Override
     protected void configure(RegistryWrapper.WrapperLookup provider) {
         this.getOrCreateTagBuilder(IMMUNE_TO_GORGON_STONE)
                 .addTag(Tags.EntityTypes.BOSSES)
                 .add(EntityType.WARDEN);
-    }
-
-    private static TagKey<EntityType<?>> createKey(final String name) {
-        return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, name));
     }
 }

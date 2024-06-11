@@ -37,6 +37,10 @@ public class IafBlockTags extends BlockTagProvider {
         super(output, future);
     }
 
+    private static TagKey<Block> createKey(final String name) {
+        return TagKey.of(RegistryKeys.BLOCK, new Identifier(IceAndFire.MOD_ID, name));
+    }
+
     @Override
     protected void configure(RegistryWrapper.WrapperLookup pProvider) {
         this.tag(CHARRED_BLOCKS)
@@ -130,10 +134,6 @@ public class IafBlockTags extends BlockTagProvider {
         // These are also used / created by other mods
         this.tag(TagKey.of(RegistryKeys.BLOCK, new Identifier("forge", "ores/silver"))).add(IafBlockRegistry.SILVER_ORE.get());
         this.tag(TagKey.of(RegistryKeys.BLOCK, new Identifier("forge", "ores/silver"))).add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get());
-    }
-
-    private static TagKey<Block> createKey(final String name) {
-        return TagKey.of(RegistryKeys.BLOCK, new Identifier(IceAndFire.MOD_ID, name));
     }
 
     @Override

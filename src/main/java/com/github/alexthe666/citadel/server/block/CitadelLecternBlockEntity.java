@@ -49,14 +49,10 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
         public ItemStack removeStack(int i, int j) {
             if (i == 0) {
                 ItemStack itemstack = CitadelLecternBlockEntity.this.book.split(j);
-                if (CitadelLecternBlockEntity.this.book.isEmpty()) {
+                if (CitadelLecternBlockEntity.this.book.isEmpty())
                     CitadelLecternBlockEntity.this.onBookItemRemove();
-                }
-
                 return itemstack;
-            } else {
-                return ItemStack.EMPTY;
-            }
+            } else return ItemStack.EMPTY;
         }
 
         public ItemStack removeStack(int i) {
@@ -65,9 +61,7 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
                 CitadelLecternBlockEntity.this.book = ItemStack.EMPTY;
                 CitadelLecternBlockEntity.this.onBookItemRemove();
                 return itemstack;
-            } else {
-                return ItemStack.EMPTY;
-            }
+            } else return ItemStack.EMPTY;
         }
 
         public void setStack(int i, ItemStack stack) {
@@ -82,11 +76,10 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
         }
 
         public boolean canPlayerUse(PlayerEntity p_59588_) {
-            if (CitadelLecternBlockEntity.this.world.getBlockEntity(CitadelLecternBlockEntity.this.pos) != CitadelLecternBlockEntity.this) {
+            if (CitadelLecternBlockEntity.this.world.getBlockEntity(CitadelLecternBlockEntity.this.pos) != CitadelLecternBlockEntity.this)
                 return false;
-            } else {
+            else
                 return !(p_59588_.squaredDistanceTo((double) CitadelLecternBlockEntity.this.pos.getX() + 0.5D, (double) CitadelLecternBlockEntity.this.pos.getY() + 0.5D, (double) CitadelLecternBlockEntity.this.pos.getZ() + 0.5D) > 64.0D) && CitadelLecternBlockEntity.this.hasBook();
-            }
         }
 
         public boolean isValid(int i, ItemStack stack) {
@@ -114,6 +107,7 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
     }
 
     void onBookItemRemove() {
+        assert this.getWorld() != null;
         LecternBlock.setHasBook(null, this.getWorld(), this.getPos(), this.getCachedState(), false);
     }
 
@@ -128,18 +122,14 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
 
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        if (tag.contains("Book", 10)) {
-            this.book = ItemStack.fromNbt(tag.getCompound("Book"));
-        } else {
-            this.book = ItemStack.EMPTY;
-        }
+        if (tag.contains("Book", 10)) this.book = ItemStack.fromNbt(tag.getCompound("Book"));
+        else this.book = ItemStack.EMPTY;
     }
 
     protected void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
-        if (!this.getBook().isEmpty()) {
+        if (!this.getBook().isEmpty())
             tag.put("Book", this.getBook().writeNbt(new NbtCompound()));
-        }
     }
 
     public void clear() {

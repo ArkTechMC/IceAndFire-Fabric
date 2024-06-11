@@ -62,7 +62,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
         if (this.getWorld().isClient || (shootingEntity == null || !shootingEntity.isAlive()) && this.getWorld().isChunkLoaded(this.getBlockPos())) {
             this.baseTick();
             HitResult raytraceresult = ProjectileUtil.getCollision(this, this::canHit);
-            if (raytraceresult.getType() != HitResult.Type.MISS ) {
+            if (raytraceresult.getType() != HitResult.Type.MISS) {
                 this.onCollision(raytraceresult);
             }
 

@@ -18,9 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChunkGenerator.class)
 public class ChunkGeneratorMixin {
-
-    @Inject(at = @At("RETURN"), cancellable = true,
-            method = "getEntitySpawnList")
+    @Inject(at = @At("RETURN"), cancellable = true, method = "getEntitySpawnList")
     private void citadel_getMobsAt(RegistryEntry<Biome> biome, StructureAccessor structureManager, SpawnGroup mobCategory, BlockPos pos, CallbackInfoReturnable<Pool<SpawnSettings.SpawnEntry>> cir) {
         Pool<SpawnSettings.SpawnEntry> biomeSpawns = biome.value().getSpawnSettings().getSpawnEntries(mobCategory);
         if (biomeSpawns != cir.getReturnValue()) {

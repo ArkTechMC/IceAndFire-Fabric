@@ -1,11 +1,11 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
 import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

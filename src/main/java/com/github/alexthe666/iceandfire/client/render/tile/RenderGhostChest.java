@@ -5,7 +5,6 @@ import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.block.entity.ChestBlockEntityRenderer;
 import net.minecraft.client.util.SpriteIdentifier;
-import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.client.IafClientSetup.*;
 import static net.minecraft.client.render.TexturedRenderLayers.CHEST_ATLAS_TEXTURE;

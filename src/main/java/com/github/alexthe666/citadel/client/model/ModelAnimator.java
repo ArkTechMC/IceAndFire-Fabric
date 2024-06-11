@@ -58,7 +58,7 @@ public class ModelAnimator {
     }
 
     /**
-     * Start an model
+     * Start a model
      *
      * @param animation the model instance
      * @return true if it's the current model

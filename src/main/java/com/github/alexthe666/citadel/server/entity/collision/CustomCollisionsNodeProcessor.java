@@ -20,24 +20,20 @@ public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
         int k = p_237231_1_.getZ();
         PathNodeType pathnodetype = getNodes(p_237231_0_, p_237231_1_);
         if (pathnodetype == PathNodeType.OPEN && j >= 1) {
-            PathNodeType pathnodetype1 = getNodes(p_237231_0_, p_237231_1_.set(i, j - 1, k));
-            pathnodetype = pathnodetype1 != PathNodeType.WALKABLE && pathnodetype1 != PathNodeType.OPEN && pathnodetype1 != PathNodeType.WATER && pathnodetype1 != PathNodeType.LAVA ? PathNodeType.WALKABLE : PathNodeType.OPEN;
-            if (pathnodetype1 == PathNodeType.DAMAGE_FIRE) {
+            PathNodeType nodes = getNodes(p_237231_0_, p_237231_1_.set(i, j - 1, k));
+            pathnodetype = nodes != PathNodeType.WALKABLE && nodes != PathNodeType.OPEN && nodes != PathNodeType.WATER && nodes != PathNodeType.LAVA ? PathNodeType.WALKABLE : PathNodeType.OPEN;
+            if (nodes == PathNodeType.DAMAGE_FIRE)
                 pathnodetype = PathNodeType.DAMAGE_FIRE;
-            }
 
-            if (pathnodetype1 == PathNodeType.DAMAGE_OTHER) {
+            if (nodes == PathNodeType.DAMAGE_OTHER)
                 pathnodetype = PathNodeType.DAMAGE_OTHER;
-            }
 
-            if (pathnodetype1 == PathNodeType.STICKY_HONEY) {
+            if (nodes == PathNodeType.STICKY_HONEY)
                 pathnodetype = PathNodeType.STICKY_HONEY;
-            }
         }
 
-        if (pathnodetype == PathNodeType.WALKABLE) {
+        if (pathnodetype == PathNodeType.WALKABLE)
             pathnodetype = getNodeTypeFromNeighbors(p_237231_0_, p_237231_1_.set(i, j, k), pathnodetype);
-        }
 
         return pathnodetype;
     }
@@ -47,13 +43,10 @@ public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
         BlockState blockstate = p_237238_0_.getBlockState(p_237238_1_);
         PathNodeType type = PathUtil.getAiPathNodeType(blockstate, (WorldView) p_237238_0_, p_237238_1_);
         if (type != null) return type;
-        if (blockstate.isAir()) {
-            return PathNodeType.OPEN;
-        } else if (blockstate.getBlock() == Blocks.BAMBOO) {
-            return PathNodeType.OPEN;
-        } else {
-            return getCommonNodeType(p_237238_0_, p_237238_1_);
-        }
+        if (blockstate.isAir()) return PathNodeType.OPEN;
+        else if (blockstate.getBlock() == Blocks.BAMBOO) return PathNodeType.OPEN;
+        else return getCommonNodeType(p_237238_0_, p_237238_1_);
+
     }
 
     @Override

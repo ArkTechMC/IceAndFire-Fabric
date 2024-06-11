@@ -20,64 +20,21 @@ import org.joml.Quaternionf;
 public class UiRenderMacros {
     public static final double HALF_BIAS = 0.5;
 
-    public static void drawLineRectGradient(final MatrixStack ps,
-                                            final int x,
-                                            final int y,
-                                            final int w,
-                                            final int h,
-                                            final int argbColorStart,
-                                            final int argbColorEnd) {
+    public static void drawLineRectGradient(final MatrixStack ps, final int x, final int y, final int w, final int h, final int argbColorStart, final int argbColorEnd) {
         drawLineRectGradient(ps, x, y, w, h, argbColorStart, argbColorEnd, 1);
     }
 
-    public static void drawLineRectGradient(final MatrixStack ps,
-                                            final int x,
-                                            final int y,
-                                            final int w,
-                                            final int h,
-                                            final int argbColorStart,
-                                            final int argbColorEnd,
-                                            final int lineWidth) {
-        drawLineRectGradient(ps,
-                x,
-                y,
-                w,
-                h,
-                (argbColorStart >> 16) & 0xff,
-                (argbColorEnd >> 16) & 0xff,
-                (argbColorStart >> 8) & 0xff,
-                (argbColorEnd >> 8) & 0xff,
-                argbColorStart & 0xff,
-                argbColorEnd & 0xff,
-                (argbColorStart >> 24) & 0xff,
-                (argbColorEnd >> 24) & 0xff,
-                lineWidth);
+    public static void drawLineRectGradient(final MatrixStack ps, final int x, final int y, final int w, final int h, final int argbColorStart, final int argbColorEnd, final int lineWidth) {
+        drawLineRectGradient(ps, x, y, w, h, (argbColorStart >> 16) & 0xff, (argbColorEnd >> 16) & 0xff, (argbColorStart >> 8) & 0xff, (argbColorEnd >> 8) & 0xff, argbColorStart & 0xff, argbColorEnd & 0xff, (argbColorStart >> 24) & 0xff, (argbColorEnd >> 24) & 0xff, lineWidth);
     }
 
-    public static void drawLineRectGradient(final MatrixStack ps,
-                                            final int x,
-                                            final int y,
-                                            final int w,
-                                            final int h,
-                                            final int redStart,
-                                            final int redEnd,
-                                            final int greenStart,
-                                            final int greenEnd,
-                                            final int blueStart,
-                                            final int blueEnd,
-                                            final int alphaStart,
-                                            final int alphaEnd,
-                                            final int lineWidth) {
-        if (lineWidth < 1 || (alphaStart == 0 && alphaEnd == 0)) {
+    public static void drawLineRectGradient(final MatrixStack ps, final int x, final int y, final int w, final int h, final int redStart, final int redEnd, final int greenStart, final int greenEnd, final int blueStart, final int blueEnd, final int alphaStart, final int alphaEnd, final int lineWidth) {
+        if (lineWidth < 1 || (alphaStart == 0 && alphaEnd == 0))
             return;
-        }
 
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        if (alphaStart != 255 || alphaEnd != 255) {
-            RenderSystem.enableBlend();
-        } else {
-            RenderSystem.disableBlend();
-        }
+        if (alphaStart != 255 || alphaEnd != 255) RenderSystem.enableBlend();
+        else RenderSystem.disableBlend();
 
         final Matrix4f m = ps.peek().getPositionMatrix();
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -106,45 +63,17 @@ public class UiRenderMacros {
         drawLineRect(ps, x, y, w, h, argbColor, 1);
     }
 
-    public static void drawLineRect(final MatrixStack ps,
-                                    final int x,
-                                    final int y,
-                                    final int w,
-                                    final int h,
-                                    final int argbColor,
-                                    final int lineWidth) {
-        drawLineRect(ps,
-                x,
-                y,
-                w,
-                h,
-                (argbColor >> 16) & 0xff,
-                (argbColor >> 8) & 0xff,
-                argbColor & 0xff,
-                (argbColor >> 24) & 0xff,
-                lineWidth);
+    public static void drawLineRect(final MatrixStack ps, final int x, final int y, final int w, final int h, final int argbColor, final int lineWidth) {
+        drawLineRect(ps, x, y, w, h, (argbColor >> 16) & 0xff, (argbColor >> 8) & 0xff, argbColor & 0xff, (argbColor >> 24) & 0xff, lineWidth);
     }
 
-    public static void drawLineRect(final MatrixStack ps,
-                                    final int x,
-                                    final int y,
-                                    final int w,
-                                    final int h,
-                                    final int red,
-                                    final int green,
-                                    final int blue,
-                                    final int alpha,
-                                    final int lineWidth) {
-        if (lineWidth < 1 || alpha == 0) {
+    public static void drawLineRect(final MatrixStack ps, final int x, final int y, final int w, final int h, final int red, final int green, final int blue, final int alpha, final int lineWidth) {
+        if (lineWidth < 1 || alpha == 0)
             return;
-        }
 
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        if (alpha != 255) {
-            RenderSystem.enableBlend();
-        } else {
-            RenderSystem.disableBlend();
-        }
+        if (alpha != 255) RenderSystem.enableBlend();
+        else RenderSystem.disableBlend();
 
         final Matrix4f m = ps.peek().getPositionMatrix();
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -173,25 +102,13 @@ public class UiRenderMacros {
         fill(ps, x, y, w, h, (argbColor >> 16) & 0xff, (argbColor >> 8) & 0xff, argbColor & 0xff, (argbColor >> 24) & 0xff);
     }
 
-    public static void fill(final MatrixStack ps,
-                            final int x,
-                            final int y,
-                            final int w,
-                            final int h,
-                            final int red,
-                            final int green,
-                            final int blue,
-                            final int alpha) {
-        if (alpha == 0) {
+    public static void fill(final MatrixStack ps, final int x, final int y, final int w, final int h, final int red, final int green, final int blue, final int alpha) {
+        if (alpha == 0)
             return;
-        }
 
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        if (alpha != 255) {
-            RenderSystem.enableBlend();
-        } else {
-            RenderSystem.disableBlend();
-        }
+        if (alpha != 255) RenderSystem.enableBlend();
+        else RenderSystem.disableBlend();
 
         final Matrix4f m = ps.peek().getPositionMatrix();
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -206,51 +123,17 @@ public class UiRenderMacros {
     }
 
 
-    public static void fillGradient(final MatrixStack ps,
-                                    final int x,
-                                    final int y,
-                                    final int w,
-                                    final int h,
-                                    final int argbColorStart,
-                                    final int argbColorEnd) {
-        fillGradient(ps,
-                x,
-                y,
-                w,
-                h,
-                (argbColorStart >> 16) & 0xff,
-                (argbColorEnd >> 16) & 0xff,
-                (argbColorStart >> 8) & 0xff,
-                (argbColorEnd >> 8) & 0xff,
-                argbColorStart & 0xff,
-                argbColorEnd & 0xff,
-                (argbColorStart >> 24) & 0xff,
-                (argbColorEnd >> 24) & 0xff);
+    public static void fillGradient(final MatrixStack ps, final int x, final int y, final int w, final int h, final int argbColorStart, final int argbColorEnd) {
+        fillGradient(ps, x, y, w, h, (argbColorStart >> 16) & 0xff, (argbColorEnd >> 16) & 0xff, (argbColorStart >> 8) & 0xff, (argbColorEnd >> 8) & 0xff, argbColorStart & 0xff, argbColorEnd & 0xff, (argbColorStart >> 24) & 0xff, (argbColorEnd >> 24) & 0xff);
     }
 
-    public static void fillGradient(final MatrixStack ps,
-                                    final int x,
-                                    final int y,
-                                    final int w,
-                                    final int h,
-                                    final int redStart,
-                                    final int redEnd,
-                                    final int greenStart,
-                                    final int greenEnd,
-                                    final int blueStart,
-                                    final int blueEnd,
-                                    final int alphaStart,
-                                    final int alphaEnd) {
-        if (alphaStart == 0 && alphaEnd == 0) {
+    public static void fillGradient(final MatrixStack ps, final int x, final int y, final int w, final int h, final int redStart, final int redEnd, final int greenStart, final int greenEnd, final int blueStart, final int blueEnd, final int alphaStart, final int alphaEnd) {
+        if (alphaStart == 0 && alphaEnd == 0)
             return;
-        }
 
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        if (alphaStart != 255 || alphaEnd != 255) {
-            RenderSystem.enableBlend();
-        } else {
-            RenderSystem.disableBlend();
-        }
+        if (alphaStart != 255 || alphaEnd != 255) RenderSystem.enableBlend();
+        else RenderSystem.disableBlend();
 
         final Matrix4f m = ps.peek().getPositionMatrix();
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -268,14 +151,7 @@ public class UiRenderMacros {
         line(ps, x, y, xEnd, y, (argbColor >> 16) & 0xff, (argbColor >> 8) & 0xff, argbColor & 0xff, (argbColor >> 24) & 0xff);
     }
 
-    public static void hLine(final MatrixStack ps,
-                             final int x,
-                             final int xEnd,
-                             final int y,
-                             final int red,
-                             final int green,
-                             final int blue,
-                             final int alpha) {
+    public static void hLine(final MatrixStack ps, final int x, final int xEnd, final int y, final int red, final int green, final int blue, final int alpha) {
         line(ps, x, y, xEnd, y, red, green, blue, alpha);
     }
 
@@ -283,14 +159,7 @@ public class UiRenderMacros {
         line(ps, x, y, x, yEnd, (argbColor >> 16) & 0xff, (argbColor >> 8) & 0xff, argbColor & 0xff, (argbColor >> 24) & 0xff);
     }
 
-    public static void vLine(final MatrixStack ps,
-                             final int x,
-                             final int y,
-                             final int yEnd,
-                             final int red,
-                             final int green,
-                             final int blue,
-                             final int alpha) {
+    public static void vLine(final MatrixStack ps, final int x, final int y, final int yEnd, final int red, final int green, final int blue, final int alpha) {
         line(ps, x, y, x, yEnd, red, green, blue, alpha);
     }
 
@@ -298,25 +167,13 @@ public class UiRenderMacros {
         line(ps, x, y, xEnd, yEnd, (argbColor >> 16) & 0xff, (argbColor >> 8) & 0xff, argbColor & 0xff, (argbColor >> 24) & 0xff);
     }
 
-    public static void line(final MatrixStack ps,
-                            final int x,
-                            final int y,
-                            final int xEnd,
-                            final int yEnd,
-                            final int red,
-                            final int green,
-                            final int blue,
-                            final int alpha) {
-        if (alpha == 0) {
+    public static void line(final MatrixStack ps, final int x, final int y, final int xEnd, final int yEnd, final int red, final int green, final int blue, final int alpha) {
+        if (alpha == 0)
             return;
-        }
 
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-        if (alpha != 255) {
-            RenderSystem.enableBlend();
-        } else {
-            RenderSystem.disableBlend();
-        }
+        if (alpha != 255) RenderSystem.enableBlend();
+        else RenderSystem.disableBlend();
 
         final Matrix4f m = ps.peek().getPositionMatrix();
         final BufferBuilder buffer = Tessellator.getInstance().getBuffer();
@@ -332,44 +189,15 @@ public class UiRenderMacros {
         blit(ps, rl, x, y, w, h, 0.0f, 0.0f, 1.0f, 1.0f);
     }
 
-    public static void blit(final MatrixStack ps,
-                            final Identifier rl,
-                            final int x,
-                            final int y,
-                            final int w,
-                            final int h,
-                            final int u,
-                            final int v,
-                            final int mapW,
-                            final int mapH) {
+    public static void blit(final MatrixStack ps, final Identifier rl, final int x, final int y, final int w, final int h, final int u, final int v, final int mapW, final int mapH) {
         blit(ps, rl, x, y, w, h, (float) u / mapW, (float) v / mapH, (float) (u + w) / mapW, (float) (v + h) / mapH);
     }
 
-    public static void blit(final MatrixStack ps,
-                            final Identifier rl,
-                            final int x,
-                            final int y,
-                            final int w,
-                            final int h,
-                            final int u,
-                            final int v,
-                            final int uW,
-                            final int vH,
-                            final int mapW,
-                            final int mapH) {
+    public static void blit(final MatrixStack ps, final Identifier rl, final int x, final int y, final int w, final int h, final int u, final int v, final int uW, final int vH, final int mapW, final int mapH) {
         blit(ps, rl, x, y, w, h, (float) u / mapW, (float) v / mapH, (float) (u + uW) / mapW, (float) (v + vH) / mapH);
     }
 
-    public static void blit(final MatrixStack ps,
-                            final Identifier rl,
-                            final int x,
-                            final int y,
-                            final int w,
-                            final int h,
-                            final float uMin,
-                            final float vMin,
-                            final float uMax,
-                            final float vMax) {
+    public static void blit(final MatrixStack ps, final Identifier rl, final int x, final int y, final int w, final int h, final float uMin, final float vMin, final float uMax, final float vMax) {
         MinecraftClient.getInstance().getTextureManager().bindTexture(rl);
         RenderSystem.setShaderTexture(0, rl);
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
@@ -405,19 +233,9 @@ public class UiRenderMacros {
      * @param repeatWidth   size of repeatable box in texture [texels], smaller than or equal uWidth - uRepeat
      * @param repeatHeight  size of repeatable box in texture [texels], smaller than or equal vHeight - vRepeat
      */
-    protected static void blitRepeatable(final MatrixStack ps,
-                                         final Identifier rl,
-                                         final int x, final int y,
-                                         final int width, final int height,
-                                         final int u, final int v,
-                                         final int uWidth, final int vHeight,
-                                         final int textureWidth, final int textureHeight,
-                                         final int uRepeat, final int vRepeat,
-                                         final int repeatWidth, final int repeatHeight) {
-        if (uRepeat < 0 || vRepeat < 0 || uRepeat >= uWidth || vRepeat >= vHeight || repeatWidth < 1 || repeatHeight < 1
-                || repeatWidth > uWidth - uRepeat || repeatHeight > vHeight - vRepeat) {
+    protected static void blitRepeatable(final MatrixStack ps, final Identifier rl, final int x, final int y, final int width, final int height, final int u, final int v, final int uWidth, final int vHeight, final int textureWidth, final int textureHeight, final int uRepeat, final int vRepeat, final int repeatWidth, final int repeatHeight) {
+        if (uRepeat < 0 || vRepeat < 0 || uRepeat >= uWidth || vRepeat >= vHeight || repeatWidth < 1 || repeatHeight < 1 || repeatWidth > uWidth - uRepeat || repeatHeight > vHeight - vRepeat)
             throw new IllegalArgumentException("Repeatable box is outside of texture box");
-        }
 
         final int repeatCountX = Math.max(1, Math.max(0, width - (uWidth - repeatWidth)) / repeatWidth);
         final int repeatCountY = Math.max(1, Math.max(0, height - (vHeight - repeatHeight)) / repeatHeight);
@@ -486,16 +304,7 @@ public class UiRenderMacros {
         Tessellator.getInstance().draw();
     }
 
-    public static void populateFillTriangles(final Matrix4f m,
-                                             final BufferBuilder buffer,
-                                             final int x,
-                                             final int y,
-                                             final int w,
-                                             final int h,
-                                             final int red,
-                                             final int green,
-                                             final int blue,
-                                             final int alpha) {
+    public static void populateFillTriangles(final Matrix4f m, final BufferBuilder buffer, final int x, final int y, final int w, final int h, final int red, final int green, final int blue, final int alpha) {
         buffer.vertex(m, x, y, 0).color(red, green, blue, alpha).next();
         buffer.vertex(m, x, y + h, 0).color(red, green, blue, alpha).next();
         buffer.vertex(m, x + w, y, 0).color(red, green, blue, alpha).next();
@@ -504,20 +313,7 @@ public class UiRenderMacros {
         buffer.vertex(m, x + w, y + h, 0).color(red, green, blue, alpha).next();
     }
 
-    public static void populateFillGradientTriangles(final Matrix4f m,
-                                                     final BufferBuilder buffer,
-                                                     final int x,
-                                                     final int y,
-                                                     final int w,
-                                                     final int h,
-                                                     final int redStart,
-                                                     final int redEnd,
-                                                     final int greenStart,
-                                                     final int greenEnd,
-                                                     final int blueStart,
-                                                     final int blueEnd,
-                                                     final int alphaStart,
-                                                     final int alphaEnd) {
+    public static void populateFillGradientTriangles(final Matrix4f m, final BufferBuilder buffer, final int x, final int y, final int w, final int h, final int redStart, final int redEnd, final int greenStart, final int greenEnd, final int blueStart, final int blueEnd, final int alphaStart, final int alphaEnd) {
         buffer.vertex(m, x, y, 0).color(redStart, greenStart, blueStart, alphaStart).next();
         buffer.vertex(m, x, y + h, 0).color(redEnd, greenEnd, blueEnd, alphaEnd).next();
         buffer.vertex(m, x + w, y, 0).color(redStart, greenStart, blueStart, alphaStart).next();
@@ -526,16 +322,7 @@ public class UiRenderMacros {
         buffer.vertex(m, x + w, y + h, 0).color(redEnd, greenEnd, blueEnd, alphaEnd).next();
     }
 
-    public static void populateBlitTriangles(final BufferBuilder buffer,
-                                             final Matrix4f mat,
-                                             final float xStart,
-                                             final float xEnd,
-                                             final float yStart,
-                                             final float yEnd,
-                                             final float uMin,
-                                             final float uMax,
-                                             final float vMin,
-                                             final float vMax) {
+    public static void populateBlitTriangles(final BufferBuilder buffer, final Matrix4f mat, final float xStart, final float xEnd, final float yStart, final float yEnd, final float uMin, final float uMax, final float vMin, final float vMax) {
         buffer.vertex(mat, xStart, yStart, 0).texture(uMin, vMin).next();
         buffer.vertex(mat, xStart, yEnd, 0).texture(uMin, vMax).next();
         buffer.vertex(mat, xEnd, yStart, 0).texture(uMax, vMin).next();
@@ -556,13 +343,12 @@ public class UiRenderMacros {
      * @param pitch     adjusts look rotation
      * @param entity    the entity to render
      */
-    public static void drawEntity(final MatrixStack poseStack, final int x, final int y, final double scale,
-                                  final float headYaw, final float yaw, final float pitch, final Entity entity) {
+    public static void drawEntity(final MatrixStack poseStack, final int x, final int y, final double scale, final float headYaw, final float yaw, final float pitch, final Entity entity) {
         // INLINE: vanilla from InventoryScreen
         final LivingEntity livingEntity = (entity instanceof LivingEntity) ? (LivingEntity) entity : null;
         final MinecraftClient mc = MinecraftClient.getInstance();
         if (entity.getWorld() == null)
-            return; // this was entity.setLevel, not sure why cuz sus, dont care if entity has no level
+            return; // this was entity.setLevel, not sure why cuz sus, don't care if entity has no level
         poseStack.push();
         poseStack.translate((float) x, (float) y, 1050.0F);
         poseStack.scale(1.0F, 1.0F, -1.0F);

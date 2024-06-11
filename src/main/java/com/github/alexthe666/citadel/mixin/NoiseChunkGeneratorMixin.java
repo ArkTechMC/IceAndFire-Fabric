@@ -14,24 +14,18 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 @Mixin(NoiseChunkGenerator.class)
-public class NoiseBasedChunkGeneratorMixin {
+public class NoiseChunkGeneratorMixin {
     @Unique
     private final Function<MaterialRules.MaterialRule, MaterialRules.MaterialRule> rulesToMerge = Util.memoize(SurfaceRulesManager::mergeOverworldRules);
     @Unique
     private final HashMap<ChunkGeneratorSettings, MaterialRules.MaterialRule> mergedRulesMap = new HashMap<>();
 
-    @Redirect(
-            method = "buildSurface(Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/world/gen/HeightContext;Lnet/minecraft/world/gen/noise/NoiseConfig;Lnet/minecraft/world/gen/StructureAccessor;Lnet/minecraft/world/biome/source/BiomeAccess;Lnet/minecraft/registry/Registry;Lnet/minecraft/world/gen/chunk/Blender;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;surfaceRule()Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;")
-    )
+    @Redirect(method = "buildSurface(Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/world/gen/HeightContext;Lnet/minecraft/world/gen/noise/NoiseConfig;Lnet/minecraft/world/gen/StructureAccessor;Lnet/minecraft/world/biome/source/BiomeAccess;Lnet/minecraft/registry/Registry;Lnet/minecraft/world/gen/chunk/Blender;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;surfaceRule()Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;"))
     private MaterialRules.MaterialRule citadel_buildSurface_surfaceRuleRedirect(ChunkGeneratorSettings noiseGeneratorSettings) {
         return this.getMergedRulesFor(noiseGeneratorSettings);
     }
 
-    @Redirect(
-            method = "carve",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;surfaceRule()Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;")
-    )
+    @Redirect(method = "carve", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/gen/chunk/ChunkGeneratorSettings;surfaceRule()Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRule;"))
     private MaterialRules.MaterialRule citadel_applyCarvers_surfaceRuleRedirect(ChunkGeneratorSettings noiseGeneratorSettings) {
         return this.getMergedRulesFor(noiseGeneratorSettings);
     }

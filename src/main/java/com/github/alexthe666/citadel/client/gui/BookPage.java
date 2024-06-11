@@ -19,7 +19,7 @@ public class BookPage {
     private final String parent;
     private final String textFileToReadFrom;
     private final List<LinkData> linkedButtons;
-    private final List<EntityLinkData> linkedEntites;
+    private final List<EntityLinkData> linkedEntities;
     private final List<ItemRenderData> itemRenders;
     private final List<RecipeData> recipes;
     private final List<TabulaRenderData> tabulaRenders;
@@ -33,7 +33,7 @@ public class BookPage {
         this.textFileToReadFrom = textFileToReadFrom;
         this.linkedButtons = linkedButtons;
         this.itemRenders = itemRenders;
-        this.linkedEntites = linkedEntities;
+        this.linkedEntities = linkedEntities;
         this.recipes = recipes;
         this.tabulaRenders = tabulaRenders;
         this.entityRenders = entityRenders;
@@ -66,7 +66,7 @@ public class BookPage {
     }
 
     public List<EntityLinkData> getLinkedEntities() {
-        return this.linkedEntites;
+        return this.linkedEntities;
     }
 
     public List<ItemRenderData> getItemRenders() {
@@ -98,36 +98,29 @@ public class BookPage {
 
     @Environment(EnvType.CLIENT)
     public static class Deserializer implements JsonDeserializer<BookPage> {
-        public BookPage deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_) throws JsonParseException {
-            JsonObject jsonobject = JsonHelper.asObject(p_deserialize_1_, "book page");
-            LinkData[] linkedPageRead = JsonHelper.deserialize(jsonobject, "linked_page_buttons", new LinkData[0], p_deserialize_3_, LinkData[].class);
-            EntityLinkData[] linkedEntitesRead = JsonHelper.deserialize(jsonobject, "entity_buttons", new EntityLinkData[0], p_deserialize_3_, EntityLinkData[].class);
-            ItemRenderData[] itemRendersRead = JsonHelper.deserialize(jsonobject, "item_renders", new ItemRenderData[0], p_deserialize_3_, ItemRenderData[].class);
-            RecipeData[] recipesRead = JsonHelper.deserialize(jsonobject, "recipes", new RecipeData[0], p_deserialize_3_, RecipeData[].class);
-            TabulaRenderData[] tabulaRendersRead = JsonHelper.deserialize(jsonobject, "tabula_renders", new TabulaRenderData[0], p_deserialize_3_, TabulaRenderData[].class);
-            EntityRenderData[] entityRendersRead = JsonHelper.deserialize(jsonobject, "entity_renders", new EntityRenderData[0], p_deserialize_3_, EntityRenderData[].class);
-            ImageData[] imagesRead = JsonHelper.deserialize(jsonobject, "images", new ImageData[0], p_deserialize_3_, ImageData[].class);
+        public BookPage deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
+            JsonObject jsonobject = JsonHelper.asObject(json, "book page");
+            LinkData[] linkedPageRead = JsonHelper.deserialize(jsonobject, "linked_page_buttons", new LinkData[0], context, LinkData[].class);
+            EntityLinkData[] linkedEntitiesRead = JsonHelper.deserialize(jsonobject, "entity_buttons", new EntityLinkData[0], context, EntityLinkData[].class);
+            ItemRenderData[] itemRendersRead = JsonHelper.deserialize(jsonobject, "item_renders", new ItemRenderData[0], context, ItemRenderData[].class);
+            RecipeData[] recipesRead = JsonHelper.deserialize(jsonobject, "recipes", new RecipeData[0], context, RecipeData[].class);
+            TabulaRenderData[] tabulaRendersRead = JsonHelper.deserialize(jsonobject, "tabula_renders", new TabulaRenderData[0], context, TabulaRenderData[].class);
+            EntityRenderData[] entityRendersRead = JsonHelper.deserialize(jsonobject, "entity_renders", new EntityRenderData[0], context, EntityRenderData[].class);
+            ImageData[] imagesRead = JsonHelper.deserialize(jsonobject, "images", new ImageData[0], context, ImageData[].class);
 
             String readParent = "";
-            if (jsonobject.has("parent")) {
+            if (jsonobject.has("parent"))
                 readParent = JsonHelper.getString(jsonobject, "parent");
-            }
-
             String readTextFile = "";
-            if (jsonobject.has("text")) {
+            if (jsonobject.has("text"))
                 readTextFile = JsonHelper.getString(jsonobject, "text");
-            }
-
             String title = "";
-            if (jsonobject.has("title")) {
+            if (jsonobject.has("title"))
                 title = JsonHelper.getString(jsonobject, "title");
-            }
-
-
-            BookPage page = new BookPage(readParent, readTextFile, Arrays.asList(linkedPageRead), Arrays.asList(linkedEntitesRead), Arrays.asList(itemRendersRead), Arrays.asList(recipesRead), Arrays.asList(tabulaRendersRead), Arrays.asList(entityRendersRead), Arrays.asList(imagesRead), title);
-            if (jsonobject.has("title")) {
+            BookPage page = new BookPage(readParent, readTextFile, Arrays.asList(linkedPageRead), Arrays.asList(linkedEntitiesRead), Arrays.asList(itemRendersRead), Arrays.asList(recipesRead), Arrays.asList(tabulaRendersRead), Arrays.asList(entityRendersRead), Arrays.asList(imagesRead), title);
+            if (jsonobject.has("title"))
                 page.translatableTitle = JsonHelper.getString(jsonobject, "title");
-            }
+
             return page;
         }
     }

@@ -4,25 +4,25 @@ public class EntityLinkData {
     private String entity;
     private int x;
     private int y;
-    private float offset_x;
-    private float offset_y;
-    private double entity_scale;
+    private float offsetX;
+    private float offsetY;
+    private double entityScale;
     private double scale;
     private int page;
-    private String linked_page;
-    private String hover_text;
+    private String linkedPage;
+    private String hoverText;
 
-    public EntityLinkData(String entity, int x, int y, double scale, double entity_scale, int page, String linked_page, String hover_text, float offset_x, float offset_y) {
+    public EntityLinkData(String entity, int x, int y, double scale, double entityScale, int page, String linkedPage, String hoverText, float offsetX, float offsetY) {
         this.entity = entity;
         this.x = x;
         this.y = y;
         this.scale = scale;
-        this.entity_scale = entity_scale;
+        this.entityScale = entityScale;
         this.page = page;
-        this.linked_page = linked_page;
-        this.hover_text = hover_text;
-        this.offset_x = offset_x;
-        this.offset_y = offset_y;
+        this.linkedPage = linkedPage;
+        this.hoverText = hoverText;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
     }
 
     public String getEntity() {
@@ -58,11 +58,11 @@ public class EntityLinkData {
     }
 
     public double getEntityScale() {
-        return this.entity_scale;
+        return this.entityScale;
     }
 
     public void setEntityScale(double scale) {
-        this.entity_scale = scale;
+        this.entityScale = scale;
     }
 
     public int getPage() {
@@ -74,34 +74,34 @@ public class EntityLinkData {
     }
 
     public String getLinkedPage() {
-        return this.linked_page;
+        return this.linkedPage;
     }
 
     public void setLinkedPage(String linkedPage) {
-        this.linked_page = linkedPage;
+        this.linkedPage = linkedPage;
     }
 
     public String getHoverText() {
-        return this.hover_text;
+        return this.hoverText;
     }
 
     public void setHoverText(String titleText) {
-        this.hover_text = titleText;
+        this.hoverText = titleText;
     }
 
-    public float getOffset_y() {
-        return this.offset_y;
+    public float getOffsetY() {
+        return this.offsetY;
     }
 
-    public void setOffset_y(float offset_y) {
-        this.offset_y = offset_y;
+    public void setOffsetY(float offsetY) {
+        this.offsetY = offsetY;
     }
 
-    public float getOffset_x() {
-        return this.offset_x;
+    public float getOffsetX() {
+        return this.offsetX;
     }
 
-    public void setOffset_x(float offset_x) {
-        this.offset_x = offset_x;
+    public void setOffsetX(float offsetX) {
+        this.offsetX = offsetX;
     }
 }

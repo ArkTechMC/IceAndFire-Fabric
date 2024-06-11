@@ -16,7 +16,6 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class ParticleDragonFlame extends SpriteBillboardParticle {
-
     private static final Identifier DRAGONFLAME = new Identifier(IceAndFire.MOD_ID, "textures/particles/dragon_flame.png");
     private final float dragonSize;
     private final double initialX;

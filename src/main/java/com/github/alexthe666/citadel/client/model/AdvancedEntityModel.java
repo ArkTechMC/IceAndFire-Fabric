@@ -76,9 +76,8 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
      */
     public void chainSwing(AdvancedModelBox[] boxes, float speed, float degree, double rootOffset, float swing, float swingAmount) {
         float offset = this.calculateChainOffset(rootOffset, boxes);
-        for (int index = 0; index < boxes.length; index++) {
+        for (int index = 0; index < boxes.length; index++)
             boxes[index].rotateAngleY += this.calculateChainRotation(speed, degree, swing, swingAmount, offset, index);
-        }
     }
 
     /**
@@ -93,9 +92,8 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
      */
     public void chainWave(AdvancedModelBox[] boxes, float speed, float degree, double rootOffset, float swing, float swingAmount) {
         float offset = this.calculateChainOffset(rootOffset, boxes);
-        for (int index = 0; index < boxes.length; index++) {
+        for (int index = 0; index < boxes.length; index++)
             boxes[index].rotateAngleX += this.calculateChainRotation(speed, degree, swing, swingAmount, offset, index);
-        }
     }
 
     /**
@@ -110,9 +108,8 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
      */
     public void chainFlap(AdvancedModelBox[] boxes, float speed, float degree, double rootOffset, float swing, float swingAmount) {
         float offset = this.calculateChainOffset(rootOffset, boxes);
-        for (int index = 0; index < boxes.length; index++) {
+        for (int index = 0; index < boxes.length; index++)
             boxes[index].rotateAngleZ += this.calculateChainRotation(speed, degree, swing, swingAmount, offset, index);
-        }
     }
 
     private float calculateChainRotation(float speed, float degree, float swing, float swingAmount, float offset, int boxIndex) {
@@ -211,11 +208,8 @@ public abstract class AdvancedEntityModel<T extends Entity> extends BasicEntityM
      * @param f1     is the walk speed.
      */
     public float moveBox(float speed, float degree, boolean bounce, float f, float f1) {
-        if (bounce) {
-            return -MathHelper.abs((MathHelper.sin(f * speed) * f1 * degree));
-        } else {
-            return MathHelper.sin(f * speed) * f1 * degree - f1 * degree;
-        }
+        if (bounce) return -MathHelper.abs((MathHelper.sin(f * speed) * f1 * degree));
+        else return MathHelper.sin(f * speed) * f1 * degree - f1 * degree;
     }
 
     public void setRotateAngle(AdvancedModelBox model, float x, float y, float z) {

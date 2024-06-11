@@ -10,18 +10,18 @@
     "LivingEntityMixin",
     "MinecraftServerMixin",
     "MultiNoiseBiomeSourceMixin",
-    "NoiseBasedChunkGeneratorMixin",
-    "ServerLevelMixin",
-    "SmithingMenuMixin"
+    "NoiseChunkGeneratorMixin",
+    "ServerWorldMixin",
+    "SmithingScreenHandlerMixin"
   ],
   "client": [
-    "client.ClientLevelMixin",
-    "client.HumanoidModelMixin",
-    "client.ItemBlockRenderTypesMixin",
-    "client.LevelRendererMixin",
+    "client.ClientWorldMixin",
+    "client.BipedEntityModelMixin",
+    "client.RenderLayersMixin",
+    "client.WorldRendererMixin",
     "client.LivingEntityRendererMixin",
-    "client.SoundEngineMixin",
-    "client.SplashRendererMixin"
+    "client.SoundSystemMixin",
+    "client.SplashTextRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

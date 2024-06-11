@@ -18,8 +18,8 @@ public class TabulaModelContainer {
     private final int textureHeight;
     private final List<TabulaCubeGroupContainer> cubeGroups = new ArrayList<>();
     private final List<TabulaAnimationContainer> anims = new ArrayList<>();
+    private final List<TabulaCubeContainer> cubes;
     private String[] metadata;
-    private List<TabulaCubeContainer> cubes = new ArrayList<>();
     private int cubeCount;
 
     public TabulaModelContainer(String name, String author, int textureWidth, int textureHeight, List<TabulaCubeContainer> cubes, int projectVersion) {

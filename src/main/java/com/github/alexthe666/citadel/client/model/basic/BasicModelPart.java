@@ -34,26 +34,17 @@ public class BasicModelPart {
     public boolean mirror;
     public boolean showModel = true;
 
-    public BasicModelPart(BasicEntityModel model) {
+    public BasicModelPart(BasicEntityModel<?> model) {
         this.setTextureSize(model.textureWidth, model.textureHeight);
     }
 
-    public BasicModelPart(BasicEntityModel model, int texOffX, int texOffY) {
+    public BasicModelPart(BasicEntityModel<?> model, int texOffX, int texOffY) {
         this(model.textureWidth, model.textureHeight, texOffX, texOffY);
     }
 
     public BasicModelPart(int textureWidthIn, int textureHeightIn, int textureOffsetXIn, int textureOffsetYIn) {
         this.setTextureSize(textureWidthIn, textureHeightIn);
         this.setTextureOffset(textureOffsetXIn, textureOffsetYIn);
-    }
-
-    private BasicModelPart() {
-    }
-
-    public BasicModelPart getModelAngleCopy() {
-        BasicModelPart BasicModelPart = new BasicModelPart();
-        BasicModelPart.copyModelAngles(this);
-        return BasicModelPart;
     }
 
     public void copyModelAngles(BasicModelPart BasicModelPartIn) {
@@ -80,33 +71,33 @@ public class BasicModelPart {
 
     public BasicModelPart addBox(String partName, float x, float y, float z, int width, int height, int depth, float delta, int texX, int texY) {
         this.setTextureOffset(texX, texY);
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, (float) width, (float) height, (float) depth, delta, delta, delta, this.mirror, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, (float) width, (float) height, (float) depth, delta, delta, delta, this.mirror);
         return this;
     }
 
     public BasicModelPart addBox(float x, float y, float z, float width, float height, float depth) {
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, 0.0F, 0.0F, 0.0F, this.mirror, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, 0.0F, 0.0F, 0.0F, this.mirror);
         return this;
     }
 
     public BasicModelPart addBox(float x, float y, float z, float width, float height, float depth, boolean mirrorIn) {
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, 0.0F, 0.0F, 0.0F, mirrorIn, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, 0.0F, 0.0F, 0.0F, mirrorIn);
         return this;
     }
 
     public void addBox(float x, float y, float z, float width, float height, float depth, float delta) {
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, delta, delta, delta, this.mirror, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, delta, delta, delta, this.mirror);
     }
 
     public void addBox(float x, float y, float z, float width, float height, float depth, float deltaX, float deltaY, float deltaZ) {
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, deltaX, deltaY, deltaZ, this.mirror, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, deltaX, deltaY, deltaZ, this.mirror);
     }
 
     public void addBox(float x, float y, float z, float width, float height, float depth, float delta, boolean mirrorIn) {
-        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, delta, delta, delta, mirrorIn, false);
+        this.addBox(this.textureOffsetX, this.textureOffsetY, x, y, z, width, height, depth, delta, delta, delta, mirrorIn);
     }
 
-    private void addBox(int texOffX, int texOffY, float x, float y, float z, float width, float height, float depth, float deltaX, float deltaY, float deltaZ, boolean mirorIn, boolean p_228305_13_) {
+    private void addBox(int texOffX, int texOffY, float x, float y, float z, float width, float height, float depth, float deltaX, float deltaY, float deltaZ, boolean mirorIn) {
         this.cubeList.add(new ModelBox(texOffX, texOffY, x, y, z, width, height, depth, deltaX, deltaY, deltaZ, mirorIn, this.textureWidth, this.textureHeight));
     }
 
@@ -165,7 +156,7 @@ public class BasicModelPart {
                 float f2 = vector3f.z();
 
                 for (int i = 0; i < 4; ++i) {
-                    PositionTextureVertex BasicModelPart$positiontexturevertex = BasicModelPart$texturedquad.vertexPositions[i];
+                    PositionTextureVertex BasicModelPart$positiontexturevertex = BasicModelPart$texturedquad.textureVertices[i];
                     float f3 = BasicModelPart$positiontexturevertex.position.x() / 16.0F;
                     float f4 = BasicModelPart$positiontexturevertex.position.y() / 16.0F;
                     float f5 = BasicModelPart$positiontexturevertex.position.z() / 16.0F;
@@ -181,14 +172,9 @@ public class BasicModelPart {
     /**
      * Returns the model renderer with the new texture parameters.
      */
-    public BasicModelPart setTextureSize(int textureWidthIn, int textureHeightIn) {
+    public void setTextureSize(int textureWidthIn, int textureHeightIn) {
         this.textureWidth = (float) textureWidthIn;
         this.textureHeight = (float) textureHeightIn;
-        return this;
-    }
-
-    public ModelBox getRandomCube(net.minecraft.util.math.random.Random randomIn) {
-        return this.cubeList.size() > 0 ? this.cubeList.get(randomIn.nextInt(this.cubeList.size())) : null;
     }
 
     @Environment(EnvType.CLIENT)
@@ -224,14 +210,14 @@ public class BasicModelPart {
                 x = f3;
             }
 
-            PositionTextureVertex BasicModelPart$positiontexturevertex7 = new PositionTextureVertex(x, y, z, 0.0F, 0.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex = new PositionTextureVertex(f, y, z, 0.0F, 8.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex1 = new PositionTextureVertex(f, f1, z, 8.0F, 8.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex2 = new PositionTextureVertex(x, f1, z, 8.0F, 0.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex3 = new PositionTextureVertex(x, y, f2, 0.0F, 0.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex4 = new PositionTextureVertex(f, y, f2, 0.0F, 8.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex5 = new PositionTextureVertex(f, f1, f2, 8.0F, 8.0F);
-            PositionTextureVertex BasicModelPart$positiontexturevertex6 = new PositionTextureVertex(x, f1, f2, 8.0F, 0.0F);
+            PositionTextureVertex positionTextureVertex7 = new PositionTextureVertex(x, y, z, 0.0F, 0.0F);
+            PositionTextureVertex positionTextureVertex = new PositionTextureVertex(f, y, z, 0.0F, 8.0F);
+            PositionTextureVertex positionTextureVertex1 = new PositionTextureVertex(f, f1, z, 8.0F, 8.0F);
+            PositionTextureVertex positionTextureVertex2 = new PositionTextureVertex(x, f1, z, 8.0F, 0.0F);
+            PositionTextureVertex positionTextureVertex3 = new PositionTextureVertex(x, y, f2, 0.0F, 0.0F);
+            PositionTextureVertex positionTextureVertex4 = new PositionTextureVertex(f, y, f2, 0.0F, 8.0F);
+            PositionTextureVertex positionTextureVertex5 = new PositionTextureVertex(f, f1, f2, 8.0F, 8.0F);
+            PositionTextureVertex positionTextureVertex6 = new PositionTextureVertex(x, f1, f2, 8.0F, 0.0F);
             float f4 = (float) texOffX;
             float f5 = (float) texOffX + depth;
             float f6 = (float) texOffX + depth + width;
@@ -241,12 +227,12 @@ public class BasicModelPart {
             float f10 = (float) texOffY;
             float f11 = (float) texOffY + depth;
             float f12 = (float) texOffY + depth + height;
-            this.quads[2] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex4, BasicModelPart$positiontexturevertex3, BasicModelPart$positiontexturevertex7, BasicModelPart$positiontexturevertex}, f5, f10, f6, f11, texWidth, texHeight, mirorIn, Direction.DOWN);
-            this.quads[3] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex1, BasicModelPart$positiontexturevertex2, BasicModelPart$positiontexturevertex6, BasicModelPart$positiontexturevertex5}, f6, f11, f7, f10, texWidth, texHeight, mirorIn, Direction.UP);
-            this.quads[1] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex7, BasicModelPart$positiontexturevertex3, BasicModelPart$positiontexturevertex6, BasicModelPart$positiontexturevertex2}, f4, f11, f5, f12, texWidth, texHeight, mirorIn, Direction.WEST);
-            this.quads[4] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex, BasicModelPart$positiontexturevertex7, BasicModelPart$positiontexturevertex2, BasicModelPart$positiontexturevertex1}, f5, f11, f6, f12, texWidth, texHeight, mirorIn, Direction.NORTH);
-            this.quads[0] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex4, BasicModelPart$positiontexturevertex, BasicModelPart$positiontexturevertex1, BasicModelPart$positiontexturevertex5}, f6, f11, f8, f12, texWidth, texHeight, mirorIn, Direction.EAST);
-            this.quads[5] = new TexturedQuad(new PositionTextureVertex[]{BasicModelPart$positiontexturevertex3, BasicModelPart$positiontexturevertex4, BasicModelPart$positiontexturevertex5, BasicModelPart$positiontexturevertex6}, f8, f11, f9, f12, texWidth, texHeight, mirorIn, Direction.SOUTH);
+            this.quads[0] = new TexturedQuad(new PositionTextureVertex[]{positionTextureVertex4, positionTextureVertex, positionTextureVertex1, positionTextureVertex5}, f6, f11, f8, f12, texWidth, texHeight, mirorIn, Direction.EAST);
+            this.quads[1] = new TexturedQuad(new PositionTextureVertex[]{positionTextureVertex7, positionTextureVertex3, positionTextureVertex6, positionTextureVertex2}, f4, f11, f5, f12, texWidth, texHeight, mirorIn, Direction.WEST);
+            this.quads[2] = new TexturedQuad(new PositionTextureVertex[]{positionTextureVertex4, positionTextureVertex3, positionTextureVertex7, positionTextureVertex}, f5, f10, f6, f11, texWidth, texHeight, mirorIn, Direction.DOWN);
+            this.quads[3] = new TexturedQuad(new PositionTextureVertex[]{positionTextureVertex1, positionTextureVertex2, positionTextureVertex6, positionTextureVertex5}, f6, f11, f7, f10, texWidth, texHeight, mirorIn, Direction.UP);
+            this.quads[4] = new TexturedQuad(new PositionTextureVertex[]{positionTextureVertex, positionTextureVertex7, positionTextureVertex2, positionTextureVertex1}, f5, f11, f6, f12, texWidth, texHeight, mirorIn, Direction.NORTH);
+            this.quads[5] = new TexturedQuad(new PositionTextureVertex[]{positionTextureVertex3, positionTextureVertex4, positionTextureVertex5, positionTextureVertex6}, f8, f11, f9, f12, texWidth, texHeight, mirorIn, Direction.SOUTH);
         }
     }
 
@@ -273,32 +259,28 @@ public class BasicModelPart {
 
     @Environment(EnvType.CLIENT)
     static class TexturedQuad {
-        public final PositionTextureVertex[] vertexPositions;
+        public final PositionTextureVertex[] textureVertices;
         public final Vector3f normal;
 
-        public TexturedQuad(PositionTextureVertex[] positionsIn, float u1, float v1, float u2, float v2, float texWidth, float texHeight, boolean mirrorIn, Direction directionIn) {
-            this.vertexPositions = positionsIn;
+        public TexturedQuad(PositionTextureVertex[] textureVertices, float u1, float v1, float u2, float v2, float texWidth, float texHeight, boolean mirrorIn, Direction directionIn) {
+            this.textureVertices = textureVertices;
             float f = 0.0F / texWidth;
             float f1 = 0.0F / texHeight;
-            positionsIn[0] = positionsIn[0].setTextureUV(u2 / texWidth - f, v1 / texHeight + f1);
-            positionsIn[1] = positionsIn[1].setTextureUV(u1 / texWidth + f, v1 / texHeight + f1);
-            positionsIn[2] = positionsIn[2].setTextureUV(u1 / texWidth + f, v2 / texHeight - f1);
-            positionsIn[3] = positionsIn[3].setTextureUV(u2 / texWidth - f, v2 / texHeight - f1);
+            textureVertices[0] = textureVertices[0].setTextureUV(u2 / texWidth - f, v1 / texHeight + f1);
+            textureVertices[1] = textureVertices[1].setTextureUV(u1 / texWidth + f, v1 / texHeight + f1);
+            textureVertices[2] = textureVertices[2].setTextureUV(u1 / texWidth + f, v2 / texHeight - f1);
+            textureVertices[3] = textureVertices[3].setTextureUV(u2 / texWidth - f, v2 / texHeight - f1);
             if (mirrorIn) {
-                int i = positionsIn.length;
-
+                int i = textureVertices.length;
                 for (int j = 0; j < i / 2; ++j) {
-                    PositionTextureVertex BasicModelPart$positiontexturevertex = positionsIn[j];
-                    positionsIn[j] = positionsIn[i - 1 - j];
-                    positionsIn[i - 1 - j] = BasicModelPart$positiontexturevertex;
+                    PositionTextureVertex BasicModelPart$positiontexturevertex = textureVertices[j];
+                    textureVertices[j] = textureVertices[i - 1 - j];
+                    textureVertices[i - 1 - j] = BasicModelPart$positiontexturevertex;
                 }
             }
 
             this.normal = directionIn.getUnitVector();
-            if (mirrorIn) {
-                this.normal.mul(-1.0F, 1.0F, 1.0F);
-            }
-
+            if (mirrorIn) this.normal.mul(-1.0F, 1.0F, 1.0F);
         }
     }
 }

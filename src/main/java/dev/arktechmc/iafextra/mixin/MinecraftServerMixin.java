@@ -27,7 +27,6 @@ public class MinecraftServerMixin {
 
     @Inject(method = "prepareStartRegion", at = @At("HEAD"))
     private void beforeLoadingWorld(CallbackInfo ci) {
-        IceAndFire.LOGGER.info(IafWorldRegistry.LOADED_FEATURES);
         IceAndFire.LOGGER.info(IafEntityRegistry.LOADED_ENTITIES);
         //TODO
 //        ServerEvents.addNewVillageBuilding((MinecraftServer) (Object) this);

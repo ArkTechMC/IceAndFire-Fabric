@@ -10,12 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SoundSystem.class)
-public class SoundEngineMixin {
-    @Inject(
-            method = "getAdjustedPitch(Lnet/minecraft/client/sound/SoundInstance;)F",
-            cancellable = true,
-            at = @At(value = "RETURN")
-    )
+public class SoundSystemMixin {
+    @Inject(method = "getAdjustedPitch(Lnet/minecraft/client/sound/SoundInstance;)F", cancellable = true, at = @At(value = "RETURN"))
     protected void citadel_setupRotations(SoundInstance soundInstance, CallbackInfoReturnable<Float> cir) {
         cir.setReturnValue(cir.getReturnValue() * ClientTickRateTracker.getForClient(MinecraftClient.getInstance()).modifySoundPitch(soundInstance));
     }

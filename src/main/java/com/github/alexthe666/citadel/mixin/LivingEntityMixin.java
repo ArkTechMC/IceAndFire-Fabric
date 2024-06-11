@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements ICitadelDataEntity {
-
     @Unique
     private static final TrackedData<NbtCompound> CITADEL_DATA = DataTracker.registerData(LivingEntity.class, TrackedDataHandlerRegistry.NBT_COMPOUND);
 
@@ -33,16 +32,14 @@ public abstract class LivingEntityMixin extends Entity implements ICitadelDataEn
     @Inject(at = @At("TAIL"), method = "writeCustomDataToNbt")
     private void citadel_writeAdditional(NbtCompound compoundNBT, CallbackInfo ci) {
         NbtCompound citadelDat = this.getCitadelEntityData();
-        if (citadelDat != null) {
+        if (citadelDat != null)
             compoundNBT.put("CitadelData", citadelDat);
-        }
     }
 
     @Inject(at = @At("TAIL"), method = "readCustomDataFromNbt")
     private void citadel_readAdditional(NbtCompound compoundNBT, CallbackInfo ci) {
-        if (compoundNBT.contains("CitadelData")) {
+        if (compoundNBT.contains("CitadelData"))
             this.setCitadelEntityData(compoundNBT.getCompound("CitadelData"));
-        }
     }
 
     public NbtCompound getCitadelEntityData() {

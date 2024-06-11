@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.entity.tile;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.nbt.NbtCompound;

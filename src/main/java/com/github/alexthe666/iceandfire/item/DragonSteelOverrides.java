@@ -84,7 +84,7 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
         if (this.isDragonsteelIce(item.getMaterial()) && IafConfig.dragonWeaponIceAbility) {
-            EntityDataComponent data=EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
             data.frozenData.setFrozen(target, 300);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());

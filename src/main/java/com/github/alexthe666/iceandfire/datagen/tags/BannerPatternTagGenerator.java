@@ -37,6 +37,10 @@ public class BannerPatternTagGenerator extends TagProvider<BannerPattern> {
         super(output, RegistryKeys.BANNER_PATTERN, provider);
     }
 
+    private static TagKey<BannerPattern> create(String name) {
+        return TagKey.of(RegistryKeys.BANNER_PATTERN, new Identifier(IceAndFire.MOD_ID, name));
+    }
+
     @Override
     protected void configure(RegistryWrapper.WrapperLookup pProvider) {
         this.getOrCreateTagBuilder(FIRE_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_FIRE.getKey());
@@ -58,10 +62,6 @@ public class BannerPatternTagGenerator extends TagProvider<BannerPattern> {
         this.getOrCreateTagBuilder(TROLL_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_TROLL.getKey());
         this.getOrCreateTagBuilder(WEEZER_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_WEEZER.getKey());
         this.getOrCreateTagBuilder(DREAD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_DREAD.getKey());
-    }
-
-    private static TagKey<BannerPattern> create(String name) {
-        return TagKey.of(RegistryKeys.BANNER_PATTERN, new Identifier(IceAndFire.MOD_ID, name));
     }
 
     @Override

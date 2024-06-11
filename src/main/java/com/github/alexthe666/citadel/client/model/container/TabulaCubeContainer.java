@@ -14,14 +14,14 @@ public class TabulaCubeContainer {
     private final boolean txMirror;
     private final boolean hidden;
     private final List<TabulaCubeContainer> children = new ArrayList<>();
-    private int[] dimensions = new int[3];
-    private double[] position = new double[3];
-    private double[] offset = new double[3];
-    private double[] rotation = new double[3];
-    private double[] scale = new double[3];
-    private int[] txOffset = new int[2];
-    private double mcScale = 1.0;
-    private double opacity = 100.0;
+    private final int[] dimensions;
+    private final double[] position;
+    private final double[] offset;
+    private final double[] rotation;
+    private final double[] scale;
+    private final int[] txOffset;
+    private final double mcScale;
+    private final double opacity;
 
     public TabulaCubeContainer(String name, String identifier, String parentIdentifier, int[] dimensions, double[] position, double[] offset, double[] rotation, double[] scale, int[] textureOffset, boolean textureMirror, double opacity, double mcScale, boolean hidden) {
         this.name = name;

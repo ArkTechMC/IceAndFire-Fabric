@@ -11,7 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class CustomCollisionsNavigator extends MobNavigation {
-
     public CustomCollisionsNavigator(MobEntity mob, World world) {
         super(mob, world);
     }
@@ -86,9 +85,8 @@ public class CustomCollisionsNavigator extends MobNavigation {
         for (BlockPos blockpos : BlockPos.iterate(new BlockPos(x, y, z), new BlockPos(x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1))) {
             double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.x;
             double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.z;
-            if (!(d0 * p_179692_8_ + d1 * p_179692_10_ < 0.0D) && !this.world.getBlockState(blockpos).canPathfindThrough(this.world, blockpos, NavigationType.LAND) || ((ICustomCollisions) this.entity).canPassThrough(blockpos, this.world.getBlockState(blockpos), null)) {
+            if (!(d0 * p_179692_8_ + d1 * p_179692_10_ < 0.0D) && !this.world.getBlockState(blockpos).canPathfindThrough(this.world, blockpos, NavigationType.LAND) || ((ICustomCollisions) this.entity).canPassThrough(blockpos, this.world.getBlockState(blockpos), null))
                 return false;
-            }
         }
 
         return true;
@@ -97,9 +95,9 @@ public class CustomCollisionsNavigator extends MobNavigation {
     private boolean isSafeToStandAt(int x, int y, int z, int sizeX, int sizeY, int sizeZ, Vec3d vec31, double p_179683_8_, double p_179683_10_) {
         int i = x - sizeX / 2;
         int j = z - sizeZ / 2;
-        if (!this.isPositionClear(i, y, j, sizeX, sizeY, sizeZ, vec31, p_179683_8_, p_179683_10_)) {
+        if (!this.isPositionClear(i, y, j, sizeX, sizeY, sizeZ, vec31, p_179683_8_, p_179683_10_))
             return false;
-        } else {
+        else {
             BlockPos.Mutable mutable = new BlockPos.Mutable();
             for (int k = i; k < i + sizeX; ++k) {
                 for (int l = j; l < j + sizeZ; ++l) {
@@ -108,19 +106,16 @@ public class CustomCollisionsNavigator extends MobNavigation {
                     if (!(d0 * p_179683_8_ + d1 * p_179683_10_ < 0.0D)) {
                         PathNodeType pathnodetype = this.nodeMaker.getNodeType(this.world, k, y - 1, l, this.entity);
                         mutable.set(k, y - 1, l);
-                        if (!this.canWalkOnPath(pathnodetype) || ((ICustomCollisions) this.entity).canPassThrough(mutable, this.world.getBlockState(mutable), null)) {
+                        if (!this.canWalkOnPath(pathnodetype) || ((ICustomCollisions) this.entity).canPassThrough(mutable, this.world.getBlockState(mutable), null))
                             return false;
-                        }
 
                         pathnodetype = this.nodeMaker.getNodeType(this.world, k, y, l, this.entity);
                         float f = this.entity.getPathfindingPenalty(pathnodetype);
-                        if (f < 0.0F || f >= 8.0F) {
+                        if (f < 0.0F || f >= 8.0F)
                             return false;
-                        }
 
-                        if (pathnodetype == PathNodeType.DAMAGE_FIRE || pathnodetype == PathNodeType.DANGER_FIRE || pathnodetype == PathNodeType.DAMAGE_OTHER) {
+                        if (pathnodetype == PathNodeType.DAMAGE_FIRE || pathnodetype == PathNodeType.DANGER_FIRE || pathnodetype == PathNodeType.DAMAGE_OTHER)
                             return false;
-                        }
                     }
                 }
             }
@@ -129,13 +124,9 @@ public class CustomCollisionsNavigator extends MobNavigation {
         }
     }
 
-    protected boolean canWalkOnPath(PathNodeType p_230287_1_) {
-        if (p_230287_1_ == PathNodeType.WATER) {
-            return false;
-        } else if (p_230287_1_ == PathNodeType.LAVA) {
-            return false;
-        } else {
-            return p_230287_1_ != PathNodeType.OPEN;
-        }
+    protected boolean canWalkOnPath(PathNodeType pathType) {
+        if (pathType == PathNodeType.WATER) return false;
+        else if (pathType == PathNodeType.LAVA) return false;
+        else return pathType != PathNodeType.OPEN;
     }
 }

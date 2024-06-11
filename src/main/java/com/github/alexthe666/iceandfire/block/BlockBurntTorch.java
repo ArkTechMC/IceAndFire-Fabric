@@ -14,17 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlock {
 
     public BlockBurntTorch() {
-        super(
-                Settings.create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .burnable()
-                        .luminance((state) -> 0)
-                        .sounds(BlockSoundGroup.WOOD)
-                        .nonOpaque()
-                        .dynamicBounds()
-                        .noCollision(),
-                DustParticleEffect.DEFAULT
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).burnable().luminance((state) -> 0).sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds().noCollision(), DustParticleEffect.DEFAULT);
     }
 
     @Override

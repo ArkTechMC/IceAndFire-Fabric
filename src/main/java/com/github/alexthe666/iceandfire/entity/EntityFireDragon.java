@@ -14,7 +14,6 @@ import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import dev.arktechmc.iafextra.event.EventBus;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

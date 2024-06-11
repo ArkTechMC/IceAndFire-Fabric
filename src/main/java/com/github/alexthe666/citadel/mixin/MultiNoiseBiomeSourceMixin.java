@@ -20,22 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value = MultiNoiseBiomeSource.class, priority = -420)
 public class MultiNoiseBiomeSourceMixin implements IMultiNoiseBiomeSourceAccessor {
     @Unique
-    private int lastSampledX;
-    @Unique
-    private int lastSampledY;
-    @Unique
-    private int lastSampledZ;
-
-    @Unique
     private long lastSampledWorldSeed;
-
     @Unique
     private RegistryKey<World> lastSampledDimension;
 
-    @Inject(at = @At("HEAD"),
-            method = "getBiome",
-            cancellable = true
-    )
+    @Inject(at = @At("HEAD"), method = "getBiome", cancellable = true)
     private void citadel_getNoiseBiomeCoords(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler sampler, CallbackInfoReturnable<RegistryEntry<Biome>> cir) {
         MultiNoiseUtil.NoiseValuePoint targetPoint = sampler.sample(x, y, z);
         float f = MultiNoiseUtil.toFloat(targetPoint.continentalnessNoise());
@@ -46,9 +35,8 @@ public class MultiNoiseBiomeSourceMixin implements IMultiNoiseBiomeSourceAccesso
         float f5 = MultiNoiseUtil.toFloat(targetPoint.depth());
         EventReplaceBiome event = new EventReplaceBiome((ExpandedBiomeSource) this, cir.getReturnValue(), x, y, z, f, f1, f2, f3, f4, f5, this.lastSampledWorldSeed, this.lastSampledDimension, sampler);
         EventBus.post(event);
-        if (event.getResult() == Event.Result.ALLOW) {
+        if (event.getResult() == Event.Result.ALLOW)
             cir.setReturnValue(event.getBiomeToGenerate());
-        }
     }
 
     @Override

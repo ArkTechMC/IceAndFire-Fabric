@@ -47,16 +47,6 @@ public class Citadel {
         this.onModConfigEvent();
     }
 
-    public static final RegistryObject<BlockEntityType<CitadelLecternBlockEntity>> LECTERN_BE = BLOCK_ENTITIES.register("lectern", () -> BlockEntityType.Builder.create(CitadelLecternBlockEntity::new, LECTERN.get()).build(null));
-
-    public void onModConfigEvent() {
-        // Rebake the configs when they change
-        ServerConfig.skipWarnings = ConfigHolder.SERVER.skipDatapackWarnings.get();
-        ServerConfig.citadelEntityTrack = ConfigHolder.SERVER.citadelEntityTracker.get();
-        ServerConfig.chunkGenSpawnModifierVal = ConfigHolder.SERVER.chunkGenSpawnModifier.get();
-        //citadelTestBiomeData = SpawnBiomeConfig.create(new ResourceLocation("citadel:config_biome"), CitadelBiomeDefinitions.TERRALITH_TEST);
-    }
-
     public static void onServerAboutToStart() {
         DynamicRegistryManager registryAccess = StaticVariables.server.getRegistryManager();
         VillageHouseManager.addAllHouses(registryAccess);
@@ -75,7 +65,17 @@ public class Citadel {
                 expandedBiomeSource.expandBiomesWith(biomeHolders);
             }
         }
+    }    public static final RegistryObject<BlockEntityType<CitadelLecternBlockEntity>> LECTERN_BE = BLOCK_ENTITIES.register("lectern", () -> BlockEntityType.Builder.create(CitadelLecternBlockEntity::new, LECTERN.get()).build(null));
+
+    public void onModConfigEvent() {
+        // Rebake the configs when they change
+        ServerConfig.skipWarnings = ConfigHolder.SERVER.skipDatapackWarnings.get();
+        ServerConfig.citadelEntityTrack = ConfigHolder.SERVER.citadelEntityTracker.get();
+        ServerConfig.chunkGenSpawnModifierVal = ConfigHolder.SERVER.chunkGenSpawnModifier.get();
+        //citadelTestBiomeData = SpawnBiomeConfig.create(new ResourceLocation("citadel:config_biome"), CitadelBiomeDefinitions.TERRALITH_TEST);
     }
+
+
 
 
 }

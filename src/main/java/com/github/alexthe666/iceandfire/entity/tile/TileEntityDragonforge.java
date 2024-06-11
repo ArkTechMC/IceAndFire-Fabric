@@ -21,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -428,11 +427,11 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
     @Override
     public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        return new ContainerDragonForge(id, this, playerInventory,this);
+        return new ContainerDragonForge(id, this, playerInventory, this);
     }
 
     @Override
     protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
-        return new ContainerDragonForge(id, this, player,this);
+        return new ContainerDragonForge(id, this, player, this);
     }
 }

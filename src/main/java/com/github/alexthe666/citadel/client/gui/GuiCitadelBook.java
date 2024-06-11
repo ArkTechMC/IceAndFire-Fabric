@@ -8,7 +8,6 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class GuiCitadelBook extends GuiBasicBook {
-
     public GuiCitadelBook(ItemStack bookStack) {
         super(bookStack, Text.translatable("citadel_guide_book.title"));
     }

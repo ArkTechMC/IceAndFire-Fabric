@@ -19,13 +19,13 @@ public class POITagGenerator extends VanillaPointOfInterestTypeTagProvider {
         super(pOutput, pLookupProvider);
     }
 
+    private static TagKey<PointOfInterestType> create(String name) {
+        return TagKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, new Identifier(IceAndFire.MOD_ID, name));
+    }
+
     @Override
     protected void configure(RegistryWrapper.WrapperLookup pProvider) {
         this.getOrCreateTagBuilder(PointOfInterestTypeTags.ACQUIRABLE_JOB_SITE).add(IafPOITypes.SCRIBE_POI);
-    }
-
-    private static TagKey<PointOfInterestType> create(String name) {
-        return TagKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, new Identifier(IceAndFire.MOD_ID, name));
     }
 
     @Override

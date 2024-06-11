@@ -2,14 +2,12 @@ package com.github.alexthe666.citadel.client.model;
 
 import com.github.alexthe666.citadel.client.model.container.TabulaCubeContainer;
 import com.github.alexthe666.citadel.client.model.container.TabulaCubeGroupContainer;
-import com.github.alexthe666.citadel.client.model.container.TabulaModelBlock;
 import com.github.alexthe666.citadel.client.model.container.TabulaModelContainer;
 import com.google.gson.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.render.model.json.Transformation;
-import net.minecraft.resource.ResourceManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,10 +26,7 @@ public enum TabulaModelHandler implements JsonDeserializationContext {
     INSTANCE;
 
     private final Gson gson = new GsonBuilder().registerTypeAdapter(Transformation.class, new Transformation.Deserializer()).registerTypeAdapter(ModelTransformation.class, new ModelTransformation.Deserializer()).create();
-    private final JsonParser parser = new JsonParser();
-    private final TabulaModelBlock.Deserializer TabulaModelBlockDeserializer = new TabulaModelBlock.Deserializer();
     private final Set<String> enabledDomains = new HashSet<>();
-    private ResourceManager manager;
 
     public void addDomain(String domain) {
         this.enabledDomains.add(domain.toLowerCase(Locale.ROOT));
@@ -46,12 +41,8 @@ public enum TabulaModelHandler implements JsonDeserializationContext {
      * @throws IOException if the file can't be found
      */
     public TabulaModelContainer loadTabulaModel(String path) throws IOException {
-        if (!path.startsWith("/")) {
-            path = "/" + path;
-        }
-        if (!path.endsWith(".tbl")) {
-            path += ".tbl";
-        }
+        if (!path.startsWith("/")) path = "/" + path;
+        if (!path.endsWith(".tbl")) path += ".tbl";
         InputStream stream = TabulaModelHandler.class.getResourceAsStream(path);
         return TabulaModelHandler.INSTANCE.loadTabulaModel(this.getModelJsonStream(path, stream));
     }
@@ -73,13 +64,9 @@ public enum TabulaModelHandler implements JsonDeserializationContext {
      */
     public TabulaCubeContainer getCubeByName(String name, TabulaModelContainer model) {
         List<TabulaCubeContainer> allCubes = this.getAllCubes(model);
-
-        for (TabulaCubeContainer cube : allCubes) {
-            if (cube.getName().equals(name)) {
+        for (TabulaCubeContainer cube : allCubes)
+            if (cube.getName().equals(name))
                 return cube;
-            }
-        }
-
         return null;
     }
 
@@ -90,31 +77,22 @@ public enum TabulaModelHandler implements JsonDeserializationContext {
      */
     public TabulaCubeContainer getCubeByIdentifier(String identifier, TabulaModelContainer model) {
         List<TabulaCubeContainer> allCubes = this.getAllCubes(model);
-
-        for (TabulaCubeContainer cube : allCubes) {
-            if (cube.getIdentifier().equals(identifier)) {
+        for (TabulaCubeContainer cube : allCubes)
+            if (cube.getIdentifier().equals(identifier))
                 return cube;
-            }
-        }
-
         return null;
     }
 
     /**
      * @param model the model container
-     * @return an array with all cubes of the model
+     * @return a list with all cubes of the model
      */
     public List<TabulaCubeContainer> getAllCubes(TabulaModelContainer model) {
         List<TabulaCubeContainer> cubes = new ArrayList<>();
-
-        for (TabulaCubeGroupContainer cubeGroup : model.getCubeGroups()) {
+        for (TabulaCubeGroupContainer cubeGroup : model.getCubeGroups())
             cubes.addAll(this.traverse(cubeGroup));
-        }
-
-        for (TabulaCubeContainer cube : model.getCubes()) {
+        for (TabulaCubeContainer cube : model.getCubes())
             cubes.addAll(this.traverse(cube));
-        }
-
         return cubes;
     }
 

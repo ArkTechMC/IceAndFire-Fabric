@@ -12,18 +12,18 @@ public class TabulaModelRenderUtils {
         public final float textureU;
         public final float textureV;
 
-        public PositionTextureVertex(float p_i1158_1_, float p_i1158_2_, float p_i1158_3_, float p_i1158_4_, float p_i1158_5_) {
-            this(new Vector3f(p_i1158_1_, p_i1158_2_, p_i1158_3_), p_i1158_4_, p_i1158_5_);
+        public PositionTextureVertex(float x, float y, float z, float u, float v) {
+            this(new Vector3f(x, y, z), u, v);
         }
 
-        public PositionTextureVertex(Vector3f p_i225952_1_, float p_i225952_2_, float p_i225952_3_) {
-            this.position = p_i225952_1_;
-            this.textureU = p_i225952_2_;
-            this.textureV = p_i225952_3_;
+        public PositionTextureVertex(Vector3f position, float u, float v) {
+            this.position = position;
+            this.textureU = u;
+            this.textureV = v;
         }
 
-        public PositionTextureVertex setTextureUV(float p_78240_1_, float p_78240_2_) {
-            return new PositionTextureVertex(this.position, p_78240_1_, p_78240_2_);
+        public PositionTextureVertex setTextureUV(float u, float v) {
+            return new PositionTextureVertex(this.position, u, v);
         }
     }
 
@@ -32,29 +32,24 @@ public class TabulaModelRenderUtils {
         public final PositionTextureVertex[] vertexPositions;
         public final Vector3f normal;
 
-        public TexturedQuad(PositionTextureVertex[] p_i225951_1_, float p_i225951_2_, float p_i225951_3_, float p_i225951_4_, float p_i225951_5_, float p_i225951_6_, float p_i225951_7_, boolean p_i225951_8_, Direction p_i225951_9_) {
-            this.vertexPositions = p_i225951_1_;
-            float lvt_10_1_ = 0.0F / p_i225951_6_;
-            float lvt_11_1_ = 0.0F / p_i225951_7_;
-            p_i225951_1_[0] = p_i225951_1_[0].setTextureUV(p_i225951_4_ / p_i225951_6_ - lvt_10_1_, p_i225951_3_ / p_i225951_7_ + lvt_11_1_);
-            p_i225951_1_[1] = p_i225951_1_[1].setTextureUV(p_i225951_2_ / p_i225951_6_ + lvt_10_1_, p_i225951_3_ / p_i225951_7_ + lvt_11_1_);
-            p_i225951_1_[2] = p_i225951_1_[2].setTextureUV(p_i225951_2_ / p_i225951_6_ + lvt_10_1_, p_i225951_5_ / p_i225951_7_ - lvt_11_1_);
-            p_i225951_1_[3] = p_i225951_1_[3].setTextureUV(p_i225951_4_ / p_i225951_6_ - lvt_10_1_, p_i225951_5_ / p_i225951_7_ - lvt_11_1_);
-            if (p_i225951_8_) {
-                int lvt_12_1_ = p_i225951_1_.length;
-
-                for (int lvt_13_1_ = 0; lvt_13_1_ < lvt_12_1_ / 2; ++lvt_13_1_) {
-                    PositionTextureVertex lvt_14_1_ = p_i225951_1_[lvt_13_1_];
-                    p_i225951_1_[lvt_13_1_] = p_i225951_1_[lvt_12_1_ - 1 - lvt_13_1_];
-                    p_i225951_1_[lvt_12_1_ - 1 - lvt_13_1_] = lvt_14_1_;
+        public TexturedQuad(PositionTextureVertex[] textureVertices, float u1, float v1, float u2, float v2, float width, float height, boolean mirror, Direction direction) {
+            this.vertexPositions = textureVertices;
+            textureVertices[0] = textureVertices[0].setTextureUV(u2 / width, v1 / height);
+            textureVertices[1] = textureVertices[1].setTextureUV(u1 / width, v1 / height);
+            textureVertices[2] = textureVertices[2].setTextureUV(u1 / width, v2 / height);
+            textureVertices[3] = textureVertices[3].setTextureUV(u2 / width, v2 / height);
+            if (mirror) {
+                int length = textureVertices.length;
+                for (int i = 0; i < length / 2; ++i) {
+                    PositionTextureVertex vertex = textureVertices[i];
+                    textureVertices[i] = textureVertices[length - 1 - i];
+                    textureVertices[length - 1 - i] = vertex;
                 }
             }
 
-            this.normal = p_i225951_9_.getUnitVector();
-            if (p_i225951_8_) {
+            this.normal = direction.getUnitVector();
+            if (mirror)
                 this.normal.mul(-1.0F, 1.0F, 1.0F);
-            }
-
         }
     }
 
@@ -68,52 +63,52 @@ public class TabulaModelRenderUtils {
         public final float posY2;
         public final float posZ2;
 
-        public ModelBox(int p_i225950_1_, int p_i225950_2_, float p_i225950_3_, float p_i225950_4_, float p_i225950_5_, float p_i225950_6_, float p_i225950_7_, float p_i225950_8_, float p_i225950_9_, float p_i225950_10_, float p_i225950_11_, boolean p_i225950_12_, float p_i225950_13_, float p_i225950_14_) {
-            this.posX1 = p_i225950_3_;
-            this.posY1 = p_i225950_4_;
-            this.posZ1 = p_i225950_5_;
-            this.posX2 = p_i225950_3_ + p_i225950_6_;
-            this.posY2 = p_i225950_4_ + p_i225950_7_;
-            this.posZ2 = p_i225950_5_ + p_i225950_8_;
+        public ModelBox(int p_i225950_1_, int p_i225950_2_, float x, float y, float z, float _x, float _y, float _z, float p_i225950_9_, float p_i225950_10_, float p_i225950_11_, boolean mirror, float width, float height) {
+            this.posX1 = x;
+            this.posY1 = y;
+            this.posZ1 = z;
+            this.posX2 = x + _x;
+            this.posY2 = y + _y;
+            this.posZ2 = z + _z;
             this.quads = new TexturedQuad[6];
-            float lvt_15_1_ = p_i225950_3_ + p_i225950_6_;
-            float lvt_16_1_ = p_i225950_4_ + p_i225950_7_;
-            float lvt_17_1_ = p_i225950_5_ + p_i225950_8_;
-            p_i225950_3_ -= p_i225950_9_;
-            p_i225950_4_ -= p_i225950_10_;
-            p_i225950_5_ -= p_i225950_11_;
-            lvt_15_1_ += p_i225950_9_;
-            lvt_16_1_ += p_i225950_10_;
-            lvt_17_1_ += p_i225950_11_;
-            if (p_i225950_12_) {
-                float lvt_18_1_ = lvt_15_1_;
-                lvt_15_1_ = p_i225950_3_;
-                p_i225950_3_ = lvt_18_1_;
+            float x2 = this.posX2;
+            float y2 = this.posY2;
+            float z2 = this.posZ2;
+            x -= p_i225950_9_;
+            y -= p_i225950_10_;
+            z -= p_i225950_11_;
+            x2 += p_i225950_9_;
+            y2 += p_i225950_10_;
+            z2 += p_i225950_11_;
+            if (mirror) {
+                float lvt_18_1_ = x2;
+                x2 = x;
+                x = lvt_18_1_;
             }
 
-            PositionTextureVertex lvt_18_2_ = new PositionTextureVertex(p_i225950_3_, p_i225950_4_, p_i225950_5_, 0.0F, 0.0F);
-            PositionTextureVertex lvt_19_1_ = new PositionTextureVertex(lvt_15_1_, p_i225950_4_, p_i225950_5_, 0.0F, 8.0F);
-            PositionTextureVertex lvt_20_1_ = new PositionTextureVertex(lvt_15_1_, lvt_16_1_, p_i225950_5_, 8.0F, 8.0F);
-            PositionTextureVertex lvt_21_1_ = new PositionTextureVertex(p_i225950_3_, lvt_16_1_, p_i225950_5_, 8.0F, 0.0F);
-            PositionTextureVertex lvt_22_1_ = new PositionTextureVertex(p_i225950_3_, p_i225950_4_, lvt_17_1_, 0.0F, 0.0F);
-            PositionTextureVertex lvt_23_1_ = new PositionTextureVertex(lvt_15_1_, p_i225950_4_, lvt_17_1_, 0.0F, 8.0F);
-            PositionTextureVertex lvt_24_1_ = new PositionTextureVertex(lvt_15_1_, lvt_16_1_, lvt_17_1_, 8.0F, 8.0F);
-            PositionTextureVertex lvt_25_1_ = new PositionTextureVertex(p_i225950_3_, lvt_16_1_, lvt_17_1_, 8.0F, 0.0F);
-            float lvt_26_1_ = (float) p_i225950_1_;
-            float lvt_27_1_ = (float) p_i225950_1_ + p_i225950_8_;
-            float lvt_28_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_;
-            float lvt_29_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_6_;
-            float lvt_30_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_8_;
-            float lvt_31_1_ = (float) p_i225950_1_ + p_i225950_8_ + p_i225950_6_ + p_i225950_8_ + p_i225950_6_;
-            float lvt_32_1_ = (float) p_i225950_2_;
-            float lvt_33_1_ = (float) p_i225950_2_ + p_i225950_8_;
-            float lvt_34_1_ = (float) p_i225950_2_ + p_i225950_8_ + p_i225950_7_;
-            this.quads[2] = new TexturedQuad(new PositionTextureVertex[]{lvt_23_1_, lvt_22_1_, lvt_18_2_, lvt_19_1_}, lvt_27_1_, lvt_32_1_, lvt_28_1_, lvt_33_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.DOWN);
-            this.quads[3] = new TexturedQuad(new PositionTextureVertex[]{lvt_20_1_, lvt_21_1_, lvt_25_1_, lvt_24_1_}, lvt_28_1_, lvt_33_1_, lvt_29_1_, lvt_32_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.UP);
-            this.quads[1] = new TexturedQuad(new PositionTextureVertex[]{lvt_18_2_, lvt_22_1_, lvt_25_1_, lvt_21_1_}, lvt_26_1_, lvt_33_1_, lvt_27_1_, lvt_34_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.WEST);
-            this.quads[4] = new TexturedQuad(new PositionTextureVertex[]{lvt_19_1_, lvt_18_2_, lvt_21_1_, lvt_20_1_}, lvt_27_1_, lvt_33_1_, lvt_28_1_, lvt_34_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.NORTH);
-            this.quads[0] = new TexturedQuad(new PositionTextureVertex[]{lvt_23_1_, lvt_19_1_, lvt_20_1_, lvt_24_1_}, lvt_28_1_, lvt_33_1_, lvt_30_1_, lvt_34_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.EAST);
-            this.quads[5] = new TexturedQuad(new PositionTextureVertex[]{lvt_22_1_, lvt_23_1_, lvt_24_1_, lvt_25_1_}, lvt_30_1_, lvt_33_1_, lvt_31_1_, lvt_34_1_, p_i225950_13_, p_i225950_14_, p_i225950_12_, Direction.SOUTH);
+            PositionTextureVertex vertex = new PositionTextureVertex(x, y, z, 0.0F, 0.0F);
+            PositionTextureVertex vertex1 = new PositionTextureVertex(x2, y, z, 0.0F, 8.0F);
+            PositionTextureVertex vertex2 = new PositionTextureVertex(x2, y2, z, 8.0F, 8.0F);
+            PositionTextureVertex vertex3 = new PositionTextureVertex(x, y2, z, 8.0F, 0.0F);
+            PositionTextureVertex vertex4 = new PositionTextureVertex(x, y, z2, 0.0F, 0.0F);
+            PositionTextureVertex vertex5 = new PositionTextureVertex(x2, y, z2, 0.0F, 8.0F);
+            PositionTextureVertex vertex6 = new PositionTextureVertex(x2, y2, z2, 8.0F, 8.0F);
+            PositionTextureVertex vertex7 = new PositionTextureVertex(x, y2, z2, 8.0F, 0.0F);
+            float u1 = (float) p_i225950_1_;
+            float u2 = (float) p_i225950_1_ + _z;
+            float u3 = (float) p_i225950_1_ + _z + _x;
+            float u4 = (float) p_i225950_1_ + _z + _x + _x;
+            float u5 = (float) p_i225950_1_ + _z + _x + _z;
+            float u6 = (float) p_i225950_1_ + _z + _x + _z + _x;
+            float v1 = (float) p_i225950_2_;
+            float v2 = (float) p_i225950_2_ + _z;
+            float v3 = (float) p_i225950_2_ + _z + _y;
+            this.quads[2] = new TexturedQuad(new PositionTextureVertex[]{vertex5, vertex4, vertex, vertex1}, u2, v1, u3, v2, width, height, mirror, Direction.DOWN);
+            this.quads[3] = new TexturedQuad(new PositionTextureVertex[]{vertex2, vertex3, vertex7, vertex6}, u3, v2, u4, v1, width, height, mirror, Direction.UP);
+            this.quads[1] = new TexturedQuad(new PositionTextureVertex[]{vertex, vertex4, vertex7, vertex3}, u1, v2, u2, v3, width, height, mirror, Direction.WEST);
+            this.quads[4] = new TexturedQuad(new PositionTextureVertex[]{vertex1, vertex, vertex3, vertex2}, u2, v2, u3, v3, width, height, mirror, Direction.NORTH);
+            this.quads[0] = new TexturedQuad(new PositionTextureVertex[]{vertex5, vertex1, vertex2, vertex6}, u3, v2, u5, v3, width, height, mirror, Direction.EAST);
+            this.quads[5] = new TexturedQuad(new PositionTextureVertex[]{vertex4, vertex5, vertex6, vertex7}, u5, v2, u6, v3, width, height, mirror, Direction.SOUTH);
         }
     }
 }

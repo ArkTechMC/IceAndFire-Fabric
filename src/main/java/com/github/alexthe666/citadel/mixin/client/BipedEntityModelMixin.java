@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Function;
 
 @Mixin(BipedEntityModel.class)
-public abstract class HumanoidModelMixin extends Model {
+public abstract class BipedEntityModelMixin extends Model {
 
-    public HumanoidModelMixin(Function<Identifier, RenderLayer> p_103110_) {
+    public BipedEntityModelMixin(Function<Identifier, RenderLayer> p_103110_) {
         super(p_103110_);
     }
 
@@ -26,9 +26,8 @@ public abstract class HumanoidModelMixin extends Model {
     private void citadel_poseRightArm(LivingEntity entity, CallbackInfo ci) {
         EventPosePlayerHand event = new EventPosePlayerHand(entity, (BipedEntityModel<?>) ((Model) this), false);
         EventBus.post(event);
-        if (event.getResult() == Event.Result.ALLOW) {
+        if (event.getResult() == Event.Result.ALLOW)
             ci.cancel();
-        }
     }
 
 
@@ -36,8 +35,7 @@ public abstract class HumanoidModelMixin extends Model {
     private void citadel_poseLeftArm(LivingEntity entity, CallbackInfo ci) {
         EventPosePlayerHand event = new EventPosePlayerHand(entity, (BipedEntityModel<?>) ((Model) this), true);
         EventBus.post(event);
-        if (event.getResult() == Event.Result.ALLOW) {
+        if (event.getResult() == Event.Result.ALLOW)
             ci.cancel();
-        }
     }
 }

@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.item;
 
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.client.gui.GuiCitadelBook;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;

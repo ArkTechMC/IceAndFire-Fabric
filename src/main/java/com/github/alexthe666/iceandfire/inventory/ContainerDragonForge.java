@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -19,8 +18,8 @@ public class ContainerDragonForge extends ScreenHandler {
 
     protected final World world;
     private final Inventory tileFurnace;
-    public int fireType;
     private final TileEntityDragonforge owner;
+    public int fireType;
 
     public ContainerDragonForge(int i, PlayerInventory playerInventory) {
         this(i, new SimpleInventory(3), playerInventory, null);

@@ -92,7 +92,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     public float sitProgress;
     private int animationTick;
     private Animation currentAnimation;
-    private LazyOptional<?> itemHandler = null;
+    private final LazyOptional<?> itemHandler = null;
 
     public EntityHippocampus(EntityType<? extends EntityHippocampus> entityType, World worldIn) {
         super(entityType, worldIn);

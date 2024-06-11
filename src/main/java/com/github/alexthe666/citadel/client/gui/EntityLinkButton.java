@@ -22,13 +22,13 @@ import java.util.Map;
 
 public class EntityLinkButton extends ButtonWidget {
 
-    private static final Map<String, Entity> renderedEntites = new HashMap<>();
+    private static final Map<String, Entity> renderedEntities = new HashMap<>();
     private static final Quaternionf ENTITY_ROTATION = (new Quaternionf()).rotationXYZ((float) Math.toRadians(30), (float) Math.toRadians(130), (float) Math.PI);
     private final EntityLinkData data;
     private final GuiBasicBook bookGUI;
 
-    public EntityLinkButton(GuiBasicBook bookGUI, EntityLinkData linkData, int k, int l, PressAction o) {
-        super(k + linkData.getX() - 12, l + linkData.getY(), (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), ScreenTexts.EMPTY, o, DEFAULT_NARRATION_SUPPLIER);
+    public EntityLinkButton(GuiBasicBook bookGUI, EntityLinkData linkData, int x, int y, PressAction o) {
+        super(x + linkData.getX() - 12, y + linkData.getY(), (int) (24 * linkData.getScale()), (int) (24 * linkData.getScale()), ScreenTexts.EMPTY, o, DEFAULT_NARRATION_SUPPLIER);
         this.data = linkData;
         this.bookGUI = bookGUI;
     }
@@ -41,16 +41,15 @@ public class EntityLinkButton extends ButtonWidget {
         guiGraphics.getMatrices().translate(this.getX(), this.getY(), 0);
         guiGraphics.getMatrices().scale(f, f, 1);
         this.drawBtn(false, guiGraphics, 0, 0, lvt_5_1_, lvt_6_1_, 24, 24);
-        Entity model = null;
         EntityType<?> type = Registries.ENTITY_TYPE.get(new Identifier(this.data.getEntity()));
-        model = renderedEntites.putIfAbsent(this.data.getEntity(), type.create(MinecraftClient.getInstance().world));
+        Entity model = renderedEntities.putIfAbsent(this.data.getEntity(), type.create(MinecraftClient.getInstance().world));
 
         guiGraphics.enableScissor(this.getX() + Math.round(f * 4), this.getY() + Math.round(f * 4), this.getX() + Math.round(f * 20), this.getY() + Math.round(f * 20));
         if (model != null) {
             if (MinecraftClient.getInstance().player != null)
                 model.age = MinecraftClient.getInstance().player.age;
             float renderScale = (float) (this.data.getEntityScale() * f * 10);
-            this.renderEntityInInventory(guiGraphics, 11 + (int) (this.data.getOffset_x() * this.data.getEntityScale()), 22 + (int) (this.data.getOffset_y() * this.data.getEntityScale()), renderScale, ENTITY_ROTATION, model);
+            this.renderEntityInInventory(guiGraphics, 11 + (int) (this.data.getOffsetX() * this.data.getEntityScale()), 22 + (int) (this.data.getOffsetY() * this.data.getEntityScale()), renderScale, ENTITY_ROTATION, model);
         }
         guiGraphics.disableScissor();
         if (this.hovered) {
@@ -63,16 +62,15 @@ public class EntityLinkButton extends ButtonWidget {
         guiGraphics.getMatrices().pop();
     }
 
-    public void drawBtn(boolean color, DrawContext guiGraphics, int p_238474_2_, int p_238474_3_, int p_238474_4_, int p_238474_5_, int p_238474_6_, int p_238474_7_) {
+    public void drawBtn(boolean color, DrawContext guiGraphics, int x, int y, int u, int v, int width, int height) {
+        int r, g, b;
         if (color) {
             int widgetColor = this.bookGUI.getWidgetColor();
-            int r = (widgetColor & 0xFF0000) >> 16;
-            int g = (widgetColor & 0xFF00) >> 8;
-            int b = (widgetColor & 0xFF);
-            BookBlit.blitWithColor(guiGraphics, this.bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 0, (float) p_238474_4_, (float) p_238474_5_, p_238474_6_, p_238474_7_, 256, 256, r, g, b, 255);
-        } else {
-            guiGraphics.drawTexture(this.bookGUI.getBookWidgetTexture(), p_238474_2_, p_238474_3_, 0, (float) p_238474_4_, (float) p_238474_5_, p_238474_6_, p_238474_7_, 256, 256);
-        }
+            r = (widgetColor & 0xFF0000) >> 16;
+            g = (widgetColor & 0xFF00) >> 8;
+            b = (widgetColor & 0xFF);
+        } else r = g = b = 255;
+        guiGraphics.drawTexturedQuad(this.bookGUI.getBookWidgetTexture(), x, x + width, y, y + height, 0, u / 256.0F, (u + width) / 256.0F, v / 256.0F, (v + height) / 256.0F, r, g, b, 255);
     }
 
 
@@ -93,5 +91,4 @@ public class EntityLinkButton extends ButtonWidget {
         guiGraphics.getMatrices().pop();
         DiffuseLighting.enableGuiDepthLighting();
     }
-
 }

@@ -16,7 +16,7 @@ public class Animation {
     /**
      * @param id       the model id
      * @param duration the model duration
-     * @return an model with the given id and duration
+     * @return a model with the given id and duration
      * @deprecated use {@link Animation#create(int)} instead.
      */
     @Deprecated
@@ -28,7 +28,7 @@ public class Animation {
 
     /**
      * @param duration the model duration
-     * @return an model with the given id and duration
+     * @return a model with the given id and duration
      * @since 1.1.0
      */
     public static Animation create(int duration) {

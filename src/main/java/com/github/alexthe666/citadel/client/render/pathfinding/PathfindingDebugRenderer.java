@@ -4,9 +4,7 @@ import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.BufferBuilderStorage;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;
@@ -17,8 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PathfindingDebugRenderer {
-    public static final BufferBuilderStorage renderBuffers = new BufferBuilderStorage();
-    private static final VertexConsumerProvider.Immediate renderBuffer = renderBuffers.getEntityVertexConsumers();
     /**
      * Set of visited nodes.
      */
@@ -66,9 +62,9 @@ public class PathfindingDebugRenderer {
         ctx.poseStack.translate(n.pos.getX() + 0.375d, n.pos.getY() + 0.375d, n.pos.getZ() + 0.375d);
 
         final Entity entity = MinecraftClient.getInstance().getCameraEntity();
-        if (n.pos.isWithinDistance(entity.getBlockPos(), 5d)) {
+        assert entity != null;
+        if (n.pos.isWithinDistance(entity.getBlockPos(), 5d))
             renderDebugText(n, ctx);
-        }
 
         ctx.poseStack.scale(0.25F, 0.25F, 0.25F);
 
@@ -114,6 +110,4 @@ public class PathfindingDebugRenderer {
 
         ctx.poseStack.pop();
     }
-
-
 }

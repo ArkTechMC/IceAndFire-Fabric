@@ -21,9 +21,7 @@ public enum AnimationHandler {
      * @param <T>       the entity type
      */
     public <T extends Entity & IAnimatedEntity> void sendAnimationMessage(T entity, Animation animation) {
-        if (entity.getWorld().isClient) {
-            return;
-        }
+        if (entity.getWorld().isClient) return;
         entity.setAnimation(animation);
         IafServerNetworkHandler.sendToAll(new AnimationMessage(entity.getId(), ArrayUtils.indexOf(entity.getAnimations(), animation)));
     }
@@ -35,15 +33,14 @@ public enum AnimationHandler {
      * @param <T>    the entity type
      */
     public <T extends Entity & IAnimatedEntity> void updateAnimations(T entity) {
-        if (entity.getAnimation() == null) {
+        if (entity.getAnimation() == null)
             entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
-        } else {
+        else {
             if (entity.getAnimation() != IAnimatedEntity.NO_ANIMATION) {
                 if (entity.getAnimationTick() == 0) {
-                    AnimationEvent event = new AnimationEvent.Start<>(entity, entity.getAnimation());
-                    if (!EventBus.post(event)) {
+                    AnimationEvent<?> event = new AnimationEvent.Start<>(entity, entity.getAnimation());
+                    if (!EventBus.post(event))
                         this.sendAnimationMessage(entity, event.getAnimation());
-                    }
                 }
                 if (entity.getAnimationTick() < entity.getAnimation().getDuration()) {
                     entity.setAnimationTick(entity.getAnimationTick() + 1);

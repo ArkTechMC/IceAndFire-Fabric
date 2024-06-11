@@ -37,6 +37,6 @@ public class SyncClientTickRateMessage implements S2CMessage {
 
     @Override
     public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
-        ClientTickRateTracker.getForClient(MinecraftClient.getInstance()).syncFromServer(compound);
+        ClientTickRateTracker.getForClient(MinecraftClient.getInstance()).syncFromServer(this.compound);
     }
 }

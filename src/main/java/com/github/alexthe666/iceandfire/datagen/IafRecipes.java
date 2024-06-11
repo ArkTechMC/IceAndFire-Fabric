@@ -33,6 +33,14 @@ public class IafRecipes extends RecipeProvider {
         super(output);
     }
 
+    private static Identifier location(final String path) {
+        return new Identifier(IceAndFire.MOD_ID, path);
+    }
+
+    private static String locationString(final String path) {
+        return IceAndFire.MOD_ID + ":" + path;
+    }
+
     @Override
     public void generate(Consumer<RecipeJsonProvider> consumer) {
         this.createShaped(consumer);
@@ -992,14 +1000,6 @@ public class IafRecipes extends RecipeProvider {
                 .input('B', brick)
                 .criterion("has_item", conditionsFromItem(brick.asItem()))
                 .offerTo(consumer);
-    }
-
-    private static Identifier location(final String path) {
-        return new Identifier(IceAndFire.MOD_ID, path);
-    }
-
-    private static String locationString(final String path) {
-        return IceAndFire.MOD_ID + ":" + path;
     }
 
 }

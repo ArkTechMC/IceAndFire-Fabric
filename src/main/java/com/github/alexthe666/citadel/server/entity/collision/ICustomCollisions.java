@@ -31,16 +31,13 @@ public interface ICustomCollisions {
             Vec3d vec32 = collideBoundingBox2(entity, new Vec3d(0.0D, entity.getStepHeight(), 0.0D), aabb.stretch(vecIN.x, 0.0D, vecIN.z), entity.getWorld(), list);
             if (vec32.y < (double) entity.getStepHeight()) {
                 Vec3d vec33 = collideBoundingBox2(entity, new Vec3d(vecIN.x, 0.0D, vecIN.z), aabb.offset(vec32), entity.getWorld(), list).add(vec32);
-                if (vec33.horizontalLengthSquared() > vec31.horizontalLengthSquared()) {
+                if (vec33.horizontalLengthSquared() > vec31.horizontalLengthSquared())
                     vec31 = vec33;
-                }
             }
 
-            if (vec31.horizontalLengthSquared() > vec3.horizontalLengthSquared()) {
+            if (vec31.horizontalLengthSquared() > vec3.horizontalLengthSquared())
                 return vec31.add(collideBoundingBox2(entity, new Vec3d(0.0D, -vec31.y + vecIN.y, 0.0D), aabb.offset(vec31), entity.getWorld(), list));
-            }
         }
-
         return vec3;
     }
 
@@ -53,51 +50,45 @@ public interface ICustomCollisions {
 
         WorldBorder worldborder = p_198898_.getWorldBorder();
         boolean flag = p_198895_ != null && worldborder.canCollide(p_198895_, p_198897_.stretch(p_198896_));
-        if (flag) {
+        if (flag)
             builder.add(worldborder.asVoxelShape());
-        }
 
         builder.addAll(new CustomCollisionsBlockCollisions(p_198898_, p_198895_, p_198897_.stretch(p_198896_)));
         return collideWithShapes2(p_198896_, p_198897_, builder.build());
     }
 
     private static Vec3d collideWithShapes2(Vec3d p_198901_, Box p_198902_, List<VoxelShape> p_198903_) {
-        if (p_198903_.isEmpty()) {
+        if (p_198903_.isEmpty())
             return p_198901_;
-        } else {
+        else {
             double d0 = p_198901_.x;
             double d1 = p_198901_.y;
             double d2 = p_198901_.z;
             if (d1 != 0.0D) {
                 d1 = VoxelShapes.calculateMaxOffset(Direction.Axis.Y, p_198902_, p_198903_, d1);
-                if (d1 != 0.0D) {
+                if (d1 != 0.0D)
                     p_198902_ = p_198902_.offset(0.0D, d1, 0.0D);
-                }
             }
 
             boolean flag = Math.abs(d0) < Math.abs(d2);
             if (flag && d2 != 0.0D) {
                 d2 = VoxelShapes.calculateMaxOffset(Direction.Axis.Z, p_198902_, p_198903_, d2);
-                if (d2 != 0.0D) {
+                if (d2 != 0.0D)
                     p_198902_ = p_198902_.offset(0.0D, 0.0D, d2);
-                }
             }
 
             if (d0 != 0.0D) {
                 d0 = VoxelShapes.calculateMaxOffset(Direction.Axis.X, p_198902_, p_198903_, d0);
-                if (!flag && d0 != 0.0D) {
+                if (!flag && d0 != 0.0D)
                     p_198902_ = p_198902_.offset(d0, 0.0D, 0.0D);
-                }
             }
 
-            if (!flag && d2 != 0.0D) {
+            if (!flag && d2 != 0.0D)
                 d2 = VoxelShapes.calculateMaxOffset(Direction.Axis.Z, p_198902_, p_198903_, d2);
-            }
 
             return new Vec3d(d0, d1, d2);
         }
     }
 
     boolean canPassThrough(BlockPos mutablePos, BlockState blockstate, VoxelShape voxelshape);
-
 }

@@ -14,7 +14,7 @@ public class TabulaAnimationComponentContainer {
     private final double[] posOffset = new double[3];
     private final double[] rotOffset = new double[3];
     private final double[] scaleOffset = new double[3];
-    private final List<double[]> progressionCoords = new ArrayList<>();
+    private final List<double[]> progressionCords = new ArrayList<>();
     private String name;
     private String identifier;
     private int startKey;
@@ -75,8 +75,8 @@ public class TabulaAnimationComponentContainer {
         return this.opacityOffset;
     }
 
-    public List<double[]> getProgressionCoords() {
-        return this.progressionCoords;
+    public List<double[]> getProgressionCords() {
+        return this.progressionCords;
     }
 
     public boolean isHidden() {

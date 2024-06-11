@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LecternBooks {
-
     public static Map<Identifier, BookData> BOOKS = new HashMap<>();
 
     public static void init() {

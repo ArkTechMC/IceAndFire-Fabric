@@ -16,9 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PostEffectRegistry {
-
     private static final List<Identifier> registry = new ArrayList<>();
-
     private static final Map<Identifier, PostEffect> postEffects = new HashMap<>();
 
     public static void clear() {
@@ -56,9 +54,8 @@ public class PostEffectRegistry {
     }
 
     public static void resize(int x, int y) {
-        for (PostEffect postEffect : postEffects.values()) {
+        for (PostEffect postEffect : postEffects.values())
             postEffect.resize(x, y);
-        }
     }
 
     public static Framebuffer getRenderTargetFor(Identifier resourceLocation) {
@@ -68,43 +65,39 @@ public class PostEffectRegistry {
 
     public static void renderEffectForNextTick(Identifier resourceLocation) {
         PostEffect effect = postEffects.get(resourceLocation);
-        if (effect != null) {
+        if (effect != null)
             effect.setEnabled(true);
-        }
     }
 
     public static void blitEffects() {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
         RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-        for (PostEffect postEffect : postEffects.values()) {
+        for (PostEffect postEffect : postEffects.values())
             if (postEffect.postChain != null && postEffect.isEnabled()) {
                 postEffect.getRenderTarget().draw(MinecraftClient.getInstance().getWindow().getFramebufferWidth(), MinecraftClient.getInstance().getWindow().getFramebufferHeight(), false);
                 postEffect.getRenderTarget().clear(MinecraftClient.IS_SYSTEM_MAC);
                 MinecraftClient.getInstance().getFramebuffer().beginWrite(false);
                 postEffect.setEnabled(false);
             }
-        }
         RenderSystem.disableBlend();
         RenderSystem.defaultBlendFunc();
     }
 
     public static void clearAndBindWrite(Framebuffer mainTarget) {
-        for (PostEffect postEffect : postEffects.values()) {
+        for (PostEffect postEffect : postEffects.values())
             if (postEffect.isEnabled() && postEffect.postChain != null) {
                 postEffect.getRenderTarget().clear(MinecraftClient.IS_SYSTEM_MAC);
                 mainTarget.beginWrite(false);
             }
-        }
     }
 
     public static void processEffects(Framebuffer mainTarget, float f) {
-        for (PostEffect postEffect : postEffects.values()) {
+        for (PostEffect postEffect : postEffects.values())
             if (postEffect.isEnabled() && postEffect.postChain != null) {
                 postEffect.postChain.render(MinecraftClient.getInstance().getTickDelta());
                 mainTarget.beginWrite(false);
             }
-        }
     }
 
     private static class PostEffect {
@@ -135,15 +128,13 @@ public class PostEffectRegistry {
         }
 
         public void close() {
-            if (this.postChain != null) {
+            if (this.postChain != null)
                 this.postChain.close();
-            }
         }
 
         public void resize(int x, int y) {
-            if (this.postChain != null) {
+            if (this.postChain != null)
                 this.postChain.setupDimensions(x, y);
-            }
         }
     }
 }

@@ -17,7 +17,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class CitadelLecternBlock extends LecternBlock {
-
     public CitadelLecternBlock(Settings properties) {
         super(properties);
     }
@@ -31,12 +30,10 @@ public class CitadelLecternBlock extends LecternBlock {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (level.isClient && blockEntity instanceof CitadelLecternBlockEntity lecternBlockEntity && lecternBlockEntity.hasBook()) {
             ItemStack book = lecternBlockEntity.getBook();
-            if (!book.isEmpty() && !player.getItemCooldownManager().isCoolingDown(book.getItem())) {
+            if (!book.isEmpty() && !player.getItemCooldownManager().isCoolingDown(book.getItem()))
                 book.use(level, player, hand);
-            }
         }
         return ActionResult.success(level.isClient);
-
     }
 
 
@@ -44,25 +41,19 @@ public class CitadelLecternBlock extends LecternBlock {
     public int getComparatorOutput(BlockState state, World level, BlockPos pos) {
         if (state.get(HAS_BOOK)) {
             BlockEntity blockentity = level.getBlockEntity(pos);
-            if (blockentity instanceof CitadelLecternBlockEntity) {
+            if (blockentity instanceof CitadelLecternBlockEntity)
                 return ((CitadelLecternBlockEntity) blockentity).getRedstoneSignal();
-            }
         }
-
         return 0;
     }
 
     @Override
     public void onStateReplaced(BlockState state, World level, BlockPos pos, BlockState replaceState, boolean b) {
         if (!state.isOf(replaceState.getBlock())) {
-            if (state.get(HAS_BOOK)) {
+            if (state.get(HAS_BOOK))
                 this.popCitadelBook(state, level, pos);
-            }
-
-            if (state.get(POWERED)) {
+            if (state.get(POWERED))
                 level.updateNeighborsAlways(pos.down(), this);
-            }
-
             super.onStateReplaced(state, level, pos, replaceState, b);
         }
     }

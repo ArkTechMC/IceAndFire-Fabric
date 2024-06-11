@@ -23,9 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.Supplier;
 
 @Mixin(ClientWorld.class)
-public abstract class ClientLevelMixin extends World {
-
-    protected ClientLevelMixin(MutableWorldProperties writableLevelData, RegistryKey<World> levelResourceKey, DynamicRegistryManager registryAccess, RegistryEntry<DimensionType> dimensionTypeHolder, Supplier<Profiler> filler, boolean b1, boolean b2, long seed, int i) {
+public abstract class ClientWorldMixin extends World {
+    protected ClientWorldMixin(MutableWorldProperties writableLevelData, RegistryKey<World> levelResourceKey, DynamicRegistryManager registryAccess, RegistryEntry<DimensionType> dimensionTypeHolder, Supplier<Profiler> filler, boolean b1, boolean b2, long seed, int i) {
         super(writableLevelData, levelResourceKey, registryAccess, dimensionTypeHolder, filler, b1, b2, seed, i);
     }
 
@@ -33,9 +32,8 @@ public abstract class ClientLevelMixin extends World {
     private void citadel_getStarBrightness(float partialTicks, CallbackInfoReturnable<Float> cir) {
         EventGetStarBrightness event = new EventGetStarBrightness(((ClientWorld) (Object) this), cir.getReturnValue(), partialTicks);
         EventBus.post(event);
-        if (event.getResult() == Event.Result.ALLOW) {
+        if (event.getResult() == Event.Result.ALLOW)
             cir.setReturnValue(event.getBrightness());
-        }
     }
 
     @ModifyConstant(method = "tickTime", constant = @Constant(longValue = 1L), expect = 2)

@@ -15,16 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(SmithingScreenHandler.class)
-public class SmithingMenuMixin {
-    @Redirect(
-            method = "updateResult",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/RecipeManager;getAllMatches(Lnet/minecraft/recipe/RecipeType;Lnet/minecraft/inventory/Inventory;Lnet/minecraft/world/World;)Ljava/util/List;")
-    )
+public class SmithingScreenHandlerMixin {
+    @Redirect(method = "updateResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/recipe/RecipeManager;getAllMatches(Lnet/minecraft/recipe/RecipeType;Lnet/minecraft/inventory/Inventory;Lnet/minecraft/world/World;)Ljava/util/List;"))
     private List<SmithingRecipe> citadel_getRecipesFor(RecipeManager recipeManager, RecipeType<SmithingRecipe> type, Inventory container, World level) {
         List<SmithingRecipe> list = new ArrayList<>(recipeManager.getAllMatches(type, container, level));
-        if (type == RecipeType.SMITHING && container.size() >= 2 && !container.getStack(0).isEmpty() && !container.getStack(1).isEmpty()) {
+        if (type == RecipeType.SMITHING && container.size() >= 2 && !container.getStack(0).isEmpty() && !container.getStack(1).isEmpty())
             list.addAll(CitadelRecipes.getSmithingRecipes());
-        }
         return list;
     }
 }

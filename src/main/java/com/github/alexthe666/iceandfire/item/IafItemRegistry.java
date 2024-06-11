@@ -19,7 +19,7 @@ import net.minecraft.sound.SoundEvents;
 
 import java.util.function.Supplier;
 
-import static com.github.alexthe666.iceandfire.item.DragonSteelTier.*;
+import static com.github.alexthe666.iceandfire.item.DragonSteelTier.createMaterialWithRepairItem;
 
 public class IafItemRegistry {
     public static CustomArmorMaterial SILVER_ARMOR_MATERIAL = new IafArmorMaterial("silver", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0);

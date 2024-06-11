@@ -85,11 +85,11 @@ public class LegSolver {
             return aabb.isEmpty() ? 1 : 1 - Math.min((float) aabb.getEndingCoord(Direction.Axis.Y, 0.5D, 0.5D), 1);
         }
 
-        protected float getFallSpeed() {
+        private float getFallSpeed() {
             return 0.25F;
         }
 
-        protected float getRiseSpeed() {
+        private float getRiseSpeed() {
             return 0.25F;
         }
     }

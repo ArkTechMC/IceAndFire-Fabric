@@ -71,6 +71,14 @@ public class IafItemTags extends ItemTagProvider {
         super(output, lookupProvider, blockTags);
     }
 
+    private static TagKey<Item> createKey(final String name) {
+        return TagKey.of(RegistryKeys.ITEM, new Identifier(IceAndFire.MOD_ID, name));
+    }
+
+    private static TagKey<Item> createForgeKey(final String name) {
+        return TagKey.of(RegistryKeys.ITEM, new Identifier("forge", name));
+    }
+
     @Override
     protected void configure(RegistryWrapper.WrapperLookup provider) {
         this.copy(IafBlockTags.CHARRED_BLOCKS, CHARRED_BLOCKS);
@@ -305,14 +313,6 @@ public class IafItemTags extends ItemTagProvider {
         this.getOrCreateTagBuilder(createForgeKey(STORAGE_BLOCK_PATH + "/raw_silver")).add(IafBlockRegistry.RAW_SILVER_BLOCK.get().asItem());
         this.getOrCreateTagBuilder(createForgeKey(STORAGE_BLOCK_PATH + "/sapphire")).add(IafBlockRegistry.SAPPHIRE_BLOCK.get().asItem());
         this.getOrCreateTagBuilder(BONES_WITHER).add(IafItemRegistry.WITHERBONE.get());
-    }
-
-    private static TagKey<Item> createKey(final String name) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier(IceAndFire.MOD_ID, name));
-    }
-
-    private static TagKey<Item> createForgeKey(final String name) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier("forge", name));
     }
 
     @Override

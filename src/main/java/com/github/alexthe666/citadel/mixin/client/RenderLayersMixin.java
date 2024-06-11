@@ -12,13 +12,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(RenderLayers.class)
-public class ItemBlockRenderTypesMixin {
+public class RenderLayersMixin {
     @Inject(at = @At("TAIL"), cancellable = true, method = "getFluidLayer")
     private static void citadel_getFluidRenderLayer(FluidState fluidState, CallbackInfoReturnable<RenderLayer> cir) {
         EventGetFluidRenderType event = new EventGetFluidRenderType(fluidState, cir.getReturnValue());
         EventBus.post(event);
-        if (event.getResult() == Event.Result.ALLOW) {
+        if (event.getResult() == Event.Result.ALLOW)
             cir.setReturnValue(event.getRenderType());
-        }
     }
 }

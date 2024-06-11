@@ -28,6 +28,7 @@ import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEve
 import io.github.fabricators_of_create.porting_lib.entity.events.PlayerEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingDamageEvent;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.*;
@@ -84,6 +85,7 @@ public class IceAndFire implements ModInitializer {
         IafVillagerRegistry.PROFESSIONS.register();
         IafEntityRegistry.addSpawners();
         IafEntityRegistry.commonSetup();
+        IafWorldRegistry.addFeatures();
 
         PlayerBlockBreakEvents.AFTER.register(ServerEvents::onBreakBlock);
         UseEntityCallback.EVENT.register(ServerEvents::onEntityInteract);

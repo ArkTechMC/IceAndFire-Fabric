@@ -631,7 +631,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                         BlockState state = this.getWorld().getBlockState(pos);
                         FluidState fluidState = this.getWorld().getFluidState(pos);
                         Block block = state.getBlock();
-                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable ||state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {
+                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable || state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {
                             if (block != Blocks.AIR) {
                                 if (!this.getWorld().isClient) {
                                     this.getWorld().breakBlock(pos, true);

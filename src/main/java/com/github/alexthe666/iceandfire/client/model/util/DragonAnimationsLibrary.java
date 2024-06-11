@@ -76,7 +76,7 @@ public class DragonAnimationsLibrary {
     public static void registerSingle(IEnumDragonPoses pose, IEnumDragonModelTypes modelType, String modID) {
         //Load model
         TabulaModel result;
-        String location ="assets/iceandfire/models/tabula/" + modelType.getModelType() + "dragon/" + modelType.getModelType() + "dragon_" + pose.getPose() + ".tbl";
+        String location = "assets/iceandfire/models/tabula/" + modelType.getModelType() + "dragon/" + modelType.getModelType() + "dragon_" + pose.getPose() + ".tbl";
         try {
             result = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel(location));
         } catch (IOException | NullPointerException e) {

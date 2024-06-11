@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.client.render;
 
-import com.github.alexthe666.iceandfire.client.IafClientSetup;
 import com.github.alexthe666.iceandfire.client.render.tile.RenderDreadPortal;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;

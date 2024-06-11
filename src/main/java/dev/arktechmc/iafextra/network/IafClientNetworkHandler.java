@@ -1,6 +1,8 @@
 package dev.arktechmc.iafextra.network;
 
 import com.github.alexthe666.citadel.server.message.AnimationMessage;
+import com.github.alexthe666.citadel.server.message.MessageSyncPath;
+import com.github.alexthe666.citadel.server.message.MessageSyncPathReached;
 import com.github.alexthe666.citadel.server.message.SyncClientTickRateMessage;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.message.*;
@@ -32,8 +34,8 @@ public class IafClientNetworkHandler implements ClientPlayNetworking.PlayChannel
         ClientPlayNetworking.registerGlobalReceiver(CHANNEL_NAME, INSTANCE);
 
         INSTANCE.registerMessage(AnimationMessage::new);
-        INSTANCE.registerMessage(com.github.alexthe666.citadel.server.message.MessageSyncPath::new);
-        INSTANCE.registerMessage(com.github.alexthe666.citadel.server.message.MessageSyncPathReached::new);
+        INSTANCE.registerMessage(MessageSyncPath::new);
+        INSTANCE.registerMessage(MessageSyncPathReached::new);
         INSTANCE.registerMessage(SyncClientTickRateMessage::new);
 
         INSTANCE.registerMessage(MessageDeathWormHitbox::new);

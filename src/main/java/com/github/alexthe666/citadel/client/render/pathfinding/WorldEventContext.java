@@ -22,7 +22,6 @@ public class WorldEventContext {
      */
     int clientRenderDist;
 
-
     private WorldEventContext() {
         // singleton
     }

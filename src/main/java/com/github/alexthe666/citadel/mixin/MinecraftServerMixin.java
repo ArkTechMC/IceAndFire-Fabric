@@ -4,11 +4,8 @@ import com.github.alexthe666.citadel.server.world.ModifiableTickRateServer;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
@@ -34,10 +31,7 @@ public abstract class MinecraftServerMixin implements ModifiableTickRateServer {
         this.masterMs += 50L;
     }
 
-    @ModifyConstant(
-            method = "runServer()V",
-            constant = @Constant(longValue = 50L),
-            expect = 4)
+    @ModifyConstant(method = "runServer()V", constant = @Constant(longValue = 50L), expect = 4)
     private long citadel_serverMsPerTick(long value) {
         return this.modifiedMsPerTick == -1 ? value : this.modifiedMsPerTick;
     }

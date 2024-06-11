@@ -10,8 +10,8 @@ import net.minecraft.util.Identifier;
 public class LinkData {
     private final int page;
     private final String item;
-    private final String item_tag;
-    private String linked_page;
+    private final String itemTag;
+    private String linkedPage;
     private String text;
     private int x;
     private int y;
@@ -21,21 +21,21 @@ public class LinkData {
     }
 
     public LinkData(String linkedPage, String titleText, int x, int y, int page, String item, String itemTag) {
-        this.linked_page = linkedPage;
+        this.linkedPage = linkedPage;
         this.text = titleText;
         this.x = x;
         this.y = y;
         this.page = page;
         this.item = item;
-        this.item_tag = itemTag;
+        this.itemTag = itemTag;
     }
 
     public String getLinkedPage() {
-        return this.linked_page;
+        return this.linkedPage;
     }
 
     public void setLinkedPage(String linkedPage) {
-        this.linked_page = linkedPage;
+        this.linkedPage = linkedPage;
     }
 
     public String getTitleText() {
@@ -71,10 +71,10 @@ public class LinkData {
             return ItemStack.EMPTY;
         } else {
             ItemStack stack = new ItemStack(Registries.ITEM.get(new Identifier(this.item)));
-            if (this.item_tag != null && !this.item_tag.isEmpty()) {
+            if (this.itemTag != null && !this.itemTag.isEmpty()) {
                 NbtCompound tag = null;
                 try {
-                    tag = StringNbtReader.parse(this.item_tag);
+                    tag = StringNbtReader.parse(this.itemTag);
                 } catch (CommandSyntaxException e) {
                     e.printStackTrace();
                 }
