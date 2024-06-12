@@ -16,20 +16,20 @@ import net.minecraft.util.math.MathHelper;
 
 public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
     private final ModelAnimator animator;
-    public AdvancedModelBox Neck1;
-    public AdvancedModelBox Neck2;
-    public AdvancedModelBox Neck3;
-    public AdvancedModelBox Neck4;
-    public AdvancedModelBox Head1;
-    public AdvancedModelBox HeadPivot;
-    public AdvancedModelBox neckSpike1;
-    public AdvancedModelBox neckSpike2;
-    public AdvancedModelBox UpperJaw1;
-    public AdvancedModelBox LowerJaw1;
-    public AdvancedModelBox TeethTR1;
-    public AdvancedModelBox TeethL1;
-    public AdvancedModelBox TeethR1;
-    public AdvancedModelBox TeethTL1;
+    public final AdvancedModelBox Neck1;
+    public final AdvancedModelBox Neck2;
+    public final AdvancedModelBox Neck3;
+    public final AdvancedModelBox Neck4;
+    public final AdvancedModelBox Head1;
+    public final AdvancedModelBox HeadPivot;
+    public final AdvancedModelBox neckSpike1;
+    public final AdvancedModelBox neckSpike2;
+    public final AdvancedModelBox UpperJaw1;
+    public final AdvancedModelBox LowerJaw1;
+    public final AdvancedModelBox TeethTR1;
+    public final AdvancedModelBox TeethL1;
+    public final AdvancedModelBox TeethR1;
+    public final AdvancedModelBox TeethTL1;
     private int headIndex = 0;
 
     public ModelHydraHead(int headIndex) {
@@ -137,7 +137,6 @@ public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
         this.chainSwing(ENTIRE_HEAD, speed_walk, degree_walk * 0.75F, -3, f, f1);
         float speakProgress = entity.prevSpeakingProgress[this.headIndex] + partialTicks * (entity.speakingProgress[this.headIndex] - entity.prevSpeakingProgress[this.headIndex]);
         this.progressRotationInterp(this.LowerJaw1, MathHelper.sin((float) (speakProgress * Math.PI)) * 10F, (float) Math.toRadians(25), 0.0F, 0.0F, 10F);
-        float limbSwingProgress = f1;
         /*
         this.progressRotationInterp(Neck1, (float)limbSwingProgress, (float) Math.toRadians(5), 0.0F, 0.0F, 1F);
         this.progressRotationInterp(Neck2, (float)limbSwingProgress, (float) Math.toRadians(-5), 0.0F, 0.0F, 1F);

@@ -14,36 +14,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class LayerPixieGlow extends FeatureRenderer<EntityPixie, ModelPixie> {
 
-    private final RenderPixie render;
-
     public LayerPixieGlow(RenderPixie renderIn) {
         super(renderIn);
-        this.render = renderIn;
     }
 
     @Override
     public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityPixie pixie, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        Identifier texture = RenderPixie.TEXTURE_0;
-        switch (pixie.getColor()) {
-            default:
-                texture = RenderPixie.TEXTURE_0;
-                break;
-            case 1:
-                texture = RenderPixie.TEXTURE_1;
-                break;
-            case 2:
-                texture = RenderPixie.TEXTURE_2;
-                break;
-            case 3:
-                texture = RenderPixie.TEXTURE_3;
-                break;
-            case 4:
-                texture = RenderPixie.TEXTURE_4;
-                break;
-            case 5:
-                texture = RenderPixie.TEXTURE_5;
-                break;
-        }
+        Identifier texture = switch (pixie.getColor()) {
+            default -> RenderPixie.TEXTURE_0;
+            case 1 -> RenderPixie.TEXTURE_1;
+            case 2 -> RenderPixie.TEXTURE_2;
+            case 3 -> RenderPixie.TEXTURE_3;
+            case 4 -> RenderPixie.TEXTURE_4;
+            case 5 -> RenderPixie.TEXTURE_5;
+        };
         RenderLayer eyes = RenderLayer.getEyes(texture);
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(eyes);
         this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);

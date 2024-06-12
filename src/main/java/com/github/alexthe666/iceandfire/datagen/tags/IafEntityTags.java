@@ -13,14 +13,14 @@ import net.minecraft.util.Identifier;
 import java.util.concurrent.CompletableFuture;
 
 public class IafEntityTags extends VanillaEntityTypeTagProvider {
-    public static TagKey<EntityType<?>> IMMUNE_TO_GORGON_STONE = createKey("immune_to_gorgon_stone");
+    public static final TagKey<EntityType<?>> IMMUNE_TO_GORGON_STONE = createKey();
 
     public IafEntityTags(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> provider) {
         super(output, provider);
     }
 
-    private static TagKey<EntityType<?>> createKey(final String name) {
-        return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, name));
+    private static TagKey<EntityType<?>> createKey() {
+        return TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, "immune_to_gorgon_stone"));
     }
 
     @Override

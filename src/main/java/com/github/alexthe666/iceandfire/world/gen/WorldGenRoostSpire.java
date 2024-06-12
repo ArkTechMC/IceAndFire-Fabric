@@ -8,7 +8,7 @@ import net.minecraft.world.WorldAccess;
 
 public class WorldGenRoostSpire {
 
-    public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
+    public void generate(WorldAccess worldIn, Random rand, BlockPos position) {
         int height = 5 + rand.nextInt(5);
         Direction bumpDirection = Direction.NORTH;
         for (int i = 0; i < height; i++) {
@@ -28,6 +28,5 @@ public class WorldGenRoostSpire {
                 worldIn.setBlockState(position.up(i).offset(bumpDirection, offset), IafBlockRegistry.CRACKLED_COBBLESTONE.get().getDefaultState(), 2);
             }
         }
-        return true;
     }
 }

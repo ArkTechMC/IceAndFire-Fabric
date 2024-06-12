@@ -37,16 +37,10 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
         super(creature, checkSight, onlyNearby);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(creature);
 
-        this.targetEntitySelector = new Predicate<ItemEntity>() {
-            @Override
-            public boolean test(ItemEntity item) {
-
-                return item != null && !item.getStack().isEmpty() && (item.getStack().getItem() == Items.CAKE
-                        && !creature.isTamed()
-                        || item.getStack().getItem() == Items.SUGAR && creature.isTamed()
-                        && creature.getHealth() < creature.getMaxHealth());
-            }
-        };
+        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && (item.getStack().getItem() == Items.CAKE
+                && !creature.isTamed()
+                || item.getStack().getItem() == Items.SUGAR && creature.isTamed()
+                && creature.getHealth() < creature.getMaxHealth());
         this.setControls(EnumSet.of(Control.TARGET));
     }
 

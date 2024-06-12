@@ -52,22 +52,21 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
         if (shootingEntity instanceof EntityStymphalianBird && entityHit.getEntity() != null && entityHit.getEntity() instanceof EntityStymphalianBird) {
         } else {
             super.onEntityHit(entityHit);
-            if (entityHit.getEntity() != null && entityHit.getEntity() instanceof EntityStymphalianBird) {
-                LivingEntity LivingEntity = (LivingEntity) entityHit.getEntity();
+            if (entityHit.getEntity() != null && entityHit.getEntity() instanceof EntityStymphalianBird LivingEntity) {
                 LivingEntity.setStuckArrowCount(LivingEntity.getStuckArrowCount() - 1);
                 ItemStack itemstack1 = LivingEntity.isUsingItem() ? LivingEntity.getActiveItem() : ItemStack.EMPTY;
                 if (itemstack1.getItem() instanceof ShieldItem) {
-                    this.damageShield(LivingEntity, 1.0F);
+                    this.damageShield(LivingEntity);
                 }
             }
 
         }
     }
 
-    protected void damageShield(LivingEntity entity, float damage) {
-        if (damage >= 3.0F && entity.getActiveItem().getItem() instanceof ShieldItem) {
+    protected void damageShield(LivingEntity entity) {
+        if ((float) 1.0 >= 3.0F && entity.getActiveItem().getItem() instanceof ShieldItem) {
             ItemStack copyBeforeUse = entity.getActiveItem().copy();
-            int i = 1 + MathHelper.floor(damage);
+            int i = 1 + MathHelper.floor((float) 1.0);
             Hand Hand = entity.getActiveHand();
             copyBeforeUse.damage(i, entity, (player1) -> player1.sendToolBreakStatus(Hand));
             if (entity.getActiveItem().isEmpty()) {

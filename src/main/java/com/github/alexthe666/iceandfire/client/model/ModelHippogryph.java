@@ -14,68 +14,68 @@ import net.minecraft.entity.Entity;
 
 public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     private final ModelAnimator animator;
-    public AdvancedModelBox Body;
-    public AdvancedModelBox Neck;
-    public AdvancedModelBox HindThighR;
-    public AdvancedModelBox Tail1;
-    public AdvancedModelBox HindThighL;
-    public AdvancedModelBox BackLegR1;
-    public AdvancedModelBox BackLegR1_1;
-    public AdvancedModelBox WingL;
-    public AdvancedModelBox WingR;
-    public AdvancedModelBox Saddle;
-    public AdvancedModelBox Neck2;
-    public AdvancedModelBox Crest1;
-    public AdvancedModelBox Head;
-    public AdvancedModelBox HeadPivot;
-    public AdvancedModelBox Jaw;
-    public AdvancedModelBox Beak;
-    public AdvancedModelBox Quill_R;
-    public AdvancedModelBox Quill_L;
-    public AdvancedModelBox Crest1_1;
-    public AdvancedModelBox NoseBand;
-    public AdvancedModelBox BeakTip;
-    public AdvancedModelBox Beak2;
-    public AdvancedModelBox ReinL;
-    public AdvancedModelBox ReinR;
-    public AdvancedModelBox HindLegR;
-    public AdvancedModelBox HindFootR;
-    public AdvancedModelBox Tail2;
-    public AdvancedModelBox Tail3;
-    public AdvancedModelBox HindLegL;
-    public AdvancedModelBox HindFootL;
-    public AdvancedModelBox BackLegR2;
-    public AdvancedModelBox ToeR3;
-    public AdvancedModelBox ToeL4;
-    public AdvancedModelBox ToeR2;
-    public AdvancedModelBox ToeR1;
-    public AdvancedModelBox BackLegR2_1;
-    public AdvancedModelBox ToeR3_1;
-    public AdvancedModelBox ToeL4_1;
-    public AdvancedModelBox ToeR2_1;
-    public AdvancedModelBox ToeR1_1;
-    public AdvancedModelBox WingL2;
-    public AdvancedModelBox WingL3;
-    public AdvancedModelBox WingL21;
-    public AdvancedModelBox FingerL1;
-    public AdvancedModelBox FingerL2;
-    public AdvancedModelBox FingerL3;
-    public AdvancedModelBox FingerL4;
-    public AdvancedModelBox WingR2;
-    public AdvancedModelBox WingR3;
-    public AdvancedModelBox WingR21;
-    public AdvancedModelBox FingerR1;
-    public AdvancedModelBox FingerR2;
-    public AdvancedModelBox FingerR3;
-    public AdvancedModelBox FingerR4;
-    public AdvancedModelBox ChestR;
-    public AdvancedModelBox ChestL;
-    public AdvancedModelBox Saddleback;
-    public AdvancedModelBox SaddleFront;
-    public AdvancedModelBox StirrupL;
-    public AdvancedModelBox StirrupR;
-    public AdvancedModelBox StirrupIronL;
-    public AdvancedModelBox StirrupIronR;
+    public final AdvancedModelBox Body;
+    public final AdvancedModelBox Neck;
+    public final AdvancedModelBox HindThighR;
+    public final AdvancedModelBox Tail1;
+    public final AdvancedModelBox HindThighL;
+    public final AdvancedModelBox BackLegR1;
+    public final AdvancedModelBox BackLegR1_1;
+    public final AdvancedModelBox WingL;
+    public final AdvancedModelBox WingR;
+    public final AdvancedModelBox Saddle;
+    public final AdvancedModelBox Neck2;
+    public final AdvancedModelBox Crest1;
+    public final AdvancedModelBox Head;
+    public final AdvancedModelBox HeadPivot;
+    public final AdvancedModelBox Jaw;
+    public final AdvancedModelBox Beak;
+    public final AdvancedModelBox Quill_R;
+    public final AdvancedModelBox Quill_L;
+    public final AdvancedModelBox Crest1_1;
+    public final AdvancedModelBox NoseBand;
+    public final AdvancedModelBox BeakTip;
+    public final AdvancedModelBox Beak2;
+    public final AdvancedModelBox ReinL;
+    public final AdvancedModelBox ReinR;
+    public final AdvancedModelBox HindLegR;
+    public final AdvancedModelBox HindFootR;
+    public final AdvancedModelBox Tail2;
+    public final AdvancedModelBox Tail3;
+    public final AdvancedModelBox HindLegL;
+    public final AdvancedModelBox HindFootL;
+    public final AdvancedModelBox BackLegR2;
+    public final AdvancedModelBox ToeR3;
+    public final AdvancedModelBox ToeL4;
+    public final AdvancedModelBox ToeR2;
+    public final AdvancedModelBox ToeR1;
+    public final AdvancedModelBox BackLegR2_1;
+    public final AdvancedModelBox ToeR3_1;
+    public final AdvancedModelBox ToeL4_1;
+    public final AdvancedModelBox ToeR2_1;
+    public final AdvancedModelBox ToeR1_1;
+    public final AdvancedModelBox WingL2;
+    public final AdvancedModelBox WingL3;
+    public final AdvancedModelBox WingL21;
+    public final AdvancedModelBox FingerL1;
+    public final AdvancedModelBox FingerL2;
+    public final AdvancedModelBox FingerL3;
+    public final AdvancedModelBox FingerL4;
+    public final AdvancedModelBox WingR2;
+    public final AdvancedModelBox WingR3;
+    public final AdvancedModelBox WingR21;
+    public final AdvancedModelBox FingerR1;
+    public final AdvancedModelBox FingerR2;
+    public final AdvancedModelBox FingerR3;
+    public final AdvancedModelBox FingerR4;
+    public final AdvancedModelBox ChestR;
+    public final AdvancedModelBox ChestL;
+    public final AdvancedModelBox Saddleback;
+    public final AdvancedModelBox SaddleFront;
+    public final AdvancedModelBox StirrupL;
+    public final AdvancedModelBox StirrupR;
+    public final AdvancedModelBox StirrupIronL;
+    public final AdvancedModelBox StirrupIronR;
 
     public ModelHippogryph() {
         this.texWidth = 256;
@@ -539,7 +539,6 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     @Override
     public void setAngles(EntityHippogryph entity, float f, float f1, float f2, float f3, float f4) {
         this.animate(entity, f, f1, f2, f3, f4, 1);
-        EntityHippogryph hippo = entity;
         if (this.child) {
             this.Body.setShouldScaleChildren(true);
             this.Head.setShouldScaleChildren(false);
@@ -556,12 +555,12 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
             this.Quill_R.setScale(1, 1, 1);
         }
         if (this.child) {
-            this.progressPosition(this.Body, hippo.sitProgress, 0, 16, 0);
+            this.progressPosition(this.Body, entity.sitProgress, 0, 16, 0);
         } else {
-            this.progressPosition(this.Body, hippo.sitProgress, 0, 18, 0);
+            this.progressPosition(this.Body, entity.sitProgress, 0, 18, 0);
         }
         {
-            float sitProgress = Math.max(hippo.hoverProgress, hippo.flyProgress);
+            float sitProgress = Math.max(entity.hoverProgress, entity.flyProgress);
             this.progressRotation(this.Beak, sitProgress, 0.0F, 0.0F, 0.0F);
             this.progressRotation(this.HindLegR, sitProgress, -0.17453292519943295F, 0.0F, 0.0F);
             this.progressRotation(this.FingerR3, sitProgress, 0.40142572795869574F, 0.0F, 0.0F);
@@ -627,7 +626,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
             this.progressPositionPrev(this.HindThighR, sitProgress, 0, -0.75F, 0);
         }
         {
-            float sitProgress = hippo.sitProgress;
+            float sitProgress = entity.sitProgress;
             this.progressRotation(this.HeadPivot, sitProgress, -0.136659280431156F, 0.0F, 0.0F);
             this.progressRotation(this.HindLegR, sitProgress, 1.5481070465189704F, 0.0F, 0.0F);
             this.progressRotation(this.FingerL4, sitProgress, 0.0F, 0.0F, 0.0F);
@@ -698,10 +697,10 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
 
         float speed_walk = 0.4F;
         float speed_idle = 0.05F;
-        float speed_fly = 0.35F + (hippo.getEnumVariant() == EnumHippogryphTypes.DODO ? 0.2f : 0);
+        float speed_fly = 0.35F + (entity.getEnumVariant() == EnumHippogryphTypes.DODO ? 0.2f : 0);
         float degree_walk = 0.5F;
         float degree_idle = 0.5F;
-        float degree_fly = 0.5F + (hippo.getEnumVariant() == EnumHippogryphTypes.DODO ? 1f : 0);
+        float degree_fly = 0.5F + (entity.getEnumVariant() == EnumHippogryphTypes.DODO ? 1f : 0);
         this.bob(this.Body, speed_idle, degree_idle, false, f2, 1);
         this.bob(this.BackLegR1, -speed_idle, degree_idle, false, f2, 1);
         this.bob(this.BackLegR1_1, -speed_idle, degree_idle, false, f2, 1);
@@ -710,7 +709,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
         AdvancedModelBox[] NECK = new AdvancedModelBox[]{this.Neck, this.Neck2, this.Head};
         this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, f2, 1);
 
-        if (hippo.isFlying() || hippo.airBorneCounter > 50 || hippo.isHovering()) {
+        if (entity.isFlying() || entity.airBorneCounter > 50 || entity.isHovering()) {
             //hippo.roll_buffer.applyChainFlapBuffer(Body);
             this.flap(this.WingL, speed_fly, degree_fly, false, 0, 0, f2, 1);
             this.flap(this.WingR, speed_fly, -degree_fly, false, 0, 0, f2, 1);

@@ -39,32 +39,23 @@ public class RenderDreadGhoul extends MobEntityRenderer<EntityDreadGhoul, ModelD
     @Override
     public @NotNull Identifier getTexture(EntityDreadGhoul ghoul) {
         if (ghoul.getScreamStage() == 2) {
-            switch (ghoul.getVariant()) {
-                case 1:
-                    return TEXTURE_1_OPEN;
-                case 2:
-                    return TEXTURE_2_OPEN;
-                default:
-                    return TEXTURE_0_OPEN;
-            }
+            return switch (ghoul.getVariant()) {
+                case 1 -> TEXTURE_1_OPEN;
+                case 2 -> TEXTURE_2_OPEN;
+                default -> TEXTURE_0_OPEN;
+            };
         } else if (ghoul.getScreamStage() == 1) {
-            switch (ghoul.getVariant()) {
-                case 1:
-                    return TEXTURE_1_MID;
-                case 2:
-                    return TEXTURE_2_MID;
-                default:
-                    return TEXTURE_0_MID;
-            }
+            return switch (ghoul.getVariant()) {
+                case 1 -> TEXTURE_1_MID;
+                case 2 -> TEXTURE_2_MID;
+                default -> TEXTURE_0_MID;
+            };
         } else {
-            switch (ghoul.getVariant()) {
-                case 1:
-                    return TEXTURE_1;
-                case 2:
-                    return TEXTURE_2;
-                default:
-                    return TEXTURE_0;
-            }
+            return switch (ghoul.getVariant()) {
+                case 1 -> TEXTURE_1;
+                case 2 -> TEXTURE_2;
+                default -> TEXTURE_0;
+            };
         }
 
     }

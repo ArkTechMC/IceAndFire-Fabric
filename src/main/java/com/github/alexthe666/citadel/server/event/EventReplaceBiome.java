@@ -18,13 +18,13 @@ public class EventReplaceBiome extends Event {
     private final RegistryKey<World> worldDimension;
     private final MultiNoiseUtil.MultiNoiseSampler climateSampler;
     public RegistryEntry<Biome> biomeToGenerate;
-    public ExpandedBiomeSource biomeSource;
-    public float continentalness;
-    public float erosion;
-    public float temperature;
-    public float humidity;
-    public float weirdness;
-    public float depth;
+    public final ExpandedBiomeSource biomeSource;
+    public final float continentalness;
+    public final float erosion;
+    public final float temperature;
+    public final float humidity;
+    public final float weirdness;
+    public final float depth;
 
     public EventReplaceBiome(ExpandedBiomeSource biomeSource, RegistryEntry<Biome> biomeIn, int x, int y, int z, float continentalness, float erosion, float temperature, float humidity, float weirdness, float depth, long worldSeed, RegistryKey<World> worldDimension, MultiNoiseUtil.MultiNoiseSampler climateSampler) {
         this.biomeSource = biomeSource;

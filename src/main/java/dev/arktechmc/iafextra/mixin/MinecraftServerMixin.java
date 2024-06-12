@@ -2,8 +2,6 @@ package dev.arktechmc.iafextra.mixin;
 
 import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.event.ServerEvents;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import dev.arktechmc.iafextra.IceAndFire;
 import dev.arktechmc.iafextra.StaticVariables;
 import com.llamalad7.mixinextras.sugar.Local;

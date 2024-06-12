@@ -20,12 +20,12 @@ import java.util.Map;
  */
 @Environment(EnvType.CLIENT)
 public class TabulaModel extends AdvancedEntityModel {
-    public ModelAnimator llibAnimator;
-    protected Map<String, AdvancedModelBox> cubes = new HashMap<>();
-    protected List<AdvancedModelBox> rootBoxes = new ArrayList<>();
-    protected ITabulaModelAnimator tabulaAnimator;
-    protected Map<String, AdvancedModelBox> identifierMap = new HashMap<>();
-    protected double[] scale;
+    public final ModelAnimator llibAnimator;
+    protected final Map<String, AdvancedModelBox> cubes = new HashMap<>();
+    protected final List<AdvancedModelBox> rootBoxes = new ArrayList<>();
+    protected final ITabulaModelAnimator tabulaAnimator;
+    protected final Map<String, AdvancedModelBox> identifierMap = new HashMap<>();
+    protected final double[] scale;
 
     public TabulaModel(TabulaModelContainer container, ITabulaModelAnimator tabulaAnimator) {
         this.texWidth = container.getTextureWidth();

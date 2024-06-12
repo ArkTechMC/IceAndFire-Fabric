@@ -23,8 +23,8 @@ public class TitleScreenRenderManager {
     private static final Identifier BESTIARY_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/bestiary_menu.png");
     private static final Identifier TABLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/table.png");
     private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-    public static Identifier[] pageFlipTextures;
-    public static Identifier[] drawingTextures = new Identifier[23];
+    public static final Identifier[] pageFlipTextures;
+    public static final Identifier[] drawingTextures = new Identifier[23];
     private static int layerTick;
     private static List<String> splashText;
     private static boolean isFlippingPage = false;
@@ -54,7 +54,7 @@ public class TitleScreenRenderManager {
                 splashText = new ArrayList<>();
             }
         }
-        if (splashText.size() == 0) return null;
+        if (splashText.isEmpty()) return null;
         return new SplashTextRenderer(splashText.get(RandomHelper.nextInt(0, splashText.size() - 1)));
     }
 
@@ -145,10 +145,10 @@ public class TitleScreenRenderManager {
     }
 
     private static class Picture {
-        int image;
-        int x;
-        int y;
-        float alpha;
+        final int image;
+        final int x;
+        final int y;
+        final float alpha;
 
         public Picture(int image, int x, int y, float alpha, float scale) {
             this.image = image;

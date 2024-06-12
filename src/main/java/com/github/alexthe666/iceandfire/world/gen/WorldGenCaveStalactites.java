@@ -14,7 +14,7 @@ public class WorldGenCaveStalactites {
         this.maxHeight = maxHeight;
     }
 
-    public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
+    public void generate(WorldAccess worldIn, Random rand, BlockPos position) {
         int height = this.maxHeight + rand.nextInt(3);
         for (int i = 0; i < height; i++) {
             if (i < height / 2) {
@@ -25,6 +25,5 @@ public class WorldGenCaveStalactites {
             }
             worldIn.setBlockState(position.down(i), this.block.getDefaultState(), 2);
         }
-        return true;
     }
 }

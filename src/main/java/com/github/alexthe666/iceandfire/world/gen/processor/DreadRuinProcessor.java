@@ -56,8 +56,7 @@ public class DreadRuinProcessor extends StructureProcessor {
                 tag.remove("SpawnPotentials");
                 tag.put("SpawnData", spawnData.copy());
             }
-            StructureTemplate.StructureBlockInfo newInfo = new StructureTemplate.StructureBlockInfo(infoIn2.pos(), IafBlockRegistry.DREAD_SPAWNER.get().getDefaultState(), tag);
-            return newInfo;
+            return new StructureTemplate.StructureBlockInfo(infoIn2.pos(), IafBlockRegistry.DREAD_SPAWNER.get().getDefaultState(), tag);
 
         }
         return infoIn2;

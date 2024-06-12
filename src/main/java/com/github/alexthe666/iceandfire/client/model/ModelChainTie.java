@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 import org.jetbrains.annotations.NotNull;
 
 public class ModelChainTie extends BasicEntityModel<EntityChainTie> {
-    public BasicModelPart knotRenderer;
+    public final BasicModelPart knotRenderer;
 
     public ModelChainTie() {
         this(0, 0, 32, 32);

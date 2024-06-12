@@ -43,17 +43,17 @@ public class ChunkCache implements WorldView {
     private final DimensionType dimType;
     private final int minBuildHeight;
     private final int maxBuildHeight;
-    protected int chunkX;
-    protected int chunkZ;
-    protected WorldChunk[][] chunkArray;
+    protected final int chunkX;
+    protected final int chunkZ;
+    protected final WorldChunk[][] chunkArray;
     /**
      * set by !chunk.getAreLevelsEmpty
      */
-    protected boolean empty;
+    protected final boolean empty;
     /**
      * Reference to the World object.
      */
-    protected World world;
+    protected final World world;
 
     public ChunkCache(World worldIn, BlockPos posFromIn, BlockPos posToIn, int subIn, final DimensionType type) {
         this.world = worldIn;

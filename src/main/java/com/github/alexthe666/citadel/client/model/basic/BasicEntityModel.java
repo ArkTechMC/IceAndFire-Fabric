@@ -10,8 +10,8 @@ import net.minecraft.util.Identifier;
 import java.util.function.Function;
 
 public abstract class BasicEntityModel<T extends Entity> extends EntityModel<T> {
-    public int textureWidth = 64;
-    public int textureHeight = 32;
+    public final int textureWidth = 64;
+    public final int textureHeight = 32;
 
     protected BasicEntityModel() {
         this(RenderLayer::getEntityCutoutNoCull);

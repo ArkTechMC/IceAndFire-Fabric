@@ -15,7 +15,6 @@ public class MyrmexAIMoveThroughHive extends Goal {
     private final EntityMyrmexBase myrmex;
     private final double movementSpeed;
     private BlockPos nextRoom = BlockPos.ORIGIN;
-    private PathResult path;
 
     public MyrmexAIMoveThroughHive(EntityMyrmexBase entityIn, double movementSpeedIn) {
         this.myrmex = entityIn;
@@ -39,8 +38,8 @@ public class MyrmexAIMoveThroughHive extends Goal {
             return false;
         } else {
             this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(this.myrmex.getRandom(), this.myrmex.getBlockPos()));
-            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
-            return this.path != null;
+            PathResult path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
+            return path != null;
         }
     }
 

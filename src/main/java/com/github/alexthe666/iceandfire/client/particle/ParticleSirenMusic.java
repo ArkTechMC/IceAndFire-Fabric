@@ -79,7 +79,7 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     @Override
     public void tick() {
         super.tick();
-        this.colorScale += 0.015;
+        this.colorScale += 0.015F;
         if (this.colorScale > 25) {
             this.colorScale = 0;
         }

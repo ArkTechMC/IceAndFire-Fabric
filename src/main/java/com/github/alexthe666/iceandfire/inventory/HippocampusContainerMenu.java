@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 public class HippocampusContainerMenu extends ScreenHandler {
     private final Inventory hippocampusInventory;
     private final EntityHippocampus hippocampus;
-    private final PlayerEntity player;
 
     public HippocampusContainerMenu(int i, PlayerInventory playerInventory) {
         this(i, new SimpleInventory(18), playerInventory, null);
@@ -29,8 +28,8 @@ public class HippocampusContainerMenu extends ScreenHandler {
             hippocampus = (EntityHippocampus) IceAndFire.PROXY.getReferencedMob();
         }
         this.hippocampus = hippocampus;
-        this.player = playerInventory.player;
-        this.hippocampusInventory.onOpen(this.player);
+        PlayerEntity player = playerInventory.player;
+        this.hippocampusInventory.onOpen(player);
 
         // Saddle slot
         this.addSlot(new Slot(this.hippocampusInventory, 0, 8, 18) {
@@ -88,12 +87,12 @@ public class HippocampusContainerMenu extends ScreenHandler {
 
         for (int i1 = 0; i1 < 3; ++i1) {
             for (int k1 = 0; k1 < 9; ++k1) {
-                this.addSlot(new Slot(this.player.getInventory(), k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 + -18));
+                this.addSlot(new Slot(player.getInventory(), k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 - 18));
             }
         }
 
         for (int j1 = 0; j1 < 9; ++j1) {
-            this.addSlot(new Slot(this.player.getInventory(), j1, 8 + j1 * 18, 142));
+            this.addSlot(new Slot(player.getInventory(), j1, 8 + j1 * 18, 142));
         }
 
     }

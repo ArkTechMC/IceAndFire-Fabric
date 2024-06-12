@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientProxy extends ServerProxy {
-    private static ItemStack lastHoveredItem = null;
     private final Map<ItemStack, Float> prevMouseOverProgresses = new HashMap<>();
     private final Map<ItemStack, Float> mouseOverProgresses = new HashMap<>();
 
@@ -29,6 +28,7 @@ public class ClientProxy extends ServerProxy {
     }
 
     public static RenderTooltipBorderColorCallback.BorderColorEntry renderTooltipColor(ItemStack stack, int originalBorderColorStart, int originalBorderColorEnd) {
+        ItemStack lastHoveredItem = null;
         if (stack.getItem() instanceof ItemWithHoverAnimation hoverOver && hoverOver.canHoverOver(stack)) {
             lastHoveredItem = stack;
         } else {

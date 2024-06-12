@@ -32,7 +32,7 @@ public class ItemStoneStatue extends Item {
             boolean isPlayer = stack.getNbt().getBoolean("IAFStoneStatuePlayerEntity");
             String id = stack.getNbt().getString("IAFStoneStatueEntityID");
             if (EntityType.get(id).orElse(null) != null) {
-                EntityType type = EntityType.get(id).orElse(null);
+                EntityType<?> type = EntityType.get(id).orElse(null);
                 MutableText untranslated = isPlayer ? Text.translatable("entity.minecraft.player") : Text.translatable(type.getTranslationKey());
                 tooltip.add(untranslated.formatted(Formatting.GRAY));
             }

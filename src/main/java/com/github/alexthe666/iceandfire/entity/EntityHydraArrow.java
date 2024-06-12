@@ -57,9 +57,7 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
         if (damage >= 3.0F && player.getActiveItem().getItem() instanceof ShieldItem) {
             ItemStack copyBeforeUse = player.getActiveItem().copy();
             int i = 1 + MathHelper.floor(damage);
-            player.getActiveItem().damage(i, player, (p_213360_0_) -> {
-                p_213360_0_.sendEquipmentBreakStatus(EquipmentSlot.CHEST);
-            });
+            player.getActiveItem().damage(i, player, (p_213360_0_) -> p_213360_0_.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
 
             if (player.getActiveItem().isEmpty()) {
                 Hand Hand = player.getActiveHand();

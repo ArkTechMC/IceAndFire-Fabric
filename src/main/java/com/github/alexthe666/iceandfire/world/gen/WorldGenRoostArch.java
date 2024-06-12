@@ -14,7 +14,7 @@ public class WorldGenRoostArch {
         this.block = block;
     }
 
-    public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
+    public void generate(WorldAccess worldIn, Random rand, BlockPos position) {
         int height = 3 + rand.nextInt(3);
         int width = Math.min(3, height - 2);
         Direction direction = HORIZONTALS[rand.nextInt(HORIZONTALS.length - 1)];
@@ -38,6 +38,5 @@ public class WorldGenRoostArch {
             worldIn.setBlockState(offsetPos.down(), this.block.getDefaultState(), 2);
             offsetPos = offsetPos.down();
         }
-        return true;
     }
 }

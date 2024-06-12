@@ -17,9 +17,9 @@ import java.util.List;
 public class HippogryphAIMate extends Goal {
 
     private final EntityHippogryph hippo;
-    World world;
+    final World world;
     int spawnBabyDelay;
-    double moveSpeed;
+    final double moveSpeed;
     private EntityHippogryph targetMate;
 
     public HippogryphAIMate(EntityHippogryph animal, double speedIn) {

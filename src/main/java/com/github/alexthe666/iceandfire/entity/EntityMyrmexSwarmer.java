@@ -152,7 +152,7 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
         if (!s.isEmpty()) {
             try {
                 this.setSummonerID(UUID.fromString(s));
-            } catch (Throwable var4) {
+            } catch (Throwable ignored) {
             }
         }
         this.setTicksAlive(compound.getInt("SummonTicks"));
@@ -167,7 +167,7 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
     }
 
     public int getTicksAlive() {
-        return this.dataTracker.get(TICKS_ALIVE).intValue();
+        return this.dataTracker.get(TICKS_ALIVE);
     }
 
     public void setTicksAlive(int ticks) {

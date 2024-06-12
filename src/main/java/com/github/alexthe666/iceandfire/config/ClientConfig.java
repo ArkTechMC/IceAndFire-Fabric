@@ -10,12 +10,12 @@ public class ClientConfig {
 
     public ClientConfig(final ModConfigSpec.Builder builder) {
         builder.push("general");
-        this.customMainMenu = buildBoolean(builder, "Custom main menu", "all", true, "Whether to display the dragon on the main menu or not");
-        this.dragonAuto3rdPerson = buildBoolean(builder, "Auto 3rd person when riding dragon", "all", true, "True if riding dragons should make the player take a 3rd person view automatically.");
-        this.useVanillaFont = buildBoolean(builder, "Use Vanilla Font", "all", false, "Whether to use the vanilla font in the bestiary or not");
+        this.customMainMenu = buildBoolean(builder, "Custom main menu", true, "Whether to display the dragon on the main menu or not");
+        this.dragonAuto3rdPerson = buildBoolean(builder, "Auto 3rd person when riding dragon", true, "True if riding dragons should make the player take a 3rd person view automatically.");
+        this.useVanillaFont = buildBoolean(builder, "Use Vanilla Font", false, "Whether to use the vanilla font in the bestiary or not");
     }
 
-    private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, String catagory, boolean defaultValue, String comment) {
+    private static ModConfigSpec.BooleanValue buildBoolean(ModConfigSpec.Builder builder, String name, boolean defaultValue, String comment) {
         return builder.comment(comment).translation(name).define(name, defaultValue);
     }
 

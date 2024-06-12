@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.datagen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.world.CustomBiomeFilter;
-import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.registry.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.YOffset;

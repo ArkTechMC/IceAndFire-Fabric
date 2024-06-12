@@ -78,7 +78,7 @@ public class IafEntityRegistry {
     public static final RegistryObject<EntityType<EntityHydraArrow>> HYDRA_ARROW = registerEntity(EntityType.Builder.<EntityHydraArrow>create(EntityHydraArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "hydra_arrow");
     public static final RegistryObject<EntityType<EntityGhost>> GHOST = registerEntity(EntityType.Builder.create(EntityGhost::new, SpawnGroup.MONSTER).setDimensions(0.8F, 1.9F).makeFireImmune(), "ghost");
     public static final RegistryObject<EntityType<EntityGhostSword>> GHOST_SWORD = registerEntity(EntityType.Builder.<EntityGhostSword>create(EntityGhostSword::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "ghost_sword");
-    public static HashMap<String, Boolean> LOADED_ENTITIES;
+    public static final HashMap<String, Boolean> LOADED_ENTITIES;
 
     static {
         LOADED_ENTITIES = new HashMap<>();

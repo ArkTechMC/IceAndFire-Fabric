@@ -63,8 +63,8 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     private static final TrackedData<Boolean> SWIMMING = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CHARMED = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Byte> CLIMBING = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BYTE);
-    public static Animation ANIMATION_BITE = Animation.create(20);
-    public static Animation ANIMATION_PULL = Animation.create(20);
+    public static final Animation ANIMATION_BITE = Animation.create(20);
+    public static final Animation ANIMATION_PULL = Animation.create(20);
     public ChainBuffer tail_buffer;
     public float singProgress;
     public float swimProgress;
@@ -122,18 +122,8 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         this.goalSelector.add(3, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F, 1.0F));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, false, new Predicate<PlayerEntity>() {
-            @Override
-            public boolean apply(PlayerEntity entity) {
-                return EntitySiren.this.isAgressive() && !(entity.isCreative() || entity.isSpectator());
-            }
-        }));
-        this.targetSelector.add(4, new ActiveTargetGoal(this, MerchantEntity.class, 10, true, false, new Predicate<MerchantEntity>() {
-            @Override
-            public boolean apply(MerchantEntity entity) {
-                return EntitySiren.this.isAgressive();
-            }
-        }));
+        this.targetSelector.add(4, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, false, (Predicate<PlayerEntity>) entity -> EntitySiren.this.isAgressive() && !(entity.isCreative() || entity.isSpectator())));
+        this.targetSelector.add(4, new ActiveTargetGoal(this, MerchantEntity.class, 10, true, false, (Predicate<MerchantEntity>) entity -> EntitySiren.this.isAgressive()));
     }
 
     @Override
@@ -379,7 +369,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     public boolean isSinging() {
         if (this.getWorld().isClient) {
-            return this.isSinging = this.dataTracker.get(SINGING).booleanValue();
+            return this.isSinging = this.dataTracker.get(SINGING);
         }
         return this.isSinging;
     }
@@ -406,7 +396,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public boolean isSwimming() {
         if (this.getWorld().isClient) {
-            return this.isSwimming = this.dataTracker.get(SWIMMING).booleanValue();
+            return this.isSwimming = this.dataTracker.get(SWIMMING);
         }
         return this.isSwimming;
     }
@@ -425,11 +415,11 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public boolean isAgressive() {
-        return this.dataTracker.get(AGGRESSIVE).booleanValue();
+        return this.dataTracker.get(AGGRESSIVE);
     }
 
     public boolean isCharmed() {
-        return this.dataTracker.get(CHARMED).booleanValue();
+        return this.dataTracker.get(CHARMED);
     }
 
     public void setCharmed(boolean aggressive) {
@@ -437,7 +427,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public int getHairColor() {
-        return this.dataTracker.get(HAIR_COLOR).intValue();
+        return this.dataTracker.get(HAIR_COLOR);
     }
 
     public void setHairColor(int hairColor) {
@@ -445,7 +435,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public int getSingingPose() {
-        return this.dataTracker.get(SING_POSE).intValue();
+        return this.dataTracker.get(SING_POSE);
     }
 
     public void setSingingPose(int pose) {
@@ -560,8 +550,8 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
                 float f2 = 0;
                 if (distance < (double) Math.max(1.0F, this.siren.getWidth())) {
                     float f = this.siren.getYaw() * 0.017453292F;
-                    f1 -= (double) (MathHelper.sin(f) * 0.35F);
-                    f2 += (double) (MathHelper.cos(f) * 0.35F);
+                    f1 -= (float) (MathHelper.sin(f) * 0.35F);
+                    f2 += (float) (MathHelper.cos(f) * 0.35F);
                 }
                 this.siren.setVelocity(this.siren.getVelocity().add(f1, this.siren.getMovementSpeed() * distanceY * 0.1D, f2));
             } else if (this.state == State.JUMPING) {

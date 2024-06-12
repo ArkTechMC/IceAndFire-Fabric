@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<EntityDataComponent> ENTITY_DATA_COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);
 
-    public FrozenData frozenData = new FrozenData();
-    public ChainData chainData = new ChainData();
-    public SirenData sirenData = new SirenData();
-    public ChickenData chickenData = new ChickenData();
-    public MiscData miscData = new MiscData();
+    public final FrozenData frozenData = new FrozenData();
+    public final ChainData chainData = new ChainData();
+    public final SirenData sirenData = new SirenData();
+    public final ChickenData chickenData = new ChickenData();
+    public final MiscData miscData = new MiscData();
     private final LivingEntity entity;
 
     public EntityDataComponent(LivingEntity entity) {

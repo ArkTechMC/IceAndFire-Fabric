@@ -15,9 +15,9 @@ import java.util.EnumSet;
 public class AmphithereAIFollowOwner extends Goal {
     private final EntityAmphithere ampithere;
     private final double followSpeed;
-    World world;
-    float maxDist;
-    float minDist;
+    final World world;
+    final float maxDist;
+    final float minDist;
     private LivingEntity owner;
     private int timeToRecalcPath;
     private float oldWaterCost;
@@ -115,12 +115,11 @@ public class AmphithereAIFollowOwner extends Goal {
         return blockstate.allowsSpawning(this.world, pos, this.ampithere.getType()) && this.world.isAir(pos.up()) && this.world.isAir(pos.up(2));
     }
 
-    private boolean tryMoveTo() {
+    private void tryMoveTo() {
         if (!this.ampithere.isFlying()) {
-            return this.ampithere.getNavigation().startMovingTo(this.owner, this.followSpeed);
+            this.ampithere.getNavigation().startMovingTo(this.owner, this.followSpeed);
         } else {
             this.ampithere.getMoveControl().moveTo(this.owner.getX(), this.owner.getY() + this.owner.getStandingEyeHeight() + 5 + this.ampithere.getRandom().nextInt(8), this.owner.getZ(), 0.25D);
-            return true;
         }
     }
 }

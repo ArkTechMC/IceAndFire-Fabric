@@ -14,20 +14,15 @@ import java.util.function.Predicate;
 public class MyrmexAIFindGaurdingEntity<T extends EntityMyrmexBase> extends TrackTargetGoal {
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super EntityMyrmexBase> targetEntitySelector;
-    public EntityMyrmexSoldier myrmex;
+    public final EntityMyrmexSoldier myrmex;
     protected EntityMyrmexBase targetEntity;
 
     public MyrmexAIFindGaurdingEntity(EntityMyrmexSoldier myrmex) {
         super(myrmex, false, false);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(myrmex);
-        this.targetEntitySelector = new Predicate<EntityMyrmexBase>() {
-            @Override
-            public boolean test(EntityMyrmexBase myrmex) {
-                return !(myrmex instanceof EntityMyrmexSoldier) && myrmex.getGrowthStage() > 1
-                        && EntityMyrmexBase.haveSameHive(MyrmexAIFindGaurdingEntity.this.myrmex, myrmex)
-                        && !myrmex.isBeingGuarded && myrmex.needsGaurding();
-            }
-        };
+        this.targetEntitySelector = (Predicate<EntityMyrmexBase>) myrmex1 -> !(myrmex1 instanceof EntityMyrmexSoldier) && myrmex1.getGrowthStage() > 1
+                && EntityMyrmexBase.haveSameHive(MyrmexAIFindGaurdingEntity.this.myrmex, myrmex1)
+                && !myrmex1.isBeingGuarded && myrmex1.needsGaurding();
         this.myrmex = myrmex;
         this.setControls(EnumSet.of(Control.MOVE));
     }

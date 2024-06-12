@@ -5,7 +5,7 @@ public enum EnumDragonModelTypes implements IEnumDragonModelTypes {
     ICE_DRAGON_MODEL("ice"),
     LIGHTNING_DRAGON_MODEL("lightning");
 
-    String modelType;
+    final String modelType;
 
     EnumDragonModelTypes(String modelType) {
         this.modelType = modelType;

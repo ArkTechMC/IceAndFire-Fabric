@@ -26,10 +26,10 @@ public enum EnumTroll {
     MOUNTAIN(IafItemRegistry.TROLL_MOUNTAIN_ARMOR_MATERIAL, Weapon.COLUMN, Weapon.AXE, Weapon.HAMMER);
 
     private final Weapon[] weapons;
-    public Identifier TEXTURE;
-    public Identifier TEXTURE_STONE;
-    public Identifier TEXTURE_EYES;
-    public CustomArmorMaterial material;
+    public final Identifier TEXTURE;
+    public final Identifier TEXTURE_STONE;
+    public final Identifier TEXTURE_EYES;
+    public final CustomArmorMaterial material;
     public Supplier<Item> leather;
     public Supplier<Item> helmet;
     public Supplier<Item> chestplate;
@@ -96,8 +96,8 @@ public enum EnumTroll {
 
     public enum Weapon {
         AXE, COLUMN, COLUMN_FOREST, COLUMN_FROST, HAMMER, TRUNK, TRUNK_FROST;
-        public Identifier TEXTURE;
-        public Supplier<Item> item;
+        public final Identifier TEXTURE;
+        public final Supplier<Item> item;
 
         Weapon() {
             this.TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");

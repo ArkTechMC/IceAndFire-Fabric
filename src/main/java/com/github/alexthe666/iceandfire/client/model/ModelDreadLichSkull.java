@@ -8,8 +8,8 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 
 public class ModelDreadLichSkull extends AdvancedEntityModel {
-    public HideableModelRenderer bipedHead;
-    public HideableModelRenderer bipedHeadwear;
+    public final HideableModelRenderer bipedHead;
+    public final HideableModelRenderer bipedHeadwear;
 
     public ModelDreadLichSkull() {
         this(0.0F);

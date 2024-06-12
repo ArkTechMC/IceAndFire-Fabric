@@ -154,7 +154,7 @@ public abstract class EntityMutlipartPart extends Entity {
                     double d1 = parent.getY() - this.getY();
                     double d2 = parent.getZ() - this.getZ();
                     float f2 = -((float) (MathHelper.atan2(d1, MathHelper.sqrt((float) (d0 * d0 + d2 * d2))) * (180F / (float) Math.PI)));
-                    this.setPitch(this.limitAngle(this.getPitch(), f2, 5.0F));
+                    this.setPitch(this.limitAngle(this.getPitch(), f2));
                     this.scheduleVelocityUpdate();
                     this.setYaw(renderYawOffset);
                     this.setPartYaw(this.getYaw());
@@ -182,14 +182,14 @@ public abstract class EntityMutlipartPart extends Entity {
         return false;
     }
 
-    protected float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
+    protected float limitAngle(float sourceAngle, float targetAngle) {
         float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
-        if (f > maximumChange) {
-            f = maximumChange;
+        if (f > (float) 5.0) {
+            f = (float) 5.0;
         }
 
-        if (f < -maximumChange) {
-            f = -maximumChange;
+        if (f < -(float) 5.0) {
+            f = -(float) 5.0;
         }
 
         float f1 = sourceAngle + f;

@@ -471,21 +471,6 @@ public class IafDragonLogic {
         String side = this.dragon.getWorld().isClient ? "CLIENT" : "SERVER";
         String owner = this.dragon.getOwner() == null ? "null" : this.dragon.getOwner().getName().getString();
         String attackTarget = this.dragon.getTarget() == null ? "null" : this.dragon.getTarget().getName().getString();
-        IceAndFire.LOGGER.warn("DRAGON DEBUG[" + side + "]:"
-                + "\nStage: " + this.dragon.getDragonStage()
-                + "\nAge: " + this.dragon.getAgeInDays()
-                + "\nVariant: " + this.dragon.getVariantName(this.dragon.getVariant())
-                + "\nOwner: " + owner
-                + "\nAttack Target: " + attackTarget
-                + "\nFlying: " + this.dragon.isFlying()
-                + "\nHovering: " + this.dragon.isHovering()
-                + "\nHovering Time: " + this.dragon.hoverTicks
-                + "\nWidth: " + this.dragon.getWidth()
-                + "\nMoveHelper: " + this.dragon.getMoveControl()
-                + "\nGround Attack: " + this.dragon.groundAttack
-                + "\nAir Attack: " + this.dragon.airAttack
-                + "\nTackling: " + this.dragon.isTackling()
-
-        );
+        IceAndFire.LOGGER.warn("DRAGON DEBUG[{}]:\nStage: {}\nAge: {}\nVariant: {}\nOwner: {}\nAttack Target: {}\nFlying: {}\nHovering: {}\nHovering Time: {}\nWidth: {}\nMoveHelper: {}\nGround Attack: {}\nAir Attack: {}\nTackling: {}", side, this.dragon.getDragonStage(), this.dragon.getAgeInDays(), this.dragon.getVariantName(this.dragon.getVariant()), owner, attackTarget, this.dragon.isFlying(), this.dragon.isHovering(), this.dragon.hoverTicks, this.dragon.getWidth(), this.dragon.getMoveControl(), this.dragon.groundAttack, this.dragon.airAttack, this.dragon.isTackling());
     }
 }

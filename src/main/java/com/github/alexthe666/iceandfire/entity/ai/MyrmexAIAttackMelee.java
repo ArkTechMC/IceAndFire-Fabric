@@ -13,15 +13,13 @@ import java.util.EnumSet;
 public class MyrmexAIAttackMelee extends Goal {
     private final double speedTowardsTarget;
     private final boolean longMemory;
-    private final boolean canPenalize = false;
-    protected EntityMyrmexBase myrmex;
+    protected final EntityMyrmexBase myrmex;
     private int attackTick;
     private int delayCounter;
     private double targetX;
     private double targetY;
     private double targetZ;
     private int failedPathFindingPenalty = 0;
-    private PathResult attackPath;
 
     public MyrmexAIAttackMelee(EntityMyrmexBase dragon, double speedIn, boolean useLongMemory) {
         this.myrmex = dragon;
@@ -49,8 +47,8 @@ public class MyrmexAIAttackMelee extends Goal {
             return false;
         } else {
 
-            this.attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, this.speedTowardsTarget);
-            if (this.attackPath != null) {
+            PathResult attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, this.speedTowardsTarget);
+            if (attackPath != null) {
                 return true;
             } else {
                 return this.getAttackReachSqr(LivingEntity) >= this.myrmex.squaredDistanceTo(LivingEntity.getX(), LivingEntity.getBoundingBox().minY, LivingEntity.getZ());
@@ -100,7 +98,8 @@ public class MyrmexAIAttackMelee extends Goal {
                 this.targetZ = entity.getZ();
                 this.delayCounter = 4 + this.myrmex.getRandom().nextInt(7);
 
-                if (this.canPenalize) {
+                boolean canPenalize = false;
+                if (canPenalize) {
                     this.delayCounter += this.failedPathFindingPenalty;
                     if (this.myrmex.getNavigation().getCurrentPath() != null) {
                         net.minecraft.entity.ai.pathing.PathNode finalPathPoint = this.myrmex.getNavigation().getCurrentPath().getEnd();
@@ -125,7 +124,7 @@ public class MyrmexAIAttackMelee extends Goal {
 
             this.attackTick = Math.max(this.attackTick - 1, 0);
 
-            if (d0 <= d1 && this.attackTick <= 0) {
+            if (d0 <= d1 && this.attackTick == 0) {
                 this.attackTick = 20;
                 this.myrmex.swingHand(Hand.MAIN_HAND);
                 this.myrmex.tryAttack(entity);

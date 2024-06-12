@@ -58,8 +58,7 @@ public class GuiMyrmexStaff extends Screen {
         this.addSelectableChild(
                 ButtonWidget.builder(
                                 ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
-                                    boolean opposite = !ClientProxy.getReferedClientHive().reproduces;
-                                    ClientProxy.getReferedClientHive().reproduces = opposite;
+                                    ClientProxy.getReferedClientHive().reproduces = !ClientProxy.getReferedClientHive().reproduces;
                                 })
                         .position(i + 124, j + 15)
                         .size(120, 20)
@@ -147,7 +146,7 @@ public class GuiMyrmexStaff extends Screen {
             TextRenderer textRenderer = this.client.textRenderer;
             if (!ClientProxy.getReferedClientHive().colonyName.isEmpty()) {
                 String title = I18n.translate("myrmex.message.colony_named", ClientProxy.getReferedClientHive().colonyName);
-                textRenderer.draw(title, i + 40 - title.length() / 2, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+                textRenderer.draw(title, i + 40 - (float) title.length() / 2, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
             } else {
                 textRenderer.draw(I18n.translate("myrmex.message.colony"), i + 80, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
             }
@@ -189,9 +188,9 @@ public class GuiMyrmexStaff extends Screen {
         this.hiveCount++;
     }
 
-    private class Room {
-        public BlockPos pos;
-        public String string;
+    private static class Room {
+        public final BlockPos pos;
+        public final String string;
 
         public Room(BlockPos pos, String string) {
             this.pos = pos;

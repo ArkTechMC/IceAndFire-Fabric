@@ -138,11 +138,11 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
             if (movingObject.getType() == HitResult.Type.ENTITY) {
                 Entity entity = ((EntityHitResult) movingObject).getEntity();
 
-                if (entity != null && entity instanceof EntitySlowPart) {
+                if (entity instanceof EntitySlowPart) {
                     return;
                 }
                 Entity shootingEntity = this.getOwner();
-                if (shootingEntity != null && shootingEntity instanceof EntitySeaSerpent dragon) {
+                if (shootingEntity instanceof EntitySeaSerpent dragon) {
                     if (dragon.isTeammate(entity) || dragon.isPartOf(entity)) {
                         return;
                     }

@@ -18,7 +18,6 @@ public class StymphalianBirdFlock {
     private EntityStymphalianBird leader;
     private ArrayList<EntityStymphalianBird> members = new ArrayList<>();
     private BlockPos leaderTarget;
-    private BlockPos prevLeaderTarget;
     private Random random;
 
     private StymphalianBirdFlock() {
@@ -38,9 +37,7 @@ public class StymphalianBirdFlock {
         float d0 = IafConfig.stymphalianBirdFlockLength;
         List<Entity> list = bird.getWorld().getOtherEntities(bird, (new Box(bird.getX(), bird.getY(), bird.getZ(), bird.getX() + 1.0D, bird.getY() + 1.0D, bird.getZ() + 1.0D)).expand(d0, 10.0D, d0), EntityStymphalianBird.STYMPHALIAN_PREDICATE);
         if (!list.isEmpty()) {
-            Iterator<Entity> itr = list.iterator();
-            while (itr.hasNext()) {
-                Entity entity = itr.next();
+            for (Entity entity : list) {
                 if (entity instanceof EntityStymphalianBird other) {
                     if (other.flock != null) {
                         return other.flock;
@@ -65,7 +62,7 @@ public class StymphalianBirdFlock {
             this.leader = this.members.get(this.random.nextInt(this.members.size()));
         }
         if (this.leader != null && this.leader.isAlive()) {
-            this.prevLeaderTarget = this.leaderTarget;
+            BlockPos prevLeaderTarget = this.leaderTarget;
             this.leaderTarget = this.leader.airTarget;
         }
     }

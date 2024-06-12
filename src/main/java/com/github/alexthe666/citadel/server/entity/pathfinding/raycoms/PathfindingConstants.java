@@ -47,9 +47,9 @@ public class PathfindingConstants {
 
     public static boolean isDebugMode;
 
-    public static int pathfindingThreads = 1;
+    public static final int pathfindingThreads = 1;
 
-    public static int maxPathingNodes = 5000;
+    public static final int maxPathingNodes = 5000;
 
     /**
      * Private constructor to hide implicit one.

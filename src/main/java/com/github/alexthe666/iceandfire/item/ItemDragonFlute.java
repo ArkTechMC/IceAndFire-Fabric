@@ -30,19 +30,15 @@ public class ItemDragonFlute extends Item {
 
         float chunksize = 16 * IafConfig.dragonFluteDistance;
         List<Entity> list = worldIn.getOtherEntities(player, (new Box(player.getX(), player.getY(), player.getZ(), player.getX() + 1.0D, player.getY() + 1.0D, player.getZ() + 1.0D)).expand(chunksize, 256, chunksize));
-        Collections.sort(list, new Sorter(player));
-        List<IDragonFlute> dragons = new ArrayList<IDragonFlute>();
-        Iterator<Entity> itr_entities = list.iterator();
-        while (itr_entities.hasNext()) {
-            Entity entity = itr_entities.next();
+        list.sort(new Sorter(player));
+        List<IDragonFlute> dragons = new ArrayList<>();
+        for (Entity entity : list) {
             if (entity instanceof IDragonFlute) {
                 dragons.add((IDragonFlute) entity);
             }
         }
 
-        Iterator<IDragonFlute> itr_dragons = dragons.iterator();
-        while (itr_dragons.hasNext()) {
-            IDragonFlute dragon = itr_dragons.next();
+        for (IDragonFlute dragon : dragons) {
             dragon.onHearFlute(player);
 			/*
 			if(dragon.isTamed() && dragon.isOwner(player)) {
@@ -54,7 +50,7 @@ public class ItemDragonFlute extends Item {
         }
         worldIn.playSound(player, player.getBlockPos(), IafSoundRegistry.DRAGONFLUTE, SoundCategory.NEUTRAL, 1, 1.75F);
 
-        return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.SUCCESS, itemStackIn);
     }
 
     public static class Sorter implements Comparator<Entity> {
@@ -68,7 +64,7 @@ public class ItemDragonFlute extends Item {
         public int compare(Entity p_compare_1_, Entity p_compare_2_) {
             double d0 = this.theEntity.squaredDistanceTo(p_compare_1_);
             double d1 = this.theEntity.squaredDistanceTo(p_compare_2_);
-            return d0 < d1 ? -1 : (d0 > d1 ? 1 : 0);
+            return Double.compare(d0, d1);
         }
     }
 }

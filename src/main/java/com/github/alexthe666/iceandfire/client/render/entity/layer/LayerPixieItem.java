@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LayerPixieItem extends FeatureRenderer<EntityPixie, ModelPixie> {
 
-    RenderPixie renderer;
+    final RenderPixie renderer;
 
     public LayerPixieItem(RenderPixie renderer) {
         super(renderer);
@@ -33,11 +33,7 @@ public class LayerPixieItem extends FeatureRenderer<EntityPixie, ModelPixie> {
             matrixStackIn.translate(-0.0625F, 0.53125F, 0.21875F);
             Item item = itemstack.getItem();
             MinecraftClient minecraft = MinecraftClient.getInstance();
-            if (!(item instanceof BlockItem)) {
-                matrixStackIn.translate(-0.075F, 0, -0.05F);
-            } else {
-                matrixStackIn.translate(-0.075F, 0, -0.05F);
-            }
+            matrixStackIn.translate(-0.075F, 0, -0.05F);
             matrixStackIn.translate(0.05F, 0.55F, -0.4F);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(200.0F));
             matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));

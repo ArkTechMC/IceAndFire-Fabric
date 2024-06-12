@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
-    public static Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
     private final ServerBossBar bossInfo = (new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS));
     private int animationTick;
     private Animation currentAnimation;
@@ -60,18 +60,8 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
-            }
-        }));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 
     @Override
@@ -151,11 +141,6 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 

@@ -25,38 +25,25 @@ public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, Model
     public static final Identifier EGG_COPPER = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/egg_copper.png");
 
     public RenderDragonEgg(EntityRendererFactory.Context context) {
-        super(context, new ModelDragonEgg(), 0.3F);
+        super(context, new ModelDragonEgg<>(), 0.3F);
     }
 
     @Override
     public @NotNull Identifier getTexture(EntityDragonEgg entity) {
-        switch (entity.getEggType()) {
-            default:
-                return EGG_RED;
-            case GREEN:
-                return EGG_GREEN;
-            case BRONZE:
-                return EGG_BRONZE;
-            case GRAY:
-                return EGG_GREY;
-            case BLUE:
-                return EGG_BLUE;
-            case WHITE:
-                return EGG_WHITE;
-            case SAPPHIRE:
-                return EGG_SAPPHIRE;
-            case SILVER:
-                return EGG_SILVER;
-            case ELECTRIC:
-                return EGG_ELECTRIC;
-            case AMYTHEST:
-                return EGG_AMYTHEST;
-            case COPPER:
-                return EGG_COPPER;
-            case BLACK:
-                return EGG_BLACK;
-
-        }
+        return switch (entity.getEggType()) {
+            default -> EGG_RED;
+            case GREEN -> EGG_GREEN;
+            case BRONZE -> EGG_BRONZE;
+            case GRAY -> EGG_GREY;
+            case BLUE -> EGG_BLUE;
+            case WHITE -> EGG_WHITE;
+            case SAPPHIRE -> EGG_SAPPHIRE;
+            case SILVER -> EGG_SILVER;
+            case ELECTRIC -> EGG_ELECTRIC;
+            case AMYTHEST -> EGG_AMYTHEST;
+            case COPPER -> EGG_COPPER;
+            case BLACK -> EGG_BLACK;
+        };
     }
 
 }

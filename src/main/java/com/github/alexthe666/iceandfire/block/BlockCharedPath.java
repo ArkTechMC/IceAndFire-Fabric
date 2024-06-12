@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class BlockCharedPath extends DirtPathBlock {
     public static final BooleanProperty REVERTS = BooleanProperty.of("revert");
     public Item itemBlock;
-    public int dragonType;
+    public final int dragonType;
 
     public BlockCharedPath(int dragonType) {
         super(

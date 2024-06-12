@@ -165,18 +165,8 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
         this.targetSelector.add(2, new AttackWithOwnerGoal(this));
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new HippogryphAITargetItems<>(this, false));
-        this.targetSelector.add(5, new HippogryphAITarget(this, LivingEntity.class, false, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                return entity instanceof LivingEntity && !(entity instanceof AbstractHorseEntity) && DragonUtils.isAlive((LivingEntity) entity);
-            }
-        }));
-        this.targetSelector.add(5, new HippogryphAITarget(this, PlayerEntity.class, 350, false, new Predicate<PlayerEntity>() {
-            @Override
-            public boolean apply(PlayerEntity entity) {
-                return !entity.isCreative();
-            }
-        }));
+        this.targetSelector.add(5, new HippogryphAITarget(this, LivingEntity.class, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && !(entity instanceof AbstractHorseEntity) && DragonUtils.isAlive((LivingEntity) entity)));
+        this.targetSelector.add(5, new HippogryphAITarget(this, PlayerEntity.class, 350, false, (Predicate<PlayerEntity>) entity -> !entity.isCreative()));
     }
 
     @Override
@@ -292,13 +282,12 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
                     if (this.hasHomePosition) {
                         this.hasHomePosition = false;
                         player.sendMessage(Text.translatable("hippogryph.command.remove_home"), true);
-                        return ActionResult.SUCCESS;
                     } else {
                         this.homePos = this.getBlockPos();
                         this.hasHomePosition = true;
                         player.sendMessage(Text.translatable("hippogryph.command.new_home", this.homePos.getX(), this.homePos.getY(), this.homePos.getZ()), true);
-                        return ActionResult.SUCCESS;
                     }
+                    return ActionResult.SUCCESS;
                 } else {
                     this.setCommand(this.getCommand() + 1);
                     if (this.getCommand() > 1) {
@@ -353,20 +342,20 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
 
     @Override
     public boolean isGoingUp() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) & 1) == 1;
     }
 
     @Override
     public boolean isGoingDown() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() >> 1 & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) >> 1 & 1) == 1;
     }
 
     public boolean attack() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() >> 2 & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) >> 2 & 1) == 1;
     }
 
     public boolean dismountIAF() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() >> 3 & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) >> 3 & 1) == 1;
     }
 
     @Override
@@ -395,7 +384,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     private void setStateField(int i, boolean newState) {
-        byte prevState = this.dataTracker.get(CONTROL_STATE).byteValue();
+        byte prevState = this.dataTracker.get(CONTROL_STATE);
         if (newState) {
             this.dataTracker.set(CONTROL_STATE, (byte) (prevState | (1 << i)));
         } else {
@@ -405,7 +394,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
 
     @Override
     public byte getControlState() {
-        return this.dataTracker.get(CONTROL_STATE).byteValue();
+        return this.dataTracker.get(CONTROL_STATE);
     }
 
     @Override
@@ -414,7 +403,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public int getCommand() {
-        return this.dataTracker.get(COMMAND).intValue();
+        return this.dataTracker.get(COMMAND);
     }
 
     public void setCommand(int command) {
@@ -505,7 +494,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -521,7 +510,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public boolean isSaddled() {
-        return this.dataTracker.get(SADDLE).booleanValue();
+        return this.dataTracker.get(SADDLE);
     }
 
     public void setSaddled(boolean saddle) {
@@ -529,7 +518,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public boolean isChested() {
-        return this.dataTracker.get(CHESTED).booleanValue();
+        return this.dataTracker.get(CHESTED);
     }
 
     public void setChested(boolean chested) {
@@ -540,7 +529,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     @Override
     public boolean isSitting() {
         if (this.getWorld().isClient) {
-            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
+            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS) & 1) != 0;
             this.isSitting = isSitting;
             return isSitting;
         }
@@ -552,7 +541,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
         if (!this.getWorld().isClient) {
             this.isSitting = sitting;
         }
-        byte b0 = this.dataTracker.get(TAMEABLE_FLAGS).byteValue();
+        byte b0 = this.dataTracker.get(TAMEABLE_FLAGS);
         if (sitting) {
             this.dataTracker.set(TAMEABLE_FLAGS, (byte) (b0 | 1));
         } else {
@@ -563,7 +552,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     @Override
     public boolean isHovering() {
         if (this.getWorld().isClient) {
-            return this.isHovering = this.dataTracker.get(HOVERING).booleanValue();
+            return this.isHovering = this.dataTracker.get(HOVERING);
         }
         return this.isHovering;
     }
@@ -591,7 +580,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     @Override
     public boolean isFlying() {
         if (this.getWorld().isClient) {
-            return this.isFlying = this.dataTracker.get(FLYING).booleanValue();
+            return this.isFlying = this.dataTracker.get(FLYING);
         }
         return this.isFlying;
     }
@@ -604,7 +593,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public int getArmor() {
-        return this.dataTracker.get(ARMOR).intValue();
+        return this.dataTracker.get(ARMOR);
     }
 
     public void setArmor(int armorType) {
@@ -874,7 +863,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
             this.setVelocity(this.getVelocity().add(0, up, 0));
         }
         if ((flying || hovering) && this.age % 20 == 0 && this.isOverAir()) {
-            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * (IafConfig.dragonFlapNoiseDistance / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
+            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafConfig.dragonFlapNoiseDistance / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
         }
         if (this.isOnGround() && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
             this.setFlying(false);
@@ -1055,11 +1044,11 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type) {
-        return this.createNavigator(worldIn, type, 2, 2);
+        return this.createNavigator(worldIn, type, 2);
     }
 
-    protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type, float width, float height) {
-        AdvancedPathNavigate newNavigator = new AdvancedPathNavigate(this, this.getWorld(), type, width, height);
+    protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type, float width) {
+        AdvancedPathNavigate newNavigator = new AdvancedPathNavigate(this, this.getWorld(), type, width, (float) 2);
         this.navigation = newNavigator;
         newNavigator.setCanSwim(true);
         newNavigator.getNodeMaker().setCanOpenDoors(true);

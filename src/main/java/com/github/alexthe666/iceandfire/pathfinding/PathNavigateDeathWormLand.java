@@ -244,7 +244,7 @@ public class PathNavigateDeathWormLand extends EntityNavigation {
      * Returns true if an entity does not collide with any solid blocks at the position.
      */
     private boolean isPositionClear(int x, int y, int z, int sizeX, int sizeY, int sizeZ, Vec3d p_179692_7_, double p_179692_8_, double p_179692_10_) {
-        for (BlockPos blockpos : BlockPos.stream(new BlockPos(x, y, z), new BlockPos(x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1)).collect(Collectors.toList())) {
+        for (BlockPos blockpos : BlockPos.stream(new BlockPos(x, y, z), new BlockPos(x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1)).toList()) {
             double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.x;
             double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.z;
 

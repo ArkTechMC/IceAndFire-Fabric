@@ -17,7 +17,7 @@ public class ClientTickRateTracker extends TickRateTracker {
     public static final Logger LOGGER = LogManager.getLogger("citadel-client-tick");
     private static final Map<MinecraftClient, ClientTickRateTracker> dataMap = new HashMap<>();
     private static final float MS_PER_TICK = 50f;
-    public MinecraftClient client;
+    public final MinecraftClient client;
 
     public ClientTickRateTracker(MinecraftClient client) {
         this.client = client;

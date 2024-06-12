@@ -8,14 +8,14 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.entity.Entity;
 
 public class ModelTideTrident extends AdvancedEntityModel<Entity> {
-    public AdvancedModelBox shaft;
-    public AdvancedModelBox base;
-    public AdvancedModelBox blade_B;
-    public AdvancedModelBox blade_C;
-    public AdvancedModelBox blade_A;
-    public AdvancedModelBox fins;
-    public AdvancedModelBox blade_C_2;
-    public AdvancedModelBox blade_A_2;
+    public final AdvancedModelBox shaft;
+    public final AdvancedModelBox base;
+    public final AdvancedModelBox blade_B;
+    public final AdvancedModelBox blade_C;
+    public final AdvancedModelBox blade_A;
+    public final AdvancedModelBox fins;
+    public final AdvancedModelBox blade_C_2;
+    public final AdvancedModelBox blade_A_2;
 
     public ModelTideTrident() {
         this.texWidth = 64;

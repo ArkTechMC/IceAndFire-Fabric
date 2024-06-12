@@ -33,10 +33,10 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
     }
 
 
-    private Vec3d getPosition(LivingEntity LivingEntityIn, double p_177110_2_, float p_177110_4_) {
-        double d0 = LivingEntityIn.lastRenderX + (LivingEntityIn.getX() - LivingEntityIn.lastRenderX) * (double) p_177110_4_;
-        double d1 = p_177110_2_ + LivingEntityIn.lastRenderY + (LivingEntityIn.getY() - LivingEntityIn.lastRenderY) * (double) p_177110_4_;
-        double d2 = LivingEntityIn.lastRenderZ + (LivingEntityIn.getZ() - LivingEntityIn.lastRenderZ) * (double) p_177110_4_;
+    private Vec3d getPosition(LivingEntity LivingEntityIn, double p_177110_2_) {
+        double d0 = LivingEntityIn.lastRenderX + (LivingEntityIn.getX() - LivingEntityIn.lastRenderX) * (double) (float) 1.0;
+        double d1 = p_177110_2_ + LivingEntityIn.lastRenderY + (LivingEntityIn.getY() - LivingEntityIn.lastRenderY) * (double) (float) 1.0;
+        double d2 = LivingEntityIn.lastRenderZ + (LivingEntityIn.getZ() - LivingEntityIn.lastRenderZ) * (double) (float) 1.0;
         return new Vec3d(d0, d1, d2);
     }
 
@@ -48,8 +48,8 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
             if (livingEntityIn.hasTargetedEntity()) {
                 LivingEntity livingentity = livingEntityIn.getTargetedEntity();
                 if (livingentity != null) {
-                    Vec3d Vector3d = this.getPosition(livingentity, (double) livingentity.getHeight() * 0.5D, 1.0F);
-                    Vec3d Vector3d1 = this.getPosition(livingEntityIn, livingEntityIn.getStandingEyeHeight(), 1.0F);
+                    Vec3d Vector3d = this.getPosition(livingentity, (double) livingentity.getHeight() * 0.5D);
+                    Vec3d Vector3d1 = this.getPosition(livingEntityIn, livingEntityIn.getStandingEyeHeight());
                     return camera.isVisible(new Box(Vector3d1.x, Vector3d1.y, Vector3d1.z, Vector3d.x, Vector3d.y, Vector3d.z));
                 }
             }

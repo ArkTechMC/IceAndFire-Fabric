@@ -18,8 +18,7 @@ public class WorldGenRoostGoldPile {
 
     public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
         int radius = rand.nextInt(3);
-        int layers = radius;
-        for (int i = 0; i < layers; i++) {
+        for (int i = 0; i < radius; i++) {
             int j = radius - i;
             int l = radius - i;
             float f = (float) (j + l) * 0.333F + 0.5F;

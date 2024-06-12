@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal {
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super LivingEntity> targetEntitySelector;
-    public EntityMyrmexWorker myrmex;
+    public final EntityMyrmexWorker myrmex;
     protected LivingEntity targetEntity;
 
     private List<LivingEntity> listBabies = IAFMath.emptyLivingEntityList;
@@ -26,14 +26,9 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
     public MyrmexAIPickupBabies(EntityMyrmexWorker myrmex) {
         super(myrmex, false, false);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(myrmex);
-        this.targetEntitySelector = new Predicate<LivingEntity>() {
-            @Override
-            public boolean test(LivingEntity myrmex) {
-                return (myrmex instanceof EntityMyrmexBase && ((EntityMyrmexBase) myrmex).getGrowthStage() < 2
-                        && !((EntityMyrmexBase) myrmex).isInNursery()
-                        || myrmex instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) myrmex).isInNursery());
-            }
-        };
+        this.targetEntitySelector = (Predicate<LivingEntity>) myrmex1 -> (myrmex1 instanceof EntityMyrmexBase && ((EntityMyrmexBase) myrmex1).getGrowthStage() < 2
+                && !((EntityMyrmexBase) myrmex1).isInNursery()
+                || myrmex1 instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) myrmex1).isInNursery());
         this.myrmex = myrmex;
         this.setControls(EnumSet.of(Control.TARGET));
     }
@@ -46,7 +41,7 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
         }
 
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            this.listBabies = this.mob.getWorld().getEntitiesByClass(LivingEntity.class, this.getTargetableArea(20), this.targetEntitySelector);
+            this.listBabies = this.mob.getWorld().getEntitiesByClass(LivingEntity.class, this.getTargetableArea(), this.targetEntitySelector);
 
         if (this.listBabies.isEmpty())
             return false;
@@ -56,8 +51,8 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
         return true;
     }
 
-    protected Box getTargetableArea(double targetDistance) {
-        return this.mob.getBoundingBox().expand(targetDistance, 4.0D, targetDistance);
+    protected Box getTargetableArea() {
+        return this.mob.getBoundingBox().expand(20, 4.0D, 20);
     }
 
     @Override

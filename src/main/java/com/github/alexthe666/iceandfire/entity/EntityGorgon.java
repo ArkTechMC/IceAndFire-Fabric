@@ -115,18 +115,8 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         });
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                return entity.isAlive();
-            }
-        }));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                return entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone());
-            }
-        }));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity.isAlive()));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone())));
         this.goalSelector.remove(this.aiMelee);
     }
 

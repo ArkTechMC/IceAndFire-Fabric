@@ -49,16 +49,16 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             {45F, 30F, 20F, 5F, -5F, -20F, -30F, -45F, 0F},
             {50F, 37F, 25F, 15F, 0, -15F, -25F, -37F, -50F},
     };
-    public boolean[] isStriking = new boolean[HEADS];
-    public float[] strikingProgress = new float[HEADS];
-    public float[] prevStrikeProgress = new float[HEADS];
-    public boolean[] isBreathing = new boolean[HEADS];
-    public float[] speakingProgress = new float[HEADS];
-    public float[] prevSpeakingProgress = new float[HEADS];
-    public float[] breathProgress = new float[HEADS];
-    public float[] prevBreathProgress = new float[HEADS];
-    public int[] breathTicks = new int[HEADS];
-    public float[] headDamageTracker = new float[HEADS];
+    public final boolean[] isStriking = new boolean[HEADS];
+    public final float[] strikingProgress = new float[HEADS];
+    public final float[] prevStrikeProgress = new float[HEADS];
+    public final boolean[] isBreathing = new boolean[HEADS];
+    public final float[] speakingProgress = new float[HEADS];
+    public final float[] prevSpeakingProgress = new float[HEADS];
+    public final float[] breathProgress = new float[HEADS];
+    public final float[] prevBreathProgress = new float[HEADS];
+    public final int[] breathTicks = new int[HEADS];
+    public final float[] headDamageTracker = new float[HEADS];
     private int animationTick;
     private Animation currentAnimation;
     private EntityHydraHead[] headBoxes = new EntityHydraHead[HEADS * 9];
@@ -101,12 +101,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                return entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && !(entity instanceof EntityMutlipartPart) && !(entity instanceof Monster) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone());
-            }
-        }));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && !(entity instanceof EntityMutlipartPart) && !(entity instanceof Monster) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone())));
     }
 
     @Override
@@ -413,7 +408,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     public int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -421,7 +416,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     public int getHeadCount() {
-        return MathHelper.clamp(this.dataTracker.get(HEAD_COUNT).intValue(), 1, HEADS);
+        return MathHelper.clamp(this.dataTracker.get(HEAD_COUNT), 1, HEADS);
     }
 
     public void setHeadCount(int count) {
@@ -429,7 +424,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     public int getSeveredHead() {
-        return MathHelper.clamp(this.dataTracker.get(SEVERED_HEAD).intValue(), -1, HEADS);
+        return MathHelper.clamp(this.dataTracker.get(SEVERED_HEAD), -1, HEADS);
     }
 
     public void setSeveredHead(int count) {

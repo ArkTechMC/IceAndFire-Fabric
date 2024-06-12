@@ -235,13 +235,10 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         if (!ItemStack.areEqual(itemstack, this.last)) {
             this.last = itemstack;
 
-            while (true) {
+            do {
                 this.flipT += this.random.nextInt(4) - this.random.nextInt(4);
 
-                if (this.flip > this.flipT + 1.0F || this.flip < this.flipT - 1.0F) {
-                    break;
-                }
-            }
+            } while (!(this.flip > this.flipT + 1.0F) && !(this.flip < this.flipT - 1.0F));
         }
 
         ++this.ticks;

@@ -190,18 +190,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         });
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                return entity.isAlive();
-            }
-        }));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, false, false, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                return entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && DragonUtils.isVillager(entity);
-            }
-        }));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity.isAlive()));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && DragonUtils.isVillager(entity)));
     }
 
     @Override
@@ -319,7 +309,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public int getColor() {
-        return MathHelper.clamp(this.getDataTracker().get(COLOR).intValue(), -1, 2);
+        return MathHelper.clamp(this.getDataTracker().get(COLOR), -1, 2);
     }
 
     public void setColor(int color) {
@@ -327,7 +317,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public int getDaytimeCounter() {
-        return this.getDataTracker().get(DAYTIME_COUNTER).intValue();
+        return this.getDataTracker().get(DAYTIME_COUNTER);
     }
 
     public void setDaytimeCounter(int counter) {
@@ -390,8 +380,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         return false;
     }
 
-    class MoveHelper extends MoveControl {
-        EntityGhost ghost;
+    static class MoveHelper extends MoveControl {
+        final EntityGhost ghost;
 
         public MoveHelper(EntityGhost ghost) {
             super(ghost);

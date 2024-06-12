@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SurfaceRulesManager {
-    private static final List<MaterialRules.MaterialRule> OVERWORLD_REGISTRY = new ArrayList();
-    private static final List<MaterialRules.MaterialRule> NETHER_REGISTRY = new ArrayList();
-    private static final List<MaterialRules.MaterialRule> END_REGISTRY = new ArrayList();
-    private static final List<MaterialRules.MaterialRule> CAVE_REGISTRY = new ArrayList();
+    private static final List<MaterialRules.MaterialRule> OVERWORLD_REGISTRY = new ArrayList<>();
+    private static final List<MaterialRules.MaterialRule> NETHER_REGISTRY = new ArrayList<>();
+    private static final List<MaterialRules.MaterialRule> END_REGISTRY = new ArrayList<>();
+    private static final List<MaterialRules.MaterialRule> CAVE_REGISTRY = new ArrayList<>();
 
     public SurfaceRulesManager() {
     }
@@ -51,7 +51,7 @@ public class SurfaceRulesManager {
         ImmutableList.Builder<MaterialRules.MaterialRule> builder = ImmutableList.builder();
         builder.addAll(toMerge);
         builder.add(prev);
-        return MaterialRules.sequence(builder.build().toArray((size) -> new MaterialRules.MaterialRule[size]));
+        return MaterialRules.sequence(builder.build().toArray(MaterialRules.MaterialRule[]::new));
     }
 
     public static MaterialRules.MaterialRule mergeOverworldRules(MaterialRules.MaterialRule rulesIn) {

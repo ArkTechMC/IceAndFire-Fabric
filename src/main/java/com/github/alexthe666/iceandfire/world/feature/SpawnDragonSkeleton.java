@@ -14,7 +14,7 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
 
-    protected EntityType<? extends EntityDragonBase> dragonType;
+    protected final EntityType<? extends EntityDragonBase> dragonType;
 
     public SpawnDragonSkeleton(EntityType<? extends EntityDragonBase> dt, Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);

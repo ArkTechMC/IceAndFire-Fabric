@@ -5,7 +5,7 @@ import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
 
 public class MyrmexAIWander extends WanderAroundFarGoal {
 
-    protected EntityMyrmexBase myrmex;
+    protected final EntityMyrmexBase myrmex;
 
     public MyrmexAIWander(EntityMyrmexBase myrmex, double speed) {
         super(myrmex, speed);

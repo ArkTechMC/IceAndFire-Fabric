@@ -12,14 +12,8 @@ public class MyrmexAIAttackPlayers extends ActiveTargetGoal {
 
     @SuppressWarnings("unchecked")
     public MyrmexAIAttackPlayers(EntityMyrmexBase myrmex) {
-        super(myrmex, PlayerEntity.class, 10, true, true, new Predicate<PlayerEntity>() {
-
-            @Override
-            public boolean test(PlayerEntity entity) {
-                return entity != null && (myrmex.getHive() == null
-                        || myrmex.getHive().isPlayerReputationLowEnoughToFight(entity.getUuid()));
-            }
-        });
+        super(myrmex, PlayerEntity.class, 10, true, true, (Predicate<PlayerEntity>) entity -> entity != null && (myrmex.getHive() == null
+                || myrmex.getHive().isPlayerReputationLowEnoughToFight(entity.getUuid())));
         this.myrmex = myrmex;
     }
 

@@ -111,37 +111,29 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F, 1.0F));
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                if (EntityGorgon.isStoneMob(entity))
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, (Predicate<LivingEntity>) entity -> {
+            if (EntityGorgon.isStoneMob(entity))
+                return false;
+            if (!DragonUtils.isAlive(entity))
+                return false;
+            if (entity instanceof WaterCreatureEntity)
+                return false;
+            if (entity instanceof PlayerEntity playerEntity) {
+                if (playerEntity.isCreative() || playerEntity.isSpectator())
                     return false;
-                if (!DragonUtils.isAlive(entity))
-                    return false;
-                if (entity instanceof WaterCreatureEntity)
-                    return false;
-                if (entity instanceof PlayerEntity playerEntity) {
-                    if (playerEntity.isCreative() || playerEntity.isSpectator())
-                        return false;
-                }
-                if (entity instanceof EntityCyclops)
-                    return false;
-                if (entity instanceof AnimalEntity) {
-                    if (!(entity instanceof WolfEntity || entity instanceof PolarBearEntity || entity instanceof EntityDragonBase)) {
-                        return false;
-                    }
-                }
-                return !ServerEvents.isSheep(entity);
             }
+            if (entity instanceof EntityCyclops)
+                return false;
+            if (entity instanceof AnimalEntity) {
+                if (!(entity instanceof WolfEntity || entity instanceof PolarBearEntity || entity instanceof EntityDragonBase)) {
+                    return false;
+                }
+            }
+            return !ServerEvents.isSheep(entity);
         }));
 
-        this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, true, new Predicate<PlayerEntity>() {
-            @Override
-            public boolean apply(PlayerEntity entity) {
-                return entity != null && !(entity.isCreative() || entity.isSpectator());
-            }
-        }));
-        this.targetSelector.add(3, new CyclopsAITargetSheepPlayers(this, PlayerEntity.class, true));
+        this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, true, (Predicate<PlayerEntity>) entity -> entity != null && !(entity.isCreative() || entity.isSpectator())));
+        this.targetSelector.add(3, new CyclopsAITargetSheepPlayers<>(this, PlayerEntity.class, true));
     }
 
     @Override
@@ -198,7 +190,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     public int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -206,7 +198,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     public boolean isBlinded() {
-        return this.dataTracker.get(BLINDED).booleanValue();
+        return this.dataTracker.get(BLINDED);
     }
 
     public void setBlinded(boolean blind) {
@@ -227,8 +219,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             float angle = (0.01745329251F * this.bodyYaw) + 3.15F;
             double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
             double extraZ = radius * MathHelper.cos(angle);
-            double extraY = raiseUp;
-            passenger.setPosition(this.getX() + extraX, this.getY() + extraY, this.getZ() + extraZ);
+            passenger.setPosition(this.getX() + extraX, this.getY() + raiseUp, this.getZ() + extraZ);
             if (this.getAnimationTick() == 32) {
                 passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafConfig.cyclopsBiteStrength);
                 passenger.stopRiding();

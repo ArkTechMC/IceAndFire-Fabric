@@ -41,7 +41,7 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
     @Override
     protected Vec3d getWanderTarget() {
         if (((EntitySeaSerpent) this.mob).jumpCooldown <= 0) {
-            Vec3d vector3d = this.findSurfaceTarget(this.mob, 32, 16);
+            Vec3d vector3d = this.findSurfaceTarget(this.mob);
             if (vector3d != null) {
                 return vector3d.add(0, 1, 0);
             }
@@ -63,21 +63,21 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
         return null;
     }
 
-    private boolean canJumpTo(BlockPos pos, int dx, int dz, int scale) {
-        BlockPos blockpos = pos.add(dx * scale, 0, dz * scale);
+    private boolean canJumpTo(BlockPos pos) {
+        BlockPos blockpos = pos.add(0 * 0, 0, 0 * 0);
         return this.mob.getWorld().getFluidState(blockpos).isIn(FluidTags.WATER) && !this.mob.getWorld().getBlockState(blockpos).blocksMovement();
     }
 
-    private boolean isAirAbove(BlockPos pos, int dx, int dz, int scale) {
-        return this.mob.getWorld().getBlockState(pos.add(dx * scale, 1, dz * scale)).isAir() && this.mob.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();
+    private boolean isAirAbove(BlockPos pos) {
+        return this.mob.getWorld().getBlockState(pos.add(0 * 0, 1, 0 * 0)).isAir() && this.mob.getWorld().getBlockState(pos.add(0 * 0, 2, 0 * 0)).isAir();
     }
 
-    private Vec3d findSurfaceTarget(PathAwareEntity creature, int i, int i1) {
+    private Vec3d findSurfaceTarget(PathAwareEntity creature) {
         BlockPos upPos = creature.getBlockPos();
         while (creature.getWorld().getFluidState(upPos).isIn(FluidTags.WATER)) {
             upPos = upPos.up();
         }
-        if (this.isAirAbove(upPos.down(), 0, 0, 0) && this.canJumpTo(upPos.down(), 0, 0, 0)) {
+        if (this.isAirAbove(upPos.down()) && this.canJumpTo(upPos.down())) {
             return new Vec3d(upPos.getX() + 0.5F, upPos.getY() + 3.5F, upPos.getZ() + 0.5F);
         }
         return null;

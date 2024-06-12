@@ -13,11 +13,11 @@ import java.util.EnumSet;
 public class HippogryphAIAttackMelee extends Goal {
     protected final int attackInterval = 20;
     private final boolean canPenalize = false;
-    protected MobEntity attacker;
+    protected final MobEntity attacker;
     protected int attackTick;
-    World world;
-    double speedTowardsTarget;
-    boolean longMemory;
+    final World world;
+    final double speedTowardsTarget;
+    final boolean longMemory;
     Path path;
     private int delayCounter;
     private double targetX;

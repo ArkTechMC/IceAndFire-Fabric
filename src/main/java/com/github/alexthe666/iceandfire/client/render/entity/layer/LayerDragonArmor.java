@@ -25,11 +25,9 @@ import java.util.Map;
 public class LayerDragonArmor extends FeatureRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> {
     private static final Map<String, Identifier> LAYERED_ARMOR_CACHE = Maps.newHashMap();
     private static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-    private final MobEntityRenderer render;
 
     public LayerDragonArmor(MobEntityRenderer renderIn, int type) {
         super(renderIn);
-        this.render = renderIn;
     }
 
     public static void clearCache(String str) {
@@ -47,7 +45,7 @@ public class LayerDragonArmor extends FeatureRenderer<EntityDragonBase, Advanced
             Identifier resourcelocation = LAYERED_ARMOR_CACHE.get(armorTexture);
             if (resourcelocation == null) {
                 resourcelocation = new Identifier("iceandfire" + "dragon_armor_" + armorTexture);
-                List<String> tex = new ArrayList<String>();
+                List<String> tex = new ArrayList<>();
                 for (EquipmentSlot slot : ARMOR_SLOTS) {
                     if (dragon.dragonType == DragonType.FIRE) {
                         tex.add(EnumDragonTextures.Armor.getArmorForDragon(dragon, slot).FIRETEXTURE.toString());

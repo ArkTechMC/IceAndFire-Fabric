@@ -11,8 +11,8 @@ import java.util.List;
 
 public abstract class TickRateTracker {
 
-    public List<TickRateModifier> tickRateModifierList = new ArrayList<>();
-    public List<Entity> specialTickRateEntities = new ArrayList<>();
+    public final List<TickRateModifier> tickRateModifierList = new ArrayList<>();
+    public final List<Entity> specialTickRateEntities = new ArrayList<>();
 
     private long masterTickCount;
 

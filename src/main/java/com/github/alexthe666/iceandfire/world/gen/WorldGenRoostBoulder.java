@@ -20,7 +20,7 @@ public class WorldGenRoostBoulder {
         this.replaceAir = replaceAir;
     }
 
-    public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
+    public void generate(WorldAccess worldIn, Random rand, BlockPos position) {
         while (true) {
             label50:
             {
@@ -37,7 +37,7 @@ public class WorldGenRoostBoulder {
                 }
 
                 if (position.getY() <= 3) {
-                    return false;
+                    return;
                 }
 
                 int i1 = this.startRadius;
@@ -57,7 +57,7 @@ public class WorldGenRoostBoulder {
                     position = position.add(-(i1 + 1) + rand.nextInt(2 + i1 * 2), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + i1 * 2));
                 }
 
-                return true;
+                return;
             }
             position = position.down();
         }

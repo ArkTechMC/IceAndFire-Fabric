@@ -17,7 +17,7 @@ public enum EnumSkullType {
     SEASERPENT,
     HYDRA;
 
-    public String itemResourceName;
+    public final String itemResourceName;
     public RegistryObject<Item> skull_item;
 
     EnumSkullType() {

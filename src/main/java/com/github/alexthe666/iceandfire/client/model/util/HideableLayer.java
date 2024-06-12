@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class HideableLayer<T extends Entity, M extends EntityModel<T>, C extends FeatureRenderer<T, M>> extends FeatureRenderer<T, M> {
 
     public boolean hidden;
-    C layerRenderer;
+    final C layerRenderer;
 
     public HideableLayer(C layerRenderer, FeatureRendererContext<T, M> entityRendererIn) {
         super(entityRendererIn);

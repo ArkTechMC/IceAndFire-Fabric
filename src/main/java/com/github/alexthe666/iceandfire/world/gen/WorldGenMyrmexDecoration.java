@@ -136,21 +136,13 @@ public class WorldGenMyrmexDecoration {
 
     public static void generateTrashHeap(WorldAccess worldIn, BlockPos blockpos, BlockPos origin, int radius, Random rand) {
         if (worldIn.getBlockState(blockpos.down()).isSideSolidFullSquare(worldIn, blockpos.down(), Direction.UP)) {
-            Block blob = Blocks.DIRT;
-            switch (rand.nextInt(3)) {
-                case 0:
-                    blob = Blocks.DIRT;
-                    break;
-                case 1:
-                    blob = Blocks.SAND;
-                    break;
-                case 2:
-                    blob = Blocks.COBBLESTONE;
-                    break;
-                case 3:
-                    blob = Blocks.GRAVEL;
-                    break;
-            }
+            Block blob = switch (rand.nextInt(3)) {
+                case 0 -> Blocks.DIRT;
+                case 1 -> Blocks.SAND;
+                case 2 -> Blocks.COBBLESTONE;
+                case 3 -> Blocks.GRAVEL;
+                default -> blob;
+            };
             int i1 = 0;
             for (int i = 0; i1 >= 0 && i < 3; ++i) {
                 int j = i1 + rand.nextInt(2);

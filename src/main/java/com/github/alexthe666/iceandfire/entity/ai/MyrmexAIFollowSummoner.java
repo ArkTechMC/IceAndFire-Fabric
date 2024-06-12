@@ -14,9 +14,9 @@ import java.util.EnumSet;
 
 public class MyrmexAIFollowSummoner extends Goal {
     private final EntityMyrmexSwarmer tameable;
-    World world;
-    float maxDist;
-    float minDist;
+    final World world;
+    final float maxDist;
+    final float minDist;
     private LivingEntity owner;
     private int timeToRecalcPath;
     private float oldWaterCost;

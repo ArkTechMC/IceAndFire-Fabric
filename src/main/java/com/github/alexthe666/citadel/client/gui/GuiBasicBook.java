@@ -60,9 +60,9 @@ public abstract class GuiBasicBook extends Screen {
     private final Map<String, TabulaModel> renderedTabulaModels = new HashMap<>();
     private final Map<String, Entity> renderedEntities = new HashMap<>();
     private final Map<String, Identifier> textureMap = new HashMap<>();
-    protected ItemStack bookStack;
-    protected int xSize = 390;
-    protected int ySize = 320;
+    protected final ItemStack bookStack;
+    protected final int xSize = 390;
+    protected final int ySize = 320;
     protected int currentPageCounter = 0;
     protected int maxPagesFromPrinting = 0;
     protected int linesFromJSON = 0;
@@ -365,7 +365,7 @@ public abstract class GuiBasicBook extends Screen {
                     try {
                         model = new TabulaModel(TabulaModelHandler.INSTANCE.loadTabulaModel("/assets/" + tabulaRenderData.getModel().split(":")[0] + "/" + tabulaRenderData.getModel().split(":")[1]));
                     } catch (Exception e) {
-                        Citadel.LOGGER.warn("Could not load in tabula model for book at " + tabulaRenderData.getModel());
+                        Citadel.LOGGER.warn("Could not load in tabula model for book at {}", tabulaRenderData.getModel());
                     }
                     this.renderedTabulaModels.put(tabulaRenderData.getModel(), model);
                 }
@@ -441,7 +441,7 @@ public abstract class GuiBasicBook extends Screen {
             if (!stack.isEmpty()) {
                 guiGraphics.getMatrices().push();
                 guiGraphics.getMatrices().translate(k, l, 32.0F);
-                guiGraphics.getMatrices().translate((int) (recipeData.getX() + (i % 3) * 20 * scale), (int) (recipeData.getY() + (i / 3) * 20 * scale), 0);
+                guiGraphics.getMatrices().translate((int) (recipeData.getX() + (i % 3) * 20 * scale), (int) (recipeData.getY() + ((float) i / 3) * 20 * scale), 0);
                 guiGraphics.getMatrices().scale(scale, scale, scale);
                 guiGraphics.drawItem(stack, 0, 0);
                 guiGraphics.getMatrices().pop();
@@ -622,7 +622,7 @@ public abstract class GuiBasicBook extends Screen {
                 e1.printStackTrace();
             }
         } catch (Exception e) {
-            Citadel.LOGGER.warn("Could not load in page .txt from json from page, page: " + res);
+            Citadel.LOGGER.warn("Could not load in page .txt from json from page, page: {}", res);
         }
     }
 

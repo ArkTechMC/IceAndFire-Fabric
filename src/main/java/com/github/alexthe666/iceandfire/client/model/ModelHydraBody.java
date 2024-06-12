@@ -13,19 +13,19 @@ import net.minecraft.entity.Entity;
 
 public class ModelHydraBody extends ModelDragonBase<EntityHydra> {
     private final ModelAnimator animator;
-    public AdvancedModelBox BodyUpper;
-    public AdvancedModelBox BodyLower;
-    public AdvancedModelBox BodySpike1;
-    public AdvancedModelBox BodySpike2;
-    public AdvancedModelBox Tail1;
-    public AdvancedModelBox BodySpike3;
-    public AdvancedModelBox Tail2;
-    public AdvancedModelBox Tail3;
-    public AdvancedModelBox Tail4;
-    public AdvancedModelBox Tail5;
-    public AdvancedModelBox TailSpike1;
-    public AdvancedModelBox TailSpike2;
-    public AdvancedModelBox TailSpike3;
+    public final AdvancedModelBox BodyUpper;
+    public final AdvancedModelBox BodyLower;
+    public final AdvancedModelBox BodySpike1;
+    public final AdvancedModelBox BodySpike2;
+    public final AdvancedModelBox Tail1;
+    public final AdvancedModelBox BodySpike3;
+    public final AdvancedModelBox Tail2;
+    public final AdvancedModelBox Tail3;
+    public final AdvancedModelBox Tail4;
+    public final AdvancedModelBox Tail5;
+    public final AdvancedModelBox TailSpike1;
+    public final AdvancedModelBox TailSpike2;
+    public final AdvancedModelBox TailSpike3;
 
     public ModelHydraBody() {
         this.texWidth = 256;

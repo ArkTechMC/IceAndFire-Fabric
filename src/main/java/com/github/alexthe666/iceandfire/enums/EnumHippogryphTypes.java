@@ -23,9 +23,9 @@ public enum EnumHippogryphTypes {
     ALEX(true),
     DODO(true);
 
-    public boolean developer;
-    public Identifier TEXTURE;
-    public Identifier TEXTURE_BLINK;
+    public final boolean developer;
+    public final Identifier TEXTURE;
+    public final Identifier TEXTURE_BLINK;
 
     EnumHippogryphTypes(boolean developer) {
         this.developer = developer;

@@ -11,7 +11,7 @@ import java.util.EnumSet;
 
 public class AmphithereAIAttackMelee extends Goal {
     private final boolean canPenalize = false;
-    protected EntityAmphithere attacker;
+    protected final EntityAmphithere attacker;
     /**
      * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
      */
@@ -19,11 +19,11 @@ public class AmphithereAIAttackMelee extends Goal {
     /**
      * The speed with which the mob will approach the target
      */
-    double speedTowardsTarget;
+    final double speedTowardsTarget;
     /**
      * When true, the mob will continue chasing its target, even if it can't find a path to them right now.
      */
-    boolean longMemory;
+    final boolean longMemory;
     /**
      * The PathEntity of our entity.
      */

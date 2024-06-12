@@ -236,8 +236,8 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
     }
 
     private static class SphereInfo {
-        int radius;
-        BlockPos pos;
+        final int radius;
+        final BlockPos pos;
 
         private SphereInfo(int radius, BlockPos pos) {
             this.radius = radius;

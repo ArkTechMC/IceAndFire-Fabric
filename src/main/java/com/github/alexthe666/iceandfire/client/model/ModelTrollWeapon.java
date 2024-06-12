@@ -7,17 +7,17 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 
 public class ModelTrollWeapon extends AdvancedEntityModel<Entity> {
-    public AdvancedModelBox log1;
-    public AdvancedModelBox log2;
-    public AdvancedModelBox handle;
-    public AdvancedModelBox column;
-    public AdvancedModelBox blade1;
-    public AdvancedModelBox blade2;
-    public AdvancedModelBox blade2_1;
-    public AdvancedModelBox block;
-    public AdvancedModelBox blade2_2;
-    public AdvancedModelBox bottom;
-    public AdvancedModelBox top;
+    public final AdvancedModelBox log1;
+    public final AdvancedModelBox log2;
+    public final AdvancedModelBox handle;
+    public final AdvancedModelBox column;
+    public final AdvancedModelBox blade1;
+    public final AdvancedModelBox blade2;
+    public final AdvancedModelBox blade2_1;
+    public final AdvancedModelBox block;
+    public final AdvancedModelBox blade2_2;
+    public final AdvancedModelBox bottom;
+    public final AdvancedModelBox top;
 
     public ModelTrollWeapon() {
         this.texWidth = 256;
@@ -85,10 +85,4 @@ public class ModelTrollWeapon extends AdvancedEntityModel<Entity> {
         return ImmutableList.of(this.log1);
     }
 
-    @Override
-    public void setRotateAngle(AdvancedModelBox modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
-    }
 }

@@ -269,15 +269,8 @@ public class LightningBoltData {
         Pair<Integer, Integer> getRenderBounds(int totalBolts, float lifeScale);
     }
 
-    private static class QuadCache {
+    private record QuadCache(Vec3d prevEnd, Vec3d prevEndRight, Vec3d prevEndBack) {
 
-        private final Vec3d prevEnd, prevEndRight, prevEndBack;
-
-        private QuadCache(Vec3d prevEnd, Vec3d prevEndRight, Vec3d prevEndBack) {
-            this.prevEnd = prevEnd;
-            this.prevEndRight = prevEndRight;
-            this.prevEndBack = prevEndBack;
-        }
     }
 
     protected static class BoltInstructions {
@@ -339,7 +332,7 @@ public class LightningBoltData {
         }
     }
 
-    public class BoltQuads {
+    public static class BoltQuads {
 
         private final List<Vec3d> vecs = new ArrayList<>();
 

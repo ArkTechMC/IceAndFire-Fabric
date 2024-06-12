@@ -79,9 +79,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
                             worldIn.setBlockState(blockpos.up(), Blocks.GRASS.getDefaultState(), 2);
                         }
                         if (rand.nextInt(9) == 0) {
-                            RegistryEntry<ConfiguredFeature<?, ?>> holder = context.getWorld().getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE).getEntry(TreeConfiguredFeatures.SWAMP_OAK).orElse(null);
-                            if (holder != null)
-                                holder.value().generate(worldIn, generator, rand, blockpos.up());
+                            context.getWorld().getRegistryManager().get(RegistryKeys.CONFIGURED_FEATURE).getEntry(TreeConfiguredFeatures.SWAMP_OAK).ifPresent(holder -> holder.value().generate(worldIn, generator, rand, blockpos.up()));
                         }
 
                     }
@@ -142,7 +140,6 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
                     }
                     if (rand.nextInt(15) == 0 && this.isTouchingAir(worldIn, blockpos.up())) {
                         worldIn.setBlockState(blockpos.up(), rand.nextBoolean() ? Blocks.BROWN_MUSHROOM.getDefaultState() : Blocks.RED_MUSHROOM.getDefaultState(), 2);
-                        continue;
                     }
                 }
             }

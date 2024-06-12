@@ -33,7 +33,7 @@ public class AnimationEvent<T extends Entity & IAnimatedEntity> extends Event {
     }
 
     public static class Tick<T extends Entity & IAnimatedEntity> extends AnimationEvent<T> {
-        protected int tick;
+        protected final int tick;
 
         public Tick(T entity, Animation animation, int tick) {
             super(entity, animation);

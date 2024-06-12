@@ -197,7 +197,7 @@ public class MyrmexTrades {
     }
 
     private static Int2ObjectMap<TradeOffers.Factory[]> createTrades(ImmutableMap<Integer, TradeOffers.Factory[]> p_221238_0_) {
-        return new Int2ObjectOpenHashMap(p_221238_0_);
+        return new Int2ObjectOpenHashMap<>(p_221238_0_);
     }
 
     static class ItemsForDesertResinAndItemsTrade implements TradeOffers.Factory {
@@ -256,9 +256,7 @@ public class MyrmexTrades {
         @Override
         public TradeOffer create(@NotNull Entity trader, Random rand) {
             ItemStack lvt_3_1_ = new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN.get(), this.emeraldCount);
-            List<Potion> lvt_4_1_ = Registries.POTION.stream().filter((potion) -> {
-                return !potion.getEffects().isEmpty() && BrewingRecipeRegistry.isBrewable(potion);
-            }).collect(Collectors.toList());
+            List<Potion> lvt_4_1_ = Registries.POTION.stream().filter((potion) -> !potion.getEffects().isEmpty() && BrewingRecipeRegistry.isBrewable(potion)).toList();
             Potion lvt_5_1_ = lvt_4_1_.get(rand.nextInt(lvt_4_1_.size()));
             ItemStack lvt_6_1_ = PotionUtil.setPotion(new ItemStack(this.potionStack.getItem(), this.potionCount), lvt_5_1_);
             return new TradeOffer(lvt_3_1_, new ItemStack(this.buyingItem, this.buyingItemCount), lvt_6_1_, this.maxUses, this.xpValue, this.priceMultiplier);
@@ -434,9 +432,7 @@ public class MyrmexTrades {
         @Override
         public TradeOffer create(@NotNull Entity trader, Random rand) {
             ItemStack lvt_3_1_ = new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_RESIN.get(), this.emeraldCount);
-            List<Potion> lvt_4_1_ = Registries.POTION.stream().filter((potion) -> {
-                return !potion.getEffects().isEmpty() && BrewingRecipeRegistry.isBrewable(potion);
-            }).collect(Collectors.toList());
+            List<Potion> lvt_4_1_ = Registries.POTION.stream().filter((potion) -> !potion.getEffects().isEmpty() && BrewingRecipeRegistry.isBrewable(potion)).toList();
             Potion lvt_5_1_ = lvt_4_1_.get(rand.nextInt(lvt_4_1_.size()));
             ItemStack lvt_6_1_ = PotionUtil.setPotion(new ItemStack(this.potionStack.getItem(), this.potionCount), lvt_5_1_);
             return new TradeOffer(lvt_3_1_, new ItemStack(this.buyingItem, this.buyingItemCount), lvt_6_1_, this.maxUses, this.xpValue, this.priceMultiplier);

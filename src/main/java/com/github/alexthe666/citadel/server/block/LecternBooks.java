@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LecternBooks {
-    public static Map<Identifier, BookData> BOOKS = new HashMap<>();
+    public static final Map<Identifier, BookData> BOOKS = new HashMap<>();
 
     public static void init() {
         BOOKS.put(Citadel.CITADEL_BOOK.getId(), new BookData(0X64A27B, 0XD6D6D6));
@@ -20,8 +20,8 @@ public class LecternBooks {
     }
 
     public static class BookData {
-        int bindingColor;
-        int pageColor;
+        final int bindingColor;
+        final int pageColor;
 
         public BookData(int bindingColor, int pageColor) {
             this.bindingColor = bindingColor;

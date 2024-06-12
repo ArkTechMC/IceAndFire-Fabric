@@ -52,7 +52,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         this.jungle = jungle;
     }
 
-    public boolean placeSmallGen(StructureWorldAccess worldIn, Random rand, BlockPos pos) {
+    public void placeSmallGen(StructureWorldAccess worldIn, Random rand, BlockPos pos) {
         this.hasFoodRoom = false;
         this.hasNursery = false;
         this.totalRooms = 0;
@@ -60,7 +60,6 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         this.centerOfHive = pos;
         this.generateMainRoom(worldIn, rand, pos);
         this.small = false;
-        return false;
     }
 
     @Override
@@ -150,39 +149,39 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             length /= 2;
             if (this.entrances < 1) {
                 for (int i = 0; i < length; i++) {
-                    this.generateCircle(world, rand, offset.offset(direction, i), 3, 5, direction);
+                    this.generateCircle(world, rand, offset.offset(direction, i), direction);
                 }
-                this.generateEntrance(world, rand, offset.offset(direction, length), 4, 4, direction);
+                this.generateEntrance(world, rand, offset.offset(direction, length), direction);
             } else if (this.totalRooms < 2) {
                 for (int i = 0; i < length; i++) {
-                    this.generateCircle(world, rand, offset.offset(direction, i), 3, 5, direction);
+                    this.generateCircle(world, rand, offset.offset(direction, i), direction);
                 }
-                this.generateRoom(world, rand, offset.offset(direction, length), 6, 4, roomChance / 2, direction);
+                this.generateRoom(world, rand, offset.offset(direction, length), 6, roomChance / 2, direction);
                 for (int i = -3; i < 3; i++) {
-                    this.generateCircleAir(world, rand, offset.offset(direction, i), 3, 5, direction);
-                    this.generateCircleAir(world, rand, offset.offset(direction, length + i), 3, 5, direction);
+                    this.generateCircleAir(world, rand, offset.offset(direction, i), direction);
+                    this.generateCircleAir(world, rand, offset.offset(direction, length + i), direction);
                 }
                 this.totalRooms++;
             }
         } else {
             if (rand.nextInt(100) < roomChance) {
                 if (this.entrances < 3 && rand.nextInt(1 + this.entrances * 2) == 0 && this.hasFoodRoom && this.hasNursery && this.totalRooms > 3 || this.entrances == 0) {
-                    this.generateEntrance(world, rand, offset.offset(direction, 1), 4, 4, direction);
+                    this.generateEntrance(world, rand, offset.offset(direction, 1), direction);
                 } else {
                     for (int i = 0; i < length; i++) {
-                        this.generateCircle(world, rand, offset.offset(direction, i), 3, 5, direction);
+                        this.generateCircle(world, rand, offset.offset(direction, i), direction);
                     }
                     for (int i = -3; i < 3; i++) {
-                        this.generateCircleAir(world, rand, offset.offset(direction, length + i), 3, 5, direction);
+                        this.generateCircleAir(world, rand, offset.offset(direction, length + i), direction);
                     }
                     this.totalRooms++;
-                    this.generateRoom(world, rand, offset.offset(direction, length), 7, 4, roomChance / 2, direction);
+                    this.generateRoom(world, rand, offset.offset(direction, length), 7, roomChance / 2, direction);
                 }
             }
         }
     }
 
-    private void generateRoom(WorldAccess world, Random rand, BlockPos position, int size, int height, int roomChance, Direction direction) {
+    private void generateRoom(WorldAccess world, Random rand, BlockPos position, int size, int roomChance, Direction direction) {
         BlockState resin = this.jungle ? JUNGLE_RESIN : DESERT_RESIN;
         BlockState sticky_resin = this.jungle ? STICKY_JUNGLE_RESIN : STICKY_DESERT_RESIN;
         RoomType type = RoomType.random(rand);
@@ -193,9 +192,9 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             type = RoomType.NURSERY;
             this.hasNursery = true;
         }
-        this.generateSphereRespectResin(world, rand, position, size + 2, height + 2, resin, sticky_resin);
-        this.generateSphere(world, rand, position, size, height - 1, Blocks.AIR.getDefaultState());
-        this.decorateSphere(world, rand, position, size, height - 1, type);
+        this.generateSphereRespectResin(world, rand, position, size + 2, 4 + 2, resin, sticky_resin);
+        this.generateSphere(world, rand, position, size, 4 - 1, Blocks.AIR.getDefaultState());
+        this.decorateSphere(world, rand, position, size, 4 - 1, type);
         this.hive.addRoom(position, type);
         if (!this.small) {
             if (rand.nextInt(3) == 0 && direction.getOpposite() != Direction.NORTH) {
@@ -213,30 +212,30 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         }
     }
 
-    private void generateEntrance(WorldAccess world, Random rand, BlockPos position, int size, int height, Direction direction) {
+    private void generateEntrance(WorldAccess world, Random rand, BlockPos position, Direction direction) {
         BlockPos up = position.up();
         this.hive.getEntranceBottoms().put(up, direction);
         while (up.getY() < world.getTopPosition(this.small ? Heightmap.Type.MOTION_BLOCKING_NO_LEAVES : Heightmap.Type.WORLD_SURFACE_WG, up).getY()
                 && !world.getBlockState(up).isIn(BlockTags.LOGS)) {
-            this.generateCircleRespectSky(world, rand, up, size, height, direction);
+            this.generateCircleRespectSky(world, rand, up, 4, 4, direction);
             up = up.up().offset(direction);
         }
         BlockState resin = this.jungle ? JUNGLE_RESIN : DESERT_RESIN;
         BlockState sticky_resin = this.jungle ? STICKY_JUNGLE_RESIN : STICKY_DESERT_RESIN;
-        this.generateSphereRespectAir(world, rand, up, size + 4, height + 2, resin, sticky_resin);
-        this.generateSphere(world, rand, up.up(), size, height, Blocks.AIR.getDefaultState());
-        this.decorateSphere(world, rand, up.up(), size, height - 1, RoomType.ENTERANCE);
+        this.generateSphereRespectAir(world, rand, up, 4 + 4, 4 + 2, resin, sticky_resin);
+        this.generateSphere(world, rand, up.up(), 4, 4, Blocks.AIR.getDefaultState());
+        this.decorateSphere(world, rand, up.up(), 4, 4 - 1, RoomType.ENTERANCE);
         this.hive.getEntrances().put(up, direction);
         this.entrances++;
     }
 
-    private void generateCircle(WorldAccess world, Random rand, BlockPos position, int size, int height, Direction direction) {
+    private void generateCircle(WorldAccess world, Random rand, BlockPos position, Direction direction) {
         BlockState resin = this.jungle ? JUNGLE_RESIN : DESERT_RESIN;
         BlockState sticky_resin = this.jungle ? STICKY_JUNGLE_RESIN : STICKY_DESERT_RESIN;
-        int radius = size + 2;
+        int radius = 3 + 2;
         {
-            for (float i = 0; i < radius; i += 0.5) {
-                for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
+            for (float i = 0; i < radius; i += 0.5F) {
+                for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
                     int x = (int) Math.floor(MathHelper.sin(j) * i);
                     int z = (int) Math.floor(MathHelper.cos(j) * i);
                     if (direction == Direction.WEST || direction == Direction.EAST) {
@@ -250,8 +249,8 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         }
         radius -= 2;
         {
-            for (float i = 0; i < radius; i += 0.5) {
-                for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
+            for (float i = 0; i < radius; i += 0.5F) {
+                for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
                     int x = (int) Math.floor(MathHelper.sin(j) * i * MathHelper.clamp(rand.nextFloat(), 0.5F, 1.0F));
                     int z = (int) Math.floor(MathHelper.cos(j) * i * MathHelper.clamp(rand.nextFloat(), 0.5F, 1.0F));
                     if (direction == Direction.WEST || direction == Direction.EAST) {
@@ -263,7 +262,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             }
         }
 
-        this.decorateCircle(world, rand, position, size, height, direction);
+        this.decorateCircle(world, rand, position, 3, 5, direction);
     }
 
     private void generateCircleRespectSky(WorldAccess world, Random rand, BlockPos position, int size, int height, Direction direction) {
@@ -271,8 +270,8 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         BlockState sticky_resin = this.jungle ? STICKY_JUNGLE_RESIN : STICKY_DESERT_RESIN;
         int radius = size + 2;
         {
-            for (float i = 0; i < radius; i += 0.5) {
-                for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
+            for (float i = 0; i < radius; i += 0.5F) {
+                for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
                     int x = (int) Math.floor(MathHelper.sin(j) * i);
                     int z = (int) Math.floor(MathHelper.cos(j) * i);
                     if (direction == Direction.WEST || direction == Direction.EAST) {
@@ -290,8 +289,8 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         }
         radius -= 2;
         {
-            for (float i = 0; i < radius; i += 0.5) {
-                for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
+            for (float i = 0; i < radius; i += 0.5F) {
+                for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
                     int x = (int) Math.floor(MathHelper.sin(j) * i * MathHelper.clamp(rand.nextFloat(), 0.5F, 1.0F));
                     int z = (int) Math.floor(MathHelper.cos(j) * i * MathHelper.clamp(rand.nextFloat(), 0.5F, 1.0F));
                     if (direction == Direction.WEST || direction == Direction.EAST) {
@@ -307,11 +306,10 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
     }
 
 
-    private void generateCircleAir(WorldAccess world, Random rand, BlockPos position, int size, int height, Direction direction) {
-        int radius = size;
+    private void generateCircleAir(WorldAccess world, Random rand, BlockPos position, Direction direction) {
         {
-            for (float i = 0; i < radius; i += 0.5) {
-                for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
+            for (float i = 0; i < 3; i += 0.5F) {
+                for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
                     int x = (int) Math.floor(MathHelper.sin(j) * i * MathHelper.clamp(rand.nextFloat(), 0.5F, 1.0F));
                     int z = (int) Math.floor(MathHelper.cos(j) * i * MathHelper.clamp(rand.nextFloat(), 0.5F, 1.0F));
                     if (direction == Direction.WEST || direction == Direction.EAST) {
@@ -323,15 +321,14 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             }
         }
 
-        this.decorateCircle(world, rand, position, size, height, direction);
+        this.decorateCircle(world, rand, position, 3, 5, direction);
     }
 
     public void generateSphere(WorldAccess world, Random rand, BlockPos position, int size, int height, BlockState fill) {
-        int i2 = size;
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
+        int j = size + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F) && !world.isAir(blockpos)) {
@@ -341,11 +338,10 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
     }
 
     public void generateSphere(WorldAccess world, Random rand, BlockPos position, int size, int height, BlockState fill, BlockState fill2) {
-        int i2 = size;
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
+        int j = size + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F)) {
@@ -355,11 +351,10 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
     }
 
     public void generateSphereRespectResin(WorldAccess world, Random rand, BlockPos position, int size, int height, BlockState fill, BlockState fill2) {
-        int i2 = size;
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
+        int j = size + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F)
@@ -370,11 +365,10 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
     }
 
     public void generateSphereRespectAir(WorldAccess world, Random rand, BlockPos position, int size, int height, BlockState fill, BlockState fill2) {
-        int i2 = size;
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
+        int j = size + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F)
@@ -395,24 +389,21 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
     private void decorateCircle(WorldAccess world, Random rand, BlockPos position, int size, int height, Direction direction) {
         int radius = size + 2;
         {
-            for (float i = 0; i < radius; i += 0.5) {
-                for (float j = 0; j < 2 * Math.PI * i; j += 0.5) {
+            for (float i = 0; i < radius; i += 0.5F) {
+                for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
                     int x = (int) Math.floor(MathHelper.sin(j) * i);
                     int z = (int) Math.floor(MathHelper.cos(j) * i);
                     if (direction == Direction.WEST || direction == Direction.EAST) {
                         if (world.isAir(position.add(0, x, z))) {
                             this.decorate(world, position.add(0, x, z), position, size, rand, RoomType.TUNNEL);
                         }
-                        if (world.isAir(position.add(0, x, z))) {
-                            this.decorateTubers(world, position.add(0, x, z), rand, RoomType.TUNNEL);
-                        }
                     } else {
                         if (world.isAir(position.add(x, z, 0))) {
                             this.decorate(world, position.add(x, z, 0), position, size, rand, RoomType.TUNNEL);
                         }
-                        if (world.isAir(position.add(0, x, z))) {
-                            this.decorateTubers(world, position.add(0, x, z), rand, RoomType.TUNNEL);
-                        }
+                    }
+                    if (world.isAir(position.add(0, x, z))) {
+                        this.decorateTubers(world, position.add(0, x, z), rand, RoomType.TUNNEL);
                     }
                 }
             }
@@ -420,11 +411,10 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
     }
 
     private void decorateSphere(WorldAccess world, Random rand, BlockPos position, int size, int height, RoomType roomType) {
-        int i2 = size;
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
+        int j = size + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k + 1, l)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
             if (blockpos.getSquaredDistance(position) <= f * f) {
@@ -456,8 +446,6 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
                 if (random.nextInt(12) == 0) {
                     WorldGenMyrmexDecoration.generateCocoon(world, blockpos, random, this.jungle, this.jungle ? WorldGenMyrmexDecoration.JUNGLE_MYRMEX_FOOD_CHEST : WorldGenMyrmexDecoration.DESERT_MYRMEX_FOOD_CHEST);
                 }
-                break;
-            case NURSERY:
                 break;
             case SHINY:
                 if (random.nextInt(12) == 0) {
@@ -513,14 +501,14 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         NURSERY(true),
         SHINY(true),
         TRASH(true);
-        boolean random;
+        final boolean random;
 
         RoomType(boolean random) {
             this.random = random;
         }
 
         public static RoomType random(Random rand) {
-            List<RoomType> list = new ArrayList<RoomType>();
+            List<RoomType> list = new ArrayList<>();
             for (RoomType type : RoomType.values()) {
                 if (type.random) {
                     list.add(type);

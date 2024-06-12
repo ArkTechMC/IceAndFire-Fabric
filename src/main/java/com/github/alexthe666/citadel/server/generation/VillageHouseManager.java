@@ -24,7 +24,7 @@ public class VillageHouseManager {
 
     public static void register(Identifier pool, Consumer<StructurePool> addToPool) {
         REGISTRY.add(new Pair<>(pool, addToPool));
-        Citadel.LOGGER.debug("registered addition to pool: " + pool);
+        Citadel.LOGGER.debug("registered addition to pool: {}", pool);
     }
 
     public static StructurePool addToPool(StructurePool pool, StructurePoolElement element, int weight) {

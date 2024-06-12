@@ -13,13 +13,13 @@ import net.minecraft.util.Hand;
 import org.jetbrains.annotations.NotNull;
 
 public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
-    public HideableModelRenderer chestplate;
-    public HideableModelRenderer cloak;
-    public HideableModelRenderer crown;
-    public HideableModelRenderer sleeveRight;
-    public HideableModelRenderer robeLowerRight;
-    public HideableModelRenderer sleeveLeft;
-    public HideableModelRenderer robeLowerLeft;
+    public final HideableModelRenderer chestplate;
+    public final HideableModelRenderer cloak;
+    public final HideableModelRenderer crown;
+    public final HideableModelRenderer sleeveRight;
+    public final HideableModelRenderer robeLowerRight;
+    public final HideableModelRenderer sleeveLeft;
+    public final HideableModelRenderer robeLowerLeft;
 
     public ModelDreadKnight(float modelScale) {
         this.texWidth = 128;

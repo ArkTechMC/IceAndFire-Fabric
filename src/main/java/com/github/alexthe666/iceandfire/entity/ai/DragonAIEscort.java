@@ -8,7 +8,6 @@ import java.util.EnumSet;
 
 public class DragonAIEscort extends Goal {
     private final EntityDragonBase dragon;
-    private final float maxRange = 2000F;
     private BlockPos previousPosition;
 
     public DragonAIEscort(EntityDragonBase entityIn, double movementSpeedIn) {
@@ -25,7 +24,8 @@ public class DragonAIEscort extends Goal {
     public void tick() {
         if (this.dragon.getOwner() != null) {
             final float dist = this.dragon.distanceTo(this.dragon.getOwner());
-            if (dist > this.maxRange) {
+            float maxRange = 2000F;
+            if (dist > maxRange) {
                 return;
             }
             if (dist > this.dragon.getBoundingBox().getAverageSideLength() && (!this.dragon.isFlying() && !this.dragon.isHovering() || !this.dragon.isAllowedToTriggerFlight())) {

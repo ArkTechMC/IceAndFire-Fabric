@@ -49,8 +49,8 @@ public class EntityPixie extends TameableEntity {
     public static final int STEAL_COOLDOWN = 3000;
     private static final TrackedData<Integer> COLOR = DataTracker.registerData(EntityPixie.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> COMMAND = DataTracker.registerData(EntityPixie.class, TrackedDataHandlerRegistry.INTEGER);
-    public StatusEffect[] positivePotions = new StatusEffect[]{StatusEffects.STRENGTH, StatusEffects.JUMP_BOOST, StatusEffects.SPEED, StatusEffects.LUCK, StatusEffects.HASTE};
-    public StatusEffect[] negativePotions = new StatusEffect[]{StatusEffects.WEAKNESS, StatusEffects.NAUSEA, StatusEffects.SLOWNESS, StatusEffects.UNLUCK, StatusEffects.MINING_FATIGUE};
+    public final StatusEffect[] positivePotions = new StatusEffect[]{StatusEffects.STRENGTH, StatusEffects.JUMP_BOOST, StatusEffects.SPEED, StatusEffects.LUCK, StatusEffects.HASTE};
+    public final StatusEffect[] negativePotions = new StatusEffect[]{StatusEffects.WEAKNESS, StatusEffects.NAUSEA, StatusEffects.SLOWNESS, StatusEffects.UNLUCK, StatusEffects.MINING_FATIGUE};
     public boolean slowSpeed = false;
     public int ticksUntilHouseAI;
     public int ticksHeldItemFor;
@@ -100,7 +100,7 @@ public class EntityPixie extends TameableEntity {
 
     public boolean isPixieSitting() {
         if (this.getWorld().isClient) {
-            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
+            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS) & 1) != 0;
             this.isSitting = isSitting;
             this.setSitting(isSitting);
             return isSitting;
@@ -113,7 +113,7 @@ public class EntityPixie extends TameableEntity {
             this.isSitting = sitting;
             this.setInSittingPose(sitting);
         }
-        byte b0 = this.dataTracker.get(TAMEABLE_FLAGS).byteValue();
+        byte b0 = this.dataTracker.get(TAMEABLE_FLAGS);
         if (sitting) {
             this.dataTracker.set(TAMEABLE_FLAGS, (byte) (b0 | 1));
         } else {
@@ -210,24 +210,15 @@ public class EntityPixie extends TameableEntity {
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }
-            Block jar = IafBlockRegistry.JAR_PIXIE_0.get();
-            switch (this.getColor()) {
-                case 0:
-                    jar = IafBlockRegistry.JAR_PIXIE_0.get();
-                    break;
-                case 1:
-                    jar = IafBlockRegistry.JAR_PIXIE_1.get();
-                    break;
-                case 2:
-                    jar = IafBlockRegistry.JAR_PIXIE_2.get();
-                    break;
-                case 3:
-                    jar = IafBlockRegistry.JAR_PIXIE_3.get();
-                    break;
-                case 4:
-                    jar = IafBlockRegistry.JAR_PIXIE_4.get();
-                    break;
-            }
+            IafBlockRegistry.JAR_PIXIE_0.get();
+            Block jar = switch (this.getColor()) {
+                case 0 -> IafBlockRegistry.JAR_PIXIE_0.get();
+                case 1 -> IafBlockRegistry.JAR_PIXIE_1.get();
+                case 2 -> IafBlockRegistry.JAR_PIXIE_2.get();
+                case 3 -> IafBlockRegistry.JAR_PIXIE_3.get();
+                case 4 -> IafBlockRegistry.JAR_PIXIE_4.get();
+                default -> jar;
+            };
             ItemStack stack = new ItemStack(jar, 1);
             if (!this.getWorld().isClient) {
                 if (!this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
@@ -285,7 +276,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     public int getCommand() {
-        return this.dataTracker.get(COMMAND).intValue();
+        return this.dataTracker.get(COMMAND);
     }
 
     public void setCommand(int command) {
@@ -356,7 +347,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     public int getColor() {
-        return MathHelper.clamp(this.getDataTracker().get(COLOR).intValue(), 0, 4);
+        return MathHelper.clamp(this.getDataTracker().get(COLOR), 0, 4);
     }
 
     public void setColor(int color) {

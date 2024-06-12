@@ -60,7 +60,7 @@ public class ItemMyrmexStaff extends Item {
             }
         }
         playerIn.swingHand(hand);
-        return new TypedActionResult<ItemStack>(ActionResult.PASS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
     @Override

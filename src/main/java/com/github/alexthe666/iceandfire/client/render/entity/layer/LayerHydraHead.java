@@ -73,27 +73,24 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
     }
 
     public static Identifier getHeadTexture(EntityHydra gorgon) {
-        switch (gorgon.getVariant()) {
-            default:
-                return RenderHydra.TEXUTURE_0;
-            case 1:
-                return RenderHydra.TEXUTURE_1;
-            case 2:
-                return RenderHydra.TEXUTURE_2;
-        }
+        return switch (gorgon.getVariant()) {
+            default -> RenderHydra.TEXUTURE_0;
+            case 1 -> RenderHydra.TEXUTURE_1;
+            case 2 -> RenderHydra.TEXUTURE_2;
+        };
     }
 
     protected static void translateToBody(ModelHydraBody model, MatrixStack stack) {
-        postRender(model.BodyUpper, stack, 0.0625F);
+        postRender(model.BodyUpper, stack);
     }
 
-    protected static void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn, float scale) {
+    protected static void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn) {
         if (renderer.rotateAngleX == 0.0F && renderer.rotateAngleY == 0.0F && renderer.rotateAngleZ == 0.0F) {
             if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.rotateAngleZ != 0.0F) {
-                matrixStackIn.translate(renderer.rotationPointX * scale, renderer.rotationPointY * scale, renderer.rotateAngleZ * scale);
+                matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotateAngleZ * (float) 0.0625);
             }
         } else {
-            matrixStackIn.translate(renderer.rotationPointX * scale, renderer.rotationPointY * scale, renderer.rotateAngleZ * scale);
+            matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotateAngleZ * (float) 0.0625);
             if (renderer.rotateAngleZ != 0.0F) {
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(renderer.rotateAngleZ));
             }
@@ -118,13 +115,10 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
 
     @Override
     public @NotNull Identifier getTexture(EntityHydra gorgon) {
-        switch (gorgon.getVariant()) {
-            default:
-                return RenderHydra.TEXUTURE_0;
-            case 1:
-                return RenderHydra.TEXUTURE_1;
-            case 2:
-                return RenderHydra.TEXUTURE_2;
-        }
+        return switch (gorgon.getVariant()) {
+            default -> RenderHydra.TEXUTURE_0;
+            case 1 -> RenderHydra.TEXUTURE_1;
+            case 2 -> RenderHydra.TEXUTURE_2;
+        };
     }
 }

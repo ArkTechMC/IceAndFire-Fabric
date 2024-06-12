@@ -45,9 +45,9 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     private static final int FLIGHT_CHANCE_PER_TICK = 100;
     private static final TrackedData<Optional<UUID>> VICTOR_ENTITY = DataTracker.registerData(EntityStymphalianBird.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Boolean> FLYING = DataTracker.registerData(EntityStymphalianBird.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static Animation ANIMATION_PECK = Animation.create(20);
-    public static Animation ANIMATION_SHOOT_ARROWS = Animation.create(30);
-    public static Animation ANIMATION_SPEAK = Animation.create(10);
+    public static final Animation ANIMATION_PECK = Animation.create(20);
+    public static final Animation ANIMATION_SHOOT_ARROWS = Animation.create(30);
+    public static final Animation ANIMATION_SPEAK = Animation.create(10);
     public float flyProgress;
     public BlockPos airTarget;
     public StymphalianBirdFlock flock;
@@ -138,7 +138,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
         if (s != null) {
             try {
                 this.setVictorId(s);
-            } catch (Throwable var4) {
+            } catch (Throwable ignored) {
             }
         }
         this.setFlying(tag.getBoolean("Flying"));
@@ -146,7 +146,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
 
     public boolean isFlying() {
         if (this.getWorld().isClient) {
-            return this.isFlying = this.dataTracker.get(FLYING).booleanValue();
+            return this.isFlying = this.dataTracker.get(FLYING);
         }
         return this.isFlying;
     }
@@ -393,7 +393,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
             speed = 4;
         }
         if (this.getAnimation() == ANIMATION_SHOOT_ARROWS && !y) {
-            speed *= 0.05;
+            speed *= 0.05F;
         }
         return speed;
     }

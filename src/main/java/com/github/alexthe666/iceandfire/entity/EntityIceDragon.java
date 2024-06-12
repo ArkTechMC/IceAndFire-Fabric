@@ -553,7 +553,7 @@ public class EntityIceDragon extends EntityDragonBase {
     @Override
     public boolean isSwimming() {
         if (this.getWorld().isClient) {
-            boolean swimming = this.dataTracker.get(SWIMMING).booleanValue();
+            boolean swimming = this.dataTracker.get(SWIMMING);
             this.isSwimming = swimming;
             return swimming;
         }

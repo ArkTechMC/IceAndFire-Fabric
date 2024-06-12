@@ -25,7 +25,7 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     private final TabulaModel fireDragonModel;
     private final TabulaModel lightningDragonModel;
     private final TabulaModel iceDragonModel;
-    public float[][] growth_stages;
+    public final float[][] growth_stages;
 
     public RenderDragonSkull(EntityRendererFactory.Context context, TabulaModel fireDragonModel, TabulaModel iceDragonModel, TabulaModel lightningDragonModel) {
         super(context);
@@ -35,10 +35,10 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
         this.lightningDragonModel = lightningDragonModel;
     }
 
-    private static void setRotationAngles(BasicModelPart cube, float rotX, float rotY, float rotZ) {
+    private static void setRotationAngles(BasicModelPart cube, float rotX) {
         cube.rotateAngleX = rotX;
-        cube.rotateAngleY = rotY;
-        cube.rotateAngleZ = rotZ;
+        cube.rotateAngleY = (float) 0;
+        cube.rotateAngleZ = (float) 0;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
         matrixStackIn.scale(size, size, size);
         matrixStackIn.translate(0, entity.isOnWall() ? -0.24F : -0.12F, entity.isOnWall() ? 0.4F : 0.5F);
         model.resetToDefaultPose();
-        setRotationAngles(model.getCube("Head"), entity.isOnWall() ? (float) Math.toRadians(50F) : 0F, 0, 0);
+        setRotationAngles(model.getCube("Head"), entity.isOnWall() ? (float) Math.toRadians(50F) : 0F);
         model.getCube("Head").render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStackIn.pop();
     }

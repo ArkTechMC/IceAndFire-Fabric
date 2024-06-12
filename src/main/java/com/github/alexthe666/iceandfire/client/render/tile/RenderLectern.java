@@ -26,15 +26,14 @@ public class RenderLectern<T extends TileEntityLectern> implements BlockEntityRe
 
     @Override
     public void render(@NotNull T entity, float partialTicks, MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        TileEntityLectern lectern = entity;
         matrixStackIn.push();
         matrixStackIn.translate(0.5F, 1.1F, 0.5F);
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);
-        matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.getRotation(lectern)));
+        matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(this.getRotation(entity)));
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(112.0F));
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0F));
-        float f4 = lectern.pageFlipPrev + (lectern.pageFlip - lectern.pageFlipPrev) * partialTicks + 0.25F;
-        float f5 = lectern.pageFlipPrev + (lectern.pageFlip - lectern.pageFlipPrev) * partialTicks + 0.75F;
+        float f4 = entity.pageFlipPrev + (entity.pageFlip - entity.pageFlipPrev) * partialTicks + 0.25F;
+        float f5 = entity.pageFlipPrev + (entity.pageFlip - entity.pageFlipPrev) * partialTicks + 0.75F;
         f4 = (f4 - MathHelper.floor(f4)) * 1.6F - 0.3F;
         f5 = (f5 - MathHelper.floor(f5)) * 1.6F - 0.3F;
 
@@ -61,17 +60,12 @@ public class RenderLectern<T extends TileEntityLectern> implements BlockEntityRe
     }
 
     private float getRotation(TileEntityLectern lectern) {
-        switch (lectern.getCachedState().get(BlockLectern.FACING)) {
-            default:
-                return 180;
-            case EAST:
-                return 90;
-            case WEST:
-                return -90;
-            case SOUTH:
-                return 0;
-
-        }
+        return switch (lectern.getCachedState().get(BlockLectern.FACING)) {
+            default -> 180;
+            case EAST -> 90;
+            case WEST -> -90;
+            case SOUTH -> 0;
+        };
     }
 
 }

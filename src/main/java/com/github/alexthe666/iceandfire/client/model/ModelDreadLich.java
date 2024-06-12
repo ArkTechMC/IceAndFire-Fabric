@@ -14,13 +14,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements ModelWithArms {
-    public HideableModelRenderer robe;
-    public HideableModelRenderer mask;
-    public HideableModelRenderer hood;
-    public HideableModelRenderer sleeveRight;
-    public HideableModelRenderer robeLowerRight;
-    public HideableModelRenderer robeLowerLeft;
-    public HideableModelRenderer sleeveLeft;
+    public final HideableModelRenderer robe;
+    public final HideableModelRenderer mask;
+    public final HideableModelRenderer hood;
+    public final HideableModelRenderer sleeveRight;
+    public final HideableModelRenderer robeLowerRight;
+    public final HideableModelRenderer robeLowerLeft;
+    public final HideableModelRenderer sleeveLeft;
 
     public ModelDreadLich(float modelScale) {
         this.texWidth = 128;

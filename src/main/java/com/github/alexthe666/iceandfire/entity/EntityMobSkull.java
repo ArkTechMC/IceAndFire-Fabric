@@ -76,7 +76,7 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
     }
 
     public float getYaw() {
-        return this.getDataTracker().get(SKULL_DIRECTION).floatValue();
+        return this.getDataTracker().get(SKULL_DIRECTION);
     }
 
     public void setYaw(float var1) {
@@ -84,7 +84,7 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
     }
 
     private int getEnumOrdinal() {
-        return this.getDataTracker().get(SKULL_ENUM).intValue();
+        return this.getDataTracker().get(SKULL_ENUM);
     }
 
     private void setEnumOrdinal(int var1) {

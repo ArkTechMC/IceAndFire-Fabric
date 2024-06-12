@@ -41,16 +41,16 @@ public class GuiBestiary extends Screen {
     private static final Identifier DRAWINGS_0 = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/drawings_0.png");
     private static final Identifier DRAWINGS_1 = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/drawings_1.png");
     private static final Map<String, Identifier> PICTURE_LOCATION_CACHE = Maps.newHashMap();
-    public List<EnumBestiaryPages> allPageTypes = new ArrayList<>();
+    public final List<EnumBestiaryPages> allPageTypes = new ArrayList<>();
     public EnumBestiaryPages pageType;
-    public List<IndexPageButton> indexButtons = new ArrayList<>();
+    public final List<IndexPageButton> indexButtons = new ArrayList<>();
     public ChangePageButton previousPage;
     public ChangePageButton nextPage;
     public int bookPages;
     public int bookPagesTotal = 1;
     public int indexPages;
     public int indexPagesTotal = 1;
-    protected ItemStack book;
+    protected final ItemStack book;
     protected boolean index;
     protected TextRenderer font = getFont();
 
@@ -200,18 +200,6 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MANUSCRIPT.get()), 161, 91, 1.5F);
                     this.drawItemStack(ms, new ItemStack(IafBlockRegistry.LECTERN.get()), 151, 78, 2F);
                 }
-                break;
-            case FIREDRAGON:
-                break;
-            case FIREDRAGONEGG:
-                break;
-            case LIGHTNINGDRAGON:
-                break;
-            case LIGHTNINGDRAGONEGG:
-                break;
-            case ICEDRAGON:
-                break;
-            case ICEDRAGONEGG:
                 break;
             case TAMEDDRAGONS:
                 if (bookPages == 0) {
@@ -865,7 +853,7 @@ public class GuiBestiary extends Screen {
         for (int i = 0; i < 9; i++) {
             ms.getMatrices().push();
             ms.getMatrices().translate(44, 20, 32.0D);
-            ms.getMatrices().translate(((x + (i % 3 * 22) * scale)), ((y + (i / 3 * 22) * scale)), 0.0D);
+            ms.getMatrices().translate(((x + (i % 3 * 22) * scale)), ((y + ((double) i / 3 * 22) * scale)), 0.0D);
             ms.getMatrices().scale(scale, scale, scale);
             ms.drawItem(ingredients[i], 0, 0);
             ms.getMatrices().pop();

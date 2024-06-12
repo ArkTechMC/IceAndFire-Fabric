@@ -54,7 +54,6 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
 
 
     private static class LayerHippocampusSaddle extends FeatureRenderer<EntityHippocampus, ModelHippocampus> {
-        private final RenderHippocampus renderer;
         private final RenderLayer SADDLE_TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/saddle.png"));
         private final RenderLayer BRIDLE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/bridle.png"));
         private final RenderLayer CHEST = RenderLayer.getEntityTranslucent(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/chest.png"));
@@ -64,7 +63,6 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
 
         public LayerHippocampusSaddle(RenderHippocampus renderer) {
             super(renderer);
-            this.renderer = renderer;
         }
 
         @Override
@@ -82,18 +80,12 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             if (hippo.getArmor() != 0) {
-                RenderLayer type = null;
-                switch (hippo.getArmor()) {
-                    case 1:
-                        type = this.TEXTURE_IRON;
-                        break;
-                    case 2:
-                        type = this.TEXTURE_GOLD;
-                        break;
-                    case 3:
-                        type = this.TEXTURE_DIAMOND;
-                        break;
-                }
+                RenderLayer type = switch (hippo.getArmor()) {
+                    case 1 -> this.TEXTURE_IRON;
+                    case 2 -> this.TEXTURE_GOLD;
+                    case 3 -> this.TEXTURE_DIAMOND;
+                    default -> null;
+                };
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(type);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -102,13 +94,11 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
     }
 
     private static class LayerHippocampusRainbow extends FeatureRenderer<EntityHippocampus, ModelHippocampus> {
-        private final RenderHippocampus renderer;
         private final RenderLayer TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/rainbow.png"));
         private final RenderLayer TEXTURE_BLINK = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/rainbow_blink.png"));
 
         public LayerHippocampusRainbow(RenderHippocampus renderer) {
             super(renderer);
-            this.renderer = renderer;
         }
 
         @Override

@@ -12,9 +12,9 @@ import net.minecraft.util.math.Vec3d;
 import java.util.List;
 
 public class EntitySheepAIFollowCyclops extends Goal {
-    AnimalEntity childAnimal;
+    final AnimalEntity childAnimal;
     EntityCyclops cyclops;
-    double moveSpeed;
+    final double moveSpeed;
     private int delayCounter;
 
     public EntitySheepAIFollowCyclops(AnimalEntity animal, double speed) {

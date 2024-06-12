@@ -74,21 +74,18 @@ public class MausoleumStructure extends IafStructure {
         if (!this.isBiomeValid(pContext, BiomeConfig.mausoleumBiomes, blockpos))
             return Optional.empty();
 
-        Optional<StructurePosition> structurePiecesGenerator =
-                StructurePoolBasedGenerator.generate(
-                        pContext, // Used for JigsawPlacement to get all the proper behaviors done.
-                        this.startPool, // The starting pool to use to create the structure layout from
-                        this.startJigsawName, // Can be used to only spawn from one Jigsaw block. But we don't need to worry about this.
-                        this.size, // How deep a branch of pieces can go away from center piece. (5 means branches cannot be longer than 5 pieces from center piece)
-                        blockpos, // Where to spawn the structure.
-                        false, // "useExpansionHack" This is for legacy villages to generate properly. You should keep this false always.
-                        this.projectStartToHeightmap, // Adds the terrain height's y value to the passed in blockpos's y value. (This uses WORLD_SURFACE_WG heightmap which stops at top water too)
-                        // Here, blockpos's y value is 60 which means the structure spawn 60 blocks above terrain height.
-                        // Set this to false for structure to be place only at the passed in blockpos's Y value instead.
-                        // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
-                        this.maxDistanceFromCenter);
-
-        return structurePiecesGenerator;
+        return StructurePoolBasedGenerator.generate(
+                pContext, // Used for JigsawPlacement to get all the proper behaviors done.
+                this.startPool, // The starting pool to use to create the structure layout from
+                this.startJigsawName, // Can be used to only spawn from one Jigsaw block. But we don't need to worry about this.
+                this.size, // How deep a branch of pieces can go away from center piece. (5 means branches cannot be longer than 5 pieces from center piece)
+                blockpos, // Where to spawn the structure.
+                false, // "useExpansionHack" This is for legacy villages to generate properly. You should keep this false always.
+                this.projectStartToHeightmap, // Adds the terrain height's y value to the passed in blockpos's y value. (This uses WORLD_SURFACE_WG heightmap which stops at top water too)
+                // Here, blockpos's y value is 60 which means the structure spawn 60 blocks above terrain height.
+                // Set this to false for structure to be place only at the passed in blockpos's Y value instead.
+                // Definitely keep this false when placing structures in the nether as otherwise, heightmap placing will put the structure on the Bedrock roof.
+                this.maxDistanceFromCenter);
     }
 
     @Override

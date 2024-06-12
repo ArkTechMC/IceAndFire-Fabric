@@ -109,16 +109,12 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public String getVariantName(int variant) {
-        switch (variant) {
-            default:
-                return "electric_";
-            case 1:
-                return "amythest_";
-            case 2:
-                return "copper_";
-            case 3:
-                return "black_";
-        }
+        return switch (variant) {
+            default -> "electric_";
+            case 1 -> "amythest_";
+            case 2 -> "copper_";
+            case 3 -> "black_";
+        };
     }
 
     @Override
@@ -133,30 +129,22 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public Item getVariantScale(int variant) {
-        switch (variant) {
-            default:
-                return IafItemRegistry.DRAGONSCALES_ELECTRIC.get();
-            case 1:
-                return IafItemRegistry.DRAGONSCALES_AMYTHEST.get();
-            case 2:
-                return IafItemRegistry.DRAGONSCALES_COPPER.get();
-            case 3:
-                return IafItemRegistry.DRAGONSCALES_BLACK.get();
-        }
+        return switch (variant) {
+            default -> IafItemRegistry.DRAGONSCALES_ELECTRIC.get();
+            case 1 -> IafItemRegistry.DRAGONSCALES_AMYTHEST.get();
+            case 2 -> IafItemRegistry.DRAGONSCALES_COPPER.get();
+            case 3 -> IafItemRegistry.DRAGONSCALES_BLACK.get();
+        };
     }
 
     @Override
     public Item getVariantEgg(int variant) {
-        switch (variant) {
-            default:
-                return IafItemRegistry.DRAGONEGG_ELECTRIC.get();
-            case 1:
-                return IafItemRegistry.DRAGONEGG_AMYTHEST.get();
-            case 2:
-                return IafItemRegistry.DRAGONEGG_COPPER.get();
-            case 3:
-                return IafItemRegistry.DRAGONEGG_BLACK.get();
-        }
+        return switch (variant) {
+            default -> IafItemRegistry.DRAGONEGG_ELECTRIC.get();
+            case 1 -> IafItemRegistry.DRAGONEGG_AMYTHEST.get();
+            case 2 -> IafItemRegistry.DRAGONEGG_COPPER.get();
+            case 3 -> IafItemRegistry.DRAGONEGG_BLACK.get();
+        };
     }
 
     public void setHasLightningTarget(boolean lightning_target) {
@@ -164,7 +152,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     }
 
     public boolean hasLightningTarget() {
-        return this.dataTracker.get(HAS_LIGHTNING_TARGET).booleanValue();
+        return this.dataTracker.get(HAS_LIGHTNING_TARGET);
     }
 
     public void setLightningTargetVec(float x, float y, float z) {

@@ -11,8 +11,10 @@ import net.minecraft.item.ItemStack;
 public class RenderPodiumItemEvent extends Event {
     private final RenderPodium<?> render;
     private final TileEntityPodium podium;
-    float partialTicks;
-    double x, y, z;
+    final float partialTicks;
+    final double x;
+    final double y;
+    final double z;
 
     public RenderPodiumItemEvent(RenderPodium<?> renderPodium, TileEntityPodium podium, float partialTicks, double x,
                                  double y, double z) {

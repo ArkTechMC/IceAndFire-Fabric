@@ -59,10 +59,10 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                     if (animationTicks == 0 || animationTicks >= 15 || dragon.isFlying()) {
                         this.translateToHead(matrixStackIn);
                         this.offsetPerDragonType(dragon.dragonType, matrixStackIn);
-                        EntityRenderer render = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(passenger);
+                        EntityRenderer<? super Entity> render = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(passenger);
                         EntityModel modelBase = null;
                         if (render instanceof MobEntityRenderer) {
-                            modelBase = ((MobEntityRenderer) render).getModel();
+                            modelBase = ((MobEntityRenderer<?, ?>) render).getModel();
                         }
                         if ((passenger.getHeight() > passenger.getWidth() || modelBase instanceof BipedEntityModel) && !(modelBase instanceof QuadrupedEntityModel) && !(modelBase instanceof HorseEntityModel)) {
                             matrixStackIn.translate(-0.15F * passenger.getHeight(), 0.1F * dragonScale - 0.1F * passenger.getHeight(), -0.1F * dragonScale - 0.1F * passenger.getWidth());
@@ -94,23 +94,23 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
     }
 
     protected void translateToBody(MatrixStack stack) {
-        this.postRender(((TabulaModel) this.render.getModel()).getCube("BodyUpper"), stack, 0.0625F);
-        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck1"), stack, 00.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("BodyUpper"), stack);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck1"), stack);
     }
 
     protected void translateToHead(MatrixStack stack) {
-        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck2"), stack, 0.0625F);
-        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck3"), stack, 0.0625F);
-        this.postRender(((TabulaModel) this.render.getModel()).getCube("Head"), stack, 0.0625F);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck2"), stack);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Neck3"), stack);
+        this.postRender(((TabulaModel) this.render.getModel()).getCube("Head"), stack);
     }
 
-    protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn, float scale) {
+    protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn) {
         if (renderer.rotateAngleX == 0.0F && renderer.rotateAngleY == 0.0F && renderer.rotateAngleZ == 0.0F) {
             if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.rotationPointZ != 0.0F) {
-                matrixStackIn.translate(renderer.rotationPointX * scale, renderer.rotationPointY * scale, renderer.rotationPointZ * scale);
+                matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
             }
         } else {
-            matrixStackIn.translate(renderer.rotationPointX * scale, renderer.rotationPointY * scale, renderer.rotationPointZ * scale);
+            matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
 
             if (renderer.rotateAngleZ != 0.0F) {
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(renderer.rotateAngleZ));

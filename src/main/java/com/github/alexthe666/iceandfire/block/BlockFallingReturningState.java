@@ -32,7 +32,6 @@ public class BlockFallingReturningState extends FallingBlock {
         this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
     }
 
-    @SuppressWarnings("deprecation")
     public BlockFallingReturningState(float hardness, float resistance, BlockSoundGroup sound, boolean slippery, MapColor color, BlockState revertState) {
         super(
                 Settings

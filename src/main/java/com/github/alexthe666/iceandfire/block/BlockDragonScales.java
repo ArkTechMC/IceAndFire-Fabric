@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class BlockDragonScales extends Block implements IDragonProof {
-    EnumDragonEgg type;
+    final EnumDragonEgg type;
 
     public BlockDragonScales(EnumDragonEgg type) {
         super(

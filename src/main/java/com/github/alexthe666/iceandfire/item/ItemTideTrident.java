@@ -42,9 +42,7 @@ public class ItemTideTrident extends TridentItem {
                 int lvt_7_1_ = EnchantmentHelper.getRiptide(stack);
                 if (lvt_7_1_ <= 0 || lvt_5_1_.isTouchingWaterOrRain()) {
                     if (!worldIn.isClient) {
-                        stack.damage(1, lvt_5_1_, (player) -> {
-                            player.sendToolBreakStatus(entityLiving.getActiveHand());
-                        });
+                        stack.damage(1, lvt_5_1_, (player) -> player.sendToolBreakStatus(entityLiving.getActiveHand()));
                         if (lvt_7_1_ == 0) {
                             EntityTideTrident lvt_8_1_ = new EntityTideTrident(worldIn, lvt_5_1_, stack);
                             lvt_8_1_.setVelocity(lvt_5_1_, lvt_5_1_.getPitch(), lvt_5_1_.getYaw(), 0.0F, 2.5F + (float) lvt_7_1_ * 0.5F, 1.0F);

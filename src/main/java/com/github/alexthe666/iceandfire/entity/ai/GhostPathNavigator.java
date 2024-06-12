@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 public class GhostPathNavigator extends BirdNavigation {
 
-    public EntityGhost ghost;
+    public final EntityGhost ghost;
 
     public GhostPathNavigator(EntityGhost entityIn, World worldIn) {
         super(entityIn, worldIn);

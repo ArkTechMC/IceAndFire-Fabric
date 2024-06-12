@@ -59,11 +59,11 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     private static final TrackedData<Integer> FLAP_TICKS = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Byte> CONTROL_STATE = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Integer> COMMAND = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
-    public static Animation ANIMATION_BITE = Animation.create(15);
-    public static Animation ANIMATION_BITE_RIDER = Animation.create(15);
-    public static Animation ANIMATION_WING_BLAST = Animation.create(30);
-    public static Animation ANIMATION_TAIL_WHIP = Animation.create(30);
-    public static Animation ANIMATION_SPEAK = Animation.create(10);
+    public static final Animation ANIMATION_BITE = Animation.create(15);
+    public static final Animation ANIMATION_BITE_RIDER = Animation.create(15);
+    public static final Animation ANIMATION_WING_BLAST = Animation.create(30);
+    public static final Animation ANIMATION_TAIL_WHIP = Animation.create(30);
+    public static final Animation ANIMATION_SPEAK = Animation.create(10);
     public float flapProgress;
     public float groundProgress = 0;
     public float sitProgress = 0;
@@ -217,8 +217,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         if (super.interactMob(player, hand) == ActionResult.PASS) {
             if (itemstack != null && itemstack.getItem() == IafItemRegistry.DRAGON_STAFF.get() && this.isOwner(player)) {
                 if (player.isSneaking()) {
-                    BlockPos pos = this.getBlockPos();
-                    this.homePos = pos;
+                    this.homePos = this.getBlockPos();
                     this.hasHomePosition = true;
                     player.sendMessage(Text.translatable("amphithere.command.new_home", this.homePos.getX(), this.homePos.getY(), this.homePos.getZ()), true);
                     return ActionResult.SUCCESS;
@@ -503,7 +502,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     public int getCommand() {
-        return this.dataTracker.get(COMMAND).intValue();
+        return this.dataTracker.get(COMMAND);
     }
 
     public void setCommand(int command) {
@@ -524,7 +523,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     @Override
     public boolean isSitting() {
         if (this.getWorld().isClient) {
-            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
+            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS) & 1) != 0;
             this.isSitting = isSitting;
             return isSitting;
         }
@@ -536,7 +535,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         if (!this.getWorld().isClient) {
             this.isSitting = sitting;
         }
-        byte b0 = this.dataTracker.get(TAMEABLE_FLAGS).byteValue();
+        byte b0 = this.dataTracker.get(TAMEABLE_FLAGS);
         if (sitting) {
             this.dataTracker.set(TAMEABLE_FLAGS, (byte) (b0 | 1));
         } else {
@@ -662,7 +661,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
             double dist = this.squaredDistanceTo(target);
             if (dist < 25) {
-                target.damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 2));
+                target.damage(this.getWorld().getDamageSources().mobAttack(this), ((float) (int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 2));
                 target.velocityDirty = true;
                 if (!(this.random.nextDouble() < this.getAttributeInstance(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE).getValue())) {
                     this.velocityDirty = true;
@@ -1052,7 +1051,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         NONE
     }
 
-    class AILandWander extends WanderAroundFarGoal {
+    class static AILandWander extends WanderAroundFarGoal {
         public AILandWander(PathAwareEntity creature, double speed) {
             super(creature, speed, 10);
         }

@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Minecolonies async PathNavigate.
@@ -41,10 +40,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     private final BlockPos spawnedPos = BlockPos.ORIGIN;
     public boolean overrideDefaultDimensions = false;
     private PathResult<AbstractPathJob> pathResult;
-    /**
-     * The world time when a path was added.
-     */
-    private long pathStartTime = 0;
     /**
      * Desired position to reach
      */
@@ -88,17 +83,15 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     public AdvancedPathNavigate(final MobEntity entity, final World world, MovementType type, float width, float height, PathingStuckHandler stuckHandler) {
         super(entity, world);
         switch (type) {
-            case FLYING:
+            case FLYING -> {
                 this.nodeMaker = new BirdPathNodeMaker();
                 this.getPathingOptions().setIsFlying(true);
-                break;
-            case WALKING:
-                this.nodeMaker = new LandPathNodeMaker();
-                break;
-            case CLIMBING:
+            }
+            case WALKING -> this.nodeMaker = new LandPathNodeMaker();
+            case CLIMBING -> {
                 this.nodeMaker = new LandPathNodeMaker();
                 this.getPathingOptions().setCanClimb(true);
-                break;
+            }
         }
         this.nodeMaker.setCanEnterOpenDoors(true);
         this.getPathingOptions().setEnterDoors(true);
@@ -135,11 +128,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
 
     public static boolean isEntityBlockLoaded(final WorldAccess world, final BlockPos pos) {
         return WorldChunkUtil.isEntityBlockLoaded(world, pos);
-    }
-
-    @Override
-    public BlockPos getDestination() {
-        return this.destination;
     }
 
     @Override
@@ -226,7 +214,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         this.walkSpeedFactor = speedFactor;
 
         if (speedFactor > MAX_SPEED_ALLOWED || speedFactor < MIN_SPEED_ALLOWED) {
-            Citadel.LOGGER.error("Tried to set a bad speed:" + speedFactor + " for entity:" + this.ourEntity, new Exception());
+            Citadel.LOGGER.error("Tried to set a bad speed:{} for entity:{}", speedFactor, this.ourEntity, new Exception());
             return null;
         }
 
@@ -262,11 +250,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             if (!this.pathResult.isFinished()) {
                 return;
             } else if (this.pathResult.getStatus() == PathFindingStatus.CALCULATION_COMPLETE) {
-                try {
-                    this.processCompletedCalculationResult();
-                } catch (InterruptedException | ExecutionException e) {
-                    Citadel.LOGGER.catching(e);
-                }
+                this.processCompletedCalculationResult();
             }
         }
 
@@ -428,7 +412,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     @Override
     public void setSpeed(final double speedFactor) {
         if (speedFactor > MAX_SPEED_ALLOWED || speedFactor < MIN_SPEED_ALLOWED) {
-            Citadel.LOGGER.debug("Tried to set a bad speed:" + speedFactor + " for entity:" + this.ourEntity);
+            Citadel.LOGGER.debug("Tried to set a bad speed:{} for entity:{}", speedFactor, this.ourEntity);
             return;
         }
         this.walkSpeedFactor = speedFactor;
@@ -463,7 +447,10 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             this.stop();
             return false;
         }
-        this.pathStartTime = this.world.getTime();
+        /**
+         * The world time when a path was added.
+         */
+        long pathStartTime = this.world.getTime();
         return super.startMovingAlong(this.convertPath(path), speedFactor);
     }
 
@@ -498,13 +485,12 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         return tempPath == null ? path : tempPath;
     }
 
-    private boolean processCompletedCalculationResult() throws InterruptedException, ExecutionException {
+    private void processCompletedCalculationResult() {
         this.pathResult.getJob().synchToClient(this.entity);
         this.startMovingAlong(this.pathResult.getPath(), this.getSpeedFactor());
 
         if (this.pathResult != null)
             this.pathResult.setStatus(PathFindingStatus.IN_PROGRESS_FOLLOWING);
-        return false;
     }
 
     private boolean handleLadders(int oldIndex) {

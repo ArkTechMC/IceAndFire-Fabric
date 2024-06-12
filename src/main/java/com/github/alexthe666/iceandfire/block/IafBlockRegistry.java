@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 
 public class IafBlockRegistry {
     public static final BlockSoundGroup SOUND_TYPE_GOLD = new BlockSoundGroup(1.0F, 1.0F, IafSoundRegistry.GOLD_PILE_BREAK, IafSoundRegistry.GOLD_PILE_STEP, IafSoundRegistry.GOLD_PILE_BREAK, IafSoundRegistry.GOLD_PILE_STEP, IafSoundRegistry.GOLD_PILE_STEP);
-    public static LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, IceAndFire.MOD_ID);
+    public static final LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, IceAndFire.MOD_ID);
     public static final RegistryObject<Block> LECTERN = register("lectern", BlockLectern::new);
     public static final RegistryObject<Block> PODIUM_OAK = register("podium_oak", BlockPodium::new);
     public static final RegistryObject<Block> PODIUM_BIRCH = register("podium_birch", BlockPodium::new);

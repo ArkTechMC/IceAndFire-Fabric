@@ -13,40 +13,40 @@ import net.minecraft.entity.Entity;
 
 public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
     private final ModelAnimator animator;
-    public AdvancedModelBox Body;
-    public AdvancedModelBox FrontThighR;
-    public AdvancedModelBox FrontThighL;
-    public AdvancedModelBox Neck;
-    public AdvancedModelBox Tail_1;
-    public AdvancedModelBox FinRBack;
-    public AdvancedModelBox FinLBack;
-    public AdvancedModelBox Saddle;
-    public AdvancedModelBox FrontLegR;
-    public AdvancedModelBox FrontFootR;
-    public AdvancedModelBox FinR;
-    public AdvancedModelBox FrontLegL;
-    public AdvancedModelBox FrontFootL;
-    public AdvancedModelBox FinL;
-    public AdvancedModelBox Head;
-    public AdvancedModelBox Mane;
-    public AdvancedModelBox TopJaw;
-    public AdvancedModelBox BottomJaw;
-    public AdvancedModelBox NoseBand;
-    public AdvancedModelBox ReinL;
-    public AdvancedModelBox ReinR;
-    public AdvancedModelBox Tail_2;
-    public AdvancedModelBox Fin;
-    public AdvancedModelBox Tail_3;
-    public AdvancedModelBox FlukeR;
-    public AdvancedModelBox FlukeL;
-    public AdvancedModelBox StirrupR;
-    public AdvancedModelBox ChestR;
-    public AdvancedModelBox ChestL;
-    public AdvancedModelBox Saddleback;
-    public AdvancedModelBox SaddleFront;
-    public AdvancedModelBox StirrupL;
-    public AdvancedModelBox StirrupIronR;
-    public AdvancedModelBox StirrupIronL;
+    public final AdvancedModelBox Body;
+    public final AdvancedModelBox FrontThighR;
+    public final AdvancedModelBox FrontThighL;
+    public final AdvancedModelBox Neck;
+    public final AdvancedModelBox Tail_1;
+    public final AdvancedModelBox FinRBack;
+    public final AdvancedModelBox FinLBack;
+    public final AdvancedModelBox Saddle;
+    public final AdvancedModelBox FrontLegR;
+    public final AdvancedModelBox FrontFootR;
+    public final AdvancedModelBox FinR;
+    public final AdvancedModelBox FrontLegL;
+    public final AdvancedModelBox FrontFootL;
+    public final AdvancedModelBox FinL;
+    public final AdvancedModelBox Head;
+    public final AdvancedModelBox Mane;
+    public final AdvancedModelBox TopJaw;
+    public final AdvancedModelBox BottomJaw;
+    public final AdvancedModelBox NoseBand;
+    public final AdvancedModelBox ReinL;
+    public final AdvancedModelBox ReinR;
+    public final AdvancedModelBox Tail_2;
+    public final AdvancedModelBox Fin;
+    public final AdvancedModelBox Tail_3;
+    public final AdvancedModelBox FlukeR;
+    public final AdvancedModelBox FlukeL;
+    public final AdvancedModelBox StirrupR;
+    public final AdvancedModelBox ChestR;
+    public final AdvancedModelBox ChestL;
+    public final AdvancedModelBox Saddleback;
+    public final AdvancedModelBox SaddleFront;
+    public final AdvancedModelBox StirrupL;
+    public final AdvancedModelBox StirrupIronR;
+    public final AdvancedModelBox StirrupIronL;
 
     public ModelHippocampus() {
         this.animator = ModelAnimator.create();
@@ -255,32 +255,31 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
             this.Body.setScale(1, 1, 1);
             this.Head.setScale(1, 1, 1);
         }
-        EntityHippocampus hippo = entity;
         float speed_walk = 0.9F;
         float speed_idle = 0.05F;
         float speed_swim = 0.35F;
         float degree_walk = 1.5F;
         float degree_idle = 0.5F;
         float degree_swim = 0.75F;
-        this.progressRotation(this.Body, hippo.onLandProgress, (float) Math.toRadians(-5F), 0.0F, 0.0F);
-        this.progressRotation(this.FrontThighL, Math.max(0, hippo.onLandProgress), 0.0F, 0.0F, (float) Math.toRadians(-65F));
-        this.progressRotation(this.FrontThighR, Math.max(0, hippo.onLandProgress), 0.0F, 0.0F, (float) Math.toRadians(65F));
-        this.progressPosition(this.Body, hippo.onLandProgress, 0.0F, 20.0F, 0.0F);
+        this.progressRotation(this.Body, entity.onLandProgress, (float) Math.toRadians(-5F), 0.0F, 0.0F);
+        this.progressRotation(this.FrontThighL, Math.max(0, entity.onLandProgress), 0.0F, 0.0F, (float) Math.toRadians(-65F));
+        this.progressRotation(this.FrontThighR, Math.max(0, entity.onLandProgress), 0.0F, 0.0F, (float) Math.toRadians(65F));
+        this.progressPosition(this.Body, entity.onLandProgress, 0.0F, 20.0F, 0.0F);
 
-        this.progressRotation(this.Body, hippo.sitProgress, (float) Math.toRadians(-5F), 0.0F, 0.0F);
-        this.progressRotation(this.Tail_1, hippo.sitProgress, (float) Math.toRadians(55F), 0.0F, 0.0F);
-        this.progressRotation(this.Tail_2, hippo.sitProgress, (float) Math.toRadians(-26F), 0.0F, 0.0F);
-        this.progressRotation(this.Tail_3, hippo.sitProgress, (float) Math.toRadians(-33F), 0.0F, 0.0F);
-        this.progressRotation(this.FlukeR, Math.max(0, hippo.sitProgress), (float) Math.toRadians(-50F), (float) Math.toRadians(5F), (float) Math.toRadians(30F));
-        this.progressRotation(this.FlukeL, Math.max(0, hippo.sitProgress), (float) Math.toRadians(-50F), (float) Math.toRadians(-5F), (float) Math.toRadians(-30F));
-        this.progressRotation(this.Body, hippo.sitProgress * hippo.onLandProgress * 0.05F, (float) Math.toRadians(-5F), (float) Math.toRadians(-5F), (float) Math.toRadians(85F));
-        this.progressPosition(this.Body, hippo.sitProgress * hippo.onLandProgress * 0.05F, 0.0F, 10, 0.0F);
-        if (hippo.isOnGround() && !hippo.isTouchingWater()) {
-            this.progressRotation(this.FrontThighL, Math.max(0, hippo.sitProgress), 0.0F, 0.0F, (float) Math.toRadians(60F));
-            this.progressRotation(this.FrontThighR, Math.max(0, hippo.sitProgress), 0.0F, 0.0F, (float) Math.toRadians(-60F));
+        this.progressRotation(this.Body, entity.sitProgress, (float) Math.toRadians(-5F), 0.0F, 0.0F);
+        this.progressRotation(this.Tail_1, entity.sitProgress, (float) Math.toRadians(55F), 0.0F, 0.0F);
+        this.progressRotation(this.Tail_2, entity.sitProgress, (float) Math.toRadians(-26F), 0.0F, 0.0F);
+        this.progressRotation(this.Tail_3, entity.sitProgress, (float) Math.toRadians(-33F), 0.0F, 0.0F);
+        this.progressRotation(this.FlukeR, Math.max(0, entity.sitProgress), (float) Math.toRadians(-50F), (float) Math.toRadians(5F), (float) Math.toRadians(30F));
+        this.progressRotation(this.FlukeL, Math.max(0, entity.sitProgress), (float) Math.toRadians(-50F), (float) Math.toRadians(-5F), (float) Math.toRadians(-30F));
+        this.progressRotation(this.Body, entity.sitProgress * entity.onLandProgress * 0.05F, (float) Math.toRadians(-5F), (float) Math.toRadians(-5F), (float) Math.toRadians(85F));
+        this.progressPosition(this.Body, entity.sitProgress * entity.onLandProgress * 0.05F, 0.0F, 10, 0.0F);
+        if (entity.isOnGround() && !entity.isTouchingWater()) {
+            this.progressRotation(this.FrontThighL, Math.max(0, entity.sitProgress), 0.0F, 0.0F, (float) Math.toRadians(60F));
+            this.progressRotation(this.FrontThighR, Math.max(0, entity.sitProgress), 0.0F, 0.0F, (float) Math.toRadians(-60F));
         }
-        this.progressRotation(this.Tail_2, hippo.sitProgress * hippo.onLandProgress * 0.05F, (float) Math.toRadians(-7F), (float) Math.toRadians(-25F), (float) Math.toRadians(1));
-        this.progressRotation(this.Tail_3, hippo.sitProgress * hippo.onLandProgress * 0.05F, (float) Math.toRadians(20), (float) Math.toRadians(-36), (float) Math.toRadians(36));
+        this.progressRotation(this.Tail_2, entity.sitProgress * entity.onLandProgress * 0.05F, (float) Math.toRadians(-7F), (float) Math.toRadians(-25F), (float) Math.toRadians(1));
+        this.progressRotation(this.Tail_3, entity.sitProgress * entity.onLandProgress * 0.05F, (float) Math.toRadians(20), (float) Math.toRadians(-36), (float) Math.toRadians(36));
 
 
         AdvancedModelBox[] TAIL = {this.Tail_1, this.Tail_2, this.Tail_3};
@@ -288,7 +287,7 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
         AdvancedModelBox[] LEG_L = {this.FrontThighL, this.FrontLegL};
         AdvancedModelBox[] LEG_R = {this.FrontThighR, this.FrontLegR};
         AdvancedModelBox[] NECK = new AdvancedModelBox[]{this.Neck, this.Head};
-        if (hippo.isTouchingWater()) {
+        if (entity.isTouchingWater()) {
             this.chainWave(NECK, speed_swim, degree_swim * 0.15F, -2, f, f1);
             this.chainWave(TAIL_W_BODY, speed_swim, degree_swim * 0.15F, -3, f, f1);
             this.walk(this.Tail_3, speed_swim, degree_swim * -0.5F, false, 0, 0, f, f1);
@@ -311,8 +310,8 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
             this.swing(this.FinRBack, speed_idle, degree_idle * 0.25F, true, 0, -0.1F, f2, 1);
         }
         this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, f2, 1);
-        if (hippo.tail_buffer != null) {
-            hippo.tail_buffer.applyChainSwingBuffer(TAIL);
+        if (entity.tail_buffer != null) {
+            entity.tail_buffer.applyChainSwingBuffer(TAIL);
         }
     }
 

@@ -16,7 +16,7 @@ import org.joml.Vector3f;
 
 public class ParticlePixieDust extends SpriteBillboardParticle {
     private static final Identifier PIXIE_DUST = new Identifier(IceAndFire.MOD_ID, "textures/particles/pixie_dust.png");
-    float reddustParticleScale;
+    final float reddustParticleScale;
 
     public ParticlePixieDust(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float p_i46349_8_, float p_i46349_9_, float p_i46349_10_) {
         this(worldIn, xCoordIn, yCoordIn, zCoordIn, 1F, p_i46349_8_, p_i46349_9_, p_i46349_10_);

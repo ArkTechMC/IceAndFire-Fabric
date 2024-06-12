@@ -114,20 +114,15 @@ public class DragonUtils {
         Vec3d Vector3d = rider.getCameraPosVec(1.0F);
         Vec3d Vector3d1 = rider.getRotationVec(1.0F);
         Vec3d Vector3d2 = Vector3d.add(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist);
-        double d1 = dist;
         Entity pointedEntity = null;
-        List<Entity> list = rider.getWorld().getOtherEntities(rider, rider.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                if (onSameTeam(dragon, entity)) {
-                    return false;
-                }
-                return entity != null && entity.canHit() && entity instanceof LivingEntity && !entity.isPartOf(dragon) && !entity.isTeammate(dragon) && (!(entity instanceof IDeadMob) || !((IDeadMob) entity).isMobDead());
+        List<Entity> list = rider.getWorld().getOtherEntities(rider, rider.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), (Predicate<Entity>) entity -> {
+            if (onSameTeam(dragon, entity)) {
+                return false;
             }
+            return entity != null && entity.canHit() && entity instanceof LivingEntity && !entity.isPartOf(dragon) && !entity.isTeammate(dragon) && (!(entity instanceof IDeadMob) || !((IDeadMob) entity).isMobDead());
         });
-        double d2 = d1;
-        for (int j = 0; j < list.size(); ++j) {
-            Entity entity1 = list.get(j);
+        double d2 = dist;
+        for (Entity entity1 : list) {
             Box axisalignedbb = entity1.getBoundingBox().expand((double) entity1.getTargetingMargin() + 2F);
             Vec3d raytraceresult = axisalignedbb.raycast(Vector3d, Vector3d2).orElse(Vec3d.ZERO);
 
@@ -246,10 +241,8 @@ public class DragonUtils {
         float angle = (0.01745329251F * (target.headYaw + 90F + ghost.getRandom().nextInt(180)));
         double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
         double extraZ = radius * MathHelper.cos(angle);
-        BlockPos radialPos = BlockPos.ofFloored(target.getX() + extraX, target.getY(), target.getZ() + extraZ);
-        BlockPos ground = radialPos;
-        if (ghost.squaredDistanceTo(Vec3d.ofCenter(ground)) > 30) {
-            return ground;
+        if (ghost.squaredDistanceTo(Vec3d.ofCenter(BlockPos.ofFloored(target.getX() + extraX, target.getY(), target.getZ() + extraZ))) > 30) {
+            return BlockPos.ofFloored(target.getX() + extraX, target.getY(), target.getZ() + extraZ);
         }
         return ghost.getBlockPos();
     }

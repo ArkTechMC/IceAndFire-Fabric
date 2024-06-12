@@ -12,11 +12,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.NotNull;
 
 public class LayerTrollWeapon extends FeatureRenderer<EntityTroll, ModelTroll> {
-    private final RenderTroll renderer;
 
     public LayerTrollWeapon(RenderTroll renderer) {
         super(renderer);
-        this.renderer = renderer;
     }
 
     public void render(EntityTroll entity, float f, float f1, float i, float f2, float f3, float f4, float f5) {

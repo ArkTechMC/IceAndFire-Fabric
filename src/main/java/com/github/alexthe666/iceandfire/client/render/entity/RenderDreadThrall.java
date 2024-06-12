@@ -44,26 +44,17 @@ public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, Mode
     public Identifier getArmorResource(int variant, EquipmentSlot equipmentSlotType) {
         if (equipmentSlotType == EquipmentSlot.LEGS)
             return TEXTURE_LEG_ARMOR;
-        switch (variant) {
-            case 0:
-                return TEXTURE_ARMOR_0;
-            case 1:
-                return TEXTURE_ARMOR_1;
-            case 2:
-                return TEXTURE_ARMOR_2;
-            case 3:
-                return TEXTURE_ARMOR_3;
-            case 4:
-                return TEXTURE_ARMOR_4;
-            case 5:
-                return TEXTURE_ARMOR_5;
-            case 6:
-                return TEXTURE_ARMOR_6;
-            case 7:
-                return TEXTURE_ARMOR_7;
-            default:
-                return TEXTURE_ARMOR_0;
-        }
+        return switch (variant) {
+            case 0 -> TEXTURE_ARMOR_0;
+            case 1 -> TEXTURE_ARMOR_1;
+            case 2 -> TEXTURE_ARMOR_2;
+            case 3 -> TEXTURE_ARMOR_3;
+            case 4 -> TEXTURE_ARMOR_4;
+            case 5 -> TEXTURE_ARMOR_5;
+            case 6 -> TEXTURE_ARMOR_6;
+            case 7 -> TEXTURE_ARMOR_7;
+            default -> TEXTURE_ARMOR_0;
+        };
     }
 
     @Override

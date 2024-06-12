@@ -24,14 +24,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> {
-    private final MobEntityRenderer render;
     private TabulaModel fireHead;
     private TabulaModel iceHead;
     private TabulaModel lightningHead;
 
     public LayerDragonEyes(MobEntityRenderer renderIn) {
         super(renderIn);
-        this.render = renderIn;
         try {
             this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/firedragon/firedragon_ground"), null),
                     Collections.singletonList("HeadFront"));
@@ -92,17 +90,13 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     private void removeChildren(TabulaModelAccessor model, List<AdvancedModelBox> keepCubes) {
         model.getRootBox().forEach(modelRenderer -> {
             modelRenderer.childModels.removeIf(child -> !keepCubes.contains(child));
-            modelRenderer.childModels.forEach(childModel -> {
-                this.removeChildren((AdvancedModelBox) childModel, keepCubes);
-            });
+            modelRenderer.childModels.forEach(childModel -> this.removeChildren((AdvancedModelBox) childModel, keepCubes));
         });
     }
 
     private void removeChildren(AdvancedModelBox modelBox, List<AdvancedModelBox> keepCubes) {
         modelBox.childModels.removeIf(modelRenderer -> !keepCubes.contains(modelRenderer));
-        modelBox.childModels.forEach(modelRenderer -> {
-            this.removeChildren((AdvancedModelBox) modelRenderer, keepCubes);
-        });
+        modelBox.childModels.forEach(modelRenderer -> this.removeChildren((AdvancedModelBox) modelRenderer, keepCubes));
     }
 
     public boolean isAngleEqual(AdvancedModelBox original, AdvancedModelBox pose) {

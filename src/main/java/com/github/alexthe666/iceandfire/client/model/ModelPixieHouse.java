@@ -8,12 +8,12 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.entity.LivingEntity;
 
 public class ModelPixieHouse extends AdvancedEntityModel<LivingEntity> {
-    public AdvancedModelBox stalk;
-    public AdvancedModelBox cap1;
-    public AdvancedModelBox grass;
-    public AdvancedModelBox grass2;
-    public AdvancedModelBox cap2;
-    public AdvancedModelBox stalk2;
+    public final AdvancedModelBox stalk;
+    public final AdvancedModelBox cap1;
+    public final AdvancedModelBox grass;
+    public final AdvancedModelBox grass2;
+    public final AdvancedModelBox cap2;
+    public final AdvancedModelBox stalk2;
 
     public ModelPixieHouse() {
         this.texWidth = 128;

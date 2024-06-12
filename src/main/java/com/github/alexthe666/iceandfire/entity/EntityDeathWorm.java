@@ -127,25 +127,22 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         this.targetSelector.add(3, new AttackWithOwnerGoal(this));
         this.targetSelector.add(4, new RevengeGoal(this));
         this.targetSelector.add(4, this.targetItemsGoal = new DeathwormAITargetItems<>(this, false, false));
-        this.targetSelector.add(5, new DeathWormAITarget<>(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity input) {
-                if (EntityDeathWorm.this.isTamed()) {
-                    return input instanceof HostileEntity;
-                } else if (input != null) {
-                    if (input.isTouchingWater() || !DragonUtils.isAlive(input) || EntityDeathWorm.this.isOwner(input)) {
-                        return false;
-                    }
-
-                    if (input instanceof PlayerEntity || input instanceof AnimalEntity) {
-                        return true;
-                    }
-
-                    return IafConfig.deathWormAttackMonsters;
+        this.targetSelector.add(5, new DeathWormAITarget<>(this, LivingEntity.class, false, input -> {
+            if (EntityDeathWorm.this.isTamed()) {
+                return input instanceof HostileEntity;
+            } else if (input != null) {
+                if (input.isTouchingWater() || !DragonUtils.isAlive(input) || EntityDeathWorm.this.isOwner(input)) {
+                    return false;
                 }
 
-                return false;
+                if (input instanceof PlayerEntity || input instanceof AnimalEntity) {
+                    return true;
+                }
+
+                return IafConfig.deathWormAttackMonsters;
             }
+
+            return false;
         }));
     }
 
@@ -255,15 +252,12 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     @Override
     protected Identifier getLootTableId() {
-        switch (this.getVariant()) {
-            case 0:
-                return this.getScaleFactor() > 3 ? TAN_GIANT_LOOT : TAN_LOOT;
-            case 1:
-                return this.getScaleFactor() > 3 ? RED_GIANT_LOOT : RED_LOOT;
-            case 2:
-                return this.getScaleFactor() > 3 ? WHITE_GIANT_LOOT : WHITE_LOOT;
-        }
-        return null;
+        return switch (this.getVariant()) {
+            case 0 -> this.getScaleFactor() > 3 ? TAN_GIANT_LOOT : TAN_LOOT;
+            case 1 -> this.getScaleFactor() > 3 ? RED_GIANT_LOOT : RED_LOOT;
+            case 2 -> this.getScaleFactor() > 3 ? WHITE_GIANT_LOOT : WHITE_LOOT;
+            default -> null;
+        };
     }
 
     @Override
@@ -306,7 +300,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     private void setStateField(int i, boolean newState) {
-        byte prevState = this.dataTracker.get(CONTROL_STATE).byteValue();
+        byte prevState = this.dataTracker.get(CONTROL_STATE);
         if (newState) {
             this.dataTracker.set(CONTROL_STATE, (byte) (prevState | (1 << i)));
         } else {
@@ -325,7 +319,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -351,7 +345,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public int getWormAge() {
-        return Math.max(1, this.dataTracker.get(WORM_AGE).intValue());
+        return Math.max(1, this.dataTracker.get(WORM_AGE));
     }
 
     public void setWormAge(int age) {
@@ -364,7 +358,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public float getDeathwormScale() {
-        return this.dataTracker.get(SCALE).floatValue();
+        return this.dataTracker.get(SCALE);
     }
 
     public void setDeathWormScale(float scale) {
@@ -618,8 +612,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         while (eyePos.getY() < 256 && !this.getWorld().isAir(eyePos)) {
             eyePos = eyePos.up();
         }
-        int light = this.getWorld().getLightLevel(sky ? LightType.SKY : LightType.BLOCK, eyePos.up());
-        return light;
+        return this.getWorld().getLightLevel(sky ? LightType.SKY : LightType.BLOCK, eyePos.up());
     }
 
     public int getSurface(int x, int y, int z) {
@@ -700,15 +693,15 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public boolean up() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) & 1) == 1;
     }
 
     public boolean dismountIAF() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() >> 1 & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) >> 1 & 1) == 1;
     }
 
     public boolean attack() {
-        return (this.dataTracker.get(CONTROL_STATE).byteValue() >> 2 & 1) == 1;
+        return (this.dataTracker.get(CONTROL_STATE) >> 2 & 1) == 1;
     }
 
     @Override

@@ -84,12 +84,9 @@ public class ItemCockatriceScepter extends Item {
             Vec3d playerLook = player.getRotationVec(1.0F);
             Vec3d Vector3d2 = playerEyePosition.add(playerLook.x * dist, playerLook.y * dist, playerLook.z * dist);
             Entity pointedEntity = null;
-            List<Entity> nearbyEntities = level.getOtherEntities(player, player.getBoundingBox().stretch(playerLook.x * dist, playerLook.y * dist, playerLook.z * dist).expand(1.0D, 1.0D, 1.0D), new Predicate<Entity>() {
-                @Override
-                public boolean test(Entity entity) {
-                    boolean blindness = entity instanceof LivingEntity && ((LivingEntity) entity).hasStatusEffect(StatusEffects.BLINDNESS) || (entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entity).canBeTurnedToStone());
-                    return entity != null && entity.canHit() && !blindness && (entity instanceof PlayerEntity || (entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity)));
-                }
+            List<Entity> nearbyEntities = level.getOtherEntities(player, player.getBoundingBox().stretch(playerLook.x * dist, playerLook.y * dist, playerLook.z * dist).expand(1.0D, 1.0D, 1.0D), entity -> {
+                boolean blindness = entity instanceof LivingEntity && ((LivingEntity) entity).hasStatusEffect(StatusEffects.BLINDNESS) || (entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entity).canBeTurnedToStone());
+                return entity != null && entity.canHit() && !blindness && (entity instanceof PlayerEntity || (entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity)));
             });
             double d2 = dist;
             for (Entity nearbyEntity : nearbyEntities) {

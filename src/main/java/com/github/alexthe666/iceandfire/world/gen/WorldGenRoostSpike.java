@@ -16,7 +16,7 @@ public class WorldGenRoostSpike {
         this.direction = direction;
     }
 
-    public boolean generate(WorldAccess worldIn, Random rand, BlockPos position) {
+    public void generate(WorldAccess worldIn, Random rand, BlockPos position) {
         int radius = 5;
         for (int i = 0; i < 5; i++) {
             int j = Math.max(0, radius - (int) (i * 1.75F));
@@ -29,7 +29,7 @@ public class WorldGenRoostSpike {
             for (BlockPos blockpos : BlockPos.stream(up.add(-xOrZero, -l, -zOrZero), up.add(xOrZero, l, zOrZero)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
                 if (blockpos.getSquaredDistance(position) <= (double) (f * f)) {
                     int height = Math.max(blockpos.getY() - up.getY(), 0);
-                    if (i <= 0) {
+                    if (i == 0) {
                         if (rand.nextFloat() < height * 0.3F) {
                             worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.get().getDefaultState(), 2);
                         }
@@ -39,6 +39,5 @@ public class WorldGenRoostSpike {
                 }
             }
         }
-        return true;
     }
 }

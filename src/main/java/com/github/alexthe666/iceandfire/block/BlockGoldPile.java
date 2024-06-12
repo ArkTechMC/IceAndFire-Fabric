@@ -40,16 +40,12 @@ public class BlockGoldPile extends Block {
 
     @Override
     public boolean canPathfindThrough(@NotNull BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos, NavigationType type) {
-        switch (type) {
-            case LAND:
-                return state.get(LAYERS) < 5;
-            case WATER:
-                return false;
-            case AIR:
-                return false;
-            default:
-                return false;
-        }
+        return switch (type) {
+            case LAND -> state.get(LAYERS) < 5;
+            case WATER -> false;
+            case AIR -> false;
+            default -> false;
+        };
     }
 
     @Override

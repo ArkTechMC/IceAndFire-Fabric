@@ -115,7 +115,7 @@ public class IafConfig extends ModConfig {
     public static boolean weezerTinkers = true;
     public static double dragonBlockBreakingDropChance = 0.1D;
     public static boolean dragonAuto3rdPerson = true;
-    public static double dreadQueenMaxHealth = 750;
+    public static final double dreadQueenMaxHealth = 750;
     public static boolean generateMausoleums = true;
     public static boolean spawnLiches = true;
     public static int lichSpawnRate = 4;

@@ -107,7 +107,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
         if (uuid != null) {
             try {
                 this.setCommanderId(uuid);
-            } catch (Throwable throwable) {
+            } catch (Throwable ignored) {
             }
         }
 

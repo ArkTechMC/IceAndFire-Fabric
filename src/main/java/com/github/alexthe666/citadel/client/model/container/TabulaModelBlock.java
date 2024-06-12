@@ -32,11 +32,11 @@ public class TabulaModelBlock {
     private final boolean gui3d;
     private final ModelTransformation cameraTransforms;
     private final List<ModelOverride> overrides;
-    public String name = "";
+    public final String name = "";
     @VisibleForTesting
     public TabulaModelBlock parent;
     @VisibleForTesting
-    protected Identifier parentLocation;
+    protected final Identifier parentLocation;
 
     public TabulaModelBlock(Identifier parentLocationIn, List<ModelElement> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ModelTransformation cameraTransformsIn, List<ModelOverride> overridesIn) {
         this.elements = elementsIn;

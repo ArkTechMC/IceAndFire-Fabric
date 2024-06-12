@@ -119,7 +119,7 @@ public class ItemDragonHorn extends Item {
             if (!entityTag.isEmpty()) {
                 String id = stack.getNbt().getString("DragonHornEntityID");
                 if (EntityType.get(id).isPresent()) {
-                    EntityType type = EntityType.get(id).get();
+                    EntityType<?> type = EntityType.get(id).get();
                     tooltip.add((Text.translatable(type.getTranslationKey())).formatted(this.getTextColorForEntityType(type)));
                     String name = (Text.translatable("dragon.unnamed")).getString();
                     if (!entityTag.getString("CustomName").isEmpty()) {

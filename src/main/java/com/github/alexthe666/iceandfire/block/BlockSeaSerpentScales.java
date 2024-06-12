@@ -14,8 +14,8 @@ import java.util.List;
 
 
 public class BlockSeaSerpentScales extends Block {
-    Formatting color;
-    String name;
+    final Formatting color;
+    final String name;
 
     public BlockSeaSerpentScales(String name, Formatting color) {
         super(

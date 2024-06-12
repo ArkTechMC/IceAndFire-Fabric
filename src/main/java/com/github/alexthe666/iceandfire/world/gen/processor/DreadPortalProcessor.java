@@ -14,7 +14,6 @@ import net.minecraft.world.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
 public class DreadPortalProcessor extends StructureProcessor {
-    private final float integrity = 1.0F;
 
     public DreadPortalProcessor(BlockPos position, StructurePlacementData settings, Biome biome) {
     }
@@ -33,7 +32,8 @@ public class DreadPortalProcessor extends StructureProcessor {
     @Override
     public StructureTemplate.StructureBlockInfo process(WorldView world, BlockPos pos, BlockPos pivot, StructureTemplate.StructureBlockInfo originalBlockInfo, StructureTemplate.StructureBlockInfo currentBlockInfo, StructurePlacementData data) {
         Random random = data.getRandom(pos);
-        if (random.nextFloat() <= this.integrity) {
+        float integrity = 1.0F;
+        if (random.nextFloat() <= integrity) {
             if (currentBlockInfo.state().getBlock() == Blocks.DIAMOND_BLOCK) {
                 return new StructureTemplate.StructureBlockInfo(pos, IafBlockRegistry.DREAD_PORTAL.get().getDefaultState(), null);
             }

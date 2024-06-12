@@ -46,10 +46,10 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
         this.hydraModel = new ModelHydraHead(0);
     }
 
-    private static void setRotationAngles(BasicModelPart cube, float rotX, float rotY, float rotZ) {
+    private static void setRotationAngles(BasicModelPart cube, float rotX) {
         cube.rotateAngleX = rotX;
-        cube.rotateAngleY = rotY;
-        cube.rotateAngleZ = rotZ;
+        cube.rotateAngleY = (float) 0;
+        cube.rotateAngleZ = (float) 0;
     }
 
     @Override
@@ -73,14 +73,14 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                 matrixStackIn.translate(0, -0.0F, -0.2F);
                 matrixStackIn.scale(1.2F, 1.2F, 1.2F);
                 this.hippogryphModel.resetToDefaultPose();
-                setRotationAngles(this.hippogryphModel.Head, onWall ? (float) Math.toRadians(50F) : (float) Math.toRadians(-5), 0, 0);
+                setRotationAngles(this.hippogryphModel.Head, onWall ? (float) Math.toRadians(50F) : (float) Math.toRadians(-5));
                 this.hippogryphModel.Head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
                 break;
             case CYCLOPS:
                 matrixStackIn.translate(0, 1.8F, -0.5F);
                 matrixStackIn.scale(2.25F, 2.25F, 2.25F);
                 this.cyclopsModel.resetToDefaultPose();
-                setRotationAngles(this.cyclopsModel.Head, onWall ? (float) Math.toRadians(50F) : 0F, 0, 0);
+                setRotationAngles(this.cyclopsModel.Head, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.cyclopsModel.Head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;
@@ -89,7 +89,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                     matrixStackIn.translate(0, 0F, 0.35F);
                 }
                 this.cockatriceModel.resetToDefaultPose();
-                setRotationAngles(this.cockatriceModel.head, onWall ? (float) Math.toRadians(50F) : 0F, 0, 0);
+                setRotationAngles(this.cockatriceModel.head, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.cockatriceModel.head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;
@@ -98,7 +98,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                     matrixStackIn.translate(0, 0F, -0.35F);
                 }
                 this.stymphalianBirdModel.resetToDefaultPose();
-                setRotationAngles(this.stymphalianBirdModel.HeadBase, onWall ? (float) Math.toRadians(50F) : 0F, 0, 0);
+                setRotationAngles(this.stymphalianBirdModel.HeadBase, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.stymphalianBirdModel.HeadBase.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;
@@ -108,7 +108,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                     matrixStackIn.translate(0, 0F, 0.35F);
                 }
                 this.trollModel.resetToDefaultPose();
-                setRotationAngles(this.trollModel.head, onWall ? (float) Math.toRadians(50F) : (float) Math.toRadians(-20), 0, 0);
+                setRotationAngles(this.trollModel.head, onWall ? (float) Math.toRadians(50F) : (float) Math.toRadians(-20));
                 this.trollModel.head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;
@@ -116,7 +116,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                 matrixStackIn.translate(0, -0.2F, 0.7F);
                 matrixStackIn.scale(2.0F, 2.0F, 2.0F);
                 this.amphithereModel.resetToDefaultPose();
-                setRotationAngles(this.amphithereModel.Head, onWall ? (float) Math.toRadians(50F) : 0F, 0, 0);
+                setRotationAngles(this.amphithereModel.Head, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.amphithereModel.Head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;
@@ -124,7 +124,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                 matrixStackIn.translate(0, -0.35F, 0.8F);
                 matrixStackIn.scale(2.5F, 2.5F, 2.5F);
                 this.seaSerpentModel.resetToDefaultPose();
-                setRotationAngles(this.seaSerpentModel.getCube("Head"), onWall ? (float) Math.toRadians(50F) : 0F, 0, 0);
+                setRotationAngles(this.seaSerpentModel.getCube("Head"), onWall ? (float) Math.toRadians(50F) : 0F);
                 this.seaSerpentModel.getCube("Head").render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;
@@ -132,7 +132,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                 matrixStackIn.translate(0, -0.2F, -0.1F);
                 matrixStackIn.scale(2.0F, 2.0F, 2.0F);
                 this.hydraModel.resetToDefaultPose();
-                setRotationAngles(this.hydraModel.Head1, onWall ? (float) Math.toRadians(50F) : 0F, 0, 0);
+                setRotationAngles(this.hydraModel.Head1, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.hydraModel.Head1.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
                 break;

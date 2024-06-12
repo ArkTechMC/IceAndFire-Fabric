@@ -16,7 +16,7 @@ public class AmphithereAIFleePlayer extends Goal {
     private final double farSpeed;
     private final double nearSpeed;
     private final float avoidDistance;
-    protected EntityAmphithere entity;
+    protected final EntityAmphithere entity;
     protected PlayerEntity closestLivingEntity;
     private Path path;
 

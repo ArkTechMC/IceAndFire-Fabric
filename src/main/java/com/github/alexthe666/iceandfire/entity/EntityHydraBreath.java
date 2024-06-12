@@ -120,10 +120,10 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
             if (movingObject.getType() == HitResult.Type.ENTITY) {
                 Entity entity = ((EntityHitResult) movingObject).getEntity();
 
-                if (entity != null && entity instanceof EntityHydraHead) {
+                if (entity instanceof EntityHydraHead) {
                     return;
                 }
-                if (shootingEntity != null && shootingEntity instanceof EntityHydra dragon) {
+                if (shootingEntity instanceof EntityHydra dragon) {
                     if (dragon.isTeammate(entity) || dragon.isPartOf(entity)) {
                         return;
                     }

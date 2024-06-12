@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class ItemTrollArmor extends ArmorItem {
 
-    public EnumTroll troll;
+    public final EnumTroll troll;
 
     public ItemTrollArmor(EnumTroll troll, CustomArmorMaterial material, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);

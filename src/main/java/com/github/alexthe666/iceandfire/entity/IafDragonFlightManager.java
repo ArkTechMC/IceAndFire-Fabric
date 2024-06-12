@@ -20,10 +20,8 @@ import net.minecraft.util.math.Vec3d;
 public class IafDragonFlightManager {
     private final EntityDragonBase dragon;
     private Vec3d target;
-    private IafDragonAttacks.Air prevAirAttack;
     private Vec3d startAttackVec;
     private Vec3d startPreyVec;
-    private boolean hasStartedToScorch = false;
     private LivingEntity prevAttackTarget = null;
 
     public IafDragonFlightManager(EntityDragonBase dragon) {
@@ -62,7 +60,7 @@ public class IafDragonFlightManager {
                 float distY = 5 + this.dragon.getDragonStage() * 2;
                 int randomDist = 20;
                 if (this.dragon.squaredDistanceTo(entity.getX(), this.dragon.getY(), entity.getZ()) < 16 || this.dragon.squaredDistanceTo(entity.getX(), this.dragon.getY(), entity.getZ()) > 900) {
-                    this.target = new Vec3d(entity.getX() + this.dragon.getRandom().nextInt(randomDist) - randomDist / 2, entity.getY() + distY, entity.getZ() + this.dragon.getRandom().nextInt(randomDist) - randomDist / 2);
+                    this.target = new Vec3d(entity.getX() + this.dragon.getRandom().nextInt(randomDist) - (double) randomDist / 2, entity.getY() + distY, entity.getZ() + this.dragon.getRandom().nextInt(randomDist) - (double) randomDist / 2);
                 }
                 this.dragon.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 3);
             }
@@ -72,7 +70,7 @@ public class IafDragonFlightManager {
                 float distZ = (float) (this.startPreyVec.z - this.startAttackVec.z);
                 this.target = new Vec3d(entity.getX() + distX, entity.getY() + distY, entity.getZ() + distZ);
                 this.dragon.tryScorchTarget();
-                this.hasStartedToScorch = true;
+                boolean hasStartedToScorch = true;
                 if (this.target != null && this.dragon.squaredDistanceTo(this.target.x, this.target.y, this.target.z) < 100) {
                     this.target = new Vec3d(entity.getX() - distX, entity.getY() + distY, entity.getZ() - distZ);
                 }
@@ -125,7 +123,7 @@ public class IafDragonFlightManager {
             }
         }
 
-        this.prevAirAttack = this.dragon.airAttack;
+        IafDragonAttacks.Air prevAirAttack = this.dragon.airAttack;
     }
 
     public Vec3d getFlightTarget() {

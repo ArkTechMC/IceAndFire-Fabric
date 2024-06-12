@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 
 public class ModelCube extends AdvancedEntityModel {
-    public HideableModelRenderer bipedHead;
+    public final HideableModelRenderer bipedHead;
 
     public ModelCube() {
         this(0.0F);

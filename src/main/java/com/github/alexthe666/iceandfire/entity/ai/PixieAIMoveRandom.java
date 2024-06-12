@@ -12,8 +12,8 @@ import java.util.EnumSet;
 
 public class PixieAIMoveRandom extends Goal {
     BlockPos target;
-    EntityPixie pixie;
-    Random random;
+    final EntityPixie pixie;
+    final Random random;
 
     public PixieAIMoveRandom(EntityPixie entityPixieIn) {
         this.pixie = entityPixieIn;

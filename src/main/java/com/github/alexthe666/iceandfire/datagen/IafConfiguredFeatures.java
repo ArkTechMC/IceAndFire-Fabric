@@ -86,9 +86,9 @@ public final class IafConfiguredFeatures {
         //TODO: Sapphires should only generate for ice dragon stuff
         context.register(SAPPHIRE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), IafBlockRegistry.SAPPHIRE_ORE.get().getDefaultState(), 4, 0.5f)));
         //TODO: Look at VegetationFeatures.java
-        context.register(FIRE_LILY, new ConfiguredFeature(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FIRE_LILY.get())));
-        context.register(FROST_LILY, new ConfiguredFeature(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FROST_LILY.get())));
-        context.register(LIGHTNING_LILY, new ConfiguredFeature(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.LIGHTNING_LILY.get())));
+        context.register(FIRE_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FIRE_LILY.get())));
+        context.register(FROST_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FROST_LILY.get())));
+        context.register(LIGHTNING_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.LIGHTNING_LILY.get())));
 
     }
 

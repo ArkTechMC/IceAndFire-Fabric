@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
 
 public class ItemDragonArmor extends Item {
 
-    public DragonArmorType type;
-    public int dragonSlot;
+    public final DragonArmorType type;
+    public final int dragonSlot;
     public String name;
     private Pattern baseName = Pattern.compile("[a-z]+_[a-z]+");
 

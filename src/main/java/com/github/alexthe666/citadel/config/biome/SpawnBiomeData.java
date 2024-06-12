@@ -69,9 +69,9 @@ public class SpawnBiomeData {
     }
 
     private static class SpawnBiomeEntry {
-        BiomeEntryType type;
-        boolean negate;
-        String value;
+        final BiomeEntryType type;
+        final boolean negate;
+        final String value;
 
         public SpawnBiomeEntry(BiomeEntryType type, boolean remove, String value) {
             this.type = type;

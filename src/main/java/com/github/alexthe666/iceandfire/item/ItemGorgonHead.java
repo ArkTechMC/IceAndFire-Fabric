@@ -53,20 +53,16 @@ public class ItemGorgonHead extends Item {
         Vec3d Vector3d1 = entity.getRotationVec(1.0F);
         Vec3d Vector3d2 = Vector3d.add(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist);
         Entity pointedEntity = null;
-        List<Entity> list = worldIn.getOtherEntities(entity, entity.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                if (entity instanceof LivingEntity livingEntity) {
-                    boolean isImmune = livingEntity instanceof IBlacklistedFromStatues blacklisted && !blacklisted.canBeTurnedToStone() || entity.getType().isIn(IafEntityTags.IMMUNE_TO_GORGON_STONE) || livingEntity.hasStatusEffect(StatusEffects.BLINDNESS);
-                    return !isImmune && entity.canHit() && !livingEntity.isDead() && (entity instanceof PlayerEntity || DragonUtils.isAlive(livingEntity));
-                }
-
-                return false;
+        List<Entity> list = worldIn.getOtherEntities(entity, entity.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), (Predicate<Entity>) entity12 -> {
+            if (entity12 instanceof LivingEntity livingEntity) {
+                boolean isImmune = livingEntity instanceof IBlacklistedFromStatues blacklisted && !blacklisted.canBeTurnedToStone() || entity12.getType().isIn(IafEntityTags.IMMUNE_TO_GORGON_STONE) || livingEntity.hasStatusEffect(StatusEffects.BLINDNESS);
+                return !isImmune && entity12.canHit() && !livingEntity.isDead() && (entity12 instanceof PlayerEntity || DragonUtils.isAlive(livingEntity));
             }
+
+            return false;
         });
         double d2 = dist;
-        for (int j = 0; j < list.size(); ++j) {
-            Entity entity1 = list.get(j);
+        for (Entity entity1 : list) {
             Box axisalignedbb = entity1.getBoundingBox().expand(entity1.getTargetingMargin());
             Optional<Vec3d> optional = axisalignedbb.raycast(Vector3d, Vector3d2);
 

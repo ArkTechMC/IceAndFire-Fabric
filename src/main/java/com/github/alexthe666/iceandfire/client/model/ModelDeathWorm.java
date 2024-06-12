@@ -13,44 +13,44 @@ import net.minecraft.entity.Entity;
 
 public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
     private final ModelAnimator animator;
-    public AdvancedModelBox Body;
-    public AdvancedModelBox Head;
-    public AdvancedModelBox Spine1;
-    public AdvancedModelBox Body2;
-    public AdvancedModelBox JawExtender;
-    public AdvancedModelBox HeadInner;
-    public AdvancedModelBox ToothB;
-    public AdvancedModelBox ToothT;
-    public AdvancedModelBox ToothL;
-    public AdvancedModelBox ToothL_1;
-    public AdvancedModelBox Spine2;
-    public AdvancedModelBox Body3;
-    public AdvancedModelBox Spine3;
-    public AdvancedModelBox Body4;
-    public AdvancedModelBox Spine4;
-    public AdvancedModelBox Body5;
-    public AdvancedModelBox Spine5;
-    public AdvancedModelBox Body6;
-    public AdvancedModelBox Spine6;
-    public AdvancedModelBox Body7;
-    public AdvancedModelBox Spine7;
-    public AdvancedModelBox Body8;
-    public AdvancedModelBox Spine8;
-    public AdvancedModelBox Body9;
-    public AdvancedModelBox Spine9;
-    public AdvancedModelBox Tail1;
-    public AdvancedModelBox TailSpine1;
-    public AdvancedModelBox Tail2;
-    public AdvancedModelBox TailSpine2;
-    public AdvancedModelBox Tail3;
-    public AdvancedModelBox TailSpine3;
-    public AdvancedModelBox Tail4;
-    public AdvancedModelBox TailSpine4;
-    public AdvancedModelBox TailSpine5;
-    public AdvancedModelBox JawExtender2;
-    public AdvancedModelBox TopJaw;
-    public AdvancedModelBox BottomJaw;
-    public AdvancedModelBox JawHook;
+    public final AdvancedModelBox Body;
+    public final AdvancedModelBox Head;
+    public final AdvancedModelBox Spine1;
+    public final AdvancedModelBox Body2;
+    public final AdvancedModelBox JawExtender;
+    public final AdvancedModelBox HeadInner;
+    public final AdvancedModelBox ToothB;
+    public final AdvancedModelBox ToothT;
+    public final AdvancedModelBox ToothL;
+    public final AdvancedModelBox ToothL_1;
+    public final AdvancedModelBox Spine2;
+    public final AdvancedModelBox Body3;
+    public final AdvancedModelBox Spine3;
+    public final AdvancedModelBox Body4;
+    public final AdvancedModelBox Spine4;
+    public final AdvancedModelBox Body5;
+    public final AdvancedModelBox Spine5;
+    public final AdvancedModelBox Body6;
+    public final AdvancedModelBox Spine6;
+    public final AdvancedModelBox Body7;
+    public final AdvancedModelBox Spine7;
+    public final AdvancedModelBox Body8;
+    public final AdvancedModelBox Spine8;
+    public final AdvancedModelBox Body9;
+    public final AdvancedModelBox Spine9;
+    public final AdvancedModelBox Tail1;
+    public final AdvancedModelBox TailSpine1;
+    public final AdvancedModelBox Tail2;
+    public final AdvancedModelBox TailSpine2;
+    public final AdvancedModelBox Tail3;
+    public final AdvancedModelBox TailSpine3;
+    public final AdvancedModelBox Tail4;
+    public final AdvancedModelBox TailSpine4;
+    public final AdvancedModelBox TailSpine5;
+    public final AdvancedModelBox JawExtender2;
+    public final AdvancedModelBox TopJaw;
+    public final AdvancedModelBox BottomJaw;
+    public final AdvancedModelBox JawHook;
 
     public ModelDeathWorm() {
         this.animator = ModelAnimator.create();
@@ -263,7 +263,6 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
         float degree_idle = 0.5F;
         float speed_walk = 0.2F;
         float degree_walk = 0.15F;
-        EntityDeathWorm worm = entity;
         this.animate(entity, f, f1, f2, f3, f4);
         AdvancedModelBox[] WORM = {this.Body, this.Body2, this.Body3, this.Body4, this.Body5, this.Body6, this.Body7, this.Body8, this.Body9, this.Tail1, this.Tail2, this.Tail3, this.Tail4};
         this.walk(this.ToothT, speed_idle, degree_idle * 0.15F, true, 0.1F, 0F, f2, 1);
@@ -275,7 +274,7 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
         this.chainSwing(WORM, speed_walk, degree_walk * 0.1F, -3, f2, 1);
         this.chainSwing(WORM, speed_walk, degree_walk, -3, f, f1);
         this.chainFlap(WORM, speed_walk, degree_walk * 0.75F, -3, f, f1);
-        float jumpProgress = worm.prevJumpProgress + (worm.jumpProgress - worm.prevJumpProgress) * (f2 - worm.age);
+        float jumpProgress = entity.prevJumpProgress + (entity.jumpProgress - entity.prevJumpProgress) * (f2 - entity.age);
         this.progressRotation(this.Head, jumpProgress, (float) Math.toRadians(25), 0.0F, 0.0F);
         this.progressRotation(this.Body, jumpProgress, (float) Math.toRadians(65), 0.0F, 0.0F);
         this.progressRotation(this.Body2, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
@@ -289,10 +288,10 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
         this.progressRotation(this.Tail2, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
         this.progressRotation(this.Tail3, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
         this.progressRotation(this.Tail4, jumpProgress, (float) Math.toRadians(-21), 0.0F, 0.0F);
-        if (worm.tail_buffer != null)
-            worm.tail_buffer.applyChainSwingBuffer(WORM);
+        if (entity.tail_buffer != null)
+            entity.tail_buffer.applyChainSwingBuffer(WORM);
 
-        if (worm.getWormJumping() > 0) {
+        if (entity.getWormJumping() > 0) {
             this.Body.rotateAngleX += f4 * ((float) Math.PI / 180F);
         }
     }

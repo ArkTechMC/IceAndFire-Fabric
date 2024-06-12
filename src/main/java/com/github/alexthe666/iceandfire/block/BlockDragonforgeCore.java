@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_CORE;
 
 public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProof, INoTab {
-    private static boolean keepInventory;
     private final int isFire;
     private final boolean activated;
 
@@ -51,7 +50,7 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
     public static void setState(int dragonType, boolean active, World worldIn, BlockPos pos) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        keepInventory = true;
+        boolean keepInventory = true;
 
         if (active) {
             if (dragonType == 0) {

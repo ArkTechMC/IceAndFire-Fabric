@@ -15,7 +15,7 @@ public class RenderMyrmexEgg extends LivingEntityRenderer<EntityMyrmexEgg, Advan
     public static final Identifier EGG_DESERT = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_desert_egg.png");
 
     public RenderMyrmexEgg(EntityRendererFactory.Context context) {
-        super(context, new ModelDragonEgg(), 0.3F);
+        super(context, new ModelDragonEgg<>(), 0.3F);
     }
 
     @Override

@@ -712,7 +712,6 @@ public class WorldRenderMacros extends UiRenderMacros {
      * @param forceWhite              force white for no depth rendering
      * @param mergeEveryXListElements merge every X elements of text list using a tostring call
      */
-    @SuppressWarnings("resource")
     public static void renderDebugText(final BlockPos pos, final List<String> text, final MatrixStack matrixStack, final boolean forceWhite, final int mergeEveryXListElements, final VertexConsumerProvider buffer) {
         if (mergeEveryXListElements < 1)
             throw new IllegalArgumentException("mergeEveryXListElements is less than 1");

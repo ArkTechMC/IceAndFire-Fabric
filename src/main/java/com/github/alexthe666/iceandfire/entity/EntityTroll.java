@@ -126,8 +126,8 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F, 1.0F));
         this.goalSelector.add(5, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(2, new ActiveTargetGoal(this, MerchantEntity.class, false));
-        this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, false));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, MerchantEntity.class, false));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, false));
         this.setAvoidSun(true);
     }
 
@@ -150,7 +150,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     private int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     private void setVariant(int variant) {
@@ -166,7 +166,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     private int getWeapon() {
-        return this.dataTracker.get(WEAPON).intValue();
+        return this.dataTracker.get(WEAPON);
     }
 
     private void setWeapon(int variant) {
@@ -216,15 +216,11 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     protected Identifier getLootTableId() {
-        switch (this.getTrollType()) {
-            case MOUNTAIN:
-                return MOUNTAIN_LOOT;
-            case FROST:
-                return FROST_LOOT;
-            case FOREST:
-                return FOREST_LOOT;
-        }
-        return null;
+        return switch (this.getTrollType()) {
+            case MOUNTAIN -> MOUNTAIN_LOOT;
+            case FROST -> FROST_LOOT;
+            case FOREST -> FOREST_LOOT;
+        };
     }
 
     @Override
@@ -280,14 +276,12 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         }
     }
 
-    private ItemEntity dropItemAt(ItemStack stack, double x, double y, double z) {
+    private void dropItemAt(ItemStack stack, double x, double y, double z) {
         if (stack.getCount() > 0) {
             ItemEntity entityitem = new ItemEntity(this.getWorld(), x, y, z, stack);
             entityitem.setToDefaultPickupDelay();
             this.getWorld().spawnEntity(entityitem);
-            return entityitem;
         }
-        return null;
 
     }
 

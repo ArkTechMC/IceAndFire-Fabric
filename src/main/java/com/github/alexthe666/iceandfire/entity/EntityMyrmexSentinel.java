@@ -128,13 +128,13 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
             this.setAnimation(ANIMATION_NIBBLE);
             if (this.getAnimationTick() == 5) {
                 this.playBiteSound();
-                this.getHeldEntity().damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 6));
+                this.getHeldEntity().damage(this.getWorld().getDamageSources().mobAttack(this), ((float) (int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 6));
             }
         }
         if (this.getAnimation() == ANIMATION_GRAB && attackTarget != null && this.getAnimationTick() == 7) {
             this.playStingSound();
             if (this.getAttackBounds().intersects(attackTarget.getBoundingBox())) {
-                attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 2));
+                attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), ((float) (int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue() / 2));
                 //Make sure it doesn't grab a dead dragon
                 if (attackTarget instanceof EntityDragonBase) {
                     if (!((EntityDragonBase) attackTarget).isMobDead()) {
@@ -148,7 +148,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
         if (this.getAnimation() == ANIMATION_SLASH && attackTarget != null && this.getAnimationTick() % 5 == 0 && this.getAnimationTick() <= 20) {
             this.playBiteSound();
             if (this.getAttackBounds().intersects(attackTarget.getBoundingBox())) {
-                attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue()) / 4);
+                attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), (float) ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue()) / 4);
             }
         }
         if (this.getAnimation() == ANIMATION_STING && (this.getAnimationTick() == 0 || this.getAnimationTick() == 10)) {
@@ -177,12 +177,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
         this.targetSelector.add(1, new MyrmexAIDefendHive(this));
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new MyrmexAIAttackPlayers(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 4, true, true, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexSentinel.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster);
-            }
-        }));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 4, true, true, (Predicate<LivingEntity>) entity -> entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexSentinel.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster)));
     }
 
     @Override
@@ -308,7 +303,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
 
     public boolean isHiding() {
-        return this.dataTracker.get(HIDING).booleanValue();
+        return this.dataTracker.get(HIDING);
     }
 
     public void setHiding(boolean hiding) {

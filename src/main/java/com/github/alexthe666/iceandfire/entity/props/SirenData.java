@@ -96,8 +96,8 @@ public class SirenData {
                 double radius = Math.sqrt(x * x + z * z);
                 float xRot = (float) (-(MathHelper.atan2(y, radius) * (180D / Math.PI)));
                 float yRot = (float) (MathHelper.atan2(z, x) * (180D / Math.PI)) - 90.0F;
-                holder.setPitch(this.updateRotation(holder.getPitch(), xRot, 30F));
-                holder.setYaw(this.updateRotation(holder.getYaw(), yRot, 30F));
+                holder.setPitch(this.updateRotation(holder.getPitch(), xRot));
+                holder.setYaw(this.updateRotation(holder.getYaw(), yRot));
             }
         }
     }
@@ -158,15 +158,15 @@ public class SirenData {
         return false;
     }
 
-    private float updateRotation(float angle, float targetAngle, float maxIncrease) {
+    private float updateRotation(float angle, float targetAngle) {
         float f = MathHelper.wrapDegrees(targetAngle - angle);
 
-        if (f > maxIncrease) {
-            f = maxIncrease;
+        if (f > (float) 30.0) {
+            f = (float) 30.0;
         }
 
-        if (f < -maxIncrease) {
-            f = -maxIncrease;
+        if (f < -(float) 30.0) {
+            f = -(float) 30.0;
         }
 
         return angle + f;

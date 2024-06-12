@@ -64,9 +64,8 @@ public class EntityChainTie extends AbstractDecorationEntity {
                 this.attachmentPos.getZ() + 0.5D);
         double xSize = 0.3D;
         double ySize = 0.875D;
-        double zSize = xSize;
-        this.setBoundingBox(new Box(this.getX() - xSize, this.getY() - 0.5, this.getZ() - zSize,
-                this.getX() + xSize, this.getY() + ySize - 0.5, this.getZ() + zSize));
+        this.setBoundingBox(new Box(this.getX() - xSize, this.getY() - 0.5, this.getZ() - xSize,
+                this.getX() + xSize, this.getY() + ySize - 0.5, this.getZ() + xSize));
     }
 
     @Override

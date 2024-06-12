@@ -41,8 +41,8 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     private static final TrackedData<Integer> SCREAMS = DataTracker.registerData(EntityDreadGhoul.class, TrackedDataHandlerRegistry.INTEGER);
     private static final float INITIAL_WIDTH = 0.6F;
     private static final float INITIAL_HEIGHT = 1.8F;
-    public static Animation ANIMATION_SPAWN = Animation.create(40);
-    public static Animation ANIMATION_SLASH = Animation.create(25);
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_SLASH = Animation.create(25);
     private int animationTick;
     private Animation currentAnimation;
     private int hostileTicks = 0;
@@ -75,18 +75,8 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
     }
 
     @Override
@@ -98,7 +88,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     }
 
     public float getSize() {
-        return this.dataTracker.get(SCALE).floatValue();
+        return this.dataTracker.get(SCALE);
     }
 
     public void setSize(float scale) {
@@ -185,7 +175,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     }
 
     public int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -193,7 +183,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     }
 
     public int getScreamStage() {
-        return this.dataTracker.get(SCREAMS).intValue();
+        return this.dataTracker.get(SCREAMS);
     }
 
     public void setScreamStage(int screamStage) {
@@ -240,11 +230,6 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 

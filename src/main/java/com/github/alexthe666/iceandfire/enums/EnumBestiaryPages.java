@@ -45,7 +45,7 @@ public enum EnumBestiaryPages {
     public static final ImmutableList<Integer> ALL_INDEXES = ImmutableList
             .copyOf(IntStream.range(0, EnumBestiaryPages.values().length).iterator());
 
-    public int pages;
+    public final int pages;
 
     EnumBestiaryPages(int pages) {
         this.pages = pages;
@@ -56,7 +56,7 @@ public enum EnumBestiaryPages {
     }
 
     public static boolean hasAllPages(ItemStack book) {
-        return Ints.asList(book.getNbt().getIntArray("Pages")).containsAll(ALL_INDEXES);
+        return new HashSet<>(Ints.asList(book.getNbt().getIntArray("Pages"))).containsAll(ALL_INDEXES);
     }
 
     public static List<Integer> enumToInt(List<EnumBestiaryPages> pages) {
@@ -88,7 +88,7 @@ public enum EnumBestiaryPages {
         return Collections.emptyList();
     }
 
-    public static boolean addPage(EnumBestiaryPages page, ItemStack book) {
+    public static void addPage(EnumBestiaryPages page, ItemStack book) {
         boolean flag = false;
         if (book.getItem() instanceof ItemBestiary) {
             NbtCompound tag = book.getNbt();
@@ -99,7 +99,6 @@ public enum EnumBestiaryPages {
             }
             tag.putIntArray("Pages", Ints.toArray(already));
         }
-        return flag;
     }
 
     public static EnumBestiaryPages fromInt(int index) {

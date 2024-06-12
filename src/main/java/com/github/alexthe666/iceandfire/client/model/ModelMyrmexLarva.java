@@ -13,16 +13,16 @@ import net.minecraft.entity.Entity;
 
 public class ModelMyrmexLarva extends ModelDragonBase {
     private final ModelAnimator animator;
-    public AdvancedModelBox Body2;
-    public AdvancedModelBox Body3;
-    public AdvancedModelBox Body1;
-    public AdvancedModelBox Body4;
-    public AdvancedModelBox Body5;
-    public AdvancedModelBox Body4_1;
-    public AdvancedModelBox Body5_1;
-    public AdvancedModelBox Body4_2;
-    public AdvancedModelBox Neck1;
-    public AdvancedModelBox HeadBase;
+    public final AdvancedModelBox Body2;
+    public final AdvancedModelBox Body3;
+    public final AdvancedModelBox Body1;
+    public final AdvancedModelBox Body4;
+    public final AdvancedModelBox Body5;
+    public final AdvancedModelBox Body4_1;
+    public final AdvancedModelBox Body5_1;
+    public final AdvancedModelBox Body4_2;
+    public final AdvancedModelBox Neck1;
+    public final AdvancedModelBox HeadBase;
 
     public ModelMyrmexLarva() {
         this.texWidth = 128;

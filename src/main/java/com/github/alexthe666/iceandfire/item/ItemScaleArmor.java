@@ -15,8 +15,8 @@ import java.util.List;
 
 public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonItem {
 
-    public EnumDragonArmor armor_type;
-    public EnumDragonEgg eggType;
+    public final EnumDragonArmor armor_type;
+    public final EnumDragonEgg eggType;
 
     public ItemScaleArmor(EnumDragonEgg eggType, EnumDragonArmor armorType, CustomArmorMaterial material, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);

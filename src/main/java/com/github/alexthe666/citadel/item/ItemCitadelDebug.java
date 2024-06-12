@@ -18,7 +18,7 @@ public class ItemCitadelDebug extends Item {
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStackIn = playerIn.getStackInHand(handIn);
         playerIn.getItemCooldownManager().set(this, 15);
-        return new TypedActionResult<ItemStack>(ActionResult.PASS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
 }

@@ -19,7 +19,7 @@ public class DragonAnimationsLibrary {
     public static TabulaModel getModel(IEnumDragonPoses pose, IEnumDragonModelTypes modelType) {
         TabulaModel result = models.get(toKey(pose, modelType));
         if (result == null)
-            IceAndFire.LOGGER.error("No model defined for " + pose.getPose() + modelType.getModelType() + " have you registered your animations?");
+            IceAndFire.LOGGER.error("No model defined for {}{} have you registered your animations?", pose.getPose(), modelType.getModelType());
         return result;
     }
 
@@ -80,7 +80,7 @@ public class DragonAnimationsLibrary {
         try {
             result = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel(location));
         } catch (IOException | NullPointerException e) {
-            IceAndFire.LOGGER.warn("Could not load " + location + ": " + e.getMessage());
+            IceAndFire.LOGGER.warn("Could not load {}: {}", location, e.getMessage());
             return;
         }
 
@@ -118,9 +118,7 @@ public class DragonAnimationsLibrary {
             return;
 
         if (models.containsKey(destKey))
-            IceAndFire.LOGGER.info(
-                    "Overriding existing model '" + destKey +
-                            "' with reference to '" + toKey(pose, modelSource));
+            IceAndFire.LOGGER.info("Overriding existing model '{}' with reference to '{}", destKey, toKey(pose, modelSource));
 
         models.put(destKey, source);
     }

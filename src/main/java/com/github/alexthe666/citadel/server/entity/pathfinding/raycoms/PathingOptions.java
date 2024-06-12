@@ -5,10 +5,6 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
  */
 public class PathingOptions {
     /**
-     * Whether to path through vines.
-     */
-    private final boolean canClimbVines = false;
-    /**
      * Additional cost of jumping and dropping - base 1.
      */
     public double jumpCost = 1.1D;
@@ -80,7 +76,11 @@ public class PathingOptions {
     }
 
     public boolean canClimbVines() {
-        return this.canClimbVines;
+        /**
+         * Whether to path through vines.
+         */
+        boolean canClimbVines = false;
+        return canClimbVines;
     }
 
     public void setCanUseRails(final boolean canUseRails) {

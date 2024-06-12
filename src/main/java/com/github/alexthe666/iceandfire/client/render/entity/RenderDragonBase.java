@@ -59,7 +59,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
         Identifier resourcelocation = this.LAYERED_TEXTURE_CACHE.get(baseTexture);
         if (resourcelocation == null) {
             resourcelocation = new Identifier(IceAndFire.MOD_ID, "dragon_texture_" + baseTexture);
-            List<String> tex = new ArrayList<String>();
+            List<String> tex = new ArrayList<>();
             tex.add(EnumDragonTextures.getTextureFromDragon(entity).toString());
             if (entity.isMale() && !entity.isSkeletal()) {
                 if (this.dragonType == 0) {

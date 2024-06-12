@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class ServerTickRateTracker extends TickRateTracker {
     public static final Logger LOGGER = LogManager.getLogger("citadel-server-tick");
 
-    public MinecraftServer server;
+    public final MinecraftServer server;
 
     public ServerTickRateTracker(MinecraftServer server) {
         this.server = server;
@@ -59,7 +59,7 @@ public class ServerTickRateTracker extends TickRateTracker {
         int i = (int) StaticVariables.MSPT;
         for (TickRateModifier modifier : this.tickRateModifierList) {
             if (modifier.getType() == TickRateModifierType.GLOBAL) {
-                i *= modifier.getTickRateMultiplier();
+                i *= (int) modifier.getTickRateMultiplier();
             }
         }
         if (i <= 0) {

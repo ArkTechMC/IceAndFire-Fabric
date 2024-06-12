@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class ItemDragonFlesh extends ItemGenericFood {
 
-    int dragonType;
+    final int dragonType;
 
     public ItemDragonFlesh(int dragonType) {
         super(8, 0.8F, true, false, false);
@@ -19,8 +19,6 @@ public class ItemDragonFlesh extends ItemGenericFood {
 
     static String getNameForType(int dragonType) {
         return switch (dragonType) {
-            case 0 -> "fire_dragon_flesh";
-            case 1 -> "ice_dragon_flesh";
             case 2 -> "lightning_dragon_flesh";
             default -> "fire_dragon_flesh";
         };

@@ -117,7 +117,7 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.COPPER_BOOTS.get()
         );
 
-        this.toolSet(consumer, Tags.Items.INGOTS_COPPER, Tags.Items.RODS_WOODEN,
+        this.toolSet(consumer, Tags.Items.INGOTS_COPPER,
                 IafItemRegistry.COPPER_SWORD.get(),
                 IafItemRegistry.COPPER_PICKAXE.get(),
                 IafItemRegistry.COPPER_AXE.get(),
@@ -297,17 +297,17 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromItem(IafItemRegistry.DRAGON_BONE.get()))
                 .offerTo(consumer);
 
-        this.forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_FIRE, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get());
+        this.forgeBrick(consumer, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_FIRE, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get());
         this.forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), IafItemRegistry.FIRE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get());
-        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get());
+        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(), IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get());
 
-        this.forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_ICE, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get());
+        this.forgeBrick(consumer, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_ICE, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get());
         this.forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), IafItemRegistry.ICE_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get());
-        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get());
+        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get(), IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get());
 
-        this.forgeBrick(consumer, Items.STONE_BRICKS, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get());
+        this.forgeBrick(consumer, IafItemTags.STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get());
         this.forgeCore(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), IafItemRegistry.LIGHTNING_DRAGON_HEART.get(), IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get());
-        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), Tags.Items.INGOTS_IRON, IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get());
+        this.forgeInput(consumer, IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get(), IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get());
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, IafItemRegistry.DRAGON_MEAL.get())
                 .pattern("BMB")
@@ -605,7 +605,7 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.SILVER_BOOTS.get()
         );
 
-        this.toolSet(consumer, IafItemTags.INGOTS_SILVER, Tags.Items.RODS_WOODEN,
+        this.toolSet(consumer, IafItemTags.INGOTS_SILVER,
                 IafItemRegistry.SILVER_SWORD.get(),
                 IafItemRegistry.SILVER_PICKAXE.get(),
                 IafItemRegistry.SILVER_AXE.get(),
@@ -751,8 +751,8 @@ public class IafRecipes extends RecipeProvider {
                 , locationString(packedPath + "_to_" + unpackedPath), null);
     }
 
-    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final TagKey<Item> handle, final ItemConvertible... items) {
-        this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.fromTag(handle), items);
+    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final ItemConvertible... items) {
+        this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.fromTag(Tags.Items.RODS_WOODEN), items);
     }
 
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final TagKey<Item> handle, final ItemConvertible... items) {
@@ -969,14 +969,14 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void forgeBrick(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final TagKey<Item> scales, final ItemConvertible result) {
+    private void forgeBrick(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> scales, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, result, 4)
                 .pattern("SBS")
                 .pattern("BSB")
                 .pattern("SBS")
                 .input('S', Ingredient.fromTag(scales))
-                .input('B', brick)
-                .criterion("has_item", conditionsFromItem(brick.asItem()))
+                .input('B', Items.STONE_BRICKS)
+                .criterion("has_item", conditionsFromItem(((ItemConvertible) Items.STONE_BRICKS).asItem()))
                 .offerTo(consumer);
     }
 
@@ -991,12 +991,12 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void forgeInput(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final TagKey<Item> material, final ItemConvertible result) {
+    private void forgeInput(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, result)
                 .pattern("BIB")
                 .pattern("I I")
                 .pattern("BIB")
-                .input('I', Ingredient.fromTag(material))
+                .input('I', Ingredient.fromTag(Tags.Items.INGOTS_IRON))
                 .input('B', brick)
                 .criterion("has_item", conditionsFromItem(brick.asItem()))
                 .offerTo(consumer);

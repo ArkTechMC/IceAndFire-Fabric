@@ -146,16 +146,12 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public Item getDragonSkullItem() {
-        switch (this.getDragonType()) {
-            case 0:
-                return IafItemRegistry.DRAGON_SKULL_FIRE.get();
-            case 1:
-                return IafItemRegistry.DRAGON_SKULL_ICE.get();
-            case 2:
-                return IafItemRegistry.DRAGON_SKULL_LIGHTNING.get();
-            default:
-                return IafItemRegistry.DRAGON_SKULL_FIRE.get();
-        }
+        return switch (this.getDragonType()) {
+            case 0 -> IafItemRegistry.DRAGON_SKULL_FIRE.get();
+            case 1 -> IafItemRegistry.DRAGON_SKULL_ICE.get();
+            case 2 -> IafItemRegistry.DRAGON_SKULL_LIGHTNING.get();
+            default -> IafItemRegistry.DRAGON_SKULL_FIRE.get();
+        };
     }
 
     @Override

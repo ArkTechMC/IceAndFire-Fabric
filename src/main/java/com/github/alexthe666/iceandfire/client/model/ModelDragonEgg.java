@@ -12,10 +12,10 @@ import net.minecraft.registry.tag.BlockTags;
 
 public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<T> {
 
-    public AdvancedModelBox Egg1;
-    public AdvancedModelBox Egg2;
-    public AdvancedModelBox Egg3;
-    public AdvancedModelBox Egg4;
+    public final AdvancedModelBox Egg1;
+    public final AdvancedModelBox Egg2;
+    public final AdvancedModelBox Egg3;
+    public final AdvancedModelBox Egg4;
 
     public ModelDragonEgg() {
         this.texWidth = 64;

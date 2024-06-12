@@ -27,8 +27,8 @@ public enum EnumDragonArmor {
     armor_black(15, EnumDragonEgg.BLACK);
 
     public CustomArmorMaterial material;
-    public int armorId;
-    public EnumDragonEgg eggType;
+    public final int armorId;
+    public final EnumDragonEgg eggType;
     public RegistryObject<Item> helmet;
     public RegistryObject<Item> chestplate;
     public RegistryObject<Item> leggings;

@@ -15,19 +15,13 @@ import java.util.function.Predicate;
 public class StymphalianBirdAIFlee extends Goal {
     private final Predicate<Entity> canBeSeenSelector;
     private final float avoidDistance;
-    protected EntityStymphalianBird stymphalianBird;
+    protected final EntityStymphalianBird stymphalianBird;
     protected LivingEntity closestLivingEntity;
     private Vec3d hidePlace;
 
     public StymphalianBirdAIFlee(EntityStymphalianBird stymphalianBird, float avoidDistanceIn) {
         this.stymphalianBird = stymphalianBird;
-        this.canBeSeenSelector = new Predicate<Entity>() {
-
-            @Override
-            public boolean test(Entity entity) {
-                return entity instanceof PlayerEntity && entity.isAlive() && StymphalianBirdAIFlee.this.stymphalianBird.getVisibilityCache().canSee(entity) && !StymphalianBirdAIFlee.this.stymphalianBird.isTeammate(entity);
-            }
-        };
+        this.canBeSeenSelector = entity -> entity instanceof PlayerEntity && entity.isAlive() && StymphalianBirdAIFlee.this.stymphalianBird.getVisibilityCache().canSee(entity) && !StymphalianBirdAIFlee.this.stymphalianBird.isTeammate(entity);
         this.avoidDistance = avoidDistanceIn;
         this.setControls(EnumSet.of(Control.MOVE));
     }

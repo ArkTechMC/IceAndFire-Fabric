@@ -11,8 +11,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
 public class WorldGenLightningDragonCave extends WorldGenDragonCave {
-    public static Identifier LIGHTNING_DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/lightning_dragon_female_cave");
-    public static Identifier LIGHTNING_DRAGON_CHEST_MALE = new Identifier(IceAndFire.MOD_ID, "chest/lightning_dragon_male_cave");
+    public static final Identifier LIGHTNING_DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/lightning_dragon_female_cave");
+    public static final Identifier LIGHTNING_DRAGON_CHEST_MALE = new Identifier(IceAndFire.MOD_ID, "chest/lightning_dragon_male_cave");
 
     public WorldGenLightningDragonCave(final Codec<DefaultFeatureConfig> configuration) {
         super(configuration);

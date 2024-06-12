@@ -13,25 +13,25 @@ import net.minecraft.entity.Entity;
 
 public class ModelSiren extends ModelDragonBase<EntitySiren> {
     private final ModelAnimator animator;
-    public AdvancedModelBox Tail_1;
-    public AdvancedModelBox Tail_2;
-    public AdvancedModelBox Body;
-    public AdvancedModelBox Fin1;
-    public AdvancedModelBox Tail_3;
-    public AdvancedModelBox Fin2;
-    public AdvancedModelBox FlukeL;
-    public AdvancedModelBox FlukeR;
-    public AdvancedModelBox Fin3;
-    public AdvancedModelBox Left_Arm;
-    public AdvancedModelBox Head;
-    public AdvancedModelBox Right_Arm;
-    public AdvancedModelBox Neck;
-    public AdvancedModelBox Hair1;
-    public AdvancedModelBox HairR;
-    public AdvancedModelBox HairL;
-    public AdvancedModelBox Mouth;
-    public AdvancedModelBox Jaw;
-    public AdvancedModelBox Hair2;
+    public final AdvancedModelBox Tail_1;
+    public final AdvancedModelBox Tail_2;
+    public final AdvancedModelBox Body;
+    public final AdvancedModelBox Fin1;
+    public final AdvancedModelBox Tail_3;
+    public final AdvancedModelBox Fin2;
+    public final AdvancedModelBox FlukeL;
+    public final AdvancedModelBox FlukeR;
+    public final AdvancedModelBox Fin3;
+    public final AdvancedModelBox Left_Arm;
+    public final AdvancedModelBox Head;
+    public final AdvancedModelBox Right_Arm;
+    public final AdvancedModelBox Neck;
+    public final AdvancedModelBox Hair1;
+    public final AdvancedModelBox HairR;
+    public final AdvancedModelBox HairL;
+    public final AdvancedModelBox Mouth;
+    public final AdvancedModelBox Jaw;
+    public final AdvancedModelBox Hair2;
 
     public ModelSiren() {
         this.texWidth = 128;

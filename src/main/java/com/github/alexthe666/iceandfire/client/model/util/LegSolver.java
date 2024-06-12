@@ -40,7 +40,6 @@ public class LegSolver {
         public final float forward;
         public final float side;
         private final float range;
-        private final boolean isWing;
         private float height;
         private float prevHeight;
 
@@ -48,7 +47,6 @@ public class LegSolver {
             this.forward = forward;
             this.side = side;
             this.range = range;
-            this.isWing = isWing;
         }
 
         public float getHeight(float delta) {
@@ -69,7 +67,7 @@ public class LegSolver {
             if (1 - dist < 1e-3) {
                 dist = this.getDistance(entity.getWorld(), pos.down()) + (float) y % 1;
             } else {
-                dist -= 1 - (y % 1);
+                dist -= (float) (1 - (y % 1));
             }
             if (entity.isOnGround() && height <= dist) {
                 return height == dist ? height : Math.min(height + this.getFallSpeed(), dist);

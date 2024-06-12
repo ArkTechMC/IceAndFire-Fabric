@@ -43,19 +43,14 @@ public class ItemSirenFlute extends Item {
         Vec3d Vector3d1 = player.getRotationVec(1.0F);
         Vec3d Vector3d2 = Vector3d.add(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist);
 
-        double d1 = dist;
         Entity pointedEntity = null;
-        List<Entity> list = player.getWorld().getOtherEntities(player, player.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), new Predicate<Entity>() {
-            @Override
-            public boolean test(Entity entity) {
-                boolean blindness = entity instanceof LivingEntity && ((LivingEntity) entity).hasStatusEffect(StatusEffects.BLINDNESS) || (entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entity).canBeTurnedToStone());
-                return entity != null && entity.canHit() && !blindness && (entity instanceof PlayerEntity || (entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity)));
-            }
+        List<Entity> list = player.getWorld().getOtherEntities(player, player.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), entity -> {
+            boolean blindness = entity instanceof LivingEntity && ((LivingEntity) entity).hasStatusEffect(StatusEffects.BLINDNESS) || (entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entity).canBeTurnedToStone());
+            return entity != null && entity.canHit() && !blindness && (entity instanceof PlayerEntity || (entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity)));
         });
 
-        double d2 = d1;
-        for (int j = 0; j < list.size(); ++j) {
-            Entity entity1 = list.get(j);
+        double d2 = dist;
+        for (Entity entity1 : list) {
             Box axisalignedbb = entity1.getBoundingBox().expand(entity1.getTargetingMargin());
             Optional<Vec3d> raytraceresult = axisalignedbb.raycast(Vector3d, Vector3d2);
 

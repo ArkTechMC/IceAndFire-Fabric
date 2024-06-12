@@ -22,7 +22,6 @@ import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry
 public class BlockEggInIce extends BlockWithEntity {
     public Item itemBlock;
 
-    @SuppressWarnings("deprecation")
     public BlockEggInIce() {
         super(
                 Settings

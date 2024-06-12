@@ -34,7 +34,7 @@ public class AdvancedModelBox extends BasicModelPart {
     public float offsetX;
     public float offsetY;
     public float offsetZ;
-    public String boxName;
+    public final String boxName;
     private AdvancedModelBox parent;
     private float textureWidth;
     private float textureHeight;
@@ -254,7 +254,7 @@ public class AdvancedModelBox extends BasicModelPart {
                 p_228309_1_.push();
                 this.translateAndRotate(p_228309_1_);
                 this.doRender(p_228309_1_.peek(), p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
-                ObjectListIterator var9 = this.childModels.iterator();
+                ObjectListIterator<BasicModelPart> var9 = this.childModels.iterator();
                 if (!this.scaleChildren) {
                     p_228309_1_.scale(1F / Math.max(this.scaleX, 0.0001F), 1F / Math.max(this.scaleY, 0.0001F), 1F / Math.max(this.scaleZ, 0.0001F));
                 }

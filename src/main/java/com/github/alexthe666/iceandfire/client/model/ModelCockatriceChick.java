@@ -13,27 +13,27 @@ import net.minecraft.entity.Entity;
 
 public class ModelCockatriceChick extends ModelDragonBase<EntityCockatrice> {
     private final ModelAnimator animator;
-    public AdvancedModelBox lowerBody;
-    public AdvancedModelBox leftThigh;
-    public AdvancedModelBox rightThigh;
-    public AdvancedModelBox upperBody;
-    public AdvancedModelBox tail1;
-    public AdvancedModelBox neck;
-    public AdvancedModelBox leftUpperArm;
-    public AdvancedModelBox RightUpperArm;
-    public AdvancedModelBox neck2;
-    public AdvancedModelBox head;
-    public AdvancedModelBox upperJaw;
-    public AdvancedModelBox lowerJaw;
-    public AdvancedModelBox leftUpperArmWing;
-    public AdvancedModelBox RightUpperArmWing;
-    public AdvancedModelBox tail2;
-    public AdvancedModelBox tail3;
-    public AdvancedModelBox rightToeClaw2;
-    public AdvancedModelBox leftLeg;
-    public AdvancedModelBox leftFoot;
-    public AdvancedModelBox rightLeg;
-    public AdvancedModelBox rightFoot;
+    public final AdvancedModelBox lowerBody;
+    public final AdvancedModelBox leftThigh;
+    public final AdvancedModelBox rightThigh;
+    public final AdvancedModelBox upperBody;
+    public final AdvancedModelBox tail1;
+    public final AdvancedModelBox neck;
+    public final AdvancedModelBox leftUpperArm;
+    public final AdvancedModelBox RightUpperArm;
+    public final AdvancedModelBox neck2;
+    public final AdvancedModelBox head;
+    public final AdvancedModelBox upperJaw;
+    public final AdvancedModelBox lowerJaw;
+    public final AdvancedModelBox leftUpperArmWing;
+    public final AdvancedModelBox RightUpperArmWing;
+    public final AdvancedModelBox tail2;
+    public final AdvancedModelBox tail3;
+    public final AdvancedModelBox rightToeClaw2;
+    public final AdvancedModelBox leftLeg;
+    public final AdvancedModelBox leftFoot;
+    public final AdvancedModelBox rightLeg;
+    public final AdvancedModelBox rightFoot;
 
     public ModelCockatriceChick() {
         this.texWidth = 128;

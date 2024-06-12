@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ItemSeaSerpentArmor extends ArmorItem {
 
-    public EnumSeaSerpent armor_type;
+    public final EnumSeaSerpent armor_type;
 
     public ItemSeaSerpentArmor(EnumSeaSerpent armorType, CustomArmorMaterial material, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);

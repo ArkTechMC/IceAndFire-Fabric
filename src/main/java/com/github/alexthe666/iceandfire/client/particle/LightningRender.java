@@ -105,7 +105,7 @@ public class LightningRender {
         }
     }
 
-    public class Timestamp {
+    public static class Timestamp {
 
         private final long ticks;
         private final float partial;

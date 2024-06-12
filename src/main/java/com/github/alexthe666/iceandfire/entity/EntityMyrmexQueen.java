@@ -125,7 +125,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     }
 
     public boolean hasMadeHome() {
-        return this.dataTracker.get(HASMADEHOME).booleanValue();
+        return this.dataTracker.get(HASMADEHOME);
     }
 
     public void setMadeHome(boolean madeHome) {
@@ -245,12 +245,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
         this.targetSelector.add(1, new MyrmexAIDefendHive(this));
         this.targetSelector.add(2, new RevengeGoal(this));
         this.targetSelector.add(3, new MyrmexAIAttackPlayers(this));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexQueen.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster);
-            }
-        }));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, (Predicate<LivingEntity>) entity -> entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexQueen.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster)));
 
     }
 

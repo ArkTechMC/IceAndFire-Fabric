@@ -13,12 +13,10 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class LayerGenericGlowing<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
-    private final LivingEntityRenderer render;
     private final Identifier texture;
 
     public LayerGenericGlowing(LivingEntityRenderer renderIn, Identifier texture) {
         super(renderIn);
-        this.render = renderIn;
         this.texture = texture;
     }
 

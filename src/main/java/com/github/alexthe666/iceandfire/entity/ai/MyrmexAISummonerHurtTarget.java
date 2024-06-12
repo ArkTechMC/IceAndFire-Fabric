@@ -8,7 +8,7 @@ import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import java.util.EnumSet;
 
 public class MyrmexAISummonerHurtTarget extends TrackTargetGoal {
-    EntityMyrmexSwarmer tameable;
+    final EntityMyrmexSwarmer tameable;
     LivingEntity attacker;
     private int timestamp;
 

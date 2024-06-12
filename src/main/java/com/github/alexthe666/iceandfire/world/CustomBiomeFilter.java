@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CustomBiomeFilter extends AbstractConditionalPlacementModifier {
     private static final CustomBiomeFilter INSTANCE = new CustomBiomeFilter();
-    public static Codec<CustomBiomeFilter> CODEC = Codec.unit(() -> INSTANCE);
+    public static final Codec<CustomBiomeFilter> CODEC = Codec.unit(() -> INSTANCE);
 
     private CustomBiomeFilter() { /* Nothing to do */ }
 

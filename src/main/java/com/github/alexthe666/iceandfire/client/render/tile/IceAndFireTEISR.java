@@ -20,7 +20,6 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
 
     private final RenderPixieHouse PIXIE_HOUSE_RENDERER;
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-    private final EntityModelLoader entityModelSet;
     private final TileEntityGhostChest chest = new TileEntityGhostChest(BlockPos.ORIGIN, IafBlockRegistry.GHOST_CHEST.get().getDefaultState());
     private final TileEntityDreadPortal portal = new TileEntityDreadPortal(BlockPos.ORIGIN, IafBlockRegistry.DREAD_PORTAL.get().getDefaultState());
 
@@ -31,7 +30,6 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
     public IceAndFireTEISR(BlockEntityRenderDispatcher dispatcher, EntityModelLoader modelSet) {
         super(dispatcher, modelSet);
         this.blockEntityRenderDispatcher = dispatcher;
-        this.entityModelSet = modelSet;
         this.PIXIE_HOUSE_RENDERER = new RenderPixieHouse(null);
     }
 

@@ -67,7 +67,7 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
         float sqrt = MathHelper.sqrt((float) (this.getVelocity().x * this.getVelocity().x + this.getVelocity().z * this.getVelocity().z));
         boolean flag = true;
         Entity shootingEntity = this.getOwner();
-        if (shootingEntity != null && shootingEntity instanceof MobEntity && ((MobEntity) shootingEntity).getTarget() != null) {
+        if (shootingEntity instanceof MobEntity && ((MobEntity) shootingEntity).getTarget() != null) {
             LivingEntity target = ((MobEntity) shootingEntity).getTarget();
             double minusX = target.getX() - this.getX();
             double minusY = target.getY() - this.getY();

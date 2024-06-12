@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,7 @@ public class RenderGorgonHead extends BuiltinModelItemRenderer {
     private static final RenderLayer ACTIVE_TEXTURE = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/head_active.png"), false);
     private static final RenderLayer INACTIVE_TEXTURE = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/head_inactive.png"), false);
     private static final AdvancedEntityModel ACTIVE_MODEL = new ModelGorgonHeadActive();
-    private static final AdvancedEntityModel INACTIVE_MODEL = new ModelGorgonHead();
+    private static final AdvancedEntityModel<Entity> INACTIVE_MODEL = new ModelGorgonHead();
 
     public RenderGorgonHead(BlockEntityRenderDispatcher dispatcher, EntityModelLoader set) {
         super(dispatcher, set);

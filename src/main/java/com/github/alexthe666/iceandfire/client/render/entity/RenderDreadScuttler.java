@@ -17,7 +17,7 @@ public class RenderDreadScuttler extends MobEntityRenderer<EntityDreadScuttler, 
 
     public RenderDreadScuttler(EntityRendererFactory.Context context) {
         super(context, new ModelDreadScuttler(), 0.75F);
-        this.addFeature(new LayerGenericGlowing(this, TEXTURE_EYES));
+        this.addFeature(new LayerGenericGlowing<>(this, TEXTURE_EYES));
     }
 
     @Override

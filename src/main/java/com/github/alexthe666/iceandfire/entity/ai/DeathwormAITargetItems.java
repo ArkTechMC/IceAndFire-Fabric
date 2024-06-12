@@ -39,13 +39,8 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
         this.worm = creature;
         this.targetChance = chance;
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(creature);
-        this.targetEntitySelector = new Predicate<ItemEntity>() {
-            @Override
-            public boolean test(ItemEntity item) {
-                return item != null && !item.getStack().isEmpty() && item.getStack().getItem() == Blocks.TNT.asItem() &&
-                        item.getWorld().getBlockState(item.getBlockPos().down()).isIn(BlockTags.SAND);
-            }
-        };
+        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && item.getStack().getItem() == Blocks.TNT.asItem() &&
+                item.getWorld().getBlockState(item.getBlockPos().down()).isIn(BlockTags.SAND);
         this.setControls(EnumSet.of(Control.TARGET));
 
     }

@@ -48,8 +48,8 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadLich.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MINION_COUNT = DataTracker.registerData(EntityDreadLich.class, TrackedDataHandlerRegistry.INTEGER);
-    public static Animation ANIMATION_SPAWN = Animation.create(40);
-    public static Animation ANIMATION_SUMMON = Animation.create(15);
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_SUMMON = Animation.create(15);
     private final DreadLichAIStrife aiArrowAttack = new DreadLichAIStrife(this, 1.0D, 20, 15.0F);
     private final MeleeAttackGoal aiAttackOnCollide = new MeleeAttackGoal(this, 1.0D, false);
     private int animationTick;
@@ -87,18 +87,8 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
-            }
-        }));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 
     @Override
@@ -182,7 +172,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     public int getVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -190,7 +180,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     public int getMinionCount() {
-        return this.dataTracker.get(MINION_COUNT).intValue();
+        return this.dataTracker.get(MINION_COUNT);
     }
 
     public void setMinionCount(int minions) {
@@ -214,11 +204,6 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 
@@ -310,8 +295,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         while (this.getWorld().isAir(thisPos) && thisPos.getY() > 2) {
             thisPos = thisPos.down();
         }
-        double height = thisPos.getY() + 1.0D;
-        return height;
+        return thisPos.getY() + 1.0D;
     }
 
     @Override

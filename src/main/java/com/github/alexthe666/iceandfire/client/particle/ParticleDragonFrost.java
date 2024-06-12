@@ -23,7 +23,6 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
     private final double initialX;
     private final double initialY;
     private final double initialZ;
-    private final int touchedTime = 0;
     private final float speedBonus;
     private final boolean big;
     private double targetX;
@@ -147,7 +146,8 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
             this.velocityX += d2 * speed;
             this.velocityY += d3 * speed;
             this.velocityZ += d4 * speed;
-            if (this.touchedTime > 3) {
+            int touchedTime = 0;
+            if (touchedTime > 3) {
                 this.markDead();
             }
         }

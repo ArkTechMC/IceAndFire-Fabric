@@ -46,9 +46,7 @@ public class ArrayLayeredTexture extends AbstractTexture {
                 }
 
                 if (!RenderSystem.isOnRenderThreadOrInit()) {
-                    RenderSystem.recordRenderCall(() -> {
-                        this.loadImage(nativeimage);
-                    });
+                    RenderSystem.recordRenderCall(() -> this.loadImage(nativeimage));
                 } else {
                     this.loadImage(nativeimage);
                 }

@@ -14,19 +14,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 
 public class ModelDeathWormGauntlet extends ModelDragonBase {
-    public AdvancedModelBox Head;
-    public AdvancedModelBox JawExtender;
-    public AdvancedModelBox HeadInner;
-    public AdvancedModelBox ToothB;
-    public AdvancedModelBox ToothT;
-    public AdvancedModelBox ToothL;
-    public AdvancedModelBox ToothL_1;
-    public AdvancedModelBox JawExtender2;
-    public AdvancedModelBox JawExtender3;
-    public AdvancedModelBox JawExtender4;
-    public AdvancedModelBox TopJaw;
-    public AdvancedModelBox BottomJaw;
-    public AdvancedModelBox JawHook;
+    public final AdvancedModelBox Head;
+    public final AdvancedModelBox JawExtender;
+    public final AdvancedModelBox HeadInner;
+    public final AdvancedModelBox ToothB;
+    public final AdvancedModelBox ToothT;
+    public final AdvancedModelBox ToothL;
+    public final AdvancedModelBox ToothL_1;
+    public final AdvancedModelBox JawExtender2;
+    public final AdvancedModelBox JawExtender3;
+    public final AdvancedModelBox JawExtender4;
+    public final AdvancedModelBox TopJaw;
+    public final AdvancedModelBox BottomJaw;
+    public final AdvancedModelBox JawHook;
 
     public ModelDeathWormGauntlet() {
         this.texWidth = 128;

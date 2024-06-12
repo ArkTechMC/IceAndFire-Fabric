@@ -80,7 +80,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
 
 
     public boolean isJungle() {
-        return this.getDataTracker().get(MYRMEX_TYPE).booleanValue();
+        return this.getDataTracker().get(MYRMEX_TYPE);
     }
 
     public void setJungle(boolean jungle) {
@@ -88,7 +88,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     public int getMyrmexAge() {
-        return this.getDataTracker().get(MYRMEX_AGE).intValue();
+        return this.getDataTracker().get(MYRMEX_AGE);
     }
 
     public void setMyrmexAge(int i) {
@@ -96,7 +96,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     public int getMyrmexCaste() {
-        return this.getDataTracker().get(MYRMEX_CASTE).intValue();
+        return this.getDataTracker().get(MYRMEX_CASTE);
     }
 
     public void setMyrmexCaste(int i) {
@@ -115,24 +115,13 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         }
         if (this.getMyrmexAge() > IafConfig.myrmexEggTicks) {
             this.remove(RemovalReason.DISCARDED);
-            EntityMyrmexBase myrmex;
-            switch (this.getMyrmexCaste()) {
-                default:
-                    myrmex = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(), this.getWorld());
-                    break;
-                case 1:
-                    myrmex = new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(), this.getWorld());
-                    break;
-                case 2:
-                    myrmex = new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL.get(), this.getWorld());
-                    break;
-                case 3:
-                    myrmex = new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(), this.getWorld());
-                    break;
-                case 4:
-                    myrmex = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(), this.getWorld());
-                    break;
-            }
+            EntityMyrmexBase myrmex = switch (this.getMyrmexCaste()) {
+                default -> new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(), this.getWorld());
+                case 1 -> new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(), this.getWorld());
+                case 2 -> new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL.get(), this.getWorld());
+                case 3 -> new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(), this.getWorld());
+                case 4 -> new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(), this.getWorld());
+            };
             myrmex.setJungleVariant(this.isJungle());
             myrmex.setGrowthStage(0);
             myrmex.updatePositionAndAngles(this.getX(), this.getY(), this.getZ(), 0, 0);

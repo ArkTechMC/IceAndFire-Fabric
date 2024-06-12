@@ -336,7 +336,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public int getGrowthStage() {
-        return this.dataTracker.get(GROWTH_STAGE).intValue();
+        return this.dataTracker.get(GROWTH_STAGE);
     }
 
     public void setGrowthStage(int stage) {
@@ -352,7 +352,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public boolean isJungle() {
-        return this.dataTracker.get(VARIANT).booleanValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setJungleVariant(boolean isJungle) {
@@ -365,11 +365,11 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public boolean isBesideClimbableBlock() {
-        return (this.dataTracker.get(CLIMBING).byteValue() & 1) != 0;
+        return (this.dataTracker.get(CLIMBING) & 1) != 0;
     }
 
     public void setBesideClimbableBlock(boolean climbing) {
-        byte b0 = this.dataTracker.get(CLIMBING).byteValue();
+        byte b0 = this.dataTracker.get(CLIMBING);
 
         if (climbing) {
             b0 = (byte) (b0 | 1);
@@ -809,10 +809,10 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         return ItemStack.EMPTY;
     }
 
-    protected void addTrades(TradeOfferList givenMerchantOffers, TradeOffers.Factory[] newTrades, int maxNumbers) {
+    protected void addTrades(TradeOfferList givenMerchantOffers, TradeOffers.Factory[] newTrades) {
         Set<Integer> set = Sets.newHashSet();
-        if (newTrades.length > maxNumbers) {
-            while (set.size() < maxNumbers) {
+        if (newTrades.length > 5) {
+            while (set.size() < 5) {
                 set.add(this.random.nextInt(newTrades.length));
             }
         } else {
@@ -844,7 +844,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         TradeOffers.Factory[] level2 = this.getLevel2Trades();
         if (level1 != null && level2 != null) {
             TradeOfferList merchantoffers = this.getOffers();
-            this.addTrades(merchantoffers, level1, 5);
+            this.addTrades(merchantoffers, level1);
             int i = this.random.nextInt(level2.length);
             int j = this.random.nextInt(level2.length);
             int k = this.random.nextInt(level2.length);

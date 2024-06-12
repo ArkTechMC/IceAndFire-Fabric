@@ -128,7 +128,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
 
     public boolean isFlying() {
         if (this.getWorld().isClient) {
-            return this.isFlying = this.dataTracker.get(FLYING).booleanValue();
+            return this.isFlying = this.dataTracker.get(FLYING);
         }
         return this.isFlying;
     }
@@ -258,17 +258,14 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new MyrmexAIDefendHive(this));
-        this.targetSelector.add(2, new MyrmexAIFindMate(this));
+        this.targetSelector.add(2, new MyrmexAIFindMate<>(this));
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new MyrmexAIAttackPlayers(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                if (entity instanceof EntityMyrmexBase && EntityMyrmexRoyal.this.isBreedingSeason() || entity instanceof EntityMyrmexRoyal) {
-                    return false;
-                }
-                return entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexRoyal.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster);
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, (Predicate<LivingEntity>) entity -> {
+            if (entity instanceof EntityMyrmexBase && EntityMyrmexRoyal.this.isBreedingSeason() || entity instanceof EntityMyrmexRoyal) {
+                return false;
             }
+            return entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexRoyal.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster);
         }));
 
     }

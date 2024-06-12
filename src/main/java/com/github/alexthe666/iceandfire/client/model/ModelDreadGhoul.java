@@ -7,9 +7,9 @@ import com.github.alexthe666.iceandfire.entity.EntityDreadGhoul;
 
 public class ModelDreadGhoul extends ModelBipedBase<EntityDreadGhoul> {
 
-    public AdvancedModelBox head2;
-    public AdvancedModelBox clawsRight;
-    public AdvancedModelBox clawsLeft;
+    public final AdvancedModelBox head2;
+    public final AdvancedModelBox clawsRight;
+    public final AdvancedModelBox clawsLeft;
 
     public ModelDreadGhoul(float modelScale) {
         super();

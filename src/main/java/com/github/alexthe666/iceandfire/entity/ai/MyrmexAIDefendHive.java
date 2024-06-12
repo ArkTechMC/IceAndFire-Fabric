@@ -9,7 +9,7 @@ import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import java.util.EnumSet;
 
 public class MyrmexAIDefendHive extends TrackTargetGoal {
-    EntityMyrmexBase myrmex;
+    final EntityMyrmexBase myrmex;
     LivingEntity villageAgressorTarget;
 
     public MyrmexAIDefendHive(EntityMyrmexBase myrmex) {

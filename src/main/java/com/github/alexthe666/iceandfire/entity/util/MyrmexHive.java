@@ -114,9 +114,9 @@ public class MyrmexHive {
             ServerWorld serverWorld = this.world.getServer().getWorld(this.world.getRegistryKey());
             List<? extends EntityMyrmexQueen> allQueens = serverWorld.getEntitiesByType(IafEntityRegistry.MYRMEX_QUEEN.get(),
                     EntityPredicates.EXCEPT_SPECTATOR);
-            for (Entity queen : allQueens) {
-                if (queen instanceof EntityMyrmexQueen && ((EntityMyrmexQueen) queen).getHive().equals(this)) {
-                    ourQueens.add(((EntityMyrmexQueen) queen));
+            for (EntityMyrmexQueen queen : allQueens) {
+                if (queen instanceof EntityMyrmexQueen && queen.getHive().equals(this)) {
+                    ourQueens.add(queen);
                 }
             }
         }
@@ -171,8 +171,7 @@ public class MyrmexHive {
         double d0 = Double.MAX_VALUE;
         int previousAgressionLevel = 0;
         HiveAggressor hive$villageaggressor = null;
-        for (int i = 0; i < this.villageAgressors.size(); ++i) {
-            HiveAggressor hive$villageaggressor1 = this.villageAgressors.get(i);
+        for (HiveAggressor hive$villageaggressor1 : this.villageAgressors) {
             double d1 = hive$villageaggressor1.agressor.squaredDistanceTo(LivingEntityIn);
             int agressionLevel = hive$villageaggressor1.agressionLevel;
 
@@ -209,20 +208,13 @@ public class MyrmexHive {
     }
 
     private void removeDeadAndOldAgressors() {
-        Iterator<HiveAggressor> iterator = this.villageAgressors.iterator();
 
-        while (iterator.hasNext()) {
-            HiveAggressor hive$villageaggressor = iterator.next();
-
-            if (!hive$villageaggressor.agressor.isAlive() || Math.abs(this.tickCounter - hive$villageaggressor.agressionTime) > 300) {
-                iterator.remove();
-            }
-        }
+        this.villageAgressors.removeIf(hive$villageaggressor -> !hive$villageaggressor.agressor.isAlive() || Math.abs(this.tickCounter - hive$villageaggressor.agressionTime) > 300);
     }
 
     public int getPlayerReputation(UUID playerName) {
         Integer integer = this.playerReputation.get(playerName);
-        return integer == null ? 0 : integer.intValue();
+        return integer == null ? 0 : integer;
     }
 
     private UUID findUUID(String name) {
@@ -232,7 +224,7 @@ public class MyrmexHive {
         return profile.isPresent() ? Uuids.getUuidFromProfile(profile.get()) : Uuids.getOfflinePlayerUuid(name);
     }
 
-    public int modifyPlayerReputation(UUID playerName, int reputation) {
+    public void modifyPlayerReputation(UUID playerName, int reputation) {
         int i = this.getPlayerReputation(playerName);
         int j = MathHelper.clamp(i + reputation, 0, 100);
         if (this.hasOwner && playerName.equals(this.ownerUUID)) {
@@ -269,7 +261,6 @@ public class MyrmexHive {
         }
 
         this.playerReputation.put(playerName, j);
-        return j;
     }
 
     public boolean isPlayerReputationTooLowToTrade(UUID uuid) {
@@ -442,10 +433,10 @@ public class MyrmexHive {
             try {
                 {
                     CompoundNBT1.putUuid("UUID", s);
-                    CompoundNBT1.putInt("S", this.playerReputation.get(s).intValue());
+                    CompoundNBT1.putInt("S", this.playerReputation.get(s));
                     nbttaglist1.add(CompoundNBT1);
                 }
-            } catch (RuntimeException var9) {
+            } catch (RuntimeException ignored) {
             }
         }
 
@@ -626,9 +617,9 @@ public class MyrmexHive {
     }
 
     static class HiveAggressor {
-        public LivingEntity agressor;
+        public final LivingEntity agressor;
         public int agressionTime;
-        public int agressionLevel;
+        public final int agressionLevel;
 
         HiveAggressor(LivingEntity agressorIn, int agressionTimeIn, int agressionLevel) {
             this.agressor = agressorIn;

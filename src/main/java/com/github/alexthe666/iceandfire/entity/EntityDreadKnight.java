@@ -48,7 +48,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
 
     public static final ItemStack SHIELD = generateShield();
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadKnight.class, TrackedDataHandlerRegistry.INTEGER);
-    public static Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
     private int animationTick;
     private Animation currentAnimation;
 
@@ -90,18 +90,8 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
-            }
-        }));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 
     @Override
@@ -177,7 +167,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     }
 
     public int getArmorVariant() {
-        return this.dataTracker.get(VARIANT).intValue();
+        return this.dataTracker.get(VARIANT);
     }
 
     public void setArmorVariant(int variant) {
@@ -191,11 +181,6 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 

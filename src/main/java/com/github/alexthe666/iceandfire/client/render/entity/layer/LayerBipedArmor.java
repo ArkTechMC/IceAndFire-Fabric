@@ -53,7 +53,7 @@ public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity,
                 this.getContextModel().setModelAttributes(modelIn);
                 this.setModelSlotVisible(modelIn, slotType);
                 boolean flag1 = itemstack.hasGlint();
-                this.renderArmorItem(matrixStackIn, bufferIn, packedLightIn, flag1, modelIn, 1.0F, 1.0F, 1.0F, this.getArmorResource(entityIn, itemstack, slotType, null));
+                this.renderArmorItem(matrixStackIn, bufferIn, packedLightIn, flag1, modelIn, this.getArmorResource(entityIn, itemstack, slotType, null));
             }
         }
     }
@@ -81,9 +81,9 @@ public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity,
         }
     }
 
-    private void renderArmorItem(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, boolean p_241738_5_, A modelIn, float red, float green, float blue, Identifier armorResource) {
+    private void renderArmorItem(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, boolean p_241738_5_, A modelIn, Identifier armorResource) {
         VertexConsumer ivertexbuilder = ItemRenderer.getArmorGlintConsumer(bufferIn, RenderLayer.getArmorCutoutNoCull(armorResource), false, p_241738_5_);
-        modelIn.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, red, green, blue, 1.0F);
+        modelIn.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, (float) 1.0, (float) 1.0, (float) 1.0, 1.0F);
     }
 
     private A getSlotModel(EquipmentSlot equipmentSlotType) {

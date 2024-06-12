@@ -14,7 +14,7 @@ public class LayerBipedArmorMultiple<R extends MobEntityRenderer & IHasArmorVari
         M extends ModelBipedBase<T>,
         A extends ModelBipedBase<T>> extends LayerBipedArmor<T, M, A> {
 
-    R mobRenderer;
+    final R mobRenderer;
 
     public LayerBipedArmorMultiple(R mobRenderer, A modelLeggings, A modelArmor,
                                    Identifier defaultArmor, Identifier defaultLegArmor) {

@@ -67,16 +67,6 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         }
     }
 
-    @Override
-    public void rotate(ModelAnimator animator, AdvancedModelBox model, float x, float y, float z) {
-        animator.rotate(model, (float) Math.toRadians(x), (float) Math.toRadians(y), (float) Math.toRadians(z));
-    }
-
-    @Override
-    public void rotateMinus(ModelAnimator animator, AdvancedModelBox model, float x, float y, float z) {
-        animator.rotate(model, (float) Math.toRadians(x) - model.defaultRotationX, (float) Math.toRadians(y) - model.defaultRotationY, (float) Math.toRadians(z) - model.defaultRotationZ);
-    }
-
     public void progressRotationInterp(AdvancedModelBox model, float progress, float rotX, float rotY, float rotZ, float max) {
         model.rotateAngleX += progress * (rotX - model.defaultRotationX) / max;
         model.rotateAngleY += progress * (rotY - model.defaultRotationY) / max;
@@ -113,27 +103,18 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         model.rotationPointZ += progress * z / 20.0F;
     }
 
-    @Override
-    public void setRotateAngle(AdvancedModelBox modelRenderer, float x, float y, float z) {
-        modelRenderer.rotateAngleX = x;
-        modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;
-    }
-
-    public <T extends BasicModelPart> T copyFrom(T modelIn, T currentModel) {
+    public <T extends BasicModelPart> void copyFrom(T modelIn, T currentModel) {
         modelIn.copyModelAngles(currentModel);
         modelIn.rotationPointX = currentModel.rotationPointX;
         modelIn.rotationPointY = currentModel.rotationPointY;
         modelIn.rotationPointZ = currentModel.rotationPointZ;
-        return modelIn;
     }
 
-    public <M extends ModelPart, T extends BasicModelPart> M copyFrom(M modelIn, T currentModel) {
+    public <M extends ModelPart, T extends BasicModelPart> void copyFrom(M modelIn, T currentModel) {
         modelIn.setAngles(currentModel.rotateAngleX, currentModel.rotateAngleY, currentModel.rotateAngleZ);
         modelIn.pivotX = currentModel.rotationPointX;
         modelIn.pivotY = currentModel.rotationPointY;
         modelIn.pivotZ = currentModel.rotationPointZ;
-        return modelIn;
     }
 
     public void setModelAttributes(ModelBipedBase<T> modelIn) {
@@ -191,8 +172,8 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         this.legLeft.rotateAngleZ = 0.0F;
 
         if (entityIn.hasVehicle()) {
-            this.armRight.rotateAngleX += -((float) Math.PI / 5F);
-            this.armLeft.rotateAngleX += -((float) Math.PI / 5F);
+            this.armRight.rotateAngleX -= ((float) Math.PI / 5F);
+            this.armLeft.rotateAngleX -= ((float) Math.PI / 5F);
             this.legRight.rotateAngleX = -1.4137167F;
             this.legRight.rotateAngleY = ((float) Math.PI / 10F);
             this.legRight.rotateAngleZ = 0.07853982F;

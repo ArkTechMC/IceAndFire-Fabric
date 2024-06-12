@@ -19,8 +19,6 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implements TypedFeature {
 
-    private final int MAX_ISLAND_RADIUS = 10;
-
     public WorldGenSirenIsland(final Codec<DefaultFeatureConfig> configuration) {
         super(configuration);
     }
@@ -72,7 +70,8 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
     }
 
     private int getRadius(int layer, int up) {
-        return layer > up ? (int) (layer * 0.25) + up : Math.min(layer, this.MAX_ISLAND_RADIUS);
+        int MAX_ISLAND_RADIUS = 10;
+        return layer > up ? (int) (layer * 0.25) + up : Math.min(layer, MAX_ISLAND_RADIUS);
     }
 
     private BlockState getStone(Random random) {

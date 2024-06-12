@@ -27,8 +27,8 @@ public enum EnumSeaSerpent {
     RED(Formatting.DARK_RED),
     TEAL(Formatting.AQUA);
 
-    public String resourceName;
-    public Formatting color;
+    public final String resourceName;
+    public final Formatting color;
     public CustomArmorMaterial armorMaterial;
     public RegistryObject<Item> scale;
     public RegistryObject<Item> helmet;

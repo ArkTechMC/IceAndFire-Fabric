@@ -14,11 +14,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class LayerTrollEyes extends FeatureRenderer<EntityTroll, ModelTroll> {
 
-    private final RenderTroll renderer;
-
     public LayerTrollEyes(RenderTroll renderer) {
         super(renderer);
-        this.renderer = renderer;
     }
 
     @Override

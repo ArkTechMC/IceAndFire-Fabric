@@ -28,7 +28,7 @@ import java.util.UUID;
 
 public class ClientProxy extends CommonProxy {
 
-    public static Set<UUID> currentDragonRiders = new HashSet<UUID>();
+    public static final Set<UUID> currentDragonRiders = new HashSet<>();
     private static MyrmexHive referedClientHive = null;
     private int previousViewType = 0;
     private int thirdPersonViewDragon = 0;
@@ -42,15 +42,6 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void setReferencedHive(MyrmexHive hive) {
         referedClientHive = hive;
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public void postInit() {
-
     }
 
     @Environment(EnvType.CLIENT)

@@ -58,7 +58,6 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
             if (this.stacks.get(index).getCount() <= count) {
                 itemstack = this.stacks.get(index);
                 this.stacks.set(index, ItemStack.EMPTY);
-                return itemstack;
             } else {
                 itemstack = this.stacks.get(index).split(count);
 
@@ -66,8 +65,8 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
                     this.stacks.set(index, ItemStack.EMPTY);
                 }
 
-                return itemstack;
             }
+            return itemstack;
         } else {
             return ItemStack.EMPTY;
         }

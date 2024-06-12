@@ -24,7 +24,7 @@ public class ItemGenericFood extends Item {
         this.saturation = saturation;
     }
 
-    public static final FoodComponent createFood(int amount, float saturation, boolean isWolfFood, boolean eatFast, boolean alwaysEdible, StatusEffectInstance potion) {
+    public static FoodComponent createFood(int amount, float saturation, boolean isWolfFood, boolean eatFast, boolean alwaysEdible, StatusEffectInstance potion) {
         FoodComponent.Builder builder = new FoodComponent.Builder();
         builder.hunger(amount);
         builder.saturationModifier(saturation);

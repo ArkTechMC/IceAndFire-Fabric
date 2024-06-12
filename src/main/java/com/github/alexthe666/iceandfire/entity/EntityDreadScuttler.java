@@ -42,8 +42,8 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     private static final TrackedData<Byte> CLIMBING = DataTracker.registerData(EntityDreadScuttler.class, TrackedDataHandlerRegistry.BYTE);
     private static final float INITIAL_WIDTH = 1.5F;
     private static final float INITIAL_HEIGHT = 1.3F;
-    public static Animation ANIMATION_SPAWN = Animation.create(40);
-    public static Animation ANIMATION_BITE = Animation.create(15);
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_BITE = Animation.create(15);
     private int animationTick;
     private Animation currentAnimation;
     private float firstWidth = -1.0F;
@@ -75,33 +75,23 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
-            }
-        }));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(CLIMBING, Byte.valueOf((byte) 0));
-        this.dataTracker.startTracking(SCALE, Float.valueOf(1F));
+        this.dataTracker.startTracking(CLIMBING, (byte) 0);
+        this.dataTracker.startTracking(SCALE, 1F);
     }
 
     public float getSize() {
-        return Float.valueOf(this.dataTracker.get(SCALE).floatValue());
+        return (float) this.dataTracker.get(SCALE);
     }
 
     public void setSize(float scale) {
-        this.dataTracker.set(SCALE, Float.valueOf(scale));
+        this.dataTracker.set(SCALE, scale);
     }
 
     @Override
@@ -177,11 +167,11 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     public boolean isBesideClimbableBlock() {
-        return (this.dataTracker.get(CLIMBING).byteValue() & 1) != 0;
+        return (this.dataTracker.get(CLIMBING) & 1) != 0;
     }
 
     public void setBesideClimbableBlock(boolean climbing) {
-        byte b0 = this.dataTracker.get(CLIMBING).byteValue();
+        byte b0 = this.dataTracker.get(CLIMBING);
 
         if (climbing) {
             b0 = (byte) (b0 | 1);
@@ -189,7 +179,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
             b0 = (byte) (b0 & -2);
         }
 
-        this.dataTracker.set(CLIMBING, Byte.valueOf(b0));
+        this.dataTracker.set(CLIMBING, b0);
     }
 
     @Override
@@ -227,11 +217,6 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 

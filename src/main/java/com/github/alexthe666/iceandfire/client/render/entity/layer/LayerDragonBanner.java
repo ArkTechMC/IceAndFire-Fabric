@@ -34,7 +34,7 @@ public class LayerDragonBanner extends FeatureRenderer<EntityDragonBase, Advance
             float f = (entity.getRenderSize() / 3F);
             float f2 = 1F / f;
             matrixStackIn.push();
-            this.postRender(StreamSupport.stream(this.renderer.getModel().getAllParts().spliterator(), false).filter(cube -> cube.boxName.equals("BodyUpper")).findFirst().get(), matrixStackIn, 0.0625F);
+            this.postRender(StreamSupport.stream(this.renderer.getModel().getAllParts().spliterator(), false).filter(cube -> cube.boxName.equals("BodyUpper")).findFirst().get(), matrixStackIn);
             matrixStackIn.translate(0, -0.2F, 0.4F);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
             matrixStackIn.push();
@@ -46,13 +46,13 @@ public class LayerDragonBanner extends FeatureRenderer<EntityDragonBase, Advance
         matrixStackIn.pop();
     }
 
-    protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn, float scale) {
+    protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn) {
         if (renderer.rotateAngleX == 0.0F && renderer.rotateAngleY == 0.0F && renderer.rotateAngleZ == 0.0F) {
             if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.offsetZ != 0.0F) {
-                matrixStackIn.translate(renderer.rotationPointX * scale, renderer.rotationPointY * scale, renderer.rotationPointZ * scale);
+                matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
             }
         } else {
-            matrixStackIn.translate(renderer.rotationPointX * scale, renderer.rotationPointY * scale, renderer.rotationPointZ * scale);
+            matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
             if (renderer.rotateAngleZ != 0.0F) {
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(renderer.rotateAngleZ));
             }

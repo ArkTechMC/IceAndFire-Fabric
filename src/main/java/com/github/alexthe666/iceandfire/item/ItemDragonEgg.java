@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class ItemDragonEgg extends Item {
-    public EnumDragonEgg type;
+    public final EnumDragonEgg type;
 
     public ItemDragonEgg(EnumDragonEgg type) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));

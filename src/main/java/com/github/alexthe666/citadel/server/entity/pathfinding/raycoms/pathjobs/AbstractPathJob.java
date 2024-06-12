@@ -92,7 +92,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
     /**
      * The entity this job belongs to.
      */
-    protected WeakReference<LivingEntity> entity;
+    protected final WeakReference<LivingEntity> entity;
     IPassabilityNavigator passabilityNavigator;
     //  May be faster, but can produce strange results
     private boolean allowJumpPointSearchTypeWalk;
@@ -467,17 +467,15 @@ public abstract class AbstractPathJob implements Callable<Path> {
      *
      * @param dPos       The delta from the parent to the new space; assumes dx,dy,dz in range of [-1..1].
      * @param isSwimming true is the current MNode would require the citizen to swim.
-     * @param onPath     checks if the MNode is on a path.
      * @param onRails    checks if the MNode is a rail block.
      * @param railsExit  the exit of the rails.
-     * @param blockPos   the position.
      * @param swimStart  if its the swim start.
+     * @param blockPos   the position.
      * @return cost to move from the parent to the new position.
      */
     protected double computeCost(
             final BlockPos dPos,
             final boolean isSwimming,
-            final boolean onPath,
             final boolean onRails,
             final boolean railsExit,
             final boolean swimStart,
@@ -498,7 +496,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
             cost *= this.pathingOptions.traverseToggleAbleCost;
         }
 
-        if (onPath) {
+        if (false) {
             cost *= this.pathingOptions.onPathCost;
         }
 
@@ -867,16 +865,15 @@ public abstract class AbstractPathJob implements Callable<Path> {
      *
      * @param parent MNode being walked from.
      * @param dPos   Delta from parent, expected in range of [-1..1].
-     * @return true if a MNode was added or updated when attempting to move in the given direction.
      */
-    protected final boolean walk(final MNode parent, BlockPos dPos) {
+    protected final void walk(final MNode parent, BlockPos dPos) {
         BlockPos pos = parent.pos.add(dPos);
 
         //  Can we traverse into this node?  Fix the y up
         final int newY = this.getGroundHeight(parent, pos);
 
         if (newY < this.world.getBottomY()) {
-            return false;
+            return;
         }
 
         boolean corner = false;
@@ -905,13 +902,13 @@ public abstract class AbstractPathJob implements Callable<Path> {
         MNode node = this.nodesVisited.get(nodeKey);
         if (nodeClosed(node)) {
             //  Early out on closed nodes (closed = expanded from)
-            return false;
+            return;
         }
 
         final boolean isSwimming = calculateSwimming(this.world, pos, node);
 
         if (isSwimming && !this.pathingOptions.canSwim()) {
-            return false;
+            return;
         }
 
         final boolean swimStart = isSwimming && !parent.isSwimming();
@@ -920,7 +917,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
         final boolean onRails = this.pathingOptions.canUseRails() && this.world.getBlockState(corner ? pos.down() : pos).getBlock() instanceof AbstractRailBlock;
         final boolean railsExit = !onRails && parent != null && parent.isOnRails();
         //  Cost may have changed due to a jump up or drop
-        final double stepCost = this.computeCost(dPos, isSwimming, onRoad, onRails, railsExit, swimStart, corner, state, pos);
+        final double stepCost = this.computeCost(dPos, isSwimming, onRails, railsExit, swimStart, corner, state, pos);
         final double heuristic = this.computeHeuristic(pos);
         final double cost = parent.getCost() + stepCost;
         final double score = cost + heuristic;
@@ -930,7 +927,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
             node.setOnRails(onRails);
             node.setCornerNode(corner);
         } else if (this.updateCurrentNode(parent, node, heuristic, cost, score)) {
-            return false;
+            return;
         }
 
         this.nodesOpen.offer(node);
@@ -938,14 +935,13 @@ public abstract class AbstractPathJob implements Callable<Path> {
         //If we climbed something skip jumpPointSearch
         //This is a workaround so that the path generated doesn't go through blocks
         if (this.pathingOptions.canClimb() && dPos.getY() > 1)
-            return true;
+            return;
 
         //  Jump Point Search-ish optimization:
         // If this MNode was a (heuristic-based) improvement on our parent,
         // lets go another step in the same direction...
         this.performJumpPointSearch(parent, dPos, node);
 
-        return true;
     }
 
     private void performJumpPointSearch(final MNode parent, final BlockPos dPos, final MNode node) {
@@ -1108,7 +1104,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
         if (!this.isPassable(pos.up(2), false, parent)) {
             final VoxelShape bb1 = this.world.getBlockState(pos).getSidesShape(this.world, pos);
             final VoxelShape bb2 = this.world.getBlockState(pos.up(2)).getSidesShape(this.world, pos.up(2));
-            if ((pos.up(2).getY() + this.getStartY(bb2, 1)) - (pos.getY() + this.getEndY(bb1, 0)) < 2) {
+            if ((pos.up(2).getY() + this.getStartY(bb2)) - (pos.getY() + this.getEndY(bb1)) < 2) {
                 return -1;
             }
         }
@@ -1117,7 +1113,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
         if (!this.isPassable(parent.pos.up(2), false, parent)) {
             final VoxelShape bb1 = this.world.getBlockState(pos).getSidesShape(this.world, pos);
             final VoxelShape bb2 = this.world.getBlockState(parent.pos.up(2)).getSidesShape(this.world, parent.pos.up(2));
-            if ((parent.pos.up(2).getY() + this.getStartY(bb2, 1)) - (pos.getY() + this.getEndY(bb1, 0)) < 2) {
+            if ((parent.pos.up(2).getY() + this.getStartY(bb2)) - (pos.getY() + this.getEndY(bb1)) < 2) {
                 return -1;
             }
         }
@@ -1206,12 +1202,12 @@ public abstract class AbstractPathJob implements Callable<Path> {
         if (parent == null || !this.isPassableBB(parent.pos, pos.up(), parent)) {
             final VoxelShape bb1 = this.world.getBlockState(pos.down()).getSidesShape(this.world, pos.down());
             final VoxelShape bb2 = this.world.getBlockState(pos.up()).getSidesShape(this.world, pos.up());
-            if ((pos.up().getY() + this.getStartY(bb2, 1)) - (pos.down().getY() + this.getEndY(bb1, 0)) < 2) {
+            if ((pos.up().getY() + this.getStartY(bb2)) - (pos.down().getY() + this.getEndY(bb1)) < 2) {
                 return true;
             }
             if (parent != null) {
                 final VoxelShape bb3 = this.world.getBlockState(parent.pos.down()).getSidesShape(this.world, pos.down());
-                if ((pos.up().getY() + this.getStartY(bb2, 1)) - (parent.pos.down().getY() + this.getEndY(bb3, 0)) < 1.75) {
+                if ((pos.up().getY() + this.getStartY(bb2)) - (parent.pos.down().getY() + this.getEndY(bb3)) < 1.75) {
                     return true;
                 }
             }
@@ -1221,7 +1217,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
             final BlockState hereState = this.world.getBlockState(localPos.down());
             final VoxelShape bb1 = this.world.getBlockState(pos).getSidesShape(this.world, pos);
             final VoxelShape bb2 = this.world.getBlockState(localPos.up()).getSidesShape(this.world, localPos.up());
-            if ((localPos.up().getY() + this.getStartY(bb2, 1)) - (pos.getY() + this.getEndY(bb1, 0)) >= 2) {
+            if ((localPos.up().getY() + this.getStartY(bb2)) - (pos.getY() + this.getEndY(bb1)) >= 2) {
                 return false;
             }
 
@@ -1233,23 +1229,21 @@ public abstract class AbstractPathJob implements Callable<Path> {
     /**
      * Get the start y of a voxelshape.
      *
-     * @param bb  the voxelshape.
-     * @param def the default if empty.
+     * @param bb the voxelshape.
      * @return the start y.
      */
-    private double getStartY(final VoxelShape bb, final int def) {
-        return bb.isEmpty() ? def : bb.getMin(Direction.Axis.Y);
+    private double getStartY(final VoxelShape bb) {
+        return bb.isEmpty() ? 1 : bb.getMin(Direction.Axis.Y);
     }
 
     /**
      * Get the end y of a voxelshape.
      *
-     * @param bb  the voxelshape.
-     * @param def the default if empty.
+     * @param bb the voxelshape.
      * @return the end y.
      */
-    private double getEndY(final VoxelShape bb, final int def) {
-        return bb.isEmpty() ? def : bb.getMax(Direction.Axis.Y);
+    private double getEndY(final VoxelShape bb) {
+        return bb.isEmpty() ? 0 : bb.getMax(Direction.Axis.Y);
     }
 
     /**

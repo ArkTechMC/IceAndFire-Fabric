@@ -85,7 +85,7 @@ public class BlockDragonforgeInput extends BlockWithEntity implements IDragonPro
     }
 
     public int getMetaFromState(BlockState state) {
-        return state.get(ACTIVE).booleanValue() ? 1 : 0;
+        return state.get(ACTIVE) ? 1 : 0;
     }
 
     @Override

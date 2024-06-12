@@ -50,7 +50,6 @@ public class DeathWormAIJump extends DiveJumpingGoal {
         return this.dolphin.getWorld().getBlockState(blockpos).isIn(BlockTags.SAND);
     }
 
-    @SuppressWarnings("deprecation")
     private boolean isAirAbove(BlockPos pos, int dx, int dz, int scale) {
         return this.dolphin.getWorld().getBlockState(pos.add(dx * scale, 1, dz * scale)).isAir()
                 && this.dolphin.getWorld().getBlockState(pos.add(dx * scale, 2, dz * scale)).isAir();

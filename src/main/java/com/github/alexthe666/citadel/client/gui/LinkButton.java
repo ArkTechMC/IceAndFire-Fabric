@@ -17,8 +17,8 @@ import net.minecraft.util.math.MathHelper;
 
 
 public class LinkButton extends ButtonWidget {
-    public ItemStack previewStack;
-    public GuiBasicBook book;
+    public final ItemStack previewStack;
+    public final GuiBasicBook book;
 
     public LinkButton(GuiBasicBook book, int x, int y, int width, int height, Text message, ItemStack previewStack, PressAction onPress) {
         super(x, y, width + (previewStack.isEmpty() ? 0 : 6), height, message, onPress, ButtonWidget.DEFAULT_NARRATION_SUPPLIER);

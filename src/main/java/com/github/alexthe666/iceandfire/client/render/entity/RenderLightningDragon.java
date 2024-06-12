@@ -22,8 +22,8 @@ public class RenderLightningDragon extends RenderDragonBase {
         super(context, model, dragonType);
     }
 
-    private static float getBoundedScale(float scale, float min, float max) {
-        return min + scale * (max - min);
+    private static float getBoundedScale(float scale) {
+        return (float) 0.5 + scale * ((float) 2 - (float) 0.5);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class RenderLightningDragon extends RenderDragonBase {
                 Vec3d Vector3d = new Vec3d(lightningDragon.getLightningTargetX(), lightningDragon.getLightningTargetY(), lightningDragon.getLightningTargetZ());
                 float energyScale = 0.4F * lightningDragon.getScaleFactor();
                 LightningBoltData bolt = new LightningBoltData(LightningBoltData.BoltRenderInfo.ELECTRICITY, Vector3d1, Vector3d, 15)
-                        .size(0.05F * getBoundedScale(energyScale, 0.5F, 2))
+                        .size(0.05F * getBoundedScale(energyScale))
                         .lifespan(4)
                         .spawn(LightningBoltData.SpawnFunction.NO_DELAY);
                 this.lightningRender.update(null, bolt, partialTicks);

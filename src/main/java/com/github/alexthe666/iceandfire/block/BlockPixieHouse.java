@@ -62,13 +62,11 @@ public class BlockPixieHouse extends BlockWithEntity {
         this.checkFall(worldIn, pos);
     }
 
-    private boolean checkFall(World worldIn, BlockPos pos) {
+    private void checkFall(World worldIn, BlockPos pos) {
         if (!this.canPlaceBlockAt(worldIn, pos)) {
             worldIn.breakBlock(pos, true);
             this.dropPixie(worldIn, pos);
-            return false;
         } else {
-            return true;
         }
     }
 

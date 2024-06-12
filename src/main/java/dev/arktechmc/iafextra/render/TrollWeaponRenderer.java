@@ -1,6 +1,5 @@
 package dev.arktechmc.iafextra.render;
 
-import com.github.alexthe666.iceandfire.client.render.entity.RenderTideTridentItem;
 import com.github.alexthe666.iceandfire.client.render.tile.RenderTrollWeapon;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;

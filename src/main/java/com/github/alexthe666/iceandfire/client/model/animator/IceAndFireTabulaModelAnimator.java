@@ -8,7 +8,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class IceAndFireTabulaModelAnimator {
 
-    protected TabulaModel baseModel;
+    protected final TabulaModel baseModel;
 
     public IceAndFireTabulaModelAnimator(TabulaModel baseModel) {
         this.baseModel = baseModel;

@@ -7,13 +7,13 @@ import com.github.alexthe666.iceandfire.entity.EntityDreadQueen;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 
 public class ModelDreadQueen extends ModelDreadBase<EntityDreadQueen> {
-    public HideableModelRenderer chestplate;
-    public HideableModelRenderer cloak;
-    public HideableModelRenderer necklace;
-    public HideableModelRenderer sleeveRight;
-    public HideableModelRenderer robeLowerRight;
-    public HideableModelRenderer sleeveLeft;
-    public HideableModelRenderer robeLowerLeft;
+    public final HideableModelRenderer chestplate;
+    public final HideableModelRenderer cloak;
+    public final HideableModelRenderer necklace;
+    public final HideableModelRenderer sleeveRight;
+    public final HideableModelRenderer robeLowerRight;
+    public final HideableModelRenderer sleeveLeft;
+    public final HideableModelRenderer robeLowerLeft;
 
     public ModelDreadQueen(float modelScale) {
         this.texWidth = 128;

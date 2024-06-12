@@ -103,7 +103,6 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
             if (this.stacks.get(index).getCount() <= count) {
                 itemstack = this.stacks.get(index);
                 this.stacks.set(index, ItemStack.EMPTY);
-                return itemstack;
             } else {
                 itemstack = this.stacks.get(index).split(count);
 
@@ -111,8 +110,8 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
                     this.stacks.set(index, ItemStack.EMPTY);
                 }
 
-                return itemstack;
             }
+            return itemstack;
         } else {
             return ItemStack.EMPTY;
         }

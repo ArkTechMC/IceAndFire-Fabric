@@ -40,13 +40,12 @@ public class HomePosition {
         return this.dimension == null ? "" : this.dimension;
     }
 
-    public NbtCompound write(NbtCompound compound) {
+    public void write(NbtCompound compound) {
         compound.putInt("HomeAreaX", this.x);
         compound.putInt("HomeAreaY", this.y);
         compound.putInt("HomeAreaZ", this.z);
         if (this.dimension != null)
             compound.putString("HomeDimension", this.dimension);
-        return compound;
     }
 
     public HomePosition read(NbtCompound compound, World world) {

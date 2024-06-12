@@ -133,15 +133,15 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public static Animation ANIMATION_ROAR;
     public static Animation ANIMATION_EPIC_ROAR;
     public static Animation ANIMATION_TAILWHACK;
-    public DragonType dragonType;
-    public double minimumDamage;
-    public double maximumDamage;
-    public double minimumHealth;
-    public double maximumHealth;
-    public double minimumSpeed;
-    public double maximumSpeed;
-    public double minimumArmor;
-    public double maximumArmor;
+    public final DragonType dragonType;
+    public final double minimumDamage;
+    public final double maximumDamage;
+    public final double minimumHealth;
+    public final double maximumHealth;
+    public final double minimumSpeed;
+    public final double maximumSpeed;
+    public final double minimumArmor;
+    public final double maximumArmor;
     public float sitProgress;
     public float sleepProgress;
     public float hoverProgress;
@@ -170,7 +170,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public float swimProgress;
     public int ticksSwiming;
     public int swimCycle;
-    public float[] prevAnimationProgresses = new float[10];
+    public final float[] prevAnimationProgresses = new float[10];
     public boolean isDaytime;
     public int flightCycle;
     public HomePosition homePos;
@@ -181,9 +181,9 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public ReversedBuffer turn_buffer;
     public ChainBuffer tail_buffer;
     public int spacebarTicks;
-    public float[][] growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
+    public final float[][] growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
 
-    public LegSolverQuadruped legSolver;
+    public final LegSolverQuadruped legSolver;
     public int walkCycle;
     public BlockPos burningTarget;
     public int burnProgress;
@@ -194,7 +194,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public IafDragonAttacks.Air airAttack;
     public IafDragonAttacks.Ground groundAttack;
     public boolean usingGroundAttack = true;
-    public IafDragonLogic logic;
+    public final IafDragonLogic logic;
     public int hoverTicks;
     public int tacklingTicks;
     public int ticksStill;
@@ -207,10 +207,10 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public SimpleInventory dragonInventory;
     public String prevArmorResLoc = "0|0|0|0";
     public String armorResLoc = "0|0|0|0";
-    public IafDragonFlightManager flightManager;
+    public final IafDragonFlightManager flightManager;
     public boolean lookingForRoostAIFlag = false;
-    public boolean allowLocalMotionControl = true;
-    public boolean allowMousePitchControl = true;
+    public final boolean allowLocalMotionControl = true;
+    public final boolean allowMousePitchControl = true;
     protected int flyHovering;
     protected boolean hasHadHornUse = false;
     protected int fireTicks;
@@ -460,11 +460,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type, PathingStuckHandler stuckHandler) {
-        return this.createNavigator(worldIn, type, stuckHandler, 4f, 4f);
+        return this.createNavigator(worldIn, type, stuckHandler, 4f);
     }
 
-    protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type, PathingStuckHandler stuckHandler, float width, float height) {
-        AdvancedPathNavigate newNavigator = new AdvancedPathNavigate(this, this.getWorld(), type, width, height);
+    protected EntityNavigation createNavigator(World worldIn, AdvancedPathNavigate.MovementType type, PathingStuckHandler stuckHandler, float width) {
+        AdvancedPathNavigate newNavigator = new AdvancedPathNavigate(this, this.getWorld(), type, width, (float) 4.0);
         this.navigation = newNavigator;
         newNavigator.setCanSwim(true);
         newNavigator.getNodeMaker().setCanOpenDoors(true);
@@ -483,7 +483,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             this.navigation = this.createNavigator(this.getWorld(), AdvancedPathNavigate.MovementType.FLYING);
             this.navigatorType = 1;
         } else {
-            this.moveControl = new IafDragonFlightManager.PlayerFlightMoveHelper(this);
+            this.moveControl = new IafDragonFlightManager.PlayerFlightMoveHelper<>(this);
             this.navigation = this.createNavigator(this.getWorld(), AdvancedPathNavigate.MovementType.FLYING);
             this.navigatorType = 2;
         }
@@ -1189,7 +1189,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     int itemFoodAmount = FoodUtils.getFoodPoints(stack, true, this.dragonType.isPiscivore());
                     if (itemFoodAmount > 0 && (this.getHunger() < 100 || this.getHealth() < this.getMaxHealth())) {
                         this.setHunger(this.getHunger() + itemFoodAmount);
-                        this.setHealth(Math.min(this.getMaxHealth(), (int) (this.getHealth() + (itemFoodAmount / 10))));
+                        this.setHealth(Math.min(this.getMaxHealth(), (int) (this.getHealth() + ((float) itemFoodAmount / 10))));
                         this.playSound(SoundEvents.ENTITY_GENERIC_EAT, this.getSoundVolume(), this.getSoundPitch());
                         this.spawnItemCrackParticles(stack.getItem());
                         this.eatFoodBonus(stack);
@@ -1232,14 +1232,13 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             if (this.hasHomePosition) {
                                 this.hasHomePosition = false;
                                 player.sendMessage(Text.translatable("dragon.command.remove_home"), true);
-                                return ActionResult.SUCCESS;
                             } else {
                                 BlockPos pos = this.getBlockPos();
                                 this.homePos = new HomePosition(pos, this.getWorld());
                                 this.hasHomePosition = true;
                                 player.sendMessage(Text.translatable("dragon.command.new_home", pos.getX(), pos.getY(), pos.getZ(), this.homePos.getDimension()), true);
-                                return ActionResult.SUCCESS;
                             }
+                            return ActionResult.SUCCESS;
                         } else {
                             this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, this.getSoundVolume(), this.getSoundPitch());
                             if (!this.getWorld().isClient) {
@@ -1914,7 +1913,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     // FIXME :: Unused
     private double getFlySpeed() {
-        return (2 + (this.getAgeInDays() / 125) * 2) * (this.isTackling() ? 2 : 1);
+        return (2 + ((double) this.getAgeInDays() / 125) * 2) * (this.isTackling() ? 2 : 1);
     }
 
     public boolean isTackling() {

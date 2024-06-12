@@ -42,7 +42,7 @@ public class ItemStymphalianFeatherBundle extends Item {
         if (!player.isCreative()) {
             itemStackIn.decrement(1);
         }
-        return new TypedActionResult<ItemStack>(ActionResult.PASS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
 

@@ -55,12 +55,10 @@ public class ItemPixieWand extends Item {
                 worldIn.spawnEntity(charge);
             }
             playerIn.playSound(IafSoundRegistry.PIXIE_WAND, 1F, 0.75F + 0.5F * playerIn.getRandom().nextFloat());
-            itemstack.damage(1, playerIn, (player) -> {
-                player.sendToolBreakStatus(playerIn.getActiveHand());
-            });
+            itemstack.damage(1, playerIn, (player) -> player.sendToolBreakStatus(playerIn.getActiveHand()));
             playerIn.getItemCooldownManager().set(this, 5);
         }
-        return new TypedActionResult<ItemStack>(ActionResult.PASS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
     public boolean isInfinite(ItemStack stack, ItemStack bow, PlayerEntity player) {

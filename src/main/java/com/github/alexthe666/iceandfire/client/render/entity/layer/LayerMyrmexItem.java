@@ -31,8 +31,8 @@ public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedE
 
     }
 
-    protected void translateToHand(Arm side, MatrixStack stack) {
-        ((ModelMyrmexBase) this.livingEntityRenderer.getModel()).postRenderArm(0, stack);
+    protected void translateToHand(MatrixStack stack) {
+        ((ModelMyrmexBase<?>) this.livingEntityRenderer.getModel()).postRenderArm(0, stack);
     }
 
     public boolean shouldCombineTextures() {
@@ -51,7 +51,7 @@ public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedE
                     if (entitylivingbaseIn.isSneaking()) {
                         matrixStackIn.translate(0.0F, 0.2F, 0.0F);
                     }
-                    this.translateToHand(Arm.RIGHT, matrixStackIn);
+                    this.translateToHand(matrixStackIn);
                     matrixStackIn.translate(0F, 0.3F, -1.6F);
                     if (itemstack.getItem() instanceof BlockItem) {
                         matrixStackIn.translate(0F, 0, 0.2F);

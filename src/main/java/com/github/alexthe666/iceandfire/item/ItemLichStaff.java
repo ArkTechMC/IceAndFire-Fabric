@@ -43,11 +43,9 @@ public class ItemLichStaff extends Item {
             worldIn.spawnEntity(charge);
             charge.setVelocity(d2, d3, d4, 1, 1);
             playerIn.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1F, 0.75F + 0.5F * playerIn.getRandom().nextFloat());
-            itemStackIn.damage(1, playerIn, (player) -> {
-                player.sendToolBreakStatus(hand);
-            });
+            itemStackIn.damage(1, playerIn, (player) -> player.sendToolBreakStatus(hand));
             playerIn.getItemCooldownManager().set(this, 4);
         }
-        return new TypedActionResult<ItemStack>(ActionResult.SUCCESS, itemStackIn);
+        return new TypedActionResult<>(ActionResult.SUCCESS, itemStackIn);
     }
 }

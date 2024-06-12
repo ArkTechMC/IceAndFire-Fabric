@@ -9,8 +9,8 @@ import java.util.EnumSet;
 
 public class PixieAIEnterHouse extends Goal {
 
-    EntityPixie pixie;
-    Random random;
+    final EntityPixie pixie;
+    final Random random;
 
     public PixieAIEnterHouse(EntityPixie entityPixieIn) {
         this.pixie = entityPixieIn;

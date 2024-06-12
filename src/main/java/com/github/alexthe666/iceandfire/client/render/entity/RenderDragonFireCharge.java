@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntity> {
 
-    public boolean isFire;
+    public final boolean isFire;
 
     public RenderDragonFireCharge(EntityRendererFactory.Context context, boolean isFire) {
         super(context);

@@ -7,14 +7,14 @@ import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import com.google.common.collect.ImmutableList;
 
 public class ModelGhost extends ModelBipedBase<EntityGhost> {
-    public AdvancedModelBox robe;
-    public AdvancedModelBox mask;
-    public AdvancedModelBox hood;
-    public AdvancedModelBox jaw;
-    public AdvancedModelBox sleeveRight;
-    public AdvancedModelBox robeLowerRight;
-    public AdvancedModelBox robeLowerLeft;
-    public AdvancedModelBox sleeveLeft;
+    public final AdvancedModelBox robe;
+    public final AdvancedModelBox mask;
+    public final AdvancedModelBox hood;
+    public final AdvancedModelBox jaw;
+    public final AdvancedModelBox sleeveRight;
+    public final AdvancedModelBox robeLowerRight;
+    public final AdvancedModelBox robeLowerLeft;
+    public final AdvancedModelBox sleeveLeft;
 
     public ModelGhost(float modelScale) {
         super();

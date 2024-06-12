@@ -59,12 +59,10 @@ public class BlockElementalFlower extends PlantBlock {
         this.checkFall(worldIn, pos);
     }
 
-    private boolean checkFall(World worldIn, BlockPos pos) {
+    private void checkFall(World worldIn, BlockPos pos) {
         if (!this.canStay(worldIn, pos)) {
             worldIn.breakBlock(pos, true);
-            return false;
         } else {
-            return true;
         }
     }
 

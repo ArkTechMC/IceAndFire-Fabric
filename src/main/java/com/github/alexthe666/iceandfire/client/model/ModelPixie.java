@@ -16,18 +16,18 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelPixie extends ModelDragonBase<EntityPixie> {
-    public AdvancedModelBox Body;
-    public AdvancedModelBox Left_Arm;
-    public AdvancedModelBox Head;
-    public AdvancedModelBox Right_Arm;
-    public AdvancedModelBox Neck;
-    public AdvancedModelBox Left_Leg;
-    public AdvancedModelBox Right_Leg;
-    public AdvancedModelBox Left_Wing;
-    public AdvancedModelBox Left_Wing2;
-    public AdvancedModelBox Right_Wing;
-    public AdvancedModelBox Right_Wing2;
-    public AdvancedModelBox Dress;
+    public final AdvancedModelBox Body;
+    public final AdvancedModelBox Left_Arm;
+    public final AdvancedModelBox Head;
+    public final AdvancedModelBox Right_Arm;
+    public final AdvancedModelBox Neck;
+    public final AdvancedModelBox Left_Leg;
+    public final AdvancedModelBox Right_Leg;
+    public final AdvancedModelBox Left_Wing;
+    public final AdvancedModelBox Left_Wing2;
+    public final AdvancedModelBox Right_Wing;
+    public final AdvancedModelBox Right_Wing2;
+    public final AdvancedModelBox Dress;
 
     public ModelPixie() {
         this.texWidth = 32;
@@ -140,8 +140,8 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
         }
 
         if (entity.isPixieSitting()) {
-            this.Right_Arm.rotateAngleX += -((float) Math.PI / 5F);
-            this.Left_Arm.rotateAngleX += -((float) Math.PI / 5F);
+            this.Right_Arm.rotateAngleX -= ((float) Math.PI / 5F);
+            this.Left_Arm.rotateAngleX -= ((float) Math.PI / 5F);
             this.Right_Leg.rotateAngleX = -1.4137167F;
             this.Right_Leg.rotateAngleY = ((float) Math.PI / 10F);
             this.Right_Leg.rotateAngleZ = 0.07853982F;
@@ -184,8 +184,8 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
             f12 = (float) Math.toRadians(20);
         }
 
-        this.Right_Arm.rotateAngleX += -((float) Math.PI / 5F);
-        this.Left_Arm.rotateAngleX += -((float) Math.PI / 5F);
+        this.Right_Arm.rotateAngleX -= ((float) Math.PI / 5F);
+        this.Left_Arm.rotateAngleX -= ((float) Math.PI / 5F);
         this.Right_Leg.rotateAngleX = -1.4137167F;
         this.Right_Leg.rotateAngleY = ((float) Math.PI / 10F);
         this.Right_Leg.rotateAngleZ = 0.07853982F;
@@ -236,8 +236,8 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
             f12 = (float) Math.toRadians(20);
         }
         if (sitting) {
-            this.Right_Arm.rotateAngleX += -((float) Math.PI / 5F);
-            this.Left_Arm.rotateAngleX += -((float) Math.PI / 5F);
+            this.Right_Arm.rotateAngleX -= ((float) Math.PI / 5F);
+            this.Left_Arm.rotateAngleX -= ((float) Math.PI / 5F);
             this.Right_Leg.rotateAngleX = -1.4137167F;
             this.Right_Leg.rotateAngleY = ((float) Math.PI / 10F);
             this.Right_Leg.rotateAngleZ = 0.07853982F;

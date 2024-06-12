@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoal {
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
-    public EntityMyrmexWorker myrmex;
+    public final EntityMyrmexWorker myrmex;
     protected ItemEntity targetEntity;
 
     private List<ItemEntity> list = IAFMath.emptyItemEntityList;
@@ -24,12 +24,7 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
     public MyrmexAIForageForItems(EntityMyrmexWorker myrmex) {
         super(myrmex, false, false);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(myrmex);
-        this.targetEntitySelector = new Predicate<ItemEntity>() {
-            @Override
-            public boolean test(ItemEntity item) {
-                return item != null && !item.getStack().isEmpty() && !item.isTouchingWater();
-            }
-        };
+        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && !item.isTouchingWater();
         this.myrmex = myrmex;
         this.setControls(EnumSet.of(Control.MOVE));
     }
@@ -42,7 +37,7 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
         }
 
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(32), this.targetEntitySelector);
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(), this.targetEntitySelector);
 
         if (this.list.isEmpty())
             return false;
@@ -52,8 +47,8 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
         return true;
     }
 
-    protected Box getTargetableArea(double targetDistance) {
-        return this.mob.getBoundingBox().expand(targetDistance, 5, targetDistance);
+    protected Box getTargetableArea() {
+        return this.mob.getBoundingBox().expand(32, 5, 32);
     }
 
     @Override

@@ -79,44 +79,32 @@ public class EntityFireDragon extends EntityDragonBase {
 
     @Override
     public String getVariantName(int variant) {
-        switch (variant) {
-            default:
-                return "red_";
-            case 1:
-                return "green_";
-            case 2:
-                return "bronze_";
-            case 3:
-                return "gray_";
-        }
+        return switch (variant) {
+            default -> "red_";
+            case 1 -> "green_";
+            case 2 -> "bronze_";
+            case 3 -> "gray_";
+        };
     }
 
     @Override
     public Item getVariantScale(int variant) {
-        switch (variant) {
-            default:
-                return IafItemRegistry.DRAGONSCALES_RED.get();
-            case 1:
-                return IafItemRegistry.DRAGONSCALES_GREEN.get();
-            case 2:
-                return IafItemRegistry.DRAGONSCALES_BRONZE.get();
-            case 3:
-                return IafItemRegistry.DRAGONSCALES_GRAY.get();
-        }
+        return switch (variant) {
+            default -> IafItemRegistry.DRAGONSCALES_RED.get();
+            case 1 -> IafItemRegistry.DRAGONSCALES_GREEN.get();
+            case 2 -> IafItemRegistry.DRAGONSCALES_BRONZE.get();
+            case 3 -> IafItemRegistry.DRAGONSCALES_GRAY.get();
+        };
     }
 
     @Override
     public Item getVariantEgg(int variant) {
-        switch (variant) {
-            default:
-                return IafItemRegistry.DRAGONEGG_RED.get();
-            case 1:
-                return IafItemRegistry.DRAGONEGG_GREEN.get();
-            case 2:
-                return IafItemRegistry.DRAGONEGG_BRONZE.get();
-            case 3:
-                return IafItemRegistry.DRAGONEGG_GRAY.get();
-        }
+        return switch (variant) {
+            default -> IafItemRegistry.DRAGONEGG_RED.get();
+            case 1 -> IafItemRegistry.DRAGONEGG_GREEN.get();
+            case 2 -> IafItemRegistry.DRAGONEGG_BRONZE.get();
+            case 3 -> IafItemRegistry.DRAGONEGG_GRAY.get();
+        };
     }
 
     @Override

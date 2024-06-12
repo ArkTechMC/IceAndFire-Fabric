@@ -69,15 +69,15 @@ public class AquaticAIGetInWater extends Goal {
     }
 
     public Vec3d findPossibleShelter() {
-        return this.findPossibleShelter(10, 3);
+        return this.findPossibleShelter(10);
     }
 
-    protected Vec3d findPossibleShelter(int xz, int y) {
+    protected Vec3d findPossibleShelter(int xz) {
         Random random = this.creature.getRandom();
         BlockPos blockpos = BlockPos.ofFloored(this.creature.getBlockX(), this.creature.getBoundingBox().minY, this.creature.getBlockZ());
 
         for (int i = 0; i < 10; ++i) {
-            BlockPos blockpos1 = blockpos.add(random.nextInt(xz * 2) - xz, random.nextInt(y * 2) - y,
+            BlockPos blockpos1 = blockpos.add(random.nextInt(xz * 2) - xz, random.nextInt(3 * 2) - 3,
                     random.nextInt(xz * 2) - xz);
 
             if (this.world.getBlockState(blockpos1).isOf(Blocks.WATER)) {

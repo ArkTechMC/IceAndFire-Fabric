@@ -36,8 +36,8 @@ import java.util.Map;
 public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
 
     protected static final Identifier[] DESTROY_STAGES = new Identifier[]{new Identifier("textures/block/destroy_stage_0.png"), new Identifier("textures/block/destroy_stage_1.png"), new Identifier("textures/block/destroy_stage_2.png"), new Identifier("textures/block/destroy_stage_3.png"), new Identifier("textures/block/destroy_stage_4.png"), new Identifier("textures/block/destroy_stage_5.png"), new Identifier("textures/block/destroy_stage_6.png"), new Identifier("textures/block/destroy_stage_7.png"), new Identifier("textures/block/destroy_stage_8.png"), new Identifier("textures/block/destroy_stage_9.png")};
-    private final Map<String, EntityModel> modelMap = new HashMap();
-    private final Map<String, Entity> hollowEntityMap = new HashMap();
+    private final Map<String, EntityModel> modelMap = new HashMap<>();
+    private final Map<String, Entity> hollowEntityMap = new HashMap<>();
     private final EntityRendererFactory.Context context;
 
     public RenderStoneStatue(EntityRendererFactory.Context context) {
@@ -82,7 +82,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
                 try {
                     build.readNbt(entityIn.getTrappedTag());
                 } catch (Exception e) {
-                    IceAndFire.LOGGER.warn("Mob " + entityIn.getTrappedEntityTypeString() + " could not build statue NBT");
+                    IceAndFire.LOGGER.warn("Mob {} could not build statue NBT", entityIn.getTrappedEntityTypeString());
                 }
                 fakeEntity = this.hollowEntityMap.putIfAbsent(entityIn.getTrappedEntityTypeString(), build);
             }
@@ -104,7 +104,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
         model.riding = shouldSit;
         model.handSwingProgress = entityIn.getHandSwingProgress(partialTicks);
         if (model instanceof AdvancedEntityModel) {
-            ((AdvancedEntityModel) model).resetToDefaultPose();
+            ((AdvancedEntityModel<?>) model).resetToDefaultPose();
         } else if (fakeEntity != null) {
             model.setAngles(fakeEntity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F);
         }

@@ -17,12 +17,7 @@ public class StymphalianBirdAITarget extends ActiveTargetGoal<LivingEntity> {
     private final EntityStymphalianBird bird;
 
     public StymphalianBirdAITarget(EntityStymphalianBird entityIn, Class<LivingEntity> classTarget, boolean checkSight) {
-        super(entityIn, classTarget, 0, checkSight, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return !EntityGorgon.isStoneMob(entity) && (entity instanceof PlayerEntity && !((PlayerEntity) entity).isCreative() || entity instanceof MerchantEntity || entity instanceof GolemEntity || entity instanceof AnimalEntity && IafConfig.stympahlianBirdAttackAnimals);
-            }
-        });
+        super(entityIn, classTarget, 0, checkSight, false, (Predicate<LivingEntity>) entity -> !EntityGorgon.isStoneMob(entity) && (entity instanceof PlayerEntity && !((PlayerEntity) entity).isCreative() || entity instanceof MerchantEntity || entity instanceof GolemEntity || entity instanceof AnimalEntity && IafConfig.stympahlianBirdAttackAnimals));
         this.bird = entityIn;
     }
 

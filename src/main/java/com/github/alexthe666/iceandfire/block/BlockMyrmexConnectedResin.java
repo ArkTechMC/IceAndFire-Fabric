@@ -80,27 +80,14 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
 
     @Override
     public @NotNull BlockState getStateForNeighborUpdate(@NotNull BlockState stateIn, Direction facing, @NotNull BlockState facingState, @NotNull WorldAccess worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
-        BooleanProperty connect = null;
-        switch (facing) {
-            case NORTH:
-                connect = NORTH;
-                break;
-            case SOUTH:
-                connect = SOUTH;
-                break;
-            case EAST:
-                connect = EAST;
-                break;
-            case WEST:
-                connect = WEST;
-                break;
-            case DOWN:
-                connect = DOWN;
-                break;
-            default:
-                connect = UP;
-                break;
-        }
+        BooleanProperty connect = switch (facing) {
+            case NORTH -> NORTH;
+            case SOUTH -> SOUTH;
+            case EAST -> EAST;
+            case WEST -> WEST;
+            case DOWN -> DOWN;
+            default -> UP;
+        };
         return stateIn.with(connect, this.canFenceConnectTo(facingState, false, facing.getOpposite()));
     }
 

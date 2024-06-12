@@ -11,9 +11,8 @@ import java.util.EnumSet;
 
 public class DragonAIAttackMelee extends Goal {
     private final boolean longMemory;
-    private final boolean canPenalize = false;
     private final double speedTowardsTarget;
-    protected EntityDragonBase dragon;
+    protected final EntityDragonBase dragon;
     private int attackTick;
     private int delayCounter;
     private double targetX;
@@ -97,7 +96,8 @@ public class DragonAIAttackMelee extends Goal {
                 this.targetZ = entity.getZ();
                 this.delayCounter = 4 + this.dragon.getRandom().nextInt(7);
 
-                if (this.canPenalize) {
+                boolean canPenalize = false;
+                if (canPenalize) {
                     this.delayCounter += this.failedPathFindingPenalty;
                     if (this.dragon.getNavigation().getCurrentPath() != null) {
                         net.minecraft.entity.ai.pathing.PathNode finalPathPoint = this.dragon.getNavigation().getCurrentPath().getEnd();
@@ -122,7 +122,7 @@ public class DragonAIAttackMelee extends Goal {
 
             this.attackTick = Math.max(this.attackTick - 1, 0);
 
-            if (d0 <= d1 && this.attackTick <= 0) {
+            if (d0 <= d1 && this.attackTick == 0) {
                 this.attackTick = 20;
                 this.dragon.swingHand(Hand.MAIN_HAND);
                 this.dragon.tryAttack(entity);

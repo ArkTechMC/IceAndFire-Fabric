@@ -116,15 +116,10 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(1, new MyrmexAIDefendHive(this));
-        this.targetSelector.add(2, new MyrmexAIFindGaurdingEntity(this));
+        this.targetSelector.add(2, new MyrmexAIFindGaurdingEntity<>(this));
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new MyrmexAIAttackPlayers(this));
-        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexSoldier.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster);
-            }
-        }));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, (Predicate<LivingEntity>) entity -> entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexSoldier.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster)));
     }
 
     @Override

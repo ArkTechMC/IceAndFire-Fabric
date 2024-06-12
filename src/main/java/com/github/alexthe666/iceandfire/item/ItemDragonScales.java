@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class ItemDragonScales extends Item {
-    EnumDragonEgg type;
+    final EnumDragonEgg type;
 
     public ItemDragonScales(EnumDragonEgg type) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);

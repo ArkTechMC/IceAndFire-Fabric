@@ -45,10 +45,9 @@ public class RenderPodium<T extends TileEntityPodium> implements BlockEntityRend
     @Override
     public void render(@NotNull T entity, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         ModelDragonEgg model = new ModelDragonEgg();
-        TileEntityPodium podium = entity;
 
-        if (!podium.getStack(0).isEmpty()) {
-            if (podium.getStack(0).getItem() instanceof ItemDragonEgg item) {
+        if (!entity.getStack(0).isEmpty()) {
+            if (entity.getStack(0).getItem() instanceof ItemDragonEgg item) {
                 matrixStackIn.push();
                 matrixStackIn.translate(0.5F, 0.475F, 0.5F);
                 matrixStackIn.push();
@@ -58,8 +57,8 @@ public class RenderPodium<T extends TileEntityPodium> implements BlockEntityRend
                 matrixStackIn.pop();
                 matrixStackIn.pop();
                 matrixStackIn.pop();
-            } else if (podium.getStack(0).getItem() instanceof ItemMyrmexEgg) {
-                boolean jungle = podium.getStack(0).getItem() == IafItemRegistry.MYRMEX_JUNGLE_EGG.get();
+            } else if (entity.getStack(0).getItem() instanceof ItemMyrmexEgg) {
+                boolean jungle = entity.getStack(0).getItem() == IafItemRegistry.MYRMEX_JUNGLE_EGG.get();
                 matrixStackIn.push();
                 matrixStackIn.translate(0.5F, 0.475F, 0.5F);
                 matrixStackIn.push();
@@ -69,10 +68,10 @@ public class RenderPodium<T extends TileEntityPodium> implements BlockEntityRend
                 matrixStackIn.pop();
                 matrixStackIn.pop();
                 matrixStackIn.pop();
-            } else if (!podium.getStack(0).isEmpty()) {
+            } else if (!entity.getStack(0).isEmpty()) {
                 //if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new RenderPodiumItemEvent(this, podium, f, x, y, z))) {
                 matrixStackIn.push();
-                float f2 = ((float) podium.prevTicksExisted + (podium.ticksExisted - podium.prevTicksExisted) * partialTicks);
+                float f2 = ((float) entity.prevTicksExisted + (entity.ticksExisted - entity.prevTicksExisted) * partialTicks);
                 float f3 = MathHelper.sin(f2 / 10.0F) * 0.1F + 0.1F;
                 matrixStackIn.translate(0.5F, 1.55F + f3, 0.5F);
                 float f4 = (f2 / 20.0F);
@@ -80,7 +79,7 @@ public class RenderPodium<T extends TileEntityPodium> implements BlockEntityRend
                 matrixStackIn.push();
                 matrixStackIn.translate(0, 0.2F, 0);
                 matrixStackIn.scale(0.65F, 0.65F, 0.65F);
-                MinecraftClient.getInstance().getItemRenderer().renderItem(podium.getStack(0), ModelTransformationMode.FIXED, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, podium.getWorld(), 0);
+                MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(0), ModelTransformationMode.FIXED, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, entity.getWorld(), 0);
                 matrixStackIn.pop();
                 matrixStackIn.pop();
                 //}

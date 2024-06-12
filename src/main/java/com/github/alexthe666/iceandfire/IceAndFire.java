@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class IceAndFire {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "iceandfire";
-    public static CommonProxy PROXY = new CommonProxy();
+    public static final CommonProxy PROXY = new CommonProxy();
 
     public IceAndFire() {
     }

@@ -42,7 +42,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     private static final TrackedData<Boolean> CUSTOM_ARMOR_LEGS = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CUSTOM_ARMOR_FEET = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> CUSTOM_ARMOR_INDEX = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.INTEGER);
-    public static Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
     private int animationTick;
     private Animation currentAnimation;
 
@@ -72,28 +72,18 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return DragonUtils.canHostilesTarget(entity);
-            }
-        }));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                return entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity);
-            }
-        }));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(CUSTOM_ARMOR_INDEX, Integer.valueOf(0));
-        this.dataTracker.startTracking(CUSTOM_ARMOR_HEAD, Boolean.valueOf(false));
-        this.dataTracker.startTracking(CUSTOM_ARMOR_CHEST, Boolean.valueOf(false));
-        this.dataTracker.startTracking(CUSTOM_ARMOR_LEGS, Boolean.valueOf(false));
-        this.dataTracker.startTracking(CUSTOM_ARMOR_FEET, Boolean.valueOf(false));
+        this.dataTracker.startTracking(CUSTOM_ARMOR_INDEX, 0);
+        this.dataTracker.startTracking(CUSTOM_ARMOR_HEAD, Boolean.FALSE);
+        this.dataTracker.startTracking(CUSTOM_ARMOR_CHEST, Boolean.FALSE);
+        this.dataTracker.startTracking(CUSTOM_ARMOR_LEGS, Boolean.FALSE);
+        this.dataTracker.startTracking(CUSTOM_ARMOR_FEET, Boolean.FALSE);
     }
 
     @Override
@@ -200,7 +190,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     public boolean hasCustomArmorHead() {
-        return this.dataTracker.get(CUSTOM_ARMOR_HEAD).booleanValue();
+        return this.dataTracker.get(CUSTOM_ARMOR_HEAD);
     }
 
     public void setCustomArmorHead(boolean head) {
@@ -208,7 +198,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     public boolean hasCustomArmorChest() {
-        return this.dataTracker.get(CUSTOM_ARMOR_CHEST).booleanValue();
+        return this.dataTracker.get(CUSTOM_ARMOR_CHEST);
     }
 
     public void setCustomArmorChest(boolean head) {
@@ -216,7 +206,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     public boolean hasCustomArmorLegs() {
-        return this.dataTracker.get(CUSTOM_ARMOR_LEGS).booleanValue();
+        return this.dataTracker.get(CUSTOM_ARMOR_LEGS);
     }
 
     public void setCustomArmorLegs(boolean head) {
@@ -224,7 +214,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     public boolean hasCustomArmorFeet() {
-        return this.dataTracker.get(CUSTOM_ARMOR_FEET).booleanValue();
+        return this.dataTracker.get(CUSTOM_ARMOR_FEET);
     }
 
     public void setCustomArmorFeet(boolean head) {
@@ -233,7 +223,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
 
     @Override
     public int getBodyArmorVariant() {
-        return this.dataTracker.get(CUSTOM_ARMOR_INDEX).intValue();
+        return this.dataTracker.get(CUSTOM_ARMOR_INDEX);
     }
 
     @Override
@@ -258,11 +248,6 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 

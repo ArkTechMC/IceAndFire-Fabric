@@ -76,7 +76,7 @@ public class ServerEvents {
     // FIXME :: No check for shouldFear()?
     private static final Predicate<LivingEntity> VILLAGER_FEAR = entity -> entity instanceof IVillagerFear;
     private static final String[] VILLAGE_TYPES = new String[]{"plains", "desert", "snowy", "savanna", "taiga"};
-    public static String BOLT_DONT_DESTROY_LOOT = "iceandfire.bolt_skip_loot";
+    public static final String BOLT_DONT_DESTROY_LOOT = "iceandfire.bolt_skip_loot";
     private final Random rand = new Random();
 
     private static void signalChickenAlarm(LivingEntity chicken, LivingEntity attacker) {

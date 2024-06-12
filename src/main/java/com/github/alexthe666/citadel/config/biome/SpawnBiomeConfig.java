@@ -28,8 +28,7 @@ public class SpawnBiomeConfig {
 
     public static SpawnBiomeData create(Identifier fileName, SpawnBiomeData dataDefault) {
         SpawnBiomeConfig config = new SpawnBiomeConfig(fileName);
-        SpawnBiomeData data = config.getConfigData(dataDefault);
-        return data;
+        return config.getConfigData(dataDefault);
     }
 
     public static <T> T getOrCreateConfigFile(File configDir, String configName, T defaults, Type type) {
@@ -38,13 +37,13 @@ public class SpawnBiomeConfig {
             try {
                 FileUtils.write(configFile, GSON.toJson(defaults));
             } catch (IOException e) {
-                Citadel.LOGGER.error("Spawn Biome Config: Could not write " + configFile, e);
+                Citadel.LOGGER.error("Spawn Biome Config: Could not write {}", configFile, e);
             }
         }
         try {
             return GSON.fromJson(FileUtils.readFileToString(configFile), type);
         } catch (Exception e) {
-            Citadel.LOGGER.error("Spawn Biome Config: Could not load " + configFile, e);
+            Citadel.LOGGER.error("Spawn Biome Config: Could not load {}", configFile, e);
         }
 
         return defaults;

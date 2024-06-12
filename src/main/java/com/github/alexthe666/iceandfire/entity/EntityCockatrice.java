@@ -112,33 +112,27 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         this.goalSelector.add(1, new SwimGoal(this));
         this.goalSelector.add(3, new CockatriceAIFollowOwner(this, 1.0D, 7.0F, 2.0F));
         this.goalSelector.add(3, new SitGoal(this));
-        this.goalSelector.add(3, new FleeEntityGoal<>(this, LivingEntity.class, 14.0F, 1.0D, 1.0D, new Predicate<LivingEntity>() {
-            @Override
-            public boolean apply(LivingEntity entity) {
-                if (entity instanceof PlayerEntity) {
-                    return !((PlayerEntity) entity).isCreative() && !entity.isSpectator();
-                } else {
-                    return ServerEvents.doesScareCockatrice(entity) && !ServerEvents.isChicken(entity);
-                }
+        this.goalSelector.add(3, new FleeEntityGoal<>(this, LivingEntity.class, 14.0F, 1.0D, 1.0D, (Predicate<LivingEntity>) entity -> {
+            if (entity instanceof PlayerEntity) {
+                return !((PlayerEntity) entity).isCreative() && !entity.isSpectator();
+            } else {
+                return ServerEvents.doesScareCockatrice(entity) && !ServerEvents.isChicken(entity);
             }
         }));
         this.goalSelector.add(4, new CockatriceAIWander(this, 1.0D));
         this.goalSelector.add(5, new CockatriceAIAggroLook(this));
         this.goalSelector.add(6, new LookAtEntityGoal(this, LivingEntity.class, 6.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
-        this.targetSelector.add(1, new CockatriceAITargetItems(this, false));
+        this.targetSelector.add(1, new CockatriceAITargetItems<>(this, false));
         this.targetSelector.add(2, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(3, new AttackWithOwnerGoal(this));
         this.targetSelector.add(4, new RevengeGoal(this));
-        this.targetSelector.add(5, new CockatriceAITarget(this, LivingEntity.class, true, new Predicate<Entity>() {
-            @Override
-            public boolean apply(Entity entity) {
-                if (entity instanceof PlayerEntity) {
-                    return !((PlayerEntity) entity).isCreative() && !entity.isSpectator();
-                } else {
-                    return ((entity instanceof Monster) && EntityCockatrice.this.isTamed() && !(entity instanceof CreeperEntity) && !(entity instanceof ZombifiedPiglinEntity) && !(entity instanceof EndermanEntity) ||
-                            ServerEvents.isCockatriceTarget(entity) && !ServerEvents.isChicken(entity));
-                }
+        this.targetSelector.add(5, new CockatriceAITarget(this, LivingEntity.class, true, (Predicate<Entity>) entity -> {
+            if (entity instanceof PlayerEntity) {
+                return !((PlayerEntity) entity).isCreative() && !entity.isSpectator();
+            } else {
+                return ((entity instanceof Monster) && EntityCockatrice.this.isTamed() && !(entity instanceof CreeperEntity) && !(entity instanceof ZombifiedPiglinEntity) && !(entity instanceof EndermanEntity) ||
+                        ServerEvents.isCockatriceTarget(entity) && !ServerEvents.isChicken(entity));
             }
         }));
     }
@@ -258,11 +252,11 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     public boolean hasTargetedEntity() {
-        return this.dataTracker.get(TARGET_ENTITY).intValue() != 0;
+        return this.dataTracker.get(TARGET_ENTITY) != 0;
     }
 
     public boolean hasTamingPlayer() {
-        return this.dataTracker.get(TAMING_PLAYER).intValue() != 0;
+        return this.dataTracker.get(TAMING_PLAYER) != 0;
     }
 
     public Entity getTamingPlayer() {
@@ -272,7 +266,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             if (this.targetedEntity != null) {
                 return this.targetedEntity;
             } else {
-                Entity entity = this.getWorld().getEntityById(this.dataTracker.get(TAMING_PLAYER).intValue());
+                Entity entity = this.getWorld().getEntityById(this.dataTracker.get(TAMING_PLAYER));
                 if (entity instanceof LivingEntity) {
                     this.targetedEntity = (LivingEntity) entity;
                     return this.targetedEntity;
@@ -281,7 +275,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
                 }
             }
         } else {
-            return this.getWorld().getEntityById(this.dataTracker.get(TAMING_PLAYER).intValue());
+            return this.getWorld().getEntityById(this.dataTracker.get(TAMING_PLAYER));
         }
     }
 
@@ -300,7 +294,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             if (this.targetedEntity != null) {
                 return this.targetedEntity;
             } else {
-                Entity entity = this.getWorld().getEntityById(this.dataTracker.get(TARGET_ENTITY).intValue());
+                Entity entity = this.getWorld().getEntityById(this.dataTracker.get(TARGET_ENTITY));
                 if (entity instanceof LivingEntity) {
                     this.targetedEntity = (LivingEntity) entity;
                     return this.targetedEntity;
@@ -332,7 +326,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         tag.putBoolean("Hen", this.isHen());
         tag.putBoolean("Staring", this.isStaring());
         tag.putInt("TamingLevel", this.getTamingLevel());
-        tag.putInt("TamingPlayer", this.dataTracker.get(TAMING_PLAYER).intValue());
+        tag.putInt("TamingPlayer", this.dataTracker.get(TAMING_PLAYER));
         tag.putInt("Command", this.getCommand());
         tag.putBoolean("HasHomePosition", this.hasHomePosition);
         if (this.homePos != null && this.hasHomePosition) {
@@ -358,7 +352,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     @Override
     public boolean isSitting() {
         if (this.getWorld().isClient) {
-            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS).byteValue() & 1) != 0;
+            boolean isSitting = (this.dataTracker.get(TAMEABLE_FLAGS) & 1) != 0;
             this.isSitting = isSitting;
             return isSitting;
         }
@@ -385,7 +379,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
 
     public boolean isHen() {
-        return this.dataTracker.get(HEN).booleanValue();
+        return this.dataTracker.get(HEN);
     }
 
     public void setHen(boolean hen) {
@@ -393,7 +387,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     public int getTamingLevel() {
-        return this.dataTracker.get(TAMING_LEVEL).intValue();
+        return this.dataTracker.get(TAMING_LEVEL);
     }
 
     public void setTamingLevel(int level) {
@@ -401,7 +395,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     public int getCommand() {
-        return this.dataTracker.get(COMMAND).intValue();
+        return this.dataTracker.get(COMMAND);
     }
 
     public void setCommand(int command) {
@@ -411,7 +405,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     public boolean isStaring() {
         if (this.getWorld().isClient) {
-            return this.isStaring = this.dataTracker.get(STARING).booleanValue();
+            return this.isStaring = this.dataTracker.get(STARING);
         }
         return this.isStaring;
     }
@@ -449,14 +443,13 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
                     if (this.hasHomePosition) {
                         this.hasHomePosition = false;
                         player.sendMessage(Text.translatable("cockatrice.command.remove_home"), true);
-                        return ActionResult.SUCCESS;
                     } else {
                         BlockPos pos = this.getBlockPos();
                         this.homePos = new HomePosition(pos, this.getWorld());
                         this.hasHomePosition = true;
                         player.sendMessage(Text.translatable("cockatrice.command.new_home", pos.getX(), pos.getY(), pos.getZ(), this.homePos.getDimension()), true);
-                        return ActionResult.SUCCESS;
                     }
+                    return ActionResult.SUCCESS;
                 } else {
                     this.setCommand(this.getCommand() + 1);
                     if (this.getCommand() > 3) {

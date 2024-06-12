@@ -85,8 +85,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
                 if (entity instanceof IDragonProjectile) {
                     return;
                 }
-                if (shootingEntity != null && shootingEntity instanceof EntityDragonBase) {
-                    EntityDragonBase dragon = (EntityDragonBase) shootingEntity;
+                if (shootingEntity instanceof EntityDragonBase dragon) {
                     if (dragon.isTeammate(entity) || dragon.isPartOf(entity) || dragon.isPart(entity)) {
                         return;
                     }
