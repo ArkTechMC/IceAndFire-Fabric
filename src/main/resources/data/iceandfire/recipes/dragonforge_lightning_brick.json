@@ -6,7 +6,7 @@
       "item": "minecraft:stone_bricks"
     },
     "S": {
-      "tag": "forge:storage_blocks/scales/dragon/lightning"
+      "tag": "c:storage_blocks/scales/dragon/lightning"
     }
   },
   "pattern": [

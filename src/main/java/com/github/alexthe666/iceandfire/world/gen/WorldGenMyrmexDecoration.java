@@ -141,7 +141,7 @@ public class WorldGenMyrmexDecoration {
                 case 1 -> Blocks.SAND;
                 case 2 -> Blocks.COBBLESTONE;
                 case 3 -> Blocks.GRAVEL;
-                default -> blob;
+                default -> Blocks.AIR;
             };
             int i1 = 0;
             for (int i = 0; i1 >= 0 && i < 3; ++i) {

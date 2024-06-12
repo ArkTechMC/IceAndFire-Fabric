@@ -12,6 +12,7 @@ import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -31,6 +32,7 @@ import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
@@ -217,7 +219,7 @@ public class EntityPixie extends TameableEntity {
                 case 2 -> IafBlockRegistry.JAR_PIXIE_2.get();
                 case 3 -> IafBlockRegistry.JAR_PIXIE_3.get();
                 case 4 -> IafBlockRegistry.JAR_PIXIE_4.get();
-                default -> jar;
+                default -> Blocks.AIR;
             };
             ItemStack stack = new ItemStack(jar, 1);
             if (!this.getWorld().isClient) {

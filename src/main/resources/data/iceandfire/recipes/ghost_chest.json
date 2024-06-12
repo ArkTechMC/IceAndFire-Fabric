@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "C": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "E": {
       "item": "iceandfire:ectoplasm"

@@ -10,13 +10,13 @@
       "item": "iceandfire:hippogryph_talon"
     },
     "S": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "F": {
-      "tag": "forge:feathers"
+      "item": "minecraft:feather"
     }
   },
   "result": {

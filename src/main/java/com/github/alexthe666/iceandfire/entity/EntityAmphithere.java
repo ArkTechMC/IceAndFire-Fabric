@@ -1051,7 +1051,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         NONE
     }
 
-    class static AILandWander extends WanderAroundFarGoal {
+    static class AILandWander extends WanderAroundFarGoal {
         public AILandWander(PathAwareEntity creature, double speed) {
             super(creature, speed, 10);
         }

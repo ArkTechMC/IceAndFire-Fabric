@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "tag": "forge:bones/wither"
+      "tag": "c:bones/wither"
     },
     "M": {
       "item": "iceandfire:dragonsteel_fire_ingot"

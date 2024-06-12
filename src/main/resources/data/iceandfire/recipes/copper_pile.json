@@ -3,10 +3,10 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "forge:nuggets/copper"
+      "tag": "c:nuggets/copper"
     },
     {
-      "tag": "forge:nuggets/copper"
+      "tag": "c:nuggets/copper"
     }
   ],
   "result": {

@@ -19,6 +19,7 @@ public class ItemDragonFlesh extends ItemGenericFood {
 
     static String getNameForType(int dragonType) {
         return switch (dragonType) {
+            case 1 -> "ice_dragon_flesh";
             case 2 -> "lightning_dragon_flesh";
             default -> "fire_dragon_flesh";
         };

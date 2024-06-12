@@ -3,10 +3,10 @@
   "category": "equipment",
   "key": {
     "H": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "M": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   },
   "pattern": [

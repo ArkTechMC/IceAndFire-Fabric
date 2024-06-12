@@ -6,7 +6,7 @@
       "item": "minecraft:iron_horse_armor"
     },
     "F": {
-      "tag": "forge:feathers"
+      "item": "minecraft:feather"
     }
   },
   "pattern": [

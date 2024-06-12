@@ -6,10 +6,10 @@
       "item": "iceandfire:dragonbone"
     },
     "S": {
-      "tag": "forge:string"
+      "tag": "c:strings"
     },
     "W": {
-      "tag": "forge:bones/wither"
+      "tag": "c:bones/wither"
     }
   },
   "pattern": [

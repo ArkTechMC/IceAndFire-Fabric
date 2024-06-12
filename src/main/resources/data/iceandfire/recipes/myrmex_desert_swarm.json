@@ -10,7 +10,7 @@
       "item": "iceandfire:myrmex_desert_resin_block"
     },
     "S": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     },
     "E": {
       "item": "iceandfire:myrmex_desert_egg"

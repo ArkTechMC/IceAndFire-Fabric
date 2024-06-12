@@ -759,10 +759,6 @@ public class IafRecipes extends RecipeProvider {
         this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(handle), items);
     }
 
-    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final ItemConvertible handle, final ItemConvertible... items) {
-        this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.ofItems(handle), items);
-    }
-
     private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible handle, final ItemConvertible... items) {
         this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.ofItems(handle), items);
     }

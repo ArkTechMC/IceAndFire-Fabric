@@ -9,7 +9,7 @@
       "item": "iceandfire:wither_shard"
     },
     "W": {
-      "tag": "forge:bones/wither"
+      "tag": "c:bones/wither"
     }
   },
   "pattern": [

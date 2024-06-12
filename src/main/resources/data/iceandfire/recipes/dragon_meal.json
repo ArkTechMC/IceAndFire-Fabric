@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "B": {
-      "tag": "forge:bones"
+      "item": "minecraft:bone"
     },
     "M": {
       "tag": "iceandfire:dragon_food_meat"
