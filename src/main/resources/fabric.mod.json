@@ -15,14 +15,20 @@
   "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "dev.arktechmc.iafextra.IceAndFireClient"
+    "fabric-datagen": [
+      "com.github.alexthe666.iceandfire.datagen.ModDataGenerator"
     ],
     "main": [
       "dev.arktechmc.iafextra.IceAndFire"
     ],
+    "client": [
+      "dev.arktechmc.iafextra.IceAndFireClient"
+    ],
     "emi": [
-      "com.github.alexthe666.iceandfire.compat.emi.IceAndFirePlugin"
+      "com.github.alexthe666.iceandfire.compat.emi.IceAndFireEmiPlugin"
+    ],
+    "jade": [
+      "com.github.alexthe666.iceandfire.compat.jade.IceAndFireJadePlugin"
     ],
     "cardinal-components-entity": [
       "dev.arktechmc.iafextra.data.ModComponentEntry"

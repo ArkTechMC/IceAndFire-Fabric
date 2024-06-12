@@ -37,12 +37,12 @@ public class CitadelLecternRenderer implements BlockEntityRenderer<CitadelLecter
             poseStack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(67.5F));
             poseStack.translate(0.0D, -0.125D, 0.0D);
             this.bookModel.setPageAngles(0.0F, 0.1F, 0.9F, 1.2F);
-            int bindingR = (bookData.getBindingColor() & 0xFF0000) >> 16;
-            int bindingG = (bookData.getBindingColor() & 0xFF00) >> 8;
-            int bindingB = (bookData.getBindingColor() & 0xFF);
-            int pageR = (bookData.getPageColor() & 0xFF0000) >> 16;
-            int pageG = (bookData.getPageColor() & 0xFF00) >> 8;
-            int pageB = (bookData.getPageColor() & 0xFF);
+            int bindingR = (bookData.bindingColor() & 0xFF0000) >> 16;
+            int bindingG = (bookData.bindingColor() & 0xFF00) >> 8;
+            int bindingB = (bookData.bindingColor() & 0xFF);
+            int pageR = (bookData.pageColor() & 0xFF0000) >> 16;
+            int pageG = (bookData.pageColor() & 0xFF00) >> 8;
+            int pageB = (bookData.pageColor() & 0xFF);
             VertexConsumer pages = bufferSource.getBuffer(RenderLayer.getEntityCutoutNoCull(BOOK_PAGE_TEXTURE));
             this.bookModel.renderBook(poseStack, pages, i, j, pageR / 255F, pageG / 255F, pageB / 255F, 1.0F);
             VertexConsumer binding = bufferSource.getBuffer(RenderLayer.getEntityCutoutNoCull(BOOK_BINDING_TEXTURE));

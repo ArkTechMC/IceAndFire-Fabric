@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
-import com.github.alexthe666.iceandfire.item.BlockItemWithRender;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.IafTabRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
@@ -96,12 +95,12 @@ public class IafBlockRegistry {
     public static final RegistryObject<Block> DRAGONFORGE_ICE_CORE_DISABLED = register(BlockDragonforgeCore.name(1, false), () -> new BlockDragonforgeCore(1, false));
     public static final RegistryObject<Block> DRAGONFORGE_LIGHTNING_CORE_DISABLED = register(BlockDragonforgeCore.name(2, false), () -> new BlockDragonforgeCore(2, false));
     public static final RegistryObject<Block> EGG_IN_ICE = register("egginice", BlockEggInIce::new);
-    public static final RegistryObject<Block> PIXIE_HOUSE_MUSHROOM_RED = registerWithRender(BlockPixieHouse.name("mushroom_red"), BlockPixieHouse::new);
-    public static final RegistryObject<Block> PIXIE_HOUSE_MUSHROOM_BROWN = registerWithRender(BlockPixieHouse.name("mushroom_brown"), BlockPixieHouse::new);
-    public static final RegistryObject<Block> PIXIE_HOUSE_OAK = registerWithRender(BlockPixieHouse.name("oak"), BlockPixieHouse::new);
-    public static final RegistryObject<Block> PIXIE_HOUSE_BIRCH = registerWithRender(BlockPixieHouse.name("birch"), BlockPixieHouse::new);
-    public static final RegistryObject<Block> PIXIE_HOUSE_SPRUCE = registerWithRender(BlockPixieHouse.name("spruce"), BlockPixieHouse::new);
-    public static final RegistryObject<Block> PIXIE_HOUSE_DARK_OAK = registerWithRender(BlockPixieHouse.name("dark_oak"), BlockPixieHouse::new);
+    public static final RegistryObject<Block> PIXIE_HOUSE_MUSHROOM_RED = register(BlockPixieHouse.name("mushroom_red"), BlockPixieHouse::new);
+    public static final RegistryObject<Block> PIXIE_HOUSE_MUSHROOM_BROWN = register(BlockPixieHouse.name("mushroom_brown"), BlockPixieHouse::new);
+    public static final RegistryObject<Block> PIXIE_HOUSE_OAK = register(BlockPixieHouse.name("oak"), BlockPixieHouse::new);
+    public static final RegistryObject<Block> PIXIE_HOUSE_BIRCH = register(BlockPixieHouse.name("birch"), BlockPixieHouse::new);
+    public static final RegistryObject<Block> PIXIE_HOUSE_SPRUCE = register(BlockPixieHouse.name("spruce"), BlockPixieHouse::new);
+    public static final RegistryObject<Block> PIXIE_HOUSE_DARK_OAK = register(BlockPixieHouse.name("dark_oak"), BlockPixieHouse::new);
     public static final RegistryObject<Block> JAR_EMPTY = register(BlockJar.name(-1), () -> new BlockJar(-1));
     public static final RegistryObject<Block> JAR_PIXIE_0 = register(BlockJar.name(0), () -> new BlockJar(0));
     public static final RegistryObject<Block> JAR_PIXIE_1 = register(BlockJar.name(1), () -> new BlockJar(1));
@@ -137,11 +136,11 @@ public class IafBlockRegistry {
     public static final RegistryObject<Block> DREADWOOD_LOG = register("dreadwood_log", BlockDreadWoodLog::new);
     public static final RegistryObject<BlockDreadBase> DREADWOOD_PLANKS = register("dreadwood_planks", () -> BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.WOOD, MapColor.OAK_TAN, Instrument.BASS, true));
     public static final RegistryObject<Block> DREADWOOD_PLANKS_LOCK = register("dreadwood_planks_lock", BlockDreadWoodLock::new);
-    public static final RegistryObject<Block> DREAD_PORTAL = registerWithRender("dread_portal", BlockDreadPortal::new);
+    public static final RegistryObject<Block> DREAD_PORTAL = register("dread_portal", BlockDreadPortal::new);
     public static final RegistryObject<Block> DREAD_SPAWNER = register("dread_spawner", BlockDreadSpawner::new);
     public static final RegistryObject<TorchBlock> BURNT_TORCH = registerWallBlock("burnt_torch", BlockBurntTorch::new);
     public static final RegistryObject<BlockBurntTorchWall> BURNT_TORCH_WALL = registerWallTorch("burnt_torch_wall", BlockBurntTorchWall::new);
-    public static final RegistryObject<Block> GHOST_CHEST = registerWithRender("ghost_chest", BlockGhostChest::new);
+    public static final RegistryObject<Block> GHOST_CHEST = register("ghost_chest", BlockGhostChest::new);
     public static final RegistryObject<Block> GRAVEYARD_SOIL = register("graveyard_soil", BlockGraveyardSoil::new);
 
 
@@ -155,13 +154,6 @@ public class IafBlockRegistry {
     public static <T extends TorchBlock> RegistryObject<T> registerWallBlock(String name, Supplier<T> block) {
         RegistryObject<T> ret = BLOCKS.register(name, block);
         IafItemRegistry.registerItem(name, () -> new VerticallyAttachableBlockItem(ret.get(), ((IWallBlock) ret.get()).wallBlock(), new Item.Settings(), Direction.DOWN), false);
-        IafTabRegistry.TAB_BLOCKS_LIST.add(ret);
-        return ret;
-    }
-
-    public static <T extends Block> RegistryObject<T> registerWithRender(String name, Supplier<T> block) {
-        RegistryObject<T> ret = BLOCKS.register(name, block);
-        IafItemRegistry.registerItem(name, () -> new BlockItemWithRender(ret.get(), new Item.Settings()), false);
         IafTabRegistry.TAB_BLOCKS_LIST.add(ret);
         return ret;
     }

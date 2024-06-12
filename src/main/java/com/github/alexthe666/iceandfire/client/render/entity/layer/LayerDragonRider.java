@@ -61,9 +61,8 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                         this.offsetPerDragonType(dragon.dragonType, matrixStackIn);
                         EntityRenderer<? super Entity> render = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(passenger);
                         EntityModel modelBase = null;
-                        if (render instanceof MobEntityRenderer) {
-                            modelBase = ((MobEntityRenderer<?, ?>) render).getModel();
-                        }
+                        if (render instanceof MobEntityRenderer mobEntityRenderer)
+                            modelBase = mobEntityRenderer.getModel();
                         if ((passenger.getHeight() > passenger.getWidth() || modelBase instanceof BipedEntityModel) && !(modelBase instanceof QuadrupedEntityModel) && !(modelBase instanceof HorseEntityModel)) {
                             matrixStackIn.translate(-0.15F * passenger.getHeight(), 0.1F * dragonScale - 0.1F * passenger.getHeight(), -0.1F * dragonScale - 0.1F * passenger.getWidth());
                             matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(90.0F));

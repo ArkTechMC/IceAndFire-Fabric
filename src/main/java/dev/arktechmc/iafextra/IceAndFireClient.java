@@ -4,6 +4,7 @@ import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.ClientProxy;
 import com.github.alexthe666.citadel.client.render.CitadelLecternRenderer;
 import com.github.alexthe666.citadel.client.render.pathfinding.WorldEventContext;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.client.IafClientSetup;
 import com.github.alexthe666.iceandfire.client.IafKeybindRegistry;
 import com.github.alexthe666.iceandfire.event.ClientEvents;
@@ -45,6 +46,15 @@ public class IceAndFireClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(IafItemRegistry.DEATHWORM_GAUNTLET_WHITE.get(), new DeathwormGauntletRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafItemRegistry.GORGON_HEAD.get(), new GorgonHeadRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafItemRegistry.TIDE_TRIDENT.get(), new TideTridentRenderer());
+
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.PIXIE_HOUSE_BIRCH.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.PIXIE_HOUSE_OAK.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.PIXIE_HOUSE_DARK_OAK.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.PIXIE_HOUSE_SPRUCE.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_RED.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_BROWN.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.DREAD_PORTAL.get(), new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlockRegistry.GHOST_CHEST.get(), new TEISRItemRenderer());
 
         IafClientNetworkHandler.register();
     }

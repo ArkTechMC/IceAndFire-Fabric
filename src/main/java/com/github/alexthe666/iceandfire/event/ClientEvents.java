@@ -26,12 +26,6 @@ import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class ClientEvents {
-
-    private static final Identifier SIREN_SHADER = new Identifier(IceAndFire.MOD_ID, "shaders/post/siren.json");
-    // TODO: add this to client side config
-    public final boolean AUTO_ADAPT_3RD_PERSON = true;
-    private final Random rand = new Random();
-
 //    public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
 //        PlayerEntity player = MinecraftClient.getInstance().player;
 //        if (player.getVehicle() != null) {

@@ -12,28 +12,13 @@ public class LecternBooks {
     public static final Map<Identifier, BookData> BOOKS = new HashMap<>();
 
     public static void init() {
-        BOOKS.put(Citadel.CITADEL_BOOK.getId(), new BookData(0X64A27B, 0XD6D6D6));
+//        BOOKS.put(Citadel.CITADEL_BOOK.getId(), new BookData(0X64A27B, 0XD6D6D6));
     }
 
     public static boolean isLecternBook(ItemStack stack) {
         return BOOKS.containsKey(Registries.ITEM.getId(stack.getItem()));
     }
 
-    public static class BookData {
-        final int bindingColor;
-        final int pageColor;
-
-        public BookData(int bindingColor, int pageColor) {
-            this.bindingColor = bindingColor;
-            this.pageColor = pageColor;
-        }
-
-        public int getBindingColor() {
-            return this.bindingColor;
-        }
-
-        public int getPageColor() {
-            return this.pageColor;
-        }
+    public record BookData(int bindingColor, int pageColor) {
     }
 }

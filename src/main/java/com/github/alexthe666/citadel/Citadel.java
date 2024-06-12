@@ -36,11 +36,7 @@ public class Citadel {
     public static final LazyRegistrar<Item> ITEMS = LazyRegistrar.create(Registries.ITEM, "citadel");
     public static final LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, "citadel");
     public static final LazyRegistrar<BlockEntityType<?>> BLOCK_ENTITIES = LazyRegistrar.create(Registries.BLOCK_ENTITY_TYPE, "citadel");
-    public static final RegistryObject<Item> DEBUG_ITEM = ITEMS.register("debug", () -> new ItemCitadelDebug(new Item.Settings()));
-    public static final RegistryObject<Item> CITADEL_BOOK = ITEMS.register("citadel_book", () -> new ItemCitadelBook(new Item.Settings().maxCount(1)));
-    public static final RegistryObject<Item> EFFECT_ITEM = ITEMS.register("effect_item", () -> new ItemCustomRender(new Item.Settings().maxCount(1)));
-    public static final RegistryObject<Item> FANCY_ITEM = ITEMS.register("fancy_item", () -> new ItemCustomRender(new Item.Settings().maxCount(1)));
-    public static final RegistryObject<Item> ICON_ITEM = ITEMS.register("icon_item", () -> new ItemCustomRender(new Item.Settings().maxCount(1)));
+//    public static final RegistryObject<Item> CITADEL_BOOK = ITEMS.register("citadel_book", () -> new ItemCitadelBook(new Item.Settings().maxCount(1)));
     public static final RegistryObject<Block> LECTERN = BLOCKS.register("lectern", () -> new CitadelLecternBlock(AbstractBlock.Settings.copy(Blocks.LECTERN)));
 
     public Citadel() {

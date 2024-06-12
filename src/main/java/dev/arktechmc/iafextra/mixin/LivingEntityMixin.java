@@ -2,6 +2,8 @@ package dev.arktechmc.iafextra.mixin;
 
 import com.github.alexthe666.iceandfire.event.ClientEvents;
 import com.github.alexthe666.iceandfire.item.ItemGhostSword;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,6 +20,7 @@ public abstract class LivingEntityMixin {
     @Shadow
     public abstract ItemStack getStackInHand(Hand hand);
 
+    @Environment(EnvType.CLIENT)
     @Inject(method = "tick", at = @At("RETURN"))
     private void onEntityTick(CallbackInfo ci) {
         ClientEvents.onLivingUpdate((LivingEntity) (Object) this);

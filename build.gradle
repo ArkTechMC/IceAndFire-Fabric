@@ -10,6 +10,10 @@ loom {
     accessWidenerPath = file("src/main/resources/iceandfire.accesswidener")
 }
 
+fabricApi {
+    configureDataGeneration()
+}
+
 repositories {
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
@@ -30,6 +34,12 @@ repositories {
     maven {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/"
+    }
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
     }
 }
 
@@ -62,6 +72,9 @@ dependencies {
     // EMI
     modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
     modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+
+    // Jade
+    modImplementation "curse.maven:jade-324717:5339230"
 }
 
 processResources {
