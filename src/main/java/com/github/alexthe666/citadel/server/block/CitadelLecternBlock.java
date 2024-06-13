@@ -70,10 +70,5 @@ public class CitadelLecternBlock extends LecternBlock {
             level.spawnEntity(itementity);
             lecternblockentity.clear();
         }
-
-    }
-
-    public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockView level, BlockPos pos, PlayerEntity player) {
-        return new ItemStack(Items.LECTERN);
     }
 }

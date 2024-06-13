@@ -2,9 +2,6 @@ package com.github.alexthe666.citadel;
 
 import com.github.alexthe666.citadel.config.ConfigHolder;
 import com.github.alexthe666.citadel.config.ServerConfig;
-import com.github.alexthe666.citadel.item.ItemCitadelBook;
-import com.github.alexthe666.citadel.item.ItemCitadelDebug;
-import com.github.alexthe666.citadel.item.ItemCustomRender;
 import com.github.alexthe666.citadel.server.block.CitadelLecternBlock;
 import com.github.alexthe666.citadel.server.block.CitadelLecternBlockEntity;
 import com.github.alexthe666.citadel.server.generation.VillageHouseManager;
@@ -36,7 +33,7 @@ public class Citadel {
     public static final LazyRegistrar<Item> ITEMS = LazyRegistrar.create(Registries.ITEM, "citadel");
     public static final LazyRegistrar<Block> BLOCKS = LazyRegistrar.create(Registries.BLOCK, "citadel");
     public static final LazyRegistrar<BlockEntityType<?>> BLOCK_ENTITIES = LazyRegistrar.create(Registries.BLOCK_ENTITY_TYPE, "citadel");
-//    public static final RegistryObject<Item> CITADEL_BOOK = ITEMS.register("citadel_book", () -> new ItemCitadelBook(new Item.Settings().maxCount(1)));
+    //    public static final RegistryObject<Item> CITADEL_BOOK = ITEMS.register("citadel_book", () -> new ItemCitadelBook(new Item.Settings().maxCount(1)));
     public static final RegistryObject<Block> LECTERN = BLOCKS.register("lectern", () -> new CitadelLecternBlock(AbstractBlock.Settings.copy(Blocks.LECTERN)));
 
     public Citadel() {
@@ -61,7 +58,9 @@ public class Citadel {
                 expandedBiomeSource.expandBiomesWith(biomeHolders);
             }
         }
-    }    public static final RegistryObject<BlockEntityType<CitadelLecternBlockEntity>> LECTERN_BE = BLOCK_ENTITIES.register("lectern", () -> BlockEntityType.Builder.create(CitadelLecternBlockEntity::new, LECTERN.get()).build(null));
+    }
+
+    public static final RegistryObject<BlockEntityType<CitadelLecternBlockEntity>> LECTERN_BE = BLOCK_ENTITIES.register("lectern", () -> BlockEntityType.Builder.create(CitadelLecternBlockEntity::new, LECTERN.get()).build(null));
 
     public void onModConfigEvent() {
         // Rebake the configs when they change
@@ -70,8 +69,4 @@ public class Citadel {
         ServerConfig.chunkGenSpawnModifierVal = ConfigHolder.SERVER.chunkGenSpawnModifier.get();
         //citadelTestBiomeData = SpawnBiomeConfig.create(new ResourceLocation("citadel:config_biome"), CitadelBiomeDefinitions.TERRALITH_TEST);
     }
-
-
-
-
 }

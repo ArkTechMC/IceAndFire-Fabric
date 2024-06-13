@@ -59,8 +59,7 @@ public class VillageHouseManager {
                 }
             }
         } catch (Exception e) {
-            Citadel.LOGGER.error("Could not add village houses!");
-            e.printStackTrace();
+            Citadel.LOGGER.error("Could not add village houses!", e);
         }
     }
 }

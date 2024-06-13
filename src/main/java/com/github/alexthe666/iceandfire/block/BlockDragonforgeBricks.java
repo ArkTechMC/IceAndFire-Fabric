@@ -1,11 +1,11 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeBrick;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -20,23 +20,15 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class BlockDragonforgeBricks extends BlockWithEntity implements IDragonProof {
+public class BlockDragonforgeBricks extends Block implements IDragonProof {
 
     public static final BooleanProperty GRILL = BooleanProperty.of("grill");
-    private final int isFire;
+    private final int dragonType;
 
-    public BlockDragonforgeBricks(int isFire) {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.STONE_GRAY)
-                        .instrument(Instrument.BASEDRUM)
-                        .dynamicBounds()
-                        .strength(40, 500)
-                        .sounds(BlockSoundGroup.METAL)
-        );
+    public BlockDragonforgeBricks(int dragonType) {
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL));
 
-        this.isFire = isFire;
+        this.dragonType = dragonType;
         this.setDefaultState(this.getStateManager().getDefaultState().with(GRILL, Boolean.FALSE));
     }
 
@@ -45,31 +37,25 @@ public class BlockDragonforgeBricks extends BlockWithEntity implements IDragonPr
     }
 
     @Override
-    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull PlayerEntity player, @NotNull Hand handIn, BlockHitResult resultIn) {
-        if (this.getConnectedTileEntity(worldIn, resultIn.getBlockPos()) != null) {
-            TileEntityDragonforge forge = this.getConnectedTileEntity(worldIn, resultIn.getBlockPos());
-            if (forge != null && forge.fireType == this.isFire) {
-                if (worldIn.isClient) {
-                    IceAndFire.PROXY.setRefrencedTE(worldIn.getBlockEntity(forge.getPos()));
-                } else {
-                    NamedScreenHandlerFactory inamedcontainerprovider = this.createScreenHandlerFactory(forge.getCachedState(), worldIn, forge.getPos());
-                    if (inamedcontainerprovider != null) {
-                        player.openHandledScreen(inamedcontainerprovider);
-                    }
+    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World world, @NotNull BlockPos pos, @NotNull PlayerEntity player, @NotNull Hand handIn, BlockHitResult resultIn) {
+        if (!world.isClient) {
+            BlockPos forge = this.getConnectedTileEntity(world, pos);
+            if (forge != null) {
+                NamedScreenHandlerFactory screenHandlerFactory = world.getBlockState(forge).createScreenHandlerFactory(world, forge);
+                if (screenHandlerFactory != null) {
+                    player.openHandledScreen(screenHandlerFactory);
+                    return ActionResult.SUCCESS;
                 }
-                return ActionResult.SUCCESS;
             }
         }
         return ActionResult.FAIL;
     }
 
-    private TileEntityDragonforge getConnectedTileEntity(World worldIn, BlockPos pos) {
+    private BlockPos getConnectedTileEntity(World worldIn, BlockPos pos) {
         for (Direction facing : Direction.values()) {
-            if (worldIn.getBlockEntity(pos.offset(facing)) != null && worldIn.getBlockEntity(pos.offset(facing)) instanceof TileEntityDragonforge forge) {
-                if (forge.assembled()) {
-                    return forge;
-                }
-            }
+            BlockPos p = pos.offset(facing);
+            if (worldIn.getBlockEntity(p) instanceof TileEntityDragonforge forge && forge.dragonType == this.dragonType)
+                return p;
         }
         return null;
     }
@@ -82,10 +68,5 @@ public class BlockDragonforgeBricks extends BlockWithEntity implements IDragonPr
     @Override
     public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new TileEntityDragonforgeBrick(pos, state);
     }
 }

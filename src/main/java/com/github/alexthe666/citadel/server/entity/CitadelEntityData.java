@@ -11,12 +11,6 @@ import net.minecraft.nbt.NbtCompound;
  */
 public class CitadelEntityData {
 
-
-    public static NbtCompound getOrCreateCitadelTag(LivingEntity entity) {
-        NbtCompound tag = getCitadelTag(entity);
-        return tag == null ? new NbtCompound() : tag;
-    }
-
     public static NbtCompound getCitadelTag(LivingEntity entity) {
         return entity instanceof ICitadelDataEntity ? ((ICitadelDataEntity) entity).getCitadelEntityData() : new NbtCompound();
     }

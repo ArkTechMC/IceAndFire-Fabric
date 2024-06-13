@@ -8,15 +8,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class BlockDragonBone extends PillarBlock implements IDragonProof {
 
     public BlockDragonBone() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.STONE_GRAY)
-                        .instrument(Instrument.BASEDRUM)
-                        .sounds(BlockSoundGroup.WOOD)
-                        .strength(30F, 500F)
-                        .requiresTool()
-        );
-
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).sounds(BlockSoundGroup.WOOD).strength(30F, 500F).requiresTool());
     }
 }

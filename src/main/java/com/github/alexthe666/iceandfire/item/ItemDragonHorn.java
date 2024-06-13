@@ -89,7 +89,7 @@ public class ItemDragonHorn extends Item {
         if (stack.getNbt() != null && !stack.getNbt().getString("DragonHornEntityID").isEmpty()) {
             World world = context.getWorld();
             String id = stack.getNbt().getString("DragonHornEntityID");
-            EntityType type = EntityType.get(id).orElse(null);
+            EntityType<?> type = EntityType.get(id).orElse(null);
             if (type != null) {
                 Entity entity = type.create(world);
                 if (entity instanceof EntityDragonBase dragon) {

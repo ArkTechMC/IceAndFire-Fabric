@@ -1,8 +1,10 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.gui.bestiary.GuiBestiary;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.google.common.primitives.Ints;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +31,7 @@ public class ItemBestiary extends Item {
     @Override
     public void onCraft(ItemStack stack, @NotNull World worldIn, @NotNull PlayerEntity playerIn) {
         stack.setNbt(new NbtCompound());
-        stack.getNbt().putIntArray("Pages", new int[]{0});
+        stack.getOrCreateNbt().putIntArray("Pages", new int[]{0});
 
     }
 
@@ -51,9 +53,8 @@ public class ItemBestiary extends Item {
     @Override
     public @NotNull TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack itemStackIn = playerIn.getStackInHand(handIn);
-        if (worldIn.isClient) {
-            IceAndFire.PROXY.openBestiaryGui(itemStackIn);
-        }
+        if (worldIn.isClient)
+            MinecraftClient.getInstance().setScreen(new GuiBestiary(itemStackIn));
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
@@ -62,7 +63,6 @@ public class ItemBestiary extends Item {
         if (stack.getNbt() == null) {
             stack.setNbt(new NbtCompound());
             stack.getNbt().putIntArray("Pages", new int[]{EnumBestiaryPages.INTRODUCTION.ordinal()});
-
         }
     }
 
@@ -71,8 +71,7 @@ public class ItemBestiary extends Item {
         if (stack.getNbt() != null) {
             if (IceAndFire.PROXY.shouldSeeBestiaryContents()) {
                 tooltip.add(Text.translatable("bestiary.contains").formatted(Formatting.GRAY));
-                final Set<EnumBestiaryPages> pages = EnumBestiaryPages
-                        .containedPages(Ints.asList(stack.getNbt().getIntArray("Pages")));
+                final Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(stack.getNbt().getIntArray("Pages")));
                 for (EnumBestiaryPages page : pages) {
                     tooltip.add(Text.literal(Formatting.WHITE + "-").append(Text.translatable("bestiary." + EnumBestiaryPages.values()[page.ordinal()].toString().toLowerCase())).formatted(Formatting.GRAY));
                 }
@@ -82,5 +81,4 @@ public class ItemBestiary extends Item {
 
         }
     }
-
 }

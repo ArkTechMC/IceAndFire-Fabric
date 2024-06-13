@@ -1,8 +1,8 @@
 {
   "values": [
     "#minecraft:dirt",
-    "#forge:stone",
-    "#forge:cobblestone",
+    "minecraft:stone",
+    "minecraft:cobblestone",
     "#iceandfire:dragon_environment_blocks",
     "minecraft:grass_block"
   ]
