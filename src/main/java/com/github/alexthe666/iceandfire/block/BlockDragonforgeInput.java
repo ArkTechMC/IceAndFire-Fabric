@@ -3,10 +3,8 @@ package com.github.alexthe666.iceandfire.block;
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -20,8 +18,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class BlockDragonforgeInput extends Block implements IDragonProof {
+public class BlockDragonforgeInput extends BlockWithEntity implements IDragonProof {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     private final int dragonType;
 
@@ -81,5 +80,11 @@ public class BlockDragonforgeInput extends Block implements IDragonProof {
     public void neighborUpdate(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull Block blockIn, @NotNull BlockPos fromPos, boolean isMoving) {
         if (worldIn.getBlockEntity(pos) instanceof TileEntityDragonforgeInput input)
             input.resetCore();
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new TileEntityDragonforgeInput(pos, state);
     }
 }

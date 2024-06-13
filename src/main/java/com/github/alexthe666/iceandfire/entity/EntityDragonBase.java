@@ -1199,7 +1199,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         return ActionResult.SUCCESS;
                     }
                     final Item stackItem = stack.getItem();
-                    if (stackItem == IafItemRegistry.DRAGON_MEAL.get()) {
+                    if (stackItem == IafItemRegistry.DRAGON_MEAL.get() && this.getAgeInDays() < 125) {
                         this.growDragon(1);
                         this.setHunger(this.getHunger() + 20);
                         this.heal(Math.min(this.getHealth(), (int) (this.getMaxHealth() / 2)));
