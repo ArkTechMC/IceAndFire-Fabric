@@ -54,7 +54,7 @@ public class BlockDragonforgeBricks extends Block implements IDragonProof {
     private BlockPos getConnectedTileEntity(World worldIn, BlockPos pos) {
         for (Direction facing : Direction.values()) {
             BlockPos p = pos.offset(facing);
-            if (worldIn.getBlockEntity(p) instanceof TileEntityDragonforge forge && forge.dragonType == this.dragonType)
+            if (worldIn.getBlockEntity(p) instanceof TileEntityDragonforge forge && forge.dragonType == this.dragonType && forge.isAssembled())
                 return p;
         }
         return null;

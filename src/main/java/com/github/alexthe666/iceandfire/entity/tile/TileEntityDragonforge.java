@@ -93,7 +93,7 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
         entityDragonforge.updateGrills(entityDragonforge.assembled());
         if (!level.isClient) {
             if (entityDragonforge.prevAssembled != entityDragonforge.assembled()) {
-                BlockDragonforgeCore.setState(entityDragonforge.dragonType, entityDragonforge.prevAssembled, level, pos);
+                BlockDragonforgeCore.setState(entityDragonforge.dragonType, !entityDragonforge.prevAssembled, level, pos);
             }
             entityDragonforge.prevAssembled = entityDragonforge.assembled();
             if (!entityDragonforge.assembled())
@@ -455,5 +455,9 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
     @Override
     public Text getDisplayName() {
         return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(this.dragonType));
+    }
+
+    public boolean isAssembled() {
+        return this.prevAssembled;
     }
 }
