@@ -3,7 +3,7 @@
   "dragon_type": "fire",
   "cook_time": 1000,
   "input": {
-    "tag": "c:ingots/iron"
+    "item": "minecraft:iron_ingot"
   },
   "blood": {
     "item": "iceandfire:fire_dragon_blood"

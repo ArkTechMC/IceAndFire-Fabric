@@ -48,7 +48,7 @@ public class MessageUpdateDragonforge implements S2CMessage {
         if (player != null) {
             BlockPos pos = BlockPos.fromLong(this.blockPos);
             if (player.getWorld().getBlockEntity(pos) instanceof TileEntityDragonforge forge) {
-                forge.cookTime = this.cookTime;
+                forge.getPropertyDelegate().cookTime = this.cookTime;
                 if (this.cookTime > 0)
                     forge.lastDragonFlameTimer = 40;
             }

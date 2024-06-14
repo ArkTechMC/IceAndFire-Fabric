@@ -1,6 +1,5 @@
 package dev.arktechmc.iafextra.network;
 
-import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.message.*;
 import dev.arktechmc.iafextra.StaticVariables;
@@ -37,10 +36,7 @@ public class IafServerNetworkHandler implements ServerPlayNetworking.PlayChannel
     public static void register() {
         ServerPlayNetworking.registerGlobalReceiver(CHANNEL_NAME, INSTANCE);
 
-        INSTANCE.registerMessage(PropertiesMessage::new);
-
         INSTANCE.registerMessage(MessageDragonControl::new);
-        INSTANCE.registerMessage(MessageDragonSyncFire::new);
         INSTANCE.registerMessage(MessageGetMyrmexHive::new);
         INSTANCE.registerMessage(MessageHippogryphArmor::new);
         INSTANCE.registerMessage(MessageMultipartInteract::new);

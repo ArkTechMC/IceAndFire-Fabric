@@ -1,9 +1,7 @@
 package dev.arktechmc.iafextra;
 
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.CitadelEvents;
-import com.github.alexthe666.citadel.server.block.LecternBooks;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
@@ -29,7 +27,6 @@ import io.github.fabricators_of_create.porting_lib.entity.events.PlayerEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingDamageEvent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
@@ -50,13 +47,6 @@ public class IceAndFire implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LecternBooks.init();
-        UseBlockCallback.EVENT.register(CitadelEvents::onRightClickBlock);
-        ServerPlayerEvents.COPY_FROM.register(CitadelEvents::onPlayerClone);
-        Citadel.ITEMS.register();
-        Citadel.BLOCKS.register();
-        Citadel.BLOCK_ENTITIES.register();
-
         IafRecipeRegistry.registerDispenser();
         IafItemRegistry.registerItems();
         IafItemRegistry.setRepairMaterials();
@@ -79,6 +69,7 @@ public class IceAndFire implements ModInitializer {
         IafBlockRegistry.BLOCKS.register();
         IafItemRegistry.ITEMS.register();
         IafTabRegistry.TAB_REGISTER.register();
+        IafParticleRegistry.init();
 
         IafVillagerRegistry.POI_TYPES.register();
         IafVillagerRegistry.PROFESSIONS.register();

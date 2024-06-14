@@ -46,50 +46,6 @@ public class ClientProxy extends CommonProxy {
 
     @Environment(EnvType.CLIENT)
     @Override
-    public void spawnDragonParticle(final EnumParticles name, double x, double y, double z, double motX, double motY, double motZ, EntityDragonBase entityDragonBase) {
-        ClientWorld world = MinecraftClient.getInstance().world;
-        if (world == null) {
-            return;
-        }
-        net.minecraft.client.particle.Particle particle = null;
-        if (name == EnumParticles.DragonFire) {
-            particle = new ParticleDragonFlame(world, x, y, z, motX, motY, motZ, entityDragonBase, 0);
-        } else if (name == EnumParticles.DragonIce) {
-            particle = new ParticleDragonFrost(world, x, y, z, motX, motY, motZ, entityDragonBase, 0);
-        }
-        if (particle != null) {
-            MinecraftClient.getInstance().particleManager.addParticle(particle);
-        }
-    }
-
-    @Environment(EnvType.CLIENT)
-    @Override
-    public void spawnParticle(final EnumParticles name, double x, double y, double z, double motX, double motY, double motZ, float size) {
-        ClientWorld world = MinecraftClient.getInstance().world;
-        if (world == null) {
-            return;
-        }
-        Particle particle = switch (name) {
-            case DragonFire -> new ParticleDragonFlame(world, x, y, z, motX, motY, motZ, size);
-            case DragonIce -> new ParticleDragonFrost(world, x, y, z, motX, motY, motZ, size);
-            case Dread_Torch -> new ParticleDreadTorch(world, x, y, z, motX, motY, motZ, size);
-            case Dread_Portal -> new ParticleDreadPortal(world, x, y, z, motX, motY, motZ, size);
-            case Blood -> new ParticleBlood(world, x, y, z);
-            case If_Pixie -> new ParticlePixieDust(world, x, y, z, (float) motX, (float) motY, (float) motZ);
-            case Siren_Appearance -> new ParticleSirenAppearance(world, x, y, z, (int) motX);
-            case Ghost_Appearance -> new ParticleGhostAppearance(world, x, y, z, (int) motX);
-            case Siren_Music -> new ParticleSirenMusic(world, x, y, z, motX, motY, motZ, 1);
-            case Serpent_Bubble -> new ParticleSerpentBubble(world, x, y, z, motX, motY, motZ, 1);
-            case Hydra -> new ParticleHydraBreath(world, x, y, z, (float) motX, (float) motY, (float) motZ);
-            default -> null;
-        };
-        if (particle != null) {
-            MinecraftClient.getInstance().particleManager.addParticle(particle);
-        }
-    }
-
-    @Environment(EnvType.CLIENT)
-    @Override
     public void openBestiaryGui(ItemStack book) {
         MinecraftClient.getInstance().setScreen(new GuiBestiary(book));
     }

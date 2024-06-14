@@ -216,7 +216,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                 if (enchantment == null) {
                     list.add(Text.literal(Formatting.RED + I18n.translate("container.lectern.no_bestiary")).asOrderedText());
                 } else if (!flag) {
-                    list.add(Text.literal(String.valueOf(Formatting.WHITE) + Formatting.ITALIC + I18n.translate(enchantment == null ? "" : "bestiary." + enchantment.name().toLowerCase())).asOrderedText());
+                    list.add(Text.literal(String.valueOf(Formatting.WHITE) + Formatting.ITALIC + I18n.translate("bestiary." + enchantment.name().toLowerCase())).asOrderedText());
                     Formatting textformatting = i >= i1 ? Formatting.GRAY : Formatting.RED;
                     list.add(Text.literal(textformatting + I18n.translate("container.lectern.costs")).asOrderedText());
                     String s = I18n.translate("container.lectern.manuscript.many", i1);

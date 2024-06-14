@@ -40,16 +40,6 @@ public class CommonProxy {
     public void postInit() {
     }
 
-    public void spawnParticle(EnumParticles name, double x, double y, double z, double motX, double motY, double motZ) {
-        this.spawnParticle(name, x, y, z, motX, motY, motZ, 1.0F);
-    }
-
-    public void spawnDragonParticle(EnumParticles name, double x, double y, double z, double motX, double motY, double motZ, EntityDragonBase entityDragonBase) {
-    }
-
-    public void spawnParticle(EnumParticles name, double x, double y, double z, double motX, double motY, double motZ, float size) {
-    }
-
     public void openBestiaryGui(ItemStack book) {
     }
 

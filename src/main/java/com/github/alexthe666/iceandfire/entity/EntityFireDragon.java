@@ -5,8 +5,8 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.event.DragonFireEvent;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
@@ -464,7 +464,7 @@ public class EntityFireDragon extends EntityDragonBase {
             double progressZ = headPos.z + d4 * (i / (float) distance);
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
                 if (this.getWorld().isClient && this.random.nextInt(particleCount) == 0) {
-                    IceAndFire.PROXY.spawnDragonParticle(EnumParticles.DragonFire, headPos.x, headPos.y, headPos.z, 0, 0, 0, this);
+                    this.getWorld().addParticle(IafParticleRegistry.DRAGON_FLAME, headPos.x, headPos.y, headPos.z, 0, 0, 0);
                 }
             } else {
                 if (!this.getWorld().isClient) {

@@ -5,6 +5,7 @@ import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetOutOfWater;
 import com.github.alexthe666.iceandfire.entity.ai.SirenAIFindWaterTarget;
@@ -292,7 +293,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
                     double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
                     double extraY = 1.2F;
                     double extraZ = radius * MathHelper.cos(angle);
-                    IceAndFire.PROXY.spawnParticle(EnumParticles.Siren_Music, this.getX() + extraX + this.random.nextFloat() - 0.5, this.getY() + extraY + this.random.nextFloat() - 0.5, this.getZ() + extraZ + this.random.nextFloat() - 0.5, 0, 0, 0);
+                    this.getWorld().addParticle(IafParticleRegistry.SIREN_MUSIC, this.getX() + extraX + this.random.nextFloat() - 0.5, this.getY() + extraY + this.random.nextFloat() - 0.5, this.getZ() + extraZ + this.random.nextFloat() - 0.5, 0, 0, 0);
                 }
             }
         }

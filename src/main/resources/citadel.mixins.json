@@ -11,14 +11,12 @@
     "MinecraftServerMixin",
     "MultiNoiseBiomeSourceMixin",
     "NoiseChunkGeneratorMixin",
-    "ServerWorldMixin",
-    "SmithingScreenHandlerMixin"
+    "ServerWorldMixin"
   ],
   "client": [
     "client.ClientWorldMixin",
     "client.BipedEntityModelMixin",
     "client.RenderLayersMixin",
-    "client.WorldRendererMixin",
     "client.LivingEntityRendererMixin",
     "client.SoundSystemMixin",
     "client.SplashTextRendererMixin"

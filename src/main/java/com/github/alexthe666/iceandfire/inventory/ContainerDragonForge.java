@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.data.delegate.DragonForgePropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -18,23 +19,24 @@ public class ContainerDragonForge extends ScreenHandler {
 
     protected final World world;
     private final Inventory tileFurnace;
-    private final TileEntityDragonforge owner;
+    private final DragonForgePropertyDelegate propertyDelegate;
     public int fireType;
 
     public ContainerDragonForge(int i, PlayerInventory playerInventory) {
-        this(i, new SimpleInventory(3), playerInventory, null);
+        this(i, new SimpleInventory(3), playerInventory, new DragonForgePropertyDelegate());
     }
 
 
-    public ContainerDragonForge(int id, Inventory furnaceInventory, PlayerInventory playerInventory, TileEntityDragonforge owner) {
+    public ContainerDragonForge(int id, Inventory furnaceInventory, PlayerInventory playerInventory, DragonForgePropertyDelegate propertyDelegate) {
         super(IafContainerRegistry.DRAGON_FORGE_CONTAINER.get(), id);
         this.tileFurnace = furnaceInventory;
         this.world = playerInventory.player.getWorld();
-        this.owner = owner;
-        if (furnaceInventory instanceof TileEntityDragonforge) {
-            this.fireType = ((TileEntityDragonforge) furnaceInventory).fireType;
-        } else if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityDragonforge) {
-            this.fireType = ((TileEntityDragonforge) IceAndFire.PROXY.getRefrencedTE()).fireType;
+        this.propertyDelegate = propertyDelegate;
+        this.addProperties(this.propertyDelegate);
+        if (furnaceInventory instanceof TileEntityDragonforge inv) {
+            this.fireType = inv.getPropertyDelegate().fireType;
+        } else if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityDragonforge inv) {
+            this.fireType = inv.getPropertyDelegate().fireType;
         }
         this.addSlot(new Slot(furnaceInventory, 0, 68, 34));
         this.addSlot(new Slot(furnaceInventory, 1, 86, 34));
@@ -102,7 +104,7 @@ public class ContainerDragonForge extends ScreenHandler {
         return itemstack;
     }
 
-    public TileEntityDragonforge getOwner() {
-        return this.owner;
+    public DragonForgePropertyDelegate getPropertyDelegate() {
+        return this.propertyDelegate;
     }
 }

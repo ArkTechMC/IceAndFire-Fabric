@@ -7,7 +7,6 @@ public class ServerConfig {
     public static boolean citadelEntityTrack;
     public static boolean skipWarnings;
     public static double chunkGenSpawnModifierVal = 1.0D;
-    public static boolean aprilFools;
     public final ModConfigSpec.BooleanValue citadelEntityTracker;
     public final ModConfigSpec.BooleanValue skipDatapackWarnings;
     public final ModConfigSpec.DoubleValue chunkGenSpawnModifier;

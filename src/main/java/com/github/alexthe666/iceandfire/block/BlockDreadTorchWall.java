@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.WallTorchBlock;
@@ -42,6 +41,6 @@ public class BlockDreadTorchWall extends WallTorchBlock implements IDreadBlock {
         double d3 = 0.22D;
         double d4 = 0.27D;
         Direction direction1 = direction.getOpposite();
-        IceAndFire.PROXY.spawnParticle(EnumParticles.Dread_Torch, d0 + 0.27D * (double) direction1.getOffsetX(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getOffsetZ(), 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(IafParticleRegistry.DREAD_TORCH, d0 + 0.27D * (double) direction1.getOffsetX(), d1 + 0.22D, d2 + 0.27D * (double) direction1.getOffsetZ(), 0.0D, 0.0D, 0.0D);
     }
 }

@@ -1,8 +1,10 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.gui.bestiary.GuiBestiary;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.google.common.primitives.Ints;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,9 +53,8 @@ public class ItemBestiary extends Item {
     @Override
     public @NotNull TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack itemStackIn = playerIn.getStackInHand(handIn);
-        if (worldIn.isClient) {
-            IceAndFire.PROXY.openBestiaryGui(itemStackIn);
-        }
+        if (worldIn.isClient)
+            MinecraftClient.getInstance().setScreen(new GuiBestiary(itemStackIn));
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 

@@ -5,13 +5,14 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.event.DragonFireEvent;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import dev.arktechmc.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.message.ParticleSpawnMessage;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
@@ -470,23 +471,7 @@ public class EntityIceDragon extends EntityDragonBase {
     @Override
     public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
         if (EventBus.post(new DragonFireEvent(this, burnX, burnY, burnZ))) return;
-        if (syncType == 1 && !this.getWorld().isClient) {
-            //sync with client
-            IafServerNetworkHandler.sendToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
-        }
-        if (syncType == 2 && this.getWorld().isClient) {
-            //sync with server
-            IafClientNetworkHandler.send(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
-        }
-        if (syncType == 3 && !this.getWorld().isClient) {
-            //sync with client, fire bomb
-            IafServerNetworkHandler.sendToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
-        }
-        if (syncType == 4 && this.getWorld().isClient) {
-            //sync with server, fire bomb
-            IafClientNetworkHandler.send(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
-        }
-        if (/* Only trigger for bomb */ syncType > 2 && syncType < 6) {
+        if (syncType > 2 && syncType < 6) {
             if (this.getAnimation() != ANIMATION_FIRECHARGE) {
                 this.setAnimation(ANIMATION_FIRECHARGE);
             } else if (this.getAnimationTick() == 20) {
@@ -528,8 +513,11 @@ public class EntityIceDragon extends EntityDragonBase {
             double progressY = headPos.y + d3 * (i / (float) distance);
             double progressZ = headPos.z + d4 * (i / (float) distance);
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
-                if (this.getWorld().isClient && this.random.nextInt(particleCount) == 0) {
-                    IceAndFire.PROXY.spawnDragonParticle(EnumParticles.DragonIce, headPos.x, headPos.y, headPos.z, 0, 0, 0, this);
+                if (this.random.nextInt(particleCount) == 0) {
+                    Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
+                    velocity = velocity.multiply(5 / velocity.length());
+                    IafServerNetworkHandler.sendToAll(new ParticleSpawnMessage(IafParticleRegistry.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z));
+                    this.getWorld().addParticle(IafParticleRegistry.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z);
                 }
             } else {
                 if (!this.getWorld().isClient) {
@@ -624,18 +612,6 @@ public class EntityIceDragon extends EntityDragonBase {
     }
 
     @Override
-    protected void spawnDeathParticles() {
-        if (this.getWorld().isClient) {
-            for (int k = 0; k < 10; ++k) {
-                double d2 = this.random.nextGaussian() * 0.02D;
-                double d0 = this.random.nextGaussian() * 0.02D;
-                double d1 = this.random.nextGaussian() * 0.02D;
-                IceAndFire.PROXY.spawnParticle(EnumParticles.Snowflake, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
-            }
-        }
-    }
-
-    @Override
     protected void spawnBabyParticles() {
         if (this.getWorld().isClient) {
             for (int i = 0; i < 5; i++) {
@@ -643,7 +619,7 @@ public class EntityIceDragon extends EntityDragonBase {
                 float headPosX = (float) (this.getX() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.cos((float) ((this.getYaw() + 90) * Math.PI / 180)));
                 float headPosZ = (float) (this.getZ() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.sin((float) ((this.getYaw() + 90) * Math.PI / 180)));
                 float headPosY = (float) (this.getY() + 0.5 * this.getRenderSize() * 0.3F);
-                IceAndFire.PROXY.spawnParticle(EnumParticles.DragonIce, headPosX, headPosY, headPosZ, 0, 0, 0);
+                this.getWorld().addParticle(IafParticleRegistry.DRAGON_FROST, headPosX, headPosY, headPosZ, 0, 0, 0);
             }
         }
     }

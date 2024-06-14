@@ -5,6 +5,7 @@ import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
 import com.github.alexthe666.iceandfire.entity.util.*;
@@ -223,7 +224,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
             if (this.getAnimation() == ANIMATION_SCARE && this.getAnimationTick() == 3 && !this.isHauntedShoppingList() && this.random.nextInt(3) == 0) {
                 this.playSound(IafSoundRegistry.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
                 if (this.getWorld().isClient) {
-                    IceAndFire.PROXY.spawnParticle(EnumParticles.Ghost_Appearance, this.getX(), this.getY(), this.getZ(), this.getId(), 0, 0);
+                    this.getWorld().addParticle(IafParticleRegistry.GHOST_APPEARANCE, this.getX(), this.getY(), this.getZ(), this.getId(), 0, 0);
                 }
             }
         }

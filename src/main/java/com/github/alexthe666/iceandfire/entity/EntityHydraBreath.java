@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.minecraft.entity.Entity;
@@ -84,11 +85,9 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
             double d2 = this.getZ() + Vector3d.z;
             ProjectileUtil.setRotationFromVelocity(this, 0.2F);
             float f = this.getDrag();
-            if (this.getWorld().isClient) {
-                for (int i = 0; i < 15; ++i) {
-                    IceAndFire.PROXY.spawnParticle(EnumParticles.Hydra, this.getX() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, this.getY() - 0.5D, this.getZ() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, 0.1D, 1.0D, 0.1D);
-                }
-            }
+            if (this.getWorld().isClient)
+                for (int i = 0; i < 15; ++i)
+                    this.getWorld().addParticle(IafParticleRegistry.HYDRA_BREATH, this.getX() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, this.getY() - 0.5D, this.getZ() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, 0.1D, 1.0D, 0.1D);
 
             this.setVelocity(Vector3d.add(this.powerX, this.powerY, this.powerZ).multiply(f));
 

@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -113,9 +114,8 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
         double y = this.getY() + this.random.nextFloat() * this.getHeight() - this.getHeight();
         double z = this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth();
         float f = (this.getWidth() + this.getHeight() + this.getWidth()) * 0.333F + 0.5F;
-        if (this.particleDistSq(x, y, z) < f * f) {
-            IceAndFire.PROXY.spawnParticle(EnumParticles.Dread_Torch, x, y + 0.5D, z, d0, d1, d2);
-        }
+        if (this.particleDistSq(x, y, z) < f * f)
+            this.getWorld().addParticle(IafParticleRegistry.DREAD_TORCH, x, y + 0.5D, z, d0, d1, d2);
         super.tick();
     }
 

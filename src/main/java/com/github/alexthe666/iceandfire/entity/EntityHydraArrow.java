@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import net.minecraft.entity.Entity;
@@ -48,8 +49,8 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
             double d3 = 10.0D;
             double xRatio = this.getVelocity().x * this.getHeight();
             double zRatio = this.getVelocity().z * this.getHeight();
-            IceAndFire.PROXY.spawnParticle(EnumParticles.Hydra, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
-            IceAndFire.PROXY.spawnParticle(EnumParticles.Hydra, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
+            this.getWorld().addParticle(IafParticleRegistry.HYDRA_BREATH, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
+            this.getWorld().addParticle(IafParticleRegistry.HYDRA_BREATH, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
         }
     }
 

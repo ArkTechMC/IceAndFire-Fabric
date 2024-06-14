@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -16,15 +17,15 @@ public abstract class DreadSpawnerBaseLogic extends MobSpawnerLogic {
     private double oSpin;
 
     @Override
-    public void clientTick(@NotNull World p_151320_, @NotNull BlockPos p_151321_) {
-        if (!this.isPlayerInRange(p_151320_, p_151321_)) {
+    public void clientTick(@NotNull World world, @NotNull BlockPos pos) {
+        if (!this.isPlayerInRange(world, pos)) {
             this.oSpin = this.spin;
         } else {
-            double d0 = (double) p_151321_.getX() + p_151320_.random.nextDouble();
-            double d1 = (double) p_151321_.getY() + p_151320_.random.nextDouble();
-            double d2 = (double) p_151321_.getZ() + p_151320_.random.nextDouble();
-            p_151320_.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            IceAndFire.PROXY.spawnParticle(EnumParticles.Dread_Torch, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            double d0 = (double) pos.getX() + world.random.nextDouble();
+            double d1 = (double) pos.getY() + world.random.nextDouble();
+            double d2 = (double) pos.getZ() + world.random.nextDouble();
+            world.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            world.addParticle(IafParticleRegistry.DREAD_TORCH, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             if (this.spawnDelay > 0) {
                 --this.spawnDelay;
             }

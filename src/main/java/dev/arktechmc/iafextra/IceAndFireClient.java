@@ -1,12 +1,11 @@
 package dev.arktechmc.iafextra;
 
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.ClientProxy;
-import com.github.alexthe666.citadel.client.render.CitadelLecternRenderer;
 import com.github.alexthe666.citadel.client.render.pathfinding.WorldEventContext;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.client.IafClientSetup;
 import com.github.alexthe666.iceandfire.client.IafKeybindRegistry;
+import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.event.ClientEvents;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
@@ -17,13 +16,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 
 public class IceAndFireClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BlockEntityRendererFactories.register(Citadel.LECTERN_BE.get(), CitadelLecternRenderer::new);
-
         LivingEntityRenderEvents.PRE.register(ClientEvents::onPreRenderLiving);
         LivingEntityRenderEvents.POST.register(ClientEvents::onPostRenderLiving);
         RenderTooltipBorderColorCallback.EVENT.register(ClientProxy::renderTooltipColor);
@@ -31,6 +27,7 @@ public class IceAndFireClient implements ClientModInitializer {
         IafClientSetup.clientInit();
         IafClientSetup.setupClient();
         IafKeybindRegistry.init();
+        IafParticleRegistry.registerParticles();
 
         WorldRenderEvents.LAST.register(WorldEventContext.INSTANCE::renderWorldLastEvent);
         ArmorRenderer.register(new CopperArmorRenderer(), IafItemRegistry.COPPER_HELMET.get(), IafItemRegistry.COPPER_CHESTPLATE.get(), IafItemRegistry.COPPER_LEGGINGS.get(), IafItemRegistry.COPPER_BOOTS.get());
