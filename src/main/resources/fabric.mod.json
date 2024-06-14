@@ -3,7 +3,7 @@
   "id": "iceandfire",
   "version": "${version}",
   "name": "Ice And Fire",
-  "description": "Minecraft mystical mod",
+  "description": "The unofficial Fabric version of Ice And Fire.\nDragons and other mythological creatures in minecraft.",
   "authors": [
     "Alexthe666 (Origin Author)",
     "IAFEnvoy"
