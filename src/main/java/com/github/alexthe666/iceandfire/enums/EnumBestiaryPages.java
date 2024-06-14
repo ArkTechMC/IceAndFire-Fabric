@@ -79,7 +79,7 @@ public enum EnumBestiaryPages {
 
     public static List<EnumBestiaryPages> possiblePages(ItemStack book) {
         if (book.getItem() instanceof ItemBestiary) {
-            NbtCompound tag = book.getNbt();
+            NbtCompound tag = book.getOrCreateNbt();
             Collection<EnumBestiaryPages> containedPages = containedPages(Ints.asList(tag.getIntArray("Pages")));
             List<EnumBestiaryPages> possiblePages = new ArrayList<>(ALL_PAGES);
             possiblePages.removeAll(containedPages);
@@ -89,22 +89,17 @@ public enum EnumBestiaryPages {
     }
 
     public static void addPage(EnumBestiaryPages page, ItemStack book) {
-        boolean flag = false;
         if (book.getItem() instanceof ItemBestiary) {
-            NbtCompound tag = book.getNbt();
+            NbtCompound tag = book.getOrCreateNbt();
             final List<Integer> already = new ArrayList<>(Ints.asList(tag.getIntArray("Pages")));
-            if (!already.contains(page.ordinal())) {
+            if (!already.contains(page.ordinal()))
                 already.add(page.ordinal());
-                flag = true;
-            }
             tag.putIntArray("Pages", Ints.toArray(already));
         }
     }
 
     public static EnumBestiaryPages fromInt(int index) {
-        if (index < 0) {
-            return null;
-        }
+        if (index < 0) return null;
         int length = values().length;
         return values()[index % length];
     }

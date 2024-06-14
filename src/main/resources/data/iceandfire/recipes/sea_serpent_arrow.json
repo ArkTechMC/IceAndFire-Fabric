@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "c:rods/wooden"
+      "item": "minecraft:stick"
     },
     "X": {
       "item": "iceandfire:sea_serpent_fang"

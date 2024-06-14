@@ -4,8 +4,6 @@ import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemBestiary;
-import com.github.alexthe666.iceandfire.message.MessageUpdateLectern;
-import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -36,22 +34,6 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     private static final int[] slotsBottom = new int[]{0};
     private static final Random RANDOM = new Random();
     private static final ArrayList<EnumBestiaryPages> EMPTY_LIST = new ArrayList<>();
-    public final PropertyDelegate furnaceData = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            return 0;
-        }
-
-        @Override
-        public void set(int index, int value) {
-
-        }
-
-        @Override
-        public int size() {
-            return 0;
-        }
-    };
     private final Random localRand = new Random();
     public float pageFlip;
     public float pageFlipPrev;
@@ -59,22 +41,39 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     public float pageHelp2;
     public EnumBestiaryPages[] selectedPages = new EnumBestiaryPages[3];
     private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    public final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            EnumBestiaryPages page = TileEntityLectern.this.selectedPages[index];
+            return page == null ? -1 : page.ordinal();
+        }
+
+        @Override
+        public void set(int index, int value) {
+            TileEntityLectern.this.selectedPages[index] = EnumBestiaryPages.fromInt(value);
+        }
+
+        @Override
+        public int size() {
+            return 3;
+        }
+    };
 
     public TileEntityLectern(BlockPos pos, BlockState state) {
         super(IafTileEntityRegistry.IAF_LECTERN.get(), pos, state);
     }
 
-    public static void bookAnimationTick(World p_155504_, BlockPos p_155505_, BlockState p_155506_, TileEntityLectern p_155507_) {
-        float f1 = p_155507_.pageHelp1;
+    public static void bookAnimationTick(World world, BlockPos pos, BlockState state, TileEntityLectern lectern) {
+        float f1 = lectern.pageHelp1;
         do {
-            p_155507_.pageHelp1 += RANDOM.nextInt(4) - RANDOM.nextInt(4);
-        } while (f1 == p_155507_.pageHelp1);
-        p_155507_.pageFlipPrev = p_155507_.pageFlip;
-        float f = (p_155507_.pageHelp1 - p_155507_.pageFlip) * 0.04F;
+            lectern.pageHelp1 += RANDOM.nextInt(4) - RANDOM.nextInt(4);
+        } while (f1 == lectern.pageHelp1);
+        lectern.pageFlipPrev = lectern.pageFlip;
+        float f = (lectern.pageHelp1 - lectern.pageFlip) * 0.04F;
         float f3 = 0.02F;
         f = MathHelper.clamp(f, -f3, f3);
-        p_155507_.pageHelp2 += (f - p_155507_.pageHelp2) * 0.9F;
-        p_155507_.pageFlip += p_155507_.pageHelp2;
+        lectern.pageHelp2 += (f - lectern.pageHelp2) * 0.9F;
+        lectern.pageFlip += lectern.pageHelp2;
     }
 
     @Override
@@ -89,7 +88,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
 
     private List<EnumBestiaryPages> getPossiblePages() {
         final List<EnumBestiaryPages> list = EnumBestiaryPages.possiblePages(this.stacks.get(0));
-        if (list != null && !list.isEmpty()) {
+        if (!list.isEmpty()) {
             return list;
         }
         return EMPTY_LIST;
@@ -122,25 +121,21 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
         boolean isSame = !stack.isEmpty() && ItemStack.areItemsEqual(stack, this.stacks.get(index)) && ItemStack.areEqual(stack, this.stacks.get(index));
         this.stacks.set(index, stack);
 
-        if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack()) {
+        if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack())
             stack.setCount(this.getMaxCountPerStack());
-        }
 
-        if (!isSame) {
-            this.markDirty();
+        this.markDirty();
 
-            if (/* Manuscripts */ this.stacks.get(1).isEmpty()) {
-                this.selectedPages[0] = null;
-                this.selectedPages[1] = null;
-                this.selectedPages[2] = null;
-                IafServerNetworkHandler.sendToAll(new MessageUpdateLectern(this.pos.asLong(), -1, -1, -1, false, 0));
-            } else {
-                this.selectedPages = this.randomizePages(this.getStack(0), this.getStack(1));
-            }
-        }
+        if (this.stacks.get(0).isEmpty() || this.stacks.get(1).isEmpty()) {
+            this.selectedPages[0] = null;
+            this.selectedPages[1] = null;
+            this.selectedPages[2] = null;
+        } else
+            this.randomizePages(this.getStack(0), this.getStack(1));
     }
 
     public EnumBestiaryPages[] randomizePages(ItemStack bestiary, ItemStack manuscript) {
+        assert this.world != null;
         if (!this.world.isClient) {
             if (bestiary.getItem() == IafItemRegistry.BESTIARY.get()) {
                 List<EnumBestiaryPages> possibleList = this.getPossiblePages();
@@ -165,7 +160,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
             int page1 = this.selectedPages[0] == null ? -1 : this.selectedPages[0].ordinal();
             int page2 = this.selectedPages[1] == null ? -1 : this.selectedPages[1].ordinal();
             int page3 = this.selectedPages[2] == null ? -1 : this.selectedPages[2].ordinal();
-            IafServerNetworkHandler.sendToAll(new MessageUpdateLectern(this.pos.asLong(), page1, page2, page3, false, 0));
+//            IafServerNetworkHandler.sendToAll(new MessageUpdateLectern(this.pos.asLong(), page1, page2, page3, false, 0));
         }
         return this.selectedPages;
     }
@@ -280,6 +275,6 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
 
     @Override
     public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        return new ContainerLectern(id, this, playerInventory, this.furnaceData);
+        return new ContainerLectern(id, this, playerInventory, this.propertyDelegate);
     }
 }

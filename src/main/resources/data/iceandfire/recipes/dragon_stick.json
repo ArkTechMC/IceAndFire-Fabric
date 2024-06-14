@@ -6,7 +6,7 @@
       "tag": "iceandfire:dragon_skulls"
     },
     "T": {
-      "tag": "c:rods/wooden"
+      "item": "minecraft:stick"
     }
   },
   "pattern": [

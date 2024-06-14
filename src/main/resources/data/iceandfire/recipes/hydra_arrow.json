@@ -7,7 +7,7 @@
   ],
   "key": {
     "#": {
-      "tag": "c:rods/wooden"
+      "item": "minecraft:stick"
     },
     "X": {
       "item": "iceandfire:hydra_fang"

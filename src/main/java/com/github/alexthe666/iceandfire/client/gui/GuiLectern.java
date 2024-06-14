@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.client.gui;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -25,6 +24,7 @@ import net.minecraft.util.math.RotationAxis;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -165,33 +165,30 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                     }
                 }
                 int j2 = 6839882;
-                if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityLectern) {
-                    IceAndFire.PROXY.getRefrencedTE();
-                    if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY.get()) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
-                        int k2 = mouseX - (i + 60);
-                        int l2 = mouseY - (j + 14 + 19 * i1);
-                        int j3 = 0X9F988C;
-                        if (k2 >= 0 && l2 >= 0 && k2 < 108 && l2 < 19) {
-                            ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 204, 108, 19);
-                            j2 = 16777088;
-                            j3 = 16777088;
-                        } else {
-                            ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 166, 108, 19);
-                        }
-
-                        ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 223, 16, 16);
-                        ms.getMatrices().push();
-                        ms.getMatrices().translate(this.width / 2F - 10, this.height / 2F - 83 + (1.0F - textScale) * 55, 2);
-                        ms.getMatrices().scale(textScale, textScale, 1);
-                        fontrenderer.draw(s1, 0, 20 + 19 * i1, j2, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-                        ms.getMatrices().pop();
-                        fontrenderer = this.client.textRenderer;
-                        fontrenderer.draw(s, k1 + 84 - fontrenderer.getWidth(s),
-                                j + 13 + 19 * i1 + 7, j3, true, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+                if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY.get()) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
+                    int k2 = mouseX - (i + 60);
+                    int l2 = mouseY - (j + 14 + 19 * i1);
+                    int j3 = 0X9F988C;
+                    if (k2 >= 0 && l2 >= 0 && k2 < 108 && l2 < 19) {
+                        ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 204, 108, 19);
+                        j2 = 16777088;
+                        j3 = 16777088;
                     } else {
-                        ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 185, 108, 19);
-                        ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 239, 16, 16);
+                        ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 166, 108, 19);
                     }
+
+                    ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 223, 16, 16);
+                    ms.getMatrices().push();
+                    ms.getMatrices().translate(this.width / 2F - 10, this.height / 2F - 83 + (1.0F - textScale) * 55, 2);
+                    ms.getMatrices().scale(textScale, textScale, 1);
+                    fontrenderer.draw(s1, 0, 20 + 19 * i1, j2, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+                    ms.getMatrices().pop();
+                    fontrenderer = this.client.textRenderer;
+                    fontrenderer.draw(s, k1 + 84 - fontrenderer.getWidth(s),
+                            j + 13 + 19 * i1 + 7, j3, true, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+                } else {
+                    ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 185, 108, 19);
+                    ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 239, 16, 16);
                 }
             }
         }
@@ -205,26 +202,27 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         boolean flag = this.client.player.isCreative();
         int i = this.handler.getManuscriptAmount();
 
-        for (int j = 0; j < 3; ++j) {
-            int k = 1;
-            EnumBestiaryPages enchantment = this.handler.getPossiblePages()[j];
-            int i1 = 3;
+        if (this.handler.slots.get(0).getStack().isOf(IafItemRegistry.BESTIARY.get())) {
+            for (int j = 0; j < 3; ++j) {
+                EnumBestiaryPages enchantment = this.handler.getPossiblePages()[j];
+                int i1 = 3;
 
-            if (this.isPointWithinBounds(60, 14 + 19 * j, 108, 17, mouseX, mouseY) && k > 0) {
-                List<OrderedText> list = Lists.newArrayList();
+                if (this.isPointWithinBounds(60, 14 + 19 * j, 108, 17, mouseX, mouseY)) {
+                    List<OrderedText> list = Lists.newArrayList();
 
-                if (enchantment == null) {
-                    list.add(Text.literal(Formatting.RED + I18n.translate("container.lectern.no_bestiary")).asOrderedText());
-                } else if (!flag) {
-                    list.add(Text.literal(String.valueOf(Formatting.WHITE) + Formatting.ITALIC + I18n.translate("bestiary." + enchantment.name().toLowerCase())).asOrderedText());
-                    Formatting textformatting = i >= i1 ? Formatting.GRAY : Formatting.RED;
-                    list.add(Text.literal(textformatting + I18n.translate("container.lectern.costs")).asOrderedText());
-                    String s = I18n.translate("container.lectern.manuscript.many", i1);
-                    list.add(Text.literal(textformatting + s).asOrderedText());
+                    if (enchantment == null) {
+                        list.add(Text.literal(Formatting.RED + I18n.translate("container.lectern.no_bestiary")).asOrderedText());
+                    } else if (!flag) {
+                        list.add(Text.literal(String.valueOf(Formatting.WHITE) + Formatting.ITALIC + I18n.translate("bestiary." + enchantment.name().toLowerCase())).asOrderedText());
+                        Formatting textformatting = i >= i1 ? Formatting.GRAY : Formatting.RED;
+                        list.add(Text.literal(textformatting + I18n.translate("container.lectern.costs")).asOrderedText());
+                        String s = I18n.translate("container.lectern.manuscript.many", i1);
+                        list.add(Text.literal(textformatting + s).asOrderedText());
+                    }
+
+                    this.drawMouseoverTooltip(ms, mouseX, mouseY);
+                    break;
                 }
-
-                this.drawMouseoverTooltip(ms, mouseX, mouseY);
-                break;
             }
         }
     }

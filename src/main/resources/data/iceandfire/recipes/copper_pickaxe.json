@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "H": {
-      "tag": "c:rods/wooden"
+      "item": "minecraft:stick"
     },
     "M": {
       "tag": "c:ingots/copper"
