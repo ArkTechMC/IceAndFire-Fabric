@@ -1,5 +1,6 @@
 package com.github.alexthe666.citadel.server.block;
 
+import com.github.alexthe666.citadel.Citadel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;

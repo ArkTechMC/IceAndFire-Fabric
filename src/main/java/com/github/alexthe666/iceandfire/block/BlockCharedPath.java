@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.Item;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
@@ -13,10 +14,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class BlockCharedPath extends DirtPathBlock {
     public static final BooleanProperty REVERTS = BooleanProperty.of("revert");
+    public Item itemBlock;
     public final int dragonType;
 
     public BlockCharedPath(int dragonType) {
-        super(Settings.create().mapColor(MapColor.DARK_GREEN).pistonBehavior(PistonBehavior.DESTROY).sounds(dragonType != 1 ? BlockSoundGroup.GRAVEL : BlockSoundGroup.GLASS).strength(0.6F).slipperiness(dragonType != 1 ? 0.6F : 0.98F).ticksRandomly().requiresTool());
+        super(
+                Settings
+                        .create()
+                        .mapColor(MapColor.DARK_GREEN)
+                        .pistonBehavior(PistonBehavior.DESTROY)
+                        .sounds(dragonType != 1 ? BlockSoundGroup.GRAVEL : BlockSoundGroup.GLASS)
+                        .strength(0.6F)
+                        .slipperiness(dragonType != 1 ? 0.6F : 0.98F)
+                        .ticksRandomly()
+                        .requiresTool()
+        );
+
         this.dragonType = dragonType;
         //setRegistryName(IceAndFire.MODID, getNameFromType(dragonType));
         this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
@@ -44,18 +57,22 @@ public class BlockCharedPath extends DirtPathBlock {
     public void scheduledTick(@NotNull BlockState state, @NotNull ServerWorld worldIn, @NotNull BlockPos pos, @NotNull Random rand) {
         super.scheduledTick(state, worldIn, pos, rand);
         if (!worldIn.isClient) {
-            if (!worldIn.isAreaLoaded(pos, 3)) return;
-            if (state.get(REVERTS) && rand.nextInt(3) == 0)
+            if (!worldIn.isAreaLoaded(pos, 3))
+                return;
+            if (state.get(REVERTS) && rand.nextInt(3) == 0) {
                 worldIn.setBlockState(pos, Blocks.DIRT_PATH.getDefaultState());
+            }
         }
-        if (worldIn.getBlockState(pos.up()).isSolid())
+        if (worldIn.getBlockState(pos.up()).isSolid()) {
             worldIn.setBlockState(pos, this.getSmushedState(this.dragonType));
+        }
         this.updateBlockState(worldIn, pos);
     }
 
     private void updateBlockState(World worldIn, BlockPos pos) {
-        if (worldIn.getBlockState(pos.up()).isSolid())
+        if (worldIn.getBlockState(pos.up()).isSolid()) {
             worldIn.setBlockState(pos, this.getSmushedState(this.dragonType));
+        }
     }
 
     public BlockState getStateFromMeta(int meta) {

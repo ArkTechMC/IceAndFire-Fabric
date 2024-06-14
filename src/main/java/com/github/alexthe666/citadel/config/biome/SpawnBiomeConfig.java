@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -36,13 +35,13 @@ public class SpawnBiomeConfig {
         File configFile = new File(configDir, configName);
         if (!configFile.exists()) {
             try {
-                FileUtils.write(configFile, GSON.toJson(defaults), StandardCharsets.UTF_8);
+                FileUtils.write(configFile, GSON.toJson(defaults));
             } catch (IOException e) {
                 Citadel.LOGGER.error("Spawn Biome Config: Could not write {}", configFile, e);
             }
         }
         try {
-            return GSON.fromJson(FileUtils.readFileToString(configFile, StandardCharsets.UTF_8), type);
+            return GSON.fromJson(FileUtils.readFileToString(configFile), type);
         } catch (Exception e) {
             Citadel.LOGGER.error("Spawn Biome Config: Could not load {}", configFile, e);
         }

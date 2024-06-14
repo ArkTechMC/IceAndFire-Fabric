@@ -486,7 +486,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     }
 
     private void processCompletedCalculationResult() {
-        this.pathResult.getJob().syncToClient(this.entity);
+        this.pathResult.getJob().synchToClient(this.entity);
         this.startMovingAlong(this.pathResult.getPath(), this.getSpeedFactor());
 
         if (this.pathResult != null)
@@ -698,7 +698,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         }
 
         if (isTracking) {
-            AbstractPathJob.syncToClient(reached, this.ourEntity);
+            AbstractPathJob.synchToClient(reached, this.ourEntity);
             reached.clear();
         }
 
@@ -737,7 +737,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         }
 
         if (isTracking) {
-            AbstractPathJob.syncToClient(reached, this.ourEntity);
+            AbstractPathJob.synchToClient(reached, this.ourEntity);
             reached.clear();
         }
     }

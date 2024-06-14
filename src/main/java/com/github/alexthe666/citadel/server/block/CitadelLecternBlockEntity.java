@@ -76,7 +76,6 @@ public class CitadelLecternBlockEntity extends BlockEntity implements Clearable,
         }
 
         public boolean canPlayerUse(PlayerEntity p_59588_) {
-            assert CitadelLecternBlockEntity.this.world != null;
             if (CitadelLecternBlockEntity.this.world.getBlockEntity(CitadelLecternBlockEntity.this.pos) != CitadelLecternBlockEntity.this)
                 return false;
             else

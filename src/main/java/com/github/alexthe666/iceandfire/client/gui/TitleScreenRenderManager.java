@@ -74,6 +74,18 @@ public class TitleScreenRenderManager {
             }
             drawnPictures[i] = new Picture(random.nextInt(drawingTextures.length - 1), x, y, 0.5F, random.nextFloat() * 0.5F + 0.5F);
         }
+        Enscription[] drawnEnscriptions = new Enscription[4 + random.nextInt(8)];
+        for (int i = 0; i < drawnEnscriptions.length; i++) {
+            left = !left;
+            int x;
+            int y = 10 + random.nextInt(130);
+            if (left) {
+                x = -30 - random.nextInt(30) - 50;
+            } else {
+                x = 30 + random.nextInt(30);
+            }
+            drawnEnscriptions[i] = new Enscription("missingno", x, y, random.nextFloat() * 0.5F + 0.5F, 0X9C8B7B);
+        }
     }
 
     public static void tick() {
@@ -143,6 +155,11 @@ public class TitleScreenRenderManager {
             this.x = x;
             this.y = y;
             this.alpha = alpha;
+        }
+    }
+
+    private static class Enscription {
+        public Enscription(String text, int x, int y, float alpha, int color) {
         }
     }
 }

@@ -50,7 +50,7 @@ public class PathJobRandomPos extends AbstractPathJob {
             final int minDistFromStart,
             final int range,
             final LivingEntity entity) {
-        super(world, start, start, range, new PathResult<>(), entity);
+        super(world, start, start, range, new PathResult<PathJobRandomPos>(), entity);
         this.minDistFromStart = minDistFromStart;
         this.maxDistToDest = range;
 
@@ -75,7 +75,7 @@ public class PathJobRandomPos extends AbstractPathJob {
             final int maxDistToDest,
             final LivingEntity entity,
             final BlockPos dest) {
-        super(world, start, dest, searchRange, new PathResult<>(), entity);
+        super(world, start, dest, searchRange, new PathResult<PathJobRandomPos>(), entity);
         this.minDistFromStart = minDistFromStart;
         this.maxDistToDest = maxDistToDest;
         this.destination = dest;
@@ -99,7 +99,7 @@ public class PathJobRandomPos extends AbstractPathJob {
             final BlockPos startRestriction,
             final BlockPos endRestriction,
             final AbstractAdvancedPathNavigate.RestrictionType restrictionType) {
-        super(world, start, startRestriction, endRestriction, range, false, new PathResult<>(), entity, restrictionType);
+        super(world, start, startRestriction, endRestriction, range, false, new PathResult<PathJobRandomPos>(), entity, restrictionType);
         this.minDistFromStart = minDistFromStart;
         this.maxDistToDest = range;
 

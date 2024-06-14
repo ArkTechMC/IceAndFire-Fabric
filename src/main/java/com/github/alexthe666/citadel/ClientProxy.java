@@ -7,6 +7,7 @@ import com.github.alexthe666.citadel.item.ItemWithHoverAnimation;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
 import com.github.alexthe666.citadel.server.event.EventChangeEntityTickRate;
 import dev.arktechmc.iafextra.event.EventBus;
+import io.github.fabricators_of_create.porting_lib.event.client.RenderTooltipBorderColorCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -24,6 +25,16 @@ public class ClientProxy extends ServerProxy {
 
     public ClientProxy() {
         super();
+    }
+
+    public static RenderTooltipBorderColorCallback.BorderColorEntry renderTooltipColor(ItemStack stack, int originalBorderColorStart, int originalBorderColorEnd) {
+        ItemStack lastHoveredItem = null;
+        if (stack.getItem() instanceof ItemWithHoverAnimation hoverOver && hoverOver.canHoverOver(stack)) {
+            lastHoveredItem = stack;
+        } else {
+            lastHoveredItem = null;
+        }
+        return new RenderTooltipBorderColorCallback.BorderColorEntry(originalBorderColorStart, originalBorderColorEnd);
     }
 
     @Override

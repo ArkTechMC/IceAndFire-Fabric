@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire;
 
-import com.github.alexthe666.iceandfire.client.gui.bestiary.GuiBestiary;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
@@ -8,7 +7,6 @@ import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -53,7 +51,6 @@ public class CommonProxy {
     }
 
     public void openBestiaryGui(ItemStack book) {
-        MinecraftClient.getInstance().setScreen(new GuiBestiary(book));
     }
 
     public void openMyrmexStaffGui(ItemStack staff) {

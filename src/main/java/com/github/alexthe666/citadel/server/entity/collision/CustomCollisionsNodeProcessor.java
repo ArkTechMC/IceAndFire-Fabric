@@ -14,13 +14,13 @@ public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
     public CustomCollisionsNodeProcessor() {
     }
 
-    public static PathNodeType getLandNodeType(BlockView blockView, BlockPos.Mutable mutable) {
-        int i = mutable.getX();
-        int j = mutable.getY();
-        int k = mutable.getZ();
-        PathNodeType pathnodetype = getNodes(blockView, mutable);
+    public static PathNodeType getLandNodeType(BlockView p_237231_0_, BlockPos.Mutable p_237231_1_) {
+        int i = p_237231_1_.getX();
+        int j = p_237231_1_.getY();
+        int k = p_237231_1_.getZ();
+        PathNodeType pathnodetype = getNodes(p_237231_0_, p_237231_1_);
         if (pathnodetype == PathNodeType.OPEN && j >= 1) {
-            PathNodeType nodes = getNodes(blockView, mutable.set(i, j - 1, k));
+            PathNodeType nodes = getNodes(p_237231_0_, p_237231_1_.set(i, j - 1, k));
             pathnodetype = nodes != PathNodeType.WALKABLE && nodes != PathNodeType.OPEN && nodes != PathNodeType.WATER && nodes != PathNodeType.LAVA ? PathNodeType.WALKABLE : PathNodeType.OPEN;
             if (nodes == PathNodeType.DAMAGE_FIRE)
                 pathnodetype = PathNodeType.DAMAGE_FIRE;
@@ -33,25 +33,25 @@ public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
         }
 
         if (pathnodetype == PathNodeType.WALKABLE)
-            pathnodetype = getNodeTypeFromNeighbors(blockView, mutable.set(i, j, k), pathnodetype);
+            pathnodetype = getNodeTypeFromNeighbors(p_237231_0_, p_237231_1_.set(i, j, k), pathnodetype);
 
         return pathnodetype;
     }
 
 
-    protected static PathNodeType getNodes(BlockView blockView, BlockPos blockPos) {
-        BlockState blockstate = blockView.getBlockState(blockPos);
-        PathNodeType type = PathUtil.getAiPathNodeType(blockstate, (WorldView) blockView, blockPos);
+    protected static PathNodeType getNodes(BlockView p_237238_0_, BlockPos p_237238_1_) {
+        BlockState blockstate = p_237238_0_.getBlockState(p_237238_1_);
+        PathNodeType type = PathUtil.getAiPathNodeType(blockstate, (WorldView) p_237238_0_, p_237238_1_);
         if (type != null) return type;
         if (blockstate.isAir()) return PathNodeType.OPEN;
         else if (blockstate.getBlock() == Blocks.BAMBOO) return PathNodeType.OPEN;
-        else return getCommonNodeType(blockView, blockPos);
+        else return getCommonNodeType(p_237238_0_, p_237238_1_);
 
     }
 
     @Override
-    public PathNodeType getDefaultNodeType(BlockView world, int x, int y, int z) {
-        return getLandNodeType(world, new BlockPos.Mutable(x, y, z));
+    public PathNodeType getDefaultNodeType(BlockView blockaccessIn, int x, int y, int z) {
+        return getLandNodeType(blockaccessIn, new BlockPos.Mutable(x, y, z));
     }
 
     @Override

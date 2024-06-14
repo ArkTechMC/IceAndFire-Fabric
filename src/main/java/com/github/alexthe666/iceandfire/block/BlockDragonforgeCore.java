@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import net.minecraft.block.BlockRenderType;
@@ -25,13 +26,21 @@ import org.jetbrains.annotations.NotNull;
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_CORE;
 
 public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProof, INoTab {
-    private final int dragonType;
+    private final int isFire;
     private final boolean activated;
 
-    public BlockDragonforgeCore(int dragonType, boolean activated) {
-        super(Settings.create().mapColor(MapColor.IRON_GRAY).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL).luminance((state) -> activated ? 15 : 0));
+    public BlockDragonforgeCore(int isFire, boolean activated) {
+        super(
+                Settings
+                        .create()
+                        .mapColor(MapColor.IRON_GRAY)
+                        .dynamicBounds()
+                        .strength(40, 500)
+                        .sounds(BlockSoundGroup.METAL)
+                        .luminance((state) -> activated ? 15 : 0)
+        );
 
-        this.dragonType = dragonType;
+        this.isFire = isFire;
         this.activated = activated;
     }
 
@@ -41,6 +50,7 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
     public static void setState(int dragonType, boolean active, World worldIn, BlockPos pos) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
+        boolean keepInventory = true;
 
         if (active) {
             if (dragonType == 0) {
@@ -66,6 +76,8 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
             }
         }
 
+        keepInventory = false;
+
         if (tileentity != null) {
             tileentity.cancelRemoval();
             worldIn.addBlockEntity(tileentity);
@@ -73,23 +85,29 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
     }
 
     @Override
-    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World world, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult hit) {
-        if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if (screenHandlerFactory != null)
-                player.openHandledScreen(screenHandlerFactory);
+    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult hit) {
+        if (!player.isSneaking()) {
+            if (worldIn.isClient) {
+                IceAndFire.PROXY.setRefrencedTE(worldIn.getBlockEntity(pos));
+            } else {
+                NamedScreenHandlerFactory inamedcontainerprovider = this.createScreenHandlerFactory(state, worldIn, pos);
+                if (inamedcontainerprovider != null) {
+                    player.openHandledScreen(inamedcontainerprovider);
+                }
+            }
+            return ActionResult.SUCCESS;
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.FAIL;
     }
 
     public ItemStack getItem(World worldIn, BlockPos pos, BlockState state) {
-        if (this.dragonType == 0) {
+        if (this.isFire == 0) {
             return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().asItem());
         }
-        if (this.dragonType == 1) {
+        if (this.isFire == 1) {
             return new ItemStack(IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get().asItem());
         }
-        if (this.dragonType == 2) {
+        if (this.isFire == 2) {
             return new ItemStack(IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get().asItem());
         }
         return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get().asItem());
@@ -133,6 +151,6 @@ public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProo
 
     @Override
     public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
-        return new TileEntityDragonforge(pos, state, this.dragonType);
+        return new TileEntityDragonforge(pos, state, this.isFire);
     }
 }

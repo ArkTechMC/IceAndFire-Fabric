@@ -11,7 +11,7 @@ import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -21,8 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -35,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
-public class TileEntityDragonforge extends BlockEntity implements SidedInventory, NamedScreenHandlerFactory {
+public class TileEntityDragonforge extends LockableContainerBlockEntity implements SidedInventory {
 
     private static final int[] SLOTS_TOP = new int[]{0, 1};
     private static final int[] SLOTS_BOTTOM = new int[]{2};
@@ -43,57 +41,33 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
     private static final Direction[] HORIZONTALS = new Direction[]{
             Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
     };
-    public int dragonType;
+    public int fireType;
     public int cookTime;
     public int lastDragonFlameTimer = 0;
     private DefaultedList<ItemStack> forgeItemStacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
     private boolean prevAssembled;
     private boolean canAddFlameAgain = true;
 
-    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            return switch (index) {
-                case 0 -> cookTime;
-                case 1 -> dragonType;
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int index, int value) {
-            switch (index) {
-                case 0 -> cookTime = value;
-                case 1 -> dragonType = value;
-            }
-        }
-
-        @Override
-        public int size() {
-            return 2;
-        }
-    };
-
     public TileEntityDragonforge(BlockPos pos, BlockState state) {
         super(IafTileEntityRegistry.DRAGONFORGE_CORE.get(), pos, state);
     }
 
-    public TileEntityDragonforge(BlockPos pos, BlockState state, int dragonType) {
+    public TileEntityDragonforge(BlockPos pos, BlockState state, int fireType) {
         super(IafTileEntityRegistry.DRAGONFORGE_CORE.get(), pos, state);
-        this.dragonType = dragonType;
+        this.fireType = fireType;
     }
 
     public static void tick(World level, BlockPos pos, BlockState state, TileEntityDragonforge entityDragonforge) {
         boolean flag = entityDragonforge.isBurning();
         boolean flag1 = false;
-        entityDragonforge.dragonType = entityDragonforge.getFireType(entityDragonforge.getCachedState().getBlock());
+        entityDragonforge.fireType = entityDragonforge.getFireType(entityDragonforge.getCachedState().getBlock());
         if (entityDragonforge.lastDragonFlameTimer > 0) {
             entityDragonforge.lastDragonFlameTimer--;
         }
         entityDragonforge.updateGrills(entityDragonforge.assembled());
         if (!level.isClient) {
             if (entityDragonforge.prevAssembled != entityDragonforge.assembled()) {
-                BlockDragonforgeCore.setState(entityDragonforge.dragonType, entityDragonforge.prevAssembled, level, pos);
+                BlockDragonforgeCore.setState(entityDragonforge.fireType, entityDragonforge.prevAssembled, level, pos);
             }
             entityDragonforge.prevAssembled = entityDragonforge.assembled();
             if (!entityDragonforge.assembled())
@@ -166,7 +140,7 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
     }
 
     public Block getGrillBlock() {
-        return switch (this.dragonType) {
+        return switch (this.fireType) {
             case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
             case 2 -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
             default -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(); // isFire == 0
@@ -174,7 +148,7 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
     }
 
     public boolean grillMatches(Block block) {
-        return switch (this.dragonType) {
+        return switch (this.fireType) {
             case 0 -> block == IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get();
             case 1 -> block == IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
             case 2 -> block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
@@ -267,7 +241,7 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
     }
 
     private Block getDefaultOutput() {
-        return this.dragonType == 1 ? IafBlockRegistry.DRAGON_ICE.get() : IafBlockRegistry.ASH.get();
+        return this.fireType == 1 ? IafBlockRegistry.DRAGON_ICE.get() : IafBlockRegistry.ASH.get();
     }
 
     private ItemStack getCurrentResult() {
@@ -372,8 +346,12 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
         this.forgeItemStacks.clear();
     }
 
+    @Override
+    protected @NotNull Text getContainerName() {
+        return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(this.fireType));
+    }
+
     public void transferPower(int i) {
-        assert this.world != null;
         if (!this.world.isClient) {
             if (this.canSmelt()) {
                 if (this.canAddFlameAgain) {
@@ -426,7 +404,7 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
     }
 
     private Block getBrick() {
-        return switch (this.dragonType) {
+        return switch (this.fireType) {
             case 0 -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get();
             case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
             default -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
@@ -449,11 +427,11 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
 
     @Override
     public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-        return new ContainerDragonForge(id, this, playerInventory, this.propertyDelegate);
+        return new ContainerDragonForge(id, this, playerInventory, this);
     }
 
     @Override
-    public Text getDisplayName() {
-        return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(this.dragonType));
+    protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
+        return new ContainerDragonForge(id, this, player, this);
     }
 }

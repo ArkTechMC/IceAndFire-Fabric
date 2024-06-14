@@ -43,9 +43,13 @@ public class CustomCollisionsNavigator extends MobNavigation {
                 double d5 = 1.0D / Math.abs(d1);
                 double d6 = (double) i - posVec31.x;
                 double d7 = (double) j - posVec31.z;
-                if (d0 >= 0.0D) ++d6;
+                if (d0 >= 0.0D) {
+                    ++d6;
+                }
 
-                if (d1 >= 0.0D) ++d7;
+                if (d1 >= 0.0D) {
+                    ++d7;
+                }
 
                 d6 = d6 / d0;
                 d7 = d7 / d1;
@@ -67,8 +71,9 @@ public class CustomCollisionsNavigator extends MobNavigation {
                         l1 = j1 - j;
                     }
 
-                    if (!this.isSafeToStandAt(i, MathHelper.floor(posVec31.y), j, sizeX, sizeY, sizeZ, posVec31, d0, d1))
+                    if (!this.isSafeToStandAt(i, MathHelper.floor(posVec31.y), j, sizeX, sizeY, sizeZ, posVec31, d0, d1)) {
                         return false;
+                    }
                 }
 
                 return true;

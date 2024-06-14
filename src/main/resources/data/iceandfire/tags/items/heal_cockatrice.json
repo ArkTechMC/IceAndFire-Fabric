@@ -1,6 +1,6 @@
 {
   "values": [
-    "minecraft:wheat_seeds",
+    "#forge:seeds",
     "minecraft:rotten_flesh"
   ]
 }

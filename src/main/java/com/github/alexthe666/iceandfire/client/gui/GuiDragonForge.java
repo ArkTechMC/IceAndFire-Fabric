@@ -23,18 +23,19 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     private static final Identifier TEXTURE_ICE = new Identifier(IceAndFire.MOD_ID, "textures/gui/dragonforge_ice.png");
     private static final Identifier TEXTURE_LIGHTNING = new Identifier(IceAndFire.MOD_ID, "textures/gui/dragonforge_lightning.png");
     private final ContainerDragonForge tileFurnace;
+    private final int dragonType;
 
     public GuiDragonForge(ContainerDragonForge container, PlayerInventory inv, Text name) {
         super(container, inv, name);
         this.tileFurnace = container;
+        this.dragonType = this.tileFurnace.fireType;
     }
 
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
-        assert this.client != null;
         TextRenderer font = this.client.textRenderer;
         if (this.tileFurnace != null) {
-            String s = I18n.translate("block.iceandfire.dragonforge_" + DragonType.getNameFromInt(this.tileFurnace.getFireType()) + "_core");
+            String s = I18n.translate("block.iceandfire.dragonforge_" + DragonType.getNameFromInt(this.dragonType) + "_core");
             pGuiGraphics.drawText(this.textRenderer, s, this.backgroundWidth / 2 - font.getWidth(s) / 2, 6, 4210752, false);
         }
         pGuiGraphics.drawText(this.textRenderer, this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false);
@@ -43,16 +44,20 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     @Override
     protected void drawBackground(DrawContext pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        Identifier texture = switch (this.tileFurnace.getFireType()) {
-            case 1 -> TEXTURE_ICE;
-            case 2 -> TEXTURE_LIGHTNING;
-            default -> TEXTURE_FIRE;
-        };
+        Identifier texture = TEXTURE_FIRE;
+        if (this.dragonType == 0) {
+            texture = TEXTURE_FIRE;
+        } else if (this.dragonType == 1) {
+            texture = TEXTURE_ICE;
+        } else {
+            texture = TEXTURE_LIGHTNING;
+        }
 
         int k = (this.width - this.backgroundWidth) / 2;
         int l = (this.height - this.backgroundHeight) / 2;
         pGuiGraphics.drawTexture(texture, k, l, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        int i1 = this.getCookTime(this.handler.getCookTime());
+        TileEntityDragonforge entityDragonforge = this.tileFurnace.getOwner();
+        int i1 = this.getCookTime(entityDragonforge == null ? 126 : entityDragonforge.cookTime);
         pGuiGraphics.drawTexture(texture, k + 12, l + 23, 0, 166, i1, 38);
     }
 
@@ -60,8 +65,6 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
         BlockEntity te = IceAndFire.PROXY.getRefrencedTE();
         int j = 0;
 
-        assert this.client != null;
-        assert this.client.world != null;
         List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager()
                 .listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE)
                 .stream().filter(item ->
