@@ -54,8 +54,8 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
         @Override
         public int get(int index) {
             return switch (index) {
-                case 0 -> TileEntityDragonforge.this.cookTime;
-                case 1 -> TileEntityDragonforge.this.dragonType;
+                case 0 -> cookTime;
+                case 1 -> dragonType;
                 default -> 0;
             };
         }
@@ -63,8 +63,8 @@ public class TileEntityDragonforge extends BlockEntity implements SidedInventory
         @Override
         public void set(int index, int value) {
             switch (index) {
-                case 0 -> TileEntityDragonforge.this.cookTime = value;
-                case 1 -> TileEntityDragonforge.this.dragonType = value;
+                case 0 -> cookTime = value;
+                case 1 -> dragonType = value;
             }
         }
 

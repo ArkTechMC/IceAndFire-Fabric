@@ -9,7 +9,7 @@
     "IAFEnvoy"
   ],
   "contact": {
-    "sources": "https://github.com/ArkTechMC/IceAndFire-Fabric"
+    "repo": "https://github.com/IAFEnvoy/IceAndFire-Fabric"
   },
   "license": "LGPL-3.0",
   "icon": "logo.png",

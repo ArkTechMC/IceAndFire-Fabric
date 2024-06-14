@@ -21,7 +21,8 @@ public enum DragonComponentProvider implements IEntityComponentProvider {
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
         if (entityAccessor.getEntity() instanceof EntityDragonBase dragon) {
-            iTooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(dragon.getDragonStage() + " ").append(dragon.getAgeInDays() + "d"));
+            iTooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(Text.literal(" " + dragon.getDragonStage())));
+            iTooltip.add(Text.literal(dragon.getAgeInDays() + "d"));
             iTooltip.add(Text.literal(dragon.isMale() ? "Male" : "Female"));
         }
     }
