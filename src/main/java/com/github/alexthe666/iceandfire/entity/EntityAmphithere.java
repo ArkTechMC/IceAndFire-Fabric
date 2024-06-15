@@ -234,9 +234,14 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
                     return ActionResult.SUCCESS;
                 }
                 return ActionResult.SUCCESS;
-            } else if ((!this.isTamed() || this.isOwner(player)) && !this.isBaby() && itemstack.isEmpty()) {
-                player.startRiding(this);
-                return ActionResult.SUCCESS;
+            } else {
+                if ((!this.isTamed() || this.isOwner(player)) && !this.isBaby()) {
+                    assert itemstack != null;
+                    if (itemstack.isEmpty()) {
+                        player.startRiding(this);
+                        return ActionResult.SUCCESS;
+                    }
+                }
             }
 
         }
@@ -310,7 +315,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         if (!this.getWorld().isClient && this.getAnimation() == ANIMATION_BITE_RIDER && this.getAnimationTick() == 6 && !this.isTamed()) {
             passenger.damage(this.getWorld().getDamageSources().mobAttack(this), 1);
         }
-        float pitch_forward = 0;
+        float pitch_forward;
         if (this.getPitch() > 0 && this.isFlying()) {
             pitch_forward = (this.getPitch() / 45F) * 0.45F;
         } else {

@@ -113,7 +113,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         BlockPos pos = this.getBlockPos();
         BlockPos heightAt = worldIn.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos);
         boolean rngCheck = true;
-        return rngCheck && pos.getY() < heightAt.getY() - 10 && super.canSpawn(worldIn, spawnReasonIn);
+        return pos.getY() < heightAt.getY() - 10 && super.canSpawn(worldIn, spawnReasonIn);
     }
 
     @Override
@@ -358,8 +358,6 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
             }
 
             f4 = f1 / f4;
-            f2 = f2 * f4;
-            f3 = f3 * f4;
             float f5 = MathHelper.sin(this.getYaw() * 0.017453292F);
             float f6 = MathHelper.cos(this.getYaw() * 0.017453292F);
             // float f7 = f2 * f6 - f3 * f5;

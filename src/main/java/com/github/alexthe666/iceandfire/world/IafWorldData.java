@@ -31,6 +31,7 @@ public class IafWorldData extends PersistentState {
     public static IafWorldData get(final World world) {
         if (world instanceof ServerWorld) {
             ServerWorld overworld = world.getServer().getWorld(world.getRegistryKey());
+            assert overworld != null;
             PersistentStateManager storage = overworld.getPersistentStateManager();
             IafWorldData data = storage.getOrCreate(IafWorldData::new, IafWorldData::new, IDENTIFIER);
             data.markDirty();

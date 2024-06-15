@@ -122,12 +122,14 @@ public class GuiMyrmexStaff extends Screen {
             if (rooms < ROOMS_PER_PAGE * (this.currentPage + 1) && rooms >= ROOMS_PER_PAGE * this.currentPage)
                 this.drawRoomInfo(ms, this.allRoomPos.get(rooms).string, this.allRoomPos.get(rooms).pos, i, j, color);
         if (ClientProxy.getReferedClientHive() != null) {
+            assert this.client != null;
             TextRenderer textRenderer = this.client.textRenderer;
             if (!ClientProxy.getReferedClientHive().colonyName.isEmpty()) {
                 String title = I18n.translate("myrmex.message.colony_named", ClientProxy.getReferedClientHive().colonyName);
                 textRenderer.draw(title, i + 40 - (float) title.length() / 2, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
             } else
                 textRenderer.draw(I18n.translate("myrmex.message.colony"), i + 80, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+            assert MinecraftClient.getInstance().player != null;
             int opinion = ClientProxy.getReferedClientHive().getPlayerReputation(MinecraftClient.getInstance().player.getUuid());
             textRenderer.draw(I18n.translate("myrmex.message.hive_opinion", opinion), i, j + 12, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
             textRenderer.draw(I18n.translate("myrmex.message.rooms"), i, j + 25, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);

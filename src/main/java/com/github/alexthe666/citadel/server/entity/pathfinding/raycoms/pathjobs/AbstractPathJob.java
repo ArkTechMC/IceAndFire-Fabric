@@ -180,6 +180,7 @@ public abstract class AbstractPathJob implements Callable<Path> {
         if (entity instanceof ITallWalker tallWalker) {
             this.maxNavigableGroundDist = tallWalker.getMaxNavigableDistanceToGround();
         }
+        assert entity != null;
         this.maxJumpHeight = (float) Math.floor(entity.getStepHeight() - 0.2F) + 1.3F;
         this.entity = new WeakReference<>(entity);
     }
@@ -494,10 +495,6 @@ public abstract class AbstractPathJob implements Callable<Path> {
 
         if (this.world.getBlockState(blockPos).contains(Properties.OPEN)) {
             cost *= this.pathingOptions.traverseToggleAbleCost;
-        }
-
-        if (false) {
-            cost *= this.pathingOptions.onPathCost;
         }
 
         if (onRails) {
@@ -913,9 +910,8 @@ public abstract class AbstractPathJob implements Callable<Path> {
 
         final boolean swimStart = isSwimming && !parent.isSwimming();
         final BlockState state = this.world.getBlockState(pos);
-        final boolean onRoad = false;
         final boolean onRails = this.pathingOptions.canUseRails() && this.world.getBlockState(corner ? pos.down() : pos).getBlock() instanceof AbstractRailBlock;
-        final boolean railsExit = !onRails && parent != null && parent.isOnRails();
+        final boolean railsExit = !onRails && parent.isOnRails();
         //  Cost may have changed due to a jump up or drop
         final double stepCost = this.computeCost(dPos, isSwimming, onRails, railsExit, swimStart, corner, state, pos);
         final double heuristic = this.computeHeuristic(pos);

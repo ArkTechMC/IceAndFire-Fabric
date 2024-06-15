@@ -37,9 +37,10 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
         if (stack.getItem() == IafBlockRegistry.GHOST_CHEST.get().asItem()) {
             this.blockEntityRenderDispatcher.renderEntity(this.chest, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
-        if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() == IafBlockRegistry.DREAD_PORTAL.get()) {
-//            this.blockEntityRenderDispatcher.renderEntity(this.portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
-        }
+        if (stack.getItem() instanceof BlockItem) {
+            ((BlockItem) stack.getItem()).getBlock();
+            IafBlockRegistry.DREAD_PORTAL.get();
+        }//            this.blockEntityRenderDispatcher.renderEntity(this.portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof BlockPixieHouse) {
             this.PIXIE_HOUSE_RENDERER.metaOverride = (BlockItem) stack.getItem();
             this.PIXIE_HOUSE_RENDERER.render(null, 0, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);

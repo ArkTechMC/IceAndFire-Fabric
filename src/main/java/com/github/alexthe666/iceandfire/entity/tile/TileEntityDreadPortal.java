@@ -26,9 +26,7 @@ public class TileEntityDreadPortal extends BlockEntity {
         super.writeNbt(compound);
         compound.putLong("Age", this.age);
 
-        if (this.exitPortal != null) {
-            //   compound.setTag("ExitPortal", NBTUtil.createPosTag(this.exitPortal));
-        }
+        //   compound.setTag("ExitPortal", NBTUtil.createPosTag(this.exitPortal));
 
         if (this.exactTeleport) {
             compound.putBoolean("ExactTeleport", true);

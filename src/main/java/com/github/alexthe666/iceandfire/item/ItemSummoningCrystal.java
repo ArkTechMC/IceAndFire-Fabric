@@ -139,18 +139,7 @@ public class ItemSummoningCrystal extends Item {
                                                 }*/
                                             }
                                         }
-                                        if (flag2) {
-                                            try {
-                                                Entity entity = context.getWorld().getServer().getWorld(context.getPlayer().getWorld().getRegistryKey()).getEntity(id);
-                                                if (entity != null) {
-                                                    flag = true;
-                                                    this.summonEntity(entity, context.getWorld(), offsetPos, yaw);
-                                                }
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                       /* if (flag && lastChunkTicket != null && dragonChunkPos != null) {
+                                        /* if (flag && lastChunkTicket != null && dragonChunkPos != null) {
                                             ForgeChunkManager.releaseTicket(lastChunkTicket);
                                             lastChunkTicket = null;
                                         }*/

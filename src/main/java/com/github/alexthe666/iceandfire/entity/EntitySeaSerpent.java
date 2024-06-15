@@ -473,9 +473,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         } else if (!jumping && this.jumpProgress > 0.0F) {
             this.jumpProgress -= 0.5F;
         }
-        if (wantJumping && this.wantJumpProgress < 10.0F) {
-            this.wantJumpProgress += 2F;
-        } else if (!wantJumping && this.wantJumpProgress > 0.0F) {
+        if (!wantJumping && this.wantJumpProgress > 0.0F) {
             this.wantJumpProgress -= 2F;
         }
         if (this.isJumpingOutOfWater() && this.jumpRot < 1.0F) {
@@ -762,7 +760,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);
                     }
-                    if (!entity.isAlive() || entity == null) {
+                    if (!entity.isAlive()) {
                         this.setBreathing(false);
                         this.attackDecision = this.getRandom().nextBoolean();
                     }

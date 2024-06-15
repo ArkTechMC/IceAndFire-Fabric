@@ -7,7 +7,7 @@ import net.minecraft.world.WorldAccess;
 
 public class WorldGenCaveStalactites {
     private final Block block;
-    private int maxHeight = 3;
+    private int maxHeight;
 
     public WorldGenCaveStalactites(Block block, int maxHeight) {
         this.block = block;

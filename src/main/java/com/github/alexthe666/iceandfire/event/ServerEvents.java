@@ -418,6 +418,7 @@ public class ServerEvents {
                 if (flag) {
                     World world = entity.getWorld();
                     EntityGhost ghost = IafEntityRegistry.GHOST.get().create(world);
+                    assert ghost != null;
                     ghost.copyPositionAndRotation(entity);
                     if (!world.isClient) {
                         ghost.initialize((ServerWorldAccess) world, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, null, null);

@@ -33,6 +33,7 @@ public class SpawnStymphalianBird extends Feature<DefaultFeatureConfig> {
                 pos = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);
                 if (worldIn.getBlockState(pos.down()).isOpaque()) {
                     EntityStymphalianBird bird = IafEntityRegistry.STYMPHALIAN_BIRD.get().create(worldIn.toServerWorld());
+                    assert bird != null;
                     bird.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, 0, 0);
                     worldIn.spawnEntity(bird);
 

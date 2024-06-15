@@ -32,6 +32,7 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
         if (IafConfig.generateDragonSkeletons) {
             if (rand.nextInt(IafConfig.generateDragonSkeletonChance + 1) == 0) {
                 EntityDragonBase dragon = this.dragonType.create(worldIn.toServerWorld());
+                assert dragon != null;
                 dragon.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                 int dragonage = 10 + rand.nextInt(100);
                 dragon.growDragon(dragonage);

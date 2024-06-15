@@ -75,7 +75,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
             ((EntityDreadBeast) lichSummoned).setSize(readInScale);
             return lichSummoned;
         }
-        return lichSummoned;
+        return null;
     }
 
     @Override

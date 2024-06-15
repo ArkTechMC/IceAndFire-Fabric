@@ -108,6 +108,7 @@ public class TileEntityPixieHouse extends BlockEntity {
                 ThreadLocalRandom.current().nextInt(360), 0);
         pixie.setStackInHand(Hand.MAIN_HAND, this.pixieItems.get(0));
         pixie.setColor(this.pixieType);
+        assert this.world != null;
         if (!this.world.isClient) {
             this.world.spawnEntity(pixie);
         }

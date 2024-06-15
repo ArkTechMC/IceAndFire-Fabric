@@ -69,7 +69,7 @@ public class WorldGenMyrmexDecoration {
                 leaf = Blocks.JUNGLE_LEAVES.getDefaultState().with(LeavesBlock.PERSISTENT, Boolean.TRUE);
             }
             int i1 = 0;
-            for (int i = 0; i1 >= 0 && i < 3; ++i) {
+            for (int i = 0; i < 3; ++i) {
                 int j = i1 + rand.nextInt(2);
                 int k = i1 + rand.nextInt(2);
                 int l = i1 + rand.nextInt(2);
@@ -79,7 +79,7 @@ public class WorldGenMyrmexDecoration {
                         worldIn.setBlockState(pos, leaf, 4);
                     }
                 }
-                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2 + i1 * 2), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + i1 * 2));
+                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2 + 0), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + 0));
             }
         }
     }
@@ -96,6 +96,7 @@ public class WorldGenMyrmexDecoration {
 
             if (worldIn.getBlockEntity(blockpos) != null && worldIn.getBlockEntity(blockpos) instanceof LootableContainerBlockEntity) {
                 BlockEntity tileentity1 = worldIn.getBlockEntity(blockpos);
+                assert tileentity1 != null;
                 ((LootableContainerBlockEntity) tileentity1).setLootTable(lootTable, rand.nextLong());
 
             }
@@ -144,7 +145,7 @@ public class WorldGenMyrmexDecoration {
                 default -> Blocks.AIR;
             };
             int i1 = 0;
-            for (int i = 0; i1 >= 0 && i < 3; ++i) {
+            for (int i = 0; i < 3; ++i) {
                 int j = i1 + rand.nextInt(2);
                 int k = i1 + rand.nextInt(2);
                 int l = i1 + rand.nextInt(2);
@@ -154,7 +155,7 @@ public class WorldGenMyrmexDecoration {
                         worldIn.setBlockState(pos, blob.getDefaultState(), 4);
                     }
                 }
-                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2 + i1 * 2), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + i1 * 2));
+                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2 + 0), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + 0));
             }
 
         }

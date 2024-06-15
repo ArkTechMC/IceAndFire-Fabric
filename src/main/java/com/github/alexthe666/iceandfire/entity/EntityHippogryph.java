@@ -246,6 +246,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
         String s = Formatting.strip(player.getName().getString());
+        assert s != null;
         boolean isDev = s.equals("Alexthe666") || s.equals("Raptorfarian") || s.equals("tweakbsd");
         if (this.isTamed() && this.isOwner(player)) {
             if (itemstack.getItem() == Items.RED_DYE && this.getEnumVariant() != EnumHippogryphTypes.ALEX && isDev) {

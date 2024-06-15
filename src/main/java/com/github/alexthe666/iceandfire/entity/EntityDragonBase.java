@@ -1080,6 +1080,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 if (this.getDeathStage() >= lastDeathStage - 1) {
                     ItemStack skull = this.getSkull().copy();
                     skull.setNbt(new NbtCompound());
+                    assert skull.getNbt() != null;
                     skull.getNbt().putInt("Stage", this.getDragonStage());
                     skull.getNbt().putInt("DragonType", 0);
                     skull.getNbt().putInt("DragonAge", this.getAgeInDays());
@@ -1561,6 +1562,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             final double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
             final double extraZ = radius * MathHelper.cos(angle);
             final double extraY = modTick_2 == 0 ? 0 : 0.035F * ((this.getRenderSize() / 3) + (modTick_2 * 0.5 * (this.getRenderSize() / 3)));
+            assert prey != null;
             prey.setPosition(this.getX() + extraX, this.getY() + extraY, this.getZ() + extraZ);
         }
     }
@@ -2017,8 +2019,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         vertical = -1f;
                     }
                     // Damp the vertical motion so the dragon's head is more responsive to the control
-                    else if (this.isLogicalSideForUpdatingMovement()) {
-//                        this.setDeltaMovement(this.getDeltaMovement().multiply(1.0f, 0.8f, 1.0f));
+                    else {
+                        this.isLogicalSideForUpdatingMovement();//                        this.setDeltaMovement(this.getDeltaMovement().multiply(1.0f, 0.8f, 1.0f));
                     }
                 } else {
                     // Mouse controlled yaw and pitch
@@ -2044,8 +2046,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         vertical *= 1;
                     } else if (this.getPitch() > 0) {
                         vertical *= -1;
-                    } else if (this.isLogicalSideForUpdatingMovement()) {
-//                        this.setDeltaMovement(this.getDeltaMovement().multiply(1.0f, 0.8f, 1.0f));
+                    } else {
+                        this.isLogicalSideForUpdatingMovement();//                        this.setDeltaMovement(this.getDeltaMovement().multiply(1.0f, 0.8f, 1.0f));
                     }
                 }
                 // Speed bonus damping

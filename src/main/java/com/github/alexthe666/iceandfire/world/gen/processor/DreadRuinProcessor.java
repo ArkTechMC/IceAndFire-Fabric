@@ -48,13 +48,11 @@ public class DreadRuinProcessor extends StructureProcessor {
             NbtCompound tag = new NbtCompound();
             NbtCompound spawnData = new NbtCompound();
             Identifier spawnerMobId = Registries.ENTITY_TYPE.getId(this.getRandomMobForMobSpawner(random));
-            if (spawnerMobId != null) {
-                NbtCompound entity = new NbtCompound();
-                entity.putString("id", spawnerMobId.toString());
-                spawnData.put("entity", entity);
-                tag.remove("SpawnPotentials");
-                tag.put("SpawnData", spawnData.copy());
-            }
+            NbtCompound entity = new NbtCompound();
+            entity.putString("id", spawnerMobId.toString());
+            spawnData.put("entity", entity);
+            tag.remove("SpawnPotentials");
+            tag.put("SpawnData", spawnData.copy());
             return new StructureTemplate.StructureBlockInfo(infoIn2.pos(), IafBlockRegistry.DREAD_SPAWNER.get().getDefaultState(), tag);
 
         }

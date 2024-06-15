@@ -55,6 +55,7 @@ public class ItemAlchemySword extends SwordItem {
             }
             if (!attacker.getWorld().isClient && flag) {
                 LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(target.getWorld());
+                assert lightningboltentity != null;
                 lightningboltentity.getCommandTags().add(ServerEvents.BOLT_DONT_DESTROY_LOOT);
                 lightningboltentity.getCommandTags().add(attacker.getUuidAsString());
                 lightningboltentity.refreshPositionAfterTeleport(target.getPos());

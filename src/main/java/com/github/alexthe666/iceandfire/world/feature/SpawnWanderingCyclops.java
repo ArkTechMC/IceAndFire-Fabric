@@ -33,11 +33,13 @@ public class SpawnWanderingCyclops extends Feature<DefaultFeatureConfig> {
         if (IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position)) {
             if (rand.nextInt(IafConfig.spawnWanderingCyclopsChance + 1) == 0 && rand.nextInt(12) == 0) {
                 EntityCyclops cyclops = IafEntityRegistry.CYCLOPS.get().create(worldIn.toServerWorld());
+                assert cyclops != null;
                 cyclops.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                 cyclops.initialize(worldIn, worldIn.getLocalDifficulty(position), SpawnReason.SPAWNER, null, null);
                 worldIn.spawnEntity(cyclops);
                 for (int i = 0; i < 3 + rand.nextInt(3); i++) {
                     SheepEntity sheep = EntityType.SHEEP.create(worldIn.toServerWorld());
+                    assert sheep != null;
                     sheep.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                     sheep.setColor(SheepEntity.generateDefaultColor(rand));
                     worldIn.spawnEntity(sheep);

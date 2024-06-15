@@ -45,17 +45,21 @@ public class ClientTickRateTracker extends TickRateTracker {
 
     public float getClientTickRate() {
         float f = MS_PER_TICK;
-        for (TickRateModifier modifier : this.tickRateModifierList)
+        for (TickRateModifier modifier : this.tickRateModifierList) {
+            assert MinecraftClient.getInstance().player != null;
             if (modifier.appliesTo(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getX(), MinecraftClient.getInstance().player.getY(), MinecraftClient.getInstance().player.getZ()))
                 f *= modifier.getTickRateMultiplier();
+        }
         return Math.max(1F, f * this.getEntityTickLengthModifier(MinecraftClient.getInstance().player));
     }
 
     public float modifySoundPitch(SoundInstance soundInstance) {
         float f = 1.0F;
-        for (TickRateModifier modifier : this.tickRateModifierList)
+        for (TickRateModifier modifier : this.tickRateModifierList) {
+            assert MinecraftClient.getInstance().player != null;
             if (modifier.appliesTo(MinecraftClient.getInstance().world, MinecraftClient.getInstance().player.getX(), MinecraftClient.getInstance().player.getY(), MinecraftClient.getInstance().player.getZ()))
                 f /= modifier.getTickRateMultiplier();
+        }
         return Math.max(1F, f * this.getEntityTickLengthModifier(MinecraftClient.getInstance().player));
     }
 

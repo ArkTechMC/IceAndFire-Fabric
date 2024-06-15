@@ -79,7 +79,7 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
         }
 
         Vector3f vector3f1 = new Vector3f(-1.0F, -1.0F, 0.0F);
-        vector3f1 = quaternion.transform(vector3f1);
+        quaternion.transform(vector3f1);
         Vector3f[] avector3f = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
         float f4 = this.getSize(partialTicks);
 
@@ -130,9 +130,6 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
             this.velocityY += d3 * speed;
             this.velocityZ += d4 * speed;
             int touchedTime = 0;
-            if (touchedTime > 3) {
-                this.markDead();
-            }
         }
     }
 

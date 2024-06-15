@@ -10,6 +10,7 @@ import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<EntityDataComponent> ENTITY_DATA_COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);
@@ -26,7 +27,7 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
     }
 
     @Override
-    public void readFromNbt(NbtCompound tag) {
+    public void readFromNbt(@NotNull NbtCompound tag) {
         this.frozenData.deserialize(tag);
         this.chainData.deserialize(tag);
         this.sirenData.deserialize(tag);
@@ -35,7 +36,7 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
     }
 
     @Override
-    public void writeToNbt(NbtCompound tag) {
+    public void writeToNbt(@NotNull NbtCompound tag) {
         this.frozenData.serialize(tag);
         this.chainData.serialize(tag);
         this.sirenData.serialize(tag);

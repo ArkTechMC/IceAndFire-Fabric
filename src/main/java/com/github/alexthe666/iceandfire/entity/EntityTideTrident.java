@@ -74,6 +74,7 @@ public class EntityTideTrident extends TridentEntity {
             BlockPos blockpos = entity.getBlockPos();
             if (this.getWorld().isSkyVisible(blockpos)) {
                 LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(this.getWorld());
+                assert lightningboltentity != null;
                 lightningboltentity.refreshPositionAfterTeleport(Vec3d.ofCenter(blockpos));
                 lightningboltentity.setChanneler(entity1 instanceof ServerPlayerEntity ? (ServerPlayerEntity) entity1 : null);
                 this.getWorld().spawnEntity(lightningboltentity);

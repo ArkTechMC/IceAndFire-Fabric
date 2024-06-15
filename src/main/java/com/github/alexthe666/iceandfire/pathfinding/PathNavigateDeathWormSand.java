@@ -70,7 +70,7 @@ public class PathNavigateDeathWormSand extends SwimNavigation {
         public CustomRayTraceContext(Vec3d startVecIn, Vec3d endVecIn, ShapeType blockModeIn, FluidHandling fluidModeIn, Entity entityIn) {
             super(startVecIn, endVecIn, blockModeIn, fluidModeIn, entityIn);
             this.blockMode = blockModeIn;
-            this.context = entityIn == null ? ShapeContext.absent() : ShapeContext.of(entityIn);
+            this.context = ShapeContext.of(entityIn);
         }
 
         @Override

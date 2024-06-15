@@ -78,6 +78,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         if (entityDragonforge.getStack(0).isEmpty() && !level.isClient) {
             entityDragonforge.getPropertyDelegate().cookTime = 0;
         }
+        assert entityDragonforge.world != null;
         if (!entityDragonforge.world.isClient) {
             if (entityDragonforge.isBurning()) {
                 if (entityDragonforge.canSmelt()) {
@@ -129,6 +130,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     private void updateGrills(boolean grill) {
         for (Direction facing : HORIZONTALS) {
             BlockPos grillPos = this.getPos().offset(facing);
+            assert this.world != null;
             if (this.grillMatches(this.world.getBlockState(grillPos).getBlock())) {
                 BlockState grillState = this.getGrillBlock().getDefaultState().with(BlockDragonForgeBricks.GRILL, grill);
                 if (this.world.getBlockState(grillPos) != grillState) {
@@ -249,10 +251,12 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public Optional<DragonForgeRecipe> getCurrentRecipe() {
+        assert this.world != null;
         return this.world.getRecipeManager().getFirstMatch(IafRecipeRegistry.DRAGON_FORGE_TYPE, this, this.world);
     }
 
     public List<DragonForgeRecipe> getRecipes() {
+        assert this.world != null;
         return this.world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE);
     }
 
@@ -409,12 +413,14 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     private boolean doesBlockEqual(BlockPos pos, Block block) {
+        assert this.world != null;
         return this.world.getBlockState(pos).getBlock() == block;
     }
 
     private boolean atleastThreeAreBricks(BlockPos pos) {
         int count = 0;
         for (Direction facing : HORIZONTALS) {
+            assert this.world != null;
             if (this.world.getBlockState(pos.offset(facing)).getBlock() == this.getBrick()) {
                 count++;
             }

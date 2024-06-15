@@ -169,12 +169,15 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
             EntityDragonBase dragon = dragonType.getEntity().create(this.getWorld());
 
             if (this.hasCustomName()) {
+                assert dragon != null;
                 dragon.setCustomName(this.getCustomName());
             }
 
             if (dragonType == DragonType.LIGHTNING) {
+                assert dragon != null;
                 dragon.setVariant(this.getEggType().ordinal() - 8);
             } else {
+                assert dragon != null;
                 dragon.setVariant(this.getEggType().ordinal());
             }
 
@@ -195,6 +198,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
 
             if (dragonType == DragonType.LIGHTNING) {
                 LightningEntity bolt = EntityType.LIGHTNING_BOLT.create(this.getWorld());
+                assert bolt != null;
                 bolt.setPosition(this.getX(), this.getY(), this.getZ());
                 bolt.setCosmetic(true);
 

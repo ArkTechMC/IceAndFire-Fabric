@@ -77,6 +77,7 @@ public class TileEntityEggInIce extends BlockEntity {
         } else {
             try {
                 String s1 = tag.getString("OwnerUUID");
+                assert this.world != null;
                 s = ServerConfigHandler.getPlayerUuidByName(this.world.getServer(), s1);
             } catch (Exception ignored) {
             }
@@ -106,6 +107,7 @@ public class TileEntityEggInIce extends BlockEntity {
             egg.setEggType(this.type);
             egg.setPosition(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5);
             egg.setOwnerId(this.ownerUUID);
+            assert this.world != null;
             if (!this.world.isClient) {
                 this.world.spawnEntity(egg);
             }

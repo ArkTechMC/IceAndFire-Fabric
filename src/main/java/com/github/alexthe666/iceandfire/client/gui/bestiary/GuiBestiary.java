@@ -242,7 +242,7 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONARMOR_IRON_0.get(), 1), j += 16, 60, 1.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONARMOR_IRON_1.get(), 1), j += 16, 60, 1.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONARMOR_IRON_2.get(), 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONARMOR_IRON_3.get(), 1), j += 16, 60, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONARMOR_IRON_3.get(), 1), j + 16, 60, 1.5F);
 
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -264,7 +264,7 @@ public class GuiBestiary extends Screen {
                         this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.helmet.get()), j += 16, 115, 1.5F);
                         this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.chestplate.get()), j += 16, 115, 1.5F);
                         this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.leggings.get()), j += 16, 115, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.boots.get()), j += 16, 115, 1.5F);
+                        this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.boots.get()), j + 16, 115, 1.5F);
                     }
                 }
                 if (bookPages == 1) {
@@ -275,7 +275,7 @@ public class GuiBestiary extends Screen {
                         this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONBONE_AXE.get()), j += 16, 14, 1.5F);
                         this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONBONE_SHOVEL.get()), j += 16, 14, 1.5F);
                         this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONBONE_HOE.get()), j += 16, 14, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGON_BOW.get()), j += 16, 14, 1.5F);
+                        this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGON_BOW.get()), j + 16, 14, 1.5F);
                     }
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.FIRE_DRAGON_FLESH.get()), 18, 24, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.FIRE_DRAGON_HEART.get()), 70, 14, 3.75F);
@@ -667,12 +667,12 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_AXE.get() : IafItemRegistry.MYRMEX_DESERT_AXE.get()), i += 16, 100, 1.5F);
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_SWORD.get() : IafItemRegistry.MYRMEX_DESERT_SWORD.get()), i += 16, 100, 1.5F);
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_SWORD_VENOM.get() : IafItemRegistry.MYRMEX_DESERT_SWORD_VENOM.get()), i += 16, 100, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_HOE.get() : IafItemRegistry.MYRMEX_DESERT_HOE.get()), i += 16, 100, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_HOE.get() : IafItemRegistry.MYRMEX_DESERT_HOE.get()), i + 16, 100, 1.5F);
                     int j = 148;
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_HELMET.get() : IafItemRegistry.MYRMEX_DESERT_HELMET.get()), j += 16, 115, 1.5F);
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_CHESTPLATE.get() : IafItemRegistry.MYRMEX_DESERT_CHESTPLATE.get()), j += 16, 115, 1.5F);
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_LEGGINGS.get() : IafItemRegistry.MYRMEX_DESERT_LEGGINGS.get()), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_BOOTS.get() : IafItemRegistry.MYRMEX_DESERT_BOOTS.get()), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_BOOTS.get() : IafItemRegistry.MYRMEX_DESERT_BOOTS.get()), j + 16, 115, 1.5F);
                 }
                 if (bookPages == 3) {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MYRMEX_STINGER.get()), 35, 22, 2.5F);

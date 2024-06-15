@@ -39,6 +39,7 @@ public class MyrmexWorldData extends PersistentState {
         if (world instanceof ServerWorld) {
             ServerWorld overworld = world.getServer().getWorld(world.getRegistryKey());
 
+            assert overworld != null;
             PersistentStateManager storage = overworld.getPersistentStateManager();
             MyrmexWorldData data = storage.getOrCreate(MyrmexWorldData::new, MyrmexWorldData::new, IDENTIFIER);
             if (data != null) {

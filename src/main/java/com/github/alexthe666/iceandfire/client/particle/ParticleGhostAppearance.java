@@ -21,7 +21,7 @@ import net.minecraft.util.math.RotationAxis;
 public class ParticleGhostAppearance extends Particle {
     private final ModelGhost model = new ModelGhost(0.0F);
     private final int ghost;
-    private boolean fromLeft = false;
+    private boolean fromLeft;
 
     public ParticleGhostAppearance(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, int ghost) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn);

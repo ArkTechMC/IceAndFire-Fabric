@@ -46,6 +46,7 @@ public class RenderLightningDragon extends RenderDragonBase {
         EntityLightningDragon lightningDragon = (EntityLightningDragon) entityIn;
         matrixStackIn.push();
         if (lightningDragon.hasLightningTarget()) {
+            assert MinecraftClient.getInstance().player != null;
             double dist = MinecraftClient.getInstance().player.distanceTo(lightningDragon);
             if (dist <= Math.max(256, MinecraftClient.getInstance().options.getViewDistance().getValue() * 16F)) {
                 Vec3d Vector3d1 = lightningDragon.getHeadPosition();

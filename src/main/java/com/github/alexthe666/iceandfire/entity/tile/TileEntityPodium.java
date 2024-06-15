@@ -89,6 +89,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
             stack.setCount(this.getMaxCountPerStack());
         }
         this.writeNbt(this.toInitialChunkDataNbt());
+        assert this.world != null;
         if (!this.world.isClient) {
             IafServerNetworkHandler.sendToAll(new MessageUpdatePodium(this.getPos().asLong(), this.stacks.get(0)));
         }

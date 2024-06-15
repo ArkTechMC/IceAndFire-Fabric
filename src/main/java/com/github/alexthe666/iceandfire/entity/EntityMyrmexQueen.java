@@ -101,7 +101,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     @Override
     public void setCustomName(Text name) {
         if (this.getHive() != null) {
-            if (!this.getHive().colonyName.equals(name.getContent())) {
+            if (!this.getHive().colonyName.equals(name.getString())) {
                 this.getHive().colonyName = name.getString();
             }
         }

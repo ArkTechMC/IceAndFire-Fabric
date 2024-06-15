@@ -32,6 +32,7 @@ public class WorldEventContext {
         this.partialTicks = context.tickDelta();
         this.clientLevel = MinecraftClient.getInstance().world;
         this.clientPlayer = MinecraftClient.getInstance().player;
+        assert this.clientPlayer != null;
         this.mainHandItem = this.clientPlayer.getMainHandStack();
         this.clientRenderDist = MinecraftClient.getInstance().options.getViewDistance().getValue();
 

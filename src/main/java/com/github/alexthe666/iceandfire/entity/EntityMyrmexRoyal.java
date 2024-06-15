@@ -276,14 +276,11 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         } else if (otherAnimal.getClass() != this.getClass()) {
             return false;
         } else {
-            if (otherAnimal instanceof EntityMyrmexBase) {
-                if (((EntityMyrmexBase) otherAnimal).getHive() != null && this.getHive() != null) {
-                    return !this.getHive().equals(((EntityMyrmexBase) otherAnimal).getHive());
-                } else {
-                    return true;
-                }
+            if (((EntityMyrmexBase) otherAnimal).getHive() != null && this.getHive() != null) {
+                return !this.getHive().equals(((EntityMyrmexBase) otherAnimal).getHive());
+            } else {
+                return true;
             }
-            return false;
         }
     }
 
@@ -501,6 +498,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         @Override
         public void start() {
             LivingEntity LivingEntity = EntityMyrmexRoyal.this.getTarget();
+            assert LivingEntity != null;
             Vec3d Vector3d = LivingEntity.getCameraPosVec(1.0F);
             EntityMyrmexRoyal.this.moveControl.moveTo(Vector3d.x, Vector3d.y, Vector3d.z, 1.0D);
         }

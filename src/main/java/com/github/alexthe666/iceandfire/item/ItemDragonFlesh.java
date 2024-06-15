@@ -35,6 +35,7 @@ public class ItemDragonFlesh extends ItemGenericFood {
             } else {
                 if (!livingEntity.getWorld().isClient) {
                     LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(livingEntity.getWorld());
+                    assert lightningboltentity != null;
                     lightningboltentity.refreshPositionAfterTeleport(livingEntity.getPos());
                     if (!livingEntity.getWorld().isClient) {
                         livingEntity.getWorld().spawnEntity(lightningboltentity);

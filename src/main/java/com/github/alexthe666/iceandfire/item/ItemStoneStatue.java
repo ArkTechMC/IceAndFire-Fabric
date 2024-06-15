@@ -32,7 +32,13 @@ public class ItemStoneStatue extends Item {
             String id = stack.getNbt().getString("IAFStoneStatueEntityID");
             if (EntityType.get(id).orElse(null) != null) {
                 EntityType<?> type = EntityType.get(id).orElse(null);
-                MutableText untranslated = isPlayer ? Text.translatable("entity.minecraft.player") : Text.translatable(type.getTranslationKey());
+                MutableText untranslated;
+                if (isPlayer) {
+                    untranslated = Text.translatable("entity.minecraft.player");
+                } else {
+                    assert type != null;
+                    untranslated = Text.translatable(type.getTranslationKey());
+                }
                 tooltip.add(untranslated.formatted(Formatting.GRAY));
             }
         }
@@ -41,6 +47,7 @@ public class ItemStoneStatue extends Item {
     @Override
     public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
+        assert itemStack.getNbt() != null;
         itemStack.getNbt().putBoolean("IAFStoneStatuePlayerEntity", true);
     }
 

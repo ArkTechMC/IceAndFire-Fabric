@@ -211,6 +211,7 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
 
     private EntityDragonBase createDragon(final StructureWorldAccess worldGen, final Random random, final BlockPos position, int dragonAge) {
         EntityDragonBase dragon = this.getDragonType().create(worldGen.toServerWorld());
+        assert dragon != null;
         dragon.setGender(this.isMale);
         dragon.growDragon(dragonAge);
         dragon.setAgingDisabled(true);

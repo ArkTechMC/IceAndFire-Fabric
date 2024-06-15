@@ -744,7 +744,6 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
             f12 = (float) Math.toRadians(-80);
         }
         this.Tail1.rotateAngleX = f12;
-        f12 = 0.0F;
     }
 
     @Override

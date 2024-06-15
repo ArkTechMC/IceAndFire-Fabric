@@ -137,6 +137,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
         this.remove(RemovalReason.DISCARDED);
         ItemStack stack = new ItemStack(this.getDragonSkullItem());
         stack.setNbt(new NbtCompound());
+        assert stack.getNbt() != null;
         stack.getNbt().putInt("Stage", this.getStage());
         stack.getNbt().putInt("DragonAge", this.getDragonAge());
         if (!this.getWorld().isClient)

@@ -317,7 +317,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
             this.setFlying(false);
             this.airTarget = null;
         }
-        if (!this.getWorld().isClient && (this.flock == null || this.flock != null && this.flock.isLeader(this)) && this.getRandom().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && this.getPassengerList().isEmpty() && !this.isBaby() && this.isOnGround()) {
+        if (!this.getWorld().isClient && (this.flock == null || this.flock.isLeader(this)) && this.getRandom().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && this.getPassengerList().isEmpty() && !this.isBaby() && this.isOnGround()) {
             this.setFlying(true);
             this.launchTicks = 0;
             this.flyTicks = 0;

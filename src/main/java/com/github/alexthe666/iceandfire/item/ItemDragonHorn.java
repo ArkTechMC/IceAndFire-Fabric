@@ -95,9 +95,12 @@ public class ItemDragonHorn extends Item {
                     dragon.readNbt(stack.getNbt().getCompound("EntityTag"));
                 }
                 //Still needed to allow for intercompatibility
-                if (stack.getNbt().contains("EntityUUID"))
+                if (stack.getNbt().contains("EntityUUID")) {
+                    assert entity != null;
                     entity.setUuid(stack.getNbt().getUuid("EntityUUID"));
+                }
 
+                assert entity != null;
                 entity.updatePositionAndAngles(context.getBlockPos().getX() + 0.5D, (context.getBlockPos().getY() + 1), context.getBlockPos().getZ() + 0.5D, 180 + (context.getHorizontalPlayerFacing()).asRotation(), 0.0F);
                 if (world.spawnEntity(entity)) {
                     NbtCompound tag = stack.getNbt();
@@ -131,7 +134,7 @@ public class ItemDragonHorn extends Item {
                     String gender = (Text.translatable("dragon.gender")).getString() + " " + (Text.translatable(entityTag.getBoolean("Gender") ? "dragon.gender.male" : "dragon.gender.female")).getString();
                     tooltip.add((Text.literal(gender)).formatted(Formatting.GRAY));
                     int stagenumber = entityTag.getInt("AgeTicks") / 24000;
-                    int stage1 = 0;
+                    int stage1;
                     if (stagenumber >= 100) {
                         stage1 = 5;
                     } else if (stagenumber >= 75) {

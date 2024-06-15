@@ -342,7 +342,7 @@ public class EntityLightningDragon extends EntityDragonBase {
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);
                     }
-                    if (!entity.isAlive() || entity == null) {
+                    if (!entity.isAlive()) {
                         this.setBreathingFire(false);
                     }
                     this.randomizeAttacks();
@@ -355,7 +355,7 @@ public class EntityLightningDragon extends EntityDragonBase {
                             this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
                         }
                         this.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 1);
-                        if (!entity.isAlive() || entity == null) {
+                        if (!entity.isAlive()) {
                             this.setBreathingFire(false);
                             this.randomizeAttacks();
                         }

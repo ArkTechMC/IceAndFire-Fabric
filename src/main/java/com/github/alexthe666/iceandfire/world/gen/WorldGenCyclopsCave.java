@@ -137,6 +137,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
         }
 
         EntityCyclops cyclops = IafEntityRegistry.CYCLOPS.get().create(context.getWorld().toServerWorld());
+        assert cyclops != null;
         cyclops.updatePositionAndAngles(context.getOrigin().getX() + 0.5, context.getOrigin().getY() + 1.5, context.getOrigin().getZ() + 0.5, context.getRandom().nextFloat() * 360, 0);
         // TODO :: Finalize spawn?
         context.getWorld().spawnEntity(cyclops);

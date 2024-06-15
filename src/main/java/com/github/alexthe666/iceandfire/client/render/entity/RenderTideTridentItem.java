@@ -29,6 +29,7 @@ public class RenderTideTridentItem extends BuiltinModelItemRenderer {
         if (type == ModelTransformationMode.GUI || type == ModelTransformationMode.FIXED || type == ModelTransformationMode.NONE || type == ModelTransformationMode.GROUND) {
             ItemStack tridentInventory = new ItemStack(IafItemRegistry.TIDE_TRIDENT_INVENTORY.get());
             if (stack.hasEnchantments()) {
+                assert stack.getNbt() != null;
                 NbtList enchantments = stack.getNbt().getList("Enchantments", 10);
                 tridentInventory.setSubNbt("Enchantments", enchantments);
             }

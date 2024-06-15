@@ -15,6 +15,7 @@ public class MyrmexAILookAtTradePlayer extends LookAtEntityGoal {
     @Override
     public boolean canStart() {
         if (this.myrmex.hasCustomer() && this.myrmex.getHive() != null) {
+            assert this.myrmex.getCustomer() != null;
             if (!this.myrmex.getHive().isPlayerReputationTooLowToTrade(this.myrmex.getCustomer().getUuid())) {
                 this.target = this.myrmex.getCustomer();
                 return true;

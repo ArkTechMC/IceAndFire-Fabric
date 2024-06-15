@@ -56,6 +56,7 @@ public enum EnumBestiaryPages {
     }
 
     public static boolean hasAllPages(ItemStack book) {
+        assert book.getNbt() != null;
         return new HashSet<>(Ints.asList(book.getNbt().getIntArray("Pages"))).containsAll(ALL_INDEXES);
     }
 

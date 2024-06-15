@@ -36,6 +36,7 @@ public class DragonPosWorldData extends PersistentState {
         if (world instanceof ServerWorld) {
             ServerWorld overworld = world.getServer().getWorld(world.getRegistryKey());
 
+            assert overworld != null;
             PersistentStateManager storage = overworld.getPersistentStateManager();
             DragonPosWorldData data = storage.getOrCreate(DragonPosWorldData::new, DragonPosWorldData::new, IDENTIFIER);
             if (data != null) {

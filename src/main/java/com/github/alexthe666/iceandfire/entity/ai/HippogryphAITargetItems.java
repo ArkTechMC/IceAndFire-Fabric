@@ -84,12 +84,10 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
             hippo.feedings++;
             hippo.heal(4);
             if (hippo.feedings > 3 && (hippo.feedings > 7 || hippo.getRandom().nextInt(3) == 0) && !hippo.isTamed() && this.targetEntity.getOwner() instanceof PlayerEntity owner) {
-                if (owner != null) {
-                    hippo.setOwner(owner);
-                    hippo.setTarget(null);
-                    hippo.setCommand(1);
-                    hippo.setSitting(true);
-                }
+                hippo.setOwner(owner);
+                hippo.setTarget(null);
+                hippo.setCommand(1);
+                hippo.setSitting(true);
             }
             this.stop();
         } else {

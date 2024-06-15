@@ -131,7 +131,7 @@ public class DragonUtils {
                     pointedEntity = entity1;
                     d2 = 0.0D;
                 }
-            } else if (raytraceresult != null) {
+            } else {
                 double d3 = Vector3d.distanceTo(raytraceresult);
 
                 if (d3 < d2 || d2 == 0.0D) {

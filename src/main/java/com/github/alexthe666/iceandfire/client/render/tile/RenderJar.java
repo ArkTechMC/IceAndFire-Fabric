@@ -47,10 +47,9 @@ public class RenderJar<T extends TileEntityJar> implements BlockEntityRenderer<T
             matrixStackIn.translate(0.5F, 1.501F, 0.5F);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
             matrixStackIn.push();
-            RenderLayer type = TEXTURE_0;
+            RenderLayer type;
             RenderLayer typeGlow = switch (meta) {
                 default -> {
-                    type = TEXTURE_0;
                     yield TEXTURE_0_GLO;
                 }
                 case 1 -> {
@@ -71,7 +70,7 @@ public class RenderJar<T extends TileEntityJar> implements BlockEntityRenderer<T
                 }
             };
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(type);
-            if (entity != null && entity.getWorld() != null) {
+            if (entity.getWorld() != null) {
 
                 if (entity.hasProduced) {
                     matrixStackIn.translate(0F, 0.90F, 0F);

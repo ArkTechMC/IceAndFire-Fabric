@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ItemTrollWeapon extends SwordItem {
 
-    public EnumTroll.Weapon weapon = EnumTroll.Weapon.AXE;
+    public EnumTroll.Weapon weapon;
 
     public ItemTrollWeapon(EnumTroll.Weapon weapon) {
         super(IafItemRegistry.TROLL_WEAPON_TOOL_MATERIAL, 15, -3.5F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);

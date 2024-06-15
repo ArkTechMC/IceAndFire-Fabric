@@ -56,6 +56,7 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
 
             DebugInfoSender.sendPathfindingData(this.world, this.entity, this.currentPath, this.nodeReachProximity);
             if (!this.isIdle()) {
+                assert this.currentPath != null;
                 lvt_1_2_ = this.currentPath.getNodePosition(this.entity);
                 this.entity.getMoveControl().moveTo(lvt_1_2_.x, lvt_1_2_.y, lvt_1_2_.z, this.speed);
             }

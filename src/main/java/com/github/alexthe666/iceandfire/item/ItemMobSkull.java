@@ -24,6 +24,7 @@ public class ItemMobSkull extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         PlayerEntity player = context.getPlayer();
         EntityMobSkull skull = new EntityMobSkull(IafEntityRegistry.MOB_SKULL.get(), context.getWorld());
+        assert player != null;
         ItemStack stack = player.getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide(), 1);
         skull.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);

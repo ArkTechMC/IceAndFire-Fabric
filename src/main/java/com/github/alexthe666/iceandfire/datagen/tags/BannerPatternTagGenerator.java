@@ -43,24 +43,43 @@ public class BannerPatternTagGenerator extends TagProvider<BannerPattern> {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup pProvider) {
+        assert IafBannerPatterns.PATTERN_FIRE.getKey() != null;
         this.getOrCreateTagBuilder(FIRE_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_FIRE.getKey());
+        assert IafBannerPatterns.PATTERN_ICE.getKey() != null;
         this.getOrCreateTagBuilder(ICE_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_ICE.getKey());
+        assert IafBannerPatterns.PATTERN_LIGHTNING.getKey() != null;
         this.getOrCreateTagBuilder(LIGHTNING_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_LIGHTNING.getKey());
+        assert IafBannerPatterns.PATTERN_FIRE_HEAD.getKey() != null;
         this.getOrCreateTagBuilder(FIRE_HEAD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_FIRE_HEAD.getKey());
+        assert IafBannerPatterns.PATTERN_ICE_HEAD.getKey() != null;
         this.getOrCreateTagBuilder(ICE_HEAD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_ICE_HEAD.getKey());
+        assert IafBannerPatterns.PATTERN_LIGHTNING_HEAD.getKey() != null;
         this.getOrCreateTagBuilder(LIGHTNING_HEAD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_LIGHTNING_HEAD.getKey());
+        assert IafBannerPatterns.PATTERN_AMPHITHERE.getKey() != null;
         this.getOrCreateTagBuilder(AMPHITHERE_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_AMPHITHERE.getKey());
+        assert IafBannerPatterns.PATTERN_BIRD.getKey() != null;
         this.getOrCreateTagBuilder(BIRD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_BIRD.getKey());
+        assert IafBannerPatterns.PATTERN_EYE.getKey() != null;
         this.getOrCreateTagBuilder(EYE_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_EYE.getKey());
+        assert IafBannerPatterns.PATTERN_FAE.getKey() != null;
         this.getOrCreateTagBuilder(FAE_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_FAE.getKey());
+        assert IafBannerPatterns.PATTERN_FEATHER.getKey() != null;
         this.getOrCreateTagBuilder(FEATHER_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_FEATHER.getKey());
+        assert IafBannerPatterns.PATTERN_GORGON.getKey() != null;
         this.getOrCreateTagBuilder(GORGON_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_GORGON.getKey());
+        assert IafBannerPatterns.PATTERN_HIPPOCAMPUS.getKey() != null;
         this.getOrCreateTagBuilder(HIPPOCAMPUS_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_HIPPOCAMPUS.getKey());
+        assert IafBannerPatterns.PATTERN_HIPPOGRYPH_HEAD.getKey() != null;
         this.getOrCreateTagBuilder(HIPPOGRYPH_HEAD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_HIPPOGRYPH_HEAD.getKey());
+        assert IafBannerPatterns.PATTERN_MERMAID.getKey() != null;
         this.getOrCreateTagBuilder(MERMAID_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_MERMAID.getKey());
+        assert IafBannerPatterns.PATTERN_SEA_SERPENT.getKey() != null;
         this.getOrCreateTagBuilder(SEA_SERPENT_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_SEA_SERPENT.getKey());
+        assert IafBannerPatterns.PATTERN_TROLL.getKey() != null;
         this.getOrCreateTagBuilder(TROLL_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_TROLL.getKey());
+        assert IafBannerPatterns.PATTERN_WEEZER.getKey() != null;
         this.getOrCreateTagBuilder(WEEZER_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_WEEZER.getKey());
+        assert IafBannerPatterns.PATTERN_DREAD.getKey() != null;
         this.getOrCreateTagBuilder(DREAD_BANNER_PATTERN).add(IafBannerPatterns.PATTERN_DREAD.getKey());
     }
 

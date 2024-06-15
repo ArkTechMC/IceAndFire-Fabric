@@ -97,18 +97,6 @@ public class DragonAIAttackMelee extends Goal {
                 this.delayCounter = 4 + this.dragon.getRandom().nextInt(7);
 
                 boolean canPenalize = false;
-                if (canPenalize) {
-                    this.delayCounter += this.failedPathFindingPenalty;
-                    if (this.dragon.getNavigation().getCurrentPath() != null) {
-                        net.minecraft.entity.ai.pathing.PathNode finalPathPoint = this.dragon.getNavigation().getCurrentPath().getEnd();
-                        if (finalPathPoint != null && entity.squaredDistanceTo(finalPathPoint.x, finalPathPoint.y, finalPathPoint.z) < 1)
-                            this.failedPathFindingPenalty = 0;
-                        else
-                            this.failedPathFindingPenalty += 10;
-                    } else {
-                        this.failedPathFindingPenalty += 10;
-                    }
-                }
 
                 if (d0 > 1024.0D) {
                     this.delayCounter += 10;

@@ -94,6 +94,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
             }
 
             if (raytraceresult != null && raytraceresult.getType() == HitResult.Type.ENTITY) {
+                assert raytraceresult instanceof EntityHitResult;
                 Entity entity = ((EntityHitResult) raytraceresult).getEntity();
                 Entity entity1 = this.getOwner();
                 if (entity instanceof PlayerEntity && entity1 instanceof PlayerEntity && !((PlayerEntity) entity1).shouldDamagePlayer((PlayerEntity) entity)) {

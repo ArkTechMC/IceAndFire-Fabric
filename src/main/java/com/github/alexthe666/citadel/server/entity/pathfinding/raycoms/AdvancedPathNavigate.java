@@ -37,7 +37,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
      * Spawn pos of minecart.
      */
     private final BlockPos spawnedPos = BlockPos.ORIGIN;
-    public boolean overrideDefaultDimensions = false;
+    public boolean overrideDefaultDimensions;
     private PathResult<AbstractPathJob> pathResult;
     /**
      * Desired position to reach
@@ -56,9 +56,9 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
      */
     private boolean isSneaking = true;
     private double swimSpeedFactor = 1.0;
-    private float width = 1;
+    private float width;
 
-    private float height = 1;
+    private float height;
 
     /**
      * Instantiates the navigation of an ourEntity.
@@ -240,9 +240,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             this.nodeMaker.entityBlockZSize = MathHelper.floor(this.ourEntity.getWidth() + 1.0F);
         }
         if (this.desiredPosTimeout > 0) {
-            if (this.desiredPosTimeout-- <= 0) {
-                this.desiredPos = null;
-            }
+            this.desiredPosTimeout--;
         }
 
         if (this.pathResult != null) {
@@ -287,6 +285,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
 
             DebugInfoSender.sendPathfindingData(this.world, this.entity, this.currentPath, this.nodeReachProximity);
             if (!this.isIdle()) {
+                assert this.currentPath != null;
                 Vec3d vector3d2 = this.currentPath.getNodePosition(this.entity);
                 BlockPos blockpos = BlockPos.ofFloored(vector3d2);
                 if (isEntityBlockLoaded(this.world, blockpos)) {
@@ -649,6 +648,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     @Override
     protected void continueFollowingPath() {
         this.getSpeedFactor();
+        assert this.currentPath != null;
         final int curNode = this.currentPath.getCurrentNodeIndex();
         final int curNodeNext = curNode + 1;
         if (curNodeNext < this.currentPath.getLength()) {

@@ -85,7 +85,6 @@ public class BlockLaunchExplosion extends Explosion {
         }
 
         if (flag) {
-            ObjectArrayList<Pair<ItemStack, BlockPos>> objectarraylist = new ObjectArrayList<>();
             Collections.shuffle(this.getAffectedBlocks(), ThreadLocalRandom.current());
 
             for (BlockPos blockpos : this.getAffectedBlocks()) {
@@ -109,10 +108,6 @@ public class BlockLaunchExplosion extends Explosion {
                     fallingBlockEntity.setVelocity(fallingBlockEntity.getVelocity().add(d5 * d11, d7 * d11, d9 * d11));
                     this.world.getProfiler().pop();
                 }
-            }
-
-            for (Pair<ItemStack, BlockPos> pair : objectarraylist) {
-                Block.dropStack(this.world, pair.getSecond(), pair.getFirst());
             }
         }
     }

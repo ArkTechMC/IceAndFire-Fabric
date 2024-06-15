@@ -228,6 +228,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     private void spawnDragon(final FeatureContext<DefaultFeatureConfig> context, int ageOffset, boolean isMale) {
         EntityDragonBase dragon = this.getDragonType().create(context.getWorld().toServerWorld());
+        assert dragon != null;
         dragon.setGender(isMale);
         dragon.growDragon(40 + ageOffset);
         dragon.setAgingDisabled(true);

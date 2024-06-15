@@ -89,9 +89,10 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
                         return;
                     }
                 }
-                if (entity == null || !(entity instanceof IDragonProjectile) && entity != shootingEntity && shootingEntity instanceof EntityDragonBase) {
+                if (entity == null || entity != shootingEntity && shootingEntity instanceof EntityDragonBase) {
+                    assert shootingEntity instanceof EntityDragonBase;
                     EntityDragonBase dragon = (EntityDragonBase) shootingEntity;
-                    if (shootingEntity != null && (entity == shootingEntity || (entity instanceof TameableEntity && ((EntityDragonBase) shootingEntity).isOwner(((EntityDragonBase) shootingEntity).getOwner())))) {
+                    if (shootingEntity != null && entity instanceof TameableEntity && ((EntityDragonBase) shootingEntity).isOwner(((EntityDragonBase) shootingEntity).getOwner())) {
                         return;
                     }
                     if (dragon != null) {
@@ -99,7 +100,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
                     }
                     this.remove(RemovalReason.DISCARDED);
                 }
-                if (entity != null && !(entity instanceof IDragonProjectile) && !entity.isPartOf(shootingEntity)) {
+                if (entity != null && !entity.isPartOf(shootingEntity)) {
                     if (shootingEntity != null && (entity.isPartOf(shootingEntity) || (shootingEntity instanceof EntityDragonBase && entity instanceof TameableEntity && ((EntityDragonBase) shootingEntity).getOwner() == ((TameableEntity) entity).getOwner()))) {
                         return;
                     }

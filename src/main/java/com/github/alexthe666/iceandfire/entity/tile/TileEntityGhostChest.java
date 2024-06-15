@@ -28,8 +28,10 @@ public class TileEntityGhostChest extends ChestBlockEntity {
     @Override
     public void onOpen(PlayerEntity player) {
         super.onOpen(player);
+        assert this.world != null;
         if (this.world.getDifficulty() != Difficulty.PEACEFUL) {
             EntityGhost ghost = IafEntityRegistry.GHOST.get().create(this.world);
+            assert ghost != null;
             ghost.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F,
                     ThreadLocalRandom.current().nextFloat() * 360F, 0);
             if (!this.world.isClient) {

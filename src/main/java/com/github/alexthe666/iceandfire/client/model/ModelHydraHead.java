@@ -30,7 +30,7 @@ public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
     public final AdvancedModelBox TeethR1;
     public final AdvancedModelBox TeethTL1;
     private final ModelAnimator animator;
-    private int headIndex = 0;
+    private int headIndex;
 
     public ModelHydraHead(int headIndex) {
         this.headIndex = headIndex;

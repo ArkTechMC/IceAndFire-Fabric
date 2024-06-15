@@ -82,6 +82,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
 
         boolean dragonSelected = false;
 
+        assert this.world != null;
         for (EntityDragonBase dragon : this.world.getNonSpectatingEntities(EntityDragonBase.class, searchArea)) {
             if (!dragonSelected && /* Dragon Checks */ this.getDragonType() == dragon.dragonType.getIntFromType() && (dragon.isChained() || dragon.isTamed()) && this.canSeeInput(dragon, targetPosition)) {
                 dragon.burningTarget = this.pos;
@@ -103,6 +104,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
 
     private boolean canSeeInput(EntityDragonBase dragon, Vec3d target) {
         if (target != null) {
+            assert this.world != null;
             HitResult rayTrace = this.world.raycast(new RaycastContext(dragon.getHeadPosition(), target, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, dragon));
             double distance = dragon.getHeadPosition().distanceTo(rayTrace.getPos());
 
@@ -124,6 +126,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     private int getDragonType() {
+        assert this.world != null;
         BlockState state = this.world.getBlockState(this.pos);
 
         if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get()) {
@@ -138,12 +141,14 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     private boolean isActive() {
+        assert this.world != null;
         BlockState state = this.world.getBlockState(this.pos);
         return state.getBlock() instanceof BlockDragonForgeInput && state.get(BlockDragonForgeInput.ACTIVE);
     }
 
     private TileEntityDragonforge getConnectedTileEntity(final BlockPos position) {
         for (Direction facing : HORIZONTALS) {
+            assert this.world != null;
             if (this.world.getBlockEntity(position.offset(facing)) instanceof TileEntityDragonforge forge) {
                 return forge;
             }

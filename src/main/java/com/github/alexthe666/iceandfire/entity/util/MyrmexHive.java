@@ -112,6 +112,7 @@ public class MyrmexHive {
         List<EntityMyrmexQueen> ourQueens = new ArrayList<>();
         if (!this.world.isClient) {
             ServerWorld serverWorld = this.world.getServer().getWorld(this.world.getRegistryKey());
+            assert serverWorld != null;
             List<? extends EntityMyrmexQueen> allQueens = serverWorld.getEntitiesByType(IafEntityRegistry.MYRMEX_QUEEN.get(),
                     EntityPredicates.EXCEPT_SPECTATOR);
             for (EntityMyrmexQueen queen : allQueens) {

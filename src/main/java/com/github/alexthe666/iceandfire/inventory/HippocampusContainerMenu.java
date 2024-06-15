@@ -83,6 +83,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
 
 
         // Create the slots for the inventory
+        assert this.hippocampus != null;
         if (this.hippocampus.isChested()) {
             for (int k = 0; k < 3; ++k) {
                 for (int l = 0; l < (hippocampus).getInventoryColumns(); ++l) {
@@ -107,7 +108,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasStack()) {
+        if (slot.hasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             int containerSize = this.hippocampusInventory.size();

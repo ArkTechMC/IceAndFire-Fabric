@@ -119,6 +119,7 @@ public class TileEntityJar extends BlockEntity {
         pixie.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 1F, this.pos.getZ() + 0.5F, new Random().nextInt(360), 0);
         pixie.setStackInHand(Hand.MAIN_HAND, this.pixieItems.get(0));
         pixie.setColor(this.pixieType);
+        assert this.world != null;
         this.world.spawnEntity(pixie);
         this.hasPixie = false;
         this.pixieType = 0;

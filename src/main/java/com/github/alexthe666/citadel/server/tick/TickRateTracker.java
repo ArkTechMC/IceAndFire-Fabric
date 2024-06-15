@@ -55,6 +55,7 @@ public abstract class TickRateTracker {
             for (int i = 0; i < list.size(); ++i) {
                 NbtCompound tag1 = list.getCompound(i);
                 TickRateModifier modifier = TickRateModifier.fromTag(tag1);
+                assert modifier != null;
                 if (!modifier.doRemove()) {
                     this.tickRateModifierList.add(modifier);
                 }

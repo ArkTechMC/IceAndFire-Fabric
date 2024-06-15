@@ -246,9 +246,7 @@ public class EntityFireDragon extends EntityDragonBase {
                 this.updateVelocity(this.getMovementSpeed(), pTravelVector);
                 this.move(MovementType.SELF, this.getVelocity());
                 this.setVelocity(this.getVelocity().multiply(0.7D));
-                if (this.getTarget() == null) {
-//                    this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-                }
+                this.getTarget();//                    this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
             } else if (this.allowLocalMotionControl && this.getControllingPassenger() != null && !this.isHovering() && !this.isFlying()) {
                 LivingEntity rider = this.getControllingPassenger();
 
@@ -317,7 +315,6 @@ public class EntityFireDragon extends EntityDragonBase {
             strafing *= 0.05f;
 
             if (this.isLogicalSideForUpdatingMovement()) {
-                flyingSpeed = speed * 0.1F;
                 this.setMovementSpeed(speed);
 
                 // Vanilla walking behavior includes going up steps
@@ -370,7 +367,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);
                     }
-                    if (!entity.isAlive() || entity == null) {
+                    if (!entity.isAlive()) {
                         this.setBreathingFire(false);
                     }
                     this.randomizeAttacks();
@@ -383,7 +380,7 @@ public class EntityFireDragon extends EntityDragonBase {
                             this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                         }
                         this.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 1);
-                        if (!entity.isAlive() || entity == null) {
+                        if (!entity.isAlive()) {
                             this.setBreathingFire(false);
                             this.randomizeAttacks();
                         }

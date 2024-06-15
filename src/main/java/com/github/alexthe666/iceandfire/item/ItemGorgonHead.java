@@ -111,6 +111,7 @@ public class ItemGorgonHead extends Item {
                 }
             }
         }
+        assert stack.getNbt() != null;
         stack.getNbt().putBoolean("Active", false);
     }
 
@@ -118,6 +119,7 @@ public class ItemGorgonHead extends Item {
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         playerIn.setCurrentHand(hand);
+        assert itemStackIn.getNbt() != null;
         itemStackIn.getNbt().putBoolean("Active", true);
         return new TypedActionResult<>(ActionResult.SUCCESS, itemStackIn);
     }
