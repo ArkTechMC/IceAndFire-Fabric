@@ -1,9 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,7 +16,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityHydraBreath extends AbstractFireballEntity implements IDragonProjectile {
 

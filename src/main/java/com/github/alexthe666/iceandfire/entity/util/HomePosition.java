@@ -48,14 +48,13 @@ public class HomePosition {
             compound.putString("HomeDimension", this.dimension);
     }
 
-    public HomePosition read(NbtCompound compound, World world) {
+    public void read(NbtCompound compound, World world) {
         this.read(compound);
         if (this.dimension == null)
             this.dimension = DragonUtils.getDimensionName(world);
-        return this;
     }
 
-    public HomePosition read(NbtCompound compound) {
+    public void read(NbtCompound compound) {
         if (compound.contains("HomeAreaX"))
             this.x = compound.getInt("HomeAreaX");
         if (compound.contains("HomeAreaY"))
@@ -65,7 +64,6 @@ public class HomePosition {
         this.pos = new BlockPos(this.x, this.y, this.z);
         if (compound.contains("HomeDimension"))
             this.dimension = compound.getString("HomeDimension");
-        return this;
     }
 }
 

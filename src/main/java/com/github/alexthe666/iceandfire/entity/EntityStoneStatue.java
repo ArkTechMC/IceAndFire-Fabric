@@ -16,7 +16,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromStatues {
 

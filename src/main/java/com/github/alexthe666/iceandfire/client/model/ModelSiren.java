@@ -198,9 +198,9 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
             this.chainFlap(TAIL_NO_BASE, speed_walk, degree_walk * 0.6F, 1, f, f1);
             this.swing(this.Tail_1, speed_walk, degree_walk * 0.2F, true, 0, 0F, f, f1);
         }
-        if (entity.isSinging()) {
+        if (entity.isSinging())
             switch (entity.getSingingPose()) {
-                case 2:
+                case 2 -> {
                     this.progressRotation(this.Body, entity.singProgress, (float) Math.toRadians(-46F), 0.0F, 0.0F);
                     this.progressRotation(this.Tail_1, entity.singProgress, (float) Math.toRadians(90F), 0.0F, (float) Math.toRadians(20F));
                     this.progressRotation(this.Tail_2, entity.singProgress, 0.0F, (float) Math.toRadians(-13F), 0.0F);
@@ -216,8 +216,8 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
                         this.swing(this.Tail_2, speed_idle, degree_idle * 0.4F, false, 0F, -0.4F, f2, 1);
                         this.swing(this.Tail_3, speed_idle, degree_idle * 0.4F, false, 0F, 0.6F, f2, 1);
                     }
-                    break;
-                case 1:
+                }
+                case 1 -> {
                     this.progressRotation(this.Body, entity.singProgress, (float) Math.toRadians(-57F), 0.0F, 0.0F);
                     this.progressRotation(this.Head, entity.singProgress, (float) Math.toRadians(-13F), 0.0F, 0.0F);
                     this.progressRotation(this.Left_Arm, entity.singProgress, (float) Math.toRadians(-200F), (float) Math.toRadians(-60F), (float) Math.toRadians(70F));
@@ -228,11 +228,10 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
                     this.progressPosition(this.Tail_1, entity.singProgress, 0.0F, 18.9F, -0.2F);
                     this.walk(this.Right_Arm, speed_idle * 1.5F, degree_idle * 0.6F, false, 2, 0F, f2, 1);
                     this.walk(this.Left_Arm, speed_idle * 1.5F, degree_idle * 0.6F, true, 2, 0F, f2, 1);
-                    if (entity.isOnGround()) {
+                    if (entity.isOnGround())
                         this.chainFlap(TAIL_NO_BASE, speed_idle, degree_idle, 0, f2, 1);
-                    }
-                    break;
-                default:
+                }
+                default -> {
                     this.progressRotation(this.Body, entity.singProgress, (float) Math.toRadians(-46F), 0.0F, (float) Math.toRadians(20.87F));
                     this.progressPosition(this.Head, entity.singProgress, 0, -12.0F, -0.5F);
                     this.progressRotation(this.Head, entity.singProgress, (float) Math.toRadians(-54F), 0.0F, (float) Math.toRadians(20.87F));
@@ -245,17 +244,14 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
                     this.walk(this.Left_Arm, speed_idle * 1.5F, degree_idle * 0.6F, true, 2, 0F, f2, 1);
                     this.flap(this.Right_Arm, speed_idle * 1.5F, degree_idle * 0.6F, false, 2, 0F, f2, 1);
                     this.flap(this.Left_Arm, speed_idle * 1.5F, degree_idle * 0.6F, true, 2, 0F, f2, 1);
-                    if (entity.isOnGround()) {
+                    if (entity.isOnGround())
                         this.chainFlap(TAIL_NO_BASE, speed_idle, degree_idle * 0.5F, -1, f2, 1);
-                    }
-                    break;
+                }
             }
-        } else {
+        else
             this.faceTarget(f3, f4, 2, this.Neck, this.Head);
-        }
-        if (entity.tail_buffer != null) {
+        if (entity.tail_buffer != null)
             entity.tail_buffer.applyChainSwingBuffer(TAIL_NO_BASE);
-        }
     }
 
     @Override

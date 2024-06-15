@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +68,7 @@ public class IafWorldData extends PersistentState {
         return canGenerate;
     }
 
-    public IafWorldData load(final NbtCompound tag) {
+    public void load(final NbtCompound tag) {
         FeatureType[] types = FeatureType.values();
 
         for (FeatureType type : types) {
@@ -83,7 +82,6 @@ public class IafWorldData extends PersistentState {
             }
         }
 
-        return this;
     }
 
     @Override

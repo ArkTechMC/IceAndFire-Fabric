@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedEntityModel<EntityMyrmexBase>> {
 

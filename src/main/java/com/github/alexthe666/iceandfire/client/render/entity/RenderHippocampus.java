@@ -15,7 +15,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 
 public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, ModelHippocampus> {

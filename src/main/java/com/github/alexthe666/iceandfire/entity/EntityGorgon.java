@@ -4,11 +4,9 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
@@ -32,7 +30,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHumanoid, IHasCustomizableAttributes {
 
@@ -116,7 +113,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         });
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity.isAlive()));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) Entity::isAlive));
         this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone())));
         this.goalSelector.remove(this.aiMelee);
     }

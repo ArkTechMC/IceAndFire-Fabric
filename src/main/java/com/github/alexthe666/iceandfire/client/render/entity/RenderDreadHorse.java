@@ -8,7 +8,6 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadHorse extends MobEntityRenderer<EntityDreadHorse, HorseEntityModel<EntityDreadHorse>> {
     public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_knight_horse.png");

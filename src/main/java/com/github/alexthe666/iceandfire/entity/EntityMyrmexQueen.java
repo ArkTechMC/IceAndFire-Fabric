@@ -40,7 +40,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityMyrmexQueen extends EntityMyrmexBase {
 

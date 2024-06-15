@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
 
 public class ModelUtils {
-
     private static void setRotateAngle(AdvancedModelBox model, float x, float y, float z) {
         model.rotateAngleX = x;
         model.rotateAngleY = y;

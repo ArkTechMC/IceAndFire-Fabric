@@ -13,7 +13,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.projectile.AbstractFireballEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntity> {
 

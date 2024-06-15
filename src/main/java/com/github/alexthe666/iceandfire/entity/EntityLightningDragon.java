@@ -38,7 +38,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -188,13 +187,9 @@ public class EntityLightningDragon extends EntityDragonBase {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (!this.isPlayingAttackAnimation()) {
             switch (this.groundAttack) {
-                case BITE:
-                    this.setAnimation(ANIMATION_BITE);
-                    break;
-                case TAIL_WHIP:
-                    this.setAnimation(ANIMATION_TAILWHACK);
-                    break;
-                case SHAKE_PREY:
+                case BITE -> this.setAnimation(ANIMATION_BITE);
+                case TAIL_WHIP -> this.setAnimation(ANIMATION_TAILWHACK);
+                case SHAKE_PREY -> {
                     boolean flag = false;
                     if (new Random().nextInt(2) == 0 && this.isDirectPathBetweenPoints(this, this.getPos().add(0, this.getHeight() / 2, 0), entityIn.getPos().add(0, entityIn.getHeight() / 2, 0)) &&
                             entityIn.getWidth() < this.getWidth() * 0.5F && this.getControllingPassenger() == null && this.getDragonStage() > 1 && !(entityIn instanceof EntityDragonBase) && !DragonUtils.isAnimaniaMob(entityIn)) {
@@ -206,10 +201,8 @@ public class EntityLightningDragon extends EntityDragonBase {
                         this.groundAttack = IafDragonAttacks.Ground.BITE;
                         this.setAnimation(ANIMATION_BITE);
                     }
-                    break;
-                case WING_BLAST:
-                    this.setAnimation(ANIMATION_WINGBLAST);
-                    break;
+                }
+                case WING_BLAST -> this.setAnimation(ANIMATION_WINGBLAST);
             }
         }
         return false;

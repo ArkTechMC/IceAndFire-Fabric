@@ -10,7 +10,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderJar<T extends TileEntityJar> implements BlockEntityRenderer<T> {
 

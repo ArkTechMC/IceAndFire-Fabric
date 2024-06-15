@@ -11,7 +11,6 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootFunctionType;
-import org.jetbrains.annotations.NotNull;
 
 public class CustomizeToDragon extends ConditionalLootFunction {
 

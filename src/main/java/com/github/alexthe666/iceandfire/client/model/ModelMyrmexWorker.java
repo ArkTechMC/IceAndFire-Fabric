@@ -291,9 +291,8 @@ public class ModelMyrmexWorker extends ModelMyrmexBase {
         float speed_idle = 0.05F;
         float degree_walk = 0.3F;
         float degree_idle = 0.25F;
-        if (entity.getPassengerList().isEmpty()) {
+        if (entity.getPassengerList().isEmpty())
             this.faceTarget(f3, f4, 2, NECK);
-        }
         this.chainWave(GASTER, speed_idle, degree_idle * 0.15F, 0, f2, 1);
         this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, f2, 1);
         this.swing(this.MandibleR, speed_idle, degree_idle * -0.5F, false, 1, 0.2F, f2, 1);
@@ -312,7 +311,6 @@ public class ModelMyrmexWorker extends ModelMyrmexBase {
         this.flap(models[1], speed, degree * 2, reverse, offset, weight * -0.4F, f, f1);
         this.flap(models[1], speed, -degree * 1.2F, reverse, offset, weight * 0.5F, f, f1);
         this.walk(models[0], speed, degree, reverse, offset, 0F, f, f1);
-
     }
 
     @Override

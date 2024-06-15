@@ -16,70 +16,49 @@ import java.util.*;
     Lightning bolt effect code used with permission from aidancbrady
  */
 public class LightningRender {
-
     private static final float REFRESH_TIME = 3F;
     private static final double MAX_OWNER_TRACK_TIME = 100;
     private final Random random = new Random();
-    private final MinecraftClient minecraft = MinecraftClient.getInstance();
+    private final MinecraftClient client = MinecraftClient.getInstance();
     private final Map<Object, BoltOwnerData> boltOwners = new Object2ObjectOpenHashMap<>();
     private Timestamp refreshTimestamp = new Timestamp();
 
     public void render(float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn) {
         VertexConsumer buffer = bufferIn.getBuffer(RenderLayer.getLightning());
         Matrix4f matrix = matrixStackIn.peek().getPositionMatrix();
-        Timestamp timestamp = new Timestamp(this.minecraft.world.getTime(), partialTicks);
+        assert this.client.world != null;
+        Timestamp timestamp = new Timestamp(this.client.world.getTime(), partialTicks);
         boolean refresh = timestamp.isPassed(this.refreshTimestamp, (1 / REFRESH_TIME));
-        if (refresh) {
-            this.refreshTimestamp = timestamp;
-        }
+        if (refresh) this.refreshTimestamp = timestamp;
         for (Iterator<Map.Entry<Object, BoltOwnerData>> iter = this.boltOwners.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry<Object, BoltOwnerData> entry = iter.next();
             BoltOwnerData data = entry.getValue();
             // tick our bolts based on the refresh rate, removing if they're now finished
-            if (refresh) {
+            if (refresh)
                 data.bolts.removeIf(bolt -> bolt.tick(timestamp));
-            }
-            if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive()) {
+            if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive())
                 data.addBolt(new BoltInstance(data.lastBolt, timestamp), timestamp);
-            }
             data.bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
 
-            if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME)) {
+            if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME))
                 iter.remove();
-            }
         }
     }
 
     public void update(Object owner, LightningBoltData newBoltData, float partialTicks) {
-        if (this.minecraft.world == null) {
+        if (this.client.world == null) {
             return;
         }
         BoltOwnerData data = this.boltOwners.computeIfAbsent(owner, o -> new BoltOwnerData());
         data.lastBolt = newBoltData;
-        Timestamp timestamp = new Timestamp(this.minecraft.world.getTime(), partialTicks);
+        Timestamp timestamp = new Timestamp(this.client.world.getTime(), partialTicks);
         if ((!data.lastBolt.getSpawnFunction().isConsecutive() || data.bolts.isEmpty()) && timestamp.isPassed(data.lastBoltTimestamp, data.lastBoltDelay)) {
             data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
         }
         data.lastUpdateTimestamp = timestamp;
     }
 
-    public class BoltOwnerData {
-
-        private final Set<BoltInstance> bolts = new ObjectOpenHashSet<>();
-        private LightningBoltData lastBolt;
-        private Timestamp lastBoltTimestamp = new Timestamp();
-        private Timestamp lastUpdateTimestamp = new Timestamp();
-        private double lastBoltDelay;
-
-        private void addBolt(BoltInstance instance, Timestamp timestamp) {
-            this.bolts.add(instance);
-            this.lastBoltDelay = instance.bolt.getSpawnFunction().getSpawnDelay(LightningRender.this.random);
-            this.lastBoltTimestamp = timestamp;
-        }
-    }
-
-    public class BoltInstance {
-
+    public static class BoltInstance {
         private final LightningBoltData bolt;
         private final List<LightningBoltData.BoltQuads> renderQuads;
         private final Timestamp createdTimestamp;
@@ -135,12 +114,24 @@ public class LightningRender {
 
         public boolean isPassed(Timestamp prev, double duration) {
             long ticksPassed = this.ticks - prev.ticks;
-            if (ticksPassed > duration)
-                return true;
+            if (ticksPassed > duration) return true;
             duration -= ticksPassed;
-            if (duration >= 1)
-                return false;
+            if (duration >= 1) return false;
             return (this.partial - prev.partial) >= duration;
+        }
+    }
+
+    public class BoltOwnerData {
+        private final Set<BoltInstance> bolts = new ObjectOpenHashSet<>();
+        private LightningBoltData lastBolt;
+        private Timestamp lastBoltTimestamp = new Timestamp();
+        private Timestamp lastUpdateTimestamp = new Timestamp();
+        private double lastBoltDelay;
+
+        private void addBolt(BoltInstance instance, Timestamp timestamp) {
+            this.bolts.add(instance);
+            this.lastBoltDelay = instance.bolt.getSpawnFunction().getSpawnDelay(LightningRender.this.random);
+            this.lastBoltTimestamp = timestamp;
         }
     }
 }

@@ -8,7 +8,6 @@ import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.google.common.base.Predicate;
 import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -49,9 +48,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, IMultipartEntity, IVillagerFear, IAnimalFear, IHasCustomizableAttributes {
 

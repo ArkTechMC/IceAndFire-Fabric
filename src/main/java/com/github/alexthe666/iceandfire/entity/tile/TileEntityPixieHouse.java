@@ -1,11 +1,9 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityPixie;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
@@ -19,7 +17,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 import java.util.UUID;

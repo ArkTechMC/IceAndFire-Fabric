@@ -4,7 +4,6 @@ import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.ChunkCache;
-import org.jetbrains.annotations.NotNull;
 
 public class NodeProcessorWalk extends LandPathNodeMaker {
     @Override

@@ -11,7 +11,6 @@ import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderTrollWeapon extends BuiltinModelItemRenderer {
     private static final ModelTrollWeapon MODEL = new ModelTrollWeapon();

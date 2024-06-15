@@ -7,7 +7,6 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntitySeaSerpentArrow extends PersistentProjectileEntity {
 

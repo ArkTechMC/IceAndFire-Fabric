@@ -13,7 +13,6 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.ServerConfigHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;

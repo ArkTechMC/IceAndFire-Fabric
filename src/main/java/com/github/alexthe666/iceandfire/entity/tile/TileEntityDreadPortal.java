@@ -7,7 +7,6 @@ import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class TileEntityDreadPortal extends BlockEntity {
     private long age;

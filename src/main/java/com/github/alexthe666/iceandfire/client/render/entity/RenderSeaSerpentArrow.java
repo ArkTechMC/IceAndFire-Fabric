@@ -5,7 +5,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderSeaSerpentArrow extends ProjectileEntityRenderer {
     private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/sea_serpent_arrow.png");

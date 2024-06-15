@@ -79,8 +79,7 @@ public class PathingOptions {
         /**
          * Whether to path through vines.
          */
-        boolean canClimbVines = false;
-        return canClimbVines;
+        return false;
     }
 
     public void setCanUseRails(final boolean canUseRails) {

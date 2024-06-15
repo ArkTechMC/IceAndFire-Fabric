@@ -7,7 +7,6 @@ import com.github.alexthe666.iceandfire.entity.EntityTroll;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderTroll extends MobEntityRenderer<EntityTroll, ModelTroll> {
 

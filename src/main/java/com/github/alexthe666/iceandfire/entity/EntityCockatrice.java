@@ -42,7 +42,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

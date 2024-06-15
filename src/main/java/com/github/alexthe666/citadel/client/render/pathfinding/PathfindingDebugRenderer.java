@@ -7,7 +7,6 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.ConcurrentModificationException;

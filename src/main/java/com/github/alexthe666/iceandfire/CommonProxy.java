@@ -1,9 +1,7 @@
 package com.github.alexthe666.iceandfire;
 
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
-import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.entity.BlockEntity;

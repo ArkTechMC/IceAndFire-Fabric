@@ -12,7 +12,6 @@ import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.NotNull;
 
 public class GorgonTempleProcessor extends StructureProcessor {
 

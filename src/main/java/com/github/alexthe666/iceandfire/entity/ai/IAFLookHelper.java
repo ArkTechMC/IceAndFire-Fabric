@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.control.LookControl;
 import net.minecraft.entity.mob.MobEntity;
-import org.jetbrains.annotations.NotNull;
 
 public class IAFLookHelper extends LookControl {
 

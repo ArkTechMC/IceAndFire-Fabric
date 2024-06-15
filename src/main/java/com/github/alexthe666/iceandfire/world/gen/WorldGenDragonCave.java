@@ -235,13 +235,6 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         return "dragon_cave";
     }
 
-    private static class SphereInfo {
-        final int radius;
-        final BlockPos pos;
-
-        private SphereInfo(int radius, BlockPos pos) {
-            this.radius = radius;
-            this.pos = pos;
-        }
+    private record SphereInfo(int radius, BlockPos pos) {
     }
 }

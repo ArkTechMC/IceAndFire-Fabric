@@ -7,7 +7,6 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;

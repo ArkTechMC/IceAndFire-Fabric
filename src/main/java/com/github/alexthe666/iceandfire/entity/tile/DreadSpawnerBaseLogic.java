@@ -1,13 +1,10 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.MobSpawnerLogic;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 // This class only servers the point of changing the particles spawned
 public abstract class DreadSpawnerBaseLogic extends MobSpawnerLogic {

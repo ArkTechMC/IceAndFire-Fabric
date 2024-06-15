@@ -14,7 +14,6 @@ import net.minecraft.world.EntityView;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.UUID;

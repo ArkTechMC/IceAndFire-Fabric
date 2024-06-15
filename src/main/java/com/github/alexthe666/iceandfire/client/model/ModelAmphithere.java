@@ -564,7 +564,6 @@ public class ModelAmphithere extends ModelDragonBase<EntityAmphithere> {
             amphithere.roll_buffer.applyChainFlapBuffer(this.BodyUpper);
             amphithere.pitch_buffer.applyChainWaveBuffer(this.BodyUpper);
             amphithere.tail_buffer.applyChainSwingBuffer(TAIL);
-
         }
     }
 

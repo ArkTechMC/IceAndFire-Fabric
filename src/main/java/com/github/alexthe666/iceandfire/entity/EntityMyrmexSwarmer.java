@@ -24,7 +24,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -93,6 +92,7 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
 
     @Override
     protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
+        super.fall(y, onGroundIn, state, pos);
     }
 
     @Override

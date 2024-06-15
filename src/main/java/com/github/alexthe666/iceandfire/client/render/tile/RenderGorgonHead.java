@@ -16,7 +16,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderGorgonHead extends BuiltinModelItemRenderer {
 

@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelCockatrice extends ModelDragonBase<EntityCockatrice> {
-
     private final ModelAnimator animator;
     public final AdvancedModelBox lowerBody;
     public final AdvancedModelBox leftThigh;
@@ -367,7 +366,6 @@ public class ModelCockatrice extends ModelDragonBase<EntityCockatrice> {
             this.rotate(this.animator, this.lowerJaw, 25, 0, 0);
             this.animator.resetKeyframe(5);
         }
-
     }
 
     private void jumpPos() {
@@ -410,7 +408,6 @@ public class ModelCockatrice extends ModelDragonBase<EntityCockatrice> {
         this.flap(this.RightUpperArm, speed_idle, degree_idle * 0.2F, false, 2, -0.3F, f2, 1);
         this.faceTarget(f3, f4, 2, this.head);
         this.faceTarget(f3, f4, 2, this.neck);
-
 
         this.chainWave(NECK, speed_walk, degree_walk * 0.5F, 4, f, f1);
         this.walk(this.lowerBody, speed_walk, degree_walk * 0.1F, false, 0, 0F, f, f1);

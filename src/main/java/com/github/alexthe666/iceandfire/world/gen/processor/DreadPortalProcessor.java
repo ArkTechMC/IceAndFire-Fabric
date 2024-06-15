@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.biome.Biome;
-import org.jetbrains.annotations.NotNull;
 
 public class DreadPortalProcessor extends StructureProcessor {
 

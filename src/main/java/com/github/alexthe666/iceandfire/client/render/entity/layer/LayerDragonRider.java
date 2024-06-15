@@ -24,7 +24,6 @@ import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.crash.CrashReportSection;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> {
     private final MobEntityRenderer render;

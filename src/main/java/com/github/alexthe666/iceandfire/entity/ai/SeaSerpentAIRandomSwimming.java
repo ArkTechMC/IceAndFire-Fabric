@@ -64,12 +64,12 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
     }
 
     private boolean canJumpTo(BlockPos pos) {
-        BlockPos blockpos = pos.add(0 * 0, 0, 0 * 0);
+        BlockPos blockpos = pos.add(0, 0, 0);
         return this.mob.getWorld().getFluidState(blockpos).isIn(FluidTags.WATER) && !this.mob.getWorld().getBlockState(blockpos).blocksMovement();
     }
 
     private boolean isAirAbove(BlockPos pos) {
-        return this.mob.getWorld().getBlockState(pos.add(0 * 0, 1, 0 * 0)).isAir() && this.mob.getWorld().getBlockState(pos.add(0 * 0, 2, 0 * 0)).isAir();
+        return this.mob.getWorld().getBlockState(pos.add(0, 1, 0)).isAir() && this.mob.getWorld().getBlockState(pos.add(0, 2, 0)).isAir();
     }
 
     private Vec3d findSurfaceTarget(PathAwareEntity creature) {

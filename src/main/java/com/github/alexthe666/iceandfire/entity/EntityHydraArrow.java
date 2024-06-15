@@ -1,8 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,7 +16,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityHydraArrow extends PersistentProjectileEntity {
 

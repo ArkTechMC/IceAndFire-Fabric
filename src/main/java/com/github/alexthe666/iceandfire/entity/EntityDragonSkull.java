@@ -23,7 +23,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromStatues, IDeadMob {
 
@@ -147,7 +146,6 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
 
     public Item getDragonSkullItem() {
         return switch (this.getDragonType()) {
-            case 0 -> IafItemRegistry.DRAGON_SKULL_FIRE.get();
             case 1 -> IafItemRegistry.DRAGON_SKULL_ICE.get();
             case 2 -> IafItemRegistry.DRAGON_SKULL_LIGHTNING.get();
             default -> IafItemRegistry.DRAGON_SKULL_FIRE.get();

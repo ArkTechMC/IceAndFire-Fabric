@@ -7,7 +7,6 @@ import com.github.alexthe666.iceandfire.util.IAFMath;
 import net.minecraft.util.math.MathHelper;
 
 public class IceAndFireTabulaModelAnimator {
-
     protected final TabulaModel baseModel;
 
     public IceAndFireTabulaModelAnimator(TabulaModel baseModel) {
@@ -39,9 +38,8 @@ public class IceAndFireTabulaModelAnimator {
             from.rotateAngleX += ((to.rotateAngleX - from.rotateAngleX) / maxTime) * timer;
             from.rotateAngleY += ((to.rotateAngleY - from.rotateAngleY) / maxTime) * timer;
             from.rotateAngleZ += ((to.rotateAngleZ - from.rotateAngleZ) / maxTime) * timer;
-        } else {
+        } else
             this.transitionAngles(from, to, timer, maxTime);
-        }
         from.rotationPointX += ((to.rotationPointX - from.rotationPointX) / maxTime) * timer;
         from.rotationPointY += ((to.rotationPointY - from.rotationPointY) / maxTime) * timer;
         from.rotationPointZ += ((to.rotationPointZ - from.rotationPointZ) / maxTime) * timer;

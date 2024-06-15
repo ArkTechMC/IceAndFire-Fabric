@@ -44,7 +44,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 import net.minecraft.world.explosion.Explosion;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 

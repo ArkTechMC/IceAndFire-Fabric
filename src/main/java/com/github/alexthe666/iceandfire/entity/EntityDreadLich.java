@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.github.alexthe666.iceandfire.entity.ai.DreadLichAIStrife;
@@ -12,7 +11,6 @@ import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IDreadMob;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
@@ -43,7 +41,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, RangedAttackMob {
 
@@ -88,7 +85,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) DragonUtils::canHostilesTarget));
         this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 

@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityAmphithereArrow extends PersistentProjectileEntity {
 

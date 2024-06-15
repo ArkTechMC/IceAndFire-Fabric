@@ -8,7 +8,6 @@ import net.minecraft.world.gen.feature.FeaturePlacementContext;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.placementmodifier.AbstractConditionalPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Some worldgen mods / datapacks split biomes between cave and surface<br>

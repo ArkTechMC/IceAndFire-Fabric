@@ -15,16 +15,12 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 //TODO: Consider support for default minecraft armors/ dynamically selecting custom armors
 
 //Base code from minecrafts ArmorBipedLayer
 
-public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity,
-        M extends ModelBipedBase<T>,
-        A extends ModelBipedBase<T>> extends FeatureRenderer<T, M> {
-
+public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity, M extends ModelBipedBase<T>, A extends ModelBipedBase<T>> extends FeatureRenderer<T, M> {
     private final A modelLeggings;
     private final A modelArmor;
     private final Identifier defaultLegArmor;
@@ -48,36 +44,36 @@ public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity,
 
     private void renderEquipment(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, T entityIn, EquipmentSlot slotType, int packedLightIn, A modelIn) {
         ItemStack itemstack = entityIn.getEquippedStack(slotType);
-        if (itemstack.getItem() instanceof ArmorItem armoritem) {
+        if (itemstack.getItem() instanceof ArmorItem armoritem)
             if (armoritem.getSlotType() == slotType) {
                 this.getContextModel().setModelAttributes(modelIn);
                 this.setModelSlotVisible(modelIn, slotType);
                 boolean flag1 = itemstack.hasGlint();
                 this.renderArmorItem(matrixStackIn, bufferIn, packedLightIn, flag1, modelIn, this.getArmorResource(entityIn, itemstack, slotType, null));
             }
-        }
     }
 
     protected void setModelSlotVisible(A modelIn, EquipmentSlot slotIn) {
         modelIn.setVisible(false);
         switch (slotIn) {
-            case HEAD:
+            case HEAD -> {
                 modelIn.head.invisible = false;
                 modelIn.headware.invisible = false;
-                break;
-            case CHEST:
+            }
+            case CHEST -> {
                 modelIn.body.invisible = false;
                 modelIn.armRight.invisible = false;
                 modelIn.armLeft.invisible = false;
-                break;
-            case LEGS:
+            }
+            case LEGS -> {
                 modelIn.body.invisible = false;
                 modelIn.legRight.invisible = false;
                 modelIn.legLeft.invisible = false;
-                break;
-            case FEET:
+            }
+            case FEET -> {
                 modelIn.legRight.invisible = false;
                 modelIn.legLeft.invisible = false;
+            }
         }
     }
 
@@ -95,8 +91,7 @@ public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity,
     }
 
     public Identifier getArmorResource(T entity, ItemStack stack, EquipmentSlot slot, String type) {
-        if (this.isLegSlot(slot))
-            return this.defaultLegArmor;
+        if (this.isLegSlot(slot)) return this.defaultLegArmor;
         return this.defaultArmor;
     }
 

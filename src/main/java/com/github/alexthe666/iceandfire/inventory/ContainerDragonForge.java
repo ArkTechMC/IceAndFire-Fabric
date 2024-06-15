@@ -12,7 +12,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.FurnaceOutputSlot;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 //TODO: All containers etc should be rewritten
 public class ContainerDragonForge extends ScreenHandler {

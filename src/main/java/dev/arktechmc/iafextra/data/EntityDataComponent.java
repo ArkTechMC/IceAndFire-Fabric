@@ -10,7 +10,6 @@ import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, CommonTickingComponent {
     public static final ComponentKey<EntityDataComponent> ENTITY_DATA_COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);

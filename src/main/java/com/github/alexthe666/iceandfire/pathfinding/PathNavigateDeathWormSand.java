@@ -15,7 +15,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class PathNavigateDeathWormSand extends SwimNavigation {
 

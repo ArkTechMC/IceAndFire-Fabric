@@ -13,7 +13,6 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class DeathWormArmorRenderer implements ArmorRenderer {
     public BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {

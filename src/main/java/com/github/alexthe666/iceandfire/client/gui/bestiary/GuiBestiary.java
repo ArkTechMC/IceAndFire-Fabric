@@ -161,7 +161,7 @@ public class GuiBestiary extends Screen {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         assert player != null;
         switch (this.pageType) {
-            case INTRODUCTION:
+            case INTRODUCTION -> {
                 if (bookPages == 1) {
                     this.drawItemStack(ms, new ItemStack(IafBlockRegistry.SAPPHIRE_ORE.get()), 30, 20, 2.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SAPPHIRE_GEM.get()), 40, 60, 2F);
@@ -182,8 +182,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MANUSCRIPT.get()), 161, 91, 1.5F);
                     this.drawItemStack(ms, new ItemStack(IafBlockRegistry.LECTERN.get()), 151, 78, 2F);
                 }
-                break;
-            case TAMEDDRAGONS:
+            }
+            case TAMEDDRAGONS -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -253,8 +253,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(Items.IRON_INGOT), 199, 50, 1.35f);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGON_FLUTE.get()), 151, 18, 2F);
                 }
-                break;
-            case MATERIALS:
+            }
+            case MATERIALS -> {
                 if (bookPages == 0) {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONSCALES_RED.get()), 18, 16, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGON_BONE.get()), 70, 10, 3.75F);
@@ -284,8 +284,8 @@ public class GuiBestiary extends Screen {
                 if (bookPages == 2) {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.FIRE_DRAGON_BLOOD.get()), 18, 24, 3.75F);
                 }
-                break;
-            case ALCHEMY:
+            }
+            case ALCHEMY -> {
                 if (bookPages == 0) {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.FIRE_DRAGON_BLOOD.get()), 10, 24, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.ICE_DRAGON_BLOOD.get()), 26, 24, 3.75F);
@@ -298,8 +298,8 @@ public class GuiBestiary extends Screen {
                     this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
                     ms.getMatrices().pop();
                 }
-                break;
-            case HIPPOGRYPH:
+            }
+            case HIPPOGRYPH -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(0.8F, 0.8F, 1F);
@@ -315,7 +315,6 @@ public class GuiBestiary extends Screen {
                     // TODO :: Loop through tag (IafItemTags.TAME_HIPPOGRYPH)
                     this.drawItemStack(ms, new ItemStack(Items.RABBIT_FOOT), 70, 20, 3.75F);
                 }
-
                 if (bookPages == 1) {
                     this.drawItemStack(ms, new ItemStack(Items.STICK), 16, 24, 3.75F);
 
@@ -331,8 +330,8 @@ public class GuiBestiary extends Screen {
                     // TODO :: Loop through tag (IafItemTags.BREED_HIPPOGRYPH)
                     this.drawItemStack(ms, new ItemStack(Items.RABBIT_STEW), 70, 23, 3.75F);
                 }
-                break;
-            case GORGON:
+            }
+            case GORGON -> {
                 if (bookPages == 0) {
 
                     ms.getMatrices().push();
@@ -361,8 +360,8 @@ public class GuiBestiary extends Screen {
                     ms.getMatrices().pop();
 
                 }
-                break;
-            case PIXIE:
+            }
+            case PIXIE -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     this.drawImage(ms, DRAWINGS_0, 20, 60, 371, 258, 47, 35, 512F);
@@ -404,8 +403,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(Items.BOWL), 180, 150, 1.35F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.AMBROSIA.get()), 171, 85, 2F);
                 }
-                break;
-            case CYCLOPS:
+            }
+            case CYCLOPS -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
@@ -477,8 +476,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 94, 1.35F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SHEEP_BOOTS.get()), 64, 73, 2F);
                 }
-                break;
-            case SIREN:
+            }
+            case SIREN -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.25F, 1.25F, 1.25F);
@@ -506,8 +505,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.EARPLUGS.get()), 170, 10, 2F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SHINY_SCALES.get()), 123, 75, 2.25F);
                 }
-                break;
-            case HIPPOCAMPUS:
+            }
+            case HIPPOCAMPUS -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     this.drawImage(ms, DRAWINGS_1, 210, 25, 0, 70, 57, 49, 512F);
@@ -527,8 +526,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(Items.STICK), 35, 25, 2.25F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SHINY_SCALES.get()), 35, 75, 2.25F);
                 }
-                break;
-            case DEATHWORM:
+            }
+            case DEATHWORM -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     this.drawImage(ms, DRAWINGS_1, 230, 25, 0, 217, 133, 16, 512F);
@@ -563,8 +562,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(Items.FISHING_ROD), 115, 55, 2.25F);
                     this.drawItemStack(ms, new ItemStack(Items.FISHING_ROD), 135, 55, 2.25F);
                 }
-                break;
-            case COCKATRICE:
+            }
+            case COCKATRICE -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -585,8 +584,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.WITHERBONE.get()), 30, 58, 2.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.ROTTEN_EGG.get()), 109, 18, 2.5F);
                 }
-                break;
-            case STYMPHALIANBIRD:
+            }
+            case STYMPHALIANBIRD -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -607,8 +606,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.STYMPHALIAN_ARROW.get()), 60, 18, 2F);
 
                 }
-                break;
-            case TROLL:
+            }
+            case TROLL -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -633,8 +632,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leggings.get()), 67, 15, 1.5F);
                     this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].boots.get()), 87, 15, 1.5F);
                 }
-                break;
-            case MYRMEX:
+            }
+            case MYRMEX -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.51F, 1.51F, 1F);
@@ -687,8 +686,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MYRMEX_DESERT_EGG.get()), 125, 90, 2F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_EGG.get()), 155, 90, 2F);
                 }
-                break;
-            case AMPHITHERE:
+            }
+            case AMPHITHERE -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(0.75F, 0.75F, 0.75F);
@@ -711,8 +710,8 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.AMPHITHERE_FEATHER.get()), 36, 106, 1.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.AMPHITHERE_ARROW.get()), 60, 65, 2F);
                 }
-                break;
-            case SEASERPENT:
+            }
+            case SEASERPENT -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(0.75F, 0.75F, 0.75F);
@@ -746,9 +745,9 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].boots.get()), 82, 125, 1.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SEA_SERPENT_ARROW.get()), 60, 33, 2F);
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
         this.writeFromTxt(ms);
     }

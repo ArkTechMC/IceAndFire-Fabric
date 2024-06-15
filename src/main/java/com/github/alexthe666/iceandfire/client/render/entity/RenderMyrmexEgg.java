@@ -7,7 +7,6 @@ import com.github.alexthe666.iceandfire.entity.EntityMyrmexEgg;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderMyrmexEgg extends LivingEntityRenderer<EntityMyrmexEgg, AdvancedEntityModel<EntityMyrmexEgg>> {
 

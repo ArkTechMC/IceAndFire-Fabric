@@ -29,7 +29,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
@@ -71,7 +70,7 @@ public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity,
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) DragonUtils::canHostilesTarget));
         this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 

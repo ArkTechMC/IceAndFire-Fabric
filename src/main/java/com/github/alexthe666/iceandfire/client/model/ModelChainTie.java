@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.client.model.basic.BasicEntityModel;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.github.alexthe666.iceandfire.entity.EntityChainTie;
 import com.google.common.collect.ImmutableList;
-import org.jetbrains.annotations.NotNull;
 
 public class ModelChainTie extends BasicEntityModel<EntityChainTie> {
     public final BasicModelPart knotRenderer;

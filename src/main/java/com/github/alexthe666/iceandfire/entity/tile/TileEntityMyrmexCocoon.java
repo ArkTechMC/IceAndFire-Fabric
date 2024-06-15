@@ -16,7 +16,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 
 public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
 

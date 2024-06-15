@@ -13,7 +13,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 

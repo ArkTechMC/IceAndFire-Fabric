@@ -5,7 +5,6 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.entity.LivingEntity;
 
 abstract class ModelDreadBase<T extends LivingEntity & IAnimatedEntity> extends ModelBipedBase<T> {
-
     ModelDreadBase() {
         super();
     }
@@ -19,14 +18,13 @@ abstract class ModelDreadBase<T extends LivingEntity & IAnimatedEntity> extends 
     }
 
     public void setRotationAnglesSpawn(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entityIn.getAnimation() == this.getSpawnAnimation()) {
+        if (entityIn.getAnimation() == this.getSpawnAnimation())
             if (entityIn.getAnimationTick() < 30) {
                 this.flap(this.armRight, 0.5F, 0.5F, false, 2, -0.7F, entityIn.age, 1);
                 this.flap(this.armLeft, 0.5F, 0.5F, true, 2, -0.7F, entityIn.age, 1);
                 this.walk(this.armRight, 0.5F, 0.5F, true, 1, 0, entityIn.age, 1);
                 this.walk(this.armLeft, 0.5F, 0.5F, true, 1, 0, entityIn.age, 1);
             }
-        }
     }
 
     @Override
@@ -46,5 +44,4 @@ abstract class ModelDreadBase<T extends LivingEntity & IAnimatedEntity> extends 
             this.animator.resetKeyframe(5);
         }
     }
-
 }

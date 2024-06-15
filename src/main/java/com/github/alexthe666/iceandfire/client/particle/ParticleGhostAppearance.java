@@ -17,7 +17,6 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class ParticleGhostAppearance extends Particle {
     private final ModelGhost model = new ModelGhost(0.0F);
@@ -48,7 +47,6 @@ public class ParticleGhostAppearance extends Particle {
             if (this.fromLeft) {
                 matrixstack.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(150.0F * f - 60.0F));
                 matrixstack.multiply(RotationAxis.NEGATIVE_Z.rotationDegrees(150.0F * f - 60.0F));
-
             } else {
                 matrixstack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(150.0F * f - 60.0F));
                 matrixstack.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(150.0F * f - 60.0F));
@@ -62,7 +60,6 @@ public class ParticleGhostAppearance extends Particle {
             this.model.render(matrixstack, ivertexbuilder, 240, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, f1);
             irendertypebuffer$impl.draw();
         }
-
     }
 }
 

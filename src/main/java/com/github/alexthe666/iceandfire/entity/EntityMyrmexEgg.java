@@ -29,7 +29,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Arm;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 

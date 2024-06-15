@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.item;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 

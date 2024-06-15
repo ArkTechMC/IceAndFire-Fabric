@@ -380,9 +380,8 @@ public class ModelMyrmexSentinel extends ModelMyrmexBase {
         float degree_walk = 0.5F;
         float degree_idle = myrmex.isHiding() ? 0.1F : 0.25F;
 
-        if (entity.getPassengerList().isEmpty()) {
+        if (entity.getPassengerList().isEmpty())
             this.faceTarget(f3, f4, 2, NECK);
-        }
         this.chainWave(TAIL, speed_idle, degree_idle * 0.15F, 0, f2, 1);
         this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, f2, 1);
         this.swing(this.MandibleR, speed_idle * 2F, degree_idle * -0.75F, false, 1, 0.2F, f2, 1);
@@ -400,7 +399,6 @@ public class ModelMyrmexSentinel extends ModelMyrmexBase {
         this.progressRotation(this.legMidR1_1, myrmex.holdingProgress, (float) Math.toRadians(-133F), 0, 0);
         this.progressRotation(this.legBottomR1, myrmex.holdingProgress, (float) Math.toRadians(140F), (float) Math.toRadians(20F), 0);
         this.progressRotation(this.legBottomR1_1, myrmex.holdingProgress, (float) Math.toRadians(140F), (float) Math.toRadians(-20F), 0);
-
 
         this.progressRotation(this.legTopR1, myrmex.hidingProgress, (float) Math.toRadians(70F), 0, (float) Math.toRadians(70F));
         this.progressRotation(this.legTopR1_1, myrmex.hidingProgress, (float) Math.toRadians(70F), 0, (float) Math.toRadians(-70F));

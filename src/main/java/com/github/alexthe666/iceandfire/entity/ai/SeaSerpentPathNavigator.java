@@ -13,7 +13,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class SeaSerpentPathNavigator extends EntityNavigation {
 

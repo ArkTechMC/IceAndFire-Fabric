@@ -30,13 +30,11 @@ public class LegSolver {
         double forwardTheta = sideTheta + Math.PI / 2;
         double forwardX = MathHelper.cos((float) forwardTheta) * scale;
         double forwardZ = MathHelper.sin((float) forwardTheta) * scale;
-        for (Leg leg : this.legs) {
+        for (Leg leg : this.legs)
             leg.update(entity, sideX, sideZ, forwardX, forwardZ, scale);
-        }
     }
 
     public static final class Leg {
-
         public final float forward;
         public final float side;
         private final float range;
@@ -64,16 +62,11 @@ public class LegSolver {
         private float settle(EntityDragonBase entity, double x, double y, double z, float height) {
             BlockPos pos = BlockPos.ofFloored(x, y + 1e-3, z);
             float dist = this.getDistance(entity.getWorld(), pos);
-            if (1 - dist < 1e-3) {
-                dist = this.getDistance(entity.getWorld(), pos.down()) + (float) y % 1;
-            } else {
-                dist -= (float) (1 - (y % 1));
-            }
-            if (entity.isOnGround() && height <= dist) {
+            if (1 - dist < 1e-3) dist = this.getDistance(entity.getWorld(), pos.down()) + (float) y % 1;
+            else dist -= (float) (1 - (y % 1));
+            if (entity.isOnGround() && height <= dist)
                 return height == dist ? height : Math.min(height + this.getFallSpeed(), dist);
-            } else if (height > 0) {
-                return Math.max(height - this.getRiseSpeed(), dist);
-            }
+            else if (height > 0) return Math.max(height - this.getRiseSpeed(), dist);
             return height;
         }
 

@@ -10,14 +10,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class ParticleSirenMusic extends SpriteBillboardParticle {
     private static final Identifier SIREN_MUSIC = new Identifier(IceAndFire.MOD_ID, "textures/particles/siren_music.png");
 
-    float noteParticleScale;
     float colorScale;
 
     public ParticleSirenMusic(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ, float size) {
@@ -31,10 +29,8 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
 
     @Override
     public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
-        Vec3d inerp = renderInfo.getPos();
-        if (this.age > this.getMaxAge()) {
+        if (this.age > this.getMaxAge())
             this.markDead();
-        }
 
         Vec3d Vector3d = renderInfo.getPos();
         float f = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.x) - Vector3d.getX());
@@ -50,7 +46,7 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
         }
 
         Vector3f vector3f1 = new Vector3f(-1.0F, -1.0F, 0.0F);
-        vector3f1 = quaternion.transform(vector3f1);
+        quaternion.transform(vector3f1);
         Vector3f[] avector3f = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
         float f4 = this.getSize(partialTicks);
 
@@ -80,9 +76,8 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     public void tick() {
         super.tick();
         this.colorScale += 0.015F;
-        if (this.colorScale > 25) {
+        if (this.colorScale > 25)
             this.colorScale = 0;
-        }
         this.red = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.0F) * 6.2831855F) * 0.65F + 0.35F);
         this.green = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.33333334F) * 6.2831855F) * 0.65F + 0.35F);
         this.blue = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.6666667F) * 6.2831855F) * 0.65F + 0.35F);
@@ -92,10 +87,6 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     @Override
     public int getBrightness(float partialTick) {
         return super.getBrightness(partialTick);
-    }
-
-    public int getFXLayer() {
-        return 3;
     }
 
     @Override

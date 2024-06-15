@@ -27,8 +27,6 @@ public class DragonAnimationsLibrary {
      * Loads a single model and registers it into the library, uses the default modID of IceandFire. <br/>
      * Use {@link #registerSingle(IEnumDragonPoses, IEnumDragonModelTypes, String)} if you are an addon author.
      *
-     * @param pose
-     * @param modelType
      * @see #register(IEnumDragonPoses[], IEnumDragonModelTypes[])
      */
     public static void registerSingle(IEnumDragonPoses pose, IEnumDragonModelTypes modelType) {
@@ -39,8 +37,6 @@ public class DragonAnimationsLibrary {
      * Loads a set of models and registers it into the library, uses the default modID of IceandFire. <br/>
      * Use {@link #register(IEnumDragonPoses[], IEnumDragonModelTypes[], String)} if you are an addon author.
      *
-     * @param poses
-     * @param modelTypes
      * @see #registerSingle(IEnumDragonPoses, IEnumDragonModelTypes)
      */
     public static void register(IEnumDragonPoses[] poses, IEnumDragonModelTypes[] modelTypes) {
@@ -53,9 +49,6 @@ public class DragonAnimationsLibrary {
      * Loads a set of models and registers it into the library. Tabula models are loaded from the filesystem, as such: <br/>
      * /assets/<b>[modID]</b>/models/tabula/<b>[modelType]</b>dragon/<b>[modeltype]</b>dragon_<b>[pose]</b>.tbl
      *
-     * @param poses
-     * @param modelTypes
-     * @param modID
      * @see #registerSingle(IEnumDragonPoses, IEnumDragonModelTypes, String)
      */
     public static void register(IEnumDragonPoses[] poses, IEnumDragonModelTypes[] modelTypes, String modID) {
@@ -68,9 +61,6 @@ public class DragonAnimationsLibrary {
      * Loads a single model and registers it into the library.  Tabula models are loaded from the filesystem, as such: <br/>
      * /assets/<b>[modID]</b>/models/tabula/<b>[modelType]</b>dragon/<b>[modeltype]</b>dragon_<b>[pose]</b>.tbl
      *
-     * @param pose
-     * @param modelType
-     * @param modID
      * @see #register(IEnumDragonPoses[], IEnumDragonModelTypes[], String)
      */
     public static void registerSingle(IEnumDragonPoses pose, IEnumDragonModelTypes modelType, String modID) {
@@ -83,7 +73,6 @@ public class DragonAnimationsLibrary {
             IceAndFire.LOGGER.warn("Could not load {}: {}", location, e.getMessage());
             return;
         }
-
         //put model
         models.put(toKey(pose, modelType), result);
     }
@@ -91,35 +80,25 @@ public class DragonAnimationsLibrary {
     /**
      * Creates or replaces a set of entries in the library with a set references to other entries allowing for shared poses and reduced memory usage.
      *
-     * @param poses
-     * @param modelSource
-     * @param modelDestinations
      * @see #registerReference(IEnumDragonPoses, IEnumDragonModelTypes, IEnumDragonModelTypes)
      */
     public static void registerReferences(IEnumDragonPoses[] poses, IEnumDragonModelTypes modelSource, IEnumDragonModelTypes[] modelDestinations) {
-        for (int i = 0; i < poses.length; i++) {
+        for (int i = 0; i < poses.length; i++)
             registerReference(poses[i], modelSource, modelDestinations[i]);
-        }
     }
 
     /**
      * Creates or replaces an entry in the library with a reference to another entry allowing for shared poses and reduced memory usage.
      *
-     * @param pose
-     * @param modelSource
-     * @param modelDestination
      * @see #registerReferences(IEnumDragonPoses[], IEnumDragonModelTypes, IEnumDragonModelTypes[])
      */
     public static void registerReference(IEnumDragonPoses pose, IEnumDragonModelTypes modelSource, IEnumDragonModelTypes modelDestination) {
         TabulaModel source = getModel(pose, modelSource);
         String destKey = toKey(pose, modelDestination);
-
         if (source == null)
             return;
-
         if (models.containsKey(destKey))
             IceAndFire.LOGGER.info("Overriding existing model '{}' with reference to '{}", destKey, toKey(pose, modelSource));
-
         models.put(destKey, source);
     }
 

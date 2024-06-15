@@ -6,7 +6,6 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 
 public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, ModelDragonEgg<EntityDragonEgg>> {

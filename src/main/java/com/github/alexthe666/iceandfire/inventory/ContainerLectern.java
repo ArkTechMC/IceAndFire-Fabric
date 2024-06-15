@@ -16,7 +16,6 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.NotNull;
 
 public class ContainerLectern extends ScreenHandler {
     private final Inventory tileFurnace;
@@ -107,9 +106,11 @@ public class ContainerLectern extends ScreenHandler {
         return itemstack;
     }
 
-    public int getManuscriptAmount() {
+    public void getManuscriptAmount() {
         ItemStack itemstack = this.tileFurnace.getStack(1);
-        return itemstack.isEmpty() || itemstack.getItem() != IafItemRegistry.MANUSCRIPT.get() ? 0 : itemstack.getCount();
+        if (!itemstack.isEmpty()) {
+            IafItemRegistry.MANUSCRIPT.get();
+        }
     }
 
     public EnumBestiaryPages[] getPossiblePages() {

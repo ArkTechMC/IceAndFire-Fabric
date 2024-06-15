@@ -11,7 +11,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.tag.BlockTags;
 
 public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<T> {
-
     public final AdvancedModelBox Egg1;
     public final AdvancedModelBox Egg2;
     public final AdvancedModelBox Egg3;
@@ -55,11 +54,10 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
         this.Egg4.setPos(0.0F, -0.9F, 0.0F);
         if (entity instanceof EntityDragonEgg egg) {
             boolean isLocationValid = false;
-            if (egg.getEggType().dragonType == DragonType.FIRE) {
+            if (egg.getEggType().dragonType == DragonType.FIRE)
                 isLocationValid = egg.getWorld().getBlockState(egg.getBlockPos()).isIn(BlockTags.FIRE);
-            } else if (egg.getEggType().dragonType == DragonType.LIGHTNING) {
+            else if (egg.getEggType().dragonType == DragonType.LIGHTNING)
                 isLocationValid = egg.getWorld().hasRain(egg.getBlockPos());
-            }
             if (isLocationValid) {
                 this.walk(this.Egg1, 0.3F, 0.3F, true, 1, 0, f2, 1);
                 this.flap(this.Egg1, 0.3F, 0.3F, false, 0, 0, f2, 1);
@@ -69,7 +67,6 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
 
     public void renderPodium() {
         this.Egg1.rotateAngleX = (float) Math.toRadians(-180);
-
     }
 
     public void renderFrozen(TileEntityEggInIce tile) {

@@ -25,8 +25,8 @@ public class CockatriceBeamRender {
 
     public static void render(Entity entityIn, Entity targetEntity, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, float partialTicks) {
         float f = 1;
-        if (entityIn instanceof EntityCockatrice)
-            f = (((EntityCockatrice) entityIn).getAttackAnimationScale(partialTicks));
+        if (entityIn instanceof EntityCockatrice cockatrice)
+            f = cockatrice.getAttackAnimationScale(partialTicks);
 
         float f1 = (float) entityIn.getWorld().getTime() + partialTicks;
         float f2 = f1 * 0.5F % 1.0F;
@@ -42,14 +42,11 @@ public class CockatriceBeamRender {
         float f6 = (float) Math.atan2(Vector3d2.z, Vector3d2.x);
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotation((float) Math.PI / 2.0F - f6));
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotation(f5));
-        int i = 1;
         float f7 = f1 * 0.05F * -1.5F;
         float f8 = f * f;
         int j = 64 + (int) (f8 * 191.0F);
         int k = 32 + (int) (f8 * 191.0F);
         int l = 128 - (int) (f8 * 64.0F);
-        float f9 = 0.2F;
-        float f10 = 0.282F;
         float f11 = MathHelper.cos(f7 + 2.3561945F) * 0.282F;
         float f12 = MathHelper.sin(f7 + 2.3561945F) * 0.282F;
         float f13 = MathHelper.cos(f7 + ((float) Math.PI / 4F)) * 0.282F;
@@ -66,8 +63,6 @@ public class CockatriceBeamRender {
         float f24 = MathHelper.sin(f7 + ((float) Math.PI / 2F)) * 0.2F;
         float f25 = MathHelper.cos(f7 + ((float) Math.PI * 1.5F)) * 0.2F;
         float f26 = MathHelper.sin(f7 + ((float) Math.PI * 1.5F)) * 0.2F;
-        float f27 = 0.0F;
-        float f28 = 0.4999F;
         float f29 = -1.0F + f2;
         float f30 = f4 * 2.5F + f29;
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(TEXTURE_BEAM);
@@ -83,9 +78,8 @@ public class CockatriceBeamRender {
         vertex(ivertexbuilder, matrix4f, matrix3f, f25, 0.0F, f26, j, k, l, 0.0F, f29);
         vertex(ivertexbuilder, matrix4f, matrix3f, f25, f4, f26, j, k, l, 0.0F, f30);
         float f31 = 0.0F;
-        if (entityIn.age % 2 == 0) {
+        if (entityIn.age % 2 == 0)
             f31 = 0.5F;
-        }
 
         vertex(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
         vertex(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
@@ -100,5 +94,4 @@ public class CockatriceBeamRender {
         double d2 = LivingEntityIn.lastRenderZ + (LivingEntityIn.getZ() - LivingEntityIn.lastRenderZ) * (double) p_177110_4_;
         return new Vec3d(d0, d1, d2);
     }
-
 }

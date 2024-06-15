@@ -15,7 +15,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderTideTridentItem extends BuiltinModelItemRenderer {
     private static final ModelTideTrident MODEL = new ModelTideTrident();

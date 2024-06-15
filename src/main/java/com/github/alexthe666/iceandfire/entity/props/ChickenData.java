@@ -7,7 +7,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.NotNull;
 
 public class ChickenData {
     public int timeUntilNextEgg = -1;

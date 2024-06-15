@@ -17,7 +17,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

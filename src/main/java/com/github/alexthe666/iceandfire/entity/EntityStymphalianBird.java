@@ -11,7 +11,6 @@ import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.entity.util.StymphalianBirdFlock;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.google.common.base.Predicate;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -34,10 +33,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class EntityStymphalianBird extends HostileEntity implements IAnimatedEntity, Monster, IVillagerFear, IAnimalFear {
 

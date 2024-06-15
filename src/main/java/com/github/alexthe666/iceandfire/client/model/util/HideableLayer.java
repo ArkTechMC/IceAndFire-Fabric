@@ -6,7 +6,6 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import org.jetbrains.annotations.NotNull;
 
 
 public class HideableLayer<T extends Entity, M extends EntityModel<T>, C extends FeatureRenderer<T, M>> extends FeatureRenderer<T, M> {

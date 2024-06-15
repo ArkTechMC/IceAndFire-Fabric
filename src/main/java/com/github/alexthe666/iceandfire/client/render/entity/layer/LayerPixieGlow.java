@@ -10,7 +10,6 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class LayerPixieGlow extends FeatureRenderer<EntityPixie, ModelPixie> {
 

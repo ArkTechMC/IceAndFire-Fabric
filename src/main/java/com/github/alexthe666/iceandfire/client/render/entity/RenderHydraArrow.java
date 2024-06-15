@@ -5,7 +5,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderHydraArrow extends ProjectileEntityRenderer {
     private static final Identifier TEXTURES = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/hydra_arrow.png");

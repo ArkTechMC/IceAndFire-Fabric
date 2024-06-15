@@ -20,7 +20,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;

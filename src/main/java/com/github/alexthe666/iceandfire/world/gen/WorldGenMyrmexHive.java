@@ -217,7 +217,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         this.hive.getEntranceBottoms().put(up, direction);
         while (up.getY() < world.getTopPosition(this.small ? Heightmap.Type.MOTION_BLOCKING_NO_LEAVES : Heightmap.Type.WORLD_SURFACE_WG, up).getY()
                 && !world.getBlockState(up).isIn(BlockTags.LOGS)) {
-            this.generateCircleRespectSky(world, rand, up, 4, 4, direction);
+            this.generateCircleRespectSky(world, rand, up, direction);
             up = up.up().offset(direction);
         }
         BlockState resin = this.jungle ? JUNGLE_RESIN : DESERT_RESIN;
@@ -265,10 +265,10 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         this.decorateCircle(world, rand, position, 3, 5, direction);
     }
 
-    private void generateCircleRespectSky(WorldAccess world, Random rand, BlockPos position, int size, int height, Direction direction) {
+    private void generateCircleRespectSky(WorldAccess world, Random rand, BlockPos position, Direction direction) {
         BlockState resin = this.jungle ? JUNGLE_RESIN : DESERT_RESIN;
         BlockState sticky_resin = this.jungle ? STICKY_JUNGLE_RESIN : STICKY_DESERT_RESIN;
-        int radius = size + 2;
+        int radius = 4 + 2;
         {
             for (float i = 0; i < radius; i += 0.5F) {
                 for (float j = 0; j < 2 * Math.PI * i; j += 0.5F) {
@@ -302,7 +302,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             }
         }
 
-        this.decorateCircle(world, rand, position, size, height, direction);
+        this.decorateCircle(world, rand, position, 4, 4, direction);
     }
 
 
@@ -430,7 +430,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
 
     private void decorate(WorldAccess world, BlockPos blockpos, BlockPos center, int size, Random random, RoomType roomType) {
         switch (roomType) {
-            case FOOD:
+            case FOOD -> {
                 if (random.nextInt(45) == 0 && world.getBlockState(blockpos.down()).getBlock() instanceof BlockMyrmexResin) {
                     WorldGenMyrmexDecoration.generateSkeleton(world, blockpos, center, size, random);
                 }
@@ -446,13 +446,13 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
                 if (random.nextInt(12) == 0) {
                     WorldGenMyrmexDecoration.generateCocoon(world, blockpos, random, this.jungle, this.jungle ? WorldGenMyrmexDecoration.JUNGLE_MYRMEX_FOOD_CHEST : WorldGenMyrmexDecoration.DESERT_MYRMEX_FOOD_CHEST);
                 }
-                break;
-            case SHINY:
+            }
+            case SHINY -> {
                 if (random.nextInt(12) == 0) {
                     WorldGenMyrmexDecoration.generateGold(world, blockpos, center, size, random);
                 }
-                break;
-            case TRASH:
+            }
+            case TRASH -> {
                 if (random.nextInt(24) == 0) {
                     WorldGenMyrmexDecoration.generateTrashHeap(world, blockpos, center, size, random);
                 }
@@ -462,9 +462,9 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
                 if (random.nextInt(12) == 0) {
                     WorldGenMyrmexDecoration.generateCocoon(world, blockpos, random, this.jungle, WorldGenMyrmexDecoration.MYRMEX_TRASH_CHEST);
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
 
     }

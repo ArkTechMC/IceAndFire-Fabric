@@ -7,7 +7,6 @@ import com.github.alexthe666.iceandfire.client.model.util.EnumDragonPoses;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 
 public class FireDragonTabulaModelAnimator extends DragonTabulaModelAnimator<EntityFireDragon> {
-
     public FireDragonTabulaModelAnimator() {
         super(DragonAnimationsLibrary.getModel(EnumDragonPoses.GROUND_POSE, EnumDragonModelTypes.FIRE_DRAGON_MODEL));
         this.walkPoses = new TabulaModel[]{this.getModel(EnumDragonPoses.WALK1), this.getModel(EnumDragonPoses.WALK2), this.getModel(EnumDragonPoses.WALK3), this.getModel(EnumDragonPoses.WALK4)};

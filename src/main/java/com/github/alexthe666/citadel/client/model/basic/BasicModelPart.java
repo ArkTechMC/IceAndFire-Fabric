@@ -63,10 +63,9 @@ public class BasicModelPart {
         this.childModels.add(renderer);
     }
 
-    public BasicModelPart setTextureOffset(int x, int y) {
+    public void setTextureOffset(int x, int y) {
         this.textureOffsetX = x;
         this.textureOffsetY = y;
-        return this;
     }
 
     public BasicModelPart addBox(String partName, float x, float y, float z, int width, int height, int depth, float delta, int texX, int texY) {

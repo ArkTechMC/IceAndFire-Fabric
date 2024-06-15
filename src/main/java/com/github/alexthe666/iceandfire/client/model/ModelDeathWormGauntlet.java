@@ -109,11 +109,10 @@ public class ModelDeathWormGauntlet extends ModelDragonBase {
     public void animate(ItemStack stack, float partialTick) {
         this.resetToDefaultPose();
         NbtCompound tag = stack.getOrCreateNbt();
+        assert MinecraftClient.getInstance().world != null;
         Entity holder = MinecraftClient.getInstance().world.getEntityById(tag.getInt("HolderID"));
 
-        if (!(holder instanceof LivingEntity)) {
-            return;
-        }
+        if (!(holder instanceof LivingEntity)) return;
 
         EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(holder);
         float lungeTicks = data.miscData.lungeTicks + partialTick;

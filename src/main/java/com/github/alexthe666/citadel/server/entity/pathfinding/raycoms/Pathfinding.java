@@ -4,7 +4,6 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms;
  */
 
 import com.github.alexthe666.citadel.Citadel;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.*;
 

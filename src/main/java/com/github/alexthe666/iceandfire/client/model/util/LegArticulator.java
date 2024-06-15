@@ -47,13 +47,10 @@ public final class LegArticulator {
         leftCalf.rotateAngleX += rotCalf * difLeft;
         rightThigh.rotateAngleX -= rotThigh * difRight;
         rightCalf.rotateAngleX += rotCalf * difRight;
-        for (AdvancedModelBox part : rightFoot) {
+        for (AdvancedModelBox part : rightFoot)
             part.rotateAngleX -= rotFoot * Math.min(0, heightRight - heightLeft);
-        }
-        for (AdvancedModelBox part : leftFoot) {
+        for (AdvancedModelBox part : leftFoot)
             part.rotateAngleX -= rotFoot * Math.min(0, heightLeft - heightRight);
-
-        }
     }
 
     private static float avg(float a, float b) {
@@ -63,5 +60,4 @@ public final class LegArticulator {
     private static float getScale(EntityDragonBase entity) {
         return entity.getRenderSize() * 0.33F;
     }
-
 }

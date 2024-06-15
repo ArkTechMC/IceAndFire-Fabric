@@ -10,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;

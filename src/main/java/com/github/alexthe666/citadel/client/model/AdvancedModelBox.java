@@ -259,7 +259,7 @@ public class AdvancedModelBox extends BasicModelPart {
                     p_228309_1_.scale(1F / Math.max(this.scaleX, 0.0001F), 1F / Math.max(this.scaleY, 0.0001F), 1F / Math.max(this.scaleZ, 0.0001F));
                 }
                 while (var9.hasNext()) {
-                    BasicModelPart lvt_10_1_ = (BasicModelPart) var9.next();
+                    BasicModelPart lvt_10_1_ = var9.next();
                     lvt_10_1_.render(p_228309_1_, p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
                 }
 
@@ -372,10 +372,9 @@ public class AdvancedModelBox extends BasicModelPart {
     }
 
     @Override
-    public AdvancedModelBox setTextureOffset(int textureOffsetX, int textureOffsetY) {
+    public void setTextureOffset(int textureOffsetX, int textureOffsetY) {
         this.textureOffsetX = textureOffsetX;
         this.textureOffsetY = textureOffsetY;
-        return this;
     }
 
     public void transitionTo(AdvancedModelBox to, float timer, float maxTime) {

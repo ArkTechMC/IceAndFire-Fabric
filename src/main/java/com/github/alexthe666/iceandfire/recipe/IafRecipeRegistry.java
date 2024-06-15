@@ -12,7 +12,6 @@ import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class IafRecipeRegistry {
     public static final RecipeType<DragonForgeRecipe> DRAGON_FORGE_TYPE = RecipeType.register("dragonforge");

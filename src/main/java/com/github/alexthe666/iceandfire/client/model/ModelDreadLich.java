@@ -4,13 +4,8 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.iceandfire.client.model.util.HideableModelRenderer;
 import com.github.alexthe666.iceandfire.entity.EntityDreadLich;
-import com.github.alexthe666.iceandfire.entity.EntityDreadThrall;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.ModelWithArms;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Arm;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements ModelWithArms {
@@ -88,20 +83,6 @@ public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements M
         this.animator = ModelAnimator.create();
     }
 
-    public void setLivingAnimations(EntityDreadThrall LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
-        this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
-        this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
-        ItemStack itemstack = LivingEntityIn.getStackInHand(Hand.MAIN_HAND);
-
-        if (itemstack.getItem() == Items.BOW) {
-            if (LivingEntityIn.getMainArm() == Arm.RIGHT) {
-                this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
-            } else {
-                this.leftArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
-            }
-        }
-    }
-
     @Override
     public Animation getSpawnAnimation() {
         return EntityDreadLich.ANIMATION_SPAWN;
@@ -123,5 +104,4 @@ public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements M
             this.armLeft.rotateAngleY = 0.0F;
         }
     }
-
 }

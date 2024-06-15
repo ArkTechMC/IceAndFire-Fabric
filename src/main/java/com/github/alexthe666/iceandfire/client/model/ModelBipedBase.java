@@ -17,10 +17,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEntityModel<T> implements ICustomStatueModel, BasicHeadedModel, ModelWithArms {
-
     public HideableModelRenderer head;
     public HideableModelRenderer headware;
     public HideableModelRenderer body;
@@ -62,9 +60,7 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         if (entityIn instanceof LivingEntity LivingEntity) {
             Arm Handside = LivingEntity.getMainArm();
             return LivingEntity.preferredHand == Hand.MAIN_HAND ? Handside : Handside.getOpposite();
-        } else {
-            return Arm.RIGHT;
-        }
+        } else return Arm.RIGHT;
     }
 
     public void progressRotationInterp(AdvancedModelBox model, float progress, float rotX, float rotY, float rotZ, float max) {
@@ -103,14 +99,14 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         model.rotationPointZ += progress * z / 20.0F;
     }
 
-    public <T extends BasicModelPart> void copyFrom(T modelIn, T currentModel) {
+    public <U extends BasicModelPart> void copyFrom(U modelIn, U currentModel) {
         modelIn.copyModelAngles(currentModel);
         modelIn.rotationPointX = currentModel.rotationPointX;
         modelIn.rotationPointY = currentModel.rotationPointY;
         modelIn.rotationPointZ = currentModel.rotationPointZ;
     }
 
-    public <M extends ModelPart, T extends BasicModelPart> void copyFrom(M modelIn, T currentModel) {
+    public <M extends ModelPart, U extends BasicModelPart> void copyFrom(M modelIn, U currentModel) {
         modelIn.setAngles(currentModel.rotateAngleX, currentModel.rotateAngleY, currentModel.rotateAngleZ);
         modelIn.pivotX = currentModel.rotationPointX;
         modelIn.pivotY = currentModel.rotationPointY;
@@ -187,9 +183,8 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
             float f1 = this.handSwingProgress;
             this.body.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
 
-            if (handSide == Arm.LEFT) {
+            if (handSide == Arm.LEFT)
                 this.body.rotateAngleY *= -1.0F;
-            }
 
             this.armRight.rotationPointZ = MathHelper.sin(this.body.rotateAngleY) * 5.0F;
             this.armRight.rotationPointX = -MathHelper.cos(this.body.rotateAngleY) * 5.0F;
@@ -238,8 +233,7 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
         this.render(matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
     }
 
-    abstract void animate(T entity, float limbSwing, float limbSwingAmount,
-                          float ageInTicks, float netHeadYaw, float headPitch, float f);
+    abstract void animate(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float f);
 
     @Override
     public Iterable<AdvancedModelBox> getAllParts() {

@@ -11,7 +11,6 @@ import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.NotNull;
 
 public class GraveyardProcessor extends StructureProcessor {
 

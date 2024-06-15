@@ -10,7 +10,6 @@ import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 
 public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {

@@ -16,7 +16,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.NotNull;
 
 public class DreadRuinProcessor extends StructureProcessor {
 

@@ -4,12 +4,10 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
 import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
@@ -45,7 +43,6 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHumanoid, IBlacklistedFromStatues, IHasCustomizableAttributes {
 
@@ -191,7 +188,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         });
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity.isAlive()));
+        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) Entity::isAlive));
         this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && DragonUtils.isVillager(entity)));
     }
 

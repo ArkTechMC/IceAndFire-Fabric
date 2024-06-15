@@ -8,12 +8,10 @@ import com.github.alexthe666.iceandfire.api.event.DragonFireEvent;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import dev.arktechmc.iafextra.event.EventBus;
 import dev.arktechmc.iafextra.message.ParticleSpawnMessage;
-import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -38,7 +36,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -142,13 +139,9 @@ public class EntityIceDragon extends EntityDragonBase {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (!this.isPlayingAttackAnimation()) {
             switch (this.groundAttack) {
-                case BITE:
-                    this.setAnimation(ANIMATION_BITE);
-                    break;
-                case TAIL_WHIP:
-                    this.setAnimation(ANIMATION_TAILWHACK);
-                    break;
-                case SHAKE_PREY:
+                case BITE -> this.setAnimation(ANIMATION_BITE);
+                case TAIL_WHIP -> this.setAnimation(ANIMATION_TAILWHACK);
+                case SHAKE_PREY -> {
                     boolean flag = false;
                     if (new Random().nextInt(2) == 0 && this.isDirectPathBetweenPoints(this, this.getPos().add(0, this.getHeight() / 2, 0), entityIn.getPos().add(0, entityIn.getHeight() / 2, 0)) &&
                             entityIn.getWidth() < this.getWidth() * 0.5F && this.getControllingPassenger() == null && this.getDragonStage() > 1 && !(entityIn instanceof EntityDragonBase) && !DragonUtils.isAnimaniaMob(entityIn)) {
@@ -160,10 +153,8 @@ public class EntityIceDragon extends EntityDragonBase {
                         this.groundAttack = IafDragonAttacks.Ground.BITE;
                         this.setAnimation(ANIMATION_BITE);
                     }
-                    break;
-                case WING_BLAST:
-                    this.setAnimation(ANIMATION_WINGBLAST);
-                    break;
+                }
+                case WING_BLAST -> this.setAnimation(ANIMATION_WINGBLAST);
             }
         }
         return false;

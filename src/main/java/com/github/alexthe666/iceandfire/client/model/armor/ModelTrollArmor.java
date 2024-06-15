@@ -12,19 +12,18 @@ public class ModelTrollArmor extends ArmorModelBase {
     }
 
     public static ModelData getModelData(Dilation deformation, float offset) {
-        ModelData meshdefinition = BipedEntityModel.getModelData(deformation, offset);
-        ModelPartData partdefinition = meshdefinition.getRoot();
+        ModelData modelData = BipedEntityModel.getModelData(deformation, offset);
+        ModelPartData root = modelData.getRoot();
 
-        partdefinition.getChild("head").addChild("hornL", ModelPartBuilder.create().uv(3, 41).mirrored().cuboid(-1.0F, -0.5F, 0.0F, 1, 2, 5), ModelTransform.of(3.0F, -2.2F, -3.0F, -0.7740535232594852F, 2.9595548126067843F, -0.27314402793711257F));
-        partdefinition.getChild("head").getChild("hornL").addChild("hornL2", ModelPartBuilder.create().uv(15, 50).mirrored().cuboid(-0.51F, -0.8F, 0.0F, 1, 2, 7), ModelTransform.of(-0.4F, 1.3F, 4.5F, 1.2747884856566583F, 0.0F, 0.0F));
+        root.getChild("head").addChild("hornL", ModelPartBuilder.create().uv(3, 41).mirrored().cuboid(-1.0F, -0.5F, 0.0F, 1, 2, 5), ModelTransform.of(3.0F, -2.2F, -3.0F, -0.7740535232594852F, 2.9595548126067843F, -0.27314402793711257F));
+        root.getChild("head").getChild("hornL").addChild("hornL2", ModelPartBuilder.create().uv(15, 50).mirrored().cuboid(-0.51F, -0.8F, 0.0F, 1, 2, 7), ModelTransform.of(-0.4F, 1.3F, 4.5F, 1.2747884856566583F, 0.0F, 0.0F));
 
-        partdefinition.getChild("head").addChild("hornR", ModelPartBuilder.create().uv(4, 41).mirrored().cuboid(-0.5F, -0.5F, 0.0F, 1, 2, 5), ModelTransform.of(-3.3F, -2.2F, -3.0F, -0.7740535232594852F, -2.9595548126067843F, 0.27314402793711257F));
-        partdefinition.getChild("head").getChild("hornR").addChild("hornR2", ModelPartBuilder.create().uv(15, 50).mirrored().cuboid(-0.01F, -0.8F, 0.0F, 1, 2, 7), ModelTransform.of(-0.6F, 1.3F, 4.5F, 1.2747884856566583F, 0.0F, 0.0F));
-        return meshdefinition;
+        root.getChild("head").addChild("hornR", ModelPartBuilder.create().uv(4, 41).mirrored().cuboid(-0.5F, -0.5F, 0.0F, 1, 2, 5), ModelTransform.of(-3.3F, -2.2F, -3.0F, -0.7740535232594852F, -2.9595548126067843F, 0.27314402793711257F));
+        root.getChild("head").getChild("hornR").addChild("hornR2", ModelPartBuilder.create().uv(15, 50).mirrored().cuboid(-0.01F, -0.8F, 0.0F, 1, 2, 7), ModelTransform.of(-0.6F, 1.3F, 4.5F, 1.2747884856566583F, 0.0F, 0.0F));
+        return modelData;
     }
 
     public static ModelPart getBakedModel(boolean inner) {
         return inner ? INNER_MODEL : OUTER_MODEL;
     }
-
 }

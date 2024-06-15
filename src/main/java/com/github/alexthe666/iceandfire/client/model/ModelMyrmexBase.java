@@ -9,9 +9,8 @@ public abstract class ModelMyrmexBase<T extends EntityMyrmexBase> extends ModelD
     private static final ModelMyrmexPupa PUPA_MODEL = new ModelMyrmexPupa();
 
     public void postRenderArm(float scale, MatrixStack stackIn) {
-        for (BasicModelPart renderer : this.getHeadParts()) {
+        for (BasicModelPart renderer : this.getHeadParts())
             renderer.translateRotate(stackIn);
-        }
     }
 
     public abstract BasicModelPart[] getHeadParts();

@@ -14,7 +14,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityStymphalianFeather extends PersistentProjectileEntity {
 
@@ -64,20 +63,6 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
     }
 
     protected void damageShield(LivingEntity entity) {
-        if ((float) 1.0 >= 3.0F && entity.getActiveItem().getItem() instanceof ShieldItem) {
-            ItemStack copyBeforeUse = entity.getActiveItem().copy();
-            int i = 1 + MathHelper.floor((float) 1.0);
-            Hand Hand = entity.getActiveHand();
-            copyBeforeUse.damage(i, entity, (player1) -> player1.sendToolBreakStatus(Hand));
-            if (entity.getActiveItem().isEmpty()) {
-                if (Hand == net.minecraft.util.Hand.MAIN_HAND) {
-                    this.equipStack(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-                } else {
-                    this.equipStack(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
-                }
-                this.playSound(SoundEvents.ITEM_SHIELD_BREAK, 0.8F, 0.8F + this.getWorld().random.nextFloat() * 0.4F);
-            }
-        }
     }
 
     @Override

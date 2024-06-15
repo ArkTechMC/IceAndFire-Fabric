@@ -10,7 +10,6 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import org.jetbrains.annotations.NotNull;
 
 public class ItemMobSkull extends Item {
 

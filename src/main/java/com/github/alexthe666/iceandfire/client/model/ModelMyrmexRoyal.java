@@ -328,9 +328,8 @@ public class ModelMyrmexRoyal extends ModelMyrmexBase {
         float degree_idle = 0.25F;
         float speed_fly = 1.1F;
         float degree_fly = 1F;
-        if (entity.getPassengerList().isEmpty()) {
+        if (entity.getPassengerList().isEmpty())
             this.faceTarget(f3, f4, 2, NECK);
-        }
         this.chainWave(GASTER, speed_idle, degree_idle * 0.25F, 0, f2, 1);
         this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, f2, 1);
         this.swing(this.MandibleR, speed_idle * 2F, degree_idle * -0.75F, false, 1, 0.2F, f2, 1);

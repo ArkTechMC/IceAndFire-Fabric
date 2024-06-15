@@ -11,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.jetbrains.annotations.NotNull;
 
 public class ContainerHippogryph extends ScreenHandler {
     private final Inventory hippogryphInventory;

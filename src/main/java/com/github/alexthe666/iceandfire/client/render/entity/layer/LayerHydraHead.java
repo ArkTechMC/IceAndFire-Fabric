@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody> {
     public static final Identifier TEXTURE_STONE = new Identifier(IceAndFire.MOD_ID, "textures/models/hydra/stone.png");

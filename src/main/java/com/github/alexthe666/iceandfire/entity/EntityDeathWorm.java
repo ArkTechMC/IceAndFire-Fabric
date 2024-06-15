@@ -13,7 +13,6 @@ import com.github.alexthe666.iceandfire.message.MessageDeathWormHitbox;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormLand;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormSand;
-import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.event.EventBus;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
@@ -54,7 +53,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICustomCollisions, IBlacklistedFromStatues, IAnimatedEntity, IVillagerFear, IAnimalFear, IGroundMount, IHasCustomizableAttributes, ICustomMoveController {
 
@@ -70,7 +68,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     private static final TrackedData<Byte> CONTROL_STATE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Integer> WORM_AGE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<BlockPos> HOME = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BLOCK_POS);
-    public static Animation ANIMATION_BITE = Animation.create(10);
+    public static final Animation ANIMATION_BITE = Animation.create(10);
     private final float prevScale = 0.0F;
     private final LookControl lookHelper;
     public ChainBuffer tail_buffer;

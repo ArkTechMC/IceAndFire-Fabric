@@ -2,11 +2,9 @@ package com.github.alexthe666.iceandfire.client.model;
 
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import net.minecraft.entity.Entity;
 
 public abstract class ModelDragonBase<T extends Entity> extends AdvancedEntityModel<T> implements ICustomStatueModel {
-
     public void progressRotationInterp(AdvancedModelBox model, float progress, float rotX, float rotY, float rotZ, float max) {
         model.rotateAngleX += progress * (rotX - model.defaultRotationX) / max;
         model.rotateAngleY += progress * (rotY - model.defaultRotationY) / max;
@@ -52,6 +50,5 @@ public abstract class ModelDragonBase<T extends Entity> extends AdvancedEntityMo
             box.rotateAngleY += yawAmount;
             box.rotateAngleX += pitchAmount;
         }
-
     }
 }

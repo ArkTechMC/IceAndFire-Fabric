@@ -7,7 +7,6 @@ import com.github.alexthe666.iceandfire.client.model.util.EnumDragonPoses;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
 
 public class LightningTabulaDragonAnimator extends DragonTabulaModelAnimator<EntityLightningDragon> {
-
     public LightningTabulaDragonAnimator() {
         super(DragonAnimationsLibrary.getModel(EnumDragonPoses.GROUND_POSE, EnumDragonModelTypes.LIGHTNING_DRAGON_MODEL));
         this.walkPoses = new TabulaModel[]{this.getModel(EnumDragonPoses.WALK1), this.getModel(EnumDragonPoses.WALK2), this.getModel(EnumDragonPoses.WALK3), this.getModel(EnumDragonPoses.WALK4)};
@@ -19,5 +18,4 @@ public class LightningTabulaDragonAnimator extends DragonTabulaModelAnimator<Ent
     protected TabulaModel getModel(EnumDragonPoses pose) {
         return DragonAnimationsLibrary.getModel(pose, EnumDragonModelTypes.LIGHTNING_DRAGON_MODEL);
     }
-
 }

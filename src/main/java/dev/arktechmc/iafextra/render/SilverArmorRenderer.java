@@ -10,7 +10,6 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class SilverArmorRenderer implements ArmorRenderer {
     public BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {

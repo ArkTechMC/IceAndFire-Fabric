@@ -19,7 +19,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -279,7 +278,7 @@ public class IafRecipes extends RecipeProvider {
                 .criterion("has_item", conditionsFromTag(IafItemTags.DRAGON_SKULLS))
                 .offerTo(consumer);
 
-        this.toolSet(consumer, IafItemRegistry.DRAGON_BONE.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGON_BONE.get(),
                 IafItemRegistry.DRAGONBONE_SWORD.get(),
                 IafItemRegistry.DRAGONBONE_PICKAXE.get(),
                 IafItemRegistry.DRAGONBONE_AXE.get(),
@@ -355,7 +354,7 @@ public class IafRecipes extends RecipeProvider {
 
         this.compact(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.get());
 
-        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_SWORD.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_PICKAXE.get(),
                 IafItemRegistry.DRAGONSTEEL_FIRE_AXE.get(),
@@ -379,7 +378,7 @@ public class IafRecipes extends RecipeProvider {
 
         this.compact(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.get());
 
-        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_SWORD.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_PICKAXE.get(),
                 IafItemRegistry.DRAGONSTEEL_ICE_AXE.get(),
@@ -403,7 +402,7 @@ public class IafRecipes extends RecipeProvider {
 
         this.compact(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.get());
 
-        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_SWORD.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_PICKAXE.get(),
                 IafItemRegistry.DRAGONSTEEL_LIGHTNING_AXE.get(),
@@ -565,7 +564,7 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.MYRMEX_DESERT_BOOTS.get()
         );
 
-        this.toolSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.MYRMEX_DESERT_CHITIN.get(),
                 IafItemRegistry.MYRMEX_DESERT_SWORD.get(),
                 IafItemRegistry.MYRMEX_DESERT_PICKAXE.get(),
                 IafItemRegistry.MYRMEX_DESERT_AXE.get(),
@@ -580,7 +579,7 @@ public class IafRecipes extends RecipeProvider {
                 IafItemRegistry.MYRMEX_JUNGLE_BOOTS.get()
         );
 
-        this.toolSet(consumer, IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get(), IafItemTags.BONES_WITHER,
+        this.toolSet(consumer, IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_SWORD.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_PICKAXE.get(),
                 IafItemRegistry.MYRMEX_JUNGLE_AXE.get(),
@@ -755,8 +754,8 @@ public class IafRecipes extends RecipeProvider {
         this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.fromTag(Tags.Items.RODS_WOODEN), items);
     }
 
-    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final TagKey<Item> handle, final ItemConvertible... items) {
-        this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(handle), items);
+    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible... items) {
+        this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(IafItemTags.BONES_WITHER), items);
     }
 
     private void toolSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible handle, final ItemConvertible... items) {

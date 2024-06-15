@@ -33,16 +33,13 @@ public enum EnumSeaSerpentAnimations {
 
 
     public static void initializeSerpentModels() {
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            for (EnumSeaSerpentAnimations animation : values()) {
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+            for (EnumSeaSerpentAnimations animation : values())
                 try {
                     animation.seaserpent_model = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/seaserpent/seaserpent_" + animation.fileSuffix));
                 } catch (Exception e) {
                     IceAndFire.LOGGER.warn("sea serpent model at: seaserpent{}.tbl doesn't exist!", animation.fileSuffix);
                     e.printStackTrace();
                 }
-            }
-        }
-
     }
 }

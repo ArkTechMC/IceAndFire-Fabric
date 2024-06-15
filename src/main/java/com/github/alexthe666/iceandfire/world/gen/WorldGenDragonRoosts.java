@@ -20,7 +20,6 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 import java.util.stream.Collectors;

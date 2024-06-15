@@ -17,7 +17,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, AdvancedEntityModel<EntityCockatrice>> {
 
@@ -34,9 +33,9 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
 
 
     private Vec3d getPosition(LivingEntity LivingEntityIn, double p_177110_2_) {
-        double d0 = LivingEntityIn.lastRenderX + (LivingEntityIn.getX() - LivingEntityIn.lastRenderX) * (double) (float) 1.0;
-        double d1 = p_177110_2_ + LivingEntityIn.lastRenderY + (LivingEntityIn.getY() - LivingEntityIn.lastRenderY) * (double) (float) 1.0;
-        double d2 = LivingEntityIn.lastRenderZ + (LivingEntityIn.getZ() - LivingEntityIn.lastRenderZ) * (double) (float) 1.0;
+        double d0 = LivingEntityIn.lastRenderX + (LivingEntityIn.getX() - LivingEntityIn.lastRenderX);
+        double d1 = p_177110_2_ + LivingEntityIn.lastRenderY + (LivingEntityIn.getY() - LivingEntityIn.lastRenderY);
+        double d2 = LivingEntityIn.lastRenderZ + (LivingEntityIn.getZ() - LivingEntityIn.lastRenderZ);
         return new Vec3d(d0, d1, d2);
     }
 

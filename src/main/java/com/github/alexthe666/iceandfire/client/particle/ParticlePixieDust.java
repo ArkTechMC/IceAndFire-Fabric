@@ -10,7 +10,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -39,15 +38,12 @@ public class ParticlePixieDust extends SpriteBillboardParticle {
 
     @Override
     public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
-        Vec3d inerp = renderInfo.getPos();
         float scaley = ((float) this.age + partialTicks) / (float) this.maxAge * 32.0F;
         scaley = MathHelper.clamp(scaley, 0.0F, 1.0F);
         this.scale = this.reddustParticleScale * scaley;
 
-        float width = this.scale * 0.09F;
-        if (this.age > this.getMaxAge()) {
+        if (this.age > this.getMaxAge())
             this.markDead();
-        }
 
         Vec3d Vector3d = renderInfo.getPos();
         float f = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.x) - Vector3d.getX());
@@ -63,7 +59,7 @@ public class ParticlePixieDust extends SpriteBillboardParticle {
         }
 
         Vector3f vector3f1 = new Vector3f(-1.0F, -1.0F, 0.0F);
-        vector3f1 = quaternion.transform(vector3f1);
+        quaternion.transform(vector3f1);
         Vector3f[] avector3f = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
         float f4 = this.getSize(partialTicks);
 

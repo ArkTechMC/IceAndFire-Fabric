@@ -638,16 +638,11 @@ public class ModelGorgon extends ModelDragonBase<EntityGorgon> {
         this.Left_Arm.rotateAngleX = MathHelper.cos(f * 0.6662F) * 2.0F * f1 * 0.5F;
 
         float f12 = (float) Math.toRadians(-1.29f) + f1;
-        if (f12 < 0.0F) {
-            f12 = 0.0F;
-        }
-        if (f12 > Math.toRadians(20)) {
-            f12 = (float) Math.toRadians(20);
-        }
+        if (f12 < 0.0F) f12 = 0.0F;
+        if (f12 > Math.toRadians(20)) f12 = (float) Math.toRadians(20);
         this.Tail_1.rotateAngleX = f12;
         this.Tail_3.rotateAngleX = this.Tail_3.rotateAngleX - f12;
         this.Head.rotateAngleX = this.Head.rotateAngleX - f12;
-        f12 = 0.0F;
 
         this.chainFlap(SNAKEL1, speed_idle, degree_idle * 0.75F, -3, f2, 1);
         this.chainSwing(SNAKEL1, speed_idle, degree_idle * 0.75F, -3, f2, 1);

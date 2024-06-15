@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, ModelDreadThrall> implements IHasArmorVariantResource {
     public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_thrall.png");
@@ -45,7 +44,6 @@ public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, Mode
         if (equipmentSlotType == EquipmentSlot.LEGS)
             return TEXTURE_LEG_ARMOR;
         return switch (variant) {
-            case 0 -> TEXTURE_ARMOR_0;
             case 1 -> TEXTURE_ARMOR_1;
             case 2 -> TEXTURE_ARMOR_2;
             case 3 -> TEXTURE_ARMOR_3;

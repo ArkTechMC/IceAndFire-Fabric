@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 
 public class RenderAmphithere extends MobEntityRenderer<EntityAmphithere, ModelAmphithere> {
@@ -36,36 +35,41 @@ public class RenderAmphithere extends MobEntityRenderer<EntityAmphithere, ModelA
     @Override
     public Identifier getTexture(EntityAmphithere amphithere) {
         switch (amphithere.getVariant()) {
-            case 0:
+            case 0 -> {
                 if (amphithere.isBlinking()) {
                     return TEXTURE_BLUE_BLINK;
                 } else {
                     return TEXTURE_BLUE;
                 }
-            case 1:
+            }
+            case 1 -> {
                 if (amphithere.isBlinking()) {
                     return TEXTURE_GREEN_BLINK;
                 } else {
                     return TEXTURE_GREEN;
                 }
-            case 2:
+            }
+            case 2 -> {
                 if (amphithere.isBlinking()) {
                     return TEXTURE_OLIVE_BLINK;
                 } else {
                     return TEXTURE_OLIVE;
                 }
-            case 3:
+            }
+            case 3 -> {
                 if (amphithere.isBlinking()) {
                     return TEXTURE_RED_BLINK;
                 } else {
                     return TEXTURE_RED;
                 }
-            case 4:
+            }
+            case 4 -> {
                 if (amphithere.isBlinking()) {
                     return TEXTURE_YELLOW_BLINK;
                 } else {
                     return TEXTURE_YELLOW;
                 }
+            }
         }
         return TEXTURE_GREEN;
     }

@@ -10,7 +10,6 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 
 public class RenderMyrmexBase extends MobEntityRenderer<EntityMyrmexBase, AdvancedEntityModel<EntityMyrmexBase>> {

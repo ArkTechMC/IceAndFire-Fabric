@@ -5,7 +5,6 @@ import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.mob.MobEntity;
 
 import java.util.EnumSet;
-import java.util.function.Predicate;
 
 public class CyclopsAITargetSheepPlayers<T extends LivingEntity> extends ActiveTargetGoal<T> {
 

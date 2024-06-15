@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Hand;
-import org.jetbrains.annotations.NotNull;
 
 public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
     public final HideableModelRenderer chestplate;
@@ -94,13 +93,12 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
         ItemStack itemstack = livingEntityIn.getStackInHand(Hand.MAIN_HAND);
 
-        if (itemstack.getItem() == Items.BOW && livingEntityIn.handSwinging) {
-            if (livingEntityIn.getMainArm() == Arm.RIGHT) {
+        if (itemstack.getItem() == Items.BOW && livingEntityIn.handSwinging)
+            if (livingEntityIn.getMainArm() == Arm.RIGHT)
                 this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
-            } else {
+            else
                 this.leftArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
-            }
-        }
+
         super.animateModel(livingEntityIn, limbSwing, limbSwingAmount, partialTickTime);
     }
 
@@ -118,14 +116,12 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
     }
 
     @Override
-    public void copyStateTo(EntityModel<EntityDreadKnight> p_217111_1_) {
-        super.copyStateTo(p_217111_1_);
-        if (p_217111_1_ instanceof BipedEntityModel modelbiped) {
-            modelbiped.leftArmPose = this.leftArmPose;
-            modelbiped.rightArmPose = this.rightArmPose;
-            modelbiped.sneaking = this.isSneak;
+    public void copyStateTo(EntityModel<EntityDreadKnight> model) {
+        super.copyStateTo(model);
+        if (model instanceof BipedEntityModel bipedEntityModel) {
+            bipedEntityModel.leftArmPose = this.leftArmPose;
+            bipedEntityModel.rightArmPose = this.rightArmPose;
+            bipedEntityModel.sneaking = this.isSneak;
         }
     }
-
-
 }

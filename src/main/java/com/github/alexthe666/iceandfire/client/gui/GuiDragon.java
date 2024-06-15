@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 
 public class GuiDragon extends HandledScreen<ContainerDragon> {

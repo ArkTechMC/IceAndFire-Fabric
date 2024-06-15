@@ -398,9 +398,8 @@ public class ModelCyclops extends ModelDragonBase<EntityCyclops> {
         this.flap(this.rightarm, speed_idle, degree_idle * -0.1F, false, 0, 0F, f2, 1);
         this.flap(this.leftarm2, speed_idle, degree_idle * -0.1F, true, 0, -0.1F, f2, 1);
         this.flap(this.rightarm2, speed_idle, degree_idle * -0.1F, false, 0, -0.1F, f2, 1);
-        if (entity.getAnimation() != EntityCyclops.ANIMATION_EATPLAYER) {
+        if (entity.getAnimation() != EntityCyclops.ANIMATION_EATPLAYER)
             this.faceTarget(f3, f4, 1, this.Head);
-        }
         this.walk(this.Jaw, speed_idle, degree_idle * -0.15F, true, 0F, -0.1F, f2, 1);
 
     }

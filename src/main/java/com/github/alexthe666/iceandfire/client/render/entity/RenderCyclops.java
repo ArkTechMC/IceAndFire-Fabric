@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops> {
 
@@ -37,7 +36,7 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
     @Override
     public Identifier getTexture(EntityCyclops cyclops) {
         switch (cyclops.getVariant()) {
-            case 0:
+            case 0 -> {
                 if (cyclops.isBlinded()) {
                     return BLINDED_0_TEXTURE;
                 } else if (cyclops.isBlinking()) {
@@ -45,7 +44,8 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
                 } else {
                     return TEXTURE_0;
                 }
-            case 1:
+            }
+            case 1 -> {
                 if (cyclops.isBlinded()) {
                     return BLINDED_1_TEXTURE;
                 } else if (cyclops.isBlinking()) {
@@ -53,7 +53,8 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
                 } else {
                     return TEXTURE_1;
                 }
-            case 2:
+            }
+            case 2 -> {
                 if (cyclops.isBlinded()) {
                     return BLINDED_2_TEXTURE;
                 } else if (cyclops.isBlinking()) {
@@ -61,7 +62,8 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
                 } else {
                     return TEXTURE_2;
                 }
-            case 3:
+            }
+            case 3 -> {
                 if (cyclops.isBlinded()) {
                     return BLINDED_3_TEXTURE;
                 } else if (cyclops.isBlinking()) {
@@ -69,6 +71,7 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
                 } else {
                     return TEXTURE_3;
                 }
+            }
         }
         return TEXTURE_0;
     }

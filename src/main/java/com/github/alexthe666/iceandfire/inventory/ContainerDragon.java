@@ -10,7 +10,6 @@ import net.minecraft.item.BannerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.jetbrains.annotations.NotNull;
 
 public class ContainerDragon extends ScreenHandler {
     private final Inventory dragonInventory;

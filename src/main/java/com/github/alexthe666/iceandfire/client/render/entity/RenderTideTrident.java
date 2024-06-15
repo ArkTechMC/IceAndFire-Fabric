@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderTideTrident extends EntityRenderer<EntityTideTrident> {
     public static final Identifier TRIDENT = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/tide_trident.png");

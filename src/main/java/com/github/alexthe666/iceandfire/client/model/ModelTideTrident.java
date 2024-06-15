@@ -68,7 +68,6 @@ public class ModelTideTrident extends AdvancedEntityModel<Entity> {
 
     @Override
     public void setAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
     }
 
     @Override

@@ -283,12 +283,11 @@ public class ModelDreadScuttler extends ModelDragonBase<EntityDreadScuttler> {
         this.walk(this.palpMidR1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
         this.walk(this.palpMidL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
 
-        if (beast.getAnimation() == EntityDreadScuttler.ANIMATION_SPAWN) {
+        if (beast.getAnimation() == EntityDreadScuttler.ANIMATION_SPAWN)
             if (beast.getAnimationTick() < 39) {
                 f = f2;
                 f1 = 1;
             }
-        }
 
         this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, f, f1);
         this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, f, f1);

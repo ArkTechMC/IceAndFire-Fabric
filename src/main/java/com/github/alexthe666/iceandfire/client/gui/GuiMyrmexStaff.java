@@ -52,9 +52,7 @@ public class GuiMyrmexStaff extends Screen {
         int y_translate = 37;
         if (ClientProxy.getReferedClientHive() == null) return;
         this.populateRoomMap();
-        this.addSelectableChild(ButtonWidget.builder(ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
-            ClientProxy.getReferedClientHive().reproduces = !ClientProxy.getReferedClientHive().reproduces;
-        }).position(i + 124, j + 15).size(120, 20).build());
+        this.addSelectableChild(ButtonWidget.builder(ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> ClientProxy.getReferedClientHive().reproduces = !ClientProxy.getReferedClientHive().reproduces).position(i + 124, j + 15).size(120, 20).build());
         this.addSelectableChild(this.previousPage = new ChangePageButton(i + 5, j + 150, false, this.jungle ? 2 : 1, (p_214132_1_) -> {
             if (this.currentPage > 0) this.currentPage--;
         }));

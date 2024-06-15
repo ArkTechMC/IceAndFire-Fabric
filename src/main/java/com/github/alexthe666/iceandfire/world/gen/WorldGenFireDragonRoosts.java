@@ -15,7 +15,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.util.FeatureContext;
-import org.jetbrains.annotations.NotNull;
 
 public class WorldGenFireDragonRoosts extends WorldGenDragonRoosts {
     private static final Identifier DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/fire_dragon_roost");

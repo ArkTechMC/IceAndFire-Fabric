@@ -36,7 +36,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 

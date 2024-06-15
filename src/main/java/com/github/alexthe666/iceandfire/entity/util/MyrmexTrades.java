@@ -17,10 +17,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MyrmexTrades {
     public static final Int2ObjectMap<TradeOffers.Factory[]> DESERT_WORKER;

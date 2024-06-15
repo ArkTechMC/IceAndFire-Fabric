@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +70,7 @@ public class DragonPosWorldData extends PersistentState {
         ++this.tickCounter;
     }
 
-    public DragonPosWorldData load(NbtCompound nbt) {
+    public void load(NbtCompound nbt) {
         this.tickCounter = nbt.getInt("Tick");
         NbtList nbttaglist = nbt.getList("DragonMap", 10);
         this.lastDragonPositions.clear();
@@ -81,7 +80,6 @@ public class DragonPosWorldData extends PersistentState {
             BlockPos pos = new BlockPos(CompoundNBT.getInt("DragonPosX"), CompoundNBT.getInt("DragonPosY"), CompoundNBT.getInt("DragonPosZ"));
             this.lastDragonPositions.put(uuid, pos);
         }
-        return this;
     }
 
     @Override

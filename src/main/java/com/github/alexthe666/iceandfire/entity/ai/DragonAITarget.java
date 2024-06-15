@@ -9,7 +9,6 @@ import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.function.Predicate;
@@ -40,11 +39,11 @@ public class DragonAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> 
                 if (this.targetEntity instanceof PlayerEntity && !this.dragon.isTamed()) {
                     return true;
                 }
-                if (this.targetEntity instanceof EntityDragonBase dragon) {
-                    if (dragon.getOwner() != null && this.dragon.getOwner() != null && this.dragon.isOwner(dragon.getOwner())) {
+                if (this.targetEntity instanceof EntityDragonBase d) {
+                    if (d.getOwner() != null && this.dragon.getOwner() != null && this.dragon.isOwner(d.getOwner())) {
                         return false;
                     }
-                    return !dragon.isModelDead();
+                    return !d.isModelDead();
                 }
                 if (this.targetEntity instanceof PlayerEntity && this.dragon.isTamed()) {
                     return false;

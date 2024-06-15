@@ -14,7 +14,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEntityRenderer<T> {
 

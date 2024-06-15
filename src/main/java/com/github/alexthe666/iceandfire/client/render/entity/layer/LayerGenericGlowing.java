@@ -10,7 +10,6 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class LayerGenericGlowing<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private final Identifier texture;

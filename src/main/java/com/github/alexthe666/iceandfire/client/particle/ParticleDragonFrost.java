@@ -2,18 +2,11 @@ package com.github.alexthe666.iceandfire.client.particle;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.render.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RotationAxis;
-import net.minecraft.util.math.Vec3d;
-import org.jetbrains.annotations.NotNull;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
 
 public class ParticleDragonFrost extends SpriteBillboardParticle {
 
@@ -24,10 +17,9 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
     private final double initialY;
     private final double initialZ;
     private final float speedBonus;
-    private final boolean big;
-    private double targetX;
-    private double targetY;
-    private double targetZ;
+    private final double targetX;
+    private final double targetY;
+    private final double targetZ;
     private EntityDragonBase dragon;
 
 
@@ -38,13 +30,13 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
         this.initialY = this.y = yCoordIn;
         this.initialZ = this.z = zCoordIn;
         this.dragonSize = 1;
-        this.targetX = xCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
-        this.targetY = yCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
-        this.targetZ = zCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * dragonSize);
+        this.targetX = xCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * this.dragonSize);
+        this.targetY = yCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * this.dragonSize);
+        this.targetZ = zCoordIn + (double) ((this.random.nextFloat() - this.random.nextFloat()) * 1.75F * this.dragonSize);
         this.setPos(this.x, this.y, this.z);
         this.setVelocity(xSpeedIn, ySpeedIn, zSpeedIn);
         this.speedBonus = this.random.nextFloat() * 0.015F;
-        this.big = this.random.nextBoolean();
+        boolean big = this.random.nextBoolean();
         this.setSprite(provider);
     }
 
@@ -143,15 +135,10 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
             double d2 = this.targetX - this.initialX;
             double d3 = this.targetY - this.initialY;
             double d4 = this.targetZ - this.initialZ;
-            double dist = Math.sqrt(d2 * d2 + d3 * d3 + d4 * d4);
             float speed = 0.015F + this.speedBonus;
             this.velocityX += d2 * speed;
             this.velocityY += d3 * speed;
             this.velocityZ += d4 * speed;
-            int touchedTime = 0;
-            if (touchedTime > 3) {
-                this.markDead();
-            }
         }
     }
 

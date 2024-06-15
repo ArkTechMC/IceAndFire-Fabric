@@ -2,16 +2,15 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.google.common.base.Predicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
+import java.util.function.Predicate;
 
 public class DeathWormAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> {
     private final EntityDeathWorm deathworm;

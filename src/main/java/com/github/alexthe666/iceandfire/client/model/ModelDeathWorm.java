@@ -291,9 +291,8 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
         if (entity.tail_buffer != null)
             entity.tail_buffer.applyChainSwingBuffer(WORM);
 
-        if (entity.getWormJumping() > 0) {
+        if (entity.getWormJumping() > 0)
             this.Body.rotateAngleX += f4 * ((float) Math.PI / 180F);
-        }
     }
 
     @Override

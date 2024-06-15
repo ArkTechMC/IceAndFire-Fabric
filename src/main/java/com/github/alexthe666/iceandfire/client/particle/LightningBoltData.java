@@ -11,7 +11,6 @@ import java.util.*;
     Lightning bolt effect code used with permission from aidancbrady
  */
 public class LightningBoltData {
-
     private final Random random = new Random();
 
     private final BoltRenderInfo renderInfo;

@@ -18,13 +18,11 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.function.Predicate;
 
 public class ItemCockatriceScepter extends Item {
 
