@@ -11,9 +11,9 @@ import net.minecraft.world.RaycastContext;
 import java.util.EnumSet;
 
 public class PixieAIMoveRandom extends Goal {
-    BlockPos target;
     final EntityPixie pixie;
     final Random random;
+    BlockPos target;
 
     public PixieAIMoveRandom(EntityPixie entityPixieIn) {
         this.pixie = entityPixieIn;

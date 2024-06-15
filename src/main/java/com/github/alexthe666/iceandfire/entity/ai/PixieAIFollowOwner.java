@@ -13,10 +13,10 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 
 public class PixieAIFollowOwner extends Goal {
-    private final EntityPixie tameable;
     final World world;
     final float maxDist;
     final float minDist;
+    private final EntityPixie tameable;
     private LivingEntity owner;
     private int timeToRecalcPath;
     private float oldWaterCost;

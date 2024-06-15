@@ -39,9 +39,8 @@ public class Citadel {
         }
         for (RegistryKey<DimensionOptions> levelStemResourceKey : levelStems.getKeys()) {
             Optional<RegistryEntry.Reference<DimensionOptions>> holderOptional = levelStems.getEntry(levelStemResourceKey);
-            if (holderOptional.isPresent() && holderOptional.get().value().chunkGenerator().getBiomeSource() instanceof ExpandedBiomeSource expandedBiomeSource) {
+            if (holderOptional.isPresent() && holderOptional.get().value().chunkGenerator().getBiomeSource() instanceof ExpandedBiomeSource expandedBiomeSource)
                 expandedBiomeSource.setResourceKeyMap(biomeMap);
-            }
         }
     }
 

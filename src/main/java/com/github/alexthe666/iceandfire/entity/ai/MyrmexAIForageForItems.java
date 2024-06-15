@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoal {
+    public final EntityMyrmexWorker myrmex;
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
-    public final EntityMyrmexWorker myrmex;
     protected ItemEntity targetEntity;
 
     private List<ItemEntity> list = IAFMath.emptyItemEntityList;

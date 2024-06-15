@@ -61,7 +61,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
         }
 
         @Override
-        public CustomizeToDragon fromJson(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition [] conditionsIn) {
+        public CustomizeToDragon fromJson(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
             return new CustomizeToDragon(conditionsIn);
         }
     }

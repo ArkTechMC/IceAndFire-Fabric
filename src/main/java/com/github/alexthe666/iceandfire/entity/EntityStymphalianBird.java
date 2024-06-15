@@ -41,12 +41,12 @@ import java.util.function.Predicate;
 public class EntityStymphalianBird extends HostileEntity implements IAnimatedEntity, Monster, IVillagerFear, IAnimalFear {
 
     public static final Predicate<Entity> STYMPHALIAN_PREDICATE = entity -> entity instanceof EntityStymphalianBird;
-    private static final int FLIGHT_CHANCE_PER_TICK = 100;
-    private static final TrackedData<Optional<UUID>> VICTOR_ENTITY = DataTracker.registerData(EntityStymphalianBird.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
-    private static final TrackedData<Boolean> FLYING = DataTracker.registerData(EntityStymphalianBird.class, TrackedDataHandlerRegistry.BOOLEAN);
     public static final Animation ANIMATION_PECK = Animation.create(20);
     public static final Animation ANIMATION_SHOOT_ARROWS = Animation.create(30);
     public static final Animation ANIMATION_SPEAK = Animation.create(10);
+    private static final int FLIGHT_CHANCE_PER_TICK = 100;
+    private static final TrackedData<Optional<UUID>> VICTOR_ENTITY = DataTracker.registerData(EntityStymphalianBird.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    private static final TrackedData<Boolean> FLYING = DataTracker.registerData(EntityStymphalianBird.class, TrackedDataHandlerRegistry.BOOLEAN);
     public float flyProgress;
     public BlockPos airTarget;
     public StymphalianBirdFlock flock;

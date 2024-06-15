@@ -4,7 +4,6 @@ import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
-import org.jetbrains.annotations.NotNull;
 
 
 public class ArmorModelBase extends BipedEntityModel<LivingEntity> {

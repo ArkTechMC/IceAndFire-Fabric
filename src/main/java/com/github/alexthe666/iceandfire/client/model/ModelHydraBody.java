@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelHydraBody extends ModelDragonBase<EntityHydra> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox BodyUpper;
     public final AdvancedModelBox BodyLower;
     public final AdvancedModelBox BodySpike1;
@@ -26,6 +25,7 @@ public class ModelHydraBody extends ModelDragonBase<EntityHydra> {
     public final AdvancedModelBox TailSpike1;
     public final AdvancedModelBox TailSpike2;
     public final AdvancedModelBox TailSpike3;
+    private final ModelAnimator animator;
 
     public ModelHydraBody() {
         this.texWidth = 256;

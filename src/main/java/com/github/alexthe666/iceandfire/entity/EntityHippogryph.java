@@ -5,7 +5,7 @@ import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.HippogryphAIMate;
 import com.github.alexthe666.iceandfire.entity.ai.HippogryphAITarget;
@@ -13,13 +13,12 @@ import com.github.alexthe666.iceandfire.entity.ai.HippogryphAITargetItems;
 import com.github.alexthe666.iceandfire.entity.ai.HippogryphAIWander;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
+import com.github.alexthe666.iceandfire.inventory.ContainerHippogryph;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageHippogryphArmor;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
-import dev.arktechmc.iafextra.message.HippogryphGuiMessage;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
-import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -38,6 +37,7 @@ import net.minecraft.entity.passive.AbstractHorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,7 +46,8 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -60,8 +61,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
+import org.jetbrains.annotations.Nullable;
 
-public class EntityHippogryph extends TameableEntity implements ISyncMount, IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, IFlyingMount, ICustomMoveController, IHasCustomizableAttributes {
+public class EntityHippogryph extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, IFlyingMount, ICustomMoveController, IHasCustomizableAttributes {
 
     private static final int FLIGHT_CHANCE_PER_TICK = 1200;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.INTEGER);
@@ -333,10 +335,7 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     }
 
     public void openGUI(PlayerEntity playerEntity) {
-        if (!this.getWorld().isClient && (!this.hasPassengers() || this.hasPassenger(playerEntity)) && playerEntity instanceof ServerPlayerEntity serverPlayer) {
-            IafServerNetworkHandler.send(new HippogryphGuiMessage(this), serverPlayer);
-        }
-        IceAndFire.PROXY.setReferencedMob(this);
+        playerEntity.openHandledScreen(this);
     }
 
     @Override
@@ -1107,5 +1106,11 @@ public class EntityHippogryph extends TameableEntity implements ISyncMount, IAni
     @Override
     public EntityView method_48926() {
         return this.getWorld();
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return new ContainerHippogryph(syncId, this.hippogryphInventory, playerInventory, this, new EntityPropertyDelegate(this.getId()));
     }
 }

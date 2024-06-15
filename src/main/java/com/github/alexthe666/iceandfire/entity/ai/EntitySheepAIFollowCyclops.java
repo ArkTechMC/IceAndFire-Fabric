@@ -13,8 +13,8 @@ import java.util.List;
 
 public class EntitySheepAIFollowCyclops extends Goal {
     final AnimalEntity childAnimal;
-    EntityCyclops cyclops;
     final double moveSpeed;
+    EntityCyclops cyclops;
     private int delayCounter;
 
     public EntitySheepAIFollowCyclops(AnimalEntity animal, double speed) {

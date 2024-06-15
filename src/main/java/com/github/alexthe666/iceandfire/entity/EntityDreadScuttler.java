@@ -34,16 +34,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_BITE = Animation.create(15);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(EntityDreadScuttler.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Byte> CLIMBING = DataTracker.registerData(EntityDreadScuttler.class, TrackedDataHandlerRegistry.BYTE);
     private static final float INITIAL_WIDTH = 1.5F;
     private static final float INITIAL_HEIGHT = 1.3F;
-    public static final Animation ANIMATION_SPAWN = Animation.create(40);
-    public static final Animation ANIMATION_BITE = Animation.create(15);
     private int animationTick;
     private Animation currentAnimation;
     private float firstWidth = -1.0F;

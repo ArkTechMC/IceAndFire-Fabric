@@ -15,7 +15,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Neck1;
     public final AdvancedModelBox Neck2;
     public final AdvancedModelBox Neck3;
@@ -30,6 +29,7 @@ public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
     public final AdvancedModelBox TeethL1;
     public final AdvancedModelBox TeethR1;
     public final AdvancedModelBox TeethTL1;
+    private final ModelAnimator animator;
     private int headIndex = 0;
 
     public ModelHydraHead(int headIndex) {

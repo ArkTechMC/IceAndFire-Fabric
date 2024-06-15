@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoal {
+    public final EntityMyrmexRoyal myrmex;
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super Entity> targetEntitySelector;
-    public final EntityMyrmexRoyal myrmex;
     protected EntityMyrmexBase targetEntity;
 
     private List<Entity> list = IAFMath.emptyEntityList;

@@ -10,7 +10,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class StymphalianBirdFlock {

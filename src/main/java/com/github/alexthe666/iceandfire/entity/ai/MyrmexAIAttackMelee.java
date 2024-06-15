@@ -11,9 +11,9 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class MyrmexAIAttackMelee extends Goal {
+    protected final EntityMyrmexBase myrmex;
     private final double speedTowardsTarget;
     private final boolean longMemory;
-    protected final EntityMyrmexBase myrmex;
     private int attackTick;
     private int delayCounter;
     private double targetX;

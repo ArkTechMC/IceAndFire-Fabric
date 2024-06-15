@@ -1,8 +1,6 @@
 package com.github.alexthe666.iceandfire.inventory;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.data.delegate.DragonForgePropertyDelegate;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -32,11 +30,7 @@ public class ContainerDragonForge extends ScreenHandler {
         this.world = playerInventory.player.getWorld();
         this.propertyDelegate = propertyDelegate;
         this.addProperties(this.propertyDelegate);
-        if (furnaceInventory instanceof TileEntityDragonforge inv) {
-            this.fireType = inv.getPropertyDelegate().fireType;
-        } else if (IceAndFire.PROXY.getRefrencedTE() instanceof TileEntityDragonforge inv) {
-            this.fireType = inv.getPropertyDelegate().fireType;
-        }
+        this.fireType = this.propertyDelegate.fireType;
         this.addSlot(new Slot(furnaceInventory, 0, 68, 34));
         this.addSlot(new Slot(furnaceInventory, 1, 86, 34));
         this.addSlot(new FurnaceOutputSlot(playerInventory.player, furnaceInventory, 2, 148, 35));

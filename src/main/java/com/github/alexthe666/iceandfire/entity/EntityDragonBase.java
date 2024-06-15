@@ -14,6 +14,7 @@ import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
 import com.github.alexthe666.iceandfire.block.IDragonProof;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.client.model.util.LegSolverQuadruped;
+import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.datagen.tags.IafBlockTags;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
@@ -141,6 +142,13 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public final double maximumSpeed;
     public final double minimumArmor;
     public final double maximumArmor;
+    public final float[] prevAnimationProgresses = new float[10];
+    public final float[][] growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
+    public final LegSolverQuadruped legSolver;
+    public final IafDragonLogic logic;
+    public final IafDragonFlightManager flightManager;
+    public final boolean allowLocalMotionControl = true;
+    public final boolean allowMousePitchControl = true;
     public float sitProgress;
     public float sleepProgress;
     public float hoverProgress;
@@ -169,7 +177,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public float swimProgress;
     public int ticksSwiming;
     public int swimCycle;
-    public final float[] prevAnimationProgresses = new float[10];
     public boolean isDaytime;
     public int flightCycle;
     public HomePosition homePos;
@@ -180,9 +187,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public ReversedBuffer turn_buffer;
     public ChainBuffer tail_buffer;
     public int spacebarTicks;
-    public final float[][] growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
-
-    public final LegSolverQuadruped legSolver;
     public int walkCycle;
     public BlockPos burningTarget;
     public int burnProgress;
@@ -193,7 +197,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public IafDragonAttacks.Air airAttack;
     public IafDragonAttacks.Ground groundAttack;
     public boolean usingGroundAttack = true;
-    public final IafDragonLogic logic;
     public int hoverTicks;
     public int tacklingTicks;
     public int ticksStill;
@@ -206,10 +209,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public SimpleInventory dragonInventory;
     public String prevArmorResLoc = "0|0|0|0";
     public String armorResLoc = "0|0|0|0";
-    public final IafDragonFlightManager flightManager;
     public boolean lookingForRoostAIFlag = false;
-    public final boolean allowLocalMotionControl = true;
-    public final boolean allowMousePitchControl = true;
     protected int flyHovering;
     protected boolean hasHadHornUse = false;
     protected int fireTicks;
@@ -521,13 +521,13 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void openInventory(PlayerEntity player) {
-        IceAndFire.PROXY.setReferencedMob(this);
+        player.openHandledScreen(this);
     }
 
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ContainerDragon(syncId, this.dragonInventory, player.getInventory(), this);
+        return new ContainerDragon(syncId, this.dragonInventory, player.getInventory(), new EntityPropertyDelegate(this.getId()));
     }
 
     @Override
@@ -1237,7 +1237,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                                 this.hasHomePosition = true;
                                 player.sendMessage(Text.translatable("dragon.command.new_home", pos.getX(), pos.getY(), pos.getZ(), this.homePos.getDimension()), true);
                             }
-                            return ActionResult.SUCCESS;
                         } else {
                             this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, this.getSoundVolume(), this.getSoundPitch());
                             if (!this.getWorld().isClient) {
@@ -1253,8 +1252,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                                 commandText = "escort";
                             }
                             player.sendMessage(Text.translatable("dragon.command." + commandText), true);
-                            return ActionResult.SUCCESS;
                         }
+                        return ActionResult.SUCCESS;
                     }
                 }
             }

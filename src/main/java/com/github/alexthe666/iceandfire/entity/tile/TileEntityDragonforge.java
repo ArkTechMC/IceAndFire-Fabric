@@ -41,11 +41,11 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     private static final Direction[] HORIZONTALS = new Direction[]{
             Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST
     };
+    private final DragonForgePropertyDelegate propertyDelegate = new DragonForgePropertyDelegate();
     public int lastDragonFlameTimer = 0;
     private DefaultedList<ItemStack> forgeItemStacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
     private boolean prevAssembled;
     private boolean canAddFlameAgain = true;
-    private final DragonForgePropertyDelegate propertyDelegate = new DragonForgePropertyDelegate();
 
     public TileEntityDragonforge(BlockPos pos, BlockState state) {
         super(IafTileEntityRegistry.DRAGONFORGE_CORE.get(), pos, state);
@@ -315,7 +315,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public int [] getAvailableSlots(Direction side) {
+    public int[] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
             return SLOTS_BOTTOM;
         } else {

@@ -13,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelGorgon extends ModelDragonBase<EntityGorgon> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Tail_1;
     public final AdvancedModelBox Tail_2;
     public final AdvancedModelBox Body;
@@ -113,6 +112,7 @@ public class ModelGorgon extends ModelDragonBase<EntityGorgon> {
     public final AdvancedModelBox SnakeJawL5;
     public final AdvancedModelBox SnakeFang1L5;
     public final AdvancedModelBox SnakeFang2L5;
+    private final ModelAnimator animator;
 
     public ModelGorgon() {
         this.texWidth = 128;

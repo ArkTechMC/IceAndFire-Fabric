@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelSiren extends ModelDragonBase<EntitySiren> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Tail_1;
     public final AdvancedModelBox Tail_2;
     public final AdvancedModelBox Body;
@@ -32,6 +31,7 @@ public class ModelSiren extends ModelDragonBase<EntitySiren> {
     public final AdvancedModelBox Mouth;
     public final AdvancedModelBox Jaw;
     public final AdvancedModelBox Hair2;
+    private final ModelAnimator animator;
 
     public ModelSiren() {
         this.texWidth = 128;

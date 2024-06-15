@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.inventory;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -15,18 +16,23 @@ import net.minecraft.screen.slot.Slot;
 public class ContainerHippogryph extends ScreenHandler {
     private final Inventory hippogryphInventory;
     private final EntityHippogryph hippogryph;
+    private final EntityPropertyDelegate propertyDelegate;
 
     public ContainerHippogryph(int i, PlayerInventory playerInventory) {
-        this(i, new SimpleInventory(18), playerInventory, null);
+        this(i, new SimpleInventory(18), playerInventory, null, new EntityPropertyDelegate());
     }
 
-    public ContainerHippogryph(int id, Inventory ratInventory, PlayerInventory playerInventory, EntityHippogryph hippogryph) {
+    public ContainerHippogryph(int id, Inventory hippogryphInventory, PlayerInventory playerInventory, EntityHippogryph hippogryph, EntityPropertyDelegate propertyDelegate) {
         super(IafContainerRegistry.HIPPOGRYPH_CONTAINER.get(), id);
-        this.hippogryphInventory = ratInventory;
-        if (hippogryph == null && IceAndFire.PROXY.getReferencedMob() instanceof EntityHippogryph) {
-            hippogryph = (EntityHippogryph) IceAndFire.PROXY.getReferencedMob();
+        this.hippogryphInventory = hippogryphInventory;
+        if (hippogryph != null)
+            this.hippogryph = hippogryph;
+        else {
+            assert MinecraftClient.getInstance().world != null;
+            this.hippogryph = (EntityHippogryph) MinecraftClient.getInstance().world.getEntityById(propertyDelegate.entityId);
         }
-        this.hippogryph = hippogryph;
+        this.propertyDelegate = propertyDelegate;
+        this.addProperties(this.propertyDelegate);
         PlayerEntity player = playerInventory.player;
         this.hippogryphInventory.onOpen(player);
         this.addSlot(new Slot(this.hippogryphInventory, 0, 8, 18) {
@@ -37,9 +43,8 @@ public class ContainerHippogryph extends ScreenHandler {
 
             @Override
             public void markDirty() {
-                if (ContainerHippogryph.this.hippogryph != null) {
+                if (ContainerHippogryph.this.hippogryph != null)
                     ContainerHippogryph.this.hippogryph.refreshInventory();
-                }
             }
 
             @Override
@@ -122,7 +127,7 @@ public class ContainerHippogryph extends ScreenHandler {
     public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasStack()) {
+        if (slot.hasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index < this.hippogryphInventory.size()) {
@@ -164,5 +169,9 @@ public class ContainerHippogryph extends ScreenHandler {
     public void onClosed(PlayerEntity playerIn) {
         super.onClosed(playerIn);
         this.hippogryphInventory.onClose(playerIn);
+    }
+
+    public int getHippogryphId() {
+        return this.propertyDelegate.entityId;
     }
 }

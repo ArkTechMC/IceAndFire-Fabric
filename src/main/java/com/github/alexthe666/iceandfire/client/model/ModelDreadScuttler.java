@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelDreadScuttler extends ModelDragonBase<EntityDreadScuttler> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Body2;
     public final AdvancedModelBox Body3;
     public final AdvancedModelBox Body1;
@@ -46,6 +45,7 @@ public class ModelDreadScuttler extends ModelDragonBase<EntityDreadScuttler> {
     public final AdvancedModelBox legBottomR2;
     public final AdvancedModelBox legMidR2_1;
     public final AdvancedModelBox legBottomR2_1;
+    private final ModelAnimator animator;
 
     public ModelDreadScuttler() {
         this.texWidth = 128;

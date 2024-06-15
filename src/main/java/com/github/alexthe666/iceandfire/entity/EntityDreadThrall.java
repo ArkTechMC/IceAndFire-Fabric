@@ -36,12 +36,12 @@ import net.minecraft.world.World;
 
 public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHasArmorVariant {
 
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
     private static final TrackedData<Boolean> CUSTOM_ARMOR_HEAD = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CUSTOM_ARMOR_CHEST = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CUSTOM_ARMOR_LEGS = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CUSTOM_ARMOR_FEET = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> CUSTOM_ARMOR_INDEX = DataTracker.registerData(EntityDreadThrall.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final Animation ANIMATION_SPAWN = Animation.create(40);
     private int animationTick;
     private Animation currentAnimation;
 

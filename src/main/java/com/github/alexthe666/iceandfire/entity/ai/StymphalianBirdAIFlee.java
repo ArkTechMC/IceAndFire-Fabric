@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class StymphalianBirdAIFlee extends Goal {
+    protected final EntityStymphalianBird stymphalianBird;
     private final Predicate<Entity> canBeSeenSelector;
     private final float avoidDistance;
-    protected final EntityStymphalianBird stymphalianBird;
     protected LivingEntity closestLivingEntity;
     private Vec3d hidePlace;
 

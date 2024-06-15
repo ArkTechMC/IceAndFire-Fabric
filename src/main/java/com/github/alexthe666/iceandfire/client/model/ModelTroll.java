@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelTroll extends ModelDragonBase<EntityTroll> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox body;
     public final AdvancedModelBox upperBody;
     public final AdvancedModelBox loin;
@@ -46,6 +45,7 @@ public class ModelTroll extends ModelDragonBase<EntityTroll> {
     public final AdvancedModelBox leftarm2;
     public final AdvancedModelBox rightleg2;
     public final AdvancedModelBox leftleg2;
+    private final ModelAnimator animator;
 
     public ModelTroll() {
         this.texWidth = 256;

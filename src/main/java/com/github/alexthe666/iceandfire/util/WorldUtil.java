@@ -18,7 +18,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.DimensionTypes;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Class which has world related util functions like chunk load checks

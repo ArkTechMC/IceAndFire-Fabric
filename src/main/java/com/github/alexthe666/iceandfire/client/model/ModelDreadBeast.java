@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelDreadBeast extends ModelDragonBase<EntityDreadBeast> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Body;
     public final AdvancedModelBox LegL1;
     public final AdvancedModelBox LowerBody;
@@ -41,6 +40,7 @@ public class ModelDreadBeast extends ModelDragonBase<EntityDreadBeast> {
     public final AdvancedModelBox EarR2;
     public final AdvancedModelBox EarL2;
     public final AdvancedModelBox LegR2;
+    private final ModelAnimator animator;
 
     public ModelDreadBeast() {
         this.texWidth = 256;

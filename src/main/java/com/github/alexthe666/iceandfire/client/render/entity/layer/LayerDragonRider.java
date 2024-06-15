@@ -45,7 +45,6 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                 if (this.excludeDreadQueenMob && passenger instanceof EntityDreadQueen) {
                     prey = false;
                 }
-                ClientProxy.currentDragonRiders.remove(passenger.getUuid());
                 float riderRot = passenger.prevYaw + (passenger.getYaw() - passenger.prevYaw) * partialTicks;
                 int animationTicks = 0;
                 if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
@@ -85,7 +84,6 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                 matrixStackIn.translate(0, -0.25F, 0);
                 this.renderEntity(passenger, 0, 0, 0, 0.0F, partialTicks, matrixStackIn, bufferIn, packedLightIn);
                 matrixStackIn.pop();
-                ClientProxy.currentDragonRiders.add(passenger.getUuid());
             }
         }
         matrixStackIn.pop();

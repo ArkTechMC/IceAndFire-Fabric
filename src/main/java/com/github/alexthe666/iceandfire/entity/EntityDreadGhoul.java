@@ -32,17 +32,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_SLASH = Animation.create(25);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(EntityDreadGhoul.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadGhoul.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> SCREAMS = DataTracker.registerData(EntityDreadGhoul.class, TrackedDataHandlerRegistry.INTEGER);
     private static final float INITIAL_WIDTH = 0.6F;
     private static final float INITIAL_HEIGHT = 1.8F;
-    public static final Animation ANIMATION_SPAWN = Animation.create(40);
-    public static final Animation ANIMATION_SLASH = Animation.create(25);
     private int animationTick;
     private Animation currentAnimation;
     private int hostileTicks = 0;

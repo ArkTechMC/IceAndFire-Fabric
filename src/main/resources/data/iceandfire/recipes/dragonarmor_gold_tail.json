@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "c:storage_blocks/gold"
+      "item": "minecraft:gold_block"
     }
   },
   "pattern": [

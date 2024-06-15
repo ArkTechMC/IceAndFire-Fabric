@@ -13,7 +13,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.WorldView;
-import org.jetbrains.annotations.NotNull;
 
 public class VillageHouseProcessor extends StructureProcessor {
     public static final Identifier LOOT = new Identifier(IceAndFire.MOD_ID, "chest/village_scribe");

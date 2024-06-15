@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class PixieAIFlee<T extends Entity> extends Goal {
+    protected final EntityPixie pixie;
     private final float avoidDistance;
     private final Class<T> classToAvoid;
-    protected final EntityPixie pixie;
     protected T closestLivingEntity;
     private Vec3d hidePlace;
 

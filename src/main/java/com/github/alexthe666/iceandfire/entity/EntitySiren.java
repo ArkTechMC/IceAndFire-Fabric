@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetOutOfWater;
@@ -14,7 +13,6 @@ import com.github.alexthe666.iceandfire.entity.util.ChainBuffer;
 import com.github.alexthe666.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.github.alexthe666.iceandfire.entity.util.IHearsSiren;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageSirenSong;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
@@ -49,7 +47,6 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -57,6 +54,8 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     public static final int SEARCH_RANGE = 32;
     public static final Predicate<Entity> SIREN_PREY = p_apply_1_ -> (p_apply_1_ instanceof PlayerEntity && !((PlayerEntity) p_apply_1_).isCreative() && !p_apply_1_.isSpectator()) || p_apply_1_ instanceof MerchantEntity || p_apply_1_ instanceof IHearsSiren;
+    public static final Animation ANIMATION_BITE = Animation.create(20);
+    public static final Animation ANIMATION_PULL = Animation.create(20);
     private static final TrackedData<Integer> HAIR_COLOR = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> AGGRESSIVE = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> SING_POSE = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.INTEGER);
@@ -64,8 +63,6 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     private static final TrackedData<Boolean> SWIMMING = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CHARMED = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Byte> CLIMBING = DataTracker.registerData(EntitySiren.class, TrackedDataHandlerRegistry.BYTE);
-    public static final Animation ANIMATION_BITE = Animation.create(20);
-    public static final Animation ANIMATION_PULL = Animation.create(20);
     public ChainBuffer tail_buffer;
     public float singProgress;
     public float swimProgress;

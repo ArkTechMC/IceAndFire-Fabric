@@ -23,6 +23,7 @@ import org.joml.Vector4f;
  */
 @Environment(EnvType.CLIENT)
 public class AdvancedModelBox extends BasicModelPart {
+    public final String boxName;
     private final AdvancedEntityModel<?> model;
     public float defaultRotationX, defaultRotationY, defaultRotationZ;
     public float defaultPositionX, defaultPositionY, defaultPositionZ;
@@ -34,7 +35,6 @@ public class AdvancedModelBox extends BasicModelPart {
     public float offsetX;
     public float offsetY;
     public float offsetZ;
-    public final String boxName;
     private AdvancedModelBox parent;
     private float textureWidth;
     private float textureHeight;

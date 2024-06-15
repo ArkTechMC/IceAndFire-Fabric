@@ -12,12 +12,7 @@ import java.util.EnumSet;
 
 public class SeaSerpentAIAttackMelee extends Goal {
     protected final int attackInterval = 20;
-    private final boolean canPenalize = false;
     protected final EntitySeaSerpent attacker;
-    /**
-     * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
-     */
-    protected int attackTick;
     final World world;
     /**
      * The speed with which the mob will approach the target
@@ -27,6 +22,11 @@ public class SeaSerpentAIAttackMelee extends Goal {
      * When true, the mob will continue chasing its target, even if it can't find a path to them right now.
      */
     final boolean longMemory;
+    private final boolean canPenalize = false;
+    /**
+     * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
+     */
+    protected int attackTick;
     /**
      * The PathEntity of our entity.
      */

@@ -10,12 +10,7 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class AmphithereAIAttackMelee extends Goal {
-    private final boolean canPenalize = false;
     protected final EntityAmphithere attacker;
-    /**
-     * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
-     */
-    protected int attackTick;
     /**
      * The speed with which the mob will approach the target
      */
@@ -24,6 +19,11 @@ public class AmphithereAIAttackMelee extends Goal {
      * When true, the mob will continue chasing its target, even if it can't find a path to them right now.
      */
     final boolean longMemory;
+    private final boolean canPenalize = false;
+    /**
+     * An amount of decrementing ticks that allows the entity to attack once the tick reaches 0.
+     */
+    protected int attackTick;
     /**
      * The PathEntity of our entity.
      */

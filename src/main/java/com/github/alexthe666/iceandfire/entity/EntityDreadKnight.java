@@ -46,8 +46,8 @@ import net.minecraft.world.World;
 public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
     public static final ItemStack SHIELD = generateShield();
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadKnight.class, TrackedDataHandlerRegistry.INTEGER);
     public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadKnight.class, TrackedDataHandlerRegistry.INTEGER);
     private int animationTick;
     private Animation currentAnimation;
 

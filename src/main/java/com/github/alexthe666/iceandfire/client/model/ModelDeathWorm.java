@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Body;
     public final AdvancedModelBox Head;
     public final AdvancedModelBox Spine1;
@@ -51,6 +50,7 @@ public class ModelDeathWorm extends ModelDragonBase<EntityDeathWorm> {
     public final AdvancedModelBox TopJaw;
     public final AdvancedModelBox BottomJaw;
     public final AdvancedModelBox JawHook;
+    private final ModelAnimator animator;
 
     public ModelDeathWorm() {
         this.animator = ModelAnimator.create();

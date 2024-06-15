@@ -13,7 +13,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Body;
     public final AdvancedModelBox Neck;
     public final AdvancedModelBox HindThighR;
@@ -76,6 +75,7 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     public final AdvancedModelBox StirrupR;
     public final AdvancedModelBox StirrupIronL;
     public final AdvancedModelBox StirrupIronR;
+    private final ModelAnimator animator;
 
     public ModelHippogryph() {
         this.texWidth = 256;

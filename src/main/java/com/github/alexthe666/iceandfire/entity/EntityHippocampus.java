@@ -4,7 +4,7 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIFindWaterTarget;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetInWater;
@@ -64,7 +64,6 @@ import net.minecraft.world.EntityView;
 import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EntityHippocampus extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, ICustomMoveController, InventoryChangedListener, Saddleable {
@@ -84,15 +83,13 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     private static final Text CONTAINER_TITLE = Text.translatable("entity.iceandfire.hippocampus");
 
     public static Animation ANIMATION_SPEAK;
+    private final LazyOptional<?> itemHandler = null;
     public float onLandProgress;
-
     public ChainBuffer tail_buffer;
-
     public SimpleInventory inventory;
     public float sitProgress;
     private int animationTick;
     private Animation currentAnimation;
-    private final LazyOptional<?> itemHandler = null;
 
     public EntityHippocampus(EntityType<? extends EntityHippocampus> entityType, World worldIn) {
         super(entityType, worldIn);
@@ -290,31 +287,25 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Override
     public void tickMovement() {
         super.tickMovement();
-        if (!this.getWorld().isClient) {
-            if (this.random.nextInt(900) == 0 && this.deathTime == 0) {
+        if (!this.getWorld().isClient)
+            if (this.random.nextInt(900) == 0 && this.deathTime == 0)
                 this.heal(1.0F);
-            }
-        }
         AnimationHandler.INSTANCE.updateAnimations(this);
-        if (this.getControllingPassenger() != null && this.age % 20 == 0) {
+        if (this.getControllingPassenger() != null && this.age % 20 == 0)
             (this.getControllingPassenger()).addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 30, 0, true, false));
-        }
 
-        if (this.getWorld().isClient) {
+        if (this.getWorld().isClient)
             this.tail_buffer.calculateChainSwingBuffer(40, 10, 1F, this);
-        }
         boolean inWater = this.isTouchingWater();
-        if (!inWater && this.onLandProgress < 20.0F) {
+        if (!inWater && this.onLandProgress < 20.0F)
             this.onLandProgress += 1F;
-        } else if (inWater && this.onLandProgress > 0.0F) {
+        else if (inWater && this.onLandProgress > 0.0F)
             this.onLandProgress -= 1F;
-        }
         boolean sitting = this.isSitting();
-        if (sitting && this.sitProgress < 20.0F) {
+        if (sitting && this.sitProgress < 20.0F)
             this.sitProgress += 0.5F;
-        } else if (!sitting && this.sitProgress > 0.0F) {
+        else if (!sitting && this.sitProgress > 0.0F)
             this.sitProgress -= 0.5F;
-        }
     }
 
     @Override
@@ -639,11 +630,11 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new HippocampusContainerMenu(syncId, this.inventory, inv, this);
+        return new HippocampusContainerMenu(syncId, this.inventory, inv, this, new EntityPropertyDelegate(this.getId()));
     }
 
     public void openInventory(PlayerEntity player) {
-        IceAndFire.PROXY.setReferencedMob(this);
+        player.openHandledScreen(this);
     }
 
     @Override

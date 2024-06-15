@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelCockatrice extends ModelDragonBase<EntityCockatrice> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox lowerBody;
     public final AdvancedModelBox leftThigh;
     public final AdvancedModelBox rightThigh;
@@ -45,6 +44,7 @@ public class ModelCockatrice extends ModelDragonBase<EntityCockatrice> {
     public final AdvancedModelBox leftFoot;
     public final AdvancedModelBox rightLeg;
     public final AdvancedModelBox rightFoot;
+    private final ModelAnimator animator;
 
     public ModelCockatrice() {
         this.texWidth = 128;

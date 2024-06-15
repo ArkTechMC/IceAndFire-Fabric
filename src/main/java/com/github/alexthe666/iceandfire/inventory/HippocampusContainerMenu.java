@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.inventory;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -15,18 +16,23 @@ import net.minecraft.screen.slot.Slot;
 public class HippocampusContainerMenu extends ScreenHandler {
     private final Inventory hippocampusInventory;
     private final EntityHippocampus hippocampus;
+    private final EntityPropertyDelegate propertyDelegate;
 
     public HippocampusContainerMenu(int i, PlayerInventory playerInventory) {
-        this(i, new SimpleInventory(18), playerInventory, null);
+        this(i, new SimpleInventory(18), playerInventory, null, new EntityPropertyDelegate());
     }
 
-    public HippocampusContainerMenu(int id, Inventory hippoInventory, PlayerInventory playerInventory, EntityHippocampus hippocampus) {
+    public HippocampusContainerMenu(int id, Inventory hippoInventory, PlayerInventory playerInventory, EntityHippocampus hippocampus, EntityPropertyDelegate propertyDelegate) {
         super(IafContainerRegistry.HIPPOCAMPUS_CONTAINER.get(), id);
         this.hippocampusInventory = hippoInventory;
-        if (hippocampus == null && IceAndFire.PROXY.getReferencedMob() instanceof EntityHippocampus) {
-            hippocampus = (EntityHippocampus) IceAndFire.PROXY.getReferencedMob();
+        if (hippocampus != null)
+            this.hippocampus = hippocampus;
+        else {
+            assert MinecraftClient.getInstance().world != null;
+            this.hippocampus = (EntityHippocampus) MinecraftClient.getInstance().world.getEntityById(propertyDelegate.entityId);
         }
-        this.hippocampus = hippocampus;
+        this.propertyDelegate = propertyDelegate;
+        this.addProperties(this.propertyDelegate);
         PlayerEntity player = playerInventory.player;
         this.hippocampusInventory.onOpen(player);
 
@@ -74,6 +80,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
                 return true;
             }
         });
+
 
         // Create the slots for the inventory
         if (this.hippocampus.isChested()) {
@@ -129,7 +136,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
                     if (!this.insertItem(itemstack1, containerSize, j, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= containerSize && index < j) {
+                } else if (index < j) {
                     if (!this.insertItem(itemstack1, j, k, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -157,5 +164,9 @@ public class HippocampusContainerMenu extends ScreenHandler {
     public void onClosed(PlayerEntity playerIn) {
         super.onClosed(playerIn);
         this.hippocampusInventory.onClose(playerIn);
+    }
+
+    public int getHippocampusId() {
+        return this.propertyDelegate.entityId;
     }
 }

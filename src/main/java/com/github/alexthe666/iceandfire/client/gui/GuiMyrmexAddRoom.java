@@ -95,7 +95,7 @@ public class GuiMyrmexAddRoom extends Screen {
         int j = (this.height - 166) / 2 + 8;
         super.render(ms, mouseX, mouseY, partialTicks);
         int color = this.jungle ? 0X35EA15 : 0XFFBF00;
-        assert this.client!=null;
+        assert this.client != null;
         TextRenderer textRenderer = this.client.textRenderer;
         if (ClientProxy.getReferedClientHive() != null) {
             if (!ClientProxy.getReferedClientHive().colonyName.isEmpty()) {

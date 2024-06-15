@@ -44,12 +44,9 @@ public class PathfindingConstants {
      * Half a block.
      */
     public static final double HALF_A_BLOCK = 0.5;
-
-    public static boolean isDebugMode;
-
     public static final int pathfindingThreads = 1;
-
     public static final int maxPathingNodes = 5000;
+    public static boolean isDebugMode;
 
     /**
      * Private constructor to hide implicit one.

@@ -53,16 +53,16 @@ import net.minecraft.world.*;
 
 public class EntityAmphithere extends TameableEntity implements ISyncMount, IAnimatedEntity, IPhasesThroughBlock, IFlapable, IDragonFlute, IFlyingMount, IHasCustomizableAttributes, ICustomMoveController {
 
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Boolean> FLYING = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Integer> FLAP_TICKS = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Byte> CONTROL_STATE = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.BYTE);
-    private static final TrackedData<Integer> COMMAND = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
     public static final Animation ANIMATION_BITE = Animation.create(15);
     public static final Animation ANIMATION_BITE_RIDER = Animation.create(15);
     public static final Animation ANIMATION_WING_BLAST = Animation.create(30);
     public static final Animation ANIMATION_TAIL_WHIP = Animation.create(30);
     public static final Animation ANIMATION_SPEAK = Animation.create(10);
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Boolean> FLYING = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> FLAP_TICKS = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Byte> CONTROL_STATE = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.BYTE);
+    private static final TrackedData<Integer> COMMAND = DataTracker.registerData(EntityAmphithere.class, TrackedDataHandlerRegistry.INTEGER);
     public float flapProgress;
     public float groundProgress = 0;
     public float sitProgress = 0;

@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.MobSpawnerEntry;
 import net.minecraft.world.MobSpawnerLogic;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
     private final BlockEntityType<?> type;

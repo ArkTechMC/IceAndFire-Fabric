@@ -1,11 +1,13 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.gui.GuiMyrmexAddRoom;
+import com.github.alexthe666.iceandfire.client.gui.GuiMyrmexStaff;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.message.MessageGetMyrmexHive;
 import com.github.alexthe666.iceandfire.message.MessageSetMyrmexHiveNull;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -54,9 +56,8 @@ public class ItemMyrmexStaff extends Item {
                 } else {
                     IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
                 }
-            } else if (id != null && !id.equals(new UUID(0, 0))) {
-                IceAndFire.PROXY.openMyrmexStaffGui(itemStackIn);
-            }
+            } else if (id != null && !id.equals(new UUID(0, 0)))
+                MinecraftClient.getInstance().setScreen(new GuiMyrmexStaff(itemStackIn));
         }
         playerIn.swingHand(hand);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
@@ -64,6 +65,7 @@ public class ItemMyrmexStaff extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        assert context.getPlayer() != null;
         if (!context.getPlayer().isSneaking()) {
             return super.useOnBlock(context);
         } else {
@@ -77,9 +79,9 @@ public class ItemMyrmexStaff extends Item {
                     } else {
                         IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
                     }
-                } else if (id != null && !id.equals(new UUID(0, 0))) {
-                    IceAndFire.PROXY.openMyrmexAddRoomGui(context.getPlayer().getStackInHand(context.getHand()), context.getBlockPos(), context.getPlayer().getHorizontalFacing());
-                }
+                } else if (id != null && !id.equals(new UUID(0, 0)))
+                    if (context.getWorld().isClient)
+                        MinecraftClient.getInstance().setScreen(new GuiMyrmexAddRoom(context.getPlayer().getStackInHand(context.getHand()), context.getBlockPos(), context.getPlayer().getHorizontalFacing()));
             }
             context.getPlayer().swingHand(context.getHand());
             return ActionResult.SUCCESS;

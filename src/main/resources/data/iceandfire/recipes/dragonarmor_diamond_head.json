@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "c:storage_blocks/diamond"
+      "item": "minecraft:diamond_block"
     }
   },
   "pattern": [

@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
 
@@ -22,10 +21,10 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     public static final float[] growth_stage_3 = new float[]{7F, 12.5F};
     public static final float[] growth_stage_4 = new float[]{12.5F, 20F};
     public static final float[] growth_stage_5 = new float[]{20F, 30F};
+    public final float[][] growth_stages;
     private final TabulaModel fireDragonModel;
     private final TabulaModel lightningDragonModel;
     private final TabulaModel iceDragonModel;
-    public final float[][] growth_stages;
 
     public RenderDragonSkull(EntityRendererFactory.Context context, TabulaModel fireDragonModel, TabulaModel iceDragonModel, TabulaModel lightningDragonModel) {
         super(context);

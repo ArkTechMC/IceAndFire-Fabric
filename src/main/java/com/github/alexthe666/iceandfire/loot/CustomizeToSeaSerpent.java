@@ -45,7 +45,7 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
         }
 
         @Override
-        public CustomizeToSeaSerpent fromJson(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition [] conditionsIn) {
+        public CustomizeToSeaSerpent fromJson(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition[] conditionsIn) {
             return new CustomizeToSeaSerpent(conditionsIn);
         }
     }

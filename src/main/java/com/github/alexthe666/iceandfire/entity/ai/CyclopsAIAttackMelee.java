@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.entity.EntityCyclops;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.util.Hand;
-import org.jetbrains.annotations.NotNull;
 
 public class CyclopsAIAttackMelee extends MeleeAttackGoal {
 

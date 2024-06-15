@@ -6,7 +6,6 @@ import com.github.alexthe666.citadel.server.message.MessageSyncPathReached;
 import com.github.alexthe666.citadel.server.message.SyncClientTickRateMessage;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.message.*;
-import dev.arktechmc.iafextra.message.HippogryphGuiMessage;
 import dev.arktechmc.iafextra.message.ParticleSpawnMessage;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -41,8 +40,8 @@ public class IafClientNetworkHandler implements ClientPlayNetworking.PlayChannel
 
         INSTANCE.registerMessage(MessageDeathWormHitbox::new);
         INSTANCE.registerMessage(MessageDragonSetBurnBlock::new);
-        INSTANCE.registerMessage(MessageGetMyrmexHive::new);
-        INSTANCE.registerMessage(MessageSetMyrmexHiveNull::new);
+//        INSTANCE.registerMessage(MessageGetMyrmexHive::new);
+//        INSTANCE.registerMessage(MessageSetMyrmexHiveNull::new);
         INSTANCE.registerMessage(MessageSirenSong::new);
         INSTANCE.registerMessage(MessageStartRidingMob::new);
         INSTANCE.registerMessage(MessageUpdateDragonforge::new);
@@ -52,7 +51,6 @@ public class IafClientNetworkHandler implements ClientPlayNetworking.PlayChannel
         INSTANCE.registerMessage(MessageUpdatePixieJar::new);
         INSTANCE.registerMessage(MessageUpdatePodium::new);
 
-        INSTANCE.registerMessage(HippogryphGuiMessage::new);
         INSTANCE.registerMessage(ParticleSpawnMessage::new);
     }
 

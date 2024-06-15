@@ -10,9 +10,9 @@ import net.minecraft.util.Hand;
 import java.util.EnumSet;
 
 public class DragonAIAttackMelee extends Goal {
+    protected final EntityDragonBase dragon;
     private final boolean longMemory;
     private final double speedTowardsTarget;
-    protected final EntityDragonBase dragon;
     private int attackTick;
     private int delayCounter;
     private double targetX;

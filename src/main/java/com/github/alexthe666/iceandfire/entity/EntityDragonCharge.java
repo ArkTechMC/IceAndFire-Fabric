@@ -15,7 +15,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class EntityDragonCharge extends AbstractFireballEntity implements IDragonProjectile {
 

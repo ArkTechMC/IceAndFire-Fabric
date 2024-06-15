@@ -11,7 +11,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 public class RenderDreadPortal<T extends TileEntityDreadPortal> implements BlockEntityRenderer<T> {

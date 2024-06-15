@@ -28,15 +28,15 @@ public class TabulaModelBlock {
     public final boolean ambientOcclusion;
     @VisibleForTesting
     public final Map<String, String> textures;
+    public final String name = "";
+    @VisibleForTesting
+    protected final Identifier parentLocation;
     private final List<ModelElement> elements;
     private final boolean gui3d;
     private final ModelTransformation cameraTransforms;
     private final List<ModelOverride> overrides;
-    public final String name = "";
     @VisibleForTesting
     public TabulaModelBlock parent;
-    @VisibleForTesting
-    protected final Identifier parentLocation;
 
     public TabulaModelBlock(Identifier parentLocationIn, List<ModelElement> elementsIn, Map<String, String> texturesIn, boolean ambientOcclusionIn, boolean gui3dIn, ModelTransformation cameraTransformsIn, List<ModelOverride> overridesIn) {
         this.elements = elementsIn;

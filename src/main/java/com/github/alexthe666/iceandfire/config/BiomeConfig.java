@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BiomeConfig {
-    private static final Map<String, SpawnBiomeData> biomeConfigValues = new HashMap<>();
     public static final Pair<String, SpawnBiomeData> oreGenBiomes = Pair.of(IdUtil.build(IceAndFire.MOD_ID, "ore_gen_biomes"), DefaultBiomes.OVERWORLD);
     public static final Pair<String, SpawnBiomeData> sapphireBiomes = Pair.of(IdUtil.build(IceAndFire.MOD_ID, "sapphire_gen_biomes"), DefaultBiomes.VERY_SNOWY);
     public static final Pair<String, SpawnBiomeData> fireLilyBiomes = Pair.of(IdUtil.build(IceAndFire.MOD_ID, "fire_lily_biomes"), DefaultBiomes.VERY_HOT);
@@ -57,6 +56,7 @@ public class BiomeConfig {
     public static final Pair<String, SpawnBiomeData> creamyHippogryphBiomes = Pair.of(IdUtil.build(IceAndFire.MOD_ID, "hippogryph_creamy_biomes"), DefaultBiomes.HIPPOGRYPH_CREAMY);
     public static final Pair<String, SpawnBiomeData> darkBrownHippogryphBiomes = Pair.of(IdUtil.build(IceAndFire.MOD_ID, "hippogryph_dark_brown_biomes"), DefaultBiomes.HIPPOGRYPH_DARK_BROWN);
     public static final Pair<String, SpawnBiomeData> whiteHippogryphBiomes = Pair.of(IdUtil.build(IceAndFire.MOD_ID, "hippogryph_white_biomes"), DefaultBiomes.HIPPOGRYPH_WHITE);
+    private static final Map<String, SpawnBiomeData> biomeConfigValues = new HashMap<>();
     private static boolean init = false;
 
     public static void init() {

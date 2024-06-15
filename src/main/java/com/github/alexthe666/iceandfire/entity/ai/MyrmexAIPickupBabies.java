@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal {
+    public final EntityMyrmexWorker myrmex;
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super LivingEntity> targetEntitySelector;
-    public final EntityMyrmexWorker myrmex;
     protected LivingEntity targetEntity;
 
     private List<LivingEntity> listBabies = IAFMath.emptyLivingEntityList;

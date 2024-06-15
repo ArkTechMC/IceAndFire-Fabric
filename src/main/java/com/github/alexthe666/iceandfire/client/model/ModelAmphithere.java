@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelAmphithere extends ModelDragonBase<EntityAmphithere> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox BodyUpper;
     public final AdvancedModelBox BodyLower;
     public final AdvancedModelBox Neck1;
@@ -57,6 +56,7 @@ public class ModelAmphithere extends ModelDragonBase<EntityAmphithere> {
     public final AdvancedModelBox FingerR2;
     public final AdvancedModelBox FingerR3;
     public final AdvancedModelBox FingerR4;
+    private final ModelAnimator animator;
 
     public ModelAmphithere() {
         this.texWidth = 256;

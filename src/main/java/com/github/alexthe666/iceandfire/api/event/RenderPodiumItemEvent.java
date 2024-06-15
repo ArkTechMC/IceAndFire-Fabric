@@ -9,12 +9,12 @@ import net.minecraft.item.ItemStack;
     Called before an item is rendered on a podium. Cancel to remove default render of item
  */
 public class RenderPodiumItemEvent extends Event {
-    private final RenderPodium<?> render;
-    private final TileEntityPodium podium;
     final float partialTicks;
     final double x;
     final double y;
     final double z;
+    private final RenderPodium<?> render;
+    private final TileEntityPodium podium;
 
     public RenderPodiumItemEvent(RenderPodium<?> renderPodium, TileEntityPodium podium, float partialTicks, double x,
                                  double y, double z) {

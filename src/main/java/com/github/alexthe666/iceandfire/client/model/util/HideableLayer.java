@@ -10,8 +10,8 @@ import net.minecraft.entity.Entity;
 
 public class HideableLayer<T extends Entity, M extends EntityModel<T>, C extends FeatureRenderer<T, M>> extends FeatureRenderer<T, M> {
 
-    public boolean hidden;
     final C layerRenderer;
+    public boolean hidden;
 
     public HideableLayer(C layerRenderer, FeatureRendererContext<T, M> entityRendererIn) {
         super(entityRendererIn);

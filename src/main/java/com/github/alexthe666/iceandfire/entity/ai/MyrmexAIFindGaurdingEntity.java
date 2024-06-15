@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class MyrmexAIFindGaurdingEntity<T extends EntityMyrmexBase> extends TrackTargetGoal {
+    public final EntityMyrmexSoldier myrmex;
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super EntityMyrmexBase> targetEntitySelector;
-    public final EntityMyrmexSoldier myrmex;
     protected EntityMyrmexBase targetEntity;
 
     public MyrmexAIFindGaurdingEntity(EntityMyrmexSoldier myrmex) {

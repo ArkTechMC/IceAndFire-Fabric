@@ -19,10 +19,10 @@ import java.util.List;
 
 public class DragonAIMate extends Goal {
     private static final BlockState NEST = IafBlockRegistry.NEST.get().getDefaultState();
-    private final EntityDragonBase dragon;
     final World theWorld;
-    int spawnBabyDelay;
     final double moveSpeed;
+    private final EntityDragonBase dragon;
+    int spawnBabyDelay;
     private EntityDragonBase targetMate;
 
     public DragonAIMate(EntityDragonBase dragon, double speedIn) {

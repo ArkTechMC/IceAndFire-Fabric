@@ -41,14 +41,14 @@ public class GuiBestiary extends Screen {
     private static final Identifier DRAWINGS_1 = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/drawings_1.png");
     private static final Map<String, Identifier> PICTURE_LOCATION_CACHE = Maps.newHashMap();
     public final List<EnumBestiaryPages> allPageTypes = new ArrayList<>();
-    public EnumBestiaryPages pageType;
     public final List<IndexPageButton> indexButtons = new ArrayList<>();
+    protected final ItemStack book;
+    public EnumBestiaryPages pageType;
     public ChangePageButton previousPage;
     public ChangePageButton nextPage;
     public int bookPages;
     public int indexPages;
     public int indexPagesTotal = 1;
-    protected final ItemStack book;
     protected boolean index;
     protected TextRenderer font = MinecraftClient.getInstance().textRenderer;
 

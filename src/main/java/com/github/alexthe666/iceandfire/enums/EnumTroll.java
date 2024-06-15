@@ -25,11 +25,11 @@ public enum EnumTroll {
     FROST(IafItemRegistry.TROLL_FROST_ARMOR_MATERIAL, Weapon.COLUMN_FROST, Weapon.TRUNK_FROST, Weapon.AXE, Weapon.HAMMER),
     MOUNTAIN(IafItemRegistry.TROLL_MOUNTAIN_ARMOR_MATERIAL, Weapon.COLUMN, Weapon.AXE, Weapon.HAMMER);
 
-    private final Weapon[] weapons;
     public final Identifier TEXTURE;
     public final Identifier TEXTURE_STONE;
     public final Identifier TEXTURE_EYES;
     public final CustomArmorMaterial material;
+    private final Weapon[] weapons;
     public Supplier<Item> leather;
     public Supplier<Item> helmet;
     public Supplier<Item> chestplate;

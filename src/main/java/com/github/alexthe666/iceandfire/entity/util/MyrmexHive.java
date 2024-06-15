@@ -618,8 +618,8 @@ public class MyrmexHive {
 
     static class HiveAggressor {
         public final LivingEntity agressor;
-        public int agressionTime;
         public final int agressionLevel;
+        public int agressionTime;
 
         HiveAggressor(LivingEntity agressorIn, int agressionTimeIn, int agressionLevel) {
             this.agressor = agressorIn;

@@ -32,12 +32,12 @@ import net.minecraft.world.World;
 
 public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
+    public static final Animation ANIMATION_SPAWN = Animation.create(40);
+    public static final Animation ANIMATION_BITE = Animation.create(15);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(EntityDreadBeast.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadBeast.class, TrackedDataHandlerRegistry.INTEGER);
     private static final float INITIAL_WIDTH = 1.2F;
     private static final float INITIAL_HEIGHT = 0.9F;
-    public static final Animation ANIMATION_SPAWN = Animation.create(40);
-    public static final Animation ANIMATION_BITE = Animation.create(15);
     private final int hostileTicks = 0;
     private int animationTick;
     private Animation currentAnimation;

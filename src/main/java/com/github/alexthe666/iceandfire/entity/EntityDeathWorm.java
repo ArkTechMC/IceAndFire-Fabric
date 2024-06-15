@@ -62,13 +62,13 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     public static final Identifier TAN_GIANT_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/deathworm_tan_giant");
     public static final Identifier WHITE_GIANT_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/deathworm_white_giant");
     public static final Identifier RED_GIANT_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/deathworm_red_giant");
+    public static final Animation ANIMATION_BITE = Animation.create(10);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Integer> JUMP_TICKS = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Byte> CONTROL_STATE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Integer> WORM_AGE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<BlockPos> HOME = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BLOCK_POS);
-    public static final Animation ANIMATION_BITE = Animation.create(10);
     private final float prevScale = 0.0F;
     private final LookControl lookHelper;
     public ChainBuffer tail_buffer;

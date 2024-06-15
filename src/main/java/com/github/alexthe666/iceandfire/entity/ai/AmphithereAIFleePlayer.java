@@ -13,10 +13,10 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class AmphithereAIFleePlayer extends Goal {
+    protected final EntityAmphithere entity;
     private final double farSpeed;
     private final double nearSpeed;
     private final float avoidDistance;
-    protected final EntityAmphithere entity;
     protected PlayerEntity closestLivingEntity;
     private Path path;
 

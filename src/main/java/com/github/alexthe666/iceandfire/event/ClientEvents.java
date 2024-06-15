@@ -1,7 +1,5 @@
 package com.github.alexthe666.iceandfire.event;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.client.ClientProxy;
 import com.github.alexthe666.iceandfire.client.IafKeybindRegistry;
 import com.github.alexthe666.iceandfire.client.particle.CockatriceBeamRender;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderChain;
@@ -44,10 +42,7 @@ public class ClientEvents {
 //    }
 
     private static boolean shouldCancelRender(LivingEntity living) {
-        if (living.getVehicle() != null && living.getVehicle() instanceof EntityDragonBase) {
-            return ClientProxy.currentDragonRiders.contains(living.getUuid()) || living == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.getPerspective().isFirstPerson();
-        }
-        return false;
+        return living.getVehicle() != null && living.getVehicle() instanceof EntityDragonBase && living == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.getPerspective().isFirstPerson();
     }
 
     public static void onLivingUpdate(LivingEntity entity) {
@@ -62,33 +57,18 @@ public class ClientEvents {
                 }
             }
         }
-        if (entity instanceof PlayerEntity player) {
-            if (player.getWorld().isClient) {
-
-                if (player.getVehicle() instanceof ICustomMoveController) {
-                    Entity vehicle = player.getVehicle();
-                    ICustomMoveController moveController = ((Entity & ICustomMoveController) player.getVehicle());
-                    byte previousState = moveController.getControlState();
-                    moveController.up(mc.options.jumpKey.isPressed());
-                    moveController.down(IafKeybindRegistry.dragon_down.isPressed());
-                    moveController.attack(IafKeybindRegistry.dragon_strike.isPressed());
-                    moveController.dismount(mc.options.sneakKey.isPressed());
-                    moveController.strike(IafKeybindRegistry.dragon_fireAttack.isPressed());
-                    byte controlState = moveController.getControlState();
-                    if (controlState != previousState) {
-                        IafClientNetworkHandler.send(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));
-                    }
-                }
-            }
-            if (player.getWorld().isClient && IafKeybindRegistry.dragon_change_view.isPressed()) {
-                int currentView = IceAndFire.PROXY.getDragon3rdPersonView();
-                if (currentView + 1 > 3) {
-                    currentView = 0;
-                } else {
-                    currentView++;
-                }
-                IceAndFire.PROXY.setDragon3rdPersonView(currentView);
-            }
+        if (entity instanceof PlayerEntity player && player.getWorld().isClient && player.getVehicle() instanceof ICustomMoveController) {
+            Entity vehicle = player.getVehicle();
+            ICustomMoveController moveController = (Entity & ICustomMoveController) player.getVehicle();
+            byte previousState = moveController.getControlState();
+            moveController.up(mc.options.jumpKey.isPressed());
+            moveController.down(IafKeybindRegistry.dragon_down.isPressed());
+            moveController.attack(IafKeybindRegistry.dragon_strike.isPressed());
+            moveController.dismount(mc.options.sneakKey.isPressed());
+            moveController.strike(IafKeybindRegistry.dragon_fireAttack.isPressed());
+            byte controlState = moveController.getControlState();
+            if (controlState != previousState)
+                IafClientNetworkHandler.send(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));
         }
     }
 
@@ -99,12 +79,10 @@ public class ClientEvents {
     public static void onPostRenderLiving(LivingEntity entity, LivingEntityRenderer<?, ?> renderer, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
         if (shouldCancelRender(entity)) return;
         EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
-        for (LivingEntity target : data.miscData.getTargetedByScepter()) {
+        for (LivingEntity target : data.miscData.getTargetedByScepter())
             CockatriceBeamRender.render(entity, target, matrixStack, buffers, partialRenderTick);
-        }
-        if (data.frozenData.isFrozen) {
+        if (data.frozenData.isFrozen)
             RenderFrozenState.render(entity, matrixStack, buffers, light, data.frozenData.frozenTicks);
-        }
         RenderChain.render(entity, partialRenderTick, matrixStack, buffers, light, data.chainData.getChainedTo());
     }
 

@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Body;
     public final AdvancedModelBox FrontThighR;
     public final AdvancedModelBox FrontThighL;
@@ -47,6 +46,7 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
     public final AdvancedModelBox StirrupL;
     public final AdvancedModelBox StirrupIronR;
     public final AdvancedModelBox StirrupIronL;
+    private final ModelAnimator animator;
 
     public ModelHippocampus() {
         this.animator = ModelAnimator.create();

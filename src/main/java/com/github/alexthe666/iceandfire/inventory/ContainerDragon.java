@@ -1,7 +1,9 @@
 package com.github.alexthe666.iceandfire.inventory;
 
+import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -13,16 +15,17 @@ import net.minecraft.screen.slot.Slot;
 
 public class ContainerDragon extends ScreenHandler {
     private final Inventory dragonInventory;
-    private final EntityDragonBase dragon;
+    private final EntityPropertyDelegate propertyDelegate;
 
     public ContainerDragon(int i, PlayerInventory playerInventory) {
-        this(i, new SimpleInventory(5), playerInventory, null);
+        this(i, new SimpleInventory(5), playerInventory, new EntityPropertyDelegate());
     }
 
-    public ContainerDragon(int id, Inventory dragonInventory, PlayerInventory playerInventory, EntityDragonBase rat) {
+    public ContainerDragon(int id, Inventory dragonInventory, PlayerInventory playerInventory, EntityPropertyDelegate propertyDelegate) {
         super(IafContainerRegistry.DRAGON_CONTAINER.get(), id);
         this.dragonInventory = dragonInventory;
-        this.dragon = rat;
+        this.propertyDelegate = propertyDelegate;
+        this.addProperties(this.propertyDelegate);
         byte b0 = 3;
         dragonInventory.onOpen(playerInventory.player);
         int i = (b0 - 4) * 18;
@@ -97,7 +100,8 @@ public class ContainerDragon extends ScreenHandler {
 
     @Override
     public boolean canUse(PlayerEntity playerIn) {
-        return !this.dragon.hasInventoryChanged(this.dragonInventory) && this.dragonInventory.canPlayerUse(playerIn) && this.dragon.isAlive() && this.dragon.distanceTo(playerIn) < 8.0F;
+        Entity entity = playerIn.getWorld().getEntityById(this.getDragonId());
+        return entity instanceof EntityDragonBase dragon && !dragon.hasInventoryChanged(this.dragonInventory) && this.dragonInventory.canPlayerUse(playerIn) && dragon.isAlive() && dragon.distanceTo(playerIn) < 8.0F;
     }
 
     @Override
@@ -153,4 +157,7 @@ public class ContainerDragon extends ScreenHandler {
         this.dragonInventory.onClose(playerIn);
     }
 
+    public int getDragonId() {
+        return this.propertyDelegate.entityId;
+    }
 }

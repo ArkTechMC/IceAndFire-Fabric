@@ -19,11 +19,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TitleScreenRenderManager {
     public static final Identifier splash = new Identifier(IceAndFire.MOD_ID, "splashes.txt");
+    public static final Identifier[] pageFlipTextures;
+    public static final Identifier[] drawingTextures = new Identifier[23];
     private static final Identifier BESTIARY_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/bestiary_menu.png");
     private static final Identifier TABLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/main_menu/table.png");
     private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-    public static final Identifier[] pageFlipTextures;
-    public static final Identifier[] drawingTextures = new Identifier[23];
     private static int layerTick;
     private static List<String> splashText;
     private static boolean isFlippingPage = false;

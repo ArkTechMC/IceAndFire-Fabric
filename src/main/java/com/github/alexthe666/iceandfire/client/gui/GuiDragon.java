@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.client.StatCollector;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.inventory.ContainerDragon;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -43,14 +44,15 @@ public class GuiDragon extends HandledScreen<ContainerDragon> {
         int k = (this.width - this.backgroundWidth) / 2;
         int l = (this.height - this.backgroundHeight) / 2;
         matrixStack.drawTexture(texture, k, l, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        Entity entity = IceAndFire.PROXY.getReferencedMob();
+        assert MinecraftClient.getInstance().world != null;
+        Entity entity = MinecraftClient.getInstance().world.getEntityById(this.handler.getDragonId());
         if (entity instanceof EntityDragonBase dragon) {
             float dragonScale = 1F / Math.max(0.0001F, dragon.getScaleFactor());
             Quaternionf quaternionf = (new Quaternionf()).rotateY((float) MathHelper.lerp((float) mouseX / this.width, 0, Math.PI)).rotateZ((float) MathHelper.lerp((float) mouseY / this.width, Math.PI, Math.PI + 0.2));
             InventoryScreen.drawEntity(matrixStack, k + 88, l + (int) (0.5F * (dragon.flyProgress)) + 55, (int) (dragonScale * 23F), quaternionf, null, dragon);
         }
         if (entity instanceof EntityDragonBase dragon) {
-            assert this.client!=null;
+            assert this.client != null;
             TextRenderer textRenderer = this.client.textRenderer;
             String s3 = dragon.getCustomName() == null ? StatCollector.translateToLocal("dragon.unnamed") : StatCollector.translateToLocal("dragon.name") + " " + dragon.getCustomName().getString();
             textRenderer.draw(s3, k + (float) this.backgroundWidth / 2 - (float) textRenderer.getWidth(s3) / 2, l + 75, 0XFFFFFF, false, matrixStack.getMatrices().peek().getPositionMatrix(), matrixStack.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);

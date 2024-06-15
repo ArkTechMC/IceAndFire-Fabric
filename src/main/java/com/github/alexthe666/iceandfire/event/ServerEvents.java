@@ -73,10 +73,10 @@ import java.util.function.Predicate;
 public class ServerEvents {
 
     public static final UUID ALEX_UUID = UUID.fromString("71363abe-fd03-49c9-940d-aae8b8209b7c");
+    public static final String BOLT_DONT_DESTROY_LOOT = "iceandfire.bolt_skip_loot";
     // FIXME :: No check for shouldFear()?
     private static final Predicate<LivingEntity> VILLAGER_FEAR = entity -> entity instanceof IVillagerFear;
     private static final String[] VILLAGE_TYPES = new String[]{"plains", "desert", "snowy", "savanna", "taiga"};
-    public static final String BOLT_DONT_DESTROY_LOOT = "iceandfire.bolt_skip_loot";
     private final Random rand = new Random();
 
     private static void signalChickenAlarm(LivingEntity chicken, LivingEntity attacker) {

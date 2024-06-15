@@ -57,6 +57,10 @@ public abstract class AbstractPathJob implements Callable<Path> {
      */
     protected final PathResult result;
     /**
+     * The entity this job belongs to.
+     */
+    protected final WeakReference<LivingEntity> entity;
+    /**
      * Queue of all open nodes.
      */
     private final Queue<MNode> nodesOpen = new PriorityQueue<>(500);
@@ -89,10 +93,6 @@ public abstract class AbstractPathJob implements Callable<Path> {
     protected Set<MNode> debugNodesVisited = new HashSet<>();
     protected Set<MNode> debugNodesNotVisited = new HashSet<>();
     protected Set<MNode> debugNodesPath = new HashSet<>();
-    /**
-     * The entity this job belongs to.
-     */
-    protected final WeakReference<LivingEntity> entity;
     IPassabilityNavigator passabilityNavigator;
     //  May be faster, but can produce strange results
     private boolean allowJumpPointSearchTypeWalk;

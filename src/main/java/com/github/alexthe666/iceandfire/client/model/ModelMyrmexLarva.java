@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 
 public class ModelMyrmexLarva extends ModelDragonBase {
-    private final ModelAnimator animator;
     public final AdvancedModelBox Body2;
     public final AdvancedModelBox Body3;
     public final AdvancedModelBox Body1;
@@ -23,6 +22,7 @@ public class ModelMyrmexLarva extends ModelDragonBase {
     public final AdvancedModelBox Body4_2;
     public final AdvancedModelBox Neck1;
     public final AdvancedModelBox HeadBase;
+    private final ModelAnimator animator;
 
     public ModelMyrmexLarva() {
         this.texWidth = 128;

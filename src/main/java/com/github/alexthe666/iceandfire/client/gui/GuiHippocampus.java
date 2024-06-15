@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.client.gui;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import com.github.alexthe666.iceandfire.inventory.HippocampusContainerMenu;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -25,7 +26,8 @@ public class GuiHippocampus extends HandledScreen<HippocampusContainerMenu> {
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
         int k = 0;
         int l = 0;
-        Entity entity = IceAndFire.PROXY.getReferencedMob();
+        assert MinecraftClient.getInstance().world != null;
+        Entity entity = MinecraftClient.getInstance().world.getEntityById(this.handler.getHippocampusId());
         assert this.client != null;
         TextRenderer textRenderer = this.client.textRenderer;
         if (entity instanceof EntityHippocampus hippo)
@@ -47,7 +49,8 @@ public class GuiHippocampus extends HandledScreen<HippocampusContainerMenu> {
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
         pGuiGraphics.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        Entity entity = IceAndFire.PROXY.getReferencedMob();
+        assert MinecraftClient.getInstance().world != null;
+        Entity entity = MinecraftClient.getInstance().world.getEntityById(this.handler.getHippocampusId());
         if (entity instanceof EntityHippocampus hippo) {
             if (hippo.isChested())
                 pGuiGraphics.drawTexture(TEXTURE, i + 79, j + 17, 0, this.backgroundHeight, 5 * 18, 54);

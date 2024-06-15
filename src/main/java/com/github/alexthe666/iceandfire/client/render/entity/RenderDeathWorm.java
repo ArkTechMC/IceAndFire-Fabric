@@ -8,7 +8,6 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 
 public class RenderDeathWorm extends MobEntityRenderer<EntityDeathWorm, ModelDeathWorm> {
     public static final Identifier TEXTURE_RED = new Identifier(IceAndFire.MOD_ID, "textures/models/deathworm/deathworm_red.png");

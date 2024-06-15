@@ -135,7 +135,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public int [] getAvailableSlots(Direction side) {
+    public int[] getAvailableSlots(Direction side) {
         return slotsTop;
     }
 

@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
 import com.github.alexthe666.iceandfire.inventory.ContainerHippogryph;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -26,7 +27,8 @@ public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
 
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
-        Entity entity = IceAndFire.PROXY.getReferencedMob();
+        assert MinecraftClient.getInstance().world != null;
+        Entity entity = MinecraftClient.getInstance().world.getEntityById(this.handler.getHippogryphId());
         assert this.client != null;
         TextRenderer font = this.client.textRenderer;
         if (entity instanceof EntityHippogryph hippo)
@@ -50,7 +52,8 @@ public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
         pGuiGraphics.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
-        Entity entity = IceAndFire.PROXY.getReferencedMob();
+        assert MinecraftClient.getInstance().world != null;
+        Entity entity = MinecraftClient.getInstance().world.getEntityById(this.handler.getHippogryphId());
         if (entity instanceof EntityHippogryph hippo) {
             if (hippo.isChested())
                 pGuiGraphics.drawTexture(TEXTURE, i + 79, j + 17, 0, this.backgroundHeight, 5 * 18, 54);

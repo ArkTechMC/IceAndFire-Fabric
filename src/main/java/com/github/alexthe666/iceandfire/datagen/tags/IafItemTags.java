@@ -17,13 +17,6 @@ import net.minecraft.util.Identifier;
 import java.util.concurrent.CompletableFuture;
 
 public class IafItemTags extends ItemTagProvider {
-    private final static String STORAGE_BLOCK_PATH = Tags.Items.STORAGE_BLOCKS.id().getPath();
-    private final static String INGOTS_PATH = Tags.Items.INGOTS.id().getPath();
-    private final static String NUGGETS_PATH = Tags.Items.NUGGETS.id().getPath();
-    private final static String BONES_PATH = Tags.Items.BONES.id().getPath();
-    private final static String ORES_PATH = Tags.Items.ORES.id().getPath();
-    private final static String GEMS = Tags.Items.GEMS.id().getPath();
-
     // Recipes
     public static final TagKey<Item> CHARRED_BLOCKS = createKey("charred_blocks");
     public static final TagKey<Item> FROZEN_BLOCKS = createKey("frozen_blocks");
@@ -35,25 +28,11 @@ public class IafItemTags extends ItemTagProvider {
     public static final TagKey<Item> SCALES_DRAGON_LIGHTNING = createKey("scales/dragon/lightning");
     public static final TagKey<Item> SCALES_SEA_SERPENT = createKey("scales/sea_serpent");
     public static final TagKey<Item> DRAGON_FOOD_MEAT = createKey("dragon_food_meat");
-
-    // Forge (+ Recipes)
-    public static final TagKey<Item> STORAGE_BLOCKS_SCALES_DRAGON_FIRE = createForgeKey(STORAGE_BLOCK_PATH + "/scales/dragon/fire");
-    public static final TagKey<Item> STORAGE_BLOCKS_SCALES_DRAGON_ICE = createForgeKey(STORAGE_BLOCK_PATH + "/scales/dragon/ice");
-    public static final TagKey<Item> STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING = createForgeKey(STORAGE_BLOCK_PATH + "/scales/dragon/lightning");
-    public static final TagKey<Item> STORAGE_BLOCKS_SILVER = createForgeKey(STORAGE_BLOCK_PATH + "/silver");
-    public static final TagKey<Item> GEMS_SAPPHIRE = createForgeKey(GEMS + "/sapphire");
-    public static final TagKey<Item> INGOTS_SILVER = createForgeKey(INGOTS_PATH + "/silver");
-    public static final TagKey<Item> NUGGETS_COPPER = createForgeKey(NUGGETS_PATH + "/copper");
-    public static final TagKey<Item> NUGGETS_SILVER = createForgeKey(NUGGETS_PATH + "/silver");
-    public static final TagKey<Item> BONES_WITHER = createForgeKey(BONES_PATH + "/wither");
-
     // Logic
     public static final TagKey<Item> MAKE_ITEM_DROPS_FIREIMMUNE = createKey("make_item_drops_fireimmune");
     public static final TagKey<Item> DRAGON_ARROWS = createKey("dragon_arrows");
-
     public static final TagKey<Item> DRAGON_BLOODS = createKey("dragon_bloods");
     public static final TagKey<Item> DRAGON_HEARTS = createKey("dragon_hearts");
-
     public static final TagKey<Item> BREED_AMPITHERE = createKey("breed_ampithere");
     public static final TagKey<Item> BREED_HIPPOCAMPUS = createKey("breed_hippocampus");
     public static final TagKey<Item> BREED_HIPPOGRYPH = createKey("breed_hippogryph");
@@ -66,6 +45,22 @@ public class IafItemTags extends ItemTagProvider {
     public static final TagKey<Item> TEMPT_DRAGON = createKey("tempt_dragon");
     public static final TagKey<Item> TEMPT_HIPPOCAMPUS = createKey("tempt_hippocampus");
     public static final TagKey<Item> TEMPT_HIPPOGRYPH = createKey("tempt_hippogryph");
+    private final static String STORAGE_BLOCK_PATH = Tags.Items.STORAGE_BLOCKS.id().getPath();
+    // Forge (+ Recipes)
+    public static final TagKey<Item> STORAGE_BLOCKS_SCALES_DRAGON_FIRE = createForgeKey(STORAGE_BLOCK_PATH + "/scales/dragon/fire");
+    public static final TagKey<Item> STORAGE_BLOCKS_SCALES_DRAGON_ICE = createForgeKey(STORAGE_BLOCK_PATH + "/scales/dragon/ice");
+    public static final TagKey<Item> STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING = createForgeKey(STORAGE_BLOCK_PATH + "/scales/dragon/lightning");
+    public static final TagKey<Item> STORAGE_BLOCKS_SILVER = createForgeKey(STORAGE_BLOCK_PATH + "/silver");
+    private final static String INGOTS_PATH = Tags.Items.INGOTS.id().getPath();
+    public static final TagKey<Item> INGOTS_SILVER = createForgeKey(INGOTS_PATH + "/silver");
+    private final static String NUGGETS_PATH = Tags.Items.NUGGETS.id().getPath();
+    public static final TagKey<Item> NUGGETS_COPPER = createForgeKey(NUGGETS_PATH + "/copper");
+    public static final TagKey<Item> NUGGETS_SILVER = createForgeKey(NUGGETS_PATH + "/silver");
+    private final static String BONES_PATH = Tags.Items.BONES.id().getPath();
+    public static final TagKey<Item> BONES_WITHER = createForgeKey(BONES_PATH + "/wither");
+    private final static String ORES_PATH = Tags.Items.ORES.id().getPath();
+    private final static String GEMS = Tags.Items.GEMS.id().getPath();
+    public static final TagKey<Item> GEMS_SAPPHIRE = createForgeKey(GEMS + "/sapphire");
 
     public IafItemTags(DataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags) {
         super(output, lookupProvider, blockTags);

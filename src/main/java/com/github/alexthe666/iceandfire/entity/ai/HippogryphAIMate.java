@@ -16,10 +16,10 @@ import java.util.List;
 
 public class HippogryphAIMate extends Goal {
 
-    private final EntityHippogryph hippo;
     final World world;
-    int spawnBabyDelay;
     final double moveSpeed;
+    private final EntityHippogryph hippo;
+    int spawnBabyDelay;
     private EntityHippogryph targetMate;
 
     public HippogryphAIMate(EntityHippogryph animal, double speedIn) {

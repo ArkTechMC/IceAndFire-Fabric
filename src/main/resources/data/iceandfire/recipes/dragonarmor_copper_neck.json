@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "tag": "c:storage_blocks/copper"
+      "item": "minecraft:copper_block"
     }
   },
   "pattern": [

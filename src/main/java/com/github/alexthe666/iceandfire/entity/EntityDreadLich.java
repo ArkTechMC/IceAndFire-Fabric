@@ -44,10 +44,10 @@ import net.minecraft.world.World;
 
 public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, RangedAttackMob {
 
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadLich.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Integer> MINION_COUNT = DataTracker.registerData(EntityDreadLich.class, TrackedDataHandlerRegistry.INTEGER);
     public static final Animation ANIMATION_SPAWN = Animation.create(40);
     public static final Animation ANIMATION_SUMMON = Animation.create(15);
+    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDreadLich.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> MINION_COUNT = DataTracker.registerData(EntityDreadLich.class, TrackedDataHandlerRegistry.INTEGER);
     private final DreadLichAIStrife aiArrowAttack = new DreadLichAIStrife(this, 1.0D, 20, 15.0F);
     private final MeleeAttackGoal aiAttackOnCollide = new MeleeAttackGoal(this, 1.0D, false);
     private int animationTick;

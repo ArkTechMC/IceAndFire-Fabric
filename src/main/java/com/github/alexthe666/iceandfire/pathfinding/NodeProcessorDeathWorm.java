@@ -41,7 +41,7 @@ public class NodeProcessorDeathWorm extends PathNodeMaker {
     }
 
     @Override
-    public int getSuccessors(PathNode [] p_222859_1_, PathNode p_222859_2_) {
+    public int getSuccessors(PathNode[] p_222859_1_, PathNode p_222859_2_) {
         int i = 0;
 
         for (Direction direction : Direction.values()) {

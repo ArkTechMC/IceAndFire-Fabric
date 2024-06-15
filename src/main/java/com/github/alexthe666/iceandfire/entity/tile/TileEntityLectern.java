@@ -21,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,7 +39,6 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     public float pageHelp1;
     public float pageHelp2;
     public EnumBestiaryPages[] selectedPages = new EnumBestiaryPages[3];
-    private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
     public final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {
@@ -58,6 +56,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
             return 3;
         }
     };
+    private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     public TileEntityLectern(BlockPos pos, BlockState state) {
         super(IafTileEntityRegistry.IAF_LECTERN.get(), pos, state);
@@ -229,7 +228,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public int [] getAvailableSlots(Direction side) {
+    public int[] getAvailableSlots(Direction side) {
         return side == Direction.DOWN ? slotsBottom : (side == Direction.UP ? slotsTop : slotsSides);
     }
 

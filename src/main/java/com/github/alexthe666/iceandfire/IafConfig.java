@@ -6,9 +6,9 @@ import io.github.fabricators_of_create.porting_lib.config.ModConfig;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 public class IafConfig extends ModConfig {
+    public static final double dreadQueenMaxHealth = 750;
     public static boolean customMainMenu = true;
     public static boolean useVanillaFont = false;
-
     //public static boolean logCascadingWorldGen = false;
     public static boolean generateDragonSkeletons = true;
     public static int generateDragonSkeletonChance = 300;
@@ -115,7 +115,6 @@ public class IafConfig extends ModConfig {
     public static boolean weezerTinkers = true;
     public static double dragonBlockBreakingDropChance = 0.1D;
     public static boolean dragonAuto3rdPerson = true;
-    public static final double dreadQueenMaxHealth = 750;
     public static boolean generateMausoleums = true;
     public static boolean spawnLiches = true;
     public static int lichSpawnRate = 4;

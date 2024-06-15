@@ -13,11 +13,11 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 
 public class AmphithereAIFollowOwner extends Goal {
-    private final EntityAmphithere ampithere;
-    private final double followSpeed;
     final World world;
     final float maxDist;
     final float minDist;
+    private final EntityAmphithere ampithere;
+    private final double followSpeed;
     private LivingEntity owner;
     private int timeToRecalcPath;
     private float oldWaterCost;

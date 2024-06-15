@@ -11,7 +11,6 @@ import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Box;
-import org.jetbrains.annotations.NotNull;
 
 public class StymphalianBirdAITarget extends ActiveTargetGoal<LivingEntity> {
     private final EntityStymphalianBird bird;

@@ -68,7 +68,7 @@ public class BlockPixieHouse extends BlockWithEntity {
     }
 
     public void dropPixie(World world, BlockPos pos) {
-        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityPixieHouse house&& house.hasPixie)
+        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityPixieHouse house && house.hasPixie)
             house.releasePixie();
     }
 
