@@ -22,12 +22,12 @@ public class RenderGorgon extends MobEntityRenderer<EntityGorgon, ModelGorgon> {
     }
 
     @Override
-    public void scale(@NotNull EntityGorgon LivingEntityIn, MatrixStack stack, float partialTickTime) {
+    public void scale(EntityGorgon LivingEntityIn, MatrixStack stack, float partialTickTime) {
         stack.scale(0.85F, 0.85F, 0.85F);
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityGorgon gorgon) {
+    public Identifier getTexture(EntityGorgon gorgon) {
         if (gorgon.getAnimation() == EntityGorgon.ANIMATION_SCARE) {
             return AGRESSIVE_TEXTURE;
         } else if (gorgon.deathTime > 0) {

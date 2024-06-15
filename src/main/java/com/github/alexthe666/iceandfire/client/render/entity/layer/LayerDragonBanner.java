@@ -27,7 +27,7 @@ public class LayerDragonBanner extends FeatureRenderer<EntityDragonBase, Advance
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack itemstack = entity.getStackInHand(Hand.OFF_HAND);
         matrixStackIn.push();
         if (!itemstack.isEmpty() && itemstack.getItem() instanceof BannerItem) {

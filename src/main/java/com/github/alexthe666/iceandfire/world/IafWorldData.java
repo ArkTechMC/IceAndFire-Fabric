@@ -87,7 +87,7 @@ public class IafWorldData extends PersistentState {
     }
 
     @Override
-    public @NotNull NbtCompound writeNbt(@NotNull final NbtCompound tag) {
+    public NbtCompound writeNbt(final NbtCompound tag) {
         LAST_GENERATED.forEach((key, value) -> {
             NbtList listTag = new NbtList();
 

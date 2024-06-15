@@ -27,7 +27,7 @@ public class RenderLightningDragon extends RenderDragonBase {
     }
 
     @Override
-    public boolean shouldRender(@NotNull EntityDragonBase livingEntityIn, @NotNull Frustum camera, double camX, double camY, double camZ) {
+    public boolean shouldRender(EntityDragonBase livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
             return true;
         } else {
@@ -42,7 +42,7 @@ public class RenderLightningDragon extends RenderDragonBase {
     }
 
     @Override
-    public void render(@NotNull EntityDragonBase entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityDragonBase entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         EntityLightningDragon lightningDragon = (EntityLightningDragon) entityIn;
         matrixStackIn.push();

@@ -355,7 +355,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     //Return a new WalkNodeProcessor for safety reasons eg if the entity
     //has a passenger this method get's called and returning null is not a great idea
     @Override
-    protected @NotNull PathNodeNavigator createPathNodeNavigator(final int p_179679_1_) {
+    protected PathNodeNavigator createPathNodeNavigator(final int p_179679_1_) {
         return new PathNodeNavigator(new LandPathNodeMaker(), p_179679_1_);
     }
 
@@ -383,17 +383,17 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     }
 
     @Override
-    protected @NotNull Vec3d getPos() {
+    protected Vec3d getPos() {
         return this.ourEntity.getPos();
     }
 
     @Override
-    public Path findPathTo(final @NotNull BlockPos pos, final int accuracy) {
+    public Path findPathTo(final BlockPos pos, final int accuracy) {
         return null;
     }
 
     @Override
-    protected boolean canPathDirectlyThrough(final @NotNull Vec3d start, final @NotNull Vec3d end) {
+    protected boolean canPathDirectlyThrough(final Vec3d start, final Vec3d end) {
         // TODO improve road walking. This is better in some situations, but still not great.
         return super.canPathDirectlyThrough(start, end);
     }
@@ -757,7 +757,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
      * Don't let vanilla rapidly discard paths, set a timeout before its allowed to use stuck.
      */
     @Override
-    protected void checkTimeouts(final @NotNull Vec3d positionVec3) {
+    protected void checkTimeouts(final Vec3d positionVec3) {
         // Do nothing, unstuck is checked on tick, not just when we have a path
     }
 

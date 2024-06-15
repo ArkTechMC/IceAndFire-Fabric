@@ -102,7 +102,7 @@ public class GuiMyrmexAddRoom extends Screen {
     }
 
     @Override
-    public void renderBackground(@NotNull DrawContext ms) {
+    public void renderBackground(DrawContext ms) {
         super.renderBackground(ms);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         this.client.getTextureManager().bindTexture(this.jungle ? JUNGLE_TEXTURE : DESERT_TEXTURE);
@@ -112,7 +112,7 @@ public class GuiMyrmexAddRoom extends Screen {
     }
 
     @Override
-    public void render(@NotNull DrawContext ms, int mouseX, int mouseY, float partialTicks) {
+    public void render(DrawContext ms, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(ms);
         this.init();
         int i = (this.width - 248) / 2 + 10;

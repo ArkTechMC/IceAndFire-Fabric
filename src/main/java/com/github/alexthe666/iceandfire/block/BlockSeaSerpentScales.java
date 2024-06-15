@@ -8,7 +8,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.BlockView;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class BlockSeaSerpentScales extends Block {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, BlockView worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("sea_serpent." + this.name).formatted(this.color));
     }
 }

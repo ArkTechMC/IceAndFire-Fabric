@@ -27,7 +27,7 @@ public class ItemSeaSerpentArmor extends ArmorItem {
     }
 
     @Override
-    public @NotNull String getTranslationKey() {
+    public String getTranslationKey() {
         return switch (this.type) {
             case HELMET -> "item.iceandfire.sea_serpent_helmet";
             case CHESTPLATE -> "item.iceandfire.sea_serpent_chestplate";
@@ -52,7 +52,7 @@ public class ItemSeaSerpentArmor extends ArmorItem {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 
         tooltip.add(Text.translatable("sea_serpent." + this.armor_type.resourceName).formatted(this.armor_type.color));
         tooltip.add(Text.translatable("item.iceandfire.sea_serpent_armor.desc_0").formatted(Formatting.GRAY));

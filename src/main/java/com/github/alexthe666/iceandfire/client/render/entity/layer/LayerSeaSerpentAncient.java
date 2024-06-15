@@ -23,7 +23,7 @@ public class LayerSeaSerpentAncient extends FeatureRenderer<EntitySeaSerpent, Ad
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntitySeaSerpent serpent, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntitySeaSerpent serpent, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (serpent.isAncient()) {
             RenderLayer tex = RenderLayer.getEntityNoOutline(serpent.isBlinking() ? TEXTURE_BLINK : TEXTURE);
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(tex);

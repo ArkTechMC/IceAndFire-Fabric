@@ -18,7 +18,7 @@ public class DreadAITargetNonDread extends ActiveTargetGoal<LivingEntity> {
     }
 
     @Override
-    protected boolean canTrack(LivingEntity target, @NotNull TargetPredicate targetPredicate) {
+    protected boolean canTrack(LivingEntity target, TargetPredicate targetPredicate) {
         if (super.canTrack(target, targetPredicate)) {
             return !(target instanceof IDreadMob) && DragonUtils.isAlive(target);
         }

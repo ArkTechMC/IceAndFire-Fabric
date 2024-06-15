@@ -30,7 +30,7 @@ public class RenderGorgonHead extends BuiltinModelItemRenderer {
     }
 
     @Override
-    public void render(ItemStack stack, @NotNull ModelTransformationMode type, @NotNull MatrixStack stackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         boolean active = false;
         if (stack.getItem() == IafItemRegistry.GORGON_HEAD.get()) {
             if (stack.getNbt() != null) {

@@ -46,7 +46,7 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         if (this.getCommanderId() != null) {
             compound.putUuid("CommanderUUID", this.getCommanderId());
@@ -54,7 +54,7 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         UUID uuid;
         if (compound.containsUuid("CommanderUUID")) {
@@ -73,14 +73,14 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setBreedingAge(24000);
         return data;
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         return entityIn instanceof IDreadMob || super.isTeammate(entityIn);
     }
 
@@ -103,7 +103,7 @@ public class EntityDreadHorse extends SkeletonHorseEntity implements IDreadMob {
     }
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
     }
 

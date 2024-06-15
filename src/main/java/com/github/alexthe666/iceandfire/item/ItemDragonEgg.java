@@ -26,22 +26,22 @@ public class ItemDragonEgg extends Item {
     }
 
     @Override
-    public @NotNull String getTranslationKey() {
+    public String getTranslationKey() {
         return "item.iceandfire.dragonegg";
     }
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase()).formatted(this.type.color));
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack itemstack = context.getPlayer().getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide());
         EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), context.getWorld());

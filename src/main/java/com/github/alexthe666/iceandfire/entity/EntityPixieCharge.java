@@ -109,7 +109,7 @@ public class EntityPixieCharge extends AbstractFireballEntity {
     }
 
     @Override
-    protected void onCollision(@NotNull HitResult movingObject) {
+    protected void onCollision(HitResult movingObject) {
         boolean flag = false;
         Entity shootingEntity = this.getOwner();
         if (!this.getWorld().isClient) {

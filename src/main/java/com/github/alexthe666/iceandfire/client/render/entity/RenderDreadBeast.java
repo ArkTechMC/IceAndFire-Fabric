@@ -27,7 +27,7 @@ public class RenderDreadBeast extends MobEntityRenderer<EntityDreadBeast, ModelD
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityDreadBeast beast) {
+    public Identifier getTexture(EntityDreadBeast beast) {
         return beast.getVariant() == 1 ? TEXTURE_1 : TEXTURE_0;
 
     }

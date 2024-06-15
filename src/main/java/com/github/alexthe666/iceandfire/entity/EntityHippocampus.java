@@ -130,7 +130,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    protected @NotNull EntityNavigation createNavigation(@NotNull World level) {
+    protected EntityNavigation createNavigation(World level) {
         return new AmphibiousSwimNavigation(this, level);
     }
 
@@ -159,12 +159,12 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.AQUATIC;
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         if (this.isTamed()) {
             LivingEntity livingentity = this.getOwner();
             if (entityIn == livingentity) {
@@ -209,7 +209,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public @NotNull ItemStack tryEquip(ItemStack itemStackIn) {
+    public ItemStack tryEquip(ItemStack itemStackIn) {
         if (itemStackIn == null)
             return ItemStack.EMPTY;
         EquipmentSlot equipmentSlot = getPreferredEquipmentSlot(itemStackIn);
@@ -272,12 +272,12 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public boolean canStartRiding(@NotNull Entity rider) {
+    public boolean canStartRiding(Entity rider) {
         return true;
     }
 
     @Override
-    public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
+    public void updatePassengerPosition(Entity passenger, PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
             this.bodyYaw = this.getYaw();
@@ -318,7 +318,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    protected void tickControlled(@NotNull PlayerEntity player, @NotNull Vec3d travelVector) {
+    protected void tickControlled(PlayerEntity player, Vec3d travelVector) {
         super.tickControlled(player, travelVector);
         Vec2f vec2 = this.getRiddenRotation(player);
         this.setRotation(vec2.y, vec2.x);
@@ -339,7 +339,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         }
     }
 
-    protected @NotNull Vec3d getControlledMovementInput(PlayerEntity player, @NotNull Vec3d travelVector) {
+    protected Vec3d getControlledMovementInput(PlayerEntity player, Vec3d travelVector) {
         float f = player.sidewaysSpeed * 0.5F;
         float f1 = player.forwardSpeed;
         if (f1 <= 0.0F) {
@@ -354,7 +354,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         return new Vec2f(entity.getPitch() * 0.5F, entity.getYaw());
     }
 
-    protected float getSaddledSpeed(@NotNull PlayerEntity player) {
+    protected float getSaddledSpeed(PlayerEntity player) {
         float speed = (float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.6F;
         if (this.isTouchingWater())
             speed *= (float) IafConfig.hippocampusSwimSpeedMod;
@@ -377,7 +377,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("Chested", this.isChested());
@@ -397,7 +397,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setChested(compound.getBoolean("Chested"));
@@ -502,7 +502,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setVariant(this.getRandom().nextInt(6));
         return data;
@@ -534,7 +534,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         if (ageable instanceof EntityHippocampus) {
             EntityHippocampus hippo = new EntityHippocampus(IafEntityRegistry.HIPPOCAMPUS.get(), this.getWorld());
             hippo.setVariant(this.getRandom().nextBoolean() ? this.getVariant() : ((EntityHippocampus) ageable).getVariant());
@@ -544,7 +544,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public void travel(@NotNull Vec3d pTravelVector) {
+    public void travel(Vec3d pTravelVector) {
         if (this.isLogicalSideForUpdatingMovement() && this.isTouchingWater()) {
             this.updateVelocity(0.1F, pTravelVector);
             this.move(MovementType.SELF, this.getVelocity());
@@ -568,7 +568,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (this.getAnimation() == this.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
@@ -576,7 +576,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
         // Breed item
         if (itemstack.isIn(IafItemTags.BREED_HIPPOCAMPUS) && this.getBreedingAge() == 0 && !this.isInLove()) {
@@ -676,7 +676,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return IafSoundRegistry.HIPPOCAMPUS_HURT;
     }
 
@@ -702,7 +702,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     @Override
-    public void onInventoryChanged(@NotNull Inventory pInvBasic) {
+    public void onInventoryChanged(Inventory pInvBasic) {
         boolean flag = this.isSaddled();
         this.updateContainerEquipment();
         if (this.age > 20 && !flag && this.isSaddled()) {

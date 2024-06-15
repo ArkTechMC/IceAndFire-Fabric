@@ -85,7 +85,7 @@ public class DragonPosWorldData extends PersistentState {
     }
 
     @Override
-    public @NotNull NbtCompound writeNbt(NbtCompound compound) {
+    public NbtCompound writeNbt(NbtCompound compound) {
         compound.putInt("Tick", this.tickCounter);
         NbtList nbttaglist = new NbtList();
         for (Map.Entry<UUID, BlockPos> pair : this.lastDragonPositions.entrySet()) {

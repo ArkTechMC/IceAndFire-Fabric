@@ -24,7 +24,7 @@ public class RenderDreadPortal<T extends TileEntityDreadPortal> implements Block
     }
 
     @Override
-    public void render(@NotNull T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Matrix4f matrix4f = matrixStackIn.peek().getPositionMatrix();
         this.renderCube(tileEntityIn, matrix4f, bufferIn.getBuffer(this.renderType()));
     }

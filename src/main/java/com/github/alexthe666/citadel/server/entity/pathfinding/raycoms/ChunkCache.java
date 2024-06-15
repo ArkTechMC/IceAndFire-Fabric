@@ -90,7 +90,7 @@ public class ChunkCache implements WorldView {
     }
 
     @Override
-    public BlockEntity getBlockEntity(@NotNull BlockPos pos) {
+    public BlockEntity getBlockEntity(BlockPos pos) {
         return this.getTileEntity(pos, WorldChunk.CreationType.CHECK); // Forge: don't modify world from other threads
     }
 
@@ -242,7 +242,7 @@ public class ChunkCache implements WorldView {
     }
 
     @Override
-    public @NotNull DimensionType getDimension() {
+    public DimensionType getDimension() {
         return this.dimType;
     }
 

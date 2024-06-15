@@ -37,7 +37,7 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         matrixStackIn.push();
         if (!dragon.getPassengerList().isEmpty()) {
             float dragonScale = dragon.getRenderSize() / 3;

@@ -39,12 +39,12 @@ public class ItemTrollArmor extends ArmorItem {
     }
 
     @Override
-    public @NotNull ArmorMaterial getMaterial() {
+    public ArmorMaterial getMaterial() {
         return this.troll.material;
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.troll_leather_armor_" + getArmorPart(this.type.getEquipmentSlot()) + ".desc").formatted(Formatting.GREEN));
     }
 }

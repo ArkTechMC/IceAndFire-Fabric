@@ -25,12 +25,12 @@ public class RenderHydra extends MobEntityRenderer<EntityHydra, ModelHydraBody> 
     }
 
     @Override
-    public void scale(@NotNull EntityHydra LivingEntityIn, MatrixStack stack, float partialTickTime) {
+    public void scale(EntityHydra LivingEntityIn, MatrixStack stack, float partialTickTime) {
         stack.scale(1.75F, 1.75F, 1.75F);
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityHydra gorgon) {
+    public Identifier getTexture(EntityHydra gorgon) {
         return switch (gorgon.getVariant()) {
             default -> TEXUTURE_0;
             case 1 -> TEXUTURE_1;

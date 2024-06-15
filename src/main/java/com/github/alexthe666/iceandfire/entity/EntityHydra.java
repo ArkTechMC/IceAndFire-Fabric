@@ -105,7 +105,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         return false;
     }
 
@@ -287,13 +287,13 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         this.clearParts();
         super.remove(reason);
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         this.speakingProgress[this.random.nextInt(this.getHeadCount())] = 1F;
         super.playHurtSound(source);
     }
@@ -310,7 +310,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putInt("HeadCount", this.getHeadCount());
@@ -321,7 +321,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setHeadCount(compound.getInt("HeadCount"));
@@ -341,7 +341,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float amount) {
+    public boolean damage(DamageSource source, float amount) {
         if (this.lastHitHead > this.getHeadCount()) {
             this.lastHitHead = this.getHeadCount() - 1;
         }
@@ -361,7 +361,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setVariant(this.random.nextInt(3));
         return data;
@@ -466,7 +466,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.HYDRA_HURT;
     }
 

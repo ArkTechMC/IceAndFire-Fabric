@@ -16,7 +16,7 @@ public class ArmorModelBase extends BipedEntityModel<LivingEntity> {
     }
 
     @Override
-    public void setAngles(@NotNull LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entityIn instanceof ArmorStandEntity armorStand) {
             this.head.pitch = ((float) Math.PI / 180F) * armorStand.getHeadRotation().getPitch();
             this.head.yaw = ((float) Math.PI / 180F) * armorStand.getHeadRotation().getYaw();

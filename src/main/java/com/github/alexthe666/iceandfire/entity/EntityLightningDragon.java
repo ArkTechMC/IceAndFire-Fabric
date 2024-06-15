@@ -184,7 +184,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     }*/
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (!this.isPlayingAttackAnimation()) {
             switch (this.groundAttack) {
@@ -468,7 +468,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_HURT : this.shouldDropLoot() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_HURT : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_HURT;
     }
 

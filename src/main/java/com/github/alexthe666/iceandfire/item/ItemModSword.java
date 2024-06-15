@@ -33,7 +33,7 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
 
     @Override
     @Deprecated
-    public @NotNull Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot) {
         return equipmentSlot == EquipmentSlot.MAINHAND && this.isDragonsteel(this.getMaterial()) ? this.bakeDragonsteel() : super.getAttributeModifiers(equipmentSlot);
     }
 
@@ -52,13 +52,13 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
     }
 
     @Override
-    public boolean postHit(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         this.hurtEnemy(this, stack, target, attacker);
         return super.postHit(stack, target, attacker);
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         super.appendTooltip(stack, worldIn, tooltip, flagIn);
         this.appendHoverText(this.getMaterial(), stack, worldIn, tooltip, flagIn);
     }

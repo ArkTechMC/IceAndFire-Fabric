@@ -86,7 +86,7 @@ public class PathfindingDebugRenderer {
         ctx.poseStack.pop();
     }
 
-    private static void renderDebugText(@NotNull final MNode n, final WorldEventContext ctx) {
+    private static void renderDebugText(final MNode n, final WorldEventContext ctx) {
         final TextRenderer fontrenderer = MinecraftClient.getInstance().textRenderer;
 
         final String s1 = String.format("F: %.3f [%d]", n.getCost(), n.getCounterAdded());

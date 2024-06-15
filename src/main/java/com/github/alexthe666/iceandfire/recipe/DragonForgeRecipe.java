@@ -52,7 +52,7 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
     }
 
     @Override
-    public boolean matches(TileEntityDragonforge inv, @NotNull World worldIn) {
+    public boolean matches(TileEntityDragonforge inv, World worldIn) {
         return this.input.test(inv.getStack(0)) && this.blood.test(inv.getStack(1)) && this.dragonType.equals(inv.getTypeID());
     }
 
@@ -65,16 +65,16 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
     }
 
     @Override
-    public @NotNull ItemStack getOutput(DynamicRegistryManager registryAccess) {
+    public ItemStack getOutput(DynamicRegistryManager registryAccess) {
         return this.result;
     }
 
-    public @NotNull ItemStack getResultItem() {
+    public ItemStack getResultItem() {
         return this.result;
     }
 
     @Override
-    public @NotNull ItemStack craft(@NotNull TileEntityDragonforge dragonforge, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(TileEntityDragonforge dragonforge, DynamicRegistryManager registryAccess) {
         return this.result;
     }
 
@@ -84,28 +84,28 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
     }
 
     @Override
-    public @NotNull Identifier getId() {
+    public Identifier getId() {
         return this.recipeId;
     }
 
     @Override
-    public @NotNull ItemStack createIcon() {
+    public ItemStack createIcon() {
         return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get());
     }
 
     @Override
-    public @NotNull RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return IafRecipeSerializers.DRAGONFORGE_SERIALIZER.get();
     }
 
     @Override
-    public @NotNull RecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return IafRecipeRegistry.DRAGON_FORGE_TYPE;
     }
 
     public static class Serializer implements RecipeSerializer<DragonForgeRecipe> {
         @Override
-        public @NotNull DragonForgeRecipe read(@NotNull Identifier recipeId, @NotNull JsonObject json) {
+        public DragonForgeRecipe read(Identifier recipeId, JsonObject json) {
             String dragonType = JsonUtils.getString(json, "dragon_type");
             Ingredient input = Ingredient.fromJson(JsonUtils.getJsonObject(json, "input"));
             Ingredient blood = Ingredient.fromJson(JsonUtils.getJsonObject(json, "blood"));
@@ -115,7 +115,7 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
         }
 
         @Override
-        public DragonForgeRecipe read(@NotNull Identifier recipeId, PacketByteBuf buffer) {
+        public DragonForgeRecipe read(Identifier recipeId, PacketByteBuf buffer) {
             int cookTime = buffer.readInt();
             String dragonType = buffer.readString();
             Ingredient input = Ingredient.fromPacket(buffer);

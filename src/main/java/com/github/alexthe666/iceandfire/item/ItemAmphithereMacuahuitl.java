@@ -23,7 +23,7 @@ public class ItemAmphithereMacuahuitl extends SwordItem {
     }
 
     @Override
-    public boolean postHit(@NotNull ItemStack stack, LivingEntity targetEntity, LivingEntity attacker) {
+    public boolean postHit(ItemStack stack, LivingEntity targetEntity, LivingEntity attacker) {
         targetEntity.playSound(IafSoundRegistry.AMPHITHERE_GUST, 1, 1);
         targetEntity.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 1, 1);
         targetEntity.velocityDirty = true;
@@ -44,7 +44,7 @@ public class ItemAmphithereMacuahuitl extends SwordItem {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.amphithere_macuahuitl.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.amphithere_macuahuitl.desc_1").formatted(Formatting.GRAY));

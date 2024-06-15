@@ -43,7 +43,7 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
     }
 
     @Override
-    public void render(@NotNull EntityGhost entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityGhost entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         this.shadowRadius = 0;
         //TODO: Event
 //        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Pre<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn)))
@@ -164,7 +164,7 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
     }
 
     @Override
-    protected float getLyingAngle(@NotNull EntityGhost ghost) {
+    protected float getLyingAngle(EntityGhost ghost) {
         return 0.0F;
     }
 
@@ -176,11 +176,11 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
     }
 
     @Override
-    public void scale(@NotNull EntityGhost LivingEntityIn, @NotNull MatrixStack stack, float partialTickTime) {
+    public void scale(EntityGhost LivingEntityIn, MatrixStack stack, float partialTickTime) {
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityGhost ghost) {
+    public Identifier getTexture(EntityGhost ghost) {
         return switch (ghost.getColor()) {
             case 1 -> TEXTURE_1;
             case 2 -> TEXTURE_2;

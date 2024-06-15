@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class SeaSerpentArmorRenderer implements ArmorRenderer {
-    public @NotNull BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {
+    public BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {
         return new ModelSeaSerpentArmor(armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD);
     }
 

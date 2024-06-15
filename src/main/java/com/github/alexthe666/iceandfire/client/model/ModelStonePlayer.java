@@ -12,6 +12,6 @@ public class ModelStonePlayer extends BipedEntityModel<EntityStoneStatue> {
     }
 
     @Override
-    public void setAngles(@NotNull EntityStoneStatue entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(EntityStoneStatue entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     }
 }

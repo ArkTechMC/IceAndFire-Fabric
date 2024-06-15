@@ -25,7 +25,7 @@ public class ItemModArmor extends ArmorItem implements IArmorTextureProvider {
     }
 
     @Override
-    public @NotNull String getTranslationKey(@NotNull ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         if (this == IafItemRegistry.EARPLUGS.get()) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
@@ -54,7 +54,7 @@ public class ItemModArmor extends ArmorItem implements IArmorTextureProvider {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         if (this == IafItemRegistry.EARPLUGS.get()) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());

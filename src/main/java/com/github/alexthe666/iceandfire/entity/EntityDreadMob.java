@@ -86,7 +86,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         if (this.getCommanderId() != null) {
             compound.putUuid("CommanderUUID", this.getCommanderId());
@@ -94,7 +94,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         UUID uuid;
         if (compound.containsUuid("CommanderUUID")) {
@@ -115,7 +115,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
 
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         return entityIn instanceof IDreadMob || super.isTeammate(entityIn);
     }
 
@@ -179,7 +179,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         if (!this.isRemoved() && this.getCommander() != null && this.getCommander() instanceof EntityDreadLich lich) {
             lich.setMinionCount(lich.getMinionCount() - 1);
         }
@@ -187,7 +187,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     }
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
     }
 }

@@ -13,8 +13,6 @@
   ],
   "client": [
     "client.ClientWorldMixin",
-    "client.BipedEntityModelMixin",
-    "client.LivingEntityRendererMixin",
     "client.SoundSystemMixin",
     "client.SplashTextRendererMixin"
   ],

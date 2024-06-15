@@ -45,7 +45,7 @@ public class GraveyardProcessor extends StructureProcessor {
     }
 
     @Override
-    public StructureTemplate.StructureBlockInfo process(@NotNull WorldView worldReader, @NotNull BlockPos pos, @NotNull BlockPos pos2, StructureTemplate.@NotNull StructureBlockInfo infoIn1, StructureTemplate.StructureBlockInfo infoIn2, StructurePlacementData settings) {
+    public StructureTemplate.StructureBlockInfo process(WorldView worldReader, BlockPos pos, BlockPos pos2, StructureTemplate.StructureBlockInfo infoIn1, StructureTemplate.StructureBlockInfo infoIn2, StructurePlacementData settings) {
         Random random = settings.getRandom(infoIn2.pos());
         if (infoIn2.state().getBlock() == Blocks.STONE_BRICKS) {
             BlockState state = getRandomCrackedBlock(null, random);
@@ -60,7 +60,7 @@ public class GraveyardProcessor extends StructureProcessor {
 
 
     @Override
-    protected @NotNull StructureProcessorType getType() {
+    protected StructureProcessorType getType() {
         return IafProcessors.GRAVEYARDPROCESSOR.get();
     }
 

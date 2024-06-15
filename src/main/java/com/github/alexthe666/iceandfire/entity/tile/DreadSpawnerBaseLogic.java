@@ -17,7 +17,7 @@ public abstract class DreadSpawnerBaseLogic extends MobSpawnerLogic {
     private double oSpin;
 
     @Override
-    public void clientTick(@NotNull World world, @NotNull BlockPos pos) {
+    public void clientTick(World world, BlockPos pos) {
         if (!this.isPlayerInRange(world, pos)) {
             this.oSpin = this.spin;
         } else {

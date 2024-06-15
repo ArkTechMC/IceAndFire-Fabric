@@ -199,7 +199,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getGrowthStage() < 2) {
             return false;
         }
@@ -252,7 +252,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     }
 
     @Override
-    public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
+    public void updatePassengerPosition(Entity passenger, PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
             this.bodyYaw = this.getYaw();

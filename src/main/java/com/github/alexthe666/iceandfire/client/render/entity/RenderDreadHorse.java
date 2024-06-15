@@ -20,7 +20,7 @@ public class RenderDreadHorse extends MobEntityRenderer<EntityDreadHorse, HorseE
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityDreadHorse entity) {
+    public Identifier getTexture(EntityDreadHorse entity) {
         return TEXTURE;
     }
 }

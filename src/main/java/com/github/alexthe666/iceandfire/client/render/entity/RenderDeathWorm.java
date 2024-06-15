@@ -26,12 +26,12 @@ public class RenderDeathWorm extends MobEntityRenderer<EntityDeathWorm, ModelDea
     }
 
     @Override
-    protected int getBlockLight(EntityDeathWorm entityIn, @NotNull BlockPos partialTicks) {
+    protected int getBlockLight(EntityDeathWorm entityIn, BlockPos partialTicks) {
         return entityIn.isOnFire() ? 15 : entityIn.getWormBrightness(false);
     }
 
     @Override
-    protected int getSkyLight(EntityDeathWorm entity, @NotNull BlockPos pos) {
+    protected int getSkyLight(EntityDeathWorm entity, BlockPos pos) {
         return entity.getWormBrightness(true);
     }
 

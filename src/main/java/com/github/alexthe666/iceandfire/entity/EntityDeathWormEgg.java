@@ -74,7 +74,7 @@ public class EntityDeathWormEgg extends ThrownItemEntity {
     }
 
     @Override
-    protected @NotNull Item getDefaultItem() {
+    protected Item getDefaultItem() {
         return this.giant ? IafItemRegistry.DEATHWORM_EGG_GIGANTIC.get() : IafItemRegistry.DEATHWORM_EGG.get();
     }
 }

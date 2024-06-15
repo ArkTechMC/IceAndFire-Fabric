@@ -92,7 +92,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    protected @NotNull EntityNavigation createNavigation(@NotNull World worldIn) {
+    protected EntityNavigation createNavigation(World worldIn) {
         return new PathNavigateCyclops(this, this.getWorld());
     }
 
@@ -137,14 +137,14 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entityIn) {
+    protected void pushAway(Entity entityIn) {
         if (!ServerEvents.isSheep(entityIn)) {
             entityIn.pushAwayFrom(this);
         }
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         int attackDescision = this.getRandom().nextInt(3);
         if (attackDescision == 0) {
             this.setAnimation(ANIMATION_STOMP);
@@ -175,14 +175,14 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putBoolean("Blind", this.isBlinded());
         compound.putInt("Variant", this.getVariant());
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setBlinded(compound.getBoolean("Blind"));
         this.setVariant(compound.getInt("Variant"));
@@ -206,7 +206,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
+    public void updatePassengerPosition(Entity passenger, PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
             passenger.setVelocity(0, passenger.getVelocity().y, 0);
@@ -228,7 +228,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    public void travel(@NotNull Vec3d vec) {
+    public void travel(Vec3d vec) {
         if (this.getAnimation() == ANIMATION_EATPLAYER) {
             super.travel(vec.multiply(0, 0, 0));
             return;
@@ -308,7 +308,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setVariant(this.getRandom().nextInt(4));
         return spawnDataIn;
@@ -348,7 +348,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         if (this.eyeEntity != null) {
             this.eyeEntity.remove(reason);
         }
@@ -391,7 +391,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return IafSoundRegistry.CYCLOPS_HURT;
     }
 

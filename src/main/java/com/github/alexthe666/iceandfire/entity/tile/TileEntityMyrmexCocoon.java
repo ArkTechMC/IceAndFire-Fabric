@@ -43,7 +43,7 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
 
 
     @Override
-    public void readNbt(@NotNull NbtCompound compound) {
+    public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.chestContents = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
 
@@ -53,24 +53,24 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
     }
 
     @Override
-    public void writeNbt(@NotNull NbtCompound compound) {
+    public void writeNbt(NbtCompound compound) {
         if (!this.serializeLootTable(compound)) {
             Inventories.writeNbt(compound, this.chestContents);
         }
     }
 
     @Override
-    protected @NotNull Text getContainerName() {
+    protected Text getContainerName() {
         return Text.translatable("container.myrmex_cocoon");
     }
 
     @Override
-    protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
+    protected ScreenHandler createScreenHandler(int id, PlayerInventory player) {
         return new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X2, id, player, this, 2);
     }
 
     @Override
-    public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+    public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         return new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X2, id, playerInventory, this, 2);
     }
 
@@ -82,12 +82,12 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
 
 
     @Override
-    protected @NotNull DefaultedList<ItemStack> getInvStackList() {
+    protected DefaultedList<ItemStack> getInvStackList() {
         return this.chestContents;
     }
 
     @Override
-    protected void setInvStackList(@NotNull DefaultedList<ItemStack> itemsIn) {
+    protected void setInvStackList(DefaultedList<ItemStack> itemsIn) {
 
     }
 
@@ -109,7 +109,7 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
 

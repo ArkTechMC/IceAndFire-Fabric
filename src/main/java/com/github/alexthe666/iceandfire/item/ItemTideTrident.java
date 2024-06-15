@@ -35,7 +35,7 @@ public class ItemTideTrident extends TridentItem {
     }
 
     @Override
-    public void onStoppedUsing(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
+    public void onStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof PlayerEntity lvt_5_1_) {
             int lvt_6_1_ = this.getMaxUseTime(stack) - timeLeft;
             if (lvt_6_1_ >= 10) {
@@ -96,7 +96,7 @@ public class ItemTideTrident extends TridentItem {
 
 
     @Override
-    public @NotNull Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot) {
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
         if (equipmentSlot == EquipmentSlot.MAINHAND) {
             builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 12.0D, EntityAttributeModifier.Operation.ADDITION));
@@ -107,7 +107,7 @@ public class ItemTideTrident extends TridentItem {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.tide_trident.desc_0").formatted(Formatting.GRAY));

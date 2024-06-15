@@ -33,12 +33,12 @@ public class ParticleGhostAppearance extends Particle {
     }
 
     @Override
-    public @NotNull ParticleTextureSheet getType() {
+    public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
 
     @Override
-    public void buildGeometry(@NotNull VertexConsumer buffer, @NotNull Camera renderInfo, float partialTicks) {
+    public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         float f = ((float) this.age + partialTicks) / (float) this.maxAge;
         float f1 = 0.05F + 0.5F * MathHelper.sin(f * (float) Math.PI);
         Entity entity = this.world.getEntityById(this.ghost);

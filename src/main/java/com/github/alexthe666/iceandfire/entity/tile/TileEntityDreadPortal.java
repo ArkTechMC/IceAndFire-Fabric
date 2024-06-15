@@ -23,7 +23,7 @@ public class TileEntityDreadPortal extends BlockEntity {
     }
 
     @Override
-    public void writeNbt(@NotNull NbtCompound compound) {
+    public void writeNbt(NbtCompound compound) {
         super.writeNbt(compound);
         compound.putLong("Age", this.age);
 
@@ -37,7 +37,7 @@ public class TileEntityDreadPortal extends BlockEntity {
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound compound) {
+    public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.age = compound.getLong("Age");
 

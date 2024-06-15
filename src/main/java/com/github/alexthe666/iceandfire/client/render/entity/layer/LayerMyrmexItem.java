@@ -40,7 +40,7 @@ public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedE
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, @NotNull EntityMyrmexBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityMyrmexBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entitylivingbaseIn instanceof EntityMyrmexWorker) {
             ItemStack itemstack = entitylivingbaseIn.getStackInHand(Hand.MAIN_HAND);
             if (!itemstack.isEmpty()) {

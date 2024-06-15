@@ -157,17 +157,17 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public @NotNull ItemStack getStack(int index) {
+    public ItemStack getStack(int index) {
         return this.forgeItemStacks.get(index);
     }
 
     @Override
-    public @NotNull ItemStack removeStack(int index, int count) {
+    public ItemStack removeStack(int index, int count) {
         return Inventories.splitStack(this.forgeItemStacks, index, count);
     }
 
     @Override
-    public @NotNull ItemStack removeStack(int index) {
+    public ItemStack removeStack(int index) {
         return Inventories.removeStack(this.forgeItemStacks, index);
     }
 
@@ -189,7 +189,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound compound) {
+    public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.forgeItemStacks = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.readNbt(compound, this.forgeItemStacks);
@@ -277,7 +277,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public boolean canPlayerUse(@NotNull PlayerEntity player) {
+    public boolean canPlayerUse(PlayerEntity player) {
         if (player.getWorld().getBlockEntity(this.pos) != this) {
             return false;
         } else {
@@ -307,7 +307,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public boolean isValid(int index, @NotNull ItemStack stack) {
+    public boolean isValid(int index, ItemStack stack) {
         return switch (index) {
             case 1 -> this.getRecipes().stream().anyMatch(item -> item.isValidBlood(stack));
             case 0 -> true;//getRecipes().stream().anyMatch(item -> item.isValidInput(stack))
@@ -316,7 +316,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public int @NotNull [] getAvailableSlots(@NotNull Direction side) {
+    public int [] getAvailableSlots(Direction side) {
         if (side == Direction.DOWN) {
             return SLOTS_BOTTOM;
         } else {
@@ -325,12 +325,12 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public boolean canInsert(int index, @NotNull ItemStack itemStackIn, Direction direction) {
+    public boolean canInsert(int index, ItemStack itemStackIn, Direction direction) {
         return this.isValid(index, itemStackIn);
     }
 
     @Override
-    public boolean canExtract(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
+    public boolean canExtract(int index, ItemStack stack, Direction direction) {
         if (direction == Direction.DOWN && index == 1) {
             Item item = stack.getItem();
 
@@ -346,7 +346,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    protected @NotNull Text getContainerName() {
+    protected Text getContainerName() {
         return Text.translatable("container.dragonforge_fire" + DragonType.getNameFromInt(this.getPropertyDelegate().fireType));
     }
 
@@ -392,7 +392,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
 
@@ -424,12 +424,12 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     @Override
-    public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+    public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         return new ContainerDragonForge(id, this, playerInventory, this.getPropertyDelegate());
     }
 
     @Override
-    protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
+    protected ScreenHandler createScreenHandler(int id, PlayerInventory player) {
         return new ContainerDragonForge(id, this, player, this.getPropertyDelegate());
     }
 

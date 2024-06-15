@@ -53,13 +53,13 @@ public class ItemDragonHorn extends Item {
 
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
 
     @Override
-    public @NotNull ActionResult useOnEntity(@NotNull ItemStack stack, PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         ItemStack trueStack = playerIn.getStackInHand(hand);
         if (!playerIn.getWorld().isClient && hand == Hand.MAIN_HAND && target instanceof EntityDragonBase && ((EntityDragonBase) target).isOwner(playerIn) && (trueStack.getNbt() == null || trueStack.getNbt().getCompound("EntityTag").isEmpty())) {
             NbtCompound newTag = new NbtCompound();
@@ -82,7 +82,7 @@ public class ItemDragonHorn extends Item {
 
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         if (context.getSide() != Direction.UP)
             return ActionResult.FAIL;
         ItemStack stack = context.getStack();
@@ -113,7 +113,7 @@ public class ItemDragonHorn extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         if (stack.getNbt() != null) {
             NbtCompound entityTag = stack.getNbt().getCompound("EntityTag");
             if (!entityTag.isEmpty()) {

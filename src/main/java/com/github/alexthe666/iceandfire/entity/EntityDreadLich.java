@@ -138,7 +138,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
         this.initEquipment(worldIn.getRandom(), difficultyIn);
@@ -214,7 +214,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     @Override
-    public void equipStack(@NotNull EquipmentSlot slotIn, @NotNull ItemStack stack) {
+    public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
         super.equipStack(slotIn, stack);
 
         if (!this.getWorld().isClient && slotIn == EquipmentSlot.MAINHAND) {
@@ -238,7 +238,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     @Override
-    public void attack(@NotNull LivingEntity target, float distanceFactor) {
+    public void attack(LivingEntity target, float distanceFactor) {
         boolean flag = false;
         if (this.getMinionCount() < 5 && this.minionCooldown == 0) {
             this.setAnimation(ANIMATION_SUMMON);
@@ -310,7 +310,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_STRAY_HURT;
     }
 

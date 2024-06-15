@@ -8,14 +8,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class BlockDreadWoodLog extends PillarBlock implements IDragonProof, IDreadBlock {
 
     public BlockDreadWoodLog() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .instrument(Instrument.BASS)
-                        .burnable()
-                        .strength(2F, 10000F)
-                        .sounds(BlockSoundGroup.WOOD)
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().strength(2F, 10000F).sounds(BlockSoundGroup.WOOD));
     }
 }

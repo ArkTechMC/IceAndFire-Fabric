@@ -40,7 +40,7 @@ public class RenderSeaSerpent extends MobEntityRenderer<EntitySeaSerpent, Advanc
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntitySeaSerpent serpent) {
+    public Identifier getTexture(EntitySeaSerpent serpent) {
         return switch (serpent.getVariant()) {
             case 0 -> serpent.isBlinking() ? TEXTURE_BLUE_BLINK : TEXTURE_BLUE;
             case 1 -> serpent.isBlinking() ? TEXTURE_BRONZE_BLINK : TEXTURE_BRONZE;

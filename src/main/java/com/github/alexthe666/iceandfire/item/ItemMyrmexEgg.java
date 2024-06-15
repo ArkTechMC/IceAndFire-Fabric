@@ -26,7 +26,7 @@ public class ItemMyrmexEgg extends Item {
     }
 
 /*    @Override
-    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (this.allowdedIn(group)) {
             for (int i = 0; i < 5; i++) {
                 ItemStack stack = new ItemStack(this);
@@ -40,7 +40,7 @@ public class ItemMyrmexEgg extends Item {
     }*/
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         String caste;
         NbtCompound tag = stack.getNbt();
         int eggOrdinal = 0;
@@ -62,7 +62,7 @@ public class ItemMyrmexEgg extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack itemstack = context.getPlayer().getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide());
         EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG.get(), context.getWorld());

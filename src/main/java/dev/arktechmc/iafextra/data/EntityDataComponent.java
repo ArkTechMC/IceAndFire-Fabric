@@ -27,7 +27,7 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
     }
 
     @Override
-    public void readFromNbt(@NotNull NbtCompound tag) {
+    public void readFromNbt(NbtCompound tag) {
         this.frozenData.deserialize(tag);
         this.chainData.deserialize(tag);
         this.sirenData.deserialize(tag);
@@ -36,7 +36,7 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
     }
 
     @Override
-    public void writeToNbt(@NotNull NbtCompound tag) {
+    public void writeToNbt(NbtCompound tag) {
         this.frozenData.serialize(tag);
         this.chainData.serialize(tag);
         this.sirenData.serialize(tag);

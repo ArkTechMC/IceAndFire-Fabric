@@ -32,22 +32,22 @@ public class ItemGorgonHead extends Item {
     }
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
     @Override
-    public int getMaxUseTime(@NotNull ItemStack stack) {
+    public int getMaxUseTime(ItemStack stack) {
         return 72000;
     }
 
     @Override
-    public @NotNull UseAction getUseAction(@NotNull ItemStack stack) {
+    public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
 
     @Override
-    public void onStoppedUsing(@NotNull ItemStack stack, World worldIn, LivingEntity entity, int timeLeft) {
+    public void onStoppedUsing(ItemStack stack, World worldIn, LivingEntity entity, int timeLeft) {
         double dist = 32;
         Vec3d Vector3d = entity.getCameraPosVec(1.0F);
         Vec3d Vector3d1 = entity.getRotationVec(1.0F);
@@ -116,7 +116,7 @@ public class ItemGorgonHead extends Item {
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         playerIn.setCurrentHand(hand);
         itemStackIn.getNbt().putBoolean("Active", true);
@@ -124,11 +124,11 @@ public class ItemGorgonHead extends Item {
     }
 
     @Override
-    public void usageTick(@NotNull World level, @NotNull LivingEntity player, @NotNull ItemStack stack, int count) {
+    public void usageTick(World level, LivingEntity player, ItemStack stack, int count) {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
     }
 }

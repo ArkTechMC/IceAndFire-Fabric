@@ -144,7 +144,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public @NotNull SoundCategory getSoundCategory() {
+    public SoundCategory getSoundCategory() {
         return SoundCategory.HOSTILE;
     }
 
@@ -182,7 +182,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource dmg, float i) {
+    public boolean damage(DamageSource dmg, float i) {
         if (dmg == this.getWorld().getDamageSources().inWall() && this.getGrowthStage() < 2) {
             return false;
         }
@@ -203,7 +203,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    protected @NotNull EntityNavigation createNavigation(@NotNull World worldIn) {
+    protected EntityNavigation createNavigation(World worldIn) {
         return this.createNavigator(worldIn, AdvancedPathNavigate.MovementType.CLIMBING);
     }
 
@@ -274,7 +274,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putInt("GrowthStage", this.getGrowthStage());
         tag.putInt("GrowthTicks", this.growthTicks);
@@ -299,7 +299,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setGrowthStage(tag.getInt("GrowthStage"));
         this.growthTicks = tag.getInt("GrowthTicks");
@@ -360,7 +360,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.ARTHROPOD;
     }
 
@@ -391,7 +391,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
@@ -441,7 +441,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public void onDeath(@NotNull DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         if (this.getHive() != null) {
             Entity entity = cause.getAttacker();
             if (entity != null) {
@@ -454,7 +454,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
         if (!this.shouldHaveNormalAI()) {
             return ActionResult.PASS;
@@ -524,7 +524,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setHive(MyrmexWorldData.get(this.getWorld()).getNearestHive(this.getBlockPos(), 400));
         if (this.getHive() != null) {
@@ -570,7 +570,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entityIn) {
+    protected void pushAway(Entity entityIn) {
         if (!haveSameHive(this, entityIn)) {
             entityIn.pushAwayFrom(this);
         }
@@ -612,7 +612,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public void travel(@NotNull Vec3d motion) {
+    public void travel(Vec3d motion) {
         if (!this.canMove()) {
             super.travel(Vec3d.ZERO);
             return;
@@ -656,7 +656,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.MYRMEX_HURT;
     }
 
@@ -724,7 +724,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public @NotNull TradeOfferList getOffers() {
+    public TradeOfferList getOffers() {
         if (this.offers == null) {
             this.offers = new TradeOfferList();
             this.populateTradeData();
@@ -760,7 +760,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public void onSellingItem(@NotNull ItemStack stack) {
+    public void onSellingItem(ItemStack stack) {
         if (!this.getWorld().isClient && this.ambientSoundChance > -this.getMinAmbientSoundDelay() + 20) {
             this.ambientSoundChance = -this.getMinAmbientSoundDelay();
             this.playSound(this.getVillagerYesNoSound(!stack.isEmpty()), this.getSoundVolume(), this.getSoundPitch());
@@ -769,7 +769,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     @Override
-    public @NotNull SoundEvent getYesSound() {
+    public SoundEvent getYesSound() {
         return IafSoundRegistry.MYRMEX_IDLE;
     }
 
@@ -790,7 +790,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
 
     @Override
-    public @NotNull ItemStack tryEquip(@NotNull ItemStack stack) {
+    public ItemStack tryEquip(ItemStack stack) {
         ItemStack superStack = super.tryEquip(stack);
         if (ItemStack.areItemsEqual(superStack, stack) && ItemStack.areEqual(superStack, stack)) {
             return stack;

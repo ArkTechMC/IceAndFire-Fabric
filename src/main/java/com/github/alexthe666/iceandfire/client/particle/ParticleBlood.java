@@ -24,7 +24,7 @@ public class ParticleBlood extends SpriteBillboardParticle {
     }
 
     @Override
-    public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+    public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
         this.scale = 0.125F * (this.maxAge - (this.age));
         this.scale = this.scale * 0.09F;
@@ -86,7 +86,7 @@ public class ParticleBlood extends SpriteBillboardParticle {
     }
 
     @Override
-    public @NotNull ParticleTextureSheet getType() {
+    public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
 

@@ -118,7 +118,7 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
     }
 
     @Override
-    public void copyStateTo(@NotNull EntityModel<EntityDreadKnight> p_217111_1_) {
+    public void copyStateTo(EntityModel<EntityDreadKnight> p_217111_1_) {
         super.copyStateTo(p_217111_1_);
         if (p_217111_1_ instanceof BipedEntityModel modelbiped) {
             modelbiped.leftArmPose = this.leftArmPose;

@@ -34,7 +34,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
         // Saddle slot
         this.addSlot(new Slot(this.hippocampusInventory, 0, 8, 18) {
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return stack.getItem() == Items.SADDLE && !this.hasStack();
             }
 
@@ -47,7 +47,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
         // Chest slot
         this.addSlot(new Slot(this.hippocampusInventory, 1, 8, 36) {
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return stack.getItem() == Blocks.CHEST.asItem() && !this.hasStack();
             }
 
@@ -61,7 +61,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
         this.addSlot(new Slot(this.hippocampusInventory, 2, 8, 52) {
 
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return EntityHippocampus.getIntFromArmor(stack) != 0;
             }
 
@@ -98,7 +98,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
     }
 
     @Override
-    public @NotNull ItemStack quickMove(@NotNull PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasStack()) {
@@ -150,12 +150,12 @@ public class HippocampusContainerMenu extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity playerIn) {
+    public boolean canUse(PlayerEntity playerIn) {
         return !this.hippocampus.hasInventoryChanged(this.hippocampusInventory) && this.hippocampusInventory.canPlayerUse(playerIn) && this.hippocampus.isAlive() && this.hippocampus.distanceTo(playerIn) < 8.0F;
     }
 
     @Override
-    public void onClosed(@NotNull PlayerEntity playerIn) {
+    public void onClosed(PlayerEntity playerIn) {
         super.onClosed(playerIn);
         this.hippocampusInventory.onClose(playerIn);
     }

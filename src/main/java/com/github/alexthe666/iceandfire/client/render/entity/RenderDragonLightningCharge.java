@@ -69,7 +69,7 @@ public class RenderDragonLightningCharge extends EntityRenderer<EntityDragonLigh
     }
 
     @Override
-    public Identifier getTexture(@NotNull EntityDragonLightningCharge entity) {
+    public Identifier getTexture(EntityDragonLightningCharge entity) {
         return TEXTURE;
     }
 }

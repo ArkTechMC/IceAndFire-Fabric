@@ -32,7 +32,7 @@ public class StymphalianBirdAITarget extends ActiveTargetGoal<LivingEntity> {
     }
 
     @Override
-    protected @NotNull Box getSearchBox(double targetDistance) {
+    protected Box getSearchBox(double targetDistance) {
         return this.bird.getBoundingBox().expand(targetDistance, targetDistance, targetDistance);
     }
 }

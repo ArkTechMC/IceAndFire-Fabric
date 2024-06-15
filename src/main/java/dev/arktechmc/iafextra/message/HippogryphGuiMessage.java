@@ -43,12 +43,12 @@ public class HippogryphGuiMessage implements S2CMessage {
 //            client.setScreen(new ContainerHippogryph(0, hippogryph.hippogryphInventory, client.player.getInventory(), hippogryph));
 //        client.setScreen(new NamedScreenHandlerFactory() {
 //            @Override
-//            public ScreenHandler createMenu(int p_createMenu_1_, @NotNull PlayerInventory p_createMenu_2_, @NotNull PlayerEntity p_createMenu_3_) {
+//            public ScreenHandler createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_, PlayerEntity p_createMenu_3_) {
 //                return new ContainerHippogryph(p_createMenu_1_, hippogryph.hippogryphInventory, p_createMenu_2_, hippogryph);
 //            }
 //
 //            @Override
-//            public @NotNull Text getDisplayName() {
+//            public Text getDisplayName() {
 //                return Text.translatable("entity.iceandfire.hippogryph");
 //            }
 //        }.);

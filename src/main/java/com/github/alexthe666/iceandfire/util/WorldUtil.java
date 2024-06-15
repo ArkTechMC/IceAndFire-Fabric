@@ -146,7 +146,7 @@ public class WorldUtil {
      * @param world the world to check.
      * @return true if so.
      */
-    public static boolean isOverworldType(@NotNull final World world) {
+    public static boolean isOverworldType(final World world) {
         return isOfWorldType(world, DimensionTypes.OVERWORLD);
     }
 
@@ -156,7 +156,7 @@ public class WorldUtil {
      * @param world the world to check.
      * @return true if so.
      */
-    public static boolean isNetherType(@NotNull final World world) {
+    public static boolean isNetherType(final World world) {
         return isOfWorldType(world, DimensionTypes.THE_NETHER);
     }
 
@@ -167,7 +167,7 @@ public class WorldUtil {
      * @param type  the type to compare.
      * @return true if it matches.
      */
-    public static boolean isOfWorldType(@NotNull final World world, @NotNull final RegistryKey<DimensionType> type) {
+    public static boolean isOfWorldType(final World world, final RegistryKey<DimensionType> type) {
         DynamicRegistryManager dynRegistries = world.getRegistryManager();
         Identifier loc = dynRegistries.getOptional(RegistryKeys.DIMENSION_TYPE).get().getId(world.getDimension());
         if (loc == null) {
@@ -188,7 +188,7 @@ public class WorldUtil {
      * @param world world to check
      * @return true if peaceful
      */
-    public static boolean isPeaceful(@NotNull final World world) {
+    public static boolean isPeaceful(final World world) {
         return !world.getLevelProperties().getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING) || world.getDifficulty().equals(Difficulty.PEACEFUL);
     }
 

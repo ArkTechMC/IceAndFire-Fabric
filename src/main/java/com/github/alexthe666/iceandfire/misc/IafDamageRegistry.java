@@ -65,7 +65,7 @@ public class IafDamageRegistry {
         }
 
         @Override
-        public @NotNull Text getDeathMessage(LivingEntity entityLivingBaseIn) {
+        public Text getDeathMessage(LivingEntity entityLivingBaseIn) {
             LivingEntity livingentity = entityLivingBaseIn.getPrimeAdversary();
             String s = "death.attack." + this.getName();
             int index = entityLivingBaseIn.getRandom().nextInt(2);
@@ -82,7 +82,7 @@ public class IafDamageRegistry {
         }
 
         @Override
-        public @NotNull Text getDeathMessage(LivingEntity entityLivingBaseIn) {
+        public Text getDeathMessage(LivingEntity entityLivingBaseIn) {
             LivingEntity livingentity = entityLivingBaseIn.getPrimeAdversary();
             String s = "death.attack." + this.getName();
             int index = entityLivingBaseIn.getRandom().nextInt(2);

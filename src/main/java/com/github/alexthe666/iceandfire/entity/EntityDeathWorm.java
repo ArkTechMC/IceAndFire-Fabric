@@ -154,12 +154,12 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public @NotNull LookControl getLookControl() {
+    public LookControl getLookControl() {
         return this.lookHelper;
     }
 
     @Override
-    public @NotNull SoundCategory getSoundCategory() {
+    public SoundCategory getSoundCategory() {
         return SoundCategory.HOSTILE;
     }
 
@@ -225,7 +225,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() != ANIMATION_BITE) {
             this.setAnimation(ANIMATION_BITE);
             this.playSound(this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_ATTACK : IafSoundRegistry.DEATHWORM_ATTACK, 1, 1);
@@ -241,13 +241,13 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public void onDeath(@NotNull DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         this.clearSegments();
         super.onDeath(cause);
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     @Override
@@ -261,7 +261,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
@@ -277,7 +277,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putInt("GrowthCounter", this.growthCounter);
@@ -288,7 +288,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setVariant(compound.getInt("Variant"));
         this.growthCounter = compound.getInt("GrowthCounter");
@@ -372,7 +372,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setVariant(this.getRandom().nextInt(3));
         float size = 0.25F + (float) (Math.random() * 0.35F);
@@ -381,7 +381,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
+    public void updatePassengerPosition(Entity passenger, PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
             this.setBodyYaw(passenger.getYaw());
@@ -404,7 +404,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
         if (this.getWormAge() > 4 && player.getVehicle() == null && player.getMainHandStack().getItem() == Items.FISHING_ROD && player.getOffHandStack().getItem() == Items.FISHING_ROD && !this.getWorld().isClient) {
             player.startRiding(this);
@@ -426,7 +426,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float amount) {
+    public boolean damage(DamageSource source, float amount) {
         if (source.isOf(DamageTypes.IN_WALL) || source.isOf(DamageTypes.FALLING_BLOCK)) {
             return false;
         }
@@ -437,7 +437,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public void move(@NotNull MovementType typeIn, @NotNull Vec3d pos) {
+    public void move(MovementType typeIn, Vec3d pos) {
         super.move(typeIn, pos);
     }
 
@@ -494,7 +494,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public boolean onKilledOther(@NotNull ServerWorld world, @NotNull LivingEntity entity) {
+    public boolean onKilledOther(ServerWorld world, LivingEntity entity) {
         if (this.isTamed()) {
             this.heal(14);
             return false;
@@ -503,7 +503,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         if (this.isTamed()) {
             LivingEntity livingentity = this.getOwner();
             if (entityIn == livingentity) {
@@ -630,7 +630,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_HURT : IafSoundRegistry.DEATHWORM_HURT;
     }
 

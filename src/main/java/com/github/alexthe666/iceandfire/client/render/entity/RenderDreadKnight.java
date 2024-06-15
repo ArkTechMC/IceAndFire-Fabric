@@ -24,7 +24,7 @@ public class RenderDreadKnight extends MobEntityRenderer<EntityDreadKnight, Mode
     }
 
     @Override
-    protected void scale(@NotNull EntityDreadKnight entity, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(EntityDreadKnight entity, MatrixStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(0.95F, 0.95F, 0.95F);
     }
 

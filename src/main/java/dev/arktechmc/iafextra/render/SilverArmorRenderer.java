@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class SilverArmorRenderer implements ArmorRenderer {
-    public @NotNull BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {
+    public BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {
         return new ModelSilverArmor(armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD);
     }
 

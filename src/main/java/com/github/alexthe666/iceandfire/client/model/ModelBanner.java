@@ -24,12 +24,12 @@ public class ModelBanner extends CompositeEntityModel {
     }
 
     @Override
-    public void setAngles(@NotNull Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 
     @Override
-    public @NotNull Iterable<BasicModelPart> getParts() {
+    public Iterable<BasicModelPart> getParts() {
         return ImmutableList.of(this.flag, this.pole, this.bar);
     }
 

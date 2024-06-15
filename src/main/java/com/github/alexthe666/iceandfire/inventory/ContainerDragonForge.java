@@ -54,12 +54,12 @@ public class ContainerDragonForge extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity playerIn) {
+    public boolean canUse(PlayerEntity playerIn) {
         return this.tileFurnace.canPlayerUse(playerIn);
     }
 
     @Override
-    public @NotNull ItemStack quickMove(@NotNull PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 

@@ -27,12 +27,12 @@ public class ItemMyrmexStaff extends Item {
     }
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, @NotNull World world, @NotNull Entity entity, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (stack.getNbt() == null) {
             stack.setNbt(new NbtCompound());
             stack.getNbt().putUuid("HiveUUID", new UUID(0, 0));
@@ -40,7 +40,7 @@ public class ItemMyrmexStaff extends Item {
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         if (playerIn.isSneaking()) {
             return super.use(worldIn, playerIn, hand);
@@ -64,7 +64,7 @@ public class ItemMyrmexStaff extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         if (!context.getPlayer().isSneaking()) {
             return super.useOnBlock(context);
         } else {

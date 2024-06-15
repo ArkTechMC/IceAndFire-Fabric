@@ -37,7 +37,7 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityPixie pixie) {
+    public Identifier getTexture(EntityPixie pixie) {
         return switch (pixie.getColor()) {
             default -> TEXTURE_0;
             case 1 -> TEXTURE_1;

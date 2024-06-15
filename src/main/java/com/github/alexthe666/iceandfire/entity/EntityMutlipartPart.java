@@ -78,12 +78,12 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     @Override
-    protected void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    protected void readCustomDataFromNbt(NbtCompound compound) {
 
     }
 
     @Override
-    protected void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    protected void writeCustomDataToNbt(NbtCompound compound) {
 
     }
 
@@ -93,7 +93,7 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull EntityPose poseIn) {
+    public EntityDimensions getDimensions(EntityPose poseIn) {
         return new EntityDimensions(this.getScaleX(), this.getScaleY(), false);
     }
 
@@ -203,7 +203,7 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         super.remove(RemovalReason.DISCARDED);
     }
 
@@ -222,7 +222,7 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     @Override
-    public boolean isPartOf(@NotNull Entity entity) {
+    public boolean isPartOf(Entity entity) {
         return this == entity || this.getParent() == entity;
     }
 
@@ -241,7 +241,7 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     @Override
-    public @NotNull ActionResult interact(@NotNull PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interact(PlayerEntity player, Hand hand) {
         Entity parent = this.getParent();
         if (this.getWorld().isClient && parent != null) {
             IafClientNetworkHandler.send(new MessageMultipartInteract(parent.getId(), 0));
@@ -259,7 +259,7 @@ public abstract class EntityMutlipartPart extends Entity {
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         return source.isOf(DamageTypes.FALL) || source.isOf(DamageTypes.DROWN) || source.isOf(DamageTypes.IN_WALL) || source.isOf(DamageTypes.FALLING_BLOCK) || source.isOf(DamageTypes.LAVA) || source.isIn(DamageTypeTags.IS_FIRE) || super.isInvulnerableTo(source);
     }
 

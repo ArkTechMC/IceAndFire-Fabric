@@ -24,7 +24,7 @@ public class PathNavigateDeathWormLand extends EntityNavigation {
     }
 
     @Override
-    protected @NotNull PathNodeNavigator createPathNodeNavigator(int i) {
+    protected PathNodeNavigator createPathNodeNavigator(int i) {
         this.nodeMaker = new LandPathNodeMaker();
         this.nodeMaker.setCanEnterOpenDoors(true);
         this.nodeMaker.setCanSwim(true);
@@ -40,7 +40,7 @@ public class PathNavigateDeathWormLand extends EntityNavigation {
     }
 
     @Override
-    protected @NotNull Vec3d getPos() {
+    protected Vec3d getPos() {
         return new Vec3d(this.entity.getX(), this.getPathablePosY(), this.entity.getZ());
     }
 
@@ -48,7 +48,7 @@ public class PathNavigateDeathWormLand extends EntityNavigation {
      * Returns path to given BlockPos
      */
     @Override
-    public Path findPathTo(@NotNull BlockPos pos, int i) {
+    public Path findPathTo(BlockPos pos, int i) {
         if (this.world.getBlockState(pos).isAir()) {
             BlockPos blockpos;
 

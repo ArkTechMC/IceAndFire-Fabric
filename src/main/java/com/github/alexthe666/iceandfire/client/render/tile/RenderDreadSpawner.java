@@ -20,7 +20,7 @@ public class RenderDreadSpawner<T extends TileEntityDreadSpawner> implements Blo
     }
 
     @Override
-    public void render(TileEntityDreadSpawner tileEntityIn, float partialTicks, MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(TileEntityDreadSpawner tileEntityIn, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.push();
         matrixStackIn.translate(0.5D, 0.0D, 0.5D);
         MobSpawnerLogic abstractspawner = tileEntityIn.getLogic();

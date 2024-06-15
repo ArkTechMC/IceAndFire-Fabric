@@ -22,7 +22,7 @@ public class ItemMobSkull extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         PlayerEntity player = context.getPlayer();
         EntityMobSkull skull = new EntityMobSkull(IafEntityRegistry.MOB_SKULL.get(), context.getWorld());
         ItemStack stack = player.getStackInHand(context.getHand());

@@ -25,7 +25,7 @@ public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonIt
     }
 
     @Override
-    public @NotNull String getTranslationKey() {
+    public String getTranslationKey() {
         return switch (this.type) {
             case HELMET -> "item.iceandfire.dragon_helmet";
             case CHESTPLATE -> "item.iceandfire.dragon_chestplate";
@@ -35,7 +35,7 @@ public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonIt
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("dragon." + this.eggType.toString().toLowerCase()).formatted(this.eggType.color));
         tooltip.add(Text.translatable("item.dragonscales_armor.desc").formatted(Formatting.GRAY));
     }

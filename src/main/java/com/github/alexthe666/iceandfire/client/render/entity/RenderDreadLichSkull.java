@@ -25,7 +25,7 @@ public class RenderDreadLichSkull extends EntityRenderer<EntityDreadLichSkull> {
     }
 
     @Override
-    public void render(EntityDreadLichSkull entity, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityDreadLichSkull entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         float f = 0.0625F;
         if (entity.age > 3) {
             matrixStackIn.push();
@@ -46,7 +46,7 @@ public class RenderDreadLichSkull extends EntityRenderer<EntityDreadLichSkull> {
     }
 
     @Override
-    public Identifier getTexture(@NotNull EntityDreadLichSkull entity) {
+    public Identifier getTexture(EntityDreadLichSkull entity) {
         return TEXTURE;
     }
 }

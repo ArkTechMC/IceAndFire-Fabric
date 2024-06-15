@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,7 +19,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.IAF_LECTERN;
 
@@ -29,56 +27,45 @@ public class BlockLectern extends BlockWithEntity {
     protected static final VoxelShape AABB = Block.createCuboidShape(4, 0, 4, 12, 19, 12);
 
     public BlockLectern() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .instrument(Instrument.BASS)
-                        .burnable()
-                        .nonOpaque()
-                        .dynamicBounds()
-                        .strength(2, 5)
-                        .sounds(BlockSoundGroup.WOOD)
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().nonOpaque().dynamicBounds().strength(2, 5).sounds(BlockSoundGroup.WOOD));
 
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
-    public @NotNull VoxelShape getOutlineShape(@NotNull BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos, @NotNull ShapeContext context) {
+    public VoxelShape getOutlineShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
         return AABB;
     }
 
     @Override
-    public @NotNull BlockState rotate(BlockState p_185499_1_, BlockRotation p_185499_2_) {
-        return p_185499_1_.with(FACING, p_185499_2_.rotate(p_185499_1_.get(FACING)));
+    public BlockState rotate(BlockState state, BlockRotation rotation) {
+        return state.with(FACING, rotation.rotate(state.get(FACING)));
     }
 
     @Override
-    public @NotNull BlockState mirror(BlockState p_185471_1_, BlockMirror p_185471_2_) {
-        return p_185471_1_.rotate(p_185471_2_.getRotation(p_185471_1_.get(FACING)));
+    public BlockState mirror(BlockState state, BlockMirror mirror) {
+        return state.rotate(mirror.getRotation(state.get(FACING)));
     }
 
     @Override
-    public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos, @NotNull ShapeContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
         return AABB;
     }
 
 
     @Override
-    public void onStateReplaced(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
-
-        if (tileentity instanceof TileEntityLectern) {
-            ItemScatterer.spawn(worldIn, pos, (TileEntityLectern) tileentity);
+    public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        BlockEntity blockEntity = worldIn.getBlockEntity(pos);
+        if (blockEntity instanceof TileEntityLectern) {
+            ItemScatterer.spawn(worldIn, pos, (TileEntityLectern) blockEntity);
             worldIn.updateComparators(pos, this);
         }
         super.onStateReplaced(state, worldIn, pos, newState, isMoving);
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World p_153182_, @NotNull BlockState p_153183_, @NotNull BlockEntityType<T> entityType) {
-        return p_153182_.isClient ? checkType(entityType, IAF_LECTERN.get(), TileEntityLectern::bookAnimationTick) : null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
+        return world.isClient ? checkType(entityType, IAF_LECTERN.get(), TileEntityLectern::bookAnimationTick) : null;
     }
 
 
@@ -93,20 +80,17 @@ public class BlockLectern extends BlockWithEntity {
     }
 
     @Override
-    public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
+    public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
     @Override
-    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit) {
         if (!player.isSneaking()) {
-            if (worldIn.isClient) {
-                IceAndFire.PROXY.setRefrencedTE(worldIn.getBlockEntity(pos));
-            } else {
-                NamedScreenHandlerFactory inamedcontainerprovider = this.createScreenHandlerFactory(state, worldIn, pos);
-                if (inamedcontainerprovider != null) {
-                    player.openHandledScreen(inamedcontainerprovider);
-                }
+            if (!worldIn.isClient) {
+                NamedScreenHandlerFactory screenHandlerFactory = this.createScreenHandlerFactory(state, worldIn, pos);
+                if (screenHandlerFactory != null)
+                    player.openHandledScreen(screenHandlerFactory);
             }
             return ActionResult.SUCCESS;
         }
@@ -114,7 +98,7 @@ public class BlockLectern extends BlockWithEntity {
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityLectern(pos, state);
     }
 }

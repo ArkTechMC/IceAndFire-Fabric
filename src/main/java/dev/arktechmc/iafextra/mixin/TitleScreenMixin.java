@@ -39,7 +39,7 @@ public class TitleScreenMixin extends Screen {
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"))
-    private void onRenderBackground(RotatingCubeMapRenderer instance, float delta, float alpha, @Local(ordinal = 0) DrawContext context) {
+    private void onRenderBackground(RotatingCubeMapRenderer instance, float delta, float alpha, @Local(ordinal = 0, argsOnly = true) DrawContext context) {
         TitleScreenRenderManager.renderBackground(context, this.width, this.height);
         TitleScreenRenderManager.drawModName(context, this.width, this.height);
     }

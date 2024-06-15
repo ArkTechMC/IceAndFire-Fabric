@@ -17,7 +17,7 @@ public class RenderDragonArrow extends ProjectileEntityRenderer<EntityDragonArro
 
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityDragonArrow entity) {
+    public Identifier getTexture(EntityDragonArrow entity) {
         return TEXTURE;
     }
 }

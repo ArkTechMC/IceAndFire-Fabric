@@ -20,7 +20,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
     }
 
     @Override
-    protected @NotNull ItemStack process(final ItemStack stack, @NotNull final LootContext context) {
+    protected ItemStack process(final ItemStack stack, final LootContext context) {
         if (!stack.isEmpty() && context.get(LootContextParameters.THIS_ENTITY) instanceof EntityDragonBase dragon) {
             if (stack.getItem() == IafItemRegistry.DRAGON_BONE.get()) {
                 stack.setCount(1 + dragon.getRandom().nextInt(1 + (dragon.getAgeInDays() / 25)));
@@ -52,7 +52,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
     }
 
     @Override
-    public @NotNull LootFunctionType getType() {
+    public LootFunctionType getType() {
         return IafLootRegistry.CUSTOMIZE_TO_DRAGON;
     }
 
@@ -62,7 +62,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
         }
 
         @Override
-        public @NotNull CustomizeToDragon fromJson(@NotNull JsonObject object, @NotNull JsonDeserializationContext deserializationContext, LootCondition @NotNull [] conditionsIn) {
+        public CustomizeToDragon fromJson(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition [] conditionsIn) {
             return new CustomizeToDragon(conditionsIn);
         }
     }

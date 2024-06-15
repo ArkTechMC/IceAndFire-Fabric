@@ -119,14 +119,14 @@ public class EntityIceDragon extends EntityDragonBase {
 
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putBoolean("Swimming", this.isSwimming());
         compound.putInt("SwimmingTicks", this.ticksSwiming);
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setSwimming(compound.getBoolean("Swimming"));
         this.ticksSwiming = compound.getInt("SwimmingTicks");
@@ -138,7 +138,7 @@ public class EntityIceDragon extends EntityDragonBase {
     }*/
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (!this.isPlayingAttackAnimation()) {
             switch (this.groundAttack) {
@@ -307,7 +307,7 @@ public class EntityIceDragon extends EntityDragonBase {
     }
 
     @Override
-    public void travel(@NotNull Vec3d pTravelVector) {
+    public void travel(Vec3d pTravelVector) {
         float flyingSpeed;
         if (/* Always false on the server */ this.isTouchingWater()) {
             // In water special
@@ -562,7 +562,7 @@ public class EntityIceDragon extends EntityDragonBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return this.isTeen() ? IafSoundRegistry.ICEDRAGON_TEEN_HURT : this.shouldDropLoot() ? IafSoundRegistry.ICEDRAGON_ADULT_HURT : IafSoundRegistry.ICEDRAGON_CHILD_HURT;
     }
 

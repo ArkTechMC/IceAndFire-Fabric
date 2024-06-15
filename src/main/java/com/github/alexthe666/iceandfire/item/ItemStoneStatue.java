@@ -27,7 +27,7 @@ public class ItemStoneStatue extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         if (stack.getNbt() != null) {
             boolean isPlayer = stack.getNbt().getBoolean("IAFStoneStatuePlayerEntity");
             String id = stack.getNbt().getString("IAFStoneStatueEntityID");
@@ -40,13 +40,13 @@ public class ItemStoneStatue extends Item {
     }
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
         itemStack.getNbt().putBoolean("IAFStoneStatuePlayerEntity", true);
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         if (context.getSide() != Direction.UP) {
             return ActionResult.FAIL;
         } else {

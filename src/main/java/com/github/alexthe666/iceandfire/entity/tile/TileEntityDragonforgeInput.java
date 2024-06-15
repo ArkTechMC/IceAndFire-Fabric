@@ -61,7 +61,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
 

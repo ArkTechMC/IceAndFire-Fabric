@@ -16,45 +16,35 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockGhostChest extends ChestBlock {
 
     public BlockGhostChest() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .instrument(Instrument.BASS)
-                        .burnable()
-                        .strength(2.5F)
-                        .sounds(BlockSoundGroup.WOOD),
-                IafTileEntityRegistry.GHOST_CHEST::get
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().strength(2.5F).sounds(BlockSoundGroup.WOOD), IafTileEntityRegistry.GHOST_CHEST::get);
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityGhostChest(pos, state);
     }
 
     @Override
-    protected @NotNull Stat<Identifier> getOpenStat() {
+    protected Stat<Identifier> getOpenStat() {
         return Stats.CUSTOM.getOrCreateStat(Stats.TRIGGER_TRAPPED_CHEST);
     }
 
     @Override
-    public boolean emitsRedstonePower(@NotNull BlockState state) {
+    public boolean emitsRedstonePower(BlockState state) {
         return true;
     }
 
     @Override
-    public int getWeakRedstonePower(@NotNull BlockState blockState, @NotNull BlockView blockAccess, @NotNull BlockPos pos, @NotNull Direction side) {
+    public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
         return MathHelper.clamp(ChestBlockEntity.getPlayersLookingInChestCount(blockAccess, pos), 0, 15);
     }
 
     @Override
-    public int getStrongRedstonePower(@NotNull BlockState blockState, @NotNull BlockView blockAccess, @NotNull BlockPos pos, @NotNull Direction side) {
+    public int getStrongRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
         return side == Direction.UP ? blockState.getWeakRedstonePower(blockAccess, pos, side) : 0;
     }
 }

@@ -118,7 +118,7 @@ public class EntityFireDragon extends EntityDragonBase {
     }*/
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (!this.isPlayingAttackAnimation()) {
             switch (this.groundAttack) {
@@ -244,7 +244,7 @@ public class EntityFireDragon extends EntityDragonBase {
     }
 
     @Override
-    public void travel(@NotNull Vec3d pTravelVector) {
+    public void travel(Vec3d pTravelVector) {
         float flyingSpeed;
         if (this.isInLava()) {
             // In lava special
@@ -491,7 +491,7 @@ public class EntityFireDragon extends EntityDragonBase {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_HURT : this.shouldDropLoot() ? IafSoundRegistry.FIREDRAGON_ADULT_HURT : IafSoundRegistry.FIREDRAGON_CHILD_HURT;
     }
 

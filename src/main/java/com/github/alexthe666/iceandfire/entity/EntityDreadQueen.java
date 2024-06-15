@@ -87,20 +87,20 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
 
 
     @Override
-    public void onStartedTrackingBy(@NotNull ServerPlayerEntity player) {
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
         super.onStartedTrackingBy(player);
         this.bossInfo.addPlayer(player);
     }
 
     @Override
-    public void onStoppedTrackingBy(@NotNull ServerPlayerEntity player) {
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
         super.onStoppedTrackingBy(player);
         this.bossInfo.removePlayer(player);
     }
 
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
         this.initEquipment(worldIn.getRandom(), difficultyIn);

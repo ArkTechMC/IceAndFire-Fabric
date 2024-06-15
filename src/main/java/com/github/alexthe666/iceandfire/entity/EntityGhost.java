@@ -82,7 +82,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    protected @NotNull Identifier getLootTableId() {
+    protected Identifier getLootTableId() {
         return this.wasFromChest() ? LootTables.EMPTY : this.getType().getLootTableId();
     }
 
@@ -92,7 +92,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.GHOST_HURT;
     }
 
@@ -113,13 +113,13 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         return super.isInvulnerableTo(source) || source.isIn(DamageTypeTags.IS_FIRE) || source.isOf(DamageTypes.IN_WALL) || source.isOf(DamageTypes.CACTUS)
                 || source.isOf(DamageTypes.DROWN) || source.isOf(DamageTypes.FALLING_BLOCK) || source.isOf(DamageTypes.FALLING_ANVIL) || source.isOf(DamageTypes.SWEET_BERRY_BUSH);
     }
 
     @Override
-    protected @NotNull EntityNavigation createNavigation(@NotNull World worldIn) {
+    protected EntityNavigation createNavigation(World worldIn) {
         return new GhostPathNavigator(this, worldIn);
     }
 
@@ -149,7 +149,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
 
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
     }
 
@@ -164,7 +164,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entity) {
+    protected void pushAway(Entity entity) {
     }
 
     @Override
@@ -264,7 +264,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
         if (itemstack != null && itemstack.getItem() == IafItemRegistry.MANUSCRIPT.get() && !this.isHauntedShoppingList()) {
             this.setColor(-1);
@@ -278,7 +278,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void travel(@NotNull Vec3d vec) {
+    public void travel(Vec3d vec) {
         float f4;
         if (this.isDaytimeMode()) {
             super.travel(Vec3d.ZERO);
@@ -288,7 +288,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setColor(this.random.nextInt(3));
         if (this.random.nextInt(200) == 0) {
@@ -326,7 +326,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setColor(compound.getInt("Color"));
         this.setDaytimeMode(compound.getBoolean("DaytimeMode"));
@@ -337,7 +337,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Color", this.getColor());
         compound.putBoolean("DaytimeMode", this.isDaytimeMode());

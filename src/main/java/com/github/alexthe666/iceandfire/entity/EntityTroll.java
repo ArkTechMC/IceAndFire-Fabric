@@ -110,7 +110,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public boolean canSpawn(WorldAccess worldIn, @NotNull SpawnReason spawnReasonIn) {
+    public boolean canSpawn(WorldAccess worldIn, SpawnReason spawnReasonIn) {
         BlockPos pos = this.getBlockPos();
         BlockPos heightAt = worldIn.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos);
         boolean rngCheck = true;
@@ -132,7 +132,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getRandom().nextBoolean()) {
             this.setAnimation(ANIMATION_STRIKE_VERTICAL);
 
@@ -182,7 +182,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putInt("Weapon", this.getWeapon());
@@ -190,7 +190,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setWeapon(compound.getInt("Weapon"));
@@ -199,7 +199,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setTrollType(EnumTroll.getBiomeType(this.getWorld().getBiome(this.getBlockPos())));
         this.setWeaponType(EnumTroll.getWeaponForType(this.getTrollType()));
@@ -405,7 +405,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (this.getAnimation() == this.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
@@ -438,7 +438,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.TROLL_HURT;
     }
 

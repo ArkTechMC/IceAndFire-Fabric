@@ -29,7 +29,7 @@ public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, Model
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityDragonEgg entity) {
+    public Identifier getTexture(EntityDragonEgg entity) {
         return switch (entity.getEggType()) {
             default -> EGG_RED;
             case GREEN -> EGG_GREEN;

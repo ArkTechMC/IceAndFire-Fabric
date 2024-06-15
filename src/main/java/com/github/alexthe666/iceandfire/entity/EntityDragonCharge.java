@@ -76,7 +76,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
     }
 
     @Override
-    protected void onCollision(@NotNull HitResult movingObject) {
+    protected void onCollision(HitResult movingObject) {
         Entity shootingEntity = this.getOwner();
         if (!this.getWorld().isClient) {
             if (movingObject.getType() == HitResult.Type.ENTITY) {
@@ -148,7 +148,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float amount) {
+    public boolean damage(DamageSource source, float amount) {
         return false;
     }
 

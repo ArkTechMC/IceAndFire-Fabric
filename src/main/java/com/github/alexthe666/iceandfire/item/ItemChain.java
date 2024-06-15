@@ -53,7 +53,7 @@ public class ItemChain extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.chain.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.chain.desc_1").formatted(Formatting.GRAY));
         if (this.sticky) {
@@ -63,7 +63,7 @@ public class ItemChain extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnEntity(@NotNull ItemStack stack, @NotNull PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         EntityDataComponent targetData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
         if (targetData.chainData.isChainedTo(playerIn)) {
             return ActionResult.PASS;
@@ -115,7 +115,7 @@ public class ItemChain extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         Block block = context.getWorld().getBlockState(context.getBlockPos()).getBlock();
 
         if (!(block instanceof WallBlock)) {

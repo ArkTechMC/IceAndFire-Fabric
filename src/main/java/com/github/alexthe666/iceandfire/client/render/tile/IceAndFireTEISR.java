@@ -34,7 +34,7 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
     }
 
     @Override
-    public void render(ItemStack stack, @NotNull ModelTransformationMode type, @NotNull MatrixStack stackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         if (stack.getItem() == IafBlockRegistry.GHOST_CHEST.get().asItem()) {
             this.blockEntityRenderDispatcher.renderEntity(this.chest, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }

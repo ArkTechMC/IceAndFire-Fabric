@@ -15,7 +15,7 @@ public class RenderEggInIce<T extends TileEntityEggInIce> implements BlockEntity
     }
 
     @Override
-    public void render(T egg, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T egg, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         ModelDragonEgg model = new ModelDragonEgg();
         if (egg.type != null) {
             matrixStackIn.push();

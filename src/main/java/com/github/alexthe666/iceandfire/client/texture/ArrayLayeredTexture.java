@@ -25,7 +25,7 @@ public class ArrayLayeredTexture extends AbstractTexture {
     }
 
     @Override
-    public void load(@NotNull ResourceManager manager) {
+    public void load(ResourceManager manager) {
         Iterator<String> iterator = this.layeredTextureNames.iterator();
         String s = iterator.next();
         Optional<Resource> iresource = manager.getResource(new Identifier(s));

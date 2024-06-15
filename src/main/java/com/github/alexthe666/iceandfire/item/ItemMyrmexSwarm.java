@@ -25,7 +25,7 @@ public class ItemMyrmexSwarm extends Item {
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         playerIn.setCurrentHand(hand);
         playerIn.swingHand(hand);
@@ -48,7 +48,7 @@ public class ItemMyrmexSwarm extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.myrmex_swarm.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.myrmex_swarm.desc_1").formatted(Formatting.GRAY));

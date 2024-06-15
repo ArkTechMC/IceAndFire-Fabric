@@ -24,7 +24,7 @@ public class RenderMyrmexEgg extends LivingEntityRenderer<EntityMyrmexEgg, Advan
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityMyrmexEgg entity) {
+    public Identifier getTexture(EntityMyrmexEgg entity) {
         return entity.isJungle() ? EGG_JUNGLE : EGG_DESERT;
     }
 

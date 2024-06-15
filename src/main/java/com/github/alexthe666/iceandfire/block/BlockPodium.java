@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPodium;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -16,39 +15,28 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockPodium extends BlockWithEntity {
 
     protected static final VoxelShape AABB = Block.createCuboidShape(2, 0, 2, 14, 23, 14);
 
     public BlockPodium() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .instrument(Instrument.BASS)
-                        .burnable()
-                        .nonOpaque()
-                        .dynamicBounds()
-                        .strength(2.0F)
-                        .sounds(BlockSoundGroup.WOOD)
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().nonOpaque().dynamicBounds().strength(2.0F).sounds(BlockSoundGroup.WOOD));
     }
 
 
     @Override
-    public @NotNull VoxelShape getOutlineShape(@NotNull BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos, @NotNull ShapeContext context) {
+    public VoxelShape getOutlineShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
         return AABB;
     }
 
     @Override
-    public @NotNull VoxelShape getCollisionShape(@NotNull BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos, @NotNull ShapeContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
         return AABB;
     }
 
     @Override
-    public void onStateReplaced(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+    public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
         if (tileentity instanceof TileEntityPodium) {
             ItemScatterer.spawn(worldIn, pos, (TileEntityPodium) tileentity);
@@ -58,15 +46,12 @@ public class BlockPodium extends BlockWithEntity {
     }
 
     @Override
-    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit) {
         if (!player.isSneaking()) {
-            if (worldIn.isClient) {
-                IceAndFire.PROXY.setRefrencedTE(worldIn.getBlockEntity(pos));
-            } else {
-                NamedScreenHandlerFactory inamedcontainerprovider = this.createScreenHandlerFactory(state, worldIn, pos);
-                if (inamedcontainerprovider != null) {
-                    player.openHandledScreen(inamedcontainerprovider);
-                }
+            if (!worldIn.isClient) {
+                NamedScreenHandlerFactory screenHandlerFactory = this.createScreenHandlerFactory(state, worldIn, pos);
+                if (screenHandlerFactory != null)
+                    player.openHandledScreen(screenHandlerFactory);
             }
             return ActionResult.SUCCESS;
         }
@@ -75,12 +60,12 @@ public class BlockPodium extends BlockWithEntity {
 
 
     @Override
-    public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
+    public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityPodium(pos, state);
     }
 

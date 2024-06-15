@@ -106,7 +106,7 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityHydra entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHydra entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (entity.isInvisible()) {
             return;
         }
@@ -114,7 +114,7 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityHydra gorgon) {
+    public Identifier getTexture(EntityHydra gorgon) {
         return switch (gorgon.getVariant()) {
             default -> RenderHydra.TEXUTURE_0;
             case 1 -> RenderHydra.TEXUTURE_1;

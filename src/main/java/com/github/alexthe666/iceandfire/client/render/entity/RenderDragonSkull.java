@@ -42,7 +42,7 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     }
 
     @Override
-    public void render(EntityDragonSkull entity, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityDragonSkull entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         TabulaModel model;
         if (entity.getDragonType() == 2) {
             model = this.lightningDragonModel;
@@ -67,7 +67,7 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityDragonSkull entity) {
+    public Identifier getTexture(EntityDragonSkull entity) {
         if (entity.getDragonType() == 2) {
             return EnumDragonTextures.getLightningDragonSkullTextures(entity);
         }

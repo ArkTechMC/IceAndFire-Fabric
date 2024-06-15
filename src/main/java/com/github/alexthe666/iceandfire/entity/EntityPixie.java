@@ -135,7 +135,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float amount) {
+    public boolean damage(DamageSource source, float amount) {
         if (!this.getWorld().isClient && this.getRandom().nextInt(3) == 0 && !this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
             this.dropStack(this.getStackInHand(Hand.MAIN_HAND), 0);
             this.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
@@ -149,7 +149,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         boolean invulnerable = super.isInvulnerableTo(source);
         if (!invulnerable) {
             Entity owner = this.getOwner();
@@ -161,7 +161,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    public void onDeath(@NotNull DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         if (!this.getWorld().isClient && !this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
             this.dropStack(this.getStackInHand(Hand.MAIN_HAND), 0);
             this.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
@@ -180,18 +180,18 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entityIn) {
+    protected void pushAway(Entity entityIn) {
         if (this.getOwner() != entityIn) {
             entityIn.pushAwayFrom(this);
         }
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     @Override
-    public @NotNull ActionResult interactMob(@NotNull PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (this.isOwner(player)) {
 
             if (player.getStackInHand(hand).isIn(IafItemTags.HEAL_PIXIE) && this.getHealth() < this.getMaxHealth()) {
@@ -257,7 +257,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setColor(this.random.nextInt(5));
         this.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
@@ -382,7 +382,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
@@ -404,7 +404,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return IafSoundRegistry.PIXIE_HURT;
     }
 
@@ -414,7 +414,7 @@ public class EntityPixie extends TameableEntity {
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         if (this.isTamed()) {
             LivingEntity livingentity = this.getOwner();
             if (entityIn == livingentity) {

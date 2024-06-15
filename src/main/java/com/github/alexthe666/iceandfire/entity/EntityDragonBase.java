@@ -285,7 +285,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull BlockPos getPositionTarget() {
+    public BlockPos getPositionTarget() {
         return this.homePos == null ? super.getPositionTarget() : this.homePos.getPosition();
     }
 
@@ -451,7 +451,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    protected @NotNull EntityNavigation createNavigation(@NotNull World worldIn) {
+    protected EntityNavigation createNavigation(World worldIn) {
         return this.createNavigator(worldIn, AdvancedPathNavigate.MovementType.WALKING);
     }
 
@@ -490,7 +490,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean canStartRiding(@NotNull Entity rider) {
+    public boolean canStartRiding(Entity rider) {
         return true;
     }
 
@@ -562,7 +562,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         this.removeParts();
         super.remove(reason);
     }
@@ -704,7 +704,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Hunger", this.getHunger());
         compound.putInt("AgeTicks", this.getAgeInTicks());
@@ -747,7 +747,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setHunger(compound.getInt("Hunger"));
         this.setAgeInTicks(compound.getInt("AgeTicks"));
@@ -989,7 +989,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    protected boolean canAddPassenger(@NotNull Entity passenger) {
+    protected boolean canAddPassenger(Entity passenger) {
         return this.getPassengerList().size() < 2;
     }
 
@@ -1062,7 +1062,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull ActionResult interactAt(PlayerEntity player, @NotNull Vec3d vec, @NotNull Hand hand) {
+    public ActionResult interactAt(PlayerEntity player, Vec3d vec, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         int lastDeathStage = Math.min(this.getAgeInDays() / 5, 25);
         if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK.get()) {
@@ -1113,7 +1113,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         // Interaction usually means right-click but the relevant item is often in the main hand
         ItemStack stack = player.getMainHandStack();
 
@@ -1505,7 +1505,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public abstract String getVariantName(int variant);
 
     @Override
-    public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
+    public void updatePassengerPosition(Entity passenger, PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger)) {
             if (this.getControllingPassenger() == null || !this.getControllingPassenger().getUuid().equals(passenger.getUuid())) {
@@ -1597,7 +1597,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setGender(this.getRandom().nextBoolean());
         final int age = this.getRandom().nextInt(80) + 1;
@@ -1612,7 +1612,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource dmg, float i) {
+    public boolean damage(DamageSource dmg, float i) {
         if (this.isModelDead() && dmg != this.getWorld().getDamageSources().outOfWorld()) {
             return false;
         }
@@ -1746,7 +1746,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull EntityPose poseIn) {
+    public EntityDimensions getDimensions(EntityPose poseIn) {
         return this.getType().getDimensions().scaled(this.getScaleFactor());
     }
 
@@ -1756,7 +1756,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     public float getRenderSize() {
@@ -1773,7 +1773,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (this.isTackling() || this.isModelDead()) {
             return false;
@@ -1861,7 +1861,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (!this.isModelDead()) {
             if (this.getAnimation() == this.NO_ANIMATION && !this.getWorld().isClient) {
                 this.setAnimation(ANIMATION_SPEAK);
@@ -1876,12 +1876,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
     @Override
-    public boolean canBreedWith(@NotNull AnimalEntity otherAnimal) {
+    public boolean canBreedWith(AnimalEntity otherAnimal) {
         if (otherAnimal instanceof EntityDragonBase dragon && otherAnimal != this && otherAnimal.getClass() == this.getClass()) {
             return this.isMale() && !dragon.isMale() || !this.isMale() && dragon.isMale();
         }
@@ -1964,7 +1964,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void travel(@NotNull Vec3d pTravelVector) {
+    public void travel(Vec3d pTravelVector) {
         if (this.getAnimation() == ANIMATION_SHAKEPREY || !this.canMove() && !this.hasPassengers() || this.isSitting()) {
             if (this.getNavigation().getCurrentPath() != null) {
                 this.getNavigation().stop();
@@ -2353,7 +2353,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void move(@NotNull MovementType pType, @NotNull Vec3d pPos) {
+    public void move(MovementType pType, Vec3d pPos) {
         if (this.isSitting() && !this.hasPassengers()) {
             pPos = new Vec3d(0, pPos.getY(), 0);
         }
@@ -2399,7 +2399,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void onDeath(@NotNull DamageSource cause) {
+    public void onDeath(DamageSource cause) {
         super.onDeath(cause);
         this.setHunger(this.getHunger() + FoodUtils.getFoodPoints(this));
     }
@@ -2495,7 +2495,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    protected void dropLoot(@NotNull DamageSource damageSourceIn, boolean attackedRecently) {
+    protected void dropLoot(DamageSource damageSourceIn, boolean attackedRecently) {
     }
 
     public HitResult rayTraceRider(Entity rider, double blockReachDistance, float partialTicks) {
@@ -2588,7 +2588,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull Vec3d updatePassengerForDismount(final LivingEntity passenger) {
+    public Vec3d updatePassengerForDismount(final LivingEntity passenger) {
         if (passenger.isInsideWall()) {
             return this.getPos().add(0, 1, 0);
         }
@@ -2604,7 +2604,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         // Workaround to make sure dragons won't be attacked when dead
         if (this.isModelDead())
             return true;
@@ -2676,7 +2676,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean canExplosionDestroyBlock(@NotNull Explosion explosionIn, @NotNull BlockView worldIn, @NotNull BlockPos pos, BlockState blockStateIn, float explosionPower) {
+    public boolean canExplosionDestroyBlock(Explosion explosionIn, BlockView worldIn, BlockPos pos, BlockState blockStateIn, float explosionPower) {
         return !(blockStateIn.getBlock() instanceof IDragonProof) && DragonUtils.canDragonBreak(blockStateIn, this);
     }
 
@@ -2706,7 +2706,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean canAttackWithOwner(@NotNull LivingEntity target, @NotNull LivingEntity owner) {
+    public boolean canAttackWithOwner(LivingEntity target, LivingEntity owner) {
         if (this.isTamed() && target instanceof TameableEntity tamableTarget) {
             UUID targetOwner = tamableTarget.getOwnerUuid();
             if (targetOwner != null && targetOwner.equals(this.getOwnerUuid())) {
@@ -2717,7 +2717,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean canTarget(@NotNull LivingEntity target) {
+    public boolean canTarget(LivingEntity target) {
         return super.canTarget(target) && DragonUtils.isAlive(target);
     }
 
@@ -2751,12 +2751,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public boolean saveNbt(@NotNull NbtCompound compound) {
+    public boolean saveNbt(NbtCompound compound) {
         return this.saveSelfNbt(compound);
     }
 
     @Override
-    public void playSound(@NotNull SoundEvent soundIn, float volume, float pitch) {
+    public void playSound(SoundEvent soundIn, float volume, float pitch) {
         if (soundIn == SoundEvents.ENTITY_GENERIC_EAT || soundIn == this.getAmbientSound() || soundIn == this.getHurtSound(this.getWorld().getDamageSources().generic()) || soundIn == this.getDeathSound() || soundIn == this.getRoarSound()) {
             if (!this.isSilent() && this.headPart != null) {
                 this.getWorld().playSound(null, this.headPart.getX(), this.headPart.getY(), this.headPart.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
@@ -2767,7 +2767,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull SoundCategory getSoundCategory() {
+    public SoundCategory getSoundCategory() {
         return SoundCategory.HOSTILE;
     }
 
@@ -2782,7 +2782,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public @NotNull ItemStack getEquippedStack(final EquipmentSlot slotIn) {
+    public ItemStack getEquippedStack(final EquipmentSlot slotIn) {
         return switch (slotIn) {
             case OFFHAND -> this.dragonInventory.getStack(0);
             case HEAD -> this.dragonInventory.getStack(1);
@@ -2794,7 +2794,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void equipStack(final EquipmentSlot slotIn, final @NotNull ItemStack stack) {
+    public void equipStack(final EquipmentSlot slotIn, final ItemStack stack) {
         switch (slotIn) {
             case OFFHAND -> this.dragonInventory.setStack(0, stack);
             case HEAD -> this.dragonInventory.setStack(1, stack);
@@ -2856,14 +2856,14 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     @Override
-    public void onInventoryChanged(@NotNull Inventory invBasic) {
+    public void onInventoryChanged(Inventory invBasic) {
         if (!this.getWorld().isClient) {
             this.updateAttributes();
         }
     }
 
     @Override // TODO :: Block collision performance impact (due to the multi-part entity)?
-    public @NotNull Vec3d applyMovementInput(@NotNull Vec3d pDeltaMovement, float pFriction) {
+    public Vec3d applyMovementInput(Vec3d pDeltaMovement, float pFriction) {
         if (this.moveControl instanceof IafDragonFlightManager.PlayerFlightMoveHelper)
             return pDeltaMovement;
         return super.applyMovementInput(pDeltaMovement, pFriction);

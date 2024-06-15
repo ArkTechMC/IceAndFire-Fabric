@@ -16,20 +16,20 @@ public class RenderNothing<T extends Entity> extends EntityRenderer<T> {
     }
 
     @Override
-    public void render(@NotNull T entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     // Only render if the debug bboxes are enabled
     @Override
-    public boolean shouldRender(@NotNull T livingEntityIn, @NotNull Frustum camera, double camX, double camY, double camZ) {
+    public boolean shouldRender(T livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
         if (!this.dispatcher.shouldRenderHitboxes())
             return false;
         return super.shouldRender(livingEntityIn, camera, camX, camY, camZ);
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull Entity entity) {
+    public Identifier getTexture(Entity entity) {
         return null;
     }
 }

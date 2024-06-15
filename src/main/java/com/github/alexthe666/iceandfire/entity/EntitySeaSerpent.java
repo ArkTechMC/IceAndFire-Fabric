@@ -127,7 +127,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public @NotNull SoundCategory getSoundCategory() {
+    public SoundCategory getSoundCategory() {
         return SoundCategory.HOSTILE;
     }
 
@@ -182,7 +182,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.AQUATIC;
     }
 
@@ -223,13 +223,13 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         this.clearParts();
         super.remove(reason);
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull EntityPose poseIn) {
+    public EntityDimensions getDimensions(EntityPose poseIn) {
         return this.getType().getDimensions().scaled(this.getScaleFactor());
     }
 
@@ -250,7 +250,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() != ANIMATION_BITE) {
             this.setAnimation(ANIMATION_BITE);
             return true;
@@ -340,7 +340,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putInt("TicksSinceRoar", this.ticksSinceRoar);
@@ -353,7 +353,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setVariant(compound.getInt("Variant"));
         this.ticksSinceRoar = compound.getInt("TicksSinceRoar");
@@ -427,7 +427,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     @Override
@@ -634,7 +634,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setVariant(this.getRandom().nextInt(7));
         boolean ancient = this.getRandom().nextInt(16) == 1;
@@ -663,7 +663,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
@@ -698,7 +698,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.SEA_SERPENT_HURT;
     }
 
@@ -716,7 +716,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (this.getAnimation() == this.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
@@ -788,7 +788,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public void travel(@NotNull Vec3d vec) {
+    public void travel(Vec3d vec) {
         if (this.canMoveVoluntarily() && this.isTouchingWater()) {
             this.updateVelocity(this.getMovementSpeed(), vec);
             this.move(MovementType.SELF, this.getVelocity());
@@ -802,7 +802,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public boolean onKilledOther(@NotNull ServerWorld world, @NotNull LivingEntity entity) {
+    public boolean onKilledOther(ServerWorld world, LivingEntity entity) {
         this.attackDecision = this.getRandom().nextBoolean();
         return this.attackDecision;
     }
@@ -830,7 +830,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         DamageSources damageSources = this.getWorld().getDamageSources();
         return source == damageSources.fall() || source == damageSources.drown() || source == damageSources.inWall()
                 || (source.getAttacker() != null && source == damageSources.fallingBlock(source.getAttacker()))

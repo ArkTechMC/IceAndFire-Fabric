@@ -29,14 +29,14 @@ public class ItemBestiary extends Item {
     }
 
     @Override
-    public void onCraft(ItemStack stack, @NotNull World worldIn, @NotNull PlayerEntity playerIn) {
+    public void onCraft(ItemStack stack, World worldIn, PlayerEntity playerIn) {
         stack.setNbt(new NbtCompound());
         stack.getNbt().putIntArray("Pages", new int[]{0});
 
     }
 
 /*    @Override
-    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (this.allowdedIn(group)) {
             items.add(new ItemStack(this));
             ItemStack stack = new ItemStack(IafItemRegistry.BESTIARY.get());
@@ -51,7 +51,7 @@ public class ItemBestiary extends Item {
     }*/
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStackIn = playerIn.getStackInHand(handIn);
         if (worldIn.isClient)
             MinecraftClient.getInstance().setScreen(new GuiBestiary(itemStackIn));
@@ -59,7 +59,7 @@ public class ItemBestiary extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, @NotNull World worldIn, @NotNull Entity entityIn, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (stack.getNbt() == null) {
             stack.setNbt(new NbtCompound());
             stack.getNbt().putIntArray("Pages", new int[]{EnumBestiaryPages.INTRODUCTION.ordinal()});
@@ -68,7 +68,7 @@ public class ItemBestiary extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         if (stack.getNbt() != null) {
             if (IceAndFire.PROXY.shouldSeeBestiaryContents()) {
                 tooltip.add(Text.translatable("bestiary.contains").formatted(Formatting.GRAY));

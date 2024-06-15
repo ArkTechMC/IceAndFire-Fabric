@@ -41,7 +41,7 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
     }
 
     @Override
-    public boolean shouldRender(@NotNull EntityCockatrice livingEntityIn, @NotNull Frustum camera, double camX, double camY, double camZ) {
+    public boolean shouldRender(EntityCockatrice livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
         if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
             return true;
         } else {
@@ -59,7 +59,7 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
     }
 
     @Override
-    public void render(EntityCockatrice entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityCockatrice entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         if (entityIn.isBaby()) {
             this.model = BABY_MODEL;
         } else {
@@ -75,14 +75,14 @@ public class RenderCockatrice extends MobEntityRenderer<EntityCockatrice, Advanc
     }
 
     @Override
-    protected void scale(EntityCockatrice entity, @NotNull MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(EntityCockatrice entity, MatrixStack matrixStackIn, float partialTickTime) {
         if (entity.isBaby()) {
             matrixStackIn.scale(0.5F, 0.5F, 0.5F);
         }
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityCockatrice cockatrice) {
+    public Identifier getTexture(EntityCockatrice cockatrice) {
         if (cockatrice.isBaby()) {
             return cockatrice.isHen() ? TEXTURE_HEN_CHICK : TEXTURE_ROOSTER_CHICK;
         } else {

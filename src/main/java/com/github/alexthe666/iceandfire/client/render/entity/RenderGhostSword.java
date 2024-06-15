@@ -24,12 +24,12 @@ public class RenderGhostSword extends EntityRenderer<EntityGhostSword> {
 
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityGhostSword entity) {
+    public Identifier getTexture(EntityGhostSword entity) {
         return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
     }
 
     @Override
-    public void render(EntityGhostSword entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityGhostSword entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         matrixStackIn.push();
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevYaw, entityIn.getYaw()) - 90.0F));
         matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevPitch, entityIn.getPitch())));

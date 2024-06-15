@@ -53,7 +53,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
     }
 
     @Override
-    public void render(@NotNull EntityMobSkull entity, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityMobSkull entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.push();
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-180.0F));
@@ -140,7 +140,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityMobSkull entity) {
+    public Identifier getTexture(EntityMobSkull entity) {
         return this.getSkullTexture(entity.getSkullType());
     }
 

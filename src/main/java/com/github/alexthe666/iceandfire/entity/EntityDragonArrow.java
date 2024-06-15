@@ -28,19 +28,19 @@ public class EntityDragonArrow extends PersistentProjectileEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tagCompound) {
+    public void writeCustomDataToNbt(NbtCompound tagCompound) {
         super.writeCustomDataToNbt(tagCompound);
         tagCompound.putDouble("damage", 10);
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tagCompund) {
+    public void readCustomDataFromNbt(NbtCompound tagCompund) {
         super.readCustomDataFromNbt(tagCompund);
         this.setDamage(tagCompund.getDouble("damage"));
     }
 
     @Override
-    protected @NotNull ItemStack asItemStack() {
+    protected ItemStack asItemStack() {
         return new ItemStack(IafItemRegistry.DRAGONBONE_ARROW.get());
     }
 

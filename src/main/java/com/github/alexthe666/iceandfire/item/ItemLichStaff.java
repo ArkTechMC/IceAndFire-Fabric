@@ -19,12 +19,12 @@ public class ItemLichStaff extends Item {
     }
 
     @Override
-    public boolean canRepair(@NotNull ItemStack toRepair, ItemStack repair) {
+    public boolean canRepair(ItemStack toRepair, ItemStack repair) {
         return repair.getItem() == IafItemRegistry.DREAD_SHARD.get() || super.canRepair(toRepair, repair);
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         if (!worldIn.isClient) {
             playerIn.setCurrentHand(hand);

@@ -39,7 +39,7 @@ public class ItemHippogryphEgg extends Item {
 
 
 /*    @Override
-    public void fillItemCategory(@NotNull CreativeModeTab group, @NotNull NonNullList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         if (this.allowdedIn(group)) {
             for (EnumHippogryphTypes type : EnumHippogryphTypes.values()) {
                 ItemStack stack = new ItemStack(this);
@@ -54,7 +54,7 @@ public class ItemHippogryphEgg extends Item {
     }*/
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getStackInHand(handIn);
 
         if (!playerIn.isCreative()) {
@@ -74,7 +74,7 @@ public class ItemHippogryphEgg extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         NbtCompound tag = stack.getNbt();
         int eggOrdinal = 0;
         if (tag != null) {

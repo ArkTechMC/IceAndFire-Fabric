@@ -112,7 +112,7 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         if (entityIn == null) {
             return false;
         }

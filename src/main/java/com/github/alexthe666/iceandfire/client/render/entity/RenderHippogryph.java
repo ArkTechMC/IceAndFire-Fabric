@@ -23,7 +23,7 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
     }
 
     @Override
-    protected void scale(@NotNull EntityHippogryph entity, MatrixStack matrix, float partialTickTime) {
+    protected void scale(EntityHippogryph entity, MatrixStack matrix, float partialTickTime) {
         matrix.scale(1.2F, 1.2F, 1.2F);
     }
 
@@ -47,7 +47,7 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
         }
 
         @Override
-        public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityHippogryph hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHippogryph hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (hippo.getArmor() != 0) {
                 RenderLayer type = switch (hippo.getArmor()) {
                     case 1 -> this.TEXTURE_IRON;

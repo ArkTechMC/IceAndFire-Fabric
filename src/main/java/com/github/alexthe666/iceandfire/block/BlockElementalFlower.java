@@ -9,7 +9,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -18,56 +17,41 @@ public class BlockElementalFlower extends PlantBlock {
     public Item itemBlock;
 
     public BlockElementalFlower() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.DARK_GREEN)
-                        .replaceable()
-                        .burnable()
-                        .pistonBehavior(PistonBehavior.DESTROY)
-                        .nonOpaque()
-                        .noCollision()
-                        .dynamicBounds()
-                        .ticksRandomly()
-                        .sounds(BlockSoundGroup.GRASS)
-        );
+        super(Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().burnable().pistonBehavior(PistonBehavior.DESTROY).nonOpaque().noCollision().dynamicBounds().ticksRandomly().sounds(BlockSoundGroup.GRASS));
     }
 
     @Override
-    public @NotNull VoxelShape getOutlineShape(@NotNull BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos, @NotNull ShapeContext context) {
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
 
     @Override
-    public boolean canPlantOnTop(BlockState state, @NotNull BlockView worldIn, @NotNull BlockPos pos) {
+    public boolean canPlantOnTop(BlockState state, BlockView world, BlockPos pos) {
         Block block = state.getBlock();
         return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND || state.isIn(BlockTags.SAND);
     }
 
-    public boolean canStay(World worldIn, BlockPos pos) {
-        BlockState soil = worldIn.getBlockState(pos.down());
-        if (this == IafBlockRegistry.FIRE_LILY.get()) {
+    public boolean canStay(World world, BlockPos pos) {
+        BlockState soil = world.getBlockState(pos.down());
+        if (this == IafBlockRegistry.FIRE_LILY.get())
             return soil.isIn(BlockTags.SAND) || soil.isOf(Blocks.NETHERRACK);
-        } else if (this == IafBlockRegistry.LIGHTNING_LILY.get()) {
+        else if (this == IafBlockRegistry.LIGHTNING_LILY.get())
             return soil.isIn(BlockTags.DIRT) || soil.isOf(Blocks.GRASS);
-        } else {
+        else
             return soil.isIn(BlockTags.ICE) || soil.isIn(BlockTags.SNOW) || soil.isIn(BlockTags.SNOW_LAYER_CAN_SURVIVE_ON);
-        }
+
     }
 
-    public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand) {
-        this.checkFall(worldIn, pos);
+    public void updateTick(World world, BlockPos pos, BlockState state, Random rand) {
+        this.checkFall(world, pos);
     }
 
-    private void checkFall(World worldIn, BlockPos pos) {
-        if (!this.canStay(worldIn, pos)) {
-            worldIn.breakBlock(pos, true);
-        } else {
-        }
+    private void checkFall(World world, BlockPos pos) {
+        if (!this.canStay(world, pos))
+            world.breakBlock(pos, true);
     }
 
     protected boolean canSustainBush(BlockState state) {
         return true;
     }
-
 }

@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class DeathWormArmorRenderer implements ArmorRenderer {
-    public @NotNull BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {
+    public BipedEntityModel<?> getHumanoidArmorModel(EquipmentSlot armorSlot) {
         return new ModelDeathWormArmor(ModelDeathWormArmor.getBakedModel(armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD));
     }
 

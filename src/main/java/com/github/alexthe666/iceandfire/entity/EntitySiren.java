@@ -133,12 +133,12 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public float getPathfindingFavor(@NotNull BlockPos pos) {
+    public float getPathfindingFavor(BlockPos pos) {
         return this.getWorld().getBlockState(pos).isOf(Blocks.WATER) ? 10F : super.getPathfindingFavor(pos);
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getRandom().nextInt(2) == 0) {
             if (this.getAnimation() != ANIMATION_PULL) {
                 this.setAnimation(ANIMATION_PULL);
@@ -159,7 +159,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public float getPathfindingPenalty(@NotNull PathNodeType nodeType) {
+    public float getPathfindingPenalty(PathNodeType nodeType) {
         return nodeType == PathNodeType.WATER ? 0F : super.getPathfindingPenalty(nodeType);
     }
 
@@ -345,7 +345,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putInt("HairColor", this.getHairColor());
         tag.putBoolean("Aggressive", this.isAgressive());
@@ -357,7 +357,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setHairColor(tag.getInt("HairColor"));
         this.setAttacking(tag.getBoolean("Aggressive"));
@@ -461,7 +461,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setHairColor(this.getRandom().nextInt(3));
         this.setSingingPose(this.getRandom().nextInt(3));
@@ -499,7 +499,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return this.isAgressive() ? IafSoundRegistry.NAGA_HURT : IafSoundRegistry.MERMAID_HURT;
     }
 
@@ -509,7 +509,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     @Override
-    public void travel(@NotNull Vec3d motion) {
+    public void travel(Vec3d motion) {
         super.travel(motion);
     }
 

@@ -35,13 +35,13 @@ public class ContainerLectern extends ScreenHandler {
         this.addProperties(propertyDelegate);
         this.addSlot(new SlotLectern(furnaceInventory, 0, 15, 47) {
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemBestiary;
             }
         });
         this.addSlot(new Slot(furnaceInventory, 1, 35, 47) {
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() == IafItemRegistry.MANUSCRIPT.get();
             }
         });
@@ -71,12 +71,12 @@ public class ContainerLectern extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity playerIn) {
+    public boolean canUse(PlayerEntity playerIn) {
         return this.tileFurnace.canPlayerUse(playerIn);
     }
 
     @Override
-    public @NotNull ItemStack quickMove(@NotNull PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasStack()) {

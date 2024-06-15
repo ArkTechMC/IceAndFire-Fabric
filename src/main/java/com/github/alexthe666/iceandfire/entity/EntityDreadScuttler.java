@@ -107,7 +107,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() == NO_ANIMATION) {
             this.setAnimation(ANIMATION_BITE);
         }
@@ -183,7 +183,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
         this.setSize(0.5F + this.random.nextFloat() * 1.15F);
@@ -236,7 +236,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_SPIDER_HURT;
     }
 

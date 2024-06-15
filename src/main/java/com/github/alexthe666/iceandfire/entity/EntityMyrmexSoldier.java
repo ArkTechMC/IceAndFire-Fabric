@@ -153,7 +153,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getGrowthStage() < 2) {
             return false;
         }

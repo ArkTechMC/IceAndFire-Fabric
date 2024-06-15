@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.client.gui;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.arktechmc.iafextra.util.RandomHelper;
 import net.minecraft.client.MinecraftClient;
@@ -45,7 +44,7 @@ public class TitleScreenRenderManager {
     }
 
     public static SplashTextRenderer getSplash() {
-        if (splashText == null) {
+        if (splashText == null)
             try {
                 BufferedReader bufferedReader = MinecraftClient.getInstance().getResourceManager().openAsReader(splash);
                 splashText = bufferedReader.lines().map(String::trim).filter((splashText) -> splashText.hashCode() != 125780783).toList();
@@ -53,7 +52,6 @@ public class TitleScreenRenderManager {
             } catch (IOException var8) {
                 splashText = new ArrayList<>();
             }
-        }
         if (splashText.isEmpty()) return null;
         return new SplashTextRenderer(splashText.get(RandomHelper.nextInt(0, splashText.size() - 1)));
     }
@@ -61,49 +59,27 @@ public class TitleScreenRenderManager {
     private static void resetDrawnImages() {
         globalAlpha = 0;
         Random random = ThreadLocalRandom.current();
-        drawnPictures = new Picture[1 + random.nextInt(2)];
+        drawnPictures = new Picture[2];
         boolean left = random.nextBoolean();
         for (int i = 0; i < drawnPictures.length; i++) {
             left = !left;
-            int x;
+            int x = left ? -15 - random.nextInt(20) - 128 : 30 + random.nextInt(20);
             int y = random.nextInt(25);
-            if (left) {
-                x = -15 - random.nextInt(20) - 128;
-            } else {
-                x = 30 + random.nextInt(20);
-            }
-            drawnPictures[i] = new Picture(random.nextInt(drawingTextures.length - 1), x, y, 0.5F, random.nextFloat() * 0.5F + 0.5F);
-        }
-        Enscription[] drawnEnscriptions = new Enscription[4 + random.nextInt(8)];
-        for (int i = 0; i < drawnEnscriptions.length; i++) {
-            left = !left;
-            int x;
-            int y = 10 + random.nextInt(130);
-            if (left) {
-                x = -30 - random.nextInt(30) - 50;
-            } else {
-                x = 30 + random.nextInt(30);
-            }
-            drawnEnscriptions[i] = new Enscription("missingno", x, y, random.nextFloat() * 0.5F + 0.5F, 0X9C8B7B);
+            drawnPictures[i] = new Picture(random.nextInt(drawingTextures.length), x, y, 0.5F, random.nextFloat() * 0.5F + 0.5F);
         }
     }
 
     public static void tick() {
         float flipTick = layerTick % 40;
-        if (globalAlpha < 1 && !isFlippingPage && flipTick < 30) {
+        if (globalAlpha < 1 && !isFlippingPage && flipTick < 30)
             globalAlpha += 0.1F;
-        }
-
-        if (globalAlpha > 0 && flipTick > 30) {
+        if (globalAlpha > 0 && flipTick > 30)
             globalAlpha -= 0.1F;
-        }
-        if (flipTick == 0 && !isFlippingPage) {
+        if (flipTick == 0 && !isFlippingPage)
             isFlippingPage = true;
-        }
         if (isFlippingPage) {
-            if (layerTick % 2 == 0) {
+            if (layerTick % 2 == 0)
                 pageFlip++;
-            }
             if (pageFlip == 6) {
                 pageFlip = 0;
                 isFlippingPage = false;
@@ -118,28 +94,28 @@ public class TitleScreenRenderManager {
         RenderSystem.enableBlend();
         ms.drawTexture(TABLE_TEXTURE, 0, 0, 0, 0, width, height, width, height);
         ms.drawTexture(BESTIARY_TEXTURE, 50, 0, 0, 0, width - 100, height, width - 100, height);
-        if (isFlippingPage) {
+        if (isFlippingPage)
             ms.drawTexture(pageFlipTextures[Math.min(5, pageFlip)], 50, 0, 0, 0, width - 100, height, width - 100, height);
-        } else {
+        else {
             int middleX = width / 2;
             int middleY = height / 5;
             float widthScale = width / 427F;
             float heightScale = height / 427F;
             float imageScale = Math.min(widthScale, heightScale) * 192;
+            RenderSystem.enableBlend();
             for (Picture picture : drawnPictures) {
-                RenderSystem.enableBlend();
-                RenderSystem.setShaderColor(1, 1, 1, 1);
+                RenderSystem.setShaderColor(1, 1, 1, globalAlpha);
                 int x = (int) (picture.x * widthScale) + middleX;
                 int y = (int) ((picture.y * heightScale) + middleY);
                 ms.drawTexture(drawingTextures[picture.image], x, y, 0, 0, (int) imageScale, (int) imageScale, (int) imageScale, (int) imageScale);
-                RenderSystem.disableBlend();
             }
+            RenderSystem.disableBlend();
         }
     }
 
     public static void drawModName(DrawContext ms, int width, int height) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager._enableBlend();
+        RenderSystem.enableBlend();
         textRenderer.draw("Ice and Fire " + Formatting.YELLOW + dev.arktechmc.iafextra.IceAndFire.VERSION, 2, height - 30, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         textRenderer.draw(Formatting.GOLD + "Report if you meet any crash.", 2, height - 20, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
@@ -155,11 +131,6 @@ public class TitleScreenRenderManager {
             this.x = x;
             this.y = y;
             this.alpha = alpha;
-        }
-    }
-
-    private static class Enscription {
-        public Enscription(String text, int x, int y, float alpha, int color) {
         }
     }
 }

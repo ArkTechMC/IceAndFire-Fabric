@@ -23,7 +23,7 @@ public class ItemHippogryphSword extends SwordItem {
     }
 
     @Override
-    public boolean postHit(@NotNull ItemStack stack, @NotNull LivingEntity targetEntity, LivingEntity attacker) {
+    public boolean postHit(ItemStack stack, LivingEntity targetEntity, LivingEntity attacker) {
         float f = (float) attacker.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue();
         float f3 = 1.0F + EnchantmentHelper.getSweepingMultiplier(attacker) * f;
         if (attacker instanceof PlayerEntity player) {
@@ -40,7 +40,7 @@ public class ItemHippogryphSword extends SwordItem {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.hippogryph_sword.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.hippogryph_sword.desc_1").formatted(Formatting.GRAY));

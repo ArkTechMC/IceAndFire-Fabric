@@ -35,7 +35,7 @@ public class LayerDragonArmor extends FeatureRenderer<EntityDragonBase, Advanced
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         int armorHead = dragon.getArmorOrdinal(dragon.getEquippedStack(EquipmentSlot.HEAD));
         int armorNeck = dragon.getArmorOrdinal(dragon.getEquippedStack(EquipmentSlot.CHEST));
         int armorLegs = dragon.getArmorOrdinal(dragon.getEquippedStack(EquipmentSlot.LEGS));

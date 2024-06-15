@@ -30,7 +30,7 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     }
 
     @Override
-    public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+    public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
         if (this.age > this.getMaxAge()) {
             this.markDead();
@@ -99,7 +99,7 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     }
 
     @Override
-    public @NotNull ParticleTextureSheet getType() {
+    public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
 

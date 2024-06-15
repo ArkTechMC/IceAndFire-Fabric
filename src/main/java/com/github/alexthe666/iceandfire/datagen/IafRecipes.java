@@ -47,7 +47,7 @@ public class IafRecipes extends RecipeProvider {
         this.createShapeless(consumer);
     }
 
-    private void createShaped(@NotNull final Consumer<RecipeJsonProvider> consumer) {
+    private void createShaped(final Consumer<RecipeJsonProvider> consumer) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, IafItemRegistry.AMPHITHERE_ARROW.get(), 4)
                 .pattern("X")
                 .pattern("#")
@@ -627,7 +627,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void createShapeless(@NotNull final Consumer<RecipeJsonProvider> consumer) {
+    private void createShapeless(final Consumer<RecipeJsonProvider> consumer) {
         ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, IafItemRegistry.AMBROSIA.get())
                 .input(IafItemRegistry.PIXIE_DUST.get())
                 .input(Items.BOWL)
@@ -741,7 +741,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer, location("ghost_sword"));
     }
 
-    private void compact(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible unpacked, final ItemConvertible packed) {
+    private void compact(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible unpacked, final ItemConvertible packed) {
         String packedPath = Registries.ITEM.getId(packed.asItem()).getPath();
         String unpackedPath = Registries.ITEM.getId(unpacked.asItem()).getPath();
 
@@ -751,19 +751,19 @@ public class IafRecipes extends RecipeProvider {
                 , locationString(packedPath + "_to_" + unpackedPath), null);
     }
 
-    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final ItemConvertible... items) {
+    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> material, final ItemConvertible... items) {
         this.toolSet(consumer, Ingredient.fromTag(material), Ingredient.fromTag(Tags.Items.RODS_WOODEN), items);
     }
 
-    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final TagKey<Item> handle, final ItemConvertible... items) {
+    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final TagKey<Item> handle, final ItemConvertible... items) {
         this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(handle), items);
     }
 
-    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible handle, final ItemConvertible... items) {
+    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible handle, final ItemConvertible... items) {
         this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.ofItems(handle), items);
     }
 
-    private void toolSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible... results) {
+    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible... results) {
         for (ItemConvertible result : results) {
             Item item = result.asItem();
 
@@ -783,15 +783,15 @@ public class IafRecipes extends RecipeProvider {
         }
     }
 
-    private void armorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> tag, final ItemConvertible... results) {
+    private void armorSet(final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> tag, final ItemConvertible... results) {
         this.armorSet(consumer, Ingredient.fromTag(tag), results);
     }
 
-    private void armorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible item, final ItemConvertible... results) {
+    private void armorSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible item, final ItemConvertible... results) {
         this.armorSet(consumer, Ingredient.ofItems(item), results);
     }
 
-    private void armorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible... results) {
+    private void armorSet(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible... results) {
         for (ItemConvertible result : results) {
             if (result.asItem() instanceof ArmorItem armorItem) {
                 switch (armorItem.getType()) {
@@ -807,7 +807,7 @@ public class IafRecipes extends RecipeProvider {
         }
     }
 
-    private void helmet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void helmet(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("###")
                 .pattern("# #")
@@ -816,7 +816,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void chestPlate(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void chestPlate(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("# #")
                 .pattern("###")
@@ -826,7 +826,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void leggings(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void leggings(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("###")
                 .pattern("# #")
@@ -836,7 +836,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void boots(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void boots(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("# #")
                 .pattern("# #")
@@ -845,7 +845,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void sword(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
+    private void sword(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, result)
                 .pattern("M")
                 .pattern("M")
@@ -856,7 +856,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void pickaxe(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
+    private void pickaxe(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, result)
                 .pattern("MMM")
                 .pattern(" H ")
@@ -867,7 +867,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void axe(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
+    private void axe(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, result)
                 .pattern("MM")
                 .pattern("MH")
@@ -878,7 +878,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void shovel(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
+    private void shovel(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, result)
                 .pattern("M")
                 .pattern("H")
@@ -889,7 +889,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void hoe(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
+    private void hoe(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, result)
                 .pattern("MM")
                 .pattern(" H")
@@ -900,15 +900,15 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void dragonArmorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible... results) {
+    private void dragonArmorSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible... results) {
         this.dragonArmorSet(consumer, Ingredient.ofItems(material), results);
     }
 
-    private void dragonArmorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> tag, final ItemConvertible... results) {
+    private void dragonArmorSet(final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> tag, final ItemConvertible... results) {
         this.dragonArmorSet(consumer, Ingredient.fromTag(tag), results);
     }
 
-    private void dragonArmorSet(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible... results) {
+    private void dragonArmorSet(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible... results) {
         for (ItemConvertible result : results) {
             if (result instanceof ItemDragonArmor dragonArmor) {
                 switch (dragonArmor.dragonSlot) {
@@ -925,7 +925,7 @@ public class IafRecipes extends RecipeProvider {
         }
     }
 
-    private void dragonHead(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void dragonHead(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("   ")
                 .pattern(" ##")
@@ -935,7 +935,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void dragonNeck(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void dragonNeck(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("   ")
                 .pattern("###")
@@ -945,7 +945,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void dragonBody(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void dragonBody(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("###")
                 .pattern("###")
@@ -955,7 +955,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void dragonTail(@NotNull final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
+    private void dragonTail(final Consumer<RecipeJsonProvider> consumer, final Ingredient ingredient, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.COMBAT, result)
                 .pattern("   ")
                 .pattern("  #")
@@ -965,7 +965,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void forgeBrick(@NotNull final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> scales, final ItemConvertible result) {
+    private void forgeBrick(final Consumer<RecipeJsonProvider> consumer, final TagKey<Item> scales, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, result, 4)
                 .pattern("SBS")
                 .pattern("BSB")
@@ -976,7 +976,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void forgeCore(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final ItemConvertible heart, final ItemConvertible result) {
+    private void forgeCore(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final ItemConvertible heart, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, result)
                 .pattern("BBB")
                 .pattern("BHB")
@@ -987,7 +987,7 @@ public class IafRecipes extends RecipeProvider {
                 .offerTo(consumer);
     }
 
-    private void forgeInput(@NotNull final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final ItemConvertible result) {
+    private void forgeInput(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible brick, final ItemConvertible result) {
         ShapedRecipeJsonBuilder.create(RecipeCategory.BUILDING_BLOCKS, result)
                 .pattern("BIB")
                 .pattern("I I")

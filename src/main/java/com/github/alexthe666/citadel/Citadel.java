@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.config.ConfigHolder;
 import com.github.alexthe666.citadel.config.ServerConfig;
 import com.github.alexthe666.citadel.server.generation.VillageHouseManager;
 import com.github.alexthe666.citadel.server.world.ExpandedBiomeSource;
-import com.github.alexthe666.citadel.server.world.ExpandedBiomes;
 import dev.arktechmc.iafextra.StaticVariables;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.Registry;
@@ -19,7 +18,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 public class Citadel {
     public static final String MOD_ID = "citadel";
@@ -43,8 +41,6 @@ public class Citadel {
             Optional<RegistryEntry.Reference<DimensionOptions>> holderOptional = levelStems.getEntry(levelStemResourceKey);
             if (holderOptional.isPresent() && holderOptional.get().value().chunkGenerator().getBiomeSource() instanceof ExpandedBiomeSource expandedBiomeSource) {
                 expandedBiomeSource.setResourceKeyMap(biomeMap);
-                Set<RegistryEntry<Biome>> biomeHolders = ExpandedBiomes.buildBiomeList(registryAccess, levelStemResourceKey);
-                expandedBiomeSource.expandBiomesWith(biomeHolders);
             }
         }
     }
@@ -56,6 +52,4 @@ public class Citadel {
         ServerConfig.chunkGenSpawnModifierVal = ConfigHolder.SERVER.chunkGenSpawnModifier.get();
         //citadelTestBiomeData = SpawnBiomeConfig.create(new ResourceLocation("citadel:config_biome"), CitadelBiomeDefinitions.TERRALITH_TEST);
     }
-
-
 }

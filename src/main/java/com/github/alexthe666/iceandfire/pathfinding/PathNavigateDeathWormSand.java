@@ -29,7 +29,7 @@ public class PathNavigateDeathWormSand extends SwimNavigation {
     }
 
     @Override
-    protected @NotNull PathNodeNavigator createPathNodeNavigator(int i) {
+    protected PathNodeNavigator createPathNodeNavigator(int i) {
         this.nodeMaker = new NodeProcessorDeathWorm();
         this.nodeMaker.setCanEnterOpenDoors(true);
         this.nodeMaker.setCanSwim(true);
@@ -42,12 +42,12 @@ public class PathNavigateDeathWormSand extends SwimNavigation {
     }
 
     @Override
-    protected @NotNull Vec3d getPos() {
+    protected Vec3d getPos() {
         return new Vec3d(this.entity.getX(), this.entity.getY() + 0.5D, this.entity.getZ());
     }
 
     @Override
-    protected boolean canPathDirectlyThrough(@NotNull final Vec3d start, @NotNull final Vec3d end) {
+    protected boolean canPathDirectlyThrough(final Vec3d start, final Vec3d end) {
         HitResult raytraceresult = this.world.raycast(new CustomRayTraceContext(start, end, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this.entity));
 
         if (raytraceresult.getType() == HitResult.Type.BLOCK) {
@@ -59,7 +59,7 @@ public class PathNavigateDeathWormSand extends SwimNavigation {
     }
 
     @Override
-    public boolean isValidPosition(@NotNull BlockPos pos) {
+    public boolean isValidPosition(BlockPos pos) {
         return this.world.getBlockState(pos).isOpaque();
     }
 
@@ -75,7 +75,7 @@ public class PathNavigateDeathWormSand extends SwimNavigation {
         }
 
         @Override
-        public @NotNull VoxelShape getBlockShape(BlockState blockState, @NotNull BlockView world, @NotNull BlockPos pos) {
+        public VoxelShape getBlockShape(BlockState blockState, BlockView world, BlockPos pos) {
             if (blockState.isIn(BlockTags.SAND))
                 return VoxelShapes.empty();
             return this.blockMode.get(blockState, world, pos, this.context);

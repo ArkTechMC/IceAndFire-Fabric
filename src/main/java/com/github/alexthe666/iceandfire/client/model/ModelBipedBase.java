@@ -50,7 +50,7 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
     }
 
     @Override
-    public void setArmAngle(@NotNull Arm sideIn, @NotNull MatrixStack matrixStackIn) {
+    public void setArmAngle(Arm sideIn, MatrixStack matrixStackIn) {
         this.getArmForSide(sideIn).translateAndRotate(matrixStackIn);
     }
 

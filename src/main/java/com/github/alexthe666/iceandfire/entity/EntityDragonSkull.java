@@ -50,7 +50,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     @Override
-    public boolean isBreedingItem(@NotNull ItemStack stack) {
+    public boolean isBreedingItem(ItemStack stack) {
         return false;
     }
 
@@ -122,12 +122,12 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     @Override
-    public SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    public SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return null;
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource var1, float var2) {
+    public boolean damage(DamageSource var1, float var2) {
         this.turnIntoItem();
         return super.damage(var1, var2);
     }
@@ -155,12 +155,12 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (player.isSneaking()) {
             this.setYaw(player.getYaw());
         }
@@ -202,7 +202,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entity) {
+    protected void pushAway(Entity entity) {
     }
 
     @Override

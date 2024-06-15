@@ -271,7 +271,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     }
 
     @Override
-    public boolean canBreedWith(@NotNull AnimalEntity otherAnimal) {
+    public boolean canBreedWith(AnimalEntity otherAnimal) {
         if (otherAnimal == this || otherAnimal == null) {
             return false;
         } else if (otherAnimal.getClass() != this.getClass()) {
@@ -324,7 +324,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getGrowthStage() < 2) {
             return false;
         }
@@ -365,7 +365,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
 
     }
 

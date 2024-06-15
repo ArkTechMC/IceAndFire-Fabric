@@ -146,12 +146,12 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public @NotNull SoundCategory getSoundCategory() {
+    public SoundCategory getSoundCategory() {
         return SoundCategory.HOSTILE;
     }
 
     @Override
-    public @NotNull BlockPos getPositionTarget() {
+    public BlockPos getPositionTarget() {
         return this.hasHomePosition && this.getCommand() == 3 && this.homePos != null ? this.homePos.getPosition() : super.getPositionTarget();
     }
 
@@ -165,7 +165,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         if (ServerEvents.isChicken(entityIn)) {
             return true;
         }
@@ -217,7 +217,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.isStaring()) {
             return false;
         }
@@ -312,7 +312,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public void onTrackedDataSet(@NotNull TrackedData<?> key) {
+    public void onTrackedDataSet(TrackedData<?> key) {
         super.onTrackedDataSet(key);
         if (TARGET_ENTITY.equals(key)) {
             this.clientSideAttackTime = 0;
@@ -321,7 +321,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putBoolean("Hen", this.isHen());
         tag.putBoolean("Staring", this.isStaring());
@@ -335,7 +335,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setHen(tag.getBoolean("Hen"));
         this.setStaring(tag.getBoolean("Staring"));
@@ -371,7 +371,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setHen(this.getRandom().nextBoolean());
         return spawnDataIn;
@@ -422,7 +422,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack stackInHand = player.getStackInHand(hand);
         Item itemInHand = stackInHand.getItem();
 
@@ -663,7 +663,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public void travel(@NotNull Vec3d motionVec) {
+    public void travel(Vec3d motionVec) {
         if (!this.canMove() && !this.hasPassengers()) {
             motionVec = motionVec.multiply(0, 1, 0);
         }
@@ -679,7 +679,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (this.getAnimation() == this.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
@@ -687,7 +687,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageable) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         return null;
     }
 
@@ -732,7 +732,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.COCKATRICE_HURT;
     }
 

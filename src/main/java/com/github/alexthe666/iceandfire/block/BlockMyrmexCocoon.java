@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -17,30 +16,21 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockMyrmexCocoon extends BlockWithEntity {
 
 
     public BlockMyrmexCocoon() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.DIRT_BROWN)
-                        .strength(2.5F)
-                        .nonOpaque()
-                        .dynamicBounds()
-                        .sounds(BlockSoundGroup.SLIME)
-        );
+        super(Settings.create().mapColor(MapColor.DIRT_BROWN).strength(2.5F).nonOpaque().dynamicBounds().sounds(BlockSoundGroup.SLIME));
     }
 
     @Override
-    public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
+    public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
     @Override
-    public void onStateReplaced(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+    public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
         if (tileentity instanceof Inventory) {
             ItemScatterer.spawn(worldIn, pos, (Inventory) tileentity);
@@ -50,15 +40,12 @@ public class BlockMyrmexCocoon extends BlockWithEntity {
     }
 
     @Override
-    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult hit) {
         if (!player.isSneaking()) {
-            if (worldIn.isClient) {
-                IceAndFire.PROXY.setRefrencedTE(worldIn.getBlockEntity(pos));
-            } else {
-                NamedScreenHandlerFactory inamedcontainerprovider = this.createScreenHandlerFactory(state, worldIn, pos);
-                if (inamedcontainerprovider != null) {
-                    player.openHandledScreen(inamedcontainerprovider);
-                }
+            if (!worldIn.isClient) {
+                NamedScreenHandlerFactory screenHandlerFactory = this.createScreenHandlerFactory(state, worldIn, pos);
+                if (screenHandlerFactory != null)
+                    player.openHandledScreen(screenHandlerFactory);
             }
             return ActionResult.SUCCESS;
         }
@@ -66,7 +53,7 @@ public class BlockMyrmexCocoon extends BlockWithEntity {
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityMyrmexCocoon(pos, state);
     }
 }

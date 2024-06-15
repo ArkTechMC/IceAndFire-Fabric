@@ -22,7 +22,7 @@ public class RenderDeathWormGauntlet extends BuiltinModelItemRenderer {
     }
 
     @Override
-    public void render(ItemStack stack, @NotNull ModelTransformationMode type, @NotNull MatrixStack stackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         RenderLayer texture;
 
         if (stack.getItem() == IafItemRegistry.DEATHWORM_GAUNTLET_RED.get()) {

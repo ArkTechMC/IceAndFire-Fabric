@@ -80,7 +80,7 @@ public class EntityHippogryphEgg extends EggEntity {
     }
 
     @Override
-    protected @NotNull Item getDefaultItem() {
+    protected Item getDefaultItem() {
         return IafItemRegistry.HIPPOGRYPH_EGG.get();
     }
 }

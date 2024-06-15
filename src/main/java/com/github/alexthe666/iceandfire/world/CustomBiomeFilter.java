@@ -25,7 +25,7 @@ public class CustomBiomeFilter extends AbstractConditionalPlacementModifier {
         return INSTANCE;
     }
 
-    protected boolean shouldPlace(final FeaturePlacementContext context, @NotNull final Random random, @NotNull final BlockPos position) {
+    protected boolean shouldPlace(final FeaturePlacementContext context, final Random random, final BlockPos position) {
         PlacedFeature placedfeature = context.getPlacedFeature().orElseThrow(() -> new IllegalStateException("Tried to biome check an unregistered feature, or a feature that should not restrict the biome"));
         boolean hasFeature = context.getChunkGenerator().getGenerationSettings(context.getWorld().getBiome(position)).isFeatureAllowed(placedfeature);
 
@@ -37,7 +37,7 @@ public class CustomBiomeFilter extends AbstractConditionalPlacementModifier {
         return hasFeature;
     }
 
-    public @NotNull PlacementModifierType<?> getType() {
+    public PlacementModifierType<?> getType() {
         return IafPlacementFilterRegistry.CUSTOM_BIOME_FILTER.get();
     }
 }

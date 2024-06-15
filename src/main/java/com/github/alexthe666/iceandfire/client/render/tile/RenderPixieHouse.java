@@ -33,7 +33,7 @@ public class RenderPixieHouse<T extends TileEntityPixieHouse> implements BlockEn
     }
 
     @Override
-    public void render(T entity, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T entity, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         int rotation = 0;
         int meta = 0;
         if (MODEL_PIXIE == null) {

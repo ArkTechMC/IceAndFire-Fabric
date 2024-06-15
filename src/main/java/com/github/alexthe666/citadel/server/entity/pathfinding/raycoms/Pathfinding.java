@@ -46,7 +46,7 @@ public final class Pathfinding {
         public static int id;
 
         @Override
-        public Thread newThread(final @NotNull Runnable runnable) throws RuntimeException {
+        public Thread newThread(final Runnable runnable) throws RuntimeException {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             final Thread thread = new Thread(runnable, "Citadel Pathfinding Worker #" + (id++));
             thread.setDaemon(true);

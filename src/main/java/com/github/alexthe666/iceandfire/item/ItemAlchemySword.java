@@ -29,7 +29,7 @@ public class ItemAlchemySword extends SwordItem {
     }
 
     @Override
-    public boolean postHit(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (this == IafItemRegistry.DRAGONBONE_SWORD_FIRE.get() && IafConfig.dragonWeaponFireAbility) {
             if (target instanceof EntityIceDragon) {
                 target.damage(attacker.getWorld().getDamageSources().inFire(), 13.5F);
@@ -72,7 +72,7 @@ public class ItemAlchemySword extends SwordItem {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         if (this == IafItemRegistry.DRAGONBONE_SWORD_FIRE.get()) {
             tooltip.add(Text.translatable("dragon_sword_fire.hurt1").formatted(Formatting.GREEN));
@@ -92,7 +92,7 @@ public class ItemAlchemySword extends SwordItem {
     }
 
     @Override
-    public boolean hasGlint(@NotNull ItemStack stack) {
+    public boolean hasGlint(ItemStack stack) {
         return true;
     }
 }

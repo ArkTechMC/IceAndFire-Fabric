@@ -44,7 +44,7 @@ public class ItemGenericFood extends Item {
     }
 
     @Override
-    public @NotNull ItemStack finishUsing(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity LivingEntity) {
+    public ItemStack finishUsing(ItemStack stack, World worldIn, LivingEntity LivingEntity) {
         this.onFoodEaten(stack, worldIn, LivingEntity);
         return super.finishUsing(stack, worldIn, LivingEntity);
     }

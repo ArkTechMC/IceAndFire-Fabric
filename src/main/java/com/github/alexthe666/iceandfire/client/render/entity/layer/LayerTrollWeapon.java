@@ -22,7 +22,7 @@ public class LayerTrollWeapon extends FeatureRenderer<EntityTroll, ModelTroll> {
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityTroll troll, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityTroll troll, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (troll.getWeaponType() != null && !EntityGorgon.isStoneMob(troll)) {
             RenderLayer tex = RenderLayer.getEntityCutout(troll.getWeaponType().TEXTURE);
             this.getContextModel().render(matrixStackIn, bufferIn.getBuffer(tex), packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);

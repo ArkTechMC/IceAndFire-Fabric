@@ -11,53 +11,34 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockFallingReturningState extends FallingBlock {
     public static final BooleanProperty REVERTS = BooleanProperty.of("revert");
     private final BlockState returnState;
-    public Item itemBlock;
 
     public BlockFallingReturningState(float hardness, float resistance, BlockSoundGroup sound, MapColor color, BlockState revertState) {
-        super(
-                Settings
-                        .create()
-                        .mapColor(color)
-                        .sounds(sound)
-                        .strength(hardness, resistance)
-                        .ticksRandomly()
-        );
+        super(Settings.create().mapColor(color).sounds(sound).strength(hardness, resistance).ticksRandomly());
 
         this.returnState = revertState;
         this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
     }
 
     public BlockFallingReturningState(float hardness, float resistance, BlockSoundGroup sound, boolean slippery, MapColor color, BlockState revertState) {
-        super(
-                Settings
-                        .create()
-                        .mapColor(color)
-                        .sounds(sound)
-                        .strength(hardness, resistance)
-                        .ticksRandomly()
-        );
+        super(Settings.create().mapColor(color).sounds(sound).strength(hardness, resistance).ticksRandomly());
 
         this.returnState = revertState;
         this.setDefaultState(this.stateManager.getDefaultState().with(REVERTS, Boolean.FALSE));
     }
 
     @Override
-    public void scheduledTick(@NotNull BlockState state, @NotNull ServerWorld worldIn, @NotNull BlockPos pos, @NotNull Random rand) {
-        super.scheduledTick(state, worldIn, pos, rand);
-        if (!worldIn.isClient) {
-            if (!worldIn.isAreaLoaded(pos, 3))
-                return;
-            if (state.get(REVERTS) && rand.nextInt(3) == 0) {
-                worldIn.setBlockState(pos, this.returnState);
-            }
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+        super.scheduledTick(state, world, pos, rand);
+        if (!world.isClient) {
+            if (!world.isAreaLoaded(pos, 3)) return;
+            if (state.get(REVERTS) && rand.nextInt(3) == 0)
+                world.setBlockState(pos, this.returnState);
         }
     }
-
 
     public int getDustColor(BlockState blkst) {
         return -8356741;

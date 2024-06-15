@@ -36,14 +36,14 @@ public class ItemCockatriceScepter extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.cockatrice_scepter.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.cockatrice_scepter.desc_1").formatted(Formatting.GRAY));
     }
 
     @Override
-    public void onStoppedUsing(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity livingEntity, int timeLeft) {
+    public void onStoppedUsing(ItemStack stack, World worldIn, LivingEntity livingEntity, int timeLeft) {
         if (this.specialWeaponDmg > 0) {
             stack.damage(this.specialWeaponDmg, livingEntity, player -> player.sendToolBreakStatus(livingEntity.getActiveHand()));
             this.specialWeaponDmg = 0;
@@ -60,17 +60,17 @@ public class ItemCockatriceScepter extends Item {
     }
 
     @Override
-    public int getMaxUseTime(@NotNull ItemStack stack) {
+    public int getMaxUseTime(ItemStack stack) {
         return 1;
     }
 
     @Override
-    public @NotNull UseAction getUseAction(@NotNull ItemStack stack) {
+    public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         playerIn.setCurrentHand(hand);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);

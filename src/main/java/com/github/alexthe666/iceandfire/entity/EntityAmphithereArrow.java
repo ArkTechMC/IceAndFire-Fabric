@@ -87,7 +87,7 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
     }
 
     @Override
-    protected @NotNull ItemStack asItemStack() {
+    protected ItemStack asItemStack() {
         return new ItemStack(IafItemRegistry.AMPHITHERE_ARROW.get());
     }
 }

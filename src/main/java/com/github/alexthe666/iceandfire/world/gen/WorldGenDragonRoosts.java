@@ -46,7 +46,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
     }
 
     @Override
-    public boolean generate(@NotNull final FeatureContext<DefaultFeatureConfig> context) {
+    public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
         if (!WorldUtil.canGenerate(IafConfig.generateDragonRoostChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
@@ -99,7 +99,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         return this.transform(block.getDefaultState());
     }
 
-    private void generateDecoration(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius, boolean isMale) {
+    private void generateDecoration(final FeatureContext<DefaultFeatureConfig> context, int radius, boolean isMale) {
         int height = (radius / 5);
         double circularArea = this.getCircularArea(radius, height);
 
@@ -152,7 +152,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         });
     }
 
-    private void hollowOut(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius) {
+    private void hollowOut(final FeatureContext<DefaultFeatureConfig> context, int radius) {
         int height = 2;
         double circularArea = this.getCircularArea(radius, height);
         BlockPos up = context.getOrigin().up(height - 1);
@@ -164,7 +164,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         });
     }
 
-    private void generateShell(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius) {
+    private void generateShell(final FeatureContext<DefaultFeatureConfig> context, int radius) {
         int height = (radius / 5);
         double circularArea = this.getCircularArea(radius, height);
 
@@ -177,7 +177,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         });
     }
 
-    private void generateSurface(@NotNull final FeatureContext<DefaultFeatureConfig> context, int radius) {
+    private void generateSurface(final FeatureContext<DefaultFeatureConfig> context, int radius) {
         int height = 2;
         double circularArea = this.getCircularArea(radius, height);
 
@@ -227,7 +227,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         }
     }
 
-    private void spawnDragon(@NotNull final FeatureContext<DefaultFeatureConfig> context, int ageOffset, boolean isMale) {
+    private void spawnDragon(final FeatureContext<DefaultFeatureConfig> context, int ageOffset, boolean isMale) {
         EntityDragonBase dragon = this.getDragonType().create(context.getWorld().toServerWorld());
         dragon.setGender(isMale);
         dragon.growDragon(40 + ageOffset);
@@ -247,5 +247,5 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     protected abstract BlockState transform(final BlockState block);
 
-    protected abstract void handleCustomGeneration(@NotNull final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance);
+    protected abstract void handleCustomGeneration(final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance);
 }

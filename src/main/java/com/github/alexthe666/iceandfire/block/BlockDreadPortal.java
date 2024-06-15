@@ -1,41 +1,28 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDreadPortal;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.enums.EnumParticles;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.Entity;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DREAD_PORTAL;
 
 public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
 
     public BlockDreadPortal() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.CLEAR)
-                        .pistonBehavior(PistonBehavior.BLOCK)
-                        .dynamicBounds()
-                        .strength(-1, 100000)
-                        .luminance((state) -> 1)
-                        .ticksRandomly()
-        );
+        super(Settings.create().mapColor(MapColor.CLEAR).pistonBehavior(PistonBehavior.BLOCK).dynamicBounds().strength(-1, 100000).luminance((state) -> 1).ticksRandomly());
     }
 
     @Override
-    public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entity) {
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
      /* if(entity.dimension != IafConfig.dreadlandsDimensionId){
             MiscEntityProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(entity, MiscEntityProperties.class);
             if (properties != null) {
@@ -66,17 +53,14 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
         }*/
     }
 
-
-    public void updateTick(World worldIn, BlockPos pos, BlockState state, Random rand) {
-        if (!this.canSurviveAt(worldIn, pos)) {
-            worldIn.breakBlock(pos, true);
-        }
+    public void updateTick(World world, BlockPos pos, BlockState state, Random rand) {
+        if (!this.canSurviveAt(world, pos))
+            world.breakBlock(pos, true);
     }
 
-    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (!this.canSurviveAt(worldIn, pos)) {
-            worldIn.breakBlock(pos, true);
-        }
+    public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
+        if (!this.canSurviveAt(world, pos))
+            world.breakBlock(pos, true);
     }
 
     public boolean canSurviveAt(World world, BlockPos pos) {
@@ -88,8 +72,8 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
     }
 
     @Override
-    public void randomDisplayTick(@NotNull BlockState stateIn, World worldIn, @NotNull BlockPos pos, @NotNull Random rand) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+        BlockEntity tileentity = world.getBlockEntity(pos);
 
         if (tileentity instanceof TileEntityDreadPortal) {
             int i = 3;
@@ -101,7 +85,7 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
                 double d4 = ((double) rand.nextFloat()) * -0.25D;
                 double d5 = ((double) rand.nextFloat() - 0.5D) * 0.25D;
                 int k = rand.nextInt(2) * 2 - 1;
-                worldIn.addParticle(IafParticleRegistry.DREAD_PORTAL, d0, d1, d2, d3, d4, d5);
+                world.addParticle(IafParticleRegistry.DREAD_PORTAL, d0, d1, d2, d3, d4, d5);
             }
         }
     }
@@ -115,17 +99,17 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
     }
 
     @Override
-    public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
+    public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, @NotNull BlockState state, @NotNull BlockEntityType<T> entityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
         return checkType(entityType, DREAD_PORTAL.get(), TileEntityDreadPortal::tick);
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityDreadPortal(pos, state);
     }
 }

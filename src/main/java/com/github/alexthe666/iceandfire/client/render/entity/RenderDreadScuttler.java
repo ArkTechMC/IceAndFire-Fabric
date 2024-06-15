@@ -26,7 +26,7 @@ public class RenderDreadScuttler extends MobEntityRenderer<EntityDreadScuttler, 
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityDreadScuttler beast) {
+    public Identifier getTexture(EntityDreadScuttler beast) {
         return TEXTURE;
 
     }

@@ -43,7 +43,7 @@ public class RenderPodium<T extends TileEntityPodium> implements BlockEntityRend
     }
 
     @Override
-    public void render(@NotNull T entity, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T entity, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         ModelDragonEgg model = new ModelDragonEgg();
 
         if (!entity.getStack(0).isEmpty()) {

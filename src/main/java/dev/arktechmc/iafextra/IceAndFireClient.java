@@ -1,6 +1,5 @@
 package dev.arktechmc.iafextra;
 
-import com.github.alexthe666.citadel.ClientProxy;
 import com.github.alexthe666.citadel.client.render.pathfinding.WorldEventContext;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.client.IafClientSetup;
@@ -22,7 +21,7 @@ public class IceAndFireClient implements ClientModInitializer {
     public void onInitializeClient() {
         LivingEntityRenderEvents.PRE.register(ClientEvents::onPreRenderLiving);
         LivingEntityRenderEvents.POST.register(ClientEvents::onPostRenderLiving);
-        RenderTooltipBorderColorCallback.EVENT.register(ClientProxy::renderTooltipColor);
+        RenderTooltipBorderColorCallback.EVENT.register((stack, originalBorderColorStart, originalBorderColorEnd) -> new RenderTooltipBorderColorCallback.BorderColorEntry(originalBorderColorStart, originalBorderColorEnd));
 
         IafClientSetup.clientInit();
         IafClientSetup.setupClient();

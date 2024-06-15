@@ -16,22 +16,22 @@ import org.jetbrains.annotations.NotNull;
 public class NodeProcessorDeathWorm extends PathNodeMaker {
 
     @Override
-    public @NotNull PathNode getStart() {
+    public PathNode getStart() {
         return this.getNode(MathHelper.floor(this.entity.getBoundingBox().minX), MathHelper.floor(this.entity.getBoundingBox().minY + 0.5D), MathHelper.floor(this.entity.getBoundingBox().minZ));
     }
 
     @Override
-    public @NotNull TargetPathNode getNode(double x, double y, double z) {
+    public TargetPathNode getNode(double x, double y, double z) {
         return new TargetPathNode(this.getNode(MathHelper.floor(x - 0.4), MathHelper.floor(y + 0.5D), MathHelper.floor(z - 0.4)));
     }
 
     @Override
-    public @NotNull PathNodeType getNodeType(@NotNull BlockView blockaccessIn, int x, int y, int z, @NotNull MobEntity entitylivingIn) {
+    public PathNodeType getNodeType(BlockView blockaccessIn, int x, int y, int z, MobEntity entitylivingIn) {
         return this.getDefaultNodeType(blockaccessIn, x, y, z);
     }
 
     @Override
-    public @NotNull PathNodeType getDefaultNodeType(BlockView worldIn, int x, int y, int z) {
+    public PathNodeType getDefaultNodeType(BlockView worldIn, int x, int y, int z) {
         BlockPos blockpos = new BlockPos(x, y, z);
         BlockState blockstate = worldIn.getBlockState(blockpos);
         if (!this.isPassable(worldIn, blockpos.down()) && (blockstate.isAir() || this.isPassable(worldIn, blockpos))) {
@@ -42,7 +42,7 @@ public class NodeProcessorDeathWorm extends PathNodeMaker {
     }
 
     @Override
-    public int getSuccessors(PathNode @NotNull [] p_222859_1_, @NotNull PathNode p_222859_2_) {
+    public int getSuccessors(PathNode [] p_222859_1_, PathNode p_222859_2_) {
         int i = 0;
 
         for (Direction direction : Direction.values()) {

@@ -64,7 +64,7 @@ public class WorldGenLightningDragonRoosts extends WorldGenDragonRoosts {
     }
 
     @Override
-    protected void handleCustomGeneration(@NotNull final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance) {
+    protected void handleCustomGeneration(final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance) {
         if (distance > 0.05D && context.getRandom().nextInt(800) == 0) {
             // FIXME
             new WorldGenRoostSpire().generate(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position));

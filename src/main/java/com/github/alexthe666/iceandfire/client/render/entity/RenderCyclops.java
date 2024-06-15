@@ -29,13 +29,13 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
     }
 
     @Override
-    protected void scale(@NotNull EntityCyclops entity, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(EntityCyclops entity, MatrixStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(2.25F, 2.25F, 2.25F);
 
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityCyclops cyclops) {
+    public Identifier getTexture(EntityCyclops cyclops) {
         switch (cyclops.getVariant()) {
             case 0:
                 if (cyclops.isBlinded()) {

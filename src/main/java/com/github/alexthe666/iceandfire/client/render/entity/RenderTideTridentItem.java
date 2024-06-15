@@ -25,7 +25,7 @@ public class RenderTideTridentItem extends BuiltinModelItemRenderer {
     }
 
     @Override
-    public void render(@NotNull ItemStack stack, @NotNull ModelTransformationMode type, MatrixStack stackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         stackIn.translate(0.5F, 0.5f, 0.5f);
         if (type == ModelTransformationMode.GUI || type == ModelTransformationMode.FIXED || type == ModelTransformationMode.NONE || type == ModelTransformationMode.GROUND) {
             ItemStack tridentInventory = new ItemStack(IafItemRegistry.TIDE_TRIDENT_INVENTORY.get());

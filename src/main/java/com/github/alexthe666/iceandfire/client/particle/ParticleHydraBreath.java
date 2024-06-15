@@ -38,7 +38,7 @@ public class ParticleHydraBreath extends SpriteBillboardParticle {
     }
 
     @Override
-    public void buildGeometry(@NotNull VertexConsumer buffer, Camera renderInfo, float partialTicks) {
+    public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
         Vec3d inerp = renderInfo.getPos();
         float scaley = ((float) this.age + partialTicks) / (float) this.maxAge * 32.0F;
         scaley = MathHelper.clamp(scaley, 0.0F, 1.0F);
@@ -122,7 +122,7 @@ public class ParticleHydraBreath extends SpriteBillboardParticle {
     }
 
     @Override
-    public @NotNull ParticleTextureSheet getType() {
+    public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
 }

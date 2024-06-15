@@ -20,7 +20,7 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
     }
 
     @Override
-    public @NotNull ItemStack process(ItemStack stack, @NotNull LootContext context) {
+    public ItemStack process(ItemStack stack, LootContext context) {
         if (!stack.isEmpty() && context.get(LootContextParameters.THIS_ENTITY) instanceof EntitySeaSerpent seaSerpent) {
             final int ancientModifier = seaSerpent.isAncient() ? 2 : 1;
             if (stack.getItem() instanceof ItemSeaSerpentScales) {
@@ -36,7 +36,7 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
     }
 
     @Override
-    public @NotNull LootFunctionType getType() {
+    public LootFunctionType getType() {
         return IafLootRegistry.CUSTOMIZE_TO_SERPENT;
     }
 
@@ -46,7 +46,7 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
         }
 
         @Override
-        public @NotNull CustomizeToSeaSerpent fromJson(@NotNull JsonObject object, @NotNull JsonDeserializationContext deserializationContext, LootCondition @NotNull [] conditionsIn) {
+        public CustomizeToSeaSerpent fromJson(JsonObject object, JsonDeserializationContext deserializationContext, LootCondition [] conditionsIn) {
             return new CustomizeToSeaSerpent(conditionsIn);
         }
     }

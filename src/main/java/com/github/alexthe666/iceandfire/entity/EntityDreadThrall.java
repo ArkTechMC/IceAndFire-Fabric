@@ -105,7 +105,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     @Override
-    protected void initEquipment(Random randomSource, @NotNull LocalDifficulty difficulty) {
+    protected void initEquipment(Random randomSource, LocalDifficulty difficulty) {
         super.initEquipment(randomSource, difficulty);
         if (this.random.nextFloat() < 0.75F) {
             double chance = this.random.nextFloat();
@@ -142,7 +142,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
         this.initEquipment(worldIn.getRandom(), difficultyIn);
@@ -257,7 +257,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_STRAY_HURT;
     }
 

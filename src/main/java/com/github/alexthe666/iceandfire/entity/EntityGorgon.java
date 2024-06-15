@@ -128,7 +128,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget().hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) this.getTarget()).canBeTurnedToStone();
         if (blindness && this.deathTime == 0) {
             if (this.getAnimation() != ANIMATION_HIT) {
@@ -263,7 +263,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     }
 
     @Override
-    public @NotNull EntityGroup getGroup() {
+    public EntityGroup getGroup() {
         return EntityGroup.UNDEAD;
     }
 
@@ -311,7 +311,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return IafSoundRegistry.GORGON_HURT;
     }
 

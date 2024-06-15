@@ -47,7 +47,7 @@ public class DreadPortalProcessor extends StructureProcessor {
     }
 
     @Override
-    protected @NotNull StructureProcessorType getType() {
+    protected StructureProcessorType getType() {
         return StructureProcessorType.BLOCK_ROT;
     }
 

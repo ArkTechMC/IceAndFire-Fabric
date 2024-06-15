@@ -12,31 +12,20 @@ import net.minecraft.block.enums.Instrument;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockDreadSpawner extends SpawnerBlock implements IDreadBlock {
 
     public BlockDreadSpawner() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.STONE_GRAY)
-                        .instrument(Instrument.BASEDRUM)
-                        .strength(10.0F, 10000F)
-                        .sounds(BlockSoundGroup.METAL)
-                        .nonOpaque()
-                        .dynamicBounds()
-        );
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).strength(10.0F, 10000F).sounds(BlockSoundGroup.METAL).nonOpaque().dynamicBounds());
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityDreadSpawner(pos, state);
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World p_154683_, @NotNull BlockState p_154684_, @NotNull BlockEntityType<T> p_154685_) {
-        return checkType(p_154685_, IafTileEntityRegistry.DREAD_SPAWNER.get(), p_154683_.isClient ? TileEntityDreadSpawner::clientTick : TileEntityDreadSpawner::serverTick);
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, IafTileEntityRegistry.DREAD_SPAWNER.get(), world.isClient ? TileEntityDreadSpawner::clientTick : TileEntityDreadSpawner::serverTick);
     }
-
 }

@@ -36,38 +36,18 @@ public class BlockGeneric extends Block {
     }
 
     public static BlockGeneric builder(float hardness, float resistance, BlockSoundGroup sound, MapColor color, Instrument instrument, PistonBehavior reaction, boolean ignited) {
-        Settings props = Settings.create()
-                .mapColor(color)
-                .sounds(sound)
-                .strength(hardness, resistance)
-                .requiresTool();
-        if (instrument != null) {
-            props.instrument(instrument);
-        }
-        if (reaction != null) {
-            props.pistonBehavior(reaction);
-        }
-        if (ignited) {
-            props.burnable();
-        }
+        Settings props = Settings.create().mapColor(color).sounds(sound).strength(hardness, resistance).requiresTool();
+        if (instrument != null) props.instrument(instrument);
+        if (reaction != null) props.pistonBehavior(reaction);
+        if (ignited) props.burnable();
         return new BlockGeneric(props);
     }
 
     public static BlockGeneric builder(float hardness, float resistance, BlockSoundGroup sound, boolean slippery, MapColor color, Instrument instrument, PistonBehavior reaction, boolean ignited) {
-        Settings props = Settings.create()
-                .mapColor(color)
-                .sounds(sound)
-                .strength(hardness, resistance)
-                .slipperiness(0.98F);
-        if (instrument != null) {
-            props.instrument(instrument);
-        }
-        if (reaction != null) {
-            props.pistonBehavior(reaction);
-        }
-        if (ignited) {
-            props.burnable();
-        }
+        Settings props = Settings.create().mapColor(color).sounds(sound).strength(hardness, resistance).slipperiness(0.98F);
+        if (instrument != null) props.instrument(instrument);
+        if (reaction != null) props.pistonBehavior(reaction);
+        if (ignited) props.burnable();
         return new BlockGeneric(props);
     }
 
@@ -80,8 +60,7 @@ public class BlockGeneric extends Block {
     }
 
     @Deprecated
-    public boolean canEntitySpawn(BlockState state, Entity entityIn) {
-        return entityIn instanceof EntityDreadMob || !DragonUtils.isDreadBlock(state);
+    public boolean canEntitySpawn(BlockState state, Entity entity) {
+        return entity instanceof EntityDreadMob || !DragonUtils.isDreadBlock(state);
     }
-
 }

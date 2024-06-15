@@ -25,7 +25,7 @@ public class FlyingAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> 
     }
 
     @Override
-    protected @NotNull Box getSearchBox(double targetDistance) {
+    protected Box getSearchBox(double targetDistance) {
         return this.mob.getBoundingBox().expand(targetDistance, targetDistance, targetDistance);
     }
 

@@ -9,7 +9,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlock {
 
@@ -18,7 +17,7 @@ public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlo
     }
 
     @Override
-    public void randomDisplayTick(@NotNull BlockState stateIn, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Random rand) {
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
 
     }
 

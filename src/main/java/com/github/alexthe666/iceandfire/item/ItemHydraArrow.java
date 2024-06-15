@@ -21,12 +21,12 @@ public class ItemHydraArrow extends ArrowItem {
     }
 
     @Override
-    public @NotNull PersistentProjectileEntity createArrow(@NotNull World worldIn, @NotNull ItemStack stack, @NotNull LivingEntity shooter) {
+    public PersistentProjectileEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
         return new EntityHydraArrow(IafEntityRegistry.HYDRA_ARROW.get(), worldIn, shooter);
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.hydra_arrow.desc").formatted(Formatting.GRAY));
     }
 }

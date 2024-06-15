@@ -55,7 +55,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putInt("Color", (byte) this.getEggType().ordinal());
         tag.putInt("DragonAge", this.getDragonAge());
@@ -71,7 +71,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setEggType(EnumDragonEgg.values()[tag.getInt("Color")]);
         this.setDragonAge(tag.getInt("DragonAge"));
@@ -214,27 +214,27 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    public SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return null;
     }
 
     @Override
-    public @NotNull Iterable<ItemStack> getArmorItems() {
+    public Iterable<ItemStack> getArmorItems() {
         return ImmutableList.of();
     }
 
     @Override
-    public @NotNull ItemStack getEquippedStack(@NotNull EquipmentSlot slotIn) {
+    public ItemStack getEquippedStack(EquipmentSlot slotIn) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void equipStack(@NotNull EquipmentSlot slotIn, @NotNull ItemStack stack) {
+    public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
 
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource var1, float var2) {
+    public boolean damage(DamageSource var1, float var2) {
         if (var1.isIn(DamageTypeTags.IS_FIRE) && this.getEggType().dragonType == DragonType.FIRE)
             return false;
         if (!this.getWorld().isClient && !var1.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY) && !this.isRemoved()) {
@@ -267,12 +267,12 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public @NotNull Arm getMainArm() {
+    public Arm getMainArm() {
         return Arm.RIGHT;
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entity) {
+    protected void pushAway(Entity entity) {
     }
 
     @Override

@@ -127,7 +127,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     }
 
     @Override
-    public void playSound(@NotNull SoundEvent soundIn, float volume, float pitch) {
+    public void playSound(SoundEvent soundIn, float volume, float pitch) {
         if (!this.isSilent() && soundIn != SoundEvents.ENTITY_ARROW_HIT && soundIn != SoundEvents.ENTITY_ARROW_HIT_PLAYER) {
             this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), soundIn, this.getSoundCategory(), volume, pitch);
         }
@@ -139,7 +139,7 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     }
 
     @Override
-    protected @NotNull ItemStack asItemStack() {
+    protected ItemStack asItemStack() {
         return ItemStack.EMPTY;
     }
 

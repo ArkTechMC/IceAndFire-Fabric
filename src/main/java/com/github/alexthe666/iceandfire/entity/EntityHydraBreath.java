@@ -46,7 +46,7 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float amount) {
+    public boolean damage(DamageSource source, float amount) {
         return false;
     }
 
@@ -112,7 +112,7 @@ public class EntityHydraBreath extends AbstractFireballEntity implements IDragon
     }
 
     @Override
-    protected void onCollision(@NotNull HitResult movingObject) {
+    protected void onCollision(HitResult movingObject) {
         this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING);
         Entity shootingEntity = this.getOwner();
         if (!this.getWorld().isClient) {

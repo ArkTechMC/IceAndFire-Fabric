@@ -24,7 +24,7 @@ public class ItemDragonFlute extends Item {
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(World worldIn, PlayerEntity player, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         ItemStack itemStackIn = player.getStackInHand(hand);
         player.getItemCooldownManager().set(this, 60);
 

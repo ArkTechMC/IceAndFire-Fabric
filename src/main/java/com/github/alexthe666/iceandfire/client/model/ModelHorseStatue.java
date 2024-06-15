@@ -12,7 +12,7 @@ public class ModelHorseStatue extends HorseEntityModel {
     }
 
     @Override
-    public void setAngles(@NotNull AbstractHorseEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(AbstractHorseEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 }

@@ -21,7 +21,7 @@ public class RenderTrollWeapon extends BuiltinModelItemRenderer {
     }
 
     @Override
-    public void render(ItemStack stack, @NotNull ModelTransformationMode type, @NotNull MatrixStack stackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         EnumTroll.Weapon weapon = EnumTroll.Weapon.AXE;
         if (stack.getItem() instanceof ItemTrollWeapon)
             weapon = ((ItemTrollWeapon) stack.getItem()).weapon;

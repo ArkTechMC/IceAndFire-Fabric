@@ -21,7 +21,7 @@ public class ItemHydraHeart extends Item {
     }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack stack, @NotNull World world, @NotNull Entity entity, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (entity instanceof PlayerEntity && itemSlot >= 0 && itemSlot <= 8) {
             double healthPercentage = ((PlayerEntity) entity).getHealth() / Math.max(1, ((PlayerEntity) entity).getMaxHealth());
             if (healthPercentage < 1.0D) {
@@ -42,7 +42,7 @@ public class ItemHydraHeart extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.hydra_heart.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.hydra_heart.desc_1").formatted(Formatting.GRAY));

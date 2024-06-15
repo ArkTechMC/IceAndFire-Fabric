@@ -27,19 +27,19 @@ public class GuiDragon extends HandledScreen<ContainerDragon> {
     }
 
     @Override
-    protected void drawForeground(@NotNull DrawContext matrixStack, int mouseX, int mouseY) {
+    protected void drawForeground(DrawContext matrixStack, int mouseX, int mouseY) {
 
     }
 
     @Override
-    public void render(@NotNull DrawContext matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(DrawContext matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void drawBackground(@NotNull DrawContext matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawBackground(DrawContext matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int k = (this.width - this.backgroundWidth) / 2;

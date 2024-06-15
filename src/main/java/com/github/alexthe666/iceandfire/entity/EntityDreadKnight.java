@@ -127,7 +127,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setAnimation(ANIMATION_SPAWN);
         this.initEquipment(worldIn.getRandom(), difficultyIn);
@@ -195,7 +195,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return SoundEvents.ENTITY_STRAY_HURT;
     }
 

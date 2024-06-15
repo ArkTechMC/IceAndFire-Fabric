@@ -22,7 +22,7 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
     }
 
     @Override
-    protected @NotNull PathNodeNavigator createPathNodeNavigator(int p_179679_1_) {
+    protected PathNodeNavigator createPathNodeNavigator(int p_179679_1_) {
         this.nodeMaker = new WaterPathNodeMaker(true);
         return new PathNodeNavigator(this.nodeMaker, p_179679_1_);
     }
@@ -33,7 +33,7 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
     }
 
     @Override
-    protected @NotNull Vec3d getPos() {
+    protected Vec3d getPos() {
         return new Vec3d(this.entity.getX(), this.entity.getBodyY(0.5D), this.entity.getZ());
     }
 
@@ -94,7 +94,7 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
     }
 
     @Override
-    protected void checkTimeouts(@NotNull Vec3d positionVec3) {
+    protected void checkTimeouts(Vec3d positionVec3) {
         if (this.tickCount - this.pathStartTime > 100) {
             if (positionVec3.squaredDistanceTo(this.pathStartPos) < 2.25D) {
                 this.stop();
@@ -129,13 +129,13 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
     }
 
     @Override
-    protected boolean canPathDirectlyThrough(@NotNull Vec3d posVec31, Vec3d posVec32) {
+    protected boolean canPathDirectlyThrough(Vec3d posVec31, Vec3d posVec32) {
         Vec3d lvt_6_1_ = new Vec3d(posVec32.x, posVec32.y + this.entity.getHeight() * 0.5D, posVec32.z);
         return this.world.raycast(new RaycastContext(posVec31, lvt_6_1_, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this.entity)).getType() == HitResult.Type.MISS;
     }
 
     @Override
-    public boolean isValidPosition(@NotNull BlockPos pos) {
+    public boolean isValidPosition(BlockPos pos) {
         return !this.world.getBlockState(pos).isOpaqueFullCube(this.world, pos);
     }
 

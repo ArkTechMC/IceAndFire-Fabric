@@ -175,11 +175,11 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     @Override
-    public float getPathfindingFavor(@NotNull BlockPos pos) {
+    public float getPathfindingFavor(BlockPos pos) {
         if (this.isFlying()) {
             if (this.getWorld().isAir(pos)) {
                 return 10F;
@@ -192,7 +192,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public @NotNull ActionResult interactMob(PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
 
         if (itemstack != null && itemstack.isIn(IafItemTags.BREED_AMPITHERE)) {
@@ -288,7 +288,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float damage) {
+    public boolean damage(DamageSource source, float damage) {
         if (!this.isTamed() && this.isFlying() && !this.isOnGround() && source.isIn(DamageTypeTags.IS_PROJECTILE) && !this.getWorld().isClient) {
             this.isFallen = true;
         }
@@ -299,7 +299,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public void updatePassengerPosition(@NotNull Entity passenger, @NotNull PositionUpdater callback) {
+    public void updatePassengerPosition(Entity passenger, PositionUpdater callback) {
         super.updatePassengerPosition(passenger, callback);
         if (this.hasPassenger(passenger) && this.isTamed()) {
             this.setBodyYaw(passenger.getYaw());
@@ -565,7 +565,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public boolean isTeammate(@NotNull Entity entityIn) {
+    public boolean isTeammate(Entity entityIn) {
         if (this.isTamed()) {
             LivingEntity livingentity = this.getOwner();
             if (entityIn == livingentity) {
@@ -600,7 +600,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound compound) {
+    public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("Flying", this.isFlying());
@@ -616,7 +616,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound compound) {
+    public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setFlying(compound.getBoolean("Flying"));
@@ -736,7 +736,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() != ANIMATION_BITE && this.getAnimation() != ANIMATION_TAIL_WHIP && this.getAnimation() != ANIMATION_WING_BLAST && this.getControllingPassenger() == null) {
             if (this.random.nextBoolean()) {
                 this.setAnimation(ANIMATION_BITE);
@@ -848,7 +848,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.AMPHITHERE_HURT;
     }
 
@@ -891,7 +891,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (this.getAnimation() == this.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
@@ -903,7 +903,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public PassiveEntity createChild(@NotNull ServerWorld serverWorld, @NotNull PassiveEntity ageableEntity) {
+    public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageableEntity) {
         EntityAmphithere amphithere = new EntityAmphithere(IafEntityRegistry.AMPHITHERE.get(), this.getWorld());
         amphithere.setVariant(this.getVariant());
         return amphithere;
@@ -915,7 +915,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setVariant(this.getRandom().nextInt(5));
         return spawnDataIn;
@@ -928,12 +928,12 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
     // FIXME: I don't know what's is overriding the flight speed (I assume it's on the server side)
     @Override
-    protected float getSaddledSpeed(@NotNull PlayerEntity pPlayer) {
+    protected float getSaddledSpeed(PlayerEntity pPlayer) {
         return (this.isFlying() || this.isHovering()) ? (float) this.getAttributeValue(EntityAttributes.GENERIC_FLYING_SPEED) * 2F : (float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.5F;
     }
 
     @Override
-    public void travel(@NotNull Vec3d travelVector) {
+    public void travel(Vec3d travelVector) {
         if (this.isLogicalSideForUpdatingMovement()) {
             if (this.isTouchingWater()) {
                 this.updateVelocity(0.02F, travelVector);
@@ -956,7 +956,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    protected void tickControlled(@NotNull PlayerEntity player, @NotNull Vec3d travelVector) {
+    protected void tickControlled(PlayerEntity player, Vec3d travelVector) {
         super.tickControlled(player, travelVector);
         Vec2f vec2 = this.getRiddenRotation(player);
         this.setRotation(vec2.y, vec2.x);
@@ -972,7 +972,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     }
 
     @Override
-    protected @NotNull Vec3d getControlledMovementInput(PlayerEntity player, @NotNull Vec3d travelVector) {
+    protected Vec3d getControlledMovementInput(PlayerEntity player, Vec3d travelVector) {
         float f = player.sidewaysSpeed * 0.5F;
         float f1 = player.forwardSpeed;
         if (f1 <= 0.0F) {

@@ -40,7 +40,7 @@ public class ContainerPodium extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity playerIn) {
+    public boolean canUse(PlayerEntity playerIn) {
         return this.podium.canPlayerUse(playerIn);
     }
 
@@ -48,7 +48,7 @@ public class ContainerPodium extends ScreenHandler {
      * Take a stack from the specified inventory slot.
      */
     @Override
-    public @NotNull ItemStack quickMove(@NotNull PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
 
@@ -78,7 +78,7 @@ public class ContainerPodium extends ScreenHandler {
      * Called when the container is closed.
      */
     @Override
-    public void onClosed(@NotNull PlayerEntity playerIn) {
+    public void onClosed(PlayerEntity playerIn) {
         super.onClosed(playerIn);
         this.podium.onClose(playerIn);
     }

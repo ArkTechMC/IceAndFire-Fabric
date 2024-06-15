@@ -15,7 +15,7 @@ public class ItemDragonBow extends BowItem {
     }
 
     @Override
-    public @NotNull Predicate<ItemStack> getProjectiles() {
+    public Predicate<ItemStack> getProjectiles() {
         return DRAGON_ARROWS;
     }
 }

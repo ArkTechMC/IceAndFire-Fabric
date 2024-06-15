@@ -32,7 +32,7 @@ public class ContainerHippogryph extends ScreenHandler {
         this.hippogryphInventory.onOpen(player);
         this.addSlot(new Slot(this.hippogryphInventory, 0, 8, 18) {
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return stack.getItem() == Items.SADDLE && !this.hasStack();
             }
 
@@ -50,7 +50,7 @@ public class ContainerHippogryph extends ScreenHandler {
         });
         this.addSlot(new Slot(this.hippogryphInventory, 1, 8, 36) {
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return stack.getItem() == Blocks.CHEST.asItem() && !this.hasStack();
             }
 
@@ -69,7 +69,7 @@ public class ContainerHippogryph extends ScreenHandler {
         this.addSlot(new Slot(this.hippogryphInventory, 2, 8, 52) {
 
             @Override
-            public boolean canInsert(@NotNull ItemStack stack) {
+            public boolean canInsert(ItemStack stack) {
                 return EntityHippogryph.getIntFromArmor(stack) != 0;
             }
 
@@ -100,7 +100,7 @@ public class ContainerHippogryph extends ScreenHandler {
                     }
 
                     @Override
-                    public boolean canInsert(@NotNull ItemStack stack) {
+                    public boolean canInsert(ItemStack stack) {
                         return ContainerHippogryph.this.hippogryph != null && ContainerHippogryph.this.hippogryph.isChested();
                     }
                 });
@@ -120,7 +120,7 @@ public class ContainerHippogryph extends ScreenHandler {
 
 
     @Override
-    public @NotNull ItemStack quickMove(@NotNull PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot != null && slot.hasStack()) {
@@ -157,12 +157,12 @@ public class ContainerHippogryph extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity playerIn) {
+    public boolean canUse(PlayerEntity playerIn) {
         return this.hippogryphInventory.canPlayerUse(playerIn) && this.hippogryph.isAlive() && this.hippogryph.distanceTo(playerIn) < 8.0F;
     }
 
     @Override
-    public void onClosed(@NotNull PlayerEntity playerIn) {
+    public void onClosed(PlayerEntity playerIn) {
         super.onClosed(playerIn);
         this.hippogryphInventory.onClose(playerIn);
     }

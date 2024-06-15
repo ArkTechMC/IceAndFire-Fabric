@@ -13,7 +13,7 @@ public class IAFLookHelper extends LookControl {
     }
 
     @Override
-    public void lookAt(@NotNull Entity entityIn, float deltaYaw, float deltaPitch) {
+    public void lookAt(Entity entityIn, float deltaYaw, float deltaPitch) {
         try {
             super.lookAt(entityIn, deltaYaw, deltaPitch);//rarely causes crash with vanilla
         } catch (Exception e) {

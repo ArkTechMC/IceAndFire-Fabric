@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class NodeProcessorWalk extends LandPathNodeMaker {
     @Override
-    public void init(@NotNull ChunkCache p_225578_1_, @NotNull MobEntity p_225578_2_) {
+    public void init(ChunkCache p_225578_1_, MobEntity p_225578_2_) {
         super.init(p_225578_1_, p_225578_2_);
     }
 

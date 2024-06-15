@@ -64,12 +64,12 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.dragonscales_armor.desc").formatted(Formatting.GRAY));
     }
 
     @Override
-    public @NotNull Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@NotNull EquipmentSlot equipmentSlot) {
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot) {
         return equipmentSlot == this.type.getEquipmentSlot() ? this.getOrUpdateAttributeMap() : super.getAttributeModifiers(equipmentSlot);
     }
 

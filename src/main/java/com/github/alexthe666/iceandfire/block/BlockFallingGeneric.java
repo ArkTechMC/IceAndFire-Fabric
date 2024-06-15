@@ -4,12 +4,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.enums.Instrument;
-import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class BlockFallingGeneric extends FallingBlock {
-    public Item itemBlock;
-
 /*    public BlockFallingGeneric(float hardness, float resistance, SoundType sound) {
         super(
             BlockBehaviour.Properties
@@ -35,11 +32,7 @@ public class BlockFallingGeneric extends FallingBlock {
     }
 
     public static BlockFallingGeneric builder(float hardness, float resistance, BlockSoundGroup sound, MapColor color, Instrument instrument) {
-        Settings props = Settings.create()
-                .mapColor(color)
-                .instrument(instrument)
-                .sounds(sound)
-                .strength(hardness, resistance);
+        Settings props = Settings.create().mapColor(color).instrument(instrument).sounds(sound).strength(hardness, resistance);
         return new BlockFallingGeneric(props);
     }
 

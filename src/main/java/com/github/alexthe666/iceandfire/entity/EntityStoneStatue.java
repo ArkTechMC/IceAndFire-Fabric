@@ -62,7 +62,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     @Override
-    public void pushAwayFrom(@NotNull Entity entityIn) {
+    public void pushAwayFrom(Entity entityIn) {
     }
 
     @Override
@@ -127,7 +127,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putInt("CrackAmount", this.getCrackAmount());
         tag.putFloat("StatueWidth", this.getTrappedWidth());
@@ -143,7 +143,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setCrackAmount(tag.getByte("CrackAmount"));
         this.setTrappedEntityWidth(tag.getFloat("StatueWidth"));
@@ -162,7 +162,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull EntityPose poseIn) {
+    public EntityDimensions getDimensions(EntityPose poseIn) {
         return this.stoneStatueSize;
     }
 
@@ -186,22 +186,22 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     @Override
-    public @NotNull Iterable<ItemStack> getArmorItems() {
+    public Iterable<ItemStack> getArmorItems() {
         return ImmutableList.of();
     }
 
     @Override
-    public @NotNull ItemStack getEquippedStack(@NotNull EquipmentSlot slotIn) {
+    public ItemStack getEquippedStack(EquipmentSlot slotIn) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void equipStack(@NotNull EquipmentSlot slotIn, @NotNull ItemStack stack) {
+    public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
 
     }
 
     @Override
-    public @NotNull Arm getMainArm() {
+    public Arm getMainArm() {
         return Arm.RIGHT;
     }
 

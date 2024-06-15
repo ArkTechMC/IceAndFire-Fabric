@@ -49,7 +49,7 @@ public class ChickenData {
         this.timeUntilNextEgg = chickenData.getInt("timeUntilNextEgg");
     }
 
-    private int createDefaultTime(@NotNull final Random random) {
+    private int createDefaultTime(final Random random) {
         return random.nextInt(6000) + 6000;
     }
 }

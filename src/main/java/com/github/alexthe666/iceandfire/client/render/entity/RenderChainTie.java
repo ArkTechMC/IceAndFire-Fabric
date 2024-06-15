@@ -23,7 +23,7 @@ public class RenderChainTie extends EntityRenderer<EntityChainTie> {
     }
 
     @Override
-    public void render(@NotNull EntityChainTie entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityChainTie entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         matrixStackIn.push();
         matrixStackIn.translate(0, 0.5F, 0);
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
@@ -38,7 +38,7 @@ public class RenderChainTie extends EntityRenderer<EntityChainTie> {
      * Returns the location of an entity's texture.
      */
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityChainTie entity) {
+    public Identifier getTexture(EntityChainTie entity) {
         return TEXTURE;
     }
 }

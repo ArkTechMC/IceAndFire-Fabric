@@ -69,7 +69,7 @@ public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, Mode
     }
 
     @Override
-    public Identifier getTexture(@NotNull EntityDreadThrall entity) {
+    public Identifier getTexture(EntityDreadThrall entity) {
         return TEXTURE;
     }
 }

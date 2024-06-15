@@ -25,7 +25,7 @@ public class RenderLectern<T extends TileEntityLectern> implements BlockEntityRe
     }
 
     @Override
-    public void render(@NotNull T entity, float partialTicks, MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T entity, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         matrixStackIn.push();
         matrixStackIn.translate(0.5F, 1.1F, 0.5F);
         matrixStackIn.scale(0.8F, 0.8F, 0.8F);

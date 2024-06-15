@@ -26,7 +26,7 @@ public class RenderMyrmexBase extends MobEntityRenderer<EntityMyrmexBase, Advanc
     }
 
     @Override
-    public void render(EntityMyrmexBase entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityMyrmexBase entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         if (entityIn.getGrowthStage() == 0) {
             this.model = LARVA_MODEL;
         } else if (entityIn.getGrowthStage() == 1) {
@@ -39,7 +39,7 @@ public class RenderMyrmexBase extends MobEntityRenderer<EntityMyrmexBase, Advanc
     }
 
     @Override
-    protected void scale(EntityMyrmexBase myrmex, @NotNull MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(EntityMyrmexBase myrmex, MatrixStack matrixStackIn, float partialTickTime) {
         float scale = myrmex.getModelScale();
         if (myrmex.getGrowthStage() == 0) {
             scale /= 2;
@@ -54,7 +54,7 @@ public class RenderMyrmexBase extends MobEntityRenderer<EntityMyrmexBase, Advanc
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityMyrmexBase myrmex) {
+    public Identifier getTexture(EntityMyrmexBase myrmex) {
         return myrmex.getTexture();
     }
 

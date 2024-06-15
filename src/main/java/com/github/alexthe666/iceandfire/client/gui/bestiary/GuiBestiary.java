@@ -141,7 +141,7 @@ public class GuiBestiary extends Screen {
     }
 
     @Override
-    public void render(@NotNull DrawContext ms, int mouseX, int mouseY, float partialTicks) {
+    public void render(DrawContext ms, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(ms);
         for (Drawable widget : this.drawables) {
             if (widget instanceof IndexPageButton button) {

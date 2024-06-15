@@ -90,7 +90,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
     }
 
     @Override
-    protected boolean canHit(@NotNull Entity entityIn) {
+    protected boolean canHit(Entity entityIn) {
         return super.canHit(entityIn) && !(entityIn instanceof EntityMutlipartPart) && !(entityIn instanceof EntitySeaSerpentBubbles);
     }
 
@@ -118,12 +118,12 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
     }
 
     @Override
-    protected @NotNull ParticleEffect getParticleType() {
+    protected ParticleEffect getParticleType() {
         return ParticleTypes.BUBBLE;
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource source, float amount) {
+    public boolean damage(DamageSource source, float amount) {
         return false;
     }
 
@@ -133,7 +133,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
     }
 
     @Override
-    protected void onCollision(@NotNull HitResult movingObject) {
+    protected void onCollision(HitResult movingObject) {
         boolean flag = this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING);
         if (!this.getWorld().isClient) {
             if (movingObject.getType() == HitResult.Type.ENTITY) {

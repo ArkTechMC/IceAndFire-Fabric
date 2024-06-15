@@ -40,7 +40,7 @@ public class ItemDragonArmor extends Item {
     }
 
     @Override
-    public @NotNull String getTranslationKey() {
+    public String getTranslationKey() {
         String fullName = Registries.ITEM.getId(this).getPath();
         Matcher matcher = this.baseName.matcher(fullName);
         this.name = matcher.find() ? matcher.group() : fullName;
@@ -48,7 +48,7 @@ public class ItemDragonArmor extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         String words = switch (this.dragonSlot) {
             case 1 -> "dragon.armor_neck";
             case 2 -> "dragon.armor_body";

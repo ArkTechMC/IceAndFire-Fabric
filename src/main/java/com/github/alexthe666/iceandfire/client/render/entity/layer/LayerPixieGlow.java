@@ -19,7 +19,7 @@ public class LayerPixieGlow extends FeatureRenderer<EntityPixie, ModelPixie> {
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityPixie pixie, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityPixie pixie, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         Identifier texture = switch (pixie.getColor()) {
             default -> RenderPixie.TEXTURE_0;
             case 1 -> RenderPixie.TEXTURE_1;

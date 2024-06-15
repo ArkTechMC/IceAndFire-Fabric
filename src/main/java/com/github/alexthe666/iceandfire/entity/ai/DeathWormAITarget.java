@@ -46,7 +46,7 @@ public class DeathWormAITarget<T extends LivingEntity> extends ActiveTargetGoal<
     }
 
     @Override
-    protected @NotNull Box getSearchBox(double targetDistance) {
+    protected Box getSearchBox(double targetDistance) {
         // Increasing the y-range too much makes it target entities in caves etc., which will be unreachable (thus no target will be set)
         return this.deathworm.getBoundingBox().expand(targetDistance, 6, targetDistance);
     }

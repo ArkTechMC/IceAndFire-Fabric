@@ -42,12 +42,12 @@ public class ItemDragonSkull extends Item {
     }
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, @NotNull World worldIn, @NotNull Entity entityIn, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (stack.getNbt() == null) {
             stack.setNbt(new NbtCompound());
             stack.getNbt().putInt("Stage", 4);
@@ -56,7 +56,7 @@ public class ItemDragonSkull extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         String iceorfire = "dragon." + getType(this.dragonType);
         tooltip.add(Text.translatable(iceorfire).formatted(Formatting.GRAY));
         if (stack.getNbt() != null) {
@@ -65,7 +65,7 @@ public class ItemDragonSkull extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack stack = context.getPlayer().getStackInHand(context.getHand());
         /*
          * EntityDragonEgg egg = new EntityDragonEgg(worldIn);

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.github.alexthe666.iceandfire.item.IafItemRegistry.*;
 
 public class DragonSteelArmorRenderer implements ArmorRenderer {
-    public @NotNull BipedEntityModel<?> getHumanoidArmorModel(ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<?> _default) {
+    public BipedEntityModel<?> getHumanoidArmorModel(ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<?> _default) {
         boolean inner = armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD;
         if (itemStack.getItem() instanceof ArmorItem) {
             ArmorMaterial armorMaterial = ((ArmorItem) itemStack.getItem()).getMaterial();

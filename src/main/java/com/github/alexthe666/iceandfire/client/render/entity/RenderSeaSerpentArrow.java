@@ -15,7 +15,7 @@ public class RenderSeaSerpentArrow extends ProjectileEntityRenderer {
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull Entity entity) {
+    public Identifier getTexture(Entity entity) {
         return TEXTURE;
     }
 

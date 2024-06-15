@@ -13,7 +13,6 @@ import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -23,17 +22,7 @@ public class BlockPixieHouse extends BlockWithEntity {
     public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.Type.HORIZONTAL);
 
     public BlockPixieHouse() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .instrument(Instrument.BASS)
-                        .burnable()
-                        .nonOpaque()
-                        .dynamicBounds()
-                        .strength(2.0F, 5.0F)
-                        .ticksRandomly()
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().nonOpaque().dynamicBounds().strength(2.0F, 5.0F).ticksRandomly());
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
@@ -52,7 +41,7 @@ public class BlockPixieHouse extends BlockWithEntity {
     }
 
     @Override
-    public void onStateReplaced(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState newState, boolean isMoving) {
+    public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         this.dropPixie(worldIn, pos);
         dropStack(worldIn, pos, new ItemStack(this, 0));
         super.onStateReplaced(state, worldIn, pos, newState, isMoving);
@@ -66,12 +55,11 @@ public class BlockPixieHouse extends BlockWithEntity {
         if (!this.canPlaceBlockAt(worldIn, pos)) {
             worldIn.breakBlock(pos, true);
             this.dropPixie(worldIn, pos);
-        } else {
         }
     }
 
     @Override
-    public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
+    public BlockRenderType getRenderType(BlockState state) {
         return BlockRenderType.MODEL;
     }
 
@@ -80,18 +68,17 @@ public class BlockPixieHouse extends BlockWithEntity {
     }
 
     public void dropPixie(World world, BlockPos pos) {
-        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityPixieHouse && ((TileEntityPixieHouse) world.getBlockEntity(pos)).hasPixie) {
-            ((TileEntityPixieHouse) world.getBlockEntity(pos)).releasePixie();
-        }
+        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityPixieHouse house&& house.hasPixie)
+            house.releasePixie();
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, @NotNull BlockState state, @NotNull BlockEntityType<T> entityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
         return level.isClient ? checkType(entityType, PIXIE_HOUSE.get(), TileEntityPixieHouse::tickClient) : checkType(entityType, PIXIE_HOUSE.get(), TileEntityPixieHouse::tickServer);
     }
 
     @Override
-    public BlockEntity createBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new TileEntityPixieHouse(pos, state);
     }
 }

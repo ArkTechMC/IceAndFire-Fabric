@@ -97,12 +97,12 @@ public class ContainerDragon extends ScreenHandler {
     }
 
     @Override
-    public boolean canUse(@NotNull PlayerEntity playerIn) {
+    public boolean canUse(PlayerEntity playerIn) {
         return !this.dragon.hasInventoryChanged(this.dragonInventory) && this.dragonInventory.canPlayerUse(playerIn) && this.dragon.isAlive() && this.dragon.distanceTo(playerIn) < 8.0F;
     }
 
     @Override
-    public @NotNull ItemStack quickMove(@NotNull PlayerEntity playerIn, int index) {
+    public ItemStack quickMove(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasStack()) {
@@ -149,7 +149,7 @@ public class ContainerDragon extends ScreenHandler {
     }
 
     @Override
-    public void onClosed(@NotNull PlayerEntity playerIn) {
+    public void onClosed(PlayerEntity playerIn) {
         super.onClosed(playerIn);
         this.dragonInventory.onClose(playerIn);
     }

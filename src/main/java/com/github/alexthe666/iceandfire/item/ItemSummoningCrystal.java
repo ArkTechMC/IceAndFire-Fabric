@@ -45,7 +45,7 @@ public class ItemSummoningCrystal extends Item {
     }
 
     @Override
-    public void onCraft(ItemStack itemStack, @NotNull World world, @NotNull PlayerEntity player) {
+    public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
@@ -54,7 +54,7 @@ public class ItemSummoningCrystal extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
 
         boolean flag = false;
         String desc = "entity.iceandfire.fire_dragon";
@@ -86,7 +86,7 @@ public class ItemSummoningCrystal extends Item {
     }
 
     @Override
-    public @NotNull ActionResult useOnBlock(ItemUsageContext context) {
+    public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack stack = context.getPlayer().getStackInHand(context.getHand());
         boolean flag = false;
         BlockPos offsetPos = context.getBlockPos().offset(context.getSide());

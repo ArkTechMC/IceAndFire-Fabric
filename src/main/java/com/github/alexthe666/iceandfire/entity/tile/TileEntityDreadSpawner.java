@@ -17,12 +17,12 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
     private final BlockEntityType<?> type;
     private final DreadSpawnerBaseLogic spawner = new DreadSpawnerBaseLogic() {
         @Override
-        public void sendStatus(World p_155767_, @NotNull BlockPos p_155768_, int p_155769_) {
+        public void sendStatus(World p_155767_, BlockPos p_155768_, int p_155769_) {
             p_155767_.addSyncedBlockEvent(p_155768_, Blocks.SPAWNER, p_155769_, 0);
         }
 
         @Override
-        public void setSpawnEntry(World p_155771_, @NotNull BlockPos p_155772_, @NotNull MobSpawnerEntry p_155773_) {
+        public void setSpawnEntry(World p_155771_, BlockPos p_155772_, MobSpawnerEntry p_155773_) {
             super.setSpawnEntry(p_155771_, p_155772_, p_155773_);
             if (p_155771_ != null) {
                 BlockState blockstate = p_155771_.getBlockState(p_155772_);
@@ -46,7 +46,7 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound p_155760_) {
+    public void readNbt(NbtCompound p_155760_) {
         super.readNbt(p_155760_);
         this.spawner.readNbt(this.world, this.pos, p_155760_);
     }
@@ -63,7 +63,7 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         NbtCompound compoundtag = this.save(new NbtCompound());
         compoundtag.remove("SpawnPotentials");
         return compoundtag;
@@ -80,12 +80,12 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
     }
 
     @Override
-    public @NotNull MobSpawnerLogic getLogic() {
+    public MobSpawnerLogic getLogic() {
         return this.spawner;
     }
 
     @Override
-    public @NotNull BlockEntityType<?> getType() {
+    public BlockEntityType<?> getType() {
         return this.type != null ? this.type : super.getType();
     }
 

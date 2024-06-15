@@ -19,12 +19,12 @@ public class ItemStymphalianDagger extends SwordItem {
 
 
     @Override
-    public boolean postHit(@NotNull ItemStack stack, @NotNull LivingEntity targetEntity, @NotNull LivingEntity attacker) {
+    public boolean postHit(ItemStack stack, LivingEntity targetEntity, LivingEntity attacker) {
         return super.postHit(stack, targetEntity, attacker);
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.stymphalian_bird_dagger.desc_0").formatted(Formatting.GRAY));
     }

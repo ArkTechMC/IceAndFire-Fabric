@@ -43,7 +43,7 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (dragon.shouldRenderEyes()) {
             RenderLayer eyes = RenderLayer.getEyes(EnumDragonTextures.getEyeTextureFromDragon(dragon));
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(eyes);
@@ -65,7 +65,7 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     }
 
     @Override
-    protected @NotNull Identifier getTexture(@NotNull EntityDragonBase entityIn) {
+    protected Identifier getTexture(EntityDragonBase entityIn) {
         return null;
     }
 

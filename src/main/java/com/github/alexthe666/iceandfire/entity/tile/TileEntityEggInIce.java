@@ -52,7 +52,7 @@ public class TileEntityEggInIce extends BlockEntity {
     }
 
     @Override
-    public void writeNbt(@NotNull NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         if (this.type != null) {
             tag.putByte("Color", (byte) this.type.ordinal());
         } else {
@@ -67,7 +67,7 @@ public class TileEntityEggInIce extends BlockEntity {
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound tag) {
+    public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
         this.type = EnumDragonEgg.values()[tag.getByte("Color")];
         this.age = tag.getInt("Age");
@@ -88,7 +88,7 @@ public class TileEntityEggInIce extends BlockEntity {
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         NbtCompound nbtTagCompound = new NbtCompound();
         this.writeNbt(nbtTagCompound);
         return nbtTagCompound;

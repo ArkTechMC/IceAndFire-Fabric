@@ -56,7 +56,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
     }
 
     @Override
-    protected void drawForeground(@NotNull DrawContext ms, int mouseX, int mouseY) {
+    protected void drawForeground(DrawContext ms, int mouseX, int mouseY) {
         TextRenderer font = this.client.textRenderer;
         font.draw(this.nameable.getString(), 12, 4, 4210752, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         font.draw(this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
@@ -88,7 +88,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
     }
 
     @Override
-    protected void drawBackground(@NotNull DrawContext ms, float partialTicks, int mouseX, int mouseY) {
+    protected void drawBackground(DrawContext ms, float partialTicks, int mouseX, int mouseY) {
         DiffuseLighting.disableGuiDepthLighting();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -195,7 +195,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
     }
 
     @Override
-    public void render(@NotNull DrawContext ms, int mouseX, int mouseY, float partialTicks) {
+    public void render(DrawContext ms, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(ms);
         super.render(ms, mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(ms, mouseX, mouseY);

@@ -20,27 +20,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlock {
     public static final BooleanProperty PLAYER_PLACED = BooleanProperty.of("player_placed");
 
     public BlockDreadWoodLock() {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.OAK_TAN)
-                        .instrument(Instrument.BASS)
-                        .burnable()
-                        .strength(-1.0F, 1000000F)
-                        .sounds(BlockSoundGroup.WOOD)
-        );
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().strength(-1.0F, 1000000F).sounds(BlockSoundGroup.WOOD));
         this.setDefaultState(this.getStateManager().getDefaultState().with(PLAYER_PLACED, Boolean.FALSE));
     }
 
     @SuppressWarnings("deprecation")
     @Override
-    public float calcBlockBreakingDelta(BlockState state, @NotNull PlayerEntity player, @NotNull BlockView worldIn, @NotNull BlockPos pos) {
+    public float calcBlockBreakingDelta(BlockState state, PlayerEntity player, BlockView worldIn, BlockPos pos) {
         if (state.get(PLAYER_PLACED)) {
             float f = 8f;
             //Code from super method
@@ -50,37 +41,29 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
     }
 
     @Override
-    public @NotNull ActionResult onUse(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockHitResult resultIn) {
-        ItemStack stack = player.getStackInHand(handIn);
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
+        ItemStack stack = player.getStackInHand(hand);
         if (stack.getItem() == IafItemRegistry.DREAD_KEY.get()) {
-            if (!player.isCreative()) {
+            if (!player.isCreative())
                 stack.decrement(1);
-            }
-            this.deleteNearbyWood(worldIn, pos, pos);
-            worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.BLOCKS, 1, 1, false);
-            worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1, 2, false);
+            this.deleteNearbyWood(world, pos, pos);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ZOMBIE_ATTACK_IRON_DOOR, SoundCategory.BLOCKS, 1, 1, false);
+            world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_CHEST_OPEN, SoundCategory.BLOCKS, 1, 2, false);
         }
         return ActionResult.SUCCESS;
     }
 
-    private void deleteNearbyWood(World worldIn, BlockPos pos, BlockPos startPos) {
-        if (pos.getSquaredDistance(startPos) < 32) {
-            if (worldIn.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS.get() || worldIn.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS_LOCK.get()) {
-                worldIn.breakBlock(pos, false);
-                for (Direction facing : Direction.values()) {
-                    this.deleteNearbyWood(worldIn, pos.offset(facing), startPos);
-                }
+    private void deleteNearbyWood(World world, BlockPos pos, BlockPos startPos) {
+        if (pos.getSquaredDistance(startPos) < 32)
+            if (world.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS.get() || world.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS_LOCK.get()) {
+                world.breakBlock(pos, false);
+                for (Direction facing : Direction.values())
+                    this.deleteNearbyWood(world, pos.offset(facing), startPos);
             }
-        }
     }
-
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(PLAYER_PLACED);
-    }
-
-    public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer) {
-        return this.getDefaultState().with(PLAYER_PLACED, true);
     }
 }

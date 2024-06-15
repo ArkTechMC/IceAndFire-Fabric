@@ -28,7 +28,7 @@ public class RenderGhostChest extends ChestBlockEntityRenderer<TileEntityGhostCh
     }
 
 //    @Override
-//    protected @NotNull SpriteIdentifier getMaterial(@NotNull TileEntityGhostChest tileEntity, @NotNull ChestType chestType) {
+//    protected SpriteIdentifier getMaterial(TileEntityGhostChest tileEntity, ChestType chestType) {
 //        return getChestMaterial(chestType, GHOST_CHEST, GHOST_CHEST_LEFT, GHOST_CHEST_RIGHT);
 //    }
 }

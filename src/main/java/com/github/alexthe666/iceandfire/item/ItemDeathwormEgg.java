@@ -23,7 +23,7 @@ public class ItemDeathwormEgg extends Item {
 
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getStackInHand(handIn);
 
         if (!playerIn.isCreative()) {

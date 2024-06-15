@@ -28,7 +28,7 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
     }
 
     @Override
-    public void remove(@NotNull RemovalReason reason) {
+    public void remove(RemovalReason reason) {
         super.remove(reason);
         if (IafConfig.stymphalianBirdFeatherDropChance > 0) {
             if (this.getWorld().isClient && this.random.nextInt(IafConfig.stymphalianBirdFeatherDropChance) == 0) {
@@ -47,7 +47,7 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void onEntityHit(@NotNull EntityHitResult entityHit) {
+    protected void onEntityHit(EntityHitResult entityHit) {
         Entity shootingEntity = this.getOwner();
         if (shootingEntity instanceof EntityStymphalianBird && entityHit.getEntity() != null && entityHit.getEntity() instanceof EntityStymphalianBird) {
         } else {
@@ -81,7 +81,7 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
     }
 
     @Override
-    protected @NotNull ItemStack asItemStack() {
+    protected ItemStack asItemStack() {
         return new ItemStack(IafItemRegistry.STYMPHALIAN_BIRD_FEATHER.get());
     }
 }

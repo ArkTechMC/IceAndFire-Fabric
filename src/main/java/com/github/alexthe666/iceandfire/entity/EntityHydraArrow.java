@@ -75,7 +75,7 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void onHit(@NotNull LivingEntity living) {
+    protected void onHit(LivingEntity living) {
         if (living instanceof PlayerEntity) {
             this.damageShield((PlayerEntity) living, (float) this.getDamage());
         }
@@ -87,7 +87,7 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
     }
 
     @Override
-    protected @NotNull ItemStack asItemStack() {
+    protected ItemStack asItemStack() {
         return new ItemStack(IafItemRegistry.HYDRA_ARROW.get());
     }
 }

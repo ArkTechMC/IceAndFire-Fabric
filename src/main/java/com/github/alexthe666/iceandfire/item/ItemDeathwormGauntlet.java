@@ -29,24 +29,24 @@ public class ItemDeathwormGauntlet extends Item {
     }
 
     @Override
-    public int getMaxUseTime(@NotNull ItemStack stack) {
+    public int getMaxUseTime(ItemStack stack) {
         return 1;
     }
 
     @Override
-    public @NotNull UseAction getUseAction(@NotNull ItemStack stack) {
+    public UseAction getUseAction(ItemStack stack) {
         return UseAction.BOW;
     }
 
     @Override
-    public @NotNull TypedActionResult<ItemStack> use(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand hand) {
+    public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
         playerIn.setCurrentHand(hand);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 
     @Override
-    public void usageTick(@NotNull World level, @NotNull LivingEntity entity, @NotNull ItemStack stack, int count) {
+    public void usageTick(World level, LivingEntity entity, ItemStack stack, int count) {
         if (!this.deathwormReceded && !this.deathwormLaunched) {
             if (entity instanceof PlayerEntity player) {
                 NbtCompound tag = stack.getOrCreateNbt();
@@ -66,7 +66,7 @@ public class ItemDeathwormGauntlet extends Item {
     }
 
     @Override
-    public void onStoppedUsing(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity LivingEntity, int timeLeft) {
+    public void onStoppedUsing(ItemStack stack, World worldIn, LivingEntity LivingEntity, int timeLeft) {
         if (this.specialDamage > 0) {
             stack.damage(this.specialDamage, LivingEntity, player -> player.sendToolBreakStatus(LivingEntity.getActiveHand()));
             this.specialDamage = 0;
@@ -87,7 +87,7 @@ public class ItemDeathwormGauntlet extends Item {
     }
 
     @Override
-    public void inventoryTick(@NotNull ItemStack stack, @NotNull World world, @NotNull Entity entity, int itemSlot, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
         if (!(entity instanceof LivingEntity)) {
             return;
         }
@@ -141,7 +141,7 @@ public class ItemDeathwormGauntlet extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.deathworm_gauntlet.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.deathworm_gauntlet.desc_1").formatted(Formatting.GRAY));

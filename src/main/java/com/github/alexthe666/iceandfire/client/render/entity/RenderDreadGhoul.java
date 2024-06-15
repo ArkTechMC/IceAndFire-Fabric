@@ -37,7 +37,7 @@ public class RenderDreadGhoul extends MobEntityRenderer<EntityDreadGhoul, ModelD
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityDreadGhoul ghoul) {
+    public Identifier getTexture(EntityDreadGhoul ghoul) {
         if (ghoul.getScreamStage() == 2) {
             return switch (ghoul.getVariant()) {
                 case 1 -> TEXTURE_1_OPEN;

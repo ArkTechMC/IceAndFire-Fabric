@@ -53,7 +53,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         tag.putBoolean("Jungle", this.isJungle());
         tag.putInt("MyrmexAge", this.getMyrmexAge());
@@ -62,7 +62,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         this.setJungle(tag.getBoolean("Jungle"));
         this.setMyrmexAge(tag.getInt("MyrmexAge"));
@@ -161,27 +161,27 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
+    public SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return null;
     }
 
     @Override
-    public @NotNull Iterable<ItemStack> getArmorItems() {
+    public Iterable<ItemStack> getArmorItems() {
         return ImmutableList.of();
     }
 
     @Override
-    public @NotNull ItemStack getEquippedStack(@NotNull EquipmentSlot slotIn) {
+    public ItemStack getEquippedStack(EquipmentSlot slotIn) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public void equipStack(@NotNull EquipmentSlot slotIn, @NotNull ItemStack stack) {
+    public void equipStack(EquipmentSlot slotIn, ItemStack stack) {
 
     }
 
     @Override
-    public boolean damage(@NotNull DamageSource dmg, float var2) {
+    public boolean damage(DamageSource dmg, float var2) {
         if (dmg.isOf(DamageTypes.IN_WALL) || dmg.isOf(DamageTypes.FALL)) {
             return false;
         }
@@ -206,12 +206,12 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     @Override
-    public @NotNull Arm getMainArm() {
+    public Arm getMainArm() {
         return null;
     }
 
     @Override
-    protected void pushAway(@NotNull Entity entity) {
+    protected void pushAway(Entity entity) {
     }
 
     @Override

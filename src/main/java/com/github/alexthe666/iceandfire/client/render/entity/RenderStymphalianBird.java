@@ -18,12 +18,12 @@ public class RenderStymphalianBird extends MobEntityRenderer<EntityStymphalianBi
     }
 
     @Override
-    public void scale(@NotNull EntityStymphalianBird LivingEntityIn, MatrixStack stack, float partialTickTime) {
+    public void scale(EntityStymphalianBird LivingEntityIn, MatrixStack stack, float partialTickTime) {
         stack.scale(0.75F, 0.75F, 0.75F);
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityStymphalianBird cyclops) {
+    public Identifier getTexture(EntityStymphalianBird cyclops) {
         return TEXTURE;
     }
 

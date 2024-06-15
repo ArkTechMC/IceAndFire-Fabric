@@ -23,7 +23,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 EntityStymphalianArrow entityarrow = new EntityStymphalianArrow(IafEntityRegistry.STYMPHALIAN_ARROW.get(), worldIn, position.getX(), position.getY(), position.getZ());
                 entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                 return entityarrow;
@@ -34,7 +34,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 EntityAmphithereArrow entityarrow = new EntityAmphithereArrow(IafEntityRegistry.AMPHITHERE_ARROW.get(), worldIn, position.getX(), position.getY(), position.getZ());
                 entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                 return entityarrow;
@@ -45,7 +45,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 EntitySeaSerpentArrow entityarrow = new EntitySeaSerpentArrow(IafEntityRegistry.SEA_SERPENT_ARROW.get(), worldIn, position.getX(), position.getY(), position.getZ());
                 entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                 return entityarrow;
@@ -56,7 +56,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 EntityDragonArrow entityarrow = new EntityDragonArrow(IafEntityRegistry.DRAGON_ARROW.get(), position.getX(), position.getY(), position.getZ(), worldIn);
                 entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                 return entityarrow;
@@ -67,7 +67,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 EntityHydraArrow entityarrow = new EntityHydraArrow(IafEntityRegistry.HYDRA_ARROW.get(), worldIn, position.getX(), position.getY(), position.getZ());
                 entityarrow.pickupType = PersistentProjectileEntity.PickupPermission.ALLOWED;
                 return entityarrow;
@@ -78,7 +78,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 return new EntityHippogryphEgg(IafEntityRegistry.HIPPOGRYPH_EGG.get(), worldIn, position.getX(), position.getY(), position.getZ(), stackIn);
             }
         });
@@ -87,7 +87,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 return new EntityCockatriceEgg(IafEntityRegistry.COCKATRICE_EGG.get(), position.getX(), position.getY(), position.getZ(), worldIn);
             }
         });
@@ -96,7 +96,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 return new EntityDeathWormEgg(IafEntityRegistry.DEATH_WORM_EGG.get(), position.getX(), position.getY(), position.getZ(), worldIn, false);
             }
         });
@@ -105,7 +105,7 @@ public class IafRecipeRegistry {
              * Return the projectile entity spawned by this dispense behavior.
              */
             @Override
-            protected @NotNull ProjectileEntity createProjectile(@NotNull World worldIn, @NotNull Position position, @NotNull ItemStack stackIn) {
+            protected ProjectileEntity createProjectile(World worldIn, Position position, ItemStack stackIn) {
                 return new EntityDeathWormEgg(IafEntityRegistry.DEATH_WORM_EGG.get(), position.getX(), position.getY(), position.getZ(), worldIn, true);
             }
         });

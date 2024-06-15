@@ -18,7 +18,7 @@ public class SlotLectern extends Slot {
     }
 
     @Override
-    public void onTakeItem(@NotNull PlayerEntity playerIn, @NotNull ItemStack stack) {
+    public void onTakeItem(PlayerEntity playerIn, ItemStack stack) {
         this.onCrafted(stack);
         super.onTakeItem(playerIn, stack);
     }
@@ -29,7 +29,7 @@ public class SlotLectern extends Slot {
      * onCrafting(item).
      */
     @Override
-    protected void onCrafted(@NotNull ItemStack stack, int amount) {
+    protected void onCrafted(ItemStack stack, int amount) {
         this.onCrafted(stack);
     }
 
@@ -38,7 +38,7 @@ public class SlotLectern extends Slot {
      * not ore and wood.
      */
     @Override
-    protected void onCrafted(@NotNull ItemStack stack) {
+    protected void onCrafted(ItemStack stack) {
         // thePlayer.addStat(StatList.objectCraftStats[Item.getIdFromItem(stack.getItem())],
         // stack.stackSize);
     }

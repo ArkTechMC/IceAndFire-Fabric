@@ -54,7 +54,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
     }
 
     @Override
-    public @NotNull Identifier getTexture(EntityDragonBase entity) {
+    public Identifier getTexture(EntityDragonBase entity) {
         String baseTexture = entity.getVariantName(entity.getVariant()) + entity.getDragonStage() + entity.isModelDead() + entity.isMale() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
         Identifier resourcelocation = this.LAYERED_TEXTURE_CACHE.get(baseTexture);
         if (resourcelocation == null) {

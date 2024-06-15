@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 public class EntityUtil {
-    public static void updatePart(final EntityMutlipartPart part, @NotNull final LivingEntity parent) {
+    public static void updatePart(final EntityMutlipartPart part, final LivingEntity parent) {
         if (part == null || !(parent.getWorld() instanceof ServerWorld serverLevel) || parent.isRemoved()) {
             return;
         }

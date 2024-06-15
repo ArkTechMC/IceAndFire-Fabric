@@ -33,7 +33,7 @@ public class ItemGeneric extends Item {
     }
 
     @Override
-    public boolean hasGlint(@NotNull ItemStack stack) {
+    public boolean hasGlint(ItemStack stack) {
         if (this == IafItemRegistry.CREATIVE_DRAGON_MEAL.get()) {
             return true;
         } else {
@@ -42,7 +42,7 @@ public class ItemGeneric extends Item {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, @NotNull List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         if (this.description > 0) {
             for (int i = 0; i < this.description; i++) {
                 tooltip.add(Text.translatable(this.getTranslationKey() + ".desc_" + i).formatted(Formatting.GRAY));

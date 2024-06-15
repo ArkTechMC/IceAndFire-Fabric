@@ -46,7 +46,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityStoneStatue entity) {
+    public Identifier getTexture(EntityStoneStatue entity) {
         return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
     }
 
@@ -56,7 +56,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
     }
 
     @Override
-    public void render(EntityStoneStatue entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityStoneStatue entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         EntityModel model = new PigEntityModel(this.context.getPart(EntityModelLayers.PIG));
 
         // Get the correct model

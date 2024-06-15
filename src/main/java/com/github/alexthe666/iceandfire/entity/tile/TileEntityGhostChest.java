@@ -22,12 +22,12 @@ public class TileEntityGhostChest extends ChestBlockEntity {
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound nbt) {
+    public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
     }
 
     @Override
-    public void onOpen(@NotNull PlayerEntity player) {
+    public void onOpen(PlayerEntity player) {
         super.onOpen(player);
         if (this.world.getDifficulty() != Difficulty.PEACEFUL) {
             EntityGhost ghost = IafEntityRegistry.GHOST.get().create(this.world);
@@ -48,7 +48,7 @@ public class TileEntityGhostChest extends ChestBlockEntity {
     }
 
     @Override
-    protected void onViewerCountUpdate(@NotNull World level, @NotNull BlockPos pos, @NotNull BlockState state, int p_155336_, int p_155337_) {
+    protected void onViewerCountUpdate(World level, BlockPos pos, BlockState state, int p_155336_, int p_155337_) {
         super.onViewerCountUpdate(level, pos, state, p_155336_, p_155337_);
         level.updateNeighborsAlways(pos.down(), state.getBlock());
     }

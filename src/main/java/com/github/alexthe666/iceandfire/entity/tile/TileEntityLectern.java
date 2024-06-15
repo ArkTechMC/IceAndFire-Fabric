@@ -82,7 +82,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public @NotNull ItemStack getStack(int index) {
+    public ItemStack getStack(int index) {
         return this.stacks.get(index);
     }
 
@@ -95,7 +95,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public @NotNull ItemStack removeStack(int index, int count) {
+    public ItemStack removeStack(int index, int count) {
         if (!this.stacks.get(index).isEmpty()) {
             ItemStack itemstack;
 
@@ -166,7 +166,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound compound) {
+    public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.stacks = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.readNbt(compound, this.stacks);
@@ -174,17 +174,17 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public void writeNbt(@NotNull NbtCompound compound) {
+    public void writeNbt(NbtCompound compound) {
         super.writeNbt(compound);
         Inventories.writeNbt(compound, this.stacks);
     }
 
     @Override
-    public void onOpen(@NotNull PlayerEntity player) {
+    public void onOpen(PlayerEntity player) {
     }
 
     @Override
-    public void onClose(@NotNull PlayerEntity player) {
+    public void onClose(PlayerEntity player) {
     }
 
     @Override
@@ -204,7 +204,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public boolean canPlayerUse(@NotNull PlayerEntity player) {
+    public boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
 
@@ -214,12 +214,12 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public @NotNull Text getName() {
+    public Text getName() {
         return Text.translatable("block.iceandfire.lectern");
     }
 
     @Override
-    public boolean canExtract(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
+    public boolean canExtract(int index, ItemStack stack, Direction direction) {
         return false;
     }
 
@@ -229,17 +229,17 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public int @NotNull [] getAvailableSlots(@NotNull Direction side) {
+    public int [] getAvailableSlots(Direction side) {
         return side == Direction.DOWN ? slotsBottom : (side == Direction.UP ? slotsTop : slotsSides);
     }
 
     @Override
-    public boolean canInsert(int index, @NotNull ItemStack itemStackIn, Direction direction) {
+    public boolean canInsert(int index, ItemStack itemStackIn, Direction direction) {
         return this.isValid(index, itemStackIn);
     }
 
     @Override
-    public @NotNull ItemStack removeStack(int index) {
+    public ItemStack removeStack(int index) {
         return ItemStack.EMPTY;
     }
 
@@ -249,17 +249,17 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
 
     @Override
-    protected @NotNull Text getContainerName() {
+    protected Text getContainerName() {
         return this.getName();
     }
 
     @Override
-    protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
+    protected ScreenHandler createScreenHandler(int id, PlayerInventory player) {
         return null;
     }
 
@@ -274,7 +274,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     }
 
     @Override
-    public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+    public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         return new ContainerLectern(id, this, playerInventory, this.propertyDelegate);
     }
 }

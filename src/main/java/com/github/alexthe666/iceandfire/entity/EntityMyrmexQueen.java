@@ -227,7 +227,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     }
 
     @Override
-    public boolean isInvulnerableTo(@NotNull DamageSource source) {
+    public boolean isInvulnerableTo(DamageSource source) {
         return super.isInvulnerableTo(source) || this.getAnimation() == ANIMATION_DIGNEST;
     }
 
@@ -299,7 +299,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getGrowthStage() < 2) {
             return false;
         }

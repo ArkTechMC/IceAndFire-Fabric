@@ -78,7 +78,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    protected void fall(double y, boolean onGroundIn, @NotNull BlockState state, @NotNull BlockPos pos) {
+    protected void fall(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
     }
 
     @Override
@@ -115,7 +115,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    public void writeCustomDataToNbt(@NotNull NbtCompound tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
         if (this.getVictorId() != null) {
             tag.putUuid("VictorUUID", this.getVictorId());
@@ -124,7 +124,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    public void readCustomDataFromNbt(@NotNull NbtCompound tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
         UUID s;
 
@@ -204,7 +204,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    public boolean tryAttack(@NotNull Entity entityIn) {
+    public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() == NO_ANIMATION) {
             this.setAnimation(ANIMATION_PECK);
         }
@@ -410,7 +410,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    protected void playHurtSound(@NotNull DamageSource source) {
+    protected void playHurtSound(DamageSource source) {
         if (this.getAnimation() == this.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
@@ -423,7 +423,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return IafSoundRegistry.STYMPHALIAN_BIRD_HURT;
     }
 
@@ -433,7 +433,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     }
 
     @Override
-    public EntityData initialize(@NotNull ServerWorldAccess worldIn, @NotNull LocalDifficulty difficultyIn, @NotNull SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
+    public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafConfig.stymphalianBirdTargetSearchLength);
         return spawnDataIn;

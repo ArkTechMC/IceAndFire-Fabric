@@ -26,7 +26,7 @@ public class LayerPixieItem extends FeatureRenderer<EntityPixie, ModelPixie> {
     }
 
     @Override
-    public void render(@NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn, EntityPixie entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityPixie entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         ItemStack itemstack = entity.getStackInHand(Hand.MAIN_HAND);
         if (!itemstack.isEmpty()) {
             matrixStackIn.push();

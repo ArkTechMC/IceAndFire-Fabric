@@ -25,12 +25,12 @@ public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntit
     }
 
     @Override
-    public @NotNull Identifier getTexture(@NotNull AbstractFireballEntity entity) {
+    public Identifier getTexture(AbstractFireballEntity entity) {
         return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
     }
 
     @Override
-    public void render(@NotNull AbstractFireballEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(AbstractFireballEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         BlockRenderManager blockrendererdispatcher = MinecraftClient.getInstance().getBlockRenderManager();
         matrixStackIn.push();
         matrixStackIn.translate(0.0D, 0.5D, 0.0D);

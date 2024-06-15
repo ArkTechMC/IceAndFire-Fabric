@@ -21,7 +21,7 @@ public class ItemHippocampusSlapper extends SwordItem {
     }
 
     @Override
-    public boolean postHit(@NotNull ItemStack stack, LivingEntity targetEntity, @NotNull LivingEntity attacker) {
+    public boolean postHit(ItemStack stack, LivingEntity targetEntity, LivingEntity attacker) {
         targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
         targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 100, 2));
         targetEntity.playSound(SoundEvents.ENTITY_GUARDIAN_FLOP, 3, 1);
@@ -30,7 +30,7 @@ public class ItemHippocampusSlapper extends SwordItem {
     }
 
     @Override
-    public void appendTooltip(@NotNull ItemStack stack, World worldIn, List<Text> tooltip, @NotNull TooltipContext flagIn) {
+    public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.hippocampus_slapper.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.hippocampus_slapper.desc_1").formatted(Formatting.GRAY));

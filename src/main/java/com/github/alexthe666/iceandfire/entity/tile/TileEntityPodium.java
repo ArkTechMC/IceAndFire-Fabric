@@ -46,12 +46,12 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public @NotNull ItemStack getStack(int index) {
+    public ItemStack getStack(int index) {
         return this.stacks.get(index);
     }
 
     @Override
-    public @NotNull ItemStack removeStack(int index, int count) {
+    public ItemStack removeStack(int index, int count) {
         if (!this.stacks.get(index).isEmpty()) {
             ItemStack itemstack;
 
@@ -83,7 +83,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public void setStack(int index, @NotNull ItemStack stack) {
+    public void setStack(int index, ItemStack stack) {
         this.stacks.set(index, stack);
 
         if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack()) {
@@ -96,27 +96,27 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public void readNbt(@NotNull NbtCompound compound) {
+    public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.stacks = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.readNbt(compound, this.stacks);
     }
 
     @Override
-    public void writeNbt(@NotNull NbtCompound compound) {
+    public void writeNbt(NbtCompound compound) {
         Inventories.writeNbt(compound, this.stacks);
     }
 
     @Override
-    public void onOpen(@NotNull PlayerEntity player) {
+    public void onOpen(PlayerEntity player) {
     }
 
     @Override
-    public void onClose(@NotNull PlayerEntity player) {
+    public void onClose(PlayerEntity player) {
     }
 
     @Override
-    public boolean canInsert(int index, @NotNull ItemStack stack, Direction direction) {
+    public boolean canInsert(int index, ItemStack stack, Direction direction) {
         return index != 0 || (stack.getItem() instanceof ItemDragonEgg || stack.getItem() instanceof ItemMyrmexEgg);
     }
 
@@ -126,7 +126,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public boolean canPlayerUse(@NotNull PlayerEntity player) {
+    public boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
 
@@ -136,12 +136,12 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public int @NotNull [] getAvailableSlots(@NotNull Direction side) {
+    public int [] getAvailableSlots(Direction side) {
         return slotsTop;
     }
 
     @Override
-    public boolean canExtract(int index, @NotNull ItemStack stack, @NotNull Direction direction) {
+    public boolean canExtract(int index, ItemStack stack, Direction direction) {
         return false;
     }
 
@@ -151,7 +151,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public boolean isValid(int index, @NotNull ItemStack stack) {
+    public boolean isValid(int index, ItemStack stack) {
         return false;
     }
 
@@ -161,27 +161,27 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public @NotNull NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt() {
         return this.createNbtWithIdentifyingData();
     }
 
     @Override
-    public @NotNull ItemStack removeStack(int index) {
+    public ItemStack removeStack(int index) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public @NotNull Text getDisplayName() {
+    public Text getDisplayName() {
         return this.getContainerName();
     }
 
     @Override
-    protected @NotNull Text getContainerName() {
+    protected Text getContainerName() {
         return Text.translatable("block.iceandfire.podium");
     }
 
     @Override
-    protected @NotNull ScreenHandler createScreenHandler(int id, @NotNull PlayerInventory player) {
+    protected ScreenHandler createScreenHandler(int id, PlayerInventory player) {
         return null;
     }
 
@@ -195,7 +195,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     }
 
     @Override
-    public ScreenHandler createMenu(int id, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+    public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
         return new ContainerPodium(id, this, playerInventory, new ArrayPropertyDelegate(0));
     }
 }

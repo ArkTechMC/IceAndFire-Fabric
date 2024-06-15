@@ -33,7 +33,7 @@ public class RenderJar<T extends TileEntityJar> implements BlockEntityRenderer<T
     }
 
     @Override
-    public void render(@NotNull T entity, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
+    public void render(T entity, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         int meta = 0;
         boolean hasPixie = false;
         if (MODEL_PIXIE == null) {

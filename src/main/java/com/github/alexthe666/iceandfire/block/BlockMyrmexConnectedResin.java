@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.TransparentBlock;
 import net.minecraft.block.enums.Instrument;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
@@ -14,7 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
-import org.jetbrains.annotations.NotNull;
 
 public class BlockMyrmexConnectedResin extends TransparentBlock {
 
@@ -26,24 +24,8 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
     public static final BooleanProperty WEST = BooleanProperty.of("west");
 
     public BlockMyrmexConnectedResin(boolean jungle, boolean glass) {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.STONE_GRAY)
-                        .instrument(Instrument.BASEDRUM)
-                        .strength(glass ? 1.5F : 3.5F)
-                        .nonOpaque()
-                        .dynamicBounds()
-                        .sounds(glass ? BlockSoundGroup.GLASS : BlockSoundGroup.STONE)
-        );
-
-        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, Boolean.FALSE)
-                .with(DOWN, Boolean.FALSE)
-                .with(NORTH, Boolean.FALSE)
-                .with(EAST, Boolean.FALSE)
-                .with(SOUTH, Boolean.FALSE)
-                .with(WEST, Boolean.FALSE)
-        );
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).strength(glass ? 1.5F : 3.5F).nonOpaque().dynamicBounds().sounds(glass ? BlockSoundGroup.GLASS : BlockSoundGroup.STONE));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(UP, Boolean.FALSE).with(DOWN, Boolean.FALSE).with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE));
     }
 
     static String name(boolean glass, boolean jungle) {
@@ -56,7 +38,6 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
     public BlockState getPlacementState(ItemPlacementContext context) {
         BlockView iblockreader = context.getWorld();
         BlockPos blockpos = context.getBlockPos();
-        FluidState ifluidstate = context.getWorld().getFluidState(context.getBlockPos());
         BlockPos blockpos1 = blockpos.north();
         BlockPos blockpos2 = blockpos.east();
         BlockPos blockpos3 = blockpos.south();
@@ -69,17 +50,13 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
         BlockState blockstate3 = iblockreader.getBlockState(blockpos4);
         BlockState blockstate4 = iblockreader.getBlockState(blockpos5);
         BlockState blockstate5 = iblockreader.getBlockState(blockpos6);
-        return super.getPlacementState(context)
-                .with(NORTH, this.canFenceConnectTo(blockstate, false, Direction.SOUTH))
-                .with(EAST, this.canFenceConnectTo(blockstate1, false, Direction.WEST))
-                .with(SOUTH, this.canFenceConnectTo(blockstate2, false, Direction.NORTH))
-                .with(WEST, this.canFenceConnectTo(blockstate3, false, Direction.EAST))
-                .with(UP, this.canFenceConnectTo(blockstate4, false, Direction.UP))
-                .with(DOWN, this.canFenceConnectTo(blockstate5, false, Direction.DOWN));
+        BlockState state = super.getPlacementState(context);
+        assert state != null;
+        return state.with(NORTH, this.canFenceConnectTo(blockstate, false, Direction.SOUTH)).with(EAST, this.canFenceConnectTo(blockstate1, false, Direction.WEST)).with(SOUTH, this.canFenceConnectTo(blockstate2, false, Direction.NORTH)).with(WEST, this.canFenceConnectTo(blockstate3, false, Direction.EAST)).with(UP, this.canFenceConnectTo(blockstate4, false, Direction.UP)).with(DOWN, this.canFenceConnectTo(blockstate5, false, Direction.DOWN));
     }
 
     @Override
-    public @NotNull BlockState getStateForNeighborUpdate(@NotNull BlockState stateIn, Direction facing, @NotNull BlockState facingState, @NotNull WorldAccess worldIn, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+    public BlockState getStateForNeighborUpdate(BlockState stateIn, Direction facing, BlockState facingState, WorldAccess worldIn, BlockPos currentPos, BlockPos facingPos) {
         BooleanProperty connect = switch (facing) {
             case NORTH -> NORTH;
             case SOUTH -> SOUTH;
@@ -104,5 +81,4 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
     public boolean isOpaqueCube(BlockState state) {
         return false;
     }
-
 }

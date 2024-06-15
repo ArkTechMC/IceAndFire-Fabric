@@ -75,7 +75,7 @@ public class EntityCockatriceEgg extends ThrownItemEntity {
     }
 
     @Override
-    protected @NotNull Item getDefaultItem() {
+    protected Item getDefaultItem() {
         return IafItemRegistry.ROTTEN_EGG.get();
     }
 }

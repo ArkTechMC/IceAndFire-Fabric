@@ -23,7 +23,7 @@ public class RenderTideTrident extends EntityRenderer<EntityTideTrident> {
     }
 
     @Override
-    public void render(EntityTideTrident entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, @NotNull VertexConsumerProvider bufferIn, int packedLightIn) {
+    public void render(EntityTideTrident entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         matrixStackIn.push();
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevYaw, entityIn.getYaw()) - 90.0F));
         matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevPitch, entityIn.getPitch()) + 90.0F));
@@ -37,7 +37,7 @@ public class RenderTideTrident extends EntityRenderer<EntityTideTrident> {
      * Returns the location of an entity's texture.
      */
     @Override
-    public @NotNull Identifier getTexture(@NotNull EntityTideTrident entity) {
+    public Identifier getTexture(EntityTideTrident entity) {
         return TRIDENT;
     }
 

@@ -100,7 +100,7 @@ public class EntityChainTie extends AbstractDecorationEntity {
     }
 
     @Override
-    protected float getEyeHeight(@NotNull EntityPose poseIn, @NotNull EntityDimensions sizeIn) {
+    protected float getEyeHeight(EntityPose poseIn, EntityDimensions sizeIn) {
         return -0.0625F;
     }
 
@@ -115,7 +115,7 @@ public class EntityChainTie extends AbstractDecorationEntity {
     }
 
     @Override
-    public void remove(@NotNull RemovalReason removalReason) {
+    public void remove(RemovalReason removalReason) {
         super.remove(removalReason);
         double d0 = 30D;
 
@@ -133,7 +133,7 @@ public class EntityChainTie extends AbstractDecorationEntity {
     }
 
     @Override
-    public @NotNull ActionResult interact(@NotNull PlayerEntity player, @NotNull Hand hand) {
+    public ActionResult interact(PlayerEntity player, Hand hand) {
         if (this.getWorld().isClient) {
             return ActionResult.SUCCESS;
         } else {
