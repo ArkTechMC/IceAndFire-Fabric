@@ -758,10 +758,6 @@ public class IafRecipes extends RecipeProvider {
         this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.fromTag(IafItemTags.BONES_WITHER), items);
     }
 
-    private void toolSet(final Consumer<RecipeJsonProvider> consumer, final ItemConvertible material, final ItemConvertible handle, final ItemConvertible... items) {
-        this.toolSet(consumer, Ingredient.ofItems(material), Ingredient.ofItems(handle), items);
-    }
-
     private void toolSet(final Consumer<RecipeJsonProvider> consumer, final Ingredient material, final Ingredient handle, final ItemConvertible... results) {
         for (ItemConvertible result : results) {
             Item item = result.asItem();
