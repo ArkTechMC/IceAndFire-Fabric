@@ -19,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -51,30 +50,17 @@ public class GuiMyrmexStaff extends Screen {
         int j = (this.height - 166) / 2;
         int x_translate = 193;
         int y_translate = 37;
-        if (ClientProxy.getReferedClientHive() == null) {
-            return;
-        }
+        if (ClientProxy.getReferedClientHive() == null) return;
         this.populateRoomMap();
-        this.addSelectableChild(
-                ButtonWidget.builder(
-                                ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
-                                    ClientProxy.getReferedClientHive().reproduces = !ClientProxy.getReferedClientHive().reproduces;
-                                })
-                        .position(i + 124, j + 15)
-                        .size(120, 20)
-                        .build());
-        this.addSelectableChild(
-                this.previousPage = new ChangePageButton(i + 5, j + 150, false, this.jungle ? 2 : 1, (p_214132_1_) -> {
-                    if (this.currentPage > 0) {
-                        this.currentPage--;
-                    }
-                }));
-        this.addSelectableChild(
-                this.nextPage = new ChangePageButton(i + 225, j + 150, true, this.jungle ? 2 : 1, (p_214132_1_) -> {
-                    if (this.currentPage < this.allRoomButtonPos.size() / ROOMS_PER_PAGE) {
-                        this.currentPage++;
-                    }
-                }));
+        this.addSelectableChild(ButtonWidget.builder(ClientProxy.getReferedClientHive().reproduces ? Text.translatable("myrmex.message.disablebreeding") : Text.translatable("myrmex.message.enablebreeding"), (p_214132_1_) -> {
+            ClientProxy.getReferedClientHive().reproduces = !ClientProxy.getReferedClientHive().reproduces;
+        }).position(i + 124, j + 15).size(120, 20).build());
+        this.addSelectableChild(this.previousPage = new ChangePageButton(i + 5, j + 150, false, this.jungle ? 2 : 1, (p_214132_1_) -> {
+            if (this.currentPage > 0) this.currentPage--;
+        }));
+        this.addSelectableChild(this.nextPage = new ChangePageButton(i + 225, j + 150, true, this.jungle ? 2 : 1, (p_214132_1_) -> {
+            if (this.currentPage < this.allRoomButtonPos.size() / ROOMS_PER_PAGE) this.currentPage++;
+        }));
         int totalRooms = this.allRoomPos.size();
         for (int rooms = 0; rooms < this.allRoomPos.size(); rooms++) {
             int yIndex = rooms % ROOMS_PER_PAGE;
@@ -90,9 +76,8 @@ public class GuiMyrmexStaff extends Screen {
             this.addSelectableChild(button);
             this.allRoomButtonPos.add(button);
         }
-        if (totalRooms <= ROOMS_PER_PAGE * (this.currentPage) && this.currentPage > 0) {
+        if (totalRooms <= ROOMS_PER_PAGE * (this.currentPage) && this.currentPage > 0)
             this.currentPage--;
-        }
     }
 
     private void populateRoomMap() {
@@ -133,23 +118,18 @@ public class GuiMyrmexStaff extends Screen {
         int j = (this.height - 166) / 2 + 8;
         super.render(ms, mouseX, mouseY, partialTicks);
         int color = this.jungle ? 0X35EA15 : 0XFFBF00;
-        if (this.ticksSinceDeleted > 0) {
-            this.ticksSinceDeleted--;
-        }
+        if (this.ticksSinceDeleted > 0) this.ticksSinceDeleted--;
         this.hiveCount = 0;
-        for (int rooms = 0; rooms < this.allRoomButtonPos.size(); rooms++) {
-            if (rooms < ROOMS_PER_PAGE * (this.currentPage + 1) && rooms >= ROOMS_PER_PAGE * this.currentPage) {
+        for (int rooms = 0; rooms < this.allRoomButtonPos.size(); rooms++)
+            if (rooms < ROOMS_PER_PAGE * (this.currentPage + 1) && rooms >= ROOMS_PER_PAGE * this.currentPage)
                 this.drawRoomInfo(ms, this.allRoomPos.get(rooms).string, this.allRoomPos.get(rooms).pos, i, j, color);
-            }
-        }
         if (ClientProxy.getReferedClientHive() != null) {
             TextRenderer textRenderer = this.client.textRenderer;
             if (!ClientProxy.getReferedClientHive().colonyName.isEmpty()) {
                 String title = I18n.translate("myrmex.message.colony_named", ClientProxy.getReferedClientHive().colonyName);
                 textRenderer.draw(title, i + 40 - (float) title.length() / 2, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-            } else {
+            } else
                 textRenderer.draw(I18n.translate("myrmex.message.colony"), i + 80, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-            }
             int opinion = ClientProxy.getReferedClientHive().getPlayerReputation(MinecraftClient.getInstance().player.getUuid());
             textRenderer.draw(I18n.translate("myrmex.message.hive_opinion", opinion), i, j + 12, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
             textRenderer.draw(I18n.translate("myrmex.message.rooms"), i, j + 25, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
@@ -176,25 +156,18 @@ public class GuiMyrmexStaff extends Screen {
 
     @Override
     public void removed() {
-        if (ClientProxy.getReferedClientHive() != null) {
+        if (ClientProxy.getReferedClientHive() != null)
             IafClientNetworkHandler.send(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
-        }
     }
 
 
     private void drawRoomInfo(DrawContext ms, String type, BlockPos pos, int i, int j, int color) {
         String translate = "myrmex.message.room." + type;
+        assert this.client != null;
         this.client.textRenderer.draw(I18n.translate(translate, pos.getX(), pos.getY(), pos.getZ()), i, j + 36 + this.hiveCount * 22, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         this.hiveCount++;
     }
 
-    private static class Room {
-        public final BlockPos pos;
-        public final String string;
-
-        public Room(BlockPos pos, String string) {
-            this.pos = pos;
-            this.string = string;
-        }
+    private record Room(BlockPos pos, String string) {
     }
 }

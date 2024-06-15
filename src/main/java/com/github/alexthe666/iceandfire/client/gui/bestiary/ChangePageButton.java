@@ -5,12 +5,10 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.NotNull;
 
 public class ChangePageButton extends ButtonWidget {
     private final boolean right;
     private final int color;
-    public int lastpage = 1;
 
     public ChangePageButton(int x, int y, boolean right, int color, PressAction press) {
         super(x, y, 23, 10, Text.literal(""), press, DEFAULT_NARRATION_SUPPLIER);
@@ -25,15 +23,11 @@ public class ChangePageButton extends ButtonWidget {
             boolean flag = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
             int i = 0;
             int j = 64;
-            if (flag) {
+            if (flag)
                 i += 23;
-            }
-
-            if (!this.right) {
+            if (!this.right)
                 j += 13;
-            }
             j += this.color * 23;
-
             matrixStack.drawTexture(resourceLocation, this.getX(), this.getY(), i, j, this.width, this.height);
         }
     }

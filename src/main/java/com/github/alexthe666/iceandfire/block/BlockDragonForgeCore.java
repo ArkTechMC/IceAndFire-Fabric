@@ -23,11 +23,11 @@ import net.minecraft.world.World;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_CORE;
 
-public class BlockDragonforgeCore extends BlockWithEntity implements IDragonProof, INoTab {
+public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProof, INoTab {
     private final int isFire;
     private final boolean activated;
 
-    public BlockDragonforgeCore(int isFire, boolean activated) {
+    public BlockDragonForgeCore(int isFire, boolean activated) {
         super(Settings.create().mapColor(MapColor.IRON_GRAY).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL).luminance((state) -> activated ? 15 : 0));
         this.isFire = isFire;
         this.activated = activated;

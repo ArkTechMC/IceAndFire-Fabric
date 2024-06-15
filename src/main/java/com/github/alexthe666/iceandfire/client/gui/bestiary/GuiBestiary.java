@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.client.gui.bestiary;
 
-import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.client.StatCollector;
@@ -20,6 +19,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,6 @@ import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.commons.io.IOUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -47,20 +46,18 @@ public class GuiBestiary extends Screen {
     public ChangePageButton previousPage;
     public ChangePageButton nextPage;
     public int bookPages;
-    public int bookPagesTotal = 1;
     public int indexPages;
     public int indexPagesTotal = 1;
     protected final ItemStack book;
     protected boolean index;
-    protected TextRenderer font = getFont();
+    protected TextRenderer font = MinecraftClient.getInstance().textRenderer;
 
     public GuiBestiary(ItemStack book) {
         super(Text.translatable("bestiary_gui"));
         this.book = book;
         if (!book.isEmpty() && book.getItem() != null && book.getItem() == IafItemRegistry.BESTIARY.get()) {
             if (book.getNbt() != null) {
-                Set<EnumBestiaryPages> pages = EnumBestiaryPages
-                        .containedPages(Ints.asList(book.getNbt().getIntArray("Pages")));
+                Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(book.getNbt().getIntArray("Pages")));
                 this.allPageTypes.addAll(pages);
                 // Make sure the pages are sorted according to the enum
                 this.allPageTypes.sort(Comparator.comparingInt(Enum::ordinal));
@@ -68,14 +65,6 @@ public class GuiBestiary extends Screen {
             }
         }
         this.index = true;
-    }
-
-    private static TextRenderer getFont() {
-        if (IafConfig.useVanillaFont || !MinecraftClient.getInstance().options.language.equalsIgnoreCase("en_us")) {
-            return MinecraftClient.getInstance().textRenderer;
-        } else {
-            return (TextRenderer) IceAndFire.PROXY.getFontRenderer();
-        }
     }
 
     private static Item getItemByRegistryName(String registryName) {
@@ -98,9 +87,7 @@ public class GuiBestiary extends Screen {
                     if (this.bookPages > 0) {
                         this.bookPages--;
                         MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSoundRegistry.BESTIARY_PAGE, 1.0F));
-                    } else {
-                        this.index = true;
-                    }
+                    } else this.index = true;
                 }
             }
         });
@@ -122,18 +109,14 @@ public class GuiBestiary extends Screen {
                 int xIndex = i % -2;
                 int yIndex = i % 10;
                 int id = 2 + i;
-                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200),
-                        centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0),
-                        Text.translatable("bestiary."
-                                + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase()),
-                        (p_214132_1_) -> {
-                            if (this.indexButtons.get(id - 2) != null && this.allPageTypes.get(id - 2) != null) {
-                                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSoundRegistry.BESTIARY_PAGE, 1.0F));
-                                this.index = false;
-                                this.bookPages = 0;
-                                this.pageType = this.allPageTypes.get(id - 2);
-                            }
-                        });
+                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase()), (p_214132_1_) -> {
+                    if (this.indexButtons.get(id - 2) != null && this.allPageTypes.get(id - 2) != null) {
+                        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSoundRegistry.BESTIARY_PAGE, 1.0F));
+                        this.index = false;
+                        this.bookPages = 0;
+                        this.pageType = this.allPageTypes.get(id - 2);
+                    }
+                });
                 this.indexButtons.add(button);
                 this.addDrawableChild(button);
             }
@@ -143,16 +126,13 @@ public class GuiBestiary extends Screen {
     @Override
     public void render(DrawContext ms, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(ms);
-        for (Drawable widget : this.drawables) {
+        for (Drawable widget : this.drawables)
             if (widget instanceof IndexPageButton button) {
                 button.active = this.index;
                 button.visible = this.index;
             }
-
-        }
-        for (int i = 0; i < this.indexButtons.size(); i++) {
+        for (int i = 0; i < this.indexButtons.size(); i++)
             this.indexButtons.get(i).active = i < 10 * (this.indexPages + 1) && i >= 10 * (this.indexPages) && this.index;
-        }
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int cornerX = (this.width - X) / 2;
         int cornerY = (this.height - Y) / 2;
@@ -178,6 +158,8 @@ public class GuiBestiary extends Screen {
 
     public void drawPerPage(DrawContext ms, int bookPages) {
         this.imageFromTxt(ms);
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        assert player != null;
         switch (this.pageType) {
             case INTRODUCTION:
                 if (bookPages == 1) {
@@ -187,7 +169,7 @@ public class GuiBestiary extends Screen {
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
                     this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
                     ms.getMatrices().pop();
-                    boolean drawGold = MinecraftClient.getInstance().player.age % 20 < 10;
+                    boolean drawGold = player.age % 20 < 10;
                     this.drawItemStack(ms, new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItemRegistry.SILVER_NUGGET.get()), 144, 34, 1.5F);
                     this.drawItemStack(ms, new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItemRegistry.SILVER_NUGGET.get()), 161, 34, 1.5F);
                     this.drawItemStack(ms, new ItemStack(drawGold ? IafBlockRegistry.GOLD_PILE.get() : IafBlockRegistry.SILVER_PILE.get()), 151, 7, 2F);
@@ -236,7 +218,7 @@ public class GuiBestiary extends Screen {
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
                     this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
                     ms.getMatrices().pop();
-                    boolean drawFire = MinecraftClient.getInstance().player.age % 40 < 20;
+                    boolean drawFire = player.age % 40 < 20;
                     this.drawItemStack(ms, new ItemStack(drawFire ? IafBlockRegistry.FIRE_LILY.get() : IafBlockRegistry.FROST_LILY.get()), 161, 17, 1.5F);
                     this.drawItemStack(ms, new ItemStack(Items.BOWL), 161, 32, 1.5F);
                     this.drawItemStack(ms, new ItemStack(drawFire ? Items.BLAZE_ROD : Items.PRISMARINE_CRYSTALS), 177, 17, 1.5F);
@@ -307,7 +289,7 @@ public class GuiBestiary extends Screen {
                 if (bookPages == 0) {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.FIRE_DRAGON_BLOOD.get()), 10, 24, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.ICE_DRAGON_BLOOD.get()), 26, 24, 3.75F);
-                    boolean drawFire = MinecraftClient.getInstance().player.age % 40 < 20;
+                    boolean drawFire = player.age % 40 < 20;
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.DRAGONBONE_SWORD.get()), 161, 17, 1.5F);
                     this.drawItemStack(ms, new ItemStack(drawFire ? IafItemRegistry.FIRE_DRAGON_BLOOD.get() : IafItemRegistry.ICE_DRAGON_BLOOD.get()), 161, 32, 1.5F);
                     this.drawItemStack(ms, new ItemStack(drawFire ? IafItemRegistry.DRAGONBONE_SWORD_FIRE.get() : IafItemRegistry.DRAGONBONE_SWORD_ICE.get()), 151, 10, 2F);
@@ -342,7 +324,7 @@ public class GuiBestiary extends Screen {
                     this.drawImage(ms, DRAWINGS_0, 144, 10, 389, 1, 50, 50, 512F);
                     ms.getMatrices().pop();
                     this.drawItemStack(ms, new ItemStack(Items.FEATHER), 160, 31, 1.35F);
-                    int drawType = MinecraftClient.getInstance().player.age % 60 > 40 ? 2 : MinecraftClient.getInstance().player.age % 60 > 20 ? 1 : 0;
+                    int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
                     this.drawItemStack(ms, new ItemStack(drawType == 0 ? Items.IRON_HORSE_ARMOR : drawType == 1 ? Items.GOLDEN_HORSE_ARMOR : Items.DIAMOND_HORSE_ARMOR), 180, 31, 1.35F);
                     this.drawItemStack(ms, new ItemStack(Items.FEATHER), 199, 31, 1.35F);
                     this.drawItemStack(ms, new ItemStack(drawType == 0 ? IafItemRegistry.IRON_HIPPOGRYPH_ARMOR.get() : drawType == 1 ? IafItemRegistry.GOLD_HIPPOGRYPH_ARMOR.get() : IafItemRegistry.DIAMOND_HIPPOGRYPH_ARMOR.get()), 151, 18, 2F);
@@ -561,7 +543,7 @@ public class GuiBestiary extends Screen {
                     ms.getMatrices().pop();
                 }
                 if (bookPages == 2) {
-                    int drawType = MinecraftClient.getInstance().player.age % 60 > 40 ? 2 : MinecraftClient.getInstance().player.age % 60 > 20 ? 1 : 0;
+                    int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
                     Item chitin = IafItemRegistry.DEATH_WORM_CHITIN_YELLOW.get();
                     if (drawType == 2) {
                         chitin = IafItemRegistry.DEATH_WORM_CHITIN_RED.get();
@@ -638,14 +620,14 @@ public class GuiBestiary extends Screen {
                     ms.getMatrices().pop();
                 }
                 if (bookPages == 1) {
-                    int i = (MinecraftClient.getInstance().player.age % (EnumTroll.Weapon.values().length * 20)) / 20;
+                    int i = (player.age % (EnumTroll.Weapon.values().length * 20)) / 20;
                     this.drawItemStack(ms, new ItemStack(EnumTroll.Weapon.values()[i].item.get()), 30, 7, 2.5F);
-                    int j = (MinecraftClient.getInstance().player.age % (EnumTroll.values().length * 20)) / 20;
+                    int j = (player.age % (EnumTroll.values().length * 20)) / 20;
                     this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leather.get()), 100, 30, 2.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.TROLL_TUSK.get()), 120, 30, 2.5F);
                 }
                 if (bookPages == 2) {
-                    int j = (MinecraftClient.getInstance().player.age % (EnumTroll.values().length * 20)) / 20;
+                    int j = (player.age % (EnumTroll.values().length * 20)) / 20;
                     this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].helmet.get()), 27, 15, 1.5F);
                     this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].chestplate.get()), 47, 15, 1.5F);
                     this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leggings.get()), 67, 15, 1.5F);
@@ -680,7 +662,7 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MYRMEX_DESERT_CHITIN.get()), 125, 43, 2F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_CHITIN.get()), 155, 43, 2F);
                     int i = 133;
-                    boolean jungle = MinecraftClient.getInstance().player.age % 60 > 30;
+                    boolean jungle = player.age % 60 > 30;
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_SHOVEL.get() : IafItemRegistry.MYRMEX_DESERT_SHOVEL.get()), i += 16, 100, 1.51F);
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_PICKAXE.get() : IafItemRegistry.MYRMEX_DESERT_PICKAXE.get()), i += 16, 100, 1.5F);
                     this.drawItemStack(ms, new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_AXE.get() : IafItemRegistry.MYRMEX_DESERT_AXE.get()), i += 16, 100, 1.5F);
@@ -745,7 +727,7 @@ public class GuiBestiary extends Screen {
                 }
                 if (bookPages == 1) {
                     this.drawImage(ms, DRAWINGS_1, 60, 90, 337, 0, 70, 83, 512F);
-                    int j = (MinecraftClient.getInstance().player.age % (EnumSeaSerpent.values().length * 20)) / 20;
+                    int j = (player.age % (EnumSeaSerpent.values().length * 20)) / 20;
                     this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].scale.get()), 130, 40, 2.5F);
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SERPENT_FANG.get()), 90, 40, 2.5F);
                 }
@@ -754,7 +736,7 @@ public class GuiBestiary extends Screen {
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
                     this.drawImage(ms, DRAWINGS_0, 19, 31, 389, 1, 50, 50, 512F);
                     ms.getMatrices().pop();
-                    int j = (MinecraftClient.getInstance().player.age % (EnumSeaSerpent.values().length * 20)) / 20;
+                    int j = (player.age % (EnumSeaSerpent.values().length * 20)) / 20;
                     this.drawItemStack(ms, new ItemStack(IafItemRegistry.SERPENT_FANG.get()), 36, 32, 1.5F);
                     this.drawItemStack(ms, new ItemStack(Items.STICK), 36, 48, 1.5F);
                     this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].scale.get()), 36, 66, 1.5F);
@@ -838,7 +820,7 @@ public class GuiBestiary extends Screen {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            IceAndFire.LOGGER.error(e);
         }
     }
 
@@ -883,32 +865,29 @@ public class GuiBestiary extends Screen {
         Optional<Resource> resource;
 
         resource = MinecraftClient.getInstance().getResourceManager().getResource(fileLoc);
-        if (resource.isEmpty()) {
+        if (resource.isEmpty())
             resource = MinecraftClient.getInstance().getResourceManager().getResource(backupLoc);
-        }
         try {
             final List<String> lines = IOUtils.readLines(resource.get().getInputStream(), "UTF-8");
             int linenumber = 0;
             for (String line : lines) {
                 line = line.trim();
-                if (line.contains("<") || line.contains(">")) {
+                if (line.contains("<") || line.contains(">"))
                     continue;
-                }
                 ms.getMatrices().push();
                 if (this.usingVanillaFont()) {
                     ms.getMatrices().scale(0.945F, 0.945F, 0.945F);
                     ms.getMatrices().translate(0, 5.5F, 0);
                 }
-                if (linenumber <= 19) {
+                if (linenumber <= 19)
                     this.textRenderer.draw(line, 15, 20 + linenumber * 10, 0X303030, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-                } else {
+                else
                     this.textRenderer.draw(line, 220, (linenumber - 19) * 10, 0X303030, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-                }
                 linenumber++;
                 ms.getMatrices().pop();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            IceAndFire.LOGGER.error(e);
         }
         ms.getMatrices().push();
         String s = StatCollector.translateToLocal("bestiary." + this.pageType.toString().toLowerCase(Locale.ROOT));
@@ -936,7 +915,6 @@ public class GuiBestiary extends Screen {
         ms.drawItem(stack, x, y);
         ms.getMatrices().pop();
     }
-
 
     private void drawBlockStack(DrawContext ms, ItemStack stack, int x, int y, float scale, int zScale) {
         ms.getMatrices().push();

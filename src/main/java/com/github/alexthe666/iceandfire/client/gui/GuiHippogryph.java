@@ -27,10 +27,10 @@ public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
         Entity entity = IceAndFire.PROXY.getReferencedMob();
+        assert this.client != null;
         TextRenderer font = this.client.textRenderer;
-        if (entity instanceof EntityHippogryph hippo) {
+        if (entity instanceof EntityHippogryph hippo)
             pGuiGraphics.drawText(font, hippo.getDisplayName().getString(), 8, 6, 4210752, false);
-        }
         pGuiGraphics.drawText(font, this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false);
     }
 
@@ -52,11 +52,9 @@ public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
         pGuiGraphics.drawTexture(TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
         Entity entity = IceAndFire.PROXY.getReferencedMob();
         if (entity instanceof EntityHippogryph hippo) {
-            if (hippo.isChested()) {
+            if (hippo.isChested())
                 pGuiGraphics.drawTexture(TEXTURE, i + 79, j + 17, 0, this.backgroundHeight, 5 * 18, 54);
-            }
-            InventoryScreen.drawEntity(pGuiGraphics, i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY,
-                    hippo);
+            InventoryScreen.drawEntity(pGuiGraphics, i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY, hippo);
         }
     }
 

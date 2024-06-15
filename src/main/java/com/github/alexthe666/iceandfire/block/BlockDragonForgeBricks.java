@@ -18,12 +18,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class BlockDragonforgeBricks extends BlockWithEntity implements IDragonProof {
+public class BlockDragonForgeBricks extends BlockWithEntity implements IDragonProof {
 
     public static final BooleanProperty GRILL = BooleanProperty.of("grill");
     private final int isFire;
 
-    public BlockDragonforgeBricks(int isFire) {
+    public BlockDragonForgeBricks(int isFire) {
         super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL));
         this.isFire = isFire;
         this.setDefaultState(this.getStateManager().getDefaultState().with(GRILL, Boolean.FALSE));

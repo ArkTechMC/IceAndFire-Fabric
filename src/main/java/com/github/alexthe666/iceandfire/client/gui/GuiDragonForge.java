@@ -6,7 +6,6 @@ import com.github.alexthe666.iceandfire.inventory.ContainerDragonForge;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -30,10 +29,11 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
 
     @Override
     protected void drawForeground(DrawContext pGuiGraphics, int mouseX, int mouseY) {
-        TextRenderer font = this.client.textRenderer;
+        assert this.client != null;
+        TextRenderer textRenderer = this.client.textRenderer;
         if (this.tileFurnace != null) {
             String s = I18n.translate("block.iceandfire.dragonforge_" + DragonType.getNameFromInt(this.tileFurnace.getPropertyDelegate().fireType) + "_core");
-            pGuiGraphics.drawText(this.textRenderer, s, this.backgroundWidth / 2 - font.getWidth(s) / 2, 6, 4210752, false);
+            pGuiGraphics.drawText(this.textRenderer, s, this.backgroundWidth / 2 - textRenderer.getWidth(s) / 2, 6, 4210752, false);
         }
         pGuiGraphics.drawText(this.textRenderer, this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false);
     }
@@ -42,14 +42,11 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     protected void drawBackground(DrawContext pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         int dragonType = this.tileFurnace.getPropertyDelegate().fireType;
-        Identifier texture;
-        if (dragonType == 0) {
-            texture = TEXTURE_FIRE;
-        } else if (dragonType == 1) {
-            texture = TEXTURE_ICE;
-        } else {
-            texture = TEXTURE_LIGHTNING;
-        }
+        Identifier texture = switch (dragonType) {
+            case 0 -> TEXTURE_FIRE;
+            case 1 -> TEXTURE_ICE;
+            default -> TEXTURE_LIGHTNING;
+        };
 
         int k = (this.width - this.backgroundWidth) / 2;
         int l = (this.height - this.backgroundHeight) / 2;
@@ -59,13 +56,9 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     }
 
     private int getCookTime(int time) {
-        BlockEntity te = IceAndFire.PROXY.getRefrencedTE();
-        int j = 0;
-
-        List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager()
-                .listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE)
-                .stream().filter(item ->
-                        item.isValidInput(this.tileFurnace.getSlot(0).getStack()) && item.isValidBlood(this.tileFurnace.getSlot(1).getStack())).toList();
+        assert this.client != null;
+        assert this.client.world != null;
+        List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE).stream().filter(item -> item.isValidInput(this.tileFurnace.getSlot(0).getStack()) && item.isValidBlood(this.tileFurnace.getSlot(1).getStack())).toList();
         int maxCookTime = recipes.isEmpty() ? 100 : recipes.get(0).getCookTime();
         double scale = 125000.0 / maxCookTime;
         return (int) (scale * time / maxCookTime);

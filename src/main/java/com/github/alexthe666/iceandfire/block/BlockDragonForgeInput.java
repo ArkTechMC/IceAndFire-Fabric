@@ -22,11 +22,11 @@ import net.minecraft.world.World;
 
 import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_INPUT;
 
-public class BlockDragonforgeInput extends BlockWithEntity implements IDragonProof {
+public class BlockDragonForgeInput extends BlockWithEntity implements IDragonProof {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
     private final int dragonType;
 
-    public BlockDragonforgeInput(int dragonType) {
+    public BlockDragonForgeInput(int dragonType) {
         super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL)
         );
 

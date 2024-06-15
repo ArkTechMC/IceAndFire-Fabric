@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.block.BlockDragonforgeInput;
+import com.github.alexthe666.iceandfire.block.BlockDragonForgeInput;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import net.minecraft.block.BlockState;
@@ -14,7 +14,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class TileEntityDragonforgeInput extends BlockEntity {
     private static final int LURE_DISTANCE = 50;
@@ -116,11 +115,11 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     private BlockState getDeactivatedState() {
         return switch (this.getDragonType()) {
             case 1 ->
-                    IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get().getDefaultState().with(BlockDragonforgeInput.ACTIVE, false);
+                    IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get().getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
             case 2 ->
-                    IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get().getDefaultState().with(BlockDragonforgeInput.ACTIVE, false);
+                    IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get().getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
             default ->
-                    IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get().getDefaultState().with(BlockDragonforgeInput.ACTIVE, false);
+                    IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get().getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
         };
     }
 
@@ -140,7 +139,7 @@ public class TileEntityDragonforgeInput extends BlockEntity {
 
     private boolean isActive() {
         BlockState state = this.world.getBlockState(this.pos);
-        return state.getBlock() instanceof BlockDragonforgeInput && state.get(BlockDragonforgeInput.ACTIVE);
+        return state.getBlock() instanceof BlockDragonForgeInput && state.get(BlockDragonForgeInput.ACTIVE);
     }
 
     private TileEntityDragonforge getConnectedTileEntity(final BlockPos position) {

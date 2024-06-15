@@ -43,5 +43,4 @@ public class GuiPodium extends HandledScreen<ContainerPodium> {
         int j = (this.height - this.backgroundHeight) / 2;
         pGuiGraphics.drawTexture(PODUIM_TEXTURE, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
     }
-
 }

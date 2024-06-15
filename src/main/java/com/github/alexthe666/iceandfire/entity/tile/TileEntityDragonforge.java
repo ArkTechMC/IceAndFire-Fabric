@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.block.BlockDragonforgeBricks;
-import com.github.alexthe666.iceandfire.block.BlockDragonforgeCore;
+import com.github.alexthe666.iceandfire.block.BlockDragonForgeBricks;
+import com.github.alexthe666.iceandfire.block.BlockDragonForgeCore;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.data.delegate.DragonForgePropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.DragonType;
@@ -29,7 +29,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +66,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         entityDragonforge.updateGrills(entityDragonforge.assembled());
         if (!level.isClient) {
             if (entityDragonforge.prevAssembled != entityDragonforge.assembled()) {
-                BlockDragonforgeCore.setState(entityDragonforge.getPropertyDelegate().fireType, entityDragonforge.prevAssembled, level, pos);
+                BlockDragonForgeCore.setState(entityDragonforge.getPropertyDelegate().fireType, entityDragonforge.prevAssembled, level, pos);
             }
             entityDragonforge.prevAssembled = entityDragonforge.assembled();
             if (!entityDragonforge.assembled())
@@ -131,7 +130,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
         for (Direction facing : HORIZONTALS) {
             BlockPos grillPos = this.getPos().offset(facing);
             if (this.grillMatches(this.world.getBlockState(grillPos).getBlock())) {
-                BlockState grillState = this.getGrillBlock().getDefaultState().with(BlockDragonforgeBricks.GRILL, grill);
+                BlockState grillState = this.getGrillBlock().getDefaultState().with(BlockDragonForgeBricks.GRILL, grill);
                 if (this.world.getBlockState(grillPos) != grillState) {
                     this.world.setBlockState(grillPos, grillState);
                 }

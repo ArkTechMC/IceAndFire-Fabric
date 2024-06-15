@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -15,17 +14,12 @@ import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
-import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 public class GuiLectern extends HandledScreen<ContainerLectern> {
@@ -52,11 +46,13 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
     @Override
     protected void init() {
         super.init();
+        assert this.client != null;
         bookModel = new BookModel(this.client.getEntityModelLoader().getModelPart(EntityModelLayers.BOOK));
     }
 
     @Override
     protected void drawForeground(DrawContext ms, int mouseX, int mouseY) {
+        assert this.client != null;
         TextRenderer font = this.client.textRenderer;
         font.draw(this.nameable.getString(), 12, 4, 4210752, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         font.draw(this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
@@ -71,6 +67,8 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
+        assert this.client != null;
+        assert this.client.interactionManager != null;
         int i = (this.width - this.backgroundWidth) / 2;
         int j = (this.height - this.backgroundHeight) / 2;
 
@@ -89,6 +87,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
 
     @Override
     protected void drawBackground(DrawContext ms, float partialTicks, int mouseX, int mouseY) {
+        assert this.client != null;
         DiffuseLighting.disableGuiDepthLighting();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -104,7 +103,6 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         ms.getMatrices().push();
         ms.getMatrices().loadIdentity();
         ms.getMatrices().translate(0.0D, 3.3F, 1984.0D);
-        float f = 5.0F;
         ms.getMatrices().scale(5.0F, 5.0F, 5.0F);
         ms.getMatrices().multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
         ms.getMatrices().multiply(RotationAxis.POSITIVE_X.rotationDegrees(20.0F));
@@ -117,21 +115,10 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         float f4 = MathHelper.lerp(partialTicks, this.oFlip, this.flip) + 0.75F;
         f3 = (f3 - (float) MathHelper.floor(f3)) * 1.6F - 0.3F;
         f4 = (f4 - (float) MathHelper.floor(f4)) * 1.6F - 0.3F;
-        if (f3 < 0.0F) {
-            f3 = 0.0F;
-        }
-
-        if (f4 < 0.0F) {
-            f4 = 0.0F;
-        }
-
-        if (f3 > 1.0F) {
-            f3 = 1.0F;
-        }
-
-        if (f4 > 1.0F) {
-            f4 = 1.0F;
-        }
+        if (f3 < 0.0F) f3 = 0.0F;
+        if (f4 < 0.0F) f4 = 0.0F;
+        if (f3 > 1.0F) f3 = 1.0F;
+        if (f4 > 1.0F) f4 = 1.0F;
 
         bookModel.setPageAngles(0, f3, f4, f1);
         VertexConsumerProvider.Immediate multibuffersource$buffersource = VertexConsumerProvider.immediate(Tessellator.getInstance().getBuffer());
@@ -150,9 +137,9 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
             int k1 = j1 + 20;
             int l1 = this.handler.getPossiblePages()[i1] == null ? -1 : this.handler.getPossiblePages()[i1].ordinal();//enchantment level
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            if (l1 == -1) {
+            if (l1 == -1)
                 ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 185, 108, 19);
-            } else {
+            else {
                 String s = "" + 3;
                 TextRenderer fontrenderer = this.client.textRenderer;
                 String s1 = "";
@@ -160,9 +147,8 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                 EnumBestiaryPages enchantment = this.handler.getPossiblePages()[i1];
                 if (enchantment != null) {
                     s1 = I18n.translate("bestiary." + enchantment.toString().toLowerCase());//EnchantmentNameParts.getInstance().generateNewRandomName(this.fontRenderer, l1);
-                    if (fontrenderer.getWidth(s1) > 80) {
+                    if (fontrenderer.getWidth(s1) > 80)
                         textScale = 1.0F - (fontrenderer.getWidth(s1) - 80) * 0.01F;
-                    }
                 }
                 int j2 = 6839882;
                 if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY.get()) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
@@ -173,9 +159,8 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                         ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 204, 108, 19);
                         j2 = 16777088;
                         j3 = 16777088;
-                    } else {
+                    } else
                         ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 166, 108, 19);
-                    }
 
                     ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1 + 1, j + 15 + 19 * i1, 16 * i1, 223, 16, 16);
                     ms.getMatrices().push();
@@ -199,32 +184,6 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         this.renderBackground(ms);
         super.render(ms, mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(ms, mouseX, mouseY);
-        boolean flag = this.client.player.isCreative();
-        int i = this.handler.getManuscriptAmount();
-
-        if (this.handler.slots.get(0).getStack().isOf(IafItemRegistry.BESTIARY.get())) {
-            for (int j = 0; j < 3; ++j) {
-                EnumBestiaryPages enchantment = this.handler.getPossiblePages()[j];
-                int i1 = 3;
-
-                if (this.isPointWithinBounds(60, 14 + 19 * j, 108, 17, mouseX, mouseY)) {
-                    List<OrderedText> list = Lists.newArrayList();
-
-                    if (enchantment == null) {
-                        list.add(Text.literal(Formatting.RED + I18n.translate("container.lectern.no_bestiary")).asOrderedText());
-                    } else if (!flag) {
-                        list.add(Text.literal(String.valueOf(Formatting.WHITE) + Formatting.ITALIC + I18n.translate("bestiary." + enchantment.name().toLowerCase())).asOrderedText());
-                        Formatting textformatting = i >= i1 ? Formatting.GRAY : Formatting.RED;
-                        list.add(Text.literal(textformatting + I18n.translate("container.lectern.costs")).asOrderedText());
-                        String s = I18n.translate("container.lectern.manuscript.many", i1);
-                        list.add(Text.literal(textformatting + s).asOrderedText());
-                    }
-
-                    this.drawMouseoverTooltip(ms, mouseX, mouseY);
-                    break;
-                }
-            }
-        }
     }
 
     public void tickBook() {
@@ -232,33 +191,22 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
 
         if (!ItemStack.areEqual(itemstack, this.last)) {
             this.last = itemstack;
-
-            do {
-                this.flipT += this.random.nextInt(4) - this.random.nextInt(4);
-
-            } while (!(this.flip > this.flipT + 1.0F) && !(this.flip < this.flipT - 1.0F));
+            do this.flipT += this.random.nextInt(4) - this.random.nextInt(4); while (this.flip <= this.flipT + 1.0F && this.flip >= this.flipT - 1.0F);
         }
-
         ++this.ticks;
         this.oFlip = this.flip;
         this.oOpen = this.open;
+
         boolean flag = false;
-
-        for (int i = 0; i < 3; ++i) {
-            if (this.handler.getPossiblePages()[i] != null) {
+        for (int i = 0; i < 3; ++i)
+            if (this.handler.getPossiblePages()[i] != null)
                 flag = true;
-            }
-        }
-
-        if (flag) {
-            this.open += 0.2F;
-        } else {
-            this.open -= 0.2F;
-        }
+        this.open += flag ? 0.2F : -0.2F;
 
         this.open = MathHelper.clamp(this.open, 0.0F, 1.0F);
         float f1 = (this.flipT - this.flip) * 0.4F;
         if (this.flapTimer > 0) {
+            assert this.client != null;
             f1 = (this.ticks + this.client.getTickDelta()) * 0.5F;
             this.flapTimer--;
         }
@@ -266,5 +214,4 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         this.flipA += (f1 - this.flipA) * 0.9F;
         this.flip += this.flipA;
     }
-
 }
