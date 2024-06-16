@@ -29,7 +29,7 @@ public class BlockEggInIce extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
-        return checkType(entityType, EGG_IN_ICE.get(), TileEntityEggInIce::tickEgg);
+        return checkType(entityType, EGG_IN_ICE, TileEntityEggInIce::tickEgg);
     }
 
     @Override

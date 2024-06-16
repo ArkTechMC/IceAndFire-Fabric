@@ -41,10 +41,6 @@ public class ClientEvents {
 //        }
 //    }
 
-    private static boolean shouldCancelRender(LivingEntity living) {
-        return living.getVehicle() != null && living.getVehicle() instanceof EntityDragonBase && living == MinecraftClient.getInstance().player && MinecraftClient.getInstance().options.getPerspective().isFirstPerson();
-    }
-
     public static void onLivingUpdate(LivingEntity entity) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if (entity instanceof ICustomMoveController moveController) {
@@ -72,12 +68,7 @@ public class ClientEvents {
         }
     }
 
-    public static boolean onPreRenderLiving(LivingEntity entity, LivingEntityRenderer<?, ?> renderer, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
-        return shouldCancelRender(entity);
-    }
-
     public static void onPostRenderLiving(LivingEntity entity, LivingEntityRenderer<?, ?> renderer, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
-        if (shouldCancelRender(entity)) return;
         EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
         for (LivingEntity target : data.miscData.getTargetedByScepter())
             CockatriceBeamRender.render(entity, target, matrixStack, buffers, partialRenderTick);

@@ -42,7 +42,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     public static EntityStoneStatue buildStatueEntity(LivingEntity parent) {
-        EntityStoneStatue statue = IafEntityRegistry.STONE_STATUE.get().create(parent.getWorld());
+        EntityStoneStatue statue = IafEntityRegistry.STONE_STATUE.create(parent.getWorld());
         NbtCompound entityTag = new NbtCompound();
         try {
             if (!(parent instanceof PlayerEntity)) {

@@ -215,8 +215,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
                         if (this.isAlive()) {
                             this.mate.remove(RemovalReason.KILLED);
                             this.remove(RemovalReason.KILLED);
-                            EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(),
-                                    this.getWorld());
+                            EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN, this.getWorld());
                             queen.copyPositionAndRotation(this);
                             queen.setJungleVariant(this.isJungle());
                             queen.setMadeHome(false);

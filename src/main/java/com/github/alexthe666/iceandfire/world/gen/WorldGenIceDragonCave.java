@@ -18,15 +18,15 @@ public class WorldGenIceDragonCave extends WorldGenDragonCave {
         super(configuration);
         this.DRAGON_CHEST = ICE_DRAGON_CHEST;
         this.DRAGON_MALE_CHEST = ICE_DRAGON_CHEST_MALE;
-        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.FROZEN_STONE.get(), 3);
-        this.PALETTE_BLOCK1 = IafBlockRegistry.FROZEN_STONE.get().getDefaultState();
-        this.PALETTE_BLOCK2 = IafBlockRegistry.FROZEN_COBBLESTONE.get().getDefaultState();
-        this.TREASURE_PILE = IafBlockRegistry.SILVER_PILE.get().getDefaultState();
+        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.FROZEN_STONE, 3);
+        this.PALETTE_BLOCK1 = IafBlockRegistry.FROZEN_STONE.getDefaultState();
+        this.PALETTE_BLOCK2 = IafBlockRegistry.FROZEN_COBBLESTONE.getDefaultState();
+        this.TREASURE_PILE = IafBlockRegistry.SILVER_PILE.getDefaultState();
         this.dragonTypeOreTag = IafBlockTags.ICE_DRAGON_CAVE_ORES;
     }
 
     @Override
     public EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.ICE_DRAGON.get();
+        return IafEntityRegistry.ICE_DRAGON;
     }
 }

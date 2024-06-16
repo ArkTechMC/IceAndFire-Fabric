@@ -111,15 +111,12 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     }
 
     public static int getIntFromArmor(ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.IRON_HIPPOGRYPH_ARMOR.get()) {
+        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.IRON_HIPPOGRYPH_ARMOR)
             return 1;
-        }
-        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.GOLD_HIPPOGRYPH_ARMOR.get()) {
+        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.GOLD_HIPPOGRYPH_ARMOR)
             return 2;
-        }
-        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.DIAMOND_HIPPOGRYPH_ARMOR.get()) {
+        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.DIAMOND_HIPPOGRYPH_ARMOR)
             return 3;
-        }
         return 0;
     }
 

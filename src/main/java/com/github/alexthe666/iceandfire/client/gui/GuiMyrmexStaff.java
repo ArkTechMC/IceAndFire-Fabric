@@ -38,7 +38,7 @@ public class GuiMyrmexStaff extends Screen {
 
     public GuiMyrmexStaff(ItemStack staff) {
         super(Text.translatable("myrmex_staff_screen"));
-        this.jungle = staff.getItem() == IafItemRegistry.MYRMEX_JUNGLE_STAFF.get();
+        this.jungle = staff.getItem() == IafItemRegistry.MYRMEX_JUNGLE_STAFF;
     }
 
     @Override

@@ -33,9 +33,9 @@ public class BlockElementalFlower extends PlantBlock {
 
     public boolean canStay(World world, BlockPos pos) {
         BlockState soil = world.getBlockState(pos.down());
-        if (this == IafBlockRegistry.FIRE_LILY.get())
+        if (this == IafBlockRegistry.FIRE_LILY)
             return soil.isIn(BlockTags.SAND) || soil.isOf(Blocks.NETHERRACK);
-        else if (this == IafBlockRegistry.LIGHTNING_LILY.get())
+        else if (this == IafBlockRegistry.LIGHTNING_LILY)
             return soil.isIn(BlockTags.DIRT) || soil.isOf(Blocks.GRASS);
         else
             return soil.isIn(BlockTags.ICE) || soil.isIn(BlockTags.SNOW) || soil.isIn(BlockTags.SNOW_LAYER_CAN_SURVIVE_ON);

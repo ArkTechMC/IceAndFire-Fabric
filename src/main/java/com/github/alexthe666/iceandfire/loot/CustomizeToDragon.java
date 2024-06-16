@@ -21,7 +21,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
     @Override
     protected ItemStack process(final ItemStack stack, final LootContext context) {
         if (!stack.isEmpty() && context.get(LootContextParameters.THIS_ENTITY) instanceof EntityDragonBase dragon) {
-            if (stack.getItem() == IafItemRegistry.DRAGON_BONE.get()) {
+            if (stack.getItem() == IafItemRegistry.DRAGON_BONE) {
                 stack.setCount(1 + dragon.getRandom().nextInt(1 + (dragon.getAgeInDays() / 25)));
                 return stack;
             } else if (stack.getItem() instanceof ItemDragonScales) {

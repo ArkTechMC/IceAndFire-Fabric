@@ -130,7 +130,6 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         RenderSystem.restoreProjectionMatrix();
         DiffuseLighting.enableGuiDepthLighting();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        this.handler.getManuscriptAmount();
 
         for (int i1 = 0; i1 < 3; ++i1) {
             int j1 = i + 60;
@@ -151,7 +150,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                         textScale = 1.0F - (fontrenderer.getWidth(s1) - 80) * 0.01F;
                 }
                 int j2 = 6839882;
-                if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY.get()) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
+                if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
                     int k2 = mouseX - (i + 60);
                     int l2 = mouseY - (j + 14 + 19 * i1);
                     int j3 = 0X9F988C;

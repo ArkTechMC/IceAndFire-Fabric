@@ -108,11 +108,11 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
                 }
 
                 if (context.getRandom().nextInt(80) == 0 && this.isTouchingAir(context.getWorld(), position.up())) {
-                    context.getWorld().setBlockState(position.up(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 8), 3);
-                    context.getWorld().setBlockState(position.up().north(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
-                    context.getWorld().setBlockState(position.up().south(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
-                    context.getWorld().setBlockState(position.up().west(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
-                    context.getWorld().setBlockState(position.up().east(), IafBlockRegistry.GOLD_PILE.get().getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
+                    context.getWorld().setBlockState(position.up(), IafBlockRegistry.GOLD_PILE.getDefaultState().with(BlockGoldPile.LAYERS, 8), 3);
+                    context.getWorld().setBlockState(position.up().north(), IafBlockRegistry.GOLD_PILE.getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
+                    context.getWorld().setBlockState(position.up().south(), IafBlockRegistry.GOLD_PILE.getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
+                    context.getWorld().setBlockState(position.up().west(), IafBlockRegistry.GOLD_PILE.getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
+                    context.getWorld().setBlockState(position.up().east(), IafBlockRegistry.GOLD_PILE.getDefaultState().with(BlockGoldPile.LAYERS, 1 + new Random().nextInt(7)), 3);
                     context.getWorld().setBlockState(position.up(2), Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, HORIZONTALS[new Random().nextInt(3)]), 2);
 
                     if (context.getWorld().getBlockState(position.up(2)).getBlock() instanceof AbstractChestBlock) {
@@ -136,7 +136,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
             }
         }
 
-        EntityCyclops cyclops = IafEntityRegistry.CYCLOPS.get().create(context.getWorld().toServerWorld());
+        EntityCyclops cyclops = IafEntityRegistry.CYCLOPS.create(context.getWorld().toServerWorld());
         assert cyclops != null;
         cyclops.updatePositionAndAngles(context.getOrigin().getX() + 0.5, context.getOrigin().getY() + 1.5, context.getOrigin().getZ() + 0.5, context.getRandom().nextFloat() * 360, 0);
         // TODO :: Finalize spawn?

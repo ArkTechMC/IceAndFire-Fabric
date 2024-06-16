@@ -43,6 +43,6 @@ public class EntityStymphalianArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.STYMPHALIAN_ARROW.get());
+        return new ItemStack(IafItemRegistry.STYMPHALIAN_ARROW);
     }
 }

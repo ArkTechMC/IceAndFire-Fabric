@@ -8,11 +8,11 @@ import com.github.alexthe666.iceandfire.datagen.IafPlacedFeatures;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.world.feature.*;
 import com.github.alexthe666.iceandfire.world.gen.*;
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.WorldAccess;
@@ -23,35 +23,35 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
-import java.util.function.Supplier;
-
 public class IafWorldRegistry {
-    public static final LazyRegistrar<Feature<?>> FEATURES = LazyRegistrar.create(Registries.FEATURE, IceAndFire.MOD_ID);
-
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> FIRE_DRAGON_ROOST = register("fire_dragon_roost", () -> new WorldGenFireDragonRoosts(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> ICE_DRAGON_ROOST = register("ice_dragon_roost", () -> new WorldGenIceDragonRoosts(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> LIGHTNING_DRAGON_ROOST = register("lightning_dragon_roost", () -> new WorldGenLightningDragonRoosts(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> FIRE_DRAGON_CAVE = register("fire_dragon_cave", () -> new WorldGenFireDragonCave(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> ICE_DRAGON_CAVE = register("ice_dragon_cave", () -> new WorldGenIceDragonCave(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> LIGHTNING_DRAGON_CAVE = register("lightning_dragon_cave", () -> new WorldGenLightningDragonCave(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> FIRE_DRAGON_ROOST = register("fire_dragon_roost", new WorldGenFireDragonRoosts(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> ICE_DRAGON_ROOST = register("ice_dragon_roost", new WorldGenIceDragonRoosts(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> LIGHTNING_DRAGON_ROOST = register("lightning_dragon_roost", new WorldGenLightningDragonRoosts(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> FIRE_DRAGON_CAVE = register("fire_dragon_cave", new WorldGenFireDragonCave(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> ICE_DRAGON_CAVE = register("ice_dragon_cave", new WorldGenIceDragonCave(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> LIGHTNING_DRAGON_CAVE = register("lightning_dragon_cave", new WorldGenLightningDragonCave(DefaultFeatureConfig.CODEC));
     //TODO: Should be a structure
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> CYCLOPS_CAVE = register("cyclops_cave", () -> new WorldGenCyclopsCave(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> PIXIE_VILLAGE = register("pixie_village", () -> new WorldGenPixieVillage(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SIREN_ISLAND = register("siren_island", () -> new WorldGenSirenIsland(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> HYDRA_CAVE = register("hydra_cave", () -> new WorldGenHydraCave(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> MYRMEX_HIVE_DESERT = register("myrmex_hive_desert", () -> new WorldGenMyrmexHive(false, false, DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> MYRMEX_HIVE_JUNGLE = register("myrmex_hive_jungle", () -> new WorldGenMyrmexHive(false, true, DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_DEATH_WORM = register("spawn_death_worm", () -> new SpawnDeathWorm(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_DRAGON_SKELETON_L = register("spawn_dragon_skeleton_lightning", () -> new SpawnDragonSkeleton(IafEntityRegistry.LIGHTNING_DRAGON.get(), DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_DRAGON_SKELETON_F = register("spawn_dragon_skeleton_fire", () -> new SpawnDragonSkeleton(IafEntityRegistry.FIRE_DRAGON.get(), DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_DRAGON_SKELETON_I = register("spawn_dragon_skeleton_ice", () -> new SpawnDragonSkeleton(IafEntityRegistry.ICE_DRAGON.get(), DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_HIPPOCAMPUS = register("spawn_hippocampus", () -> new SpawnHippocampus(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_SEA_SERPENT = register("spawn_sea_serpent", () -> new SpawnSeaSerpent(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_STYMPHALIAN_BIRD = register("spawn_stymphalian_bird", () -> new SpawnStymphalianBird(DefaultFeatureConfig.CODEC));
-    public static final RegistryObject<Feature<DefaultFeatureConfig>> SPAWN_WANDERING_CYCLOPS = register("spawn_wandering_cyclops", () -> new SpawnWanderingCyclops(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> CYCLOPS_CAVE = register("cyclops_cave", new WorldGenCyclopsCave(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> PIXIE_VILLAGE = register("pixie_village", new WorldGenPixieVillage(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SIREN_ISLAND = register("siren_island", new WorldGenSirenIsland(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> HYDRA_CAVE = register("hydra_cave", new WorldGenHydraCave(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> MYRMEX_HIVE_DESERT = register("myrmex_hive_desert", new WorldGenMyrmexHive(false, false, DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> MYRMEX_HIVE_JUNGLE = register("myrmex_hive_jungle", new WorldGenMyrmexHive(false, true, DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_DEATH_WORM = register("spawn_death_worm", new SpawnDeathWorm(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_DRAGON_SKELETON_L = register("spawn_dragon_skeleton_lightning", new SpawnDragonSkeleton(IafEntityRegistry.LIGHTNING_DRAGON, DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_DRAGON_SKELETON_F = register("spawn_dragon_skeleton_fire", new SpawnDragonSkeleton(IafEntityRegistry.FIRE_DRAGON, DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_DRAGON_SKELETON_I = register("spawn_dragon_skeleton_ice", new SpawnDragonSkeleton(IafEntityRegistry.ICE_DRAGON, DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_HIPPOCAMPUS = register("spawn_hippocampus", new SpawnHippocampus(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_SEA_SERPENT = register("spawn_sea_serpent", new SpawnSeaSerpent(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_STYMPHALIAN_BIRD = register("spawn_stymphalian_bird", new SpawnStymphalianBird(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SPAWN_WANDERING_CYCLOPS = register("spawn_wandering_cyclops", new SpawnWanderingCyclops(DefaultFeatureConfig.CODEC));
 
-    private static <C extends FeatureConfig, F extends Feature<C>> RegistryObject<F> register(final String name, final Supplier<? extends F> supplier) {
-        return FEATURES.register(name, supplier);
+    private static <F extends Feature<? extends FeatureConfig>> F register(String name, F feature) {
+        return Registry.register(Registries.FEATURE, new Identifier(IceAndFire.MOD_ID, name), feature);
+    }
+
+    public static void init(){
+        addFeatures();
     }
 
     public static boolean isFarEnoughFromSpawn(final WorldAccess level, final BlockPos position) {

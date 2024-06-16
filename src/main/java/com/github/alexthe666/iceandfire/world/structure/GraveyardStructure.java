@@ -89,7 +89,7 @@ public class GraveyardStructure extends IafStructure {
 
     @Override
     public StructureType<?> getType() {
-        return IafStructureTypes.GRAVEYARD.get();
+        return IafStructureTypes.GRAVEYARD;
     }
 
 }

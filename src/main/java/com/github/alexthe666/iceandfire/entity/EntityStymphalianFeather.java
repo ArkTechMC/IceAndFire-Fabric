@@ -63,6 +63,6 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.STYMPHALIAN_BIRD_FEATHER.get());
+        return new ItemStack(IafItemRegistry.STYMPHALIAN_BIRD_FEATHER);
     }
 }

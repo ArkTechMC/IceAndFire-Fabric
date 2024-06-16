@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
+import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -19,8 +20,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-
-import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.IAF_LECTERN;
 
 public class BlockLectern extends BlockWithEntity {
     public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.Type.HORIZONTAL);
@@ -65,7 +64,7 @@ public class BlockLectern extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
-        return world.isClient ? checkType(entityType, IAF_LECTERN.get(), TileEntityLectern::bookAnimationTick) : null;
+        return world.isClient ? checkType(entityType, IafTileEntityRegistry.IAF_LECTERN, TileEntityLectern::bookAnimationTick) : null;
     }
 
 

@@ -292,7 +292,7 @@ public class ServerEvents {
 
     public static boolean onEntityDrop(LivingEntity target, DamageSource source, Collection<ItemEntity> drops, int lootingLevel, boolean recentlyHit) {
         if (target instanceof WitherSkeletonEntity) {
-            drops.add(new ItemEntity(target.getWorld(), target.getX(), target.getY(), target.getZ(), new ItemStack(IafItemRegistry.WITHERBONE.get(), target.getRandom().nextInt(2))));
+            drops.add(new ItemEntity(target.getWorld(), target.getX(), target.getY(), target.getZ(), new ItemStack(IafItemRegistry.WITHERBONE, target.getRandom().nextInt(2))));
         }
         return true;
     }
@@ -359,7 +359,7 @@ public class ServerEvents {
                         entity.remove(Entity.RemovalReason.KILLED);
 
                         if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) > 0) {
-                            ItemStack statuette = new ItemStack(IafItemRegistry.STONE_STATUE.get());
+                            ItemStack statuette = new ItemStack(IafItemRegistry.STONE_STATUE);
                             NbtCompound tag = statuette.getOrCreateNbt();
                             tag.putBoolean("IAFStoneStatuePlayerEntity", statue.getTrappedEntityTypeString().equalsIgnoreCase("minecraft:player"));
                             tag.putString("IAFStoneStatueEntityID", statue.getTrappedEntityTypeString());
@@ -395,16 +395,15 @@ public class ServerEvents {
                     entity.getX(),
                     entity.getY() + 1,
                     entity.getZ(),
-                    new ItemStack(IafItemRegistry.CHAIN.get(), data.chainData.getChainedTo().size()));
+                    new ItemStack(IafItemRegistry.CHAIN, data.chainData.getChainedTo().size()));
             entityitem.setToDefaultPickupDelay();
             entity.getWorld().spawnEntity(entityitem);
 
             data.chainData.clearChains();
         }
 
-        if (entity.getUuid().equals(ServerEvents.ALEX_UUID)) {
-            entity.dropStack(new ItemStack(IafItemRegistry.WEEZER_BLUE_ALBUM.get()), 1);
-        }
+        if (entity.getUuid().equals(ServerEvents.ALEX_UUID))
+            entity.dropStack(new ItemStack(IafItemRegistry.WEEZER_BLUE_ALBUM), 1);
 
         if (entity instanceof PlayerEntity && IafConfig.ghostsFromPlayerDeaths) {
             Entity attacker = entity.getAttacker();
@@ -417,7 +416,7 @@ public class ServerEvents {
                 }
                 if (flag) {
                     World world = entity.getWorld();
-                    EntityGhost ghost = IafEntityRegistry.GHOST.get().create(world);
+                    EntityGhost ghost = IafEntityRegistry.GHOST.create(world);
                     assert ghost != null;
                     ghost.copyPositionAndRotation(entity);
                     if (!world.isClient) {
@@ -450,7 +449,7 @@ public class ServerEvents {
             if (data.chainData.isChainedTo(entity)) {
                 data.chainData.removeChain(entity);
                 if (!world.isClient)
-                    entity.dropItem(IafItemRegistry.CHAIN.get(), 1);
+                    entity.dropItem(IafItemRegistry.CHAIN, 1);
                 return ActionResult.SUCCESS;
             }
         }
@@ -482,7 +481,7 @@ public class ServerEvents {
     }
 
     public static void onBreakBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlockRegistry.GOLD_PILE.get()) || state.isOf(IafBlockRegistry.SILVER_PILE.get()) || state.isOf(IafBlockRegistry.COPPER_PILE.get()))) {
+        if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlockRegistry.GOLD_PILE) || state.isOf(IafBlockRegistry.SILVER_PILE) || state.isOf(IafBlockRegistry.COPPER_PILE))) {
             final float dist = IafConfig.dragonGoldSearchLength;
             List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (list.isEmpty()) return;

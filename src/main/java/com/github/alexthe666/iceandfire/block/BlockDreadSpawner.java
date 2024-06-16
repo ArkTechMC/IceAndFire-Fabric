@@ -26,6 +26,6 @@ public class BlockDreadSpawner extends SpawnerBlock implements IDreadBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, IafTileEntityRegistry.DREAD_SPAWNER.get(), world.isClient ? TileEntityDreadSpawner::clientTick : TileEntityDreadSpawner::serverTick);
+        return checkType(type, IafTileEntityRegistry.DREAD_SPAWNER, world.isClient ? TileEntityDreadSpawner::clientTick : TileEntityDreadSpawner::serverTick);
     }
 }

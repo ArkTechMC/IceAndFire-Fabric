@@ -19,7 +19,7 @@ public class ItemLichStaff extends Item {
 
     @Override
     public boolean canRepair(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == IafItemRegistry.DREAD_SHARD.get() || super.canRepair(toRepair, repair);
+        return repair.getItem() == IafItemRegistry.DREAD_SHARD || super.canRepair(toRepair, repair);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ItemLichStaff extends Item {
             d2 = d2 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d3 = d3 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d4 = d4 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
-            EntityDreadLichSkull charge = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL.get(), worldIn,
+            EntityDreadLichSkull charge = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL, worldIn,
                     playerIn, 6);
             charge.setVelocity(playerIn.getPitch(), playerIn.getYaw(), 0.0F, 7.0F, 1.0F);
             charge.setPosition(playerIn.getX(), playerIn.getY() + 1, playerIn.getZ());

@@ -33,7 +33,7 @@ public class ItemMyrmexSwarm extends Item {
             playerIn.getItemCooldownManager().set(this, 20);
         }
         for (int i = 0; i < 5; i++) {
-            EntityMyrmexSwarmer myrmex = new EntityMyrmexSwarmer(IafEntityRegistry.MYRMEX_SWARMER.get(), worldIn);
+            EntityMyrmexSwarmer myrmex = new EntityMyrmexSwarmer(IafEntityRegistry.MYRMEX_SWARMER, worldIn);
             myrmex.setPosition(playerIn.getX(), playerIn.getY(), playerIn.getZ());
             myrmex.setJungleVariant(this.jungle);
             myrmex.setSummonedBy(playerIn);

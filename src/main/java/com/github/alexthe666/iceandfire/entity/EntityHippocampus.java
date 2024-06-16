@@ -14,7 +14,6 @@ import com.github.alexthe666.iceandfire.entity.util.ICustomMoveController;
 import com.github.alexthe666.iceandfire.entity.util.ISyncMount;
 import com.github.alexthe666.iceandfire.inventory.HippocampusContainerMenu;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import io.github.fabricators_of_create.porting_lib.util.LazyOptional;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -83,7 +82,6 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     private static final Text CONTAINER_TITLE = Text.translatable("entity.iceandfire.hippocampus");
 
     public static Animation ANIMATION_SPEAK;
-    private final LazyOptional<?> itemHandler = null;
     public float onLandProgress;
     public ChainBuffer tail_buffer;
     public SimpleInventory inventory;
@@ -527,7 +525,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Override
     public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         if (ageable instanceof EntityHippocampus) {
-            EntityHippocampus hippo = new EntityHippocampus(IafEntityRegistry.HIPPOCAMPUS.get(), this.getWorld());
+            EntityHippocampus hippo = new EntityHippocampus(IafEntityRegistry.HIPPOCAMPUS, this.getWorld());
             hippo.setVariant(this.getRandom().nextBoolean() ? this.getVariant() : ((EntityHippocampus) ageable).getVariant());
             return hippo;
         }

@@ -18,7 +18,7 @@ public class EntitySlowPart extends EntityMutlipartPart {
     }
 
     public EntitySlowPart(Entity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
-        super(IafEntityRegistry.SLOW_MULTIPART.get(), parent, radius, angleYaw, offsetY, sizeX, sizeY,
+        super(IafEntityRegistry.SLOW_MULTIPART, parent, radius, angleYaw, offsetY, sizeX, sizeY,
                 damageMultiplier);
     }
 

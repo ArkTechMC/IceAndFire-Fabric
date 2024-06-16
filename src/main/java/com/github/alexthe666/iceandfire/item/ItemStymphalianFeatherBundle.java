@@ -30,7 +30,7 @@ public class ItemStymphalianFeatherBundle extends Item {
         player.playSound(SoundEvents.ENTITY_EGG_THROW, 1, 1);
         float rotation = player.headYaw;
         for (int i = 0; i < 8; i++) {
-            EntityStymphalianFeather feather = new EntityStymphalianFeather(IafEntityRegistry.STYMPHALIAN_FEATHER.get(),
+            EntityStymphalianFeather feather = new EntityStymphalianFeather(IafEntityRegistry.STYMPHALIAN_FEATHER,
                     worldIn, player);
             rotation += 45;
             feather.setVelocity(player, 0, rotation, 0.0F, 1.5F, 1.0F);

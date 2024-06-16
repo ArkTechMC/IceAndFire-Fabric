@@ -59,7 +59,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     public TileEntityLectern(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.IAF_LECTERN.get(), pos, state);
+        super(IafTileEntityRegistry.IAF_LECTERN, pos, state);
     }
 
     public static void bookAnimationTick(World world, BlockPos pos, BlockState state, TileEntityLectern lectern) {
@@ -136,7 +136,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
     public EnumBestiaryPages[] randomizePages(ItemStack bestiary, ItemStack manuscript) {
         assert this.world != null;
         if (!this.world.isClient) {
-            if (bestiary.getItem() == IafItemRegistry.BESTIARY.get()) {
+            if (bestiary.getItem() == IafItemRegistry.BESTIARY) {
                 List<EnumBestiaryPages> possibleList = this.getPossiblePages();
                 this.localRand.setSeed(this.world.getTime());
                 Collections.shuffle(possibleList, this.localRand);
@@ -193,7 +193,7 @@ public class TileEntityLectern extends LockableContainerBlockEntity implements S
         if (index == 0)
             return stack.getItem() instanceof ItemBestiary;
         if (index == 1)
-            return stack.getItem() == IafItemRegistry.MANUSCRIPT.get();
+            return stack.getItem() == IafItemRegistry.MANUSCRIPT;
         return false;
     }
 

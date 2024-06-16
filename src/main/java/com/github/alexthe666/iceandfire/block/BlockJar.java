@@ -30,7 +30,7 @@ public class BlockJar extends BlockWithEntity {
     private final int pixieType;
 
     public BlockJar(int pixieType) {
-        super(pixieType != -1 ? Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS).luminance((state) -> 10).dropsLike(IafBlockRegistry.JAR_EMPTY.get()) : Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS));
+        super(pixieType != -1 ? Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS).luminance((state) -> 10).dropsLike(IafBlockRegistry.JAR_EMPTY) : Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS));
         this.empty = pixieType == -1;
         this.pixieType = pixieType;
     }
@@ -66,7 +66,7 @@ public class BlockJar extends BlockWithEntity {
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult resultIn) {
         if (!this.empty && world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityJar jar && jar.hasPixie && jar.hasProduced) {
             jar.hasProduced = false;
-            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(IafItemRegistry.PIXIE_DUST.get()));
+            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(IafItemRegistry.PIXIE_DUST));
             if (!world.isClient)
                 world.spawnEntity(item);
             world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSoundRegistry.PIXIE_HURT, SoundCategory.NEUTRAL, 1, 1, false);
@@ -95,7 +95,7 @@ public class BlockJar extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
-        return checkType(entityType, PIXIE_JAR.get(), TileEntityJar::tick);
+        return checkType(entityType, PIXIE_JAR, TileEntityJar::tick);
     }
 
     @Override

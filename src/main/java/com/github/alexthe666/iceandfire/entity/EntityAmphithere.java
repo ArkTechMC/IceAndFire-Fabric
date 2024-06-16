@@ -214,7 +214,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
             return ActionResult.SUCCESS;
         }
         if (super.interactMob(player, hand) == ActionResult.PASS) {
-            if (itemstack != null && itemstack.getItem() == IafItemRegistry.DRAGON_STAFF.get() && this.isOwner(player)) {
+            if (itemstack != null && itemstack.getItem() == IafItemRegistry.DRAGON_STAFF && this.isOwner(player)) {
                 if (player.isSneaking()) {
                     this.homePos = this.getBlockPos();
                     this.hasHomePosition = true;
@@ -908,7 +908,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
     @Override
     public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageableEntity) {
-        EntityAmphithere amphithere = new EntityAmphithere(IafEntityRegistry.AMPHITHERE.get(), this.getWorld());
+        EntityAmphithere amphithere = new EntityAmphithere(IafEntityRegistry.AMPHITHERE, this.getWorld());
         amphithere.setVariant(this.getVariant());
         return amphithere;
     }

@@ -20,6 +20,7 @@ import com.github.alexthe666.iceandfire.world.IafStructureTypes;
 import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import dev.arktechmc.iafextra.event.AttackEntityEvent;
 import dev.arktechmc.iafextra.event.EventBus;
+import dev.arktechmc.iafextra.event.ProjectileImpactEvent;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
 import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
@@ -47,36 +48,26 @@ public class IceAndFire implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        IafRecipeRegistry.registerDispenser();
-        IafItemRegistry.registerItems();
-        IafItemRegistry.setRepairMaterials();
-        IafEntityRegistry.bakeAttributes();
-        IafSoundRegistry.registerSoundEvents();
-        EventRegistration.register();
-        IafVillagerRegistry.addScribeTrades();
+        IafItemRegistry.init();
+        IafBlockRegistry.init();
+        IafEntityRegistry.init();
+        IafSoundRegistry.init();
+        IafVillagerRegistry.init();
         IafRecipeRegistry.init();
         IafLootRegistry.init();
-
-        IafEntityRegistry.ENTITIES.register();
-        IafTileEntityRegistry.TYPES.register();
-        IafPlacementFilterRegistry.PLACEMENT_MODIFIER_TYPES.register();
-        IafWorldRegistry.FEATURES.register();
-        IafBannerPatterns.BANNERS.register();
-        IafStructureTypes.STRUCTURE_TYPES.register();
-        IafContainerRegistry.CONTAINERS.register();
-        IafRecipeSerializers.SERIALIZERS.register();
-        IafProcessors.PROCESSORS.register();
-        IafBlockRegistry.BLOCKS.register();
-        IafItemRegistry.ITEMS.register();
-        IafTabRegistry.TAB_REGISTER.register();
+        IafWorldRegistry.init();
+        IafTileEntityRegistry.init();
+        IafBannerPatterns.init();
+        IafPlacementFilterRegistry.init();
+        IafStructureTypes.init();
+        IafContainerRegistry.init();
+        IafRecipeSerializers.init();
+        IafProcessors.init();
+        IafTabRegistry.init();
         IafParticleRegistry.init();
 
-        IafVillagerRegistry.POI_TYPES.register();
-        IafVillagerRegistry.PROFESSIONS.register();
-        IafEntityRegistry.addSpawners();
-        IafEntityRegistry.commonSetup();
-        IafWorldRegistry.addFeatures();
-
+        EventBus.register(ProjectileImpactEvent.class, ServerEvents::onArrowCollide);
+        EventBus.register(AttackEntityEvent.class, ServerEvents::onPlayerAttackMob);
         PlayerBlockBreakEvents.AFTER.register(ServerEvents::onBreakBlock);
         UseEntityCallback.EVENT.register(ServerEvents::onEntityInteract);
         UseItemCallback.EVENT.register(ServerEvents::onEntityUseItem);
@@ -90,12 +81,6 @@ public class IceAndFire implements ModInitializer {
         LivingDamageEvent.DAMAGE.register(ServerEvents::onEntityDamage);
         LivingEntityEvents.DROPS.register(ServerEvents::onEntityDrop);
         LivingEntityEvents.FALL.register(ServerEvents::onEntityFall);
-
-//        BiomeModificationImpl.INSTANCE.addModifier(new Identifier(com.github.alexthe666.iceandfire.IceAndFire.MOD_ID, "biome"),
-//                ModificationPhase.ADDITIONS, context -> true, (context, biomeModificationContext) -> {
-//
-//                    IafWorldRegistry.addFeatures(biome, this.featureMap);
-//                });
 
         IafServerNetworkHandler.register();
     }

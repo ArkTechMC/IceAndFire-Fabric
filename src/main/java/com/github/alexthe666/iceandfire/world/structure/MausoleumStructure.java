@@ -90,7 +90,7 @@ public class MausoleumStructure extends IafStructure {
 
     @Override
     public StructureType<?> getType() {
-        return IafStructureTypes.MAUSOLEUM.get();
+        return IafStructureTypes.MAUSOLEUM;
     }
 
 }

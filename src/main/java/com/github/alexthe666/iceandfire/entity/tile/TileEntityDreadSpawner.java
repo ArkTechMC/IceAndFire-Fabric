@@ -16,16 +16,16 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
     private final BlockEntityType<?> type;
     private final DreadSpawnerBaseLogic spawner = new DreadSpawnerBaseLogic() {
         @Override
-        public void sendStatus(World p_155767_, BlockPos p_155768_, int p_155769_) {
-            p_155767_.addSyncedBlockEvent(p_155768_, Blocks.SPAWNER, p_155769_, 0);
+        public void sendStatus(World world, BlockPos pos, int status) {
+            world.addSyncedBlockEvent(pos, Blocks.SPAWNER, status, 0);
         }
 
         @Override
-        public void setSpawnEntry(World p_155771_, BlockPos p_155772_, MobSpawnerEntry p_155773_) {
-            super.setSpawnEntry(p_155771_, p_155772_, p_155773_);
-            if (p_155771_ != null) {
-                BlockState blockstate = p_155771_.getBlockState(p_155772_);
-                p_155771_.updateListeners(p_155772_, blockstate, blockstate, 4);
+        public void setSpawnEntry(World world, BlockPos pos, MobSpawnerEntry spawnEntry) {
+            super.setSpawnEntry(world, pos, spawnEntry);
+            if (world != null) {
+                BlockState blockstate = world.getBlockState(pos);
+                world.updateListeners(pos, blockstate, blockstate, 4);
             }
 
         }
@@ -33,15 +33,7 @@ public class TileEntityDreadSpawner extends MobSpawnerBlockEntity {
 
     public TileEntityDreadSpawner(BlockPos pos, BlockState state) {
         super(pos, state);
-        this.type = IafTileEntityRegistry.DREAD_SPAWNER.get();
-    }
-
-    public static void clientTick(World p_155755_, BlockPos p_155756_, BlockState p_155757_, TileEntityDreadSpawner p_155758_) {
-        p_155758_.spawner.clientTick(p_155755_, p_155756_);
-    }
-
-    public static void serverTick(World p_155762_, BlockPos p_155763_, BlockState p_155764_, TileEntityDreadSpawner p_155765_) {
-        p_155765_.spawner.serverTick((ServerWorld) p_155762_, p_155763_);
+        this.type = IafTileEntityRegistry.DREAD_SPAWNER;
     }
 
     @Override

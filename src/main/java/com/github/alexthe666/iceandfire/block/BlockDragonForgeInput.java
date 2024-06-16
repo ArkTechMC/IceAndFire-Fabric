@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.entity.DragonType;
+import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import net.minecraft.block.*;
@@ -19,8 +20,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-
-import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.DRAGONFORGE_INPUT;
 
 public class BlockDragonForgeInput extends BlockWithEntity implements IDragonProof {
     public static final BooleanProperty ACTIVE = BooleanProperty.of("active");
@@ -82,7 +81,7 @@ public class BlockDragonForgeInput extends BlockWithEntity implements IDragonPro
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
-        return world.isClient ? null : checkType(entityType, DRAGONFORGE_INPUT.get(), TileEntityDragonforgeInput::tick);
+        return world.isClient ? null : checkType(entityType, IafTileEntityRegistry.DRAGONFORGE_INPUT, TileEntityDragonforgeInput::tick);
     }
 
     @Override

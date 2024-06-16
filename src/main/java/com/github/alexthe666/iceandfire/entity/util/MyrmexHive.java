@@ -111,15 +111,13 @@ public class MyrmexHive {
     public EntityMyrmexQueen getQueen() {
         List<EntityMyrmexQueen> ourQueens = new ArrayList<>();
         if (!this.world.isClient) {
+            assert this.world.getServer() != null;
             ServerWorld serverWorld = this.world.getServer().getWorld(this.world.getRegistryKey());
             assert serverWorld != null;
-            List<? extends EntityMyrmexQueen> allQueens = serverWorld.getEntitiesByType(IafEntityRegistry.MYRMEX_QUEEN.get(),
-                    EntityPredicates.EXCEPT_SPECTATOR);
-            for (EntityMyrmexQueen queen : allQueens) {
-                if (queen instanceof EntityMyrmexQueen && queen.getHive().equals(this)) {
+            List<? extends EntityMyrmexQueen> allQueens = serverWorld.getEntitiesByType(IafEntityRegistry.MYRMEX_QUEEN, EntityPredicates.EXCEPT_SPECTATOR);
+            for (EntityMyrmexQueen queen : allQueens)
+                if (queen instanceof EntityMyrmexQueen && queen.getHive().equals(this))
                     ourQueens.add(queen);
-                }
-            }
         }
 
         return ourQueens.isEmpty() ? null : ourQueens.get(0);

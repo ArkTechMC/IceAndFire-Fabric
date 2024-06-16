@@ -23,6 +23,6 @@ public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlo
 
     @Override
     public Block wallBlock() {
-        return IafBlockRegistry.BURNT_TORCH_WALL.get();
+        return IafBlockRegistry.BURNT_TORCH_WALL;
     }
 }

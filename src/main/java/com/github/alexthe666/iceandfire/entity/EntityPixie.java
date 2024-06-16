@@ -205,17 +205,16 @@ public class EntityPixie extends TameableEntity {
 
                 return ActionResult.SUCCESS;
             }
-        } else if (player.getStackInHand(hand).getItem() == IafBlockRegistry.JAR_EMPTY.get().asItem() && !this.isTamed()) {
+        } else if (player.getStackInHand(hand).getItem() == IafBlockRegistry.JAR_EMPTY.asItem() && !this.isTamed()) {
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }
-            IafBlockRegistry.JAR_PIXIE_0.get();
             Block jar = switch (this.getColor()) {
-                case 0 -> IafBlockRegistry.JAR_PIXIE_0.get();
-                case 1 -> IafBlockRegistry.JAR_PIXIE_1.get();
-                case 2 -> IafBlockRegistry.JAR_PIXIE_2.get();
-                case 3 -> IafBlockRegistry.JAR_PIXIE_3.get();
-                case 4 -> IafBlockRegistry.JAR_PIXIE_4.get();
+                case 0 -> IafBlockRegistry.JAR_PIXIE_0;
+                case 1 -> IafBlockRegistry.JAR_PIXIE_1;
+                case 2 -> IafBlockRegistry.JAR_PIXIE_2;
+                case 3 -> IafBlockRegistry.JAR_PIXIE_3;
+                case 4 -> IafBlockRegistry.JAR_PIXIE_4;
                 default -> Blocks.AIR;
             };
             ItemStack stack = new ItemStack(jar, 1);

@@ -43,16 +43,14 @@ public class ItemDragonEgg extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack itemstack = context.getPlayer().getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide());
-        EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), context.getWorld());
+        EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG, context.getWorld());
         egg.setEggType(this.type);
         egg.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);
         egg.onPlayerPlace(context.getPlayer());
-        if (itemstack.hasCustomName()) {
+        if (itemstack.hasCustomName())
             egg.setCustomName(itemstack.getName());
-        }
-        if (!context.getWorld().isClient) {
+        if (!context.getWorld().isClient)
             context.getWorld().spawnEntity(egg);
-        }
         itemstack.decrement(1);
         return ActionResult.SUCCESS;
     }

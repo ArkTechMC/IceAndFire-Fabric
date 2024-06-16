@@ -55,7 +55,7 @@ public class EntityHippogryphEgg extends EggEntity {
         }
 
         if (!this.getWorld().isClient) {
-            EntityHippogryph hippogryph = new EntityHippogryph(IafEntityRegistry.HIPPOGRYPH.get(), this.getWorld());
+            EntityHippogryph hippogryph = new EntityHippogryph(IafEntityRegistry.HIPPOGRYPH, this.getWorld());
             hippogryph.setBreedingAge(-24000);
             hippogryph.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
             if (this.itemstack != null) {
@@ -80,6 +80,6 @@ public class EntityHippogryphEgg extends EggEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return IafItemRegistry.HIPPOGRYPH_EGG.get();
+        return IafItemRegistry.HIPPOGRYPH_EGG;
     }
 }

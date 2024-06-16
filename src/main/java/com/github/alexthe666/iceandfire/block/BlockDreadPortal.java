@@ -105,7 +105,7 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
-        return checkType(entityType, DREAD_PORTAL.get(), TileEntityDreadPortal::tick);
+        return checkType(entityType, DREAD_PORTAL, TileEntityDreadPortal::tick);
     }
 
     @Override

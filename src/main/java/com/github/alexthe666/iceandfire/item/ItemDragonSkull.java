@@ -65,6 +65,7 @@ public class ItemDragonSkull extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        assert context.getPlayer() != null;
         ItemStack stack = context.getPlayer().getStackInHand(context.getHand());
         /*
          * EntityDragonEgg egg = new EntityDragonEgg(worldIn);
@@ -72,7 +73,7 @@ public class ItemDragonSkull extends Item {
          * 0.5); if(!worldIn.isRemote){ worldIn.spawnEntityInWorld(egg); }
          */
         if (stack.getNbt() != null) {
-            EntityDragonSkull skull = new EntityDragonSkull(IafEntityRegistry.DRAGON_SKULL.get(), context.getWorld());
+            EntityDragonSkull skull = new EntityDragonSkull(IafEntityRegistry.DRAGON_SKULL, context.getWorld());
             skull.setDragonType(this.dragonType);
             skull.setStage(stack.getNbt().getInt("Stage"));
             skull.setDragonAge(stack.getNbt().getInt("DragonAge"));

@@ -108,7 +108,7 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
         if (this.isRemoved())
             return;
         this.remove(RemovalReason.DISCARDED);
-        ItemStack stack = new ItemStack(this.getSkullType().skull_item.get(), 1);
+        ItemStack stack = new ItemStack(this.getSkullType().skull_item, 1);
         if (!this.getWorld().isClient)
             this.dropStack(stack, 0.0F);
     }

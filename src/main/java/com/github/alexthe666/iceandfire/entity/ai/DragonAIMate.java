@@ -18,7 +18,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class DragonAIMate extends Goal {
-    private static final BlockState NEST = IafBlockRegistry.NEST.get().getDefaultState();
+    private static final BlockState NEST = IafBlockRegistry.NEST.getDefaultState();
     final World theWorld;
     final double moveSpeed;
     private final EntityDragonBase dragon;

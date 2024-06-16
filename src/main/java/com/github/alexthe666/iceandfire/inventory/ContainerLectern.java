@@ -28,7 +28,7 @@ public class ContainerLectern extends ScreenHandler {
 
 
     public ContainerLectern(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.IAF_LECTERN_CONTAINER.get(), id);
+        super(IafContainerRegistry.IAF_LECTERN_CONTAINER, id);
         this.tileFurnace = furnaceInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(propertyDelegate);
@@ -41,7 +41,7 @@ public class ContainerLectern extends ScreenHandler {
         this.addSlot(new Slot(furnaceInventory, 1, 35, 47) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() == IafItemRegistry.MANUSCRIPT.get();
+                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() == IafItemRegistry.MANUSCRIPT;
             }
         });
         for (int i = 0; i < 3; ++i) {
@@ -106,19 +106,12 @@ public class ContainerLectern extends ScreenHandler {
         return itemstack;
     }
 
-    public void getManuscriptAmount() {
-        ItemStack itemstack = this.tileFurnace.getStack(1);
-        if (!itemstack.isEmpty()) {
-            IafItemRegistry.MANUSCRIPT.get();
-        }
-    }
-
     public EnumBestiaryPages[] getPossiblePages() {
         this.possiblePagesInt[0] = this.getPageField(0);
         this.possiblePagesInt[1] = this.getPageField(1);
         this.possiblePagesInt[2] = this.getPageField(2);
         EnumBestiaryPages[] pages = new EnumBestiaryPages[3];
-        if (this.tileFurnace.getStack(0).getItem() == IafItemRegistry.BESTIARY.get()) {
+        if (this.tileFurnace.getStack(0).getItem() == IafItemRegistry.BESTIARY) {
             if (this.possiblePagesInt[0] < 0)
                 pages[0] = null;
             else
@@ -141,9 +134,9 @@ public class ContainerLectern extends ScreenHandler {
         ItemStack bookStack = this.tileFurnace.getStack(0);
         ItemStack manuscriptStack = this.tileFurnace.getStack(1);
         int i = 3;
-        if ((manuscriptStack.isEmpty() || manuscriptStack.getCount() < i || manuscriptStack.getItem() != IafItemRegistry.MANUSCRIPT.get())) {
+        if ((manuscriptStack.isEmpty() || manuscriptStack.getCount() < i || manuscriptStack.getItem() != IafItemRegistry.MANUSCRIPT)) {
             return false;
-        } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty() && bookStack.getItem() == IafItemRegistry.BESTIARY.get()) {
+        } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty() && bookStack.getItem() == IafItemRegistry.BESTIARY) {
             EnumBestiaryPages page = this.getPossiblePages()[MathHelper.clamp(id, 0, 2)];
             if (page != null) {
                 if (!playerIn.getWorld().isClient) {

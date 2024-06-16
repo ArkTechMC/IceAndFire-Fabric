@@ -26,5 +26,4 @@ public class RenderEggInIce<T extends TileEntityEggInIce> implements BlockEntity
             matrixStackIn.pop();
         }
     }
-
 }

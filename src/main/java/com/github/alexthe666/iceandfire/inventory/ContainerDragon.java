@@ -22,7 +22,7 @@ public class ContainerDragon extends ScreenHandler {
     }
 
     public ContainerDragon(int id, Inventory dragonInventory, PlayerInventory playerInventory, EntityPropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.DRAGON_CONTAINER.get(), id);
+        super(IafContainerRegistry.DRAGON_CONTAINER, id);
         this.dragonInventory = dragonInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(this.propertyDelegate);

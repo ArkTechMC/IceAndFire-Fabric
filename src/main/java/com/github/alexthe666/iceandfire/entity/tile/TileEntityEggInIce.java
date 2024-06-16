@@ -26,7 +26,7 @@ public class TileEntityEggInIce extends BlockEntity {
     private boolean spawned;
 
     public TileEntityEggInIce(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.EGG_IN_ICE.get(), pos, state);
+        super(IafTileEntityRegistry.EGG_IN_ICE, pos, state);
     }
 
     public static void tickEgg(World level, BlockPos pos, BlockState state, TileEntityEggInIce entityEggInIce) {
@@ -45,7 +45,6 @@ public class TileEntityEggInIce extends BlockEntity {
                 level.breakBlock(pos, false);
                 level.setBlockState(pos, Blocks.WATER.getDefaultState());
             }
-
         }
         entityEggInIce.ticksExisted++;
     }
@@ -103,7 +102,7 @@ public class TileEntityEggInIce extends BlockEntity {
 
     public void spawnEgg() {
         if (this.type != null) {
-            EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), this.world);
+            EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG, this.world);
             egg.setEggType(this.type);
             egg.setPosition(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5);
             egg.setOwnerId(this.ownerUUID);

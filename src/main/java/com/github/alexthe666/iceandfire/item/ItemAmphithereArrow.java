@@ -21,7 +21,7 @@ public class ItemAmphithereArrow extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
-        return new EntityAmphithereArrow(IafEntityRegistry.AMPHITHERE_ARROW.get(), shooter, worldIn);
+        return new EntityAmphithereArrow(IafEntityRegistry.AMPHITHERE_ARROW, shooter, worldIn);
     }
 
     @Override

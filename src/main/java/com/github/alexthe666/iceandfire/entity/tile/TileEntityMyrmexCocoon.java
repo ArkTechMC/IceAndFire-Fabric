@@ -22,7 +22,7 @@ public class TileEntityMyrmexCocoon extends LootableContainerBlockEntity {
     private DefaultedList<ItemStack> chestContents = DefaultedList.ofSize(18, ItemStack.EMPTY);
 
     public TileEntityMyrmexCocoon(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.MYRMEX_COCOON.get(), pos, state);
+        super(IafTileEntityRegistry.MYRMEX_COCOON, pos, state);
     }
 
     @Override

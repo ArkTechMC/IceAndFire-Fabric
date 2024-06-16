@@ -47,7 +47,7 @@ public class MessageUpdateLectern implements S2CMessage, C2SMessage {
                 if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
                     if (this.updateStack) {
                         ItemStack bookStack = lectern.getStack(0);
-                        if (bookStack.getItem() == IafItemRegistry.BESTIARY.get())
+                        if (bookStack.getItem() == IafItemRegistry.BESTIARY)
                             EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(this.pageOrdinal), bookStack);
                         lectern.randomizePages(bookStack, lectern.getStack(1));
                     } else {
@@ -94,7 +94,7 @@ public class MessageUpdateLectern implements S2CMessage, C2SMessage {
                 if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
                     if (this.updateStack) {
                         ItemStack bookStack = lectern.getStack(0);
-                        if (bookStack.getItem() == IafItemRegistry.BESTIARY.get())
+                        if (bookStack.getItem() == IafItemRegistry.BESTIARY)
                             EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(this.pageOrdinal), bookStack);
                         lectern.randomizePages(bookStack, lectern.getStack(1));
                     } else {

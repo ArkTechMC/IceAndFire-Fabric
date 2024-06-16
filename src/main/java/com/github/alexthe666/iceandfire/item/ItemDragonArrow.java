@@ -15,6 +15,6 @@ public class ItemDragonArrow extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(final World level, final ItemStack arrow, final LivingEntity shooter) {
-        return new EntityDragonArrow(IafEntityRegistry.DRAGON_ARROW.get(), shooter, level);
+        return new EntityDragonArrow(IafEntityRegistry.DRAGON_ARROW, shooter, level);
     }
 }

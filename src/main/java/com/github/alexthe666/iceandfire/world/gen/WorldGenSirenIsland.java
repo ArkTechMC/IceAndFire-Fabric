@@ -76,19 +76,14 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
 
     private BlockState getStone(Random random) {
         int chance = random.nextInt(100);
-        if (chance > 90) {
-            return Blocks.MOSSY_COBBLESTONE.getDefaultState();
-        } else if (chance > 70) {
-            return Blocks.GRAVEL.getDefaultState();
-        } else if (chance > 45) {
-            return Blocks.COBBLESTONE.getDefaultState();
-        } else {
-            return Blocks.STONE.getDefaultState();
-        }
+        if (chance > 90) return Blocks.MOSSY_COBBLESTONE.getDefaultState();
+        else if (chance > 70) return Blocks.GRAVEL.getDefaultState();
+        else if (chance > 45) return Blocks.COBBLESTONE.getDefaultState();
+        else return Blocks.STONE.getDefaultState();
     }
 
     private void spawnSiren(ServerWorldAccess worldIn, Random rand, BlockPos position) {
-        EntitySiren siren = new EntitySiren(IafEntityRegistry.SIREN.get(), worldIn.toServerWorld());
+        EntitySiren siren = new EntitySiren(IafEntityRegistry.SIREN, worldIn.toServerWorld());
         siren.setSinging(true);
         siren.setHairColor(rand.nextInt(2));
         siren.setSingingPose(rand.nextInt(2));

@@ -52,11 +52,11 @@ public class BlockGeneric extends Block {
     }
 
     public boolean isOpaqueCube(BlockState state) {
-        return this != IafBlockRegistry.DRAGON_ICE.get();
+        return this != IafBlockRegistry.DRAGON_ICE;
     }
 
     public boolean isFullCube(BlockState state) {
-        return this != IafBlockRegistry.DRAGON_ICE.get();
+        return this != IafBlockRegistry.DRAGON_ICE;
     }
 
     @Deprecated

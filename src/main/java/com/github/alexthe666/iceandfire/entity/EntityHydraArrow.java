@@ -85,6 +85,6 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.HYDRA_ARROW.get());
+        return new ItemStack(IafItemRegistry.HYDRA_ARROW);
     }
 }

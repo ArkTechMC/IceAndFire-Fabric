@@ -115,11 +115,11 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         if (this.getMyrmexAge() > IafConfig.myrmexEggTicks) {
             this.remove(RemovalReason.DISCARDED);
             EntityMyrmexBase myrmex = switch (this.getMyrmexCaste()) {
-                default -> new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(), this.getWorld());
-                case 1 -> new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(), this.getWorld());
-                case 2 -> new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL.get(), this.getWorld());
-                case 3 -> new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(), this.getWorld());
-                case 4 -> new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(), this.getWorld());
+                default -> new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER, this.getWorld());
+                case 1 -> new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER, this.getWorld());
+                case 2 -> new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL, this.getWorld());
+                case 3 -> new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL, this.getWorld());
+                case 4 -> new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN, this.getWorld());
             };
             myrmex.setJungleVariant(this.isJungle());
             myrmex.setGrowthStage(0);
@@ -192,7 +192,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     private ItemStack getItem() {
-        ItemStack egg = new ItemStack(this.isJungle() ? IafItemRegistry.MYRMEX_JUNGLE_EGG.get() : IafItemRegistry.MYRMEX_DESERT_EGG.get(), 1);
+        ItemStack egg = new ItemStack(this.isJungle() ? IafItemRegistry.MYRMEX_JUNGLE_EGG : IafItemRegistry.MYRMEX_DESERT_EGG, 1);
         NbtCompound newTag = new NbtCompound();
         newTag.putInt("EggOrdinal", this.getMyrmexCaste());
         egg.setNbt(newTag);

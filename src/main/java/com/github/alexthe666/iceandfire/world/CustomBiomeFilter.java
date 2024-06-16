@@ -37,6 +37,6 @@ public class CustomBiomeFilter extends AbstractConditionalPlacementModifier {
     }
 
     public PlacementModifierType<?> getType() {
-        return IafPlacementFilterRegistry.CUSTOM_BIOME_FILTER.get();
+        return IafPlacementFilterRegistry.CUSTOM_BIOME_FILTER;
     }
 }

@@ -40,7 +40,7 @@ public class EntityDragonArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.DRAGONBONE_ARROW.get());
+        return new ItemStack(IafItemRegistry.DRAGONBONE_ARROW);
     }
 
 }

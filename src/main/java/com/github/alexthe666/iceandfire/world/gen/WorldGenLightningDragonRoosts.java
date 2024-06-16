@@ -20,12 +20,12 @@ public class WorldGenLightningDragonRoosts extends WorldGenDragonRoosts {
     private static final Identifier DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/lightning_dragon_roost");
 
     public WorldGenLightningDragonRoosts(final Codec<DefaultFeatureConfig> configuration) {
-        super(configuration, IafBlockRegistry.COPPER_PILE.get());
+        super(configuration, IafBlockRegistry.COPPER_PILE);
     }
 
     @Override
     protected EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.LIGHTNING_DRAGON.get();
+        return IafEntityRegistry.LIGHTNING_DRAGON;
     }
 
     @Override
@@ -37,27 +37,25 @@ public class WorldGenLightningDragonRoosts extends WorldGenDragonRoosts {
     protected BlockState transform(final BlockState state) {
         Block block = null;
 
-        if (state.isOf(Blocks.GRASS_BLOCK)) {
-            block = IafBlockRegistry.CRACKLED_GRASS.get();
-        } else if (state.isOf(Blocks.DIRT_PATH)) {
-            block = IafBlockRegistry.CRACKLED_DIRT_PATH.get();
-        } else if (state.isIn(Tags.Blocks.GRAVEL)) {
-            block = IafBlockRegistry.CRACKLED_GRAVEL.get();
-        } else if (state.isIn(BlockTags.DIRT)) {
-            block = IafBlockRegistry.CRACKLED_DIRT.get();
-        } else if (state.isIn(Tags.Blocks.STONE)) {
-            block = IafBlockRegistry.CRACKLED_STONE.get();
-        } else if (state.isIn(Tags.Blocks.COBBLESTONE)) {
-            block = IafBlockRegistry.CRACKLED_COBBLESTONE.get();
-        } else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS)) {
-            block = IafBlockRegistry.ASH.get();
-        } else if (state.isOf(Blocks.GRASS) || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.FLOWERS) || state.isIn(BlockTags.CROPS)) {
+        if (state.isOf(Blocks.GRASS_BLOCK))
+            block = IafBlockRegistry.CRACKLED_GRASS;
+        else if (state.isOf(Blocks.DIRT_PATH))
+            block = IafBlockRegistry.CRACKLED_DIRT_PATH;
+        else if (state.isIn(Tags.Blocks.GRAVEL))
+            block = IafBlockRegistry.CRACKLED_GRAVEL;
+        else if (state.isIn(BlockTags.DIRT))
+            block = IafBlockRegistry.CRACKLED_DIRT;
+        else if (state.isIn(Tags.Blocks.STONE))
+            block = IafBlockRegistry.CRACKLED_STONE;
+        else if (state.isIn(Tags.Blocks.COBBLESTONE))
+            block = IafBlockRegistry.CRACKLED_COBBLESTONE;
+        else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS))
+            block = IafBlockRegistry.ASH;
+        else if (state.isOf(Blocks.GRASS) || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.FLOWERS) || state.isIn(BlockTags.CROPS))
             block = Blocks.AIR;
-        }
 
-        if (block != null) {
+        if (block != null)
             return block.getDefaultState();
-        }
 
         return state;
     }

@@ -62,7 +62,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     }
 
     public static boolean isBlindfolded(LivingEntity attackTarget) {
-        return attackTarget != null && (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItemRegistry.BLINDFOLD.get() || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || ServerEvents.isBlindMob(attackTarget));
+        return attackTarget != null && (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItemRegistry.BLINDFOLD || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || ServerEvents.isBlindMob(attackTarget));
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

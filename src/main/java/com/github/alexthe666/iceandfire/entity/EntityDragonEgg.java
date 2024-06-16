@@ -41,7 +41,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     private static final TrackedData<Integer> DRAGON_TYPE = DataTracker.registerData(EntityDragonEgg.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> DRAGON_AGE = DataTracker.registerData(EntityDragonEgg.class, TrackedDataHandlerRegistry.INTEGER);
 
-    public EntityDragonEgg(EntityType type, World worldIn) {
+    public EntityDragonEgg(EntityType<EntityDragonEgg> type, World worldIn) {
         super(type, worldIn);
     }
 
@@ -128,7 +128,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     public void tick() {
         super.tick();
-        if (!this.getWorld().isClient()) {
+        if (!this.getWorld().isClient) {
             this.setAir(200);
             this.updateEggCondition();
         }
@@ -143,16 +143,13 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
             }
         } else if (dragonType == DragonType.ICE) {
             BlockState state = this.getWorld().getBlockState(this.getBlockPos());
-
             if (state.isOf(Blocks.WATER) && this.getRandom().nextInt(500) == 0) {
-                this.getWorld().setBlockState(this.getBlockPos(), IafBlockRegistry.EGG_IN_ICE.get().getDefaultState());
+                this.getWorld().setBlockState(this.getBlockPos(), IafBlockRegistry.EGG_IN_ICE.getDefaultState());
                 this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), SoundEvents.BLOCK_GLASS_BREAK, this.getSoundCategory(), 2.5F, 1.0F, false);
-
                 if (this.getWorld().getBlockEntity(this.getBlockPos()) instanceof TileEntityEggInIce eggInIce) {
                     eggInIce.type = this.getEggType();
                     eggInIce.ownerUUID = this.getOwnerId();
                 }
-
                 this.remove(RemovalReason.DISCARDED);
             }
         } else if (dragonType == DragonType.LIGHTNING) {
@@ -249,18 +246,18 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
 
     private ItemStack getItem() {
         return switch (this.getEggType().ordinal()) {
-            default -> new ItemStack(IafItemRegistry.DRAGONEGG_RED.get());
-            case 1 -> new ItemStack(IafItemRegistry.DRAGONEGG_GREEN.get());
-            case 2 -> new ItemStack(IafItemRegistry.DRAGONEGG_BRONZE.get());
-            case 3 -> new ItemStack(IafItemRegistry.DRAGONEGG_GRAY.get());
-            case 4 -> new ItemStack(IafItemRegistry.DRAGONEGG_BLUE.get());
-            case 5 -> new ItemStack(IafItemRegistry.DRAGONEGG_WHITE.get());
-            case 6 -> new ItemStack(IafItemRegistry.DRAGONEGG_SAPPHIRE.get());
-            case 7 -> new ItemStack(IafItemRegistry.DRAGONEGG_SILVER.get());
-            case 8 -> new ItemStack(IafItemRegistry.DRAGONEGG_ELECTRIC.get());
-            case 9 -> new ItemStack(IafItemRegistry.DRAGONEGG_AMYTHEST.get());
-            case 10 -> new ItemStack(IafItemRegistry.DRAGONEGG_COPPER.get());
-            case 11 -> new ItemStack(IafItemRegistry.DRAGONEGG_BLACK.get());
+            default -> new ItemStack(IafItemRegistry.DRAGONEGG_RED);
+            case 1 -> new ItemStack(IafItemRegistry.DRAGONEGG_GREEN);
+            case 2 -> new ItemStack(IafItemRegistry.DRAGONEGG_BRONZE);
+            case 3 -> new ItemStack(IafItemRegistry.DRAGONEGG_GRAY);
+            case 4 -> new ItemStack(IafItemRegistry.DRAGONEGG_BLUE);
+            case 5 -> new ItemStack(IafItemRegistry.DRAGONEGG_WHITE);
+            case 6 -> new ItemStack(IafItemRegistry.DRAGONEGG_SAPPHIRE);
+            case 7 -> new ItemStack(IafItemRegistry.DRAGONEGG_SILVER);
+            case 8 -> new ItemStack(IafItemRegistry.DRAGONEGG_ELECTRIC);
+            case 9 -> new ItemStack(IafItemRegistry.DRAGONEGG_AMYTHEST);
+            case 10 -> new ItemStack(IafItemRegistry.DRAGONEGG_COPPER);
+            case 11 -> new ItemStack(IafItemRegistry.DRAGONEGG_BLACK);
         };
     }
 

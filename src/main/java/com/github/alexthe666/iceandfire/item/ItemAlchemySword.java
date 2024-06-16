@@ -29,14 +29,14 @@ public class ItemAlchemySword extends SwordItem {
 
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (this == IafItemRegistry.DRAGONBONE_SWORD_FIRE.get() && IafConfig.dragonWeaponFireAbility) {
+        if (this == IafItemRegistry.DRAGONBONE_SWORD_FIRE && IafConfig.dragonWeaponFireAbility) {
             if (target instanceof EntityIceDragon) {
                 target.damage(attacker.getWorld().getDamageSources().inFire(), 13.5F);
             }
             target.setOnFireFor(5);
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (this == IafItemRegistry.DRAGONBONE_SWORD_ICE.get() && IafConfig.dragonWeaponIceAbility) {
+        if (this == IafItemRegistry.DRAGONBONE_SWORD_ICE && IafConfig.dragonWeaponIceAbility) {
             if (target instanceof EntityFireDragon) {
                 target.damage(attacker.getWorld().getDamageSources().drown(), 13.5F);
             }
@@ -46,7 +46,7 @@ public class ItemAlchemySword extends SwordItem {
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (this == IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING.get() && IafConfig.dragonWeaponLightningAbility) {
+        if (this == IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING && IafConfig.dragonWeaponLightningAbility) {
             boolean flag = true;
             if (attacker instanceof PlayerEntity) {
                 if (attacker.handSwingProgress > 0.2) {
@@ -74,17 +74,17 @@ public class ItemAlchemySword extends SwordItem {
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
-        if (this == IafItemRegistry.DRAGONBONE_SWORD_FIRE.get()) {
+        if (this == IafItemRegistry.DRAGONBONE_SWORD_FIRE) {
             tooltip.add(Text.translatable("dragon_sword_fire.hurt1").formatted(Formatting.GREEN));
             if (IafConfig.dragonWeaponFireAbility)
                 tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
         }
-        if (this == IafItemRegistry.DRAGONBONE_SWORD_ICE.get()) {
+        if (this == IafItemRegistry.DRAGONBONE_SWORD_ICE) {
             tooltip.add(Text.translatable("dragon_sword_ice.hurt1").formatted(Formatting.GREEN));
             if (IafConfig.dragonWeaponIceAbility)
                 tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
         }
-        if (this == IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING.get()) {
+        if (this == IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING) {
             tooltip.add(Text.translatable("dragon_sword_lightning.hurt1").formatted(Formatting.GREEN));
             if (IafConfig.dragonWeaponLightningAbility)
                 tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));

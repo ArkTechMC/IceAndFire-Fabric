@@ -68,8 +68,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public static boolean canTrollSpawnOn(EntityType<? extends MobEntity> typeIn, ServerWorldAccess worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return worldIn.getDifficulty() != Difficulty.PEACEFUL && isSpawnDark(worldIn, pos, randomIn)
-                && canMobSpawn(IafEntityRegistry.TROLL.get(), worldIn, reason, pos, randomIn);
+        return worldIn.getDifficulty() != Difficulty.PEACEFUL && isSpawnDark(worldIn, pos, randomIn) && canMobSpawn(IafEntityRegistry.TROLL, worldIn, reason, pos, randomIn);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -233,7 +232,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         if (this.deathTime == 20 && !this.getWorld().isClient) {
             if (IafConfig.trollsDropWeapon) {
                 if (this.getRandom().nextInt(3) == 0) {
-                    ItemStack weaponStack = new ItemStack(this.getWeaponType().item.get(), 1);
+                    ItemStack weaponStack = new ItemStack(this.getWeaponType().item, 1);
                     weaponStack.damage(this.getRandom().nextInt(250), this.getRandom(), null);
                     this.dropItemAt(weaponStack, this.getX(), this.getY(), this.getZ());
                 } else {

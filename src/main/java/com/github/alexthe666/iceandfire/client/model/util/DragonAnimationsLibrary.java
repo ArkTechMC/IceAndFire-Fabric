@@ -101,5 +101,4 @@ public class DragonAnimationsLibrary {
             IceAndFire.LOGGER.info("Overriding existing model '{}' with reference to '{}", destKey, toKey(pose, modelSource));
         models.put(destKey, source);
     }
-
 }

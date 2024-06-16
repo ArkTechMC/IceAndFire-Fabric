@@ -275,8 +275,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                             double d1 = target.getBoundingBox().minY - wingY;
                             double d2 = target.getZ() - wingZ;
                             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-                            EntityStymphalianFeather entityarrow = new EntityStymphalianFeather(
-                                    IafEntityRegistry.STYMPHALIAN_FEATHER.get(), this.getWorld(), this);
+                            EntityStymphalianFeather entityarrow = new EntityStymphalianFeather(IafEntityRegistry.STYMPHALIAN_FEATHER, this.getWorld(), this);
                             entityarrow.setPosition(wingX, wingY, wingZ);
                             entityarrow.setVelocity(d0, d1 + d3 * 0.10000000298023224D, d2, 1.6F,
                                     14 - this.getWorld().getDifficulty().getId() * 4);

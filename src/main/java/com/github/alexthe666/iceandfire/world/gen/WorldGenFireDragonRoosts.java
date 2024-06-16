@@ -20,12 +20,12 @@ public class WorldGenFireDragonRoosts extends WorldGenDragonRoosts {
     private static final Identifier DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/fire_dragon_roost");
 
     public WorldGenFireDragonRoosts(final Codec<DefaultFeatureConfig> configuration) {
-        super(configuration, IafBlockRegistry.GOLD_PILE.get());
+        super(configuration, IafBlockRegistry.GOLD_PILE);
     }
 
     @Override
     protected EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.FIRE_DRAGON.get();
+        return IafEntityRegistry.FIRE_DRAGON;
     }
 
     @Override
@@ -37,23 +37,23 @@ public class WorldGenFireDragonRoosts extends WorldGenDragonRoosts {
     protected BlockState transform(final BlockState state) {
         Block block = null;
 
-        if (state.isOf(Blocks.GRASS_BLOCK)) {
-            block = IafBlockRegistry.CHARRED_GRASS.get();
-        } else if (state.isOf(Blocks.DIRT_PATH)) {
-            block = IafBlockRegistry.CHARRED_DIRT_PATH.get();
-        } else if (state.isIn(Tags.Blocks.GRAVEL)) {
-            block = IafBlockRegistry.CHARRED_GRAVEL.get();
-        } else if (state.isIn(BlockTags.DIRT)) {
-            block = IafBlockRegistry.CHARRED_DIRT.get();
-        } else if (state.isIn(Tags.Blocks.STONE)) {
-            block = IafBlockRegistry.CHARRED_STONE.get();
-        } else if (state.isIn(Tags.Blocks.COBBLESTONE)) {
-            block = IafBlockRegistry.CHARRED_COBBLESTONE.get();
-        } else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS)) {
-            block = IafBlockRegistry.ASH.get();
-        } else if (state.isOf(Blocks.GRASS) || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.FLOWERS) || state.isIn(BlockTags.CROPS)) {
+        if (state.isOf(Blocks.GRASS_BLOCK))
+            block = IafBlockRegistry.CHARRED_GRASS;
+        else if (state.isOf(Blocks.DIRT_PATH))
+            block = IafBlockRegistry.CHARRED_DIRT_PATH;
+        else if (state.isIn(Tags.Blocks.GRAVEL))
+            block = IafBlockRegistry.CHARRED_GRAVEL;
+        else if (state.isIn(BlockTags.DIRT))
+            block = IafBlockRegistry.CHARRED_DIRT;
+        else if (state.isIn(Tags.Blocks.STONE))
+            block = IafBlockRegistry.CHARRED_STONE;
+        else if (state.isIn(Tags.Blocks.COBBLESTONE))
+            block = IafBlockRegistry.CHARRED_COBBLESTONE;
+        else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS))
+            block = IafBlockRegistry.ASH;
+        else if (state.isOf(Blocks.GRASS) || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.FLOWERS) || state.isIn(BlockTags.CROPS))
             block = Blocks.AIR;
-        }
+
 
         if (block != null) {
             return block.getDefaultState();
@@ -65,7 +65,7 @@ public class WorldGenFireDragonRoosts extends WorldGenDragonRoosts {
     @Override
     protected void handleCustomGeneration(final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance) {
         if (context.getRandom().nextInt(1000) == 0) {
-            this.generateRoostPile(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position), IafBlockRegistry.ASH.get());
+            this.generateRoostPile(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position), IafBlockRegistry.ASH);
         }
     }
 }

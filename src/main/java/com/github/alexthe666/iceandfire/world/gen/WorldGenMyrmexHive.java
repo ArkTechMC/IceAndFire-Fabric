@@ -33,10 +33,10 @@ import java.util.stream.Collectors;
 
 public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements TypedFeature {
 
-    private static final BlockState DESERT_RESIN = IafBlockRegistry.MYRMEX_DESERT_RESIN.get().getDefaultState();
-    private static final BlockState STICKY_DESERT_RESIN = IafBlockRegistry.MYRMEX_DESERT_RESIN_STICKY.get().getDefaultState();
-    private static final BlockState JUNGLE_RESIN = IafBlockRegistry.MYRMEX_JUNGLE_RESIN.get().getDefaultState();
-    private static final BlockState STICKY_JUNGLE_RESIN = IafBlockRegistry.MYRMEX_JUNGLE_RESIN_STICKY.get().getDefaultState();
+    private static final BlockState DESERT_RESIN = IafBlockRegistry.MYRMEX_DESERT_RESIN.getDefaultState();
+    private static final BlockState STICKY_DESERT_RESIN = IafBlockRegistry.MYRMEX_DESERT_RESIN_STICKY.getDefaultState();
+    private static final BlockState JUNGLE_RESIN = IafBlockRegistry.MYRMEX_JUNGLE_RESIN.getDefaultState();
+    private static final BlockState STICKY_JUNGLE_RESIN = IafBlockRegistry.MYRMEX_JUNGLE_RESIN_STICKY.getDefaultState();
     private final boolean jungle;
     public MyrmexHive hive;
     private int entrances = 0;
@@ -103,7 +103,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         this.generatePath(world, rand, position.offset(Direction.WEST, 9).down(), 15 + rand.nextInt(10), Direction.WEST, 100);
         this.generatePath(world, rand, position.offset(Direction.EAST, 9).down(), 15 + rand.nextInt(10), Direction.EAST, 100);
         if (!this.small) {
-            EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN.get(), world.toServerWorld());
+            EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN, world.toServerWorld());
             BlockPos ground = MyrmexHive.getGroundedPos(world, position);
             queen.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
             queen.setHive(this.hive);
@@ -112,7 +112,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             world.spawnEntity(queen);
 
             for (int i = 0; i < 4 + rand.nextInt(3); i++) {
-                EntityMyrmexBase myrmex = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER.get(),
+                EntityMyrmexBase myrmex = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER,
                         world.toServerWorld());
                 myrmex.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
                 myrmex.setHive(this.hive);
@@ -121,7 +121,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
                 world.spawnEntity(myrmex);
             }
             for (int i = 0; i < 2 + rand.nextInt(2); i++) {
-                EntityMyrmexBase myrmex = new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER.get(),
+                EntityMyrmexBase myrmex = new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER,
                         world.toServerWorld());
                 myrmex.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
                 myrmex.setHive(this.hive);
@@ -130,7 +130,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
                 world.spawnEntity(myrmex);
             }
             for (int i = 0; i < rand.nextInt(2); i++) {
-                EntityMyrmexBase myrmex = new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL.get(),
+                EntityMyrmexBase myrmex = new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL,
                         world.toServerWorld());
                 myrmex.initialize(world, world.getLocalDifficulty(ground), SpawnReason.CHUNK_GENERATION, null, null);
                 myrmex.setHive(this.hive);
@@ -475,7 +475,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
             for (int i = 0; i < tuberLength; i++) {
                 if (world.isAir(blockpos.down(i))) {
                     boolean connected = i != tuberLength - 1;
-                    world.setBlockState(blockpos.down(i), this.jungle ? IafBlockRegistry.MYRMEX_JUNGLE_BIOLIGHT.get().getDefaultState().with(BlockMyrmexBiolight.CONNECTED_DOWN, connected) : IafBlockRegistry.MYRMEX_DESERT_BIOLIGHT.get().getDefaultState().with(BlockMyrmexBiolight.CONNECTED_DOWN, connected), 2);
+                    world.setBlockState(blockpos.down(i), this.jungle ? IafBlockRegistry.MYRMEX_JUNGLE_BIOLIGHT.getDefaultState().with(BlockMyrmexBiolight.CONNECTED_DOWN, connected) : IafBlockRegistry.MYRMEX_DESERT_BIOLIGHT.getDefaultState().with(BlockMyrmexBiolight.CONNECTED_DOWN, connected), 2);
                 }
             }
         }

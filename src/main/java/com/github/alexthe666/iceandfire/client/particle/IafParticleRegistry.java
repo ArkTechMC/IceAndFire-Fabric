@@ -32,7 +32,7 @@ public class IafParticleRegistry {
     }
 
     @Environment(EnvType.CLIENT)
-    public static void registerParticles() {
+    public static void registerParticleRenderers() {
         ParticleFactoryRegistry.getInstance().register(BLOOD, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleBlood(world, x, y, z));
         ParticleFactoryRegistry.getInstance().register(DRAGON_FLAME, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDragonFlame(world, x, y, z, velocityX, velocityY, velocityZ, 3));
         ParticleFactoryRegistry.getInstance().register(DRAGON_FROST, ParticleDragonFrost.Provider::new);

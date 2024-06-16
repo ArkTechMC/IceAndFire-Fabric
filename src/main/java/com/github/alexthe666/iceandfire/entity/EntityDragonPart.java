@@ -17,7 +17,7 @@ public class EntityDragonPart extends EntityMutlipartPart {
     }
 
     public EntityDragonPart(EntityDragonBase parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
-        super(IafEntityRegistry.DRAGON_MULTIPART.get(), parent, radius, angleYaw, offsetY, sizeX, sizeY,
+        super(IafEntityRegistry.DRAGON_MULTIPART, parent, radius, angleYaw, offsetY, sizeX, sizeY,
                 damageMultiplier);
         this.dragon = parent;
     }

@@ -57,10 +57,10 @@ public class ItemSummoningCrystal extends Item {
 
         boolean flag = false;
         String desc = "entity.iceandfire.fire_dragon";
-        if (stack.getItem() == IafItemRegistry.SUMMONING_CRYSTAL_ICE.get()) {
+        if (stack.getItem() == IafItemRegistry.SUMMONING_CRYSTAL_ICE) {
             desc = "entity.iceandfire.ice_dragon";
         }
-        if (stack.getItem() == IafItemRegistry.SUMMONING_CRYSTAL_LIGHTNING.get()) {
+        if (stack.getItem() == IafItemRegistry.SUMMONING_CRYSTAL_LIGHTNING) {
             desc = "entity.iceandfire.lightning_dragon";
         }
         if (stack.getNbt() != null) {

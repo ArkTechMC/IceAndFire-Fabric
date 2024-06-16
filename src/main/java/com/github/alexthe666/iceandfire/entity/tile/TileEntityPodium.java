@@ -30,7 +30,7 @@ public class TileEntityPodium extends LockableContainerBlockEntity implements Si
     private DefaultedList<ItemStack> stacks = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
     public TileEntityPodium(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.PODIUM.get(), pos, state);
+        super(IafTileEntityRegistry.PODIUM, pos, state);
     }
 
     //TODO: This must be easier to do

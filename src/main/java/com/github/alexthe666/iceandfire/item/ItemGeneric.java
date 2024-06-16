@@ -33,7 +33,7 @@ public class ItemGeneric extends Item {
 
     @Override
     public boolean hasGlint(ItemStack stack) {
-        if (this == IafItemRegistry.CREATIVE_DRAGON_MEAL.get()) {
+        if (this == IafItemRegistry.CREATIVE_DRAGON_MEAL) {
             return true;
         } else {
             return super.hasGlint(stack);

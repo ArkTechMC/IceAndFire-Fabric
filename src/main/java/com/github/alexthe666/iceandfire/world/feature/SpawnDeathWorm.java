@@ -29,7 +29,7 @@ public class SpawnDeathWorm extends Feature<DefaultFeatureConfig> {
 
         if (IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position)) {
             if (rand.nextInt(IafConfig.deathWormSpawnRate + 1) == 0) {
-                EntityDeathWorm deathWorm = IafEntityRegistry.DEATH_WORM.get().create(worldIn.toServerWorld());
+                EntityDeathWorm deathWorm = IafEntityRegistry.DEATH_WORM.create(worldIn.toServerWorld());
                 assert deathWorm != null;
                 deathWorm.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                 deathWorm.initialize(worldIn, worldIn.getLocalDifficulty(position), SpawnReason.CHUNK_GENERATION, null, null);

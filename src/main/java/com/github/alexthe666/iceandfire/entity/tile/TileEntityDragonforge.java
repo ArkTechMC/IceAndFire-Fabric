@@ -48,11 +48,11 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     private boolean canAddFlameAgain = true;
 
     public TileEntityDragonforge(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.DRAGONFORGE_CORE.get(), pos, state);
+        super(IafTileEntityRegistry.DRAGONFORGE_CORE, pos, state);
     }
 
     public TileEntityDragonforge(BlockPos pos, BlockState state, int fireType) {
-        super(IafTileEntityRegistry.DRAGONFORGE_CORE.get(), pos, state);
+        super(IafTileEntityRegistry.DRAGONFORGE_CORE, pos, state);
         this.getPropertyDelegate().fireType = fireType;
     }
 
@@ -142,17 +142,17 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
     public Block getGrillBlock() {
         return switch (this.getPropertyDelegate().fireType) {
-            case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
-            case 2 -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
-            default -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get(); // isFire == 0
+            case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK;
+            case 2 -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK;
+            default -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK; // isFire == 0
         };
     }
 
     public boolean grillMatches(Block block) {
         return switch (this.getPropertyDelegate().fireType) {
-            case 0 -> block == IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get();
-            case 1 -> block == IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
-            case 2 -> block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
+            case 0 -> block == IafBlockRegistry.DRAGONFORGE_FIRE_BRICK;
+            case 1 -> block == IafBlockRegistry.DRAGONFORGE_ICE_BRICK;
+            case 2 -> block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK;
             default -> false;
         };
     }
@@ -213,17 +213,12 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     public int getFireType(Block block) {
-        if (block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get()
-                || block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.get()) {
+        if (block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE || block == IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED)
             return 0;
-        }
-        if (block == IafBlockRegistry.DRAGONFORGE_ICE_CORE.get() || block == IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.get()) {
+        if (block == IafBlockRegistry.DRAGONFORGE_ICE_CORE || block == IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED)
             return 1;
-        }
-        if (block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.get()
-                || block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.get()) {
+        if (block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE || block == IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED)
             return 2;
-        }
         return 0;
     }
 
@@ -241,7 +236,7 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     private Block getDefaultOutput() {
-        return this.getPropertyDelegate().fireType == 1 ? IafBlockRegistry.DRAGON_ICE.get() : IafBlockRegistry.ASH.get();
+        return this.getPropertyDelegate().fireType == 1 ? IafBlockRegistry.DRAGON_ICE : IafBlockRegistry.ASH;
     }
 
     private ItemStack getCurrentResult() {
@@ -369,10 +364,10 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
     }
 
     private boolean checkBoneCorners(BlockPos pos) {
-        return this.doesBlockEqual(pos.north().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-                && this.doesBlockEqual(pos.north().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-                && this.doesBlockEqual(pos.south().east(), IafBlockRegistry.DRAGON_BONE_BLOCK.get())
-                && this.doesBlockEqual(pos.south().west(), IafBlockRegistry.DRAGON_BONE_BLOCK.get());
+        return this.doesBlockEqual(pos.north().east(), IafBlockRegistry.DRAGON_BONE_BLOCK)
+                && this.doesBlockEqual(pos.north().west(), IafBlockRegistry.DRAGON_BONE_BLOCK)
+                && this.doesBlockEqual(pos.south().east(), IafBlockRegistry.DRAGON_BONE_BLOCK)
+                && this.doesBlockEqual(pos.south().west(), IafBlockRegistry.DRAGON_BONE_BLOCK);
     }
 
     private boolean checkBrickCorners(BlockPos pos) {
@@ -406,9 +401,9 @@ public class TileEntityDragonforge extends LockableContainerBlockEntity implemen
 
     private Block getBrick() {
         return switch (this.getPropertyDelegate().fireType) {
-            case 0 -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK.get();
-            case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK.get();
-            default -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK.get();
+            case 0 -> IafBlockRegistry.DRAGONFORGE_FIRE_BRICK;
+            case 1 -> IafBlockRegistry.DRAGONFORGE_ICE_BRICK;
+            default -> IafBlockRegistry.DRAGONFORGE_LIGHTNING_BRICK;
         };
     }
 

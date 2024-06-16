@@ -14,7 +14,7 @@ public class TileEntityDreadPortal extends BlockEntity {
     private boolean exactTeleport;
 
     public TileEntityDreadPortal(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.DREAD_PORTAL.get(), pos, state);
+        super(IafTileEntityRegistry.DREAD_PORTAL, pos, state);
     }
 
     public static void tick(World level, BlockPos pos, BlockState state, TileEntityDreadPortal dreadPortal) {

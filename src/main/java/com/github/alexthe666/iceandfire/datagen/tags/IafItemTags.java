@@ -81,91 +81,91 @@ public class IafItemTags extends ItemTagProvider {
         this.copy(IafBlockTags.CRACKLED_BLOCKS, CRACKLED_BLOCKS);
 
         this.getOrCreateTagBuilder(DRAGON_SKULLS)
-                .add(IafItemRegistry.DRAGON_SKULL_FIRE.get())
-                .add(IafItemRegistry.DRAGON_SKULL_ICE.get())
-                .add(IafItemRegistry.DRAGON_SKULL_LIGHTNING.get());
+                .add(IafItemRegistry.DRAGON_SKULL_FIRE)
+                .add(IafItemRegistry.DRAGON_SKULL_ICE)
+                .add(IafItemRegistry.DRAGON_SKULL_LIGHTNING);
 
         this.getOrCreateTagBuilder(MOB_SKULLS)
                 .addTag(DRAGON_SKULLS);
 
         this.getOrCreateTagBuilder(MAKE_ITEM_DROPS_FIREIMMUNE)
-                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_SWORD.get())
-                .add(IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING.get())
-                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_PICKAXE.get())
-                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_AXE.get())
-                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_SHOVEL.get())
-                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_HOE.get());
+                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_SWORD)
+                .add(IafItemRegistry.DRAGONBONE_SWORD_LIGHTNING)
+                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_PICKAXE)
+                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_AXE)
+                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_SHOVEL)
+                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_HOE);
 
         this.getOrCreateTagBuilder(DRAGON_ARROWS)
-                .add(IafItemRegistry.DRAGONBONE_ARROW.get());
+                .add(IafItemRegistry.DRAGONBONE_ARROW);
 
         this.getOrCreateTagBuilder(DRAGON_BLOODS)
-                .add(IafItemRegistry.FIRE_DRAGON_BLOOD.get())
-                .add(IafItemRegistry.ICE_DRAGON_BLOOD.get())
-                .add(IafItemRegistry.LIGHTNING_DRAGON_BLOOD.get());
+                .add(IafItemRegistry.FIRE_DRAGON_BLOOD)
+                .add(IafItemRegistry.ICE_DRAGON_BLOOD)
+                .add(IafItemRegistry.LIGHTNING_DRAGON_BLOOD);
 
         this.getOrCreateTagBuilder(Tags.Items.INGOTS)
-//                .add(IafItemRegistry.COPPER_INGOT.get())
-                .add(IafItemRegistry.GHOST_INGOT.get())
-                .add(IafItemRegistry.SILVER_INGOT.get())
-                .add(IafItemRegistry.DRAGONSTEEL_ICE_INGOT.get())
-                .add(IafItemRegistry.DRAGONSTEEL_FIRE_INGOT.get())
-                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT.get());
+//                .add(IafItemRegistry.COPPER_INGOT)
+                .add(IafItemRegistry.GHOST_INGOT)
+                .add(IafItemRegistry.SILVER_INGOT)
+                .add(IafItemRegistry.DRAGONSTEEL_ICE_INGOT)
+                .add(IafItemRegistry.DRAGONSTEEL_FIRE_INGOT)
+                .add(IafItemRegistry.DRAGONSTEEL_LIGHTNING_INGOT);
 
         this.getOrCreateTagBuilder(Tags.Items.NUGGETS)
-                .add(IafItemRegistry.COPPER_NUGGET.get())
-                .add(IafItemRegistry.SILVER_NUGGET.get());
+                .add(IafItemRegistry.COPPER_NUGGET)
+                .add(IafItemRegistry.SILVER_NUGGET);
 
         this.getOrCreateTagBuilder(Tags.Items.ORES)
-                .add(IafBlockRegistry.SILVER_ORE.get().asItem())
-                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get().asItem())
-                .add(IafBlockRegistry.SAPPHIRE_ORE.get().asItem());
+                .add(IafBlockRegistry.SILVER_ORE.asItem())
+                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.asItem())
+                .add(IafBlockRegistry.SAPPHIRE_ORE.asItem());
 
         this.getOrCreateTagBuilder(Tags.Items.GEMS)
-                .add(IafItemRegistry.SAPPHIRE_GEM.get());
+                .add(IafItemRegistry.SAPPHIRE_GEM);
 
         this.getOrCreateTagBuilder(Tags.Items.BONES)
-                .add(IafItemRegistry.DRAGON_BONE.get())
-                .add(IafItemRegistry.WITHERBONE.get());
+                .add(IafItemRegistry.DRAGON_BONE)
+                .add(IafItemRegistry.WITHERBONE);
 
         this.getOrCreateTagBuilder(Tags.Items.EGGS)
-                .add(IafItemRegistry.HIPPOGRYPH_EGG.get())
-                .add(IafItemRegistry.DEATHWORM_EGG.get())
-                .add(IafItemRegistry.DEATHWORM_EGG_GIGANTIC.get())
-                .add(IafItemRegistry.MYRMEX_DESERT_EGG.get())
-                .add(IafItemRegistry.MYRMEX_JUNGLE_EGG.get());
+                .add(IafItemRegistry.HIPPOGRYPH_EGG)
+                .add(IafItemRegistry.DEATHWORM_EGG)
+                .add(IafItemRegistry.DEATHWORM_EGG_GIGANTIC)
+                .add(IafItemRegistry.MYRMEX_DESERT_EGG)
+                .add(IafItemRegistry.MYRMEX_JUNGLE_EGG);
 
         // Not sure if this should be in the forge namespace or not (or if the recipes should be using tags here)
         this.getOrCreateTagBuilder(STORAGE_BLOCKS_SCALES_DRAGON_FIRE)
-                .add(IafBlockRegistry.DRAGON_SCALE_RED.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_GREEN.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_BRONZE.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_GRAY.get().asItem());
+                .add(IafBlockRegistry.DRAGON_SCALE_RED.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_GREEN.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_BRONZE.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_GRAY.asItem());
 
         this.getOrCreateTagBuilder(STORAGE_BLOCKS_SCALES_DRAGON_ICE)
-                .add(IafBlockRegistry.DRAGON_SCALE_BLUE.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_WHITE.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_SAPPHIRE.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_SILVER.get().asItem());
+                .add(IafBlockRegistry.DRAGON_SCALE_BLUE.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_WHITE.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_SAPPHIRE.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_SILVER.asItem());
 
         this.getOrCreateTagBuilder(STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING)
-                .add(IafBlockRegistry.DRAGON_SCALE_ELECTRIC.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_AMYTHEST.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_COPPER.get().asItem())
-                .add(IafBlockRegistry.DRAGON_SCALE_BLACK.get().asItem());
+                .add(IafBlockRegistry.DRAGON_SCALE_ELECTRIC.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_AMYTHEST.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_COPPER.asItem())
+                .add(IafBlockRegistry.DRAGON_SCALE_BLACK.asItem());
         //
 
         this.getOrCreateTagBuilder(Tags.Items.STORAGE_BLOCKS)
                 .addTag(STORAGE_BLOCKS_SCALES_DRAGON_FIRE)
                 .addTag(STORAGE_BLOCKS_SCALES_DRAGON_ICE)
                 .addTag(STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING)
-                .add(IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.get().asItem())
-                .add(IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.get().asItem())
-                .add(IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.get().asItem())
-                .add(IafBlockRegistry.SAPPHIRE_BLOCK.get().asItem())
-                .add(IafBlockRegistry.SILVER_BLOCK.get().asItem())
-                .add(IafBlockRegistry.RAW_SILVER_BLOCK.get().asItem())
-                .add(IafBlockRegistry.DRAGON_BONE_BLOCK.get().asItem());
+                .add(IafBlockRegistry.DRAGONSTEEL_FIRE_BLOCK.asItem())
+                .add(IafBlockRegistry.DRAGONSTEEL_ICE_BLOCK.asItem())
+                .add(IafBlockRegistry.DRAGONSTEEL_LIGHTNING_BLOCK.asItem())
+                .add(IafBlockRegistry.SAPPHIRE_BLOCK.asItem())
+                .add(IafBlockRegistry.SILVER_BLOCK.asItem())
+                .add(IafBlockRegistry.RAW_SILVER_BLOCK.asItem())
+                .add(IafBlockRegistry.DRAGON_BONE_BLOCK.asItem());
 
         this.getOrCreateTagBuilder(DRAGON_FOOD_MEAT)
                 // Vanilla
@@ -215,7 +215,7 @@ public class IafItemTags extends ItemTagProvider {
                 .add(Items.CAKE);
 
         this.getOrCreateTagBuilder(TEMPT_DRAGON)
-                .add(IafItemRegistry.FIRE_STEW.get());
+                .add(IafItemRegistry.FIRE_STEW);
 
         this.getOrCreateTagBuilder(TEMPT_HIPPOCAMPUS)
                 .add(Items.KELP)
@@ -226,22 +226,22 @@ public class IafItemTags extends ItemTagProvider {
                 .add(Items.COOKED_RABBIT);
 
         this.getOrCreateTagBuilder(SCALES_DRAGON_FIRE)
-                .add(IafItemRegistry.DRAGONSCALES_RED.get())
-                .add(IafItemRegistry.DRAGONSCALES_GREEN.get())
-                .add(IafItemRegistry.DRAGONSCALES_BRONZE.get())
-                .add(IafItemRegistry.DRAGONSCALES_GRAY.get());
+                .add(IafItemRegistry.DRAGONSCALES_RED)
+                .add(IafItemRegistry.DRAGONSCALES_GREEN)
+                .add(IafItemRegistry.DRAGONSCALES_BRONZE)
+                .add(IafItemRegistry.DRAGONSCALES_GRAY);
 
         this.getOrCreateTagBuilder(SCALES_DRAGON_ICE)
-                .add(IafItemRegistry.DRAGONSCALES_BLUE.get())
-                .add(IafItemRegistry.DRAGONSCALES_WHITE.get())
-                .add(IafItemRegistry.DRAGONSCALES_SAPPHIRE.get())
-                .add(IafItemRegistry.DRAGONSCALES_SILVER.get());
+                .add(IafItemRegistry.DRAGONSCALES_BLUE)
+                .add(IafItemRegistry.DRAGONSCALES_WHITE)
+                .add(IafItemRegistry.DRAGONSCALES_SAPPHIRE)
+                .add(IafItemRegistry.DRAGONSCALES_SILVER);
 
         this.getOrCreateTagBuilder(SCALES_DRAGON_LIGHTNING)
-                .add(IafItemRegistry.DRAGONSCALES_ELECTRIC.get())
-                .add(IafItemRegistry.DRAGONSCALES_AMYTHEST.get())
-                .add(IafItemRegistry.DRAGONSCALES_COPPER.get())
-                .add(IafItemRegistry.DRAGONSCALES_BLACK.get());
+                .add(IafItemRegistry.DRAGONSCALES_ELECTRIC)
+                .add(IafItemRegistry.DRAGONSCALES_AMYTHEST)
+                .add(IafItemRegistry.DRAGONSCALES_COPPER)
+                .add(IafItemRegistry.DRAGONSCALES_BLACK);
 
         this.getOrCreateTagBuilder(createKey("scales/dragon"))
                 .addTag(SCALES_DRAGON_FIRE)
@@ -249,12 +249,12 @@ public class IafItemTags extends ItemTagProvider {
                 .addTag(SCALES_DRAGON_LIGHTNING);
 
         this.getOrCreateTagBuilder(DRAGON_HEARTS)
-                .add(IafItemRegistry.FIRE_DRAGON_HEART.get())
-                .add(IafItemRegistry.ICE_DRAGON_HEART.get())
-                .add(IafItemRegistry.LIGHTNING_DRAGON_HEART.get());
+                .add(IafItemRegistry.FIRE_DRAGON_HEART)
+                .add(IafItemRegistry.ICE_DRAGON_HEART)
+                .add(IafItemRegistry.LIGHTNING_DRAGON_HEART);
 
 //        IafItemRegistry.ITEMS.getEntries().forEach(registryObject -> {
-//            Item item = registryObject.get();
+//            Item item = registryObject;
 //
 //            if (item instanceof ItemSeaSerpentScales) {
 //                tag(SCALES_SEA_SERPENT).add(item);
@@ -297,17 +297,17 @@ public class IafItemTags extends ItemTagProvider {
 //        });
 
         // Might be used by other mods
-        this.getOrCreateTagBuilder(createForgeKey(ORES_PATH + "/silver")).add(IafBlockRegistry.SILVER_ORE.get().asItem());
-        this.getOrCreateTagBuilder(createForgeKey(ORES_PATH + "/silver")).add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get().asItem());
-        this.getOrCreateTagBuilder(INGOTS_SILVER).add(IafItemRegistry.SILVER_INGOT.get().asItem());
-        this.getOrCreateTagBuilder(NUGGETS_COPPER).add(IafItemRegistry.COPPER_NUGGET.get());
-        this.getOrCreateTagBuilder(NUGGETS_SILVER).add(IafItemRegistry.SILVER_NUGGET.get());
-        this.getOrCreateTagBuilder(createForgeKey("raw_materials/silver")).add(IafItemRegistry.RAW_SILVER.get());
-        this.getOrCreateTagBuilder(GEMS_SAPPHIRE).add(IafItemRegistry.SAPPHIRE_GEM.get());
-        this.getOrCreateTagBuilder(STORAGE_BLOCKS_SILVER).add(IafBlockRegistry.SILVER_BLOCK.get().asItem());
-        this.getOrCreateTagBuilder(createForgeKey(STORAGE_BLOCK_PATH + "/raw_silver")).add(IafBlockRegistry.RAW_SILVER_BLOCK.get().asItem());
-        this.getOrCreateTagBuilder(createForgeKey(STORAGE_BLOCK_PATH + "/sapphire")).add(IafBlockRegistry.SAPPHIRE_BLOCK.get().asItem());
-        this.getOrCreateTagBuilder(BONES_WITHER).add(IafItemRegistry.WITHERBONE.get());
+        this.getOrCreateTagBuilder(createForgeKey(ORES_PATH + "/silver")).add(IafBlockRegistry.SILVER_ORE.asItem());
+        this.getOrCreateTagBuilder(createForgeKey(ORES_PATH + "/silver")).add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.asItem());
+        this.getOrCreateTagBuilder(INGOTS_SILVER).add(IafItemRegistry.SILVER_INGOT.asItem());
+        this.getOrCreateTagBuilder(NUGGETS_COPPER).add(IafItemRegistry.COPPER_NUGGET);
+        this.getOrCreateTagBuilder(NUGGETS_SILVER).add(IafItemRegistry.SILVER_NUGGET);
+        this.getOrCreateTagBuilder(createForgeKey("raw_materials/silver")).add(IafItemRegistry.RAW_SILVER);
+        this.getOrCreateTagBuilder(GEMS_SAPPHIRE).add(IafItemRegistry.SAPPHIRE_GEM);
+        this.getOrCreateTagBuilder(STORAGE_BLOCKS_SILVER).add(IafBlockRegistry.SILVER_BLOCK.asItem());
+        this.getOrCreateTagBuilder(createForgeKey(STORAGE_BLOCK_PATH + "/raw_silver")).add(IafBlockRegistry.RAW_SILVER_BLOCK.asItem());
+        this.getOrCreateTagBuilder(createForgeKey(STORAGE_BLOCK_PATH + "/sapphire")).add(IafBlockRegistry.SAPPHIRE_BLOCK.asItem());
+        this.getOrCreateTagBuilder(BONES_WITHER).add(IafItemRegistry.WITHERBONE);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class VillageHouseProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType getType() {
-        return IafProcessors.VILLAGEHOUSEPROCESSOR.get();
+        return IafProcessors.VILLAGEHOUSEPROCESSOR;
     }
 
 }

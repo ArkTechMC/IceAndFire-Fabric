@@ -21,7 +21,7 @@ public class ItemStymphalianArrow extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
-        return new EntityStymphalianArrow(IafEntityRegistry.STYMPHALIAN_ARROW.get(), worldIn, shooter);
+        return new EntityStymphalianArrow(IafEntityRegistry.STYMPHALIAN_ARROW, worldIn, shooter);
     }
 
     @Override

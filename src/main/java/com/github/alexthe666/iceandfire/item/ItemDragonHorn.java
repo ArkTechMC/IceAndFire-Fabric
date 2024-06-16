@@ -36,13 +36,11 @@ public class ItemDragonHorn extends Item {
             String id = stack.getNbt().getString("DragonHornEntityID");
             if (EntityType.get(id).isPresent()) {
                 EntityType<?> entityType = EntityType.get(id).get();
-                if (entityType == IafEntityRegistry.FIRE_DRAGON.get())
+                if (entityType == IafEntityRegistry.FIRE_DRAGON)
                     return 1;
-
-                if (entityType == IafEntityRegistry.ICE_DRAGON.get())
+                if (entityType == IafEntityRegistry.ICE_DRAGON)
                     return 2;
-
-                if (entityType == IafEntityRegistry.LIGHTNING_DRAGON.get())
+                if (entityType == IafEntityRegistry.LIGHTNING_DRAGON)
                     return 3;
             }
         }
@@ -155,13 +153,13 @@ public class ItemDragonHorn extends Item {
     }
 
     private Formatting getTextColorForEntityType(EntityType type) {
-        if (type == IafEntityRegistry.FIRE_DRAGON.get())
+        if (type == IafEntityRegistry.FIRE_DRAGON)
             return Formatting.DARK_RED;
 
-        if (type == IafEntityRegistry.ICE_DRAGON.get())
+        if (type == IafEntityRegistry.ICE_DRAGON)
             return Formatting.BLUE;
 
-        if (type == IafEntityRegistry.LIGHTNING_DRAGON.get())
+        if (type == IafEntityRegistry.LIGHTNING_DRAGON)
             return Formatting.DARK_PURPLE;
 
         return Formatting.GRAY;

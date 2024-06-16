@@ -754,8 +754,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                     d2 = d2 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
-                    EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(
-                            IafEntityRegistry.SEA_SERPENT_BUBBLES.get(), this.getWorld(), this, d2, d3, d4);
+                    EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(IafEntityRegistry.SEA_SERPENT_BUBBLES, this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);

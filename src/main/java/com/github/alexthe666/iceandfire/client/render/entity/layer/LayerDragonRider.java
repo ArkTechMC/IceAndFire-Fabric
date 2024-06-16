@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.client.render.entity.layer;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.TabulaModel;
-import com.github.alexthe666.iceandfire.client.ClientProxy;
 import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityDreadQueen;
@@ -25,11 +24,15 @@ import net.minecraft.util.crash.CrashReportSection;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RotationAxis;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> {
-    private final MobEntityRenderer render;
+    public static final List<Entity> renderingRiders = new ArrayList<>();
+    private final MobEntityRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> render;
     private final boolean excludeDreadQueenMob;
 
-    public LayerDragonRider(MobEntityRenderer renderIn, boolean excludeDreadQueenMob) {
+    public LayerDragonRider(MobEntityRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> renderIn, boolean excludeDreadQueenMob) {
         super(renderIn);
         this.render = renderIn;
         this.excludeDreadQueenMob = excludeDreadQueenMob;
@@ -42,17 +45,14 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
             float dragonScale = dragon.getRenderSize() / 3;
             for (Entity passenger : dragon.getPassengerList()) {
                 boolean prey = dragon.getControllingPassenger() == null || dragon.getControllingPassenger().getId() != passenger.getId();
-                if (this.excludeDreadQueenMob && passenger instanceof EntityDreadQueen) {
+                if (this.excludeDreadQueenMob && passenger instanceof EntityDreadQueen)
                     prey = false;
-                }
                 float riderRot = passenger.prevYaw + (passenger.getYaw() - passenger.prevYaw) * partialTicks;
                 int animationTicks = 0;
-                if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
+                if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY)
                     animationTicks = dragon.getAnimationTick();
-                }
-                if (animationTicks == 0 || animationTicks >= 15) {
+                if (animationTicks == 0 || animationTicks >= 15)
                     this.translateToBody(matrixStackIn);
-                }
                 if (prey) {
                     if (animationTicks == 0 || animationTicks >= 15 || dragon.isFlying()) {
                         this.translateToHead(matrixStackIn);
@@ -82,7 +82,9 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(riderRot + 180));
                 matrixStackIn.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
                 matrixStackIn.translate(0, -0.25F, 0);
+                renderingRiders.add(passenger);
                 this.renderEntity(passenger, 0, 0, 0, 0.0F, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+                renderingRiders.remove(passenger);
                 matrixStackIn.pop();
             }
         }
@@ -107,41 +109,31 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
             }
         } else {
             matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
-
-            if (renderer.rotateAngleZ != 0.0F) {
+            if (renderer.rotateAngleZ != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(renderer.rotateAngleZ));
-            }
-
-            if (renderer.rotateAngleY != 0.0F) {
+            if (renderer.rotateAngleY != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotation(renderer.rotateAngleY));
-            }
-
-            if (renderer.rotateAngleX != 0.0F) {
+            if (renderer.rotateAngleX != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotation(renderer.rotateAngleX));
-            }
         }
     }
 
     private void offsetPerDragonType(DragonType dragonType, MatrixStack stackIn) {
-        if (dragonType == DragonType.LIGHTNING) {
+        if (dragonType == DragonType.LIGHTNING)
             stackIn.translate(0.1F, -0.2F, -0.1F);
-        }
     }
-
 
     public <E extends Entity> void renderEntity(E entityIn, int x, int y, int z, float yaw, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int packedLight) {
         EntityRenderer<? super E> render = null;
         EntityRenderDispatcher manager = MinecraftClient.getInstance().getEntityRenderDispatcher();
         try {
             render = manager.getRenderer(entityIn);
-
-            if (render != null) {
+            if (render != null)
                 try {
                     render.render(entityIn, 0, partialTicks, matrixStack, bufferIn, packedLight);
                 } catch (Throwable throwable1) {
                     throw new CrashException(CrashReport.create(throwable1, "Rendering entity in world"));
                 }
-            }
         } catch (Throwable throwable3) {
             CrashReport crashreport = CrashReport.create(throwable3, "Rendering entity in world");
             CrashReportSection crashreportcategory = crashreport.addElement("Entity being rendered");
@@ -154,10 +146,4 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
             throw new CrashException(crashreport);
         }
     }
-
-    public boolean shouldCombineTextures() {
-        return false;
-    }
-
-
 }

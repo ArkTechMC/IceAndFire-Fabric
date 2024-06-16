@@ -35,17 +35,17 @@ public class TileEntityPixieHouse extends BlockEntity {
     public DefaultedList<ItemStack> pixieItems = DefaultedList.ofSize(1, ItemStack.EMPTY);
 
     public TileEntityPixieHouse(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.PIXIE_HOUSE.get(), pos, state);
+        super(IafTileEntityRegistry.PIXIE_HOUSE, pos, state);
         this.rand = new Random();
     }
 
     public static int getHouseTypeFromBlock(Block block) {
-        if (block == IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_RED.get()) return 1;
-        if (block == IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_BROWN.get()) return 0;
-        if (block == IafBlockRegistry.PIXIE_HOUSE_OAK.get()) return 3;
-        if (block == IafBlockRegistry.PIXIE_HOUSE_BIRCH.get()) return 2;
-        if (block == IafBlockRegistry.PIXIE_HOUSE_SPRUCE.get()) return 5;
-        if (block == IafBlockRegistry.PIXIE_HOUSE_DARK_OAK.get()) return 4;
+        if (block == IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_RED) return 1;
+        if (block == IafBlockRegistry.PIXIE_HOUSE_MUSHROOM_BROWN) return 0;
+        if (block == IafBlockRegistry.PIXIE_HOUSE_OAK) return 3;
+        if (block == IafBlockRegistry.PIXIE_HOUSE_BIRCH) return 2;
+        if (block == IafBlockRegistry.PIXIE_HOUSE_SPRUCE) return 5;
+        if (block == IafBlockRegistry.PIXIE_HOUSE_DARK_OAK) return 4;
         else return 0;
     }
 
@@ -103,7 +103,7 @@ public class TileEntityPixieHouse extends BlockEntity {
     }
 
     public void releasePixie() {
-        EntityPixie pixie = new EntityPixie(IafEntityRegistry.PIXIE.get(), this.world);
+        EntityPixie pixie = new EntityPixie(IafEntityRegistry.PIXIE, this.world);
         pixie.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 1F, this.pos.getZ() + 0.5F,
                 ThreadLocalRandom.current().nextInt(360), 0);
         pixie.setStackInHand(Hand.MAIN_HAND, this.pixieItems.get(0));

@@ -21,7 +21,7 @@ public class ItemHydraArrow extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
-        return new EntityHydraArrow(IafEntityRegistry.HYDRA_ARROW.get(), worldIn, shooter);
+        return new EntityHydraArrow(IafEntityRegistry.HYDRA_ARROW, worldIn, shooter);
     }
 
     @Override

@@ -85,7 +85,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     public static boolean isWearingEarplugs(LivingEntity entity) {
         ItemStack helmet = entity.getEquippedStack(EquipmentSlot.HEAD);
-        return helmet.getItem() == IafItemRegistry.EARPLUGS.get() || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
+        return helmet.getItem() == IafItemRegistry.EARPLUGS || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

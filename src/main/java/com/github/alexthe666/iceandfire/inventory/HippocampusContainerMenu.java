@@ -23,7 +23,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
     }
 
     public HippocampusContainerMenu(int id, Inventory hippoInventory, PlayerInventory playerInventory, EntityHippocampus hippocampus, EntityPropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.HIPPOCAMPUS_CONTAINER.get(), id);
+        super(IafContainerRegistry.HIPPOCAMPUS_CONTAINER, id);
         this.hippocampusInventory = hippoInventory;
         if (hippocampus != null)
             this.hippocampus = hippocampus;

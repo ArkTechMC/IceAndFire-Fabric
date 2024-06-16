@@ -64,7 +64,7 @@ public class ItemMyrmexEgg extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack itemstack = context.getPlayer().getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide());
-        EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG.get(), context.getWorld());
+        EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG, context.getWorld());
         NbtCompound tag = itemstack.getNbt();
         int eggOrdinal = 0;
         if (tag != null) {

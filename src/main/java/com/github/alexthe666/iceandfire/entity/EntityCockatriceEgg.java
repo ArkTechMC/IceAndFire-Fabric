@@ -57,7 +57,7 @@ public class EntityCockatriceEgg extends ThrownItemEntity {
                 }
 
                 for (int j = 0; j < i; ++j) {
-                    EntityCockatrice cockatrice = new EntityCockatrice(IafEntityRegistry.COCKATRICE.get(), this.getWorld());
+                    EntityCockatrice cockatrice = new EntityCockatrice(IafEntityRegistry.COCKATRICE, this.getWorld());
                     cockatrice.setBreedingAge(-24000);
                     cockatrice.setHen(this.random.nextBoolean());
                     cockatrice.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
@@ -75,6 +75,6 @@ public class EntityCockatriceEgg extends ThrownItemEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return IafItemRegistry.ROTTEN_EGG.get();
+        return IafItemRegistry.ROTTEN_EGG;
     }
 }

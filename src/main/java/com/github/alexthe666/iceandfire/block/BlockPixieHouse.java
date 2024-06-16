@@ -74,7 +74,7 @@ public class BlockPixieHouse extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
-        return level.isClient ? checkType(entityType, PIXIE_HOUSE.get(), TileEntityPixieHouse::tickClient) : checkType(entityType, PIXIE_HOUSE.get(), TileEntityPixieHouse::tickServer);
+        return level.isClient ? checkType(entityType, PIXIE_HOUSE, TileEntityPixieHouse::tickClient) : checkType(entityType, PIXIE_HOUSE, TileEntityPixieHouse::tickServer);
     }
 
     @Override

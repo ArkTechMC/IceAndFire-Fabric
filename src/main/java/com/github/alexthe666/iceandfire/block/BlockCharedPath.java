@@ -31,9 +31,9 @@ public class BlockCharedPath extends DirtPathBlock {
 
     public BlockState getSmushedState(int dragonType) {
         return switch (dragonType) {
-            case 0 -> IafBlockRegistry.CHARRED_DIRT.get().getDefaultState();
-            case 1 -> IafBlockRegistry.FROZEN_DIRT.get().getDefaultState();
-            case 2 -> IafBlockRegistry.CRACKLED_DIRT.get().getDefaultState();
+            case 0 -> IafBlockRegistry.CHARRED_DIRT.getDefaultState();
+            case 1 -> IafBlockRegistry.FROZEN_DIRT.getDefaultState();
+            case 2 -> IafBlockRegistry.CRACKLED_DIRT.getDefaultState();
             default -> null;
         };
     }

@@ -30,12 +30,10 @@ public class WorldGenRoostSpike {
                 if (blockpos.getSquaredDistance(position) <= (double) (f * f)) {
                     int height = Math.max(blockpos.getY() - up.getY(), 0);
                     if (i == 0) {
-                        if (rand.nextFloat() < height * 0.3F) {
-                            worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.get().getDefaultState(), 2);
-                        }
-                    } else {
-                        worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.get().getDefaultState(), 2);
-                    }
+                        if (rand.nextFloat() < height * 0.3F)
+                            worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.getDefaultState(), 2);
+                    } else
+                        worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.getDefaultState(), 2);
                 }
             }
         }

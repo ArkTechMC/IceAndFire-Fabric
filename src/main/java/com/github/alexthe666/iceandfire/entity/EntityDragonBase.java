@@ -1064,7 +1064,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public ActionResult interactAt(PlayerEntity player, Vec3d vec, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         int lastDeathStage = Math.min(this.getAgeInDays() / 5, 25);
-        if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK.get()) {
+        if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK) {
             this.logic.debug();
             return ActionResult.SUCCESS;
         }
@@ -1121,12 +1121,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             stack = player.getStackInHand(hand);
         }
 
-        if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK.get()) {
+        if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK) {
             this.logic.debug();
             return ActionResult.SUCCESS;
         }
         if (!this.isModelDead()) {
-            if (stack.getItem() == IafItemRegistry.CREATIVE_DRAGON_MEAL.get()) {
+            if (stack.getItem() == IafItemRegistry.CREATIVE_DRAGON_MEAL) {
                 this.setTamed(true);
                 this.setOwner(player);
                 this.setHunger(this.getHunger() + 20);
@@ -1162,7 +1162,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     return ActionResult.SUCCESS;
                 }
                 this.setOwner(player);
-                if (stack.getItem() == IafItemRegistry.DRAGON_HORN.get()) {
+                if (stack.getItem() == IafItemRegistry.DRAGON_HORN) {
                     return super.interactMob(player, hand);
                 }
                 if (stack.isEmpty() && !player.isSneaking()) {
@@ -1199,7 +1199,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         return ActionResult.SUCCESS;
                     }
                     final Item stackItem = stack.getItem();
-                    if (stackItem == IafItemRegistry.DRAGON_MEAL.get()) {
+                    if (stackItem == IafItemRegistry.DRAGON_MEAL) {
                         this.growDragon(1);
                         this.setHunger(this.getHunger() + 20);
                         this.heal(Math.min(this.getHealth(), (int) (this.getMaxHealth() / 2)));
@@ -1212,7 +1212,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             stack.decrement(1);
                         }
                         return ActionResult.SUCCESS;
-                    } else if (stackItem == IafItemRegistry.SICKLY_DRAGON_MEAL.get() && !this.isAgingDisabled()) {
+                    } else if (stackItem == IafItemRegistry.SICKLY_DRAGON_MEAL && !this.isAgingDisabled()) {
                         this.setHunger(this.getHunger() + 20);
                         this.heal(this.getMaxHealth());
                         this.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, this.getSoundVolume(), this.getSoundPitch());
@@ -1227,7 +1227,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             stack.decrement(1);
                         }
                         return ActionResult.SUCCESS;
-                    } else if (stackItem == IafItemRegistry.DRAGON_STAFF.get()) {
+                    } else if (stackItem == IafItemRegistry.DRAGON_STAFF) {
                         if (player.isSneaking()) {
                             if (this.hasHomePosition) {
                                 this.hasHomePosition = false;
@@ -1275,7 +1275,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     private ItemStack getRandomDrop() {
         ItemStack stack = this.getItemFromLootTable();
-        if (stack.getItem() == IafItemRegistry.DRAGON_BONE.get()) {
+        if (stack.getItem() == IafItemRegistry.DRAGON_BONE) {
             this.playSound(SoundEvents.ENTITY_SKELETON_AMBIENT, 1, 1);
         } else {
             this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1, 1);
@@ -1889,7 +1889,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public EntityDragonEgg createEgg(EntityDragonBase ageable) { // FIXME :: Unused parameter
-        EntityDragonEgg dragon = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG.get(), this.getWorld());
+        EntityDragonEgg dragon = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG, this.getWorld());
         dragon.setEggType(EnumDragonEgg.byMetadata(new Random().nextInt(4) + this.getStartMetaForType()));
         dragon.setPosition(MathHelper.floor(this.getX()) + 0.5, MathHelper.floor(this.getY()) + 1, MathHelper.floor(this.getZ()) + 0.5);
         return dragon;
@@ -2434,7 +2434,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         if (this.isOwner(living) || this.isOwnersPet(living)) {
                             living.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 50 * size));
                         } else {
-                            if (living.getEquippedStack(EquipmentSlot.HEAD).getItem() != IafItemRegistry.EARPLUGS.get()) {
+                            if (living.getEquippedStack(EquipmentSlot.HEAD).getItem() != IafItemRegistry.EARPLUGS) {
                                 living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 50 * size));
                             }
                         }
@@ -2451,13 +2451,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 final List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().stretch(size, size, size));
                 for (final Entity entity : entities) {
                     final boolean isStrongerDragon = entity instanceof EntityDragonBase && ((EntityDragonBase) entity).getDragonStage() >= this.getDragonStage();
-                    if (entity instanceof LivingEntity living && !isStrongerDragon) {
-                        if (this.isOwner(living) || this.isOwnersPet(living)) {
+                    if (entity instanceof LivingEntity living && !isStrongerDragon)
+                        if (this.isOwner(living) || this.isOwnersPet(living))
                             living.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 30 * size));
-                        } else {
+                        else
                             living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 30 * size));
-                        }
-                    }
                 }
             }
         }

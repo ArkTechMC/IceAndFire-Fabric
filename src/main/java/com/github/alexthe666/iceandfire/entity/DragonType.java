@@ -35,13 +35,11 @@ public class DragonType {
     }
 
     public EntityType<? extends EntityDragonBase> getEntity() {
-        if (this == LIGHTNING) {
-            return IafEntityRegistry.LIGHTNING_DRAGON.get();
-        } else if (this == ICE) {
-            return IafEntityRegistry.ICE_DRAGON.get();
-        }
-
-        return IafEntityRegistry.FIRE_DRAGON.get();
+        if (this == LIGHTNING)
+            return IafEntityRegistry.LIGHTNING_DRAGON;
+        else if (this == ICE)
+            return IafEntityRegistry.ICE_DRAGON;
+        return IafEntityRegistry.FIRE_DRAGON;
     }
 
     public String getName() {

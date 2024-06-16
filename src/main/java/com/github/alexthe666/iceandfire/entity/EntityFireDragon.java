@@ -45,7 +45,7 @@ public class EntityFireDragon extends EntityDragonBase {
     public static final Identifier SKELETON_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/dragon/fire_dragon_skeleton");
 
     public EntityFireDragon(World worldIn) {
-        this(IafEntityRegistry.FIRE_DRAGON.get(), worldIn);
+        this(IafEntityRegistry.FIRE_DRAGON, worldIn);
     }
 
     public EntityFireDragon(EntityType<?> t, World worldIn) {
@@ -89,26 +89,26 @@ public class EntityFireDragon extends EntityDragonBase {
     @Override
     public Item getVariantScale(int variant) {
         return switch (variant) {
-            default -> IafItemRegistry.DRAGONSCALES_RED.get();
-            case 1 -> IafItemRegistry.DRAGONSCALES_GREEN.get();
-            case 2 -> IafItemRegistry.DRAGONSCALES_BRONZE.get();
-            case 3 -> IafItemRegistry.DRAGONSCALES_GRAY.get();
+            default -> IafItemRegistry.DRAGONSCALES_RED;
+            case 1 -> IafItemRegistry.DRAGONSCALES_GREEN;
+            case 2 -> IafItemRegistry.DRAGONSCALES_BRONZE;
+            case 3 -> IafItemRegistry.DRAGONSCALES_GRAY;
         };
     }
 
     @Override
     public Item getVariantEgg(int variant) {
         return switch (variant) {
-            default -> IafItemRegistry.DRAGONEGG_RED.get();
-            case 1 -> IafItemRegistry.DRAGONEGG_GREEN.get();
-            case 2 -> IafItemRegistry.DRAGONEGG_BRONZE.get();
-            case 3 -> IafItemRegistry.DRAGONEGG_GRAY.get();
+            default -> IafItemRegistry.DRAGONEGG_RED;
+            case 1 -> IafItemRegistry.DRAGONEGG_GREEN;
+            case 2 -> IafItemRegistry.DRAGONEGG_BRONZE;
+            case 3 -> IafItemRegistry.DRAGONEGG_GRAY;
         };
     }
 
     @Override
     public Item getSummoningCrystal() {
-        return IafItemRegistry.SUMMONING_CRYSTAL_FIRE.get();
+        return IafItemRegistry.SUMMONING_CRYSTAL_FIRE;
     }
 
 /*    @Override
@@ -202,7 +202,7 @@ public class EntityFireDragon extends EntityDragonBase {
                 d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 EntityDragonFireCharge entitylargefireball = new EntityDragonFireCharge(
-                        IafEntityRegistry.FIRE_DRAGON_CHARGE.get(), this.getWorld(), this, d2, d3, d4);
+                        IafEntityRegistry.FIRE_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
 
                 entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
                 if (!this.getWorld().isClient) {
@@ -361,7 +361,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                     EntityDragonFireCharge entitylargefireball = new EntityDragonFireCharge(
-                            IafEntityRegistry.FIRE_DRAGON_CHARGE.get(), this.getWorld(), this, d2, d3, d4);
+                            IafEntityRegistry.FIRE_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
 
                     entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
                     if (!this.getWorld().isClient) {
@@ -427,7 +427,7 @@ public class EntityFireDragon extends EntityDragonBase {
                 d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                 EntityDragonFireCharge entitylargefireball = new EntityDragonFireCharge(
-                        IafEntityRegistry.FIRE_DRAGON_CHARGE.get(), this.getWorld(), this, d2, d3, d4);
+                        IafEntityRegistry.FIRE_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
                 entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
                 if (!this.getWorld().isClient) {
                     this.getWorld().spawnEntity(entitylargefireball);
@@ -502,7 +502,7 @@ public class EntityFireDragon extends EntityDragonBase {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() != null && stack.getItem() == IafItemRegistry.FIRE_STEW.get();
+        return !stack.isEmpty() && stack.getItem() != null && stack.getItem() == IafItemRegistry.FIRE_STEW;
     }
 
     @Override
@@ -530,21 +530,21 @@ public class EntityFireDragon extends EntityDragonBase {
 
     @Override
     public ItemStack getSkull() {
-        return new ItemStack(IafItemRegistry.DRAGON_SKULL_FIRE.get());
+        return new ItemStack(IafItemRegistry.DRAGON_SKULL_FIRE);
     }
 
     @Override
     public Item getBloodItem() {
-        return IafItemRegistry.FIRE_DRAGON_BLOOD.get();
+        return IafItemRegistry.FIRE_DRAGON_BLOOD;
     }
 
     @Override
     public Item getFleshItem() {
-        return IafItemRegistry.FIRE_DRAGON_FLESH.get();
+        return IafItemRegistry.FIRE_DRAGON_FLESH;
     }
 
     @Override
     public ItemConvertible getHeartItem() {
-        return IafItemRegistry.FIRE_DRAGON_HEART.get();
+        return IafItemRegistry.FIRE_DRAGON_HEART;
     }
 }

@@ -26,11 +26,11 @@ public class EntityTideTrident extends TridentEntity {
 
     public EntityTideTrident(EntityType<? extends TridentEntity> type, World worldIn) {
         super(type, worldIn);
-        this.tridentStack = new ItemStack(IafItemRegistry.TIDE_TRIDENT.get());
+        this.tridentStack = new ItemStack(IafItemRegistry.TIDE_TRIDENT);
     }
 
     public EntityTideTrident(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        this(IafEntityRegistry.TIDE_TRIDENT.get(), worldIn);
+        this(IafEntityRegistry.TIDE_TRIDENT, worldIn);
         this.setPosition(thrower.getX(), thrower.getEyeY() - 0.1F, thrower.getZ());
         this.setOwner(thrower);
         this.tridentStack = thrownStackIn;

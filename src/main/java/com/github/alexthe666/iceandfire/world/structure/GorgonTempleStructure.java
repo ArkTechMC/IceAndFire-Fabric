@@ -89,6 +89,6 @@ public class GorgonTempleStructure extends IafStructure {
 
     @Override
     public StructureType<?> getType() {
-        return IafStructureTypes.GORGON_TEMPLE.get();
+        return IafStructureTypes.GORGON_TEMPLE;
     }
 }

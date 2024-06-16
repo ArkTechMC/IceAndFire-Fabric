@@ -29,6 +29,6 @@ public class BlockDreadTorch extends TorchBlock implements IDreadBlock, IWallBlo
 
     @Override
     public Block wallBlock() {
-        return IafBlockRegistry.DREAD_TORCH_WALL.get();
+        return IafBlockRegistry.DREAD_TORCH_WALL;
     }
 }

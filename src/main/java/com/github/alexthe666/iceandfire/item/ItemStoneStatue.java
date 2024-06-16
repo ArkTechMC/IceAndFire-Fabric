@@ -60,8 +60,7 @@ public class ItemStoneStatue extends Item {
             if (stack.getNbt() != null) {
                 String id = stack.getNbt().getString("IAFStoneStatueEntityID");
                 NbtCompound statueNBT = stack.getNbt().getCompound("IAFStoneStatueNBT");
-                EntityStoneStatue statue = new EntityStoneStatue(IafEntityRegistry.STONE_STATUE.get(),
-                        context.getWorld());
+                EntityStoneStatue statue = new EntityStoneStatue(IafEntityRegistry.STONE_STATUE, context.getWorld());
                 statue.readCustomDataFromNbt(statueNBT);
                 statue.setTrappedEntityTypeString(id);
                 double d1 = context.getPlayer().getX() - (context.getBlockPos().getX() + 0.5);

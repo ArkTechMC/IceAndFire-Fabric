@@ -125,11 +125,9 @@ public class EntityPixieCharge extends AbstractFireballEntity {
                             this.getWorld().addParticle(IafParticleRegistry.PIXIE_DUST, this.getX() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1F * (this.random.nextBoolean() ? -1 : 1), this.rgb[0], this.rgb[1], this.rgb[2]);
                         }
                     }
-                    if (!(shootingEntity instanceof PlayerEntity) || !((PlayerEntity) shootingEntity).isCreative()) {
-                        if (this.random.nextInt(3) == 0) {
-                            this.dropStack(new ItemStack(IafItemRegistry.PIXIE_DUST.get(), 1), 0.45F);
-                        }
-                    }
+                    if (!(shootingEntity instanceof PlayerEntity) || !((PlayerEntity) shootingEntity).isCreative())
+                        if (this.random.nextInt(3) == 0)
+                            this.dropStack(new ItemStack(IafItemRegistry.PIXIE_DUST, 1), 0.45F);
                 }
                 if (!flag && this.age > 4) {
                     this.remove(RemovalReason.DISCARDED);

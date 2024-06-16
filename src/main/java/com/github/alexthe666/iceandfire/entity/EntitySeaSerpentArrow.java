@@ -50,6 +50,6 @@ public class EntitySeaSerpentArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.SEA_SERPENT_ARROW.get());
+        return new ItemStack(IafItemRegistry.SEA_SERPENT_ARROW);
     }
 }

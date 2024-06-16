@@ -1,83 +1,92 @@
 package com.github.alexthe666.iceandfire.entity;
 
+import com.github.alexthe666.citadel.client.model.ITabulaModelAnimator;
+import com.github.alexthe666.citadel.client.model.TabulaModel;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.client.model.*;
+import com.github.alexthe666.iceandfire.client.model.animator.FireDragonTabulaModelAnimator;
+import com.github.alexthe666.iceandfire.client.model.animator.IceDragonTabulaModelAnimator;
+import com.github.alexthe666.iceandfire.client.model.animator.LightningTabulaDragonAnimator;
+import com.github.alexthe666.iceandfire.client.model.animator.SeaSerpentTabulaModelAnimator;
+import com.github.alexthe666.iceandfire.client.model.util.TabulaModelHandlerHelper;
+import com.github.alexthe666.iceandfire.client.render.entity.*;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
-import io.github.fabricators_of_create.porting_lib.util.LazyRegistrar;
-import io.github.fabricators_of_create.porting_lib.util.RegistryObject;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.SpawnRestriction;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.entity.*;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class IafEntityRegistry {
-
-    public static final LazyRegistrar<EntityType<?>> ENTITIES = LazyRegistrar.create(Registries.ENTITY_TYPE, IceAndFire.MOD_ID);
-
-    public static final RegistryObject<EntityType<EntityDragonPart>> DRAGON_MULTIPART = registerEntity(EntityType.Builder.<EntityDragonPart>create(EntityDragonPart::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F).makeFireImmune(), "dragon_multipart");
-    public static final RegistryObject<EntityType<EntitySlowPart>> SLOW_MULTIPART = registerEntity(EntityType.Builder.<EntitySlowPart>create(EntitySlowPart::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F).makeFireImmune(), "multipart");
-    public static final RegistryObject<EntityType<EntityHydraHead>> HYDRA_MULTIPART = registerEntity(EntityType.Builder.<EntityHydraHead>create(EntityHydraHead::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F).makeFireImmune(), "hydra_multipart");
-    public static final RegistryObject<EntityType<EntityCyclopsEye>> CYCLOPS_MULTIPART = registerEntity(EntityType.Builder.<EntityCyclopsEye>create(EntityCyclopsEye::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F).makeFireImmune(), "cylcops_multipart");
-    public static final RegistryObject<EntityType<EntityDragonEgg>> DRAGON_EGG = registerEntity(EntityType.Builder.create(EntityDragonEgg::new, SpawnGroup.MISC).setDimensions(0.45F, 0.55F).makeFireImmune(), "dragon_egg");
-    public static final RegistryObject<EntityType<EntityDragonArrow>> DRAGON_ARROW = registerEntity(EntityType.Builder.<EntityDragonArrow>create(EntityDragonArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "dragon_arrow");
-    public static final RegistryObject<EntityType<EntityDragonSkull>> DRAGON_SKULL = registerEntity(EntityType.Builder.create(EntityDragonSkull::new, SpawnGroup.MISC).setDimensions(0.9F, 0.65F), "dragon_skull");
-    public static final RegistryObject<EntityType<EntityFireDragon>> FIRE_DRAGON = registerEntity(EntityType.Builder.<EntityFireDragon>create(EntityFireDragon::new, SpawnGroup.CREATURE).setDimensions(0.78F, 1.2F).makeFireImmune().maxTrackingRange(256), "fire_dragon");
-    public static final RegistryObject<EntityType<EntityIceDragon>> ICE_DRAGON = registerEntity(EntityType.Builder.<EntityIceDragon>create(EntityIceDragon::new, SpawnGroup.CREATURE).setDimensions(0.78F, 1.2F).maxTrackingRange(256), "ice_dragon");
-    public static final RegistryObject<EntityType<EntityLightningDragon>> LIGHTNING_DRAGON = registerEntity(EntityType.Builder.<EntityLightningDragon>create(EntityLightningDragon::new, SpawnGroup.CREATURE).setDimensions(0.78F, 1.2F).maxTrackingRange(256), "lightning_dragon");
-    public static final RegistryObject<EntityType<EntityDragonFireCharge>> FIRE_DRAGON_CHARGE = registerEntity(EntityType.Builder.<EntityDragonFireCharge>create(EntityDragonFireCharge::new, SpawnGroup.MISC).setDimensions(0.9F, 0.9F), "fire_dragon_charge");
-    public static final RegistryObject<EntityType<EntityDragonIceCharge>> ICE_DRAGON_CHARGE = registerEntity(EntityType.Builder.<EntityDragonIceCharge>create(EntityDragonIceCharge::new, SpawnGroup.MISC).setDimensions(0.9F, 0.9F), "ice_dragon_charge");
-    public static final RegistryObject<EntityType<EntityDragonLightningCharge>> LIGHTNING_DRAGON_CHARGE = registerEntity(EntityType.Builder.<EntityDragonLightningCharge>create(EntityDragonLightningCharge::new, SpawnGroup.MISC).setDimensions(0.9F, 0.9F), "lightning_dragon_charge");
-    public static final RegistryObject<EntityType<EntityHippogryphEgg>> HIPPOGRYPH_EGG = registerEntity(EntityType.Builder.<EntityHippogryphEgg>create(EntityHippogryphEgg::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "hippogryph_egg");
-    public static final RegistryObject<EntityType<EntityHippogryph>> HIPPOGRYPH = registerEntity(EntityType.Builder.create(EntityHippogryph::new, SpawnGroup.CREATURE).setDimensions(1.7F, 1.6F).maxTrackingRange(128), "hippogryph");
-    public static final RegistryObject<EntityType<EntityStoneStatue>> STONE_STATUE = registerEntity(EntityType.Builder.create(EntityStoneStatue::new, SpawnGroup.CREATURE).setDimensions(0.5F, 0.5F), "stone_statue");
-    public static final RegistryObject<EntityType<EntityGorgon>> GORGON = registerEntity(EntityType.Builder.create(EntityGorgon::new, SpawnGroup.CREATURE).setDimensions(0.8F, 1.99F), "gorgon");
-    public static final RegistryObject<EntityType<EntityPixie>> PIXIE = registerEntity(EntityType.Builder.create(EntityPixie::new, SpawnGroup.CREATURE).setDimensions(0.4F, 0.8F), "pixie");
-    public static final RegistryObject<EntityType<EntityCyclops>> CYCLOPS = registerEntity(EntityType.Builder.create(EntityCyclops::new, SpawnGroup.CREATURE).setDimensions(1.95F, 7.4F).maxTrackingRange(8), "cyclops");
-    public static final RegistryObject<EntityType<EntitySiren>> SIREN = registerEntity(EntityType.Builder.create(EntitySiren::new, SpawnGroup.CREATURE).setDimensions(1.6F, 0.9F), "siren");
-    public static final RegistryObject<EntityType<EntityHippocampus>> HIPPOCAMPUS = registerEntity(EntityType.Builder.create(EntityHippocampus::new, SpawnGroup.CREATURE).setDimensions(1.95F, 0.95F), "hippocampus");
-    public static final RegistryObject<EntityType<EntityDeathWorm>> DEATH_WORM = registerEntity(EntityType.Builder.create(EntityDeathWorm::new, SpawnGroup.CREATURE).setDimensions(0.8F, 0.8F).maxTrackingRange(128), "deathworm");
-    public static final RegistryObject<EntityType<EntityDeathWormEgg>> DEATH_WORM_EGG = registerEntity(EntityType.Builder.<EntityDeathWormEgg>create(EntityDeathWormEgg::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "deathworm_egg");
-    public static final RegistryObject<EntityType<EntityCockatrice>> COCKATRICE = registerEntity(EntityType.Builder.create(EntityCockatrice::new, SpawnGroup.CREATURE).setDimensions(1.1F, 1F), "cockatrice");
-    public static final RegistryObject<EntityType<EntityCockatriceEgg>> COCKATRICE_EGG = registerEntity(EntityType.Builder.<EntityCockatriceEgg>create(EntityCockatriceEgg::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "cockatrice_egg");
-    public static final RegistryObject<EntityType<EntityStymphalianBird>> STYMPHALIAN_BIRD = registerEntity(EntityType.Builder.create(EntityStymphalianBird::new, SpawnGroup.CREATURE).setDimensions(1.3F, 1.2F).maxTrackingRange(128), "stymphalian_bird");
-    public static final RegistryObject<EntityType<EntityStymphalianFeather>> STYMPHALIAN_FEATHER = registerEntity(EntityType.Builder.<EntityStymphalianFeather>create(EntityStymphalianFeather::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "stymphalian_feather");
-    public static final RegistryObject<EntityType<EntityStymphalianArrow>> STYMPHALIAN_ARROW = registerEntity(EntityType.Builder.<EntityStymphalianArrow>create(EntityStymphalianArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "stymphalian_arrow");
-    public static final RegistryObject<EntityType<EntityTroll>> TROLL = registerEntity(EntityType.Builder.create(EntityTroll::new, SpawnGroup.MONSTER).setDimensions(1.2F, 3.5F), "troll");
-    public static final RegistryObject<EntityType<EntityMyrmexWorker>> MYRMEX_WORKER = registerEntity(EntityType.Builder.create(EntityMyrmexWorker::new, SpawnGroup.CREATURE).setDimensions(0.9F, 0.9F), "myrmex_worker");
-    public static final RegistryObject<EntityType<EntityMyrmexSoldier>> MYRMEX_SOLDIER = registerEntity(EntityType.Builder.create(EntityMyrmexSoldier::new, SpawnGroup.CREATURE).setDimensions(1.2F, 0.95F), "myrmex_soldier");
-    public static final RegistryObject<EntityType<EntityMyrmexSentinel>> MYRMEX_SENTINEL = registerEntity(EntityType.Builder.create(EntityMyrmexSentinel::new, SpawnGroup.CREATURE).setDimensions(1.3F, 1.95F), "myrmex_sentinel");
-    public static final RegistryObject<EntityType<EntityMyrmexRoyal>> MYRMEX_ROYAL = registerEntity(EntityType.Builder.create(EntityMyrmexRoyal::new, SpawnGroup.CREATURE).setDimensions(1.9F, 1.86F), "myrmex_royal");
-    public static final RegistryObject<EntityType<EntityMyrmexQueen>> MYRMEX_QUEEN = registerEntity(EntityType.Builder.create(EntityMyrmexQueen::new, SpawnGroup.CREATURE).setDimensions(2.9F, 1.86F), "myrmex_queen");
-    public static final RegistryObject<EntityType<EntityMyrmexEgg>> MYRMEX_EGG = registerEntity(EntityType.Builder.create(EntityMyrmexEgg::new, SpawnGroup.MISC).setDimensions(0.45F, 0.55F), "myrmex_egg");
-    public static final RegistryObject<EntityType<EntityAmphithere>> AMPHITHERE = registerEntity(EntityType.Builder.create(EntityAmphithere::new, SpawnGroup.CREATURE).setDimensions(2.5F, 1.25F).maxTrackingRange(128), "amphithere");
-    public static final RegistryObject<EntityType<EntityAmphithereArrow>> AMPHITHERE_ARROW = registerEntity(EntityType.Builder.<EntityAmphithereArrow>create(EntityAmphithereArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "amphithere_arrow");
-    public static final RegistryObject<EntityType<EntitySeaSerpent>> SEA_SERPENT = registerEntity(EntityType.Builder.create(EntitySeaSerpent::new, SpawnGroup.CREATURE).setDimensions(0.5F, 0.5F).maxTrackingRange(256), "sea_serpent");
-    public static final RegistryObject<EntityType<EntitySeaSerpentBubbles>> SEA_SERPENT_BUBBLES = registerEntity(EntityType.Builder.<EntitySeaSerpentBubbles>create(EntitySeaSerpentBubbles::new, SpawnGroup.MISC).setDimensions(0.9F, 0.9F), "sea_serpent_bubbles");
-    public static final RegistryObject<EntityType<EntitySeaSerpentArrow>> SEA_SERPENT_ARROW = registerEntity(EntityType.Builder.<EntitySeaSerpentArrow>create(EntitySeaSerpentArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "sea_serpent_arrow");
-    public static final RegistryObject<EntityType<EntityChainTie>> CHAIN_TIE = registerEntity(EntityType.Builder.<EntityChainTie>create(EntityChainTie::new, SpawnGroup.MISC).setDimensions(0.8F, 0.9F), "chain_tie");
-    public static final RegistryObject<EntityType<EntityPixieCharge>> PIXIE_CHARGE = registerEntity(EntityType.Builder.<EntityPixieCharge>create(EntityPixieCharge::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "pixie_charge");
-    public static final RegistryObject<EntityType<EntityMyrmexSwarmer>> MYRMEX_SWARMER = registerEntity(EntityType.Builder.create(EntityMyrmexSwarmer::new, SpawnGroup.CREATURE).setDimensions(0.5F, 0.5F), "myrmex_swarmer");
-    public static final RegistryObject<EntityType<EntityTideTrident>> TIDE_TRIDENT = registerEntity(EntityType.Builder.<EntityTideTrident>create(EntityTideTrident::new, SpawnGroup.MISC).setDimensions(0.85F, 0.5F), "tide_trident");
-    public static final RegistryObject<EntityType<EntityMobSkull>> MOB_SKULL = registerEntity(EntityType.Builder.create(EntityMobSkull::new, SpawnGroup.MISC).setDimensions(0.85F, 0.85F), "mob_skull");
-    public static final RegistryObject<EntityType<EntityDreadThrall>> DREAD_THRALL = registerEntity(EntityType.Builder.create(EntityDreadThrall::new, SpawnGroup.MONSTER).setDimensions(0.6F, 1.8F), "dread_thrall");
-    public static final RegistryObject<EntityType<EntityDreadGhoul>> DREAD_GHOUL = registerEntity(EntityType.Builder.create(EntityDreadGhoul::new, SpawnGroup.MONSTER).setDimensions(0.6F, 1.8F), "dread_ghoul");
-    public static final RegistryObject<EntityType<EntityDreadBeast>> DREAD_BEAST = registerEntity(EntityType.Builder.create(EntityDreadBeast::new, SpawnGroup.MONSTER).setDimensions(1.2F, 0.9F), "dread_beast");
-    public static final RegistryObject<EntityType<EntityDreadScuttler>> DREAD_SCUTTLER = registerEntity(EntityType.Builder.create(EntityDreadScuttler::new, SpawnGroup.MONSTER).setDimensions(1.5F, 1.3F), "dread_scuttler");
-    public static final RegistryObject<EntityType<EntityDreadLich>> DREAD_LICH = registerEntity(EntityType.Builder.create(EntityDreadLich::new, SpawnGroup.MONSTER).setDimensions(0.6F, 1.8F), "dread_lich");
-    public static final RegistryObject<EntityType<EntityDreadLichSkull>> DREAD_LICH_SKULL = registerEntity(EntityType.Builder.<EntityDreadLichSkull>create(EntityDreadLichSkull::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "dread_lich_skull");
-    public static final RegistryObject<EntityType<EntityDreadKnight>> DREAD_KNIGHT = registerEntity(EntityType.Builder.create(EntityDreadKnight::new, SpawnGroup.MONSTER).setDimensions(0.6F, 1.8F), "dread_knight");
-    public static final RegistryObject<EntityType<EntityDreadHorse>> DREAD_HORSE = registerEntity(EntityType.Builder.create(EntityDreadHorse::new, SpawnGroup.MONSTER).setDimensions(1.3964844F, 1.6F), "dread_horse");
-    public static final RegistryObject<EntityType<EntityHydra>> HYDRA = registerEntity(EntityType.Builder.create(EntityHydra::new, SpawnGroup.CREATURE).setDimensions(2.8F, 1.39F), "hydra");
-    public static final RegistryObject<EntityType<EntityHydraBreath>> HYDRA_BREATH = registerEntity(EntityType.Builder.<EntityHydraBreath>create(EntityHydraBreath::new, SpawnGroup.MISC).setDimensions(0.9F, 0.9F), "hydra_breath");
-    public static final RegistryObject<EntityType<EntityHydraArrow>> HYDRA_ARROW = registerEntity(EntityType.Builder.<EntityHydraArrow>create(EntityHydraArrow::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "hydra_arrow");
-    public static final RegistryObject<EntityType<EntityGhost>> GHOST = registerEntity(EntityType.Builder.create(EntityGhost::new, SpawnGroup.MONSTER).setDimensions(0.8F, 1.9F).makeFireImmune(), "ghost");
-    public static final RegistryObject<EntityType<EntityGhostSword>> GHOST_SWORD = registerEntity(EntityType.Builder.<EntityGhostSword>create(EntityGhostSword::new, SpawnGroup.MISC).setDimensions(0.5F, 0.5F), "ghost_sword");
+    public static final EntityType<EntityDragonPart> DRAGON_MULTIPART = register("dragon_multipart", build(EntityDragonPart::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
+    public static final EntityType<EntitySlowPart> SLOW_MULTIPART = register("multipart", build(EntitySlowPart::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
+    public static final EntityType<EntityHydraHead> HYDRA_MULTIPART = register("hydra_multipart", build(EntityHydraHead::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
+    public static final EntityType<EntityCyclopsEye> CYCLOPS_MULTIPART = register("cylcops_multipart", build(EntityCyclopsEye::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
+    public static final EntityType<EntityDragonEgg> DRAGON_EGG = register("dragon_egg", build(EntityDragonEgg::new, SpawnGroup.MISC, true, 0.45F, 0.55F));
+    public static final EntityType<EntityDragonArrow> DRAGON_ARROW = register("dragon_arrow", build(EntityDragonArrow::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityDragonSkull> DRAGON_SKULL = register("dragon_skull", build(EntityDragonSkull::new, SpawnGroup.MISC, false, 0.9F, 0.65F));
+    public static final EntityType<EntityFireDragon> FIRE_DRAGON = register("fire_dragon", build(EntityFireDragon::new, SpawnGroup.CREATURE, true, 0.78F, 1.2F, 256));
+    public static final EntityType<EntityIceDragon> ICE_DRAGON = register("ice_dragon", build(EntityIceDragon::new, SpawnGroup.CREATURE, false, 0.78F, 1.2F, 256));
+    public static final EntityType<EntityLightningDragon> LIGHTNING_DRAGON = register("lightning_dragon", build(EntityLightningDragon::new, SpawnGroup.CREATURE, false, 0.78F, 1.2F, 256));
+    public static final EntityType<EntityDragonFireCharge> FIRE_DRAGON_CHARGE = register("fire_dragon_charge", build(EntityDragonFireCharge::new, SpawnGroup.MISC, false, 0.9F, 0.9F));
+    public static final EntityType<EntityDragonIceCharge> ICE_DRAGON_CHARGE = register("ice_dragon_charge", build(EntityDragonIceCharge::new, SpawnGroup.MISC, false, 0.9F, 0.9F));
+    public static final EntityType<EntityDragonLightningCharge> LIGHTNING_DRAGON_CHARGE = register("lightning_dragon_charge", build(EntityDragonLightningCharge::new, SpawnGroup.MISC, false, 0.9F, 0.9F));
+    public static final EntityType<EntityHippogryphEgg> HIPPOGRYPH_EGG = register("hippogryph_egg", build(EntityHippogryphEgg::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityHippogryph> HIPPOGRYPH = register("hippogryph", build(EntityHippogryph::new, SpawnGroup.CREATURE, false, 1.7F, 1.6F, 128));
+    public static final EntityType<EntityStoneStatue> STONE_STATUE = register("stone_statue", build(EntityStoneStatue::new, SpawnGroup.CREATURE, false, 0.5F, 0.5F));
+    public static final EntityType<EntityGorgon> GORGON = register("gorgon", build(EntityGorgon::new, SpawnGroup.CREATURE, false, 0.8F, 1.99F));
+    public static final EntityType<EntityPixie> PIXIE = register("pixie", build(EntityPixie::new, SpawnGroup.CREATURE, false, 0.4F, 0.8F));
+    public static final EntityType<EntityCyclops> CYCLOPS = register("cyclops", build(EntityCyclops::new, SpawnGroup.CREATURE, false, 1.95F, 7.4F, 8));
+    public static final EntityType<EntitySiren> SIREN = register("siren", build(EntitySiren::new, SpawnGroup.CREATURE, false, 1.6F, 0.9F));
+    public static final EntityType<EntityHippocampus> HIPPOCAMPUS = register("hippocampus", build(EntityHippocampus::new, SpawnGroup.CREATURE, false, 1.95F, 0.95F));
+    public static final EntityType<EntityDeathWorm> DEATH_WORM = register("deathworm", build(EntityDeathWorm::new, SpawnGroup.CREATURE, false, 0.8F, 0.8F, 128));
+    public static final EntityType<EntityDeathWormEgg> DEATH_WORM_EGG = register("deathworm_egg", build(EntityDeathWormEgg::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityCockatrice> COCKATRICE = register("cockatrice", build(EntityCockatrice::new, SpawnGroup.CREATURE, false, 1.1F, 1F));
+    public static final EntityType<EntityCockatriceEgg> COCKATRICE_EGG = register("cockatrice_egg", build(EntityCockatriceEgg::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityStymphalianBird> STYMPHALIAN_BIRD = register("stymphalian_bird", build(EntityStymphalianBird::new, SpawnGroup.CREATURE, false, 1.3F, 1.2F, 128));
+    public static final EntityType<EntityStymphalianFeather> STYMPHALIAN_FEATHER = register("stymphalian_feather", build(EntityStymphalianFeather::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityStymphalianArrow> STYMPHALIAN_ARROW = register("stymphalian_arrow", build(EntityStymphalianArrow::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityTroll> TROLL = register("troll", build(EntityTroll::new, SpawnGroup.MONSTER, false, 1.2F, 3.5F));
+    public static final EntityType<EntityMyrmexWorker> MYRMEX_WORKER = register("myrmex_worker", build(EntityMyrmexWorker::new, SpawnGroup.CREATURE, false, 0.9F, 0.9F));
+    public static final EntityType<EntityMyrmexSoldier> MYRMEX_SOLDIER = register("myrmex_soldier", build(EntityMyrmexSoldier::new, SpawnGroup.CREATURE, false, 1.2F, 0.95F));
+    public static final EntityType<EntityMyrmexSentinel> MYRMEX_SENTINEL = register("myrmex_sentinel", build(EntityMyrmexSentinel::new, SpawnGroup.CREATURE, false, 1.3F, 1.95F));
+    public static final EntityType<EntityMyrmexRoyal> MYRMEX_ROYAL = register("myrmex_royal", build(EntityMyrmexRoyal::new, SpawnGroup.CREATURE, false, 1.9F, 1.86F));
+    public static final EntityType<EntityMyrmexQueen> MYRMEX_QUEEN = register("myrmex_queen", build(EntityMyrmexQueen::new, SpawnGroup.CREATURE, false, 2.9F, 1.86F));
+    public static final EntityType<EntityMyrmexEgg> MYRMEX_EGG = register("myrmex_egg", build(EntityMyrmexEgg::new, SpawnGroup.MISC, false, 0.45F, 0.55F));
+    public static final EntityType<EntityAmphithere> AMPHITHERE = register("amphithere", build(EntityAmphithere::new, SpawnGroup.CREATURE, false, 2.5F, 1.25F, 128));
+    public static final EntityType<EntityAmphithereArrow> AMPHITHERE_ARROW = register("amphithere_arrow", build(EntityAmphithereArrow::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntitySeaSerpent> SEA_SERPENT = register("sea_serpent", build(EntitySeaSerpent::new, SpawnGroup.CREATURE, false, 0.5F, 0.5F, 256));
+    public static final EntityType<EntitySeaSerpentBubbles> SEA_SERPENT_BUBBLES = register("sea_serpent_bubbles", build(EntitySeaSerpentBubbles::new, SpawnGroup.MISC, false, 0.9F, 0.9F));
+    public static final EntityType<EntitySeaSerpentArrow> SEA_SERPENT_ARROW = register("sea_serpent_arrow", build(EntitySeaSerpentArrow::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityChainTie> CHAIN_TIE = register("chain_tie", build(EntityChainTie::new, SpawnGroup.MISC, false, 0.8F, 0.9F));
+    public static final EntityType<EntityPixieCharge> PIXIE_CHARGE = register("pixie_charge", build(EntityPixieCharge::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityMyrmexSwarmer> MYRMEX_SWARMER = register("myrmex_swarmer", build(EntityMyrmexSwarmer::new, SpawnGroup.CREATURE, false, 0.5F, 0.5F));
+    public static final EntityType<EntityTideTrident> TIDE_TRIDENT = register("tide_trident", build(EntityTideTrident::new, SpawnGroup.MISC, false, 0.85F, 0.5F));
+    public static final EntityType<EntityMobSkull> MOB_SKULL = register("mob_skull", build(EntityMobSkull::new, SpawnGroup.MISC, false, 0.85F, 0.85F));
+    public static final EntityType<EntityDreadThrall> DREAD_THRALL = register("dread_thrall", build(EntityDreadThrall::new, SpawnGroup.MONSTER, false, 0.6F, 1.8F));
+    public static final EntityType<EntityDreadGhoul> DREAD_GHOUL = register("dread_ghoul", build(EntityDreadGhoul::new, SpawnGroup.MONSTER, false, 0.6F, 1.8F));
+    public static final EntityType<EntityDreadBeast> DREAD_BEAST = register("dread_beast", build(EntityDreadBeast::new, SpawnGroup.MONSTER, false, 1.2F, 0.9F));
+    public static final EntityType<EntityDreadScuttler> DREAD_SCUTTLER = register("dread_scuttler", build(EntityDreadScuttler::new, SpawnGroup.MONSTER, false, 1.5F, 1.3F));
+    public static final EntityType<EntityDreadLich> DREAD_LICH = register("dread_lich", build(EntityDreadLich::new, SpawnGroup.MONSTER, false, 0.6F, 1.8F));
+    public static final EntityType<EntityDreadLichSkull> DREAD_LICH_SKULL = register("dread_lich_skull", build(EntityDreadLichSkull::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityDreadKnight> DREAD_KNIGHT = register("dread_knight", build(EntityDreadKnight::new, SpawnGroup.MONSTER, false, 0.6F, 1.8F));
+    public static final EntityType<EntityDreadHorse> DREAD_HORSE = register("dread_horse", build(EntityDreadHorse::new, SpawnGroup.MONSTER, false, 1.3964844F, 1.6F));
+    public static final EntityType<EntityHydra> HYDRA = register("hydra", build(EntityHydra::new, SpawnGroup.CREATURE, false, 2.8F, 1.39F));
+    public static final EntityType<EntityHydraBreath> HYDRA_BREATH = register("hydra_breath", build(EntityHydraBreath::new, SpawnGroup.MISC, false, 0.9F, 0.9F));
+    public static final EntityType<EntityHydraArrow> HYDRA_ARROW = register("hydra_arrow", build(EntityHydraArrow::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
+    public static final EntityType<EntityGhost> GHOST = register("ghost", build(EntityGhost::new, SpawnGroup.MONSTER, true, 0.8F, 1.9F));
+    public static final EntityType<EntityGhostSword> GHOST_SWORD = register("ghost_sword", build(EntityGhostSword::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
     public static final HashMap<String, Boolean> LOADED_ENTITIES;
 
     static {
@@ -91,81 +100,176 @@ public class IafEntityRegistry {
         LOADED_ENTITIES.put("TROLL_M", false);
     }
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> registerEntity(EntityType.Builder<T> builder, String entityName) {
-        return ENTITIES.register(entityName, () -> builder.build(entityName));
+    public static <T extends Entity> EntityType<T> build(EntityType.EntityFactory<T> constructor, SpawnGroup category, boolean fireImmune, float sizeX, float sizeY) {
+        FabricEntityTypeBuilder<T> builder = FabricEntityTypeBuilder.create(category, constructor).dimensions(EntityDimensions.changing(sizeX, sizeY));
+        if (fireImmune) builder.fireImmune();
+        return builder.build();
+    }
+
+    public static <T extends Entity> EntityType<T> build(EntityType.EntityFactory<T> constructor, SpawnGroup category, boolean fireImmune, float sizeX, float sizeY, int trackingRange) {
+        FabricEntityTypeBuilder<T> builder = FabricEntityTypeBuilder.create(category, constructor).dimensions(EntityDimensions.changing(sizeX, sizeY)).trackRangeBlocks(trackingRange);
+        if (fireImmune) builder.fireImmune();
+        return builder.build();
+    }
+
+
+    private static <T extends Entity> EntityType<T> register(String entityName, EntityType<T> builder) {
+        return Registry.register(Registries.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, entityName), builder);
+    }
+
+    public static void init() {
+        bakeAttributes();
+        addSpawners();
+        commonSetup();
     }
 
     public static void bakeAttributes() {
-        FabricDefaultAttributeRegistry.register(DRAGON_EGG.get(), EntityDragonEgg.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DRAGON_SKULL.get(), EntityDragonSkull.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(FIRE_DRAGON.get(), EntityFireDragon.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(ICE_DRAGON.get(), EntityIceDragon.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(LIGHTNING_DRAGON.get(), EntityLightningDragon.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(HIPPOGRYPH.get(), EntityHippogryph.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(GORGON.get(), EntityGorgon.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(STONE_STATUE.get(), EntityStoneStatue.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(PIXIE.get(), EntityPixie.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(CYCLOPS.get(), EntityCyclops.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(SIREN.get(), EntitySiren.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(HIPPOCAMPUS.get(), EntityHippocampus.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DEATH_WORM.get(), EntityDeathWorm.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(COCKATRICE.get(), EntityCockatrice.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(STYMPHALIAN_BIRD.get(), EntityStymphalianBird.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(TROLL.get(), EntityTroll.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_WORKER.get(), EntityMyrmexWorker.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_SOLDIER.get(), EntityMyrmexSoldier.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_SENTINEL.get(), EntityMyrmexSentinel.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_ROYAL.get(), EntityMyrmexRoyal.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_QUEEN.get(), EntityMyrmexQueen.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_EGG.get(), EntityMyrmexEgg.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MYRMEX_SWARMER.get(), EntityMyrmexSwarmer.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(AMPHITHERE.get(), EntityAmphithere.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(SEA_SERPENT.get(), EntitySeaSerpent.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(MOB_SKULL.get(), EntityMobSkull.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_THRALL.get(), EntityDreadThrall.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_LICH.get(), EntityDreadLich.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_BEAST.get(), EntityDreadBeast.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_HORSE.get(), EntityDreadHorse.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_GHOUL.get(), EntityDreadGhoul.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_KNIGHT.get(), EntityDreadKnight.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(DREAD_SCUTTLER.get(), EntityDreadScuttler.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(HYDRA.get(), EntityHydra.bakeAttributes().build());
-        FabricDefaultAttributeRegistry.register(GHOST.get(), EntityGhost.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DRAGON_EGG, EntityDragonEgg.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DRAGON_SKULL, EntityDragonSkull.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(FIRE_DRAGON, EntityFireDragon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(ICE_DRAGON, EntityIceDragon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(LIGHTNING_DRAGON, EntityLightningDragon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(HIPPOGRYPH, EntityHippogryph.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(GORGON, EntityGorgon.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(STONE_STATUE, EntityStoneStatue.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(PIXIE, EntityPixie.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(CYCLOPS, EntityCyclops.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(SIREN, EntitySiren.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(HIPPOCAMPUS, EntityHippocampus.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DEATH_WORM, EntityDeathWorm.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(COCKATRICE, EntityCockatrice.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(STYMPHALIAN_BIRD, EntityStymphalianBird.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(TROLL, EntityTroll.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_WORKER, EntityMyrmexWorker.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_SOLDIER, EntityMyrmexSoldier.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_SENTINEL, EntityMyrmexSentinel.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_ROYAL, EntityMyrmexRoyal.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_QUEEN, EntityMyrmexQueen.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_EGG, EntityMyrmexEgg.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MYRMEX_SWARMER, EntityMyrmexSwarmer.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(AMPHITHERE, EntityAmphithere.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(SEA_SERPENT, EntitySeaSerpent.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(MOB_SKULL, EntityMobSkull.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_THRALL, EntityDreadThrall.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_LICH, EntityDreadLich.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_BEAST, EntityDreadBeast.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_HORSE, EntityDreadHorse.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_GHOUL, EntityDreadGhoul.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_KNIGHT, EntityDreadKnight.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(DREAD_SCUTTLER, EntityDreadScuttler.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(HYDRA, EntityHydra.bakeAttributes().build());
+        FabricDefaultAttributeRegistry.register(GHOST, EntityGhost.bakeAttributes().build());
     }
 
     public static void commonSetup() {
-        SpawnRestriction.register(HIPPOGRYPH.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityHippogryph::canMobSpawn);
-        SpawnRestriction.register(TROLL.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityTroll::canTrollSpawnOn);
-        SpawnRestriction.register(DREAD_LICH.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityDreadLich::canLichSpawnOn);
-        SpawnRestriction.register(COCKATRICE.get(), SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityCockatrice::canMobSpawn);
-        SpawnRestriction.register(AMPHITHERE.get(), SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, EntityAmphithere::canAmphithereSpawnOn);
+        SpawnRestriction.register(HIPPOGRYPH, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityHippogryph::canMobSpawn);
+        SpawnRestriction.register(TROLL, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityTroll::canTrollSpawnOn);
+        SpawnRestriction.register(DREAD_LICH, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityDreadLich::canLichSpawnOn);
+        SpawnRestriction.register(COCKATRICE, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, EntityCockatrice::canMobSpawn);
+        SpawnRestriction.register(AMPHITHERE, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING, EntityAmphithere::canAmphithereSpawnOn);
     }
 
     public static void addSpawners() {
         if (IafConfig.spawnHippogryphs) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.HIPPOGRYPH.get(), IafConfig.hippogryphSpawnRate, 1, 1);
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.HIPPOGRYPH, IafConfig.hippogryphSpawnRate, 1, 1);
             LOADED_ENTITIES.put("HIPPOGRYPH", true);
         }
         if (IafConfig.spawnLiches) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntityRegistry.DREAD_LICH.get(), IafConfig.lichSpawnRate, 1, 1);
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntityRegistry.DREAD_LICH, IafConfig.lichSpawnRate, 1, 1);
             LOADED_ENTITIES.put("DREAD_LICH", true);
         }
         if (IafConfig.spawnCockatrices) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.COCKATRICE.get(), IafConfig.cockatriceSpawnRate, 1, 2);
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.COCKATRICE, IafConfig.cockatriceSpawnRate, 1, 2);
             LOADED_ENTITIES.put("COCKATRICE", true);
         }
         if (IafConfig.spawnAmphitheres) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.AMPHITHERE.get(), IafConfig.amphithereSpawnRate, 1, 3);
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntityRegistry.AMPHITHERE, IafConfig.amphithereSpawnRate, 1, 3);
             LOADED_ENTITIES.put("AMPHITHERE", true);
         }
         if (IafConfig.spawnTrolls) {
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.forestTrollBiomes, context.getBiomeRegistryEntry()) ||
                     BiomeConfig.test(BiomeConfig.snowyTrollBiomes, context.getBiomeRegistryEntry()) ||
-                    BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntityRegistry.TROLL.get(), IafConfig.trollSpawnRate, 1, 3);
+                    BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntityRegistry.TROLL, IafConfig.trollSpawnRate, 1, 3);
             LOADED_ENTITIES.put("TROLL_F", true);
             LOADED_ENTITIES.put("TROLL_S", true);
             LOADED_ENTITIES.put("TROLL_M", true);
         }
+    }
 
+    public static TabulaModel getOrNull(String modelPath, ITabulaModelAnimator<?> tabulaAnimator) {
+        try {
+            return new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel(modelPath), tabulaAnimator);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static void registerRenderers() {
+        final TabulaModel SEA_SERPENT_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/seaserpent/seaserpent_base", new SeaSerpentTabulaModelAnimator());
+        final TabulaModel FIRE_DRAGON_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/firedragon/firedragon_ground", new FireDragonTabulaModelAnimator());
+        final TabulaModel ICE_DRAGON_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/icedragon/icedragon_ground", new IceDragonTabulaModelAnimator());
+        final TabulaModel LIGHTNING_DRAGON_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/lightningdragon/lightningdragon_ground", new LightningTabulaDragonAnimator());
+
+        EntityRendererRegistry.register(IafEntityRegistry.FIRE_DRAGON, x -> new RenderDragonBase(x, FIRE_DRAGON_BASE_MODEL, 0));
+        EntityRendererRegistry.register(IafEntityRegistry.ICE_DRAGON, manager -> new RenderDragonBase(manager, ICE_DRAGON_BASE_MODEL, 1));
+        EntityRendererRegistry.register(IafEntityRegistry.LIGHTNING_DRAGON, manager -> new RenderLightningDragon(manager, LIGHTNING_DRAGON_BASE_MODEL, 2));
+        EntityRendererRegistry.register(IafEntityRegistry.DRAGON_EGG, RenderDragonEgg::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DRAGON_ARROW, RenderDragonArrow::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DRAGON_SKULL, manager -> new RenderDragonSkull(manager, FIRE_DRAGON_BASE_MODEL, ICE_DRAGON_BASE_MODEL, LIGHTNING_DRAGON_BASE_MODEL));
+        EntityRendererRegistry.register(IafEntityRegistry.FIRE_DRAGON_CHARGE, manager -> new RenderDragonFireCharge(manager, true));
+        EntityRendererRegistry.register(IafEntityRegistry.ICE_DRAGON_CHARGE, manager -> new RenderDragonFireCharge(manager, false));
+        EntityRendererRegistry.register(IafEntityRegistry.LIGHTNING_DRAGON_CHARGE, RenderDragonLightningCharge::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HIPPOGRYPH_EGG, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HIPPOGRYPH, RenderHippogryph::new);
+        EntityRendererRegistry.register(IafEntityRegistry.STONE_STATUE, RenderStoneStatue::new);
+        EntityRendererRegistry.register(IafEntityRegistry.GORGON, RenderGorgon::new);
+        EntityRendererRegistry.register(IafEntityRegistry.PIXIE, RenderPixie::new);
+        EntityRendererRegistry.register(IafEntityRegistry.CYCLOPS, RenderCyclops::new);
+        EntityRendererRegistry.register(IafEntityRegistry.SIREN, RenderSiren::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HIPPOCAMPUS, RenderHippocampus::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DEATH_WORM, RenderDeathWorm::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DEATH_WORM_EGG, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(IafEntityRegistry.COCKATRICE, RenderCockatrice::new);
+        EntityRendererRegistry.register(IafEntityRegistry.COCKATRICE_EGG, FlyingItemEntityRenderer::new);
+        EntityRendererRegistry.register(IafEntityRegistry.STYMPHALIAN_BIRD, RenderStymphalianBird::new);
+        EntityRendererRegistry.register(IafEntityRegistry.STYMPHALIAN_FEATHER, RenderStymphalianFeather::new);
+        EntityRendererRegistry.register(IafEntityRegistry.STYMPHALIAN_ARROW, RenderStymphalianArrow::new);
+        EntityRendererRegistry.register(IafEntityRegistry.TROLL, RenderTroll::new);
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_WORKER, manager -> new RenderMyrmexBase(manager, new ModelMyrmexWorker(), 0.5F));
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_SOLDIER, manager -> new RenderMyrmexBase(manager, new ModelMyrmexSoldier(), 0.75F));
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_QUEEN, manager -> new RenderMyrmexBase(manager, new ModelMyrmexQueen(), 1.25F));
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_EGG, RenderMyrmexEgg::new);
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_SENTINEL, manager -> new RenderMyrmexBase(manager, new ModelMyrmexSentinel(), 0.85F));
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_ROYAL, manager -> new RenderMyrmexBase(manager, new ModelMyrmexRoyal(), 0.75F));
+        EntityRendererRegistry.register(IafEntityRegistry.MYRMEX_SWARMER, manager -> new RenderMyrmexBase(manager, new ModelMyrmexRoyal(), 0.25F));
+        EntityRendererRegistry.register(IafEntityRegistry.AMPHITHERE, RenderAmphithere::new);
+        EntityRendererRegistry.register(IafEntityRegistry.AMPHITHERE_ARROW, RenderAmphithereArrow::new);
+        EntityRendererRegistry.register(IafEntityRegistry.SEA_SERPENT, manager -> new RenderSeaSerpent(manager, SEA_SERPENT_BASE_MODEL));
+        EntityRendererRegistry.register(IafEntityRegistry.SEA_SERPENT_BUBBLES, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.SEA_SERPENT_ARROW, RenderSeaSerpentArrow::new);
+        EntityRendererRegistry.register(IafEntityRegistry.CHAIN_TIE, RenderChainTie::new);
+        EntityRendererRegistry.register(IafEntityRegistry.PIXIE_CHARGE, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.TIDE_TRIDENT, RenderTideTrident::new);
+        EntityRendererRegistry.register(IafEntityRegistry.MOB_SKULL, manager -> new RenderMobSkull(manager, SEA_SERPENT_BASE_MODEL));
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_SCUTTLER, RenderDreadScuttler::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_GHOUL, RenderDreadGhoul::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_BEAST, RenderDreadBeast::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_SCUTTLER, RenderDreadScuttler::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_THRALL, RenderDreadThrall::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_LICH, RenderDreadLich::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_LICH_SKULL, RenderDreadLichSkull::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_KNIGHT, RenderDreadKnight::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DREAD_HORSE, RenderDreadHorse::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HYDRA, RenderHydra::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HYDRA_BREATH, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HYDRA_ARROW, RenderHydraArrow::new);
+        EntityRendererRegistry.register(IafEntityRegistry.SLOW_MULTIPART, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.DRAGON_MULTIPART, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.CYCLOPS_MULTIPART, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.HYDRA_MULTIPART, RenderNothing::new);
+        EntityRendererRegistry.register(IafEntityRegistry.GHOST, RenderGhost::new);
+        EntityRendererRegistry.register(IafEntityRegistry.GHOST_SWORD, RenderGhostSword::new);
     }
 }

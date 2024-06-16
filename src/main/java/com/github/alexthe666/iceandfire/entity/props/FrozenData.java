@@ -66,7 +66,7 @@ public class FrozenData {
         for (int i = 0; i < 15; i++) {
             entity.getWorld().addParticle(
                     new BlockStateParticleEffect(ParticleTypes.BLOCK,
-                            IafBlockRegistry.DRAGON_ICE.get().getDefaultState()),
+                            IafBlockRegistry.DRAGON_ICE.getDefaultState()),
                     entity.getX() + ((entity.getRandom().nextDouble() - 0.5D) * entity.getWidth()),
                     entity.getY() + ((entity.getRandom().nextDouble()) * entity.getHeight()),
                     entity.getZ() + ((entity.getRandom().nextDouble() - 0.5D) * entity.getWidth()),

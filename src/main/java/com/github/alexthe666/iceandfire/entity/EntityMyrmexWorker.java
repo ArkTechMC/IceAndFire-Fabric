@@ -106,13 +106,13 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
         }*/
         if (!this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
             if (this.getStackInHand(Hand.MAIN_HAND).getItem() instanceof ItemMyrmexEgg) {
-                boolean isJungle = this.getStackInHand(Hand.MAIN_HAND).getItem() == IafItemRegistry.MYRMEX_JUNGLE_EGG.get();
+                boolean isJungle = this.getStackInHand(Hand.MAIN_HAND).getItem() == IafItemRegistry.MYRMEX_JUNGLE_EGG;
                 NbtCompound tag = this.getStackInHand(Hand.MAIN_HAND).getNbt();
                 int metadata = 0;
                 if (tag != null) {
                     metadata = tag.getInt("EggOrdinal");
                 }
-                EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG.get(), this.getWorld());
+                EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG, this.getWorld());
                 egg.copyPositionAndRotation(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
@@ -283,7 +283,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     public void onPickupItem(ItemEntity itemEntity) {
         Item item = itemEntity.getStack().getItem();
-        if (item == IafItemRegistry.MYRMEX_JUNGLE_RESIN.get() && this.isJungle() || item == IafItemRegistry.MYRMEX_DESERT_RESIN.get() && !this.isJungle()) {
+        if (item == IafItemRegistry.MYRMEX_JUNGLE_RESIN && this.isJungle() || item == IafItemRegistry.MYRMEX_DESERT_RESIN && !this.isJungle()) {
 
             PlayerEntity owner = null;
             try {

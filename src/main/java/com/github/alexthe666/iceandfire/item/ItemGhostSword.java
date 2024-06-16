@@ -37,7 +37,7 @@ public class ItemGhostSword extends SwordItem {
             totalDmg += modifier.getValue();
         }
         playerEntity.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
-        EntityGhostSword shot = new EntityGhostSword(IafEntityRegistry.GHOST_SWORD.get(), playerEntity.getWorld(), playerEntity, totalDmg * 0.5F);
+        EntityGhostSword shot = new EntityGhostSword(IafEntityRegistry.GHOST_SWORD, playerEntity.getWorld(), playerEntity, totalDmg * 0.5F);
         shot.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, 1, 0.5f);
         playerEntity.getWorld().spawnEntity(shot);
         stack.damage(1, playerEntity, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));

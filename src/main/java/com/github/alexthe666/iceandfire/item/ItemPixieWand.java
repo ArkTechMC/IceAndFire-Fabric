@@ -47,7 +47,7 @@ public class ItemPixieWand extends Item {
             d2 = d2 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d3 = d3 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d4 = d4 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
-            EntityPixieCharge charge = new EntityPixieCharge(IafEntityRegistry.PIXIE_CHARGE.get(), worldIn, playerIn,
+            EntityPixieCharge charge = new EntityPixieCharge(IafEntityRegistry.PIXIE_CHARGE, worldIn, playerIn,
                     d2, d3, d4);
             charge.setPosition(playerIn.getX(), playerIn.getY() + 1, playerIn.getZ());
             if (!worldIn.isClient) {
@@ -62,7 +62,7 @@ public class ItemPixieWand extends Item {
 
     public boolean isInfinite(ItemStack stack, ItemStack bow, PlayerEntity player) {
         int enchant = EnchantmentHelper.getLevel(Enchantments.INFINITY, bow);
-        return enchant > 0 && stack.getItem() == IafItemRegistry.PIXIE_DUST.get();
+        return enchant > 0 && stack.getItem() == IafItemRegistry.PIXIE_DUST;
     }
 
     private ItemStack findAmmo(PlayerEntity player) {
@@ -84,7 +84,7 @@ public class ItemPixieWand extends Item {
     }
 
     protected boolean isAmmo(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() == IafItemRegistry.PIXIE_DUST.get();
+        return !stack.isEmpty() && stack.getItem() == IafItemRegistry.PIXIE_DUST;
     }
 
 

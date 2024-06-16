@@ -23,7 +23,7 @@ public class ContainerHippogryph extends ScreenHandler {
     }
 
     public ContainerHippogryph(int id, Inventory hippogryphInventory, PlayerInventory playerInventory, EntityHippogryph hippogryph, EntityPropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.HIPPOGRYPH_CONTAINER.get(), id);
+        super(IafContainerRegistry.HIPPOGRYPH_CONTAINER, id);
         this.hippogryphInventory = hippogryphInventory;
         if (hippogryph != null)
             this.hippogryph = hippogryph;

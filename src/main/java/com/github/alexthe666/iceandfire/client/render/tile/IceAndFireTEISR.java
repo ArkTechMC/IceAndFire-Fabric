@@ -19,8 +19,8 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
 
     private final RenderPixieHouse PIXIE_HOUSE_RENDERER;
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
-    private final TileEntityGhostChest chest = new TileEntityGhostChest(BlockPos.ORIGIN, IafBlockRegistry.GHOST_CHEST.get().getDefaultState());
-    private final TileEntityDreadPortal portal = new TileEntityDreadPortal(BlockPos.ORIGIN, IafBlockRegistry.DREAD_PORTAL.get().getDefaultState());
+    private final TileEntityGhostChest chest = new TileEntityGhostChest(BlockPos.ORIGIN, IafBlockRegistry.GHOST_CHEST.getDefaultState());
+    private final TileEntityDreadPortal portal = new TileEntityDreadPortal(BlockPos.ORIGIN, IafBlockRegistry.DREAD_PORTAL.getDefaultState());
 
     public IceAndFireTEISR() {
         this(MinecraftClient.getInstance().getBlockEntityRenderDispatcher(), MinecraftClient.getInstance().getEntityModelLoader());
@@ -34,17 +34,14 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
 
     @Override
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        if (stack.getItem() == IafBlockRegistry.GHOST_CHEST.get().asItem()) {
+        if (stack.getItem() == IafBlockRegistry.GHOST_CHEST.asItem())
             this.blockEntityRenderDispatcher.renderEntity(this.chest, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
-        }
-        if (stack.getItem() instanceof BlockItem) {
+        if (stack.getItem() instanceof BlockItem)
             ((BlockItem) stack.getItem()).getBlock();
-            IafBlockRegistry.DREAD_PORTAL.get();
-        }//            this.blockEntityRenderDispatcher.renderEntity(this.portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
+        //            this.blockEntityRenderDispatcher.renderEntity(this.portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof BlockPixieHouse) {
             this.PIXIE_HOUSE_RENDERER.metaOverride = (BlockItem) stack.getItem();
             this.PIXIE_HOUSE_RENDERER.render(null, 0, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         }
-
     }
 }

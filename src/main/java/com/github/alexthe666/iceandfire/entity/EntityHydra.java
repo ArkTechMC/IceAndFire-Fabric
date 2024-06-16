@@ -156,8 +156,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                     double d2 = attackTarget.getX() - headPosX + this.random.nextGaussian() * 0.4D;
                     double d3 = attackTarget.getY() + attackTarget.getStandingEyeHeight() - headPosY + this.random.nextGaussian() * 0.4D;
                     double d4 = attackTarget.getZ() - headPosZ + this.random.nextGaussian() * 0.4D;
-                    EntityHydraBreath entitylargefireball = new EntityHydraBreath(IafEntityRegistry.HYDRA_BREATH.get(),
-                            this.getWorld(), this, d2, d3, d4);
+                    EntityHydraBreath entitylargefireball = new EntityHydraBreath(IafEntityRegistry.HYDRA_BREATH, this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);

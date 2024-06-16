@@ -131,7 +131,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     @Override
     protected void initEquipment(Random pRandom, LocalDifficulty pDifficulty) {
         super.initEquipment(pRandom, pDifficulty);
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.LICH_STAFF.get()));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.LICH_STAFF));
     }
 
     @Override
@@ -224,7 +224,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             this.goalSelector.remove(this.aiAttackOnCollide);
             this.goalSelector.remove(this.aiArrowAttack);
             ItemStack itemstack = this.getMainHandStack();
-            if (itemstack.getItem() == IafItemRegistry.LICH_STAFF.get()) {
+            if (itemstack.getItem() == IafItemRegistry.LICH_STAFF) {
                 int i = 100;
                 this.aiArrowAttack.setAttackCooldown(i);
                 this.goalSelector.add(4, this.aiArrowAttack);
@@ -263,7 +263,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         if (this.fireCooldown == 0 && !flag) {
             this.swingHand(Hand.MAIN_HAND);
             this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, this.getSoundVolume(), this.getSoundPitch());
-            EntityDreadLichSkull skull = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL.get(), this.getWorld(), this,
+            EntityDreadLichSkull skull = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL, this.getWorld(), this,
                     6);
             double d0 = target.getX() - this.getX();
             double d1 = target.getBoundingBox().minY + target.getHeight() * 2 - skull.getY();
@@ -278,13 +278,13 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     private MobEntity getRandomNewMinion() {
         float chance = this.random.nextFloat();
         if (chance > 0.5F) {
-            return new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL.get(), this.getWorld());
+            return new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL, this.getWorld());
         } else if (chance > 0.35F) {
-            return new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL.get(), this.getWorld());
+            return new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL, this.getWorld());
         } else if (chance > 0.15F) {
-            return new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST.get(), this.getWorld());
+            return new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST, this.getWorld());
         } else {
-            return new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER.get(), this.getWorld());
+            return new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER, this.getWorld());
         }
     }
 

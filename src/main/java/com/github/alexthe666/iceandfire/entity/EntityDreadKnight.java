@@ -59,7 +59,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
         ItemStack itemstack = new ItemStack(Items.CYAN_BANNER);
         NbtCompound compoundnbt = itemstack.getOrCreateSubNbt("BlockEntityTag");
 
-        NbtList listnbt = new BannerPattern.Patterns().add(BannerPatterns.BASE, DyeColor.CYAN).add(RegistryEntry.of(IafBannerPatterns.PATTERN_DREAD.get()), DyeColor.WHITE).toNbt();
+        NbtList listnbt = new BannerPattern.Patterns().add(BannerPatterns.BASE, DyeColor.CYAN).add(RegistryEntry.of(IafBannerPatterns.PATTERN_DREAD), DyeColor.WHITE).toNbt();
         compoundnbt.put("Patterns", listnbt);
         ItemStack shield = new ItemStack(Items.SHIELD, 1);
         shield.setNbt(itemstack.getNbt());
@@ -118,7 +118,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     @Override
     protected void initEquipment(Random pRandom, LocalDifficulty pDifficulty) {
         super.initEquipment(pRandom, pDifficulty);
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DREAD_KNIGHT_SWORD.get()));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DREAD_KNIGHT_SWORD));
         if (this.random.nextBoolean()) {
             this.equipStack(EquipmentSlot.OFFHAND, SHIELD.copy());
         }

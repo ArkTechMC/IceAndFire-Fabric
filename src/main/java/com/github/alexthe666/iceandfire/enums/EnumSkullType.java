@@ -18,15 +18,14 @@ public enum EnumSkullType {
     HYDRA;
 
     public final String itemResourceName;
-    public RegistryObject<Item> skull_item;
+    public Item skull_item;
 
     EnumSkullType() {
         this.itemResourceName = this.name().toLowerCase(Locale.ROOT) + "_skull";
     }
 
     public static void initItems() {
-        for (EnumSkullType skull : EnumSkullType.values()) {
-            skull.skull_item = IafItemRegistry.registerItem(skull.itemResourceName, () -> new ItemMobSkull(skull));
-        }
+        for (EnumSkullType skull : EnumSkullType.values())
+            skull.skull_item = IafItemRegistry.register(skull.itemResourceName, new ItemMobSkull(skull));
     }
 }

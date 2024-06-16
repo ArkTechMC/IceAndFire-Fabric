@@ -24,7 +24,7 @@ public class ChickenData {
             if (entity.age > 30 && entity.getRandom().nextInt(IafConfig.cockatriceEggChance + 1) == 0) {
                 entity.playSound(SoundEvents.ENTITY_CHICKEN_HURT, 2.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
                 entity.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
-                entity.dropItem(IafItemRegistry.ROTTEN_EGG.get(), 1);
+                entity.dropItem(IafItemRegistry.ROTTEN_EGG, 1);
             }
 
             this.timeUntilNextEgg = -1;

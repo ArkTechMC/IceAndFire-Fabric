@@ -39,13 +39,13 @@ public class TileEntityJar extends BlockEntity {
     public float prevRotationYaw;
 
     public TileEntityJar(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.PIXIE_JAR.get(), pos, state);
+        super(IafTileEntityRegistry.PIXIE_JAR, pos, state);
         this.rand = new Random();
         this.hasPixie = true;
     }
 
     public TileEntityJar(BlockPos pos, BlockState state, boolean empty) {
-        super(IafTileEntityRegistry.PIXIE_JAR.get(), pos, state);
+        super(IafTileEntityRegistry.PIXIE_JAR, pos, state);
         this.rand = new Random();
         this.hasPixie = !empty;
     }
@@ -115,7 +115,7 @@ public class TileEntityJar extends BlockEntity {
     }
 
     public void releasePixie() {
-        EntityPixie pixie = new EntityPixie(IafEntityRegistry.PIXIE.get(), this.world);
+        EntityPixie pixie = new EntityPixie(IafEntityRegistry.PIXIE, this.world);
         pixie.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 1F, this.pos.getZ() + 0.5F, new Random().nextInt(360), 0);
         pixie.setStackInHand(Hand.MAIN_HAND, this.pixieItems.get(0));
         pixie.setColor(this.pixieType);

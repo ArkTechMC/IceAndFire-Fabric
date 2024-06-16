@@ -89,12 +89,12 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE.get());
+        return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE);
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return IafRecipeSerializers.DRAGONFORGE_SERIALIZER.get();
+        return IafRecipeSerializers.DRAGONFORGE_SERIALIZER;
     }
 
     @Override
@@ -132,5 +132,4 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
             buffer.writeItemStack(recipe.result);
         }
     }
-
 }

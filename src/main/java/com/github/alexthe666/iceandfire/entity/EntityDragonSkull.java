@@ -34,7 +34,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     public final float minSize = 0.3F;
     public final float maxSize = 8.58F;
 
-    public EntityDragonSkull(EntityType type, World worldIn) {
+    public EntityDragonSkull(EntityType<EntityDragonSkull> type, World worldIn) {
         super(type, worldIn);
         this.ignoreCameraFrustum = true;
         // setScale(this.getDragonAge());
@@ -147,9 +147,9 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
 
     public Item getDragonSkullItem() {
         return switch (this.getDragonType()) {
-            case 1 -> IafItemRegistry.DRAGON_SKULL_ICE.get();
-            case 2 -> IafItemRegistry.DRAGON_SKULL_LIGHTNING.get();
-            default -> IafItemRegistry.DRAGON_SKULL_FIRE.get();
+            case 1 -> IafItemRegistry.DRAGON_SKULL_ICE;
+            case 2 -> IafItemRegistry.DRAGON_SKULL_LIGHTNING;
+            default -> IafItemRegistry.DRAGON_SKULL_FIRE;
         };
     }
 

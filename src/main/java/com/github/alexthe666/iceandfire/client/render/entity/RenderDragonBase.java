@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> {
-
     private final Map<String, Identifier> LAYERED_TEXTURE_CACHE = Maps.newHashMap();
     private final int dragonType;
 
@@ -61,17 +60,14 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
             List<String> tex = new ArrayList<>();
             tex.add(EnumDragonTextures.getTextureFromDragon(entity).toString());
             if (entity.isMale() && !entity.isSkeletal()) {
-                if (this.dragonType == 0) {
+                if (this.dragonType == 0)
                     tex.add(EnumDragonTextures.getDragonEnum(entity).FIRE_MALE_OVERLAY.toString());
-                } else if (this.dragonType == 1) {
+                else if (this.dragonType == 1)
                     tex.add(EnumDragonTextures.getDragonEnum(entity).ICE_MALE_OVERLAY.toString());
-                } else if (this.dragonType == 2) {
+                else if (this.dragonType == 2)
                     tex.add(EnumDragonTextures.getDragonEnum(entity).LIGHTNING_MALE_OVERLAY.toString());
-                }
-            } else {
+            } else
                 tex.add(EnumDragonTextures.Armor.EMPTY.FIRETEXTURE.toString());
-
-            }
             ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
             MinecraftClient.getInstance().getTextureManager().registerTexture(resourcelocation, layeredBase);
             this.LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);

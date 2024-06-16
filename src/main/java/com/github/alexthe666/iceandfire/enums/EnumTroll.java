@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Supplier;
 
 public enum EnumTroll {
     FOREST(IafItemRegistry.TROLL_FOREST_ARMOR_MATERIAL, Weapon.TRUNK, Weapon.COLUMN_FOREST, Weapon.AXE, Weapon.HAMMER),
@@ -30,11 +29,11 @@ public enum EnumTroll {
     public final Identifier TEXTURE_EYES;
     public final CustomArmorMaterial material;
     private final Weapon[] weapons;
-    public Supplier<Item> leather;
-    public Supplier<Item> helmet;
-    public Supplier<Item> chestplate;
-    public Supplier<Item> leggings;
-    public Supplier<Item> boots;
+    public final Item leather;
+    public final Item helmet;
+    public final Item chestplate;
+    public final Item leggings;
+    public final Item boots;
 
     EnumTroll(CustomArmorMaterial material, Weapon... weapons) {
         this.weapons = weapons;
@@ -42,41 +41,25 @@ public enum EnumTroll {
         this.TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + ".png");
         this.TEXTURE_STONE = new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + "_stone.png");
         this.TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name().toLowerCase(Locale.ROOT) + "_eyes.png");
-        this.leather = () -> new ItemTrollLeather(this);
-        this.helmet = () -> new ItemTrollArmor(this, material, ArmorItem.Type.HELMET);
-        this.chestplate = () -> new ItemTrollArmor(this, material, ArmorItem.Type.CHESTPLATE);
-        this.leggings = () -> new ItemTrollArmor(this, material, ArmorItem.Type.LEGGINGS);
-        this.boots = () -> new ItemTrollArmor(this, material, ArmorItem.Type.BOOTS);
-
-
-        //leather = IafItemRegistry.deferredRegister.register("troll_leather_" + name().toLowerCase(Locale.ROOT), () -> new ItemTrollLeather(this));
-
-        //Function<EquipmentSlot, RegistryObject<Item>> genArmor = (slot) ->
-        //        IafItemRegistry.deferredRegister.register(ItemTrollArmor.getName(this, slot), () -> new ItemTrollArmor(this, material, slot));
-        //helmet = genArmor.apply(EquipmentSlot.HEAD);
-        //chestplate = genArmor.apply(EquipmentSlot.CHEST);
-        //leggings = genArmor.apply(EquipmentSlot.LEGS);
-        //boots = genArmor.apply(EquipmentSlot.FEET);
-
-
+        this.leather = new ItemTrollLeather(this);
+        this.helmet = new ItemTrollArmor(this, material, ArmorItem.Type.HELMET);
+        this.chestplate = new ItemTrollArmor(this, material, ArmorItem.Type.CHESTPLATE);
+        this.leggings = new ItemTrollArmor(this, material, ArmorItem.Type.LEGGINGS);
+        this.boots = new ItemTrollArmor(this, material, ArmorItem.Type.BOOTS);
     }
 
     public static EnumTroll getBiomeType(RegistryEntry<Biome> biome) {
         List<EnumTroll> types = new ArrayList<>();
-        if (BiomeConfig.test(BiomeConfig.snowyTrollBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.snowyTrollBiomes, biome))
             types.add(EnumTroll.FROST);
-        }
-        if (BiomeConfig.test(BiomeConfig.forestTrollBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.forestTrollBiomes, biome))
             types.add(EnumTroll.FOREST);
-        }
-        if (BiomeConfig.test(BiomeConfig.mountainTrollBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.mountainTrollBiomes, biome))
             types.add(EnumTroll.MOUNTAIN);
-        }
-        if (types.isEmpty()) {
+        if (types.isEmpty())
             return values()[ThreadLocalRandom.current().nextInt(values().length)];
-        } else {
+        else
             return types.get(ThreadLocalRandom.current().nextInt(types.size()));
-        }
     }
 
 
@@ -86,23 +69,22 @@ public enum EnumTroll {
 
     public static void initArmors() {
         for (EnumTroll troll : EnumTroll.values()) {
-            troll.leather = IafItemRegistry.registerItem("troll_leather_%s".formatted(troll.name().toLowerCase(Locale.ROOT)), () -> new ItemTrollLeather(troll));
-            troll.helmet = IafItemRegistry.registerItem(ItemTrollArmor.getName(troll, EquipmentSlot.HEAD), () -> new ItemTrollArmor(troll, troll.material, ArmorItem.Type.HELMET));
-            troll.chestplate = IafItemRegistry.registerItem(ItemTrollArmor.getName(troll, EquipmentSlot.CHEST), () -> new ItemTrollArmor(troll, troll.material, ArmorItem.Type.CHESTPLATE));
-            troll.leggings = IafItemRegistry.registerItem(ItemTrollArmor.getName(troll, EquipmentSlot.LEGS), () -> new ItemTrollArmor(troll, troll.material, ArmorItem.Type.LEGGINGS));
-            troll.boots = IafItemRegistry.registerItem(ItemTrollArmor.getName(troll, EquipmentSlot.FEET), () -> new ItemTrollArmor(troll, troll.material, ArmorItem.Type.BOOTS));
+            IafItemRegistry.register("troll_leather_%s".formatted(troll.name().toLowerCase(Locale.ROOT)), troll.leather);
+            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.HEAD), troll.helmet);
+            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.CHEST), troll.chestplate);
+            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.LEGS), troll.leggings);
+            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.FEET), troll.boots);
         }
     }
 
     public enum Weapon {
         AXE, COLUMN, COLUMN_FOREST, COLUMN_FROST, HAMMER, TRUNK, TRUNK_FROST;
         public final Identifier TEXTURE;
-        public final Supplier<Item> item;
+        public final Item item;
 
         Weapon() {
             this.TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");
-            this.item = IafItemRegistry.registerItem("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), () -> new ItemTrollWeapon(this));
+            this.item = IafItemRegistry.register("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), new ItemTrollWeapon(this));
         }
-
     }
 }

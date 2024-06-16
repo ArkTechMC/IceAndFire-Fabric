@@ -142,7 +142,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
                 }
             }
         }
-        EntityHydra hydra = new EntityHydra(IafEntityRegistry.HYDRA.get(), worldIn.toServerWorld());
+        EntityHydra hydra = new EntityHydra(IafEntityRegistry.HYDRA, worldIn.toServerWorld());
         hydra.setVariant(rand.nextInt(3));
         hydra.setPositionTarget(position, 15);
         hydra.updatePositionAndAngles(position.getX() + 0.5, position.getY() + 1.5, position.getZ() + 0.5, rand.nextFloat() * 360, 0);

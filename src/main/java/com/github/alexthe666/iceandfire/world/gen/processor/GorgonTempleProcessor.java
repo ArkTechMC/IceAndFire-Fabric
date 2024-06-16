@@ -38,6 +38,6 @@ public class GorgonTempleProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType getType() {
-        return IafProcessors.GORGONTEMPLEPROCESSOR.get();
+        return IafProcessors.GORGONTEMPLEPROCESSOR;
     }
 }

@@ -19,7 +19,7 @@ public class ContainerPodium extends ScreenHandler {
 
 
     public ContainerPodium(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate vars) {
-        super(IafContainerRegistry.PODIUM_CONTAINER.get(), id);
+        super(IafContainerRegistry.PODIUM_CONTAINER, id);
         this.podium = furnaceInventory;
         furnaceInventory.onOpen(playerInventory.player);
         byte b0 = 51;

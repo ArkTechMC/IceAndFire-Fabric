@@ -22,17 +22,15 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     private TileEntityDragonforge core = null;
 
     public TileEntityDragonforgeInput(BlockPos pos, BlockState state) {
-        super(IafTileEntityRegistry.DRAGONFORGE_INPUT.get(), pos, state);
+        super(IafTileEntityRegistry.DRAGONFORGE_INPUT, pos, state);
     }
 
     public static void tick(final World level, final BlockPos position, final BlockState state, final TileEntityDragonforgeInput forgeInput) {
-        if (forgeInput.core == null) {
+        if (forgeInput.core == null)
             forgeInput.core = forgeInput.getConnectedTileEntity(position);
-        }
 
-        if (forgeInput.ticksSinceDragonFire > 0) {
+        if (forgeInput.ticksSinceDragonFire > 0)
             forgeInput.ticksSinceDragonFire--;
-        }
 
         if ((forgeInput.ticksSinceDragonFire == 0 || forgeInput.core == null) && forgeInput.isActive()) {
             BlockEntity tileentity = level.getBlockEntity(position);
@@ -43,15 +41,13 @@ public class TileEntityDragonforgeInput extends BlockEntity {
             }
         }
 
-        if (forgeInput.isAssembled()) {
+        if (forgeInput.isAssembled())
             forgeInput.lureDragons();
-        }
     }
 
     public void onHitWithFlame() {
-        if (this.core != null) {
+        if (this.core != null)
             this.core.transferPower(1);
-        }
     }
 
     @Override
@@ -98,10 +94,6 @@ public class TileEntityDragonforgeInput extends BlockEntity {
         return (this.core != null && this.core.assembled() && this.core.canSmelt());
     }
 
-    public void resetCore() {
-        this.core = null;
-    }
-
     private boolean canSeeInput(EntityDragonBase dragon, Vec3d target) {
         if (target != null) {
             assert this.world != null;
@@ -117,11 +109,11 @@ public class TileEntityDragonforgeInput extends BlockEntity {
     private BlockState getDeactivatedState() {
         return switch (this.getDragonType()) {
             case 1 ->
-                    IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get().getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
+                    IafBlockRegistry.DRAGONFORGE_ICE_INPUT.getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
             case 2 ->
-                    IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get().getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
+                    IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
             default ->
-                    IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get().getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
+                    IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.getDefaultState().with(BlockDragonForgeInput.ACTIVE, false);
         };
     }
 
@@ -129,11 +121,11 @@ public class TileEntityDragonforgeInput extends BlockEntity {
         assert this.world != null;
         BlockState state = this.world.getBlockState(this.pos);
 
-        if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_FIRE_INPUT.get()) {
+        if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_FIRE_INPUT) {
             return 0;
-        } else if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_ICE_INPUT.get()) {
+        } else if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_ICE_INPUT) {
             return 1;
-        } else if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT.get()) {
+        } else if (state.getBlock() == IafBlockRegistry.DRAGONFORGE_LIGHTNING_INPUT) {
             return 2;
         }
 

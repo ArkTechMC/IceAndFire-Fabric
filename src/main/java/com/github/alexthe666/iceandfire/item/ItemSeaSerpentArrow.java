@@ -21,7 +21,7 @@ public class ItemSeaSerpentArrow extends ArrowItem {
 
     @Override
     public PersistentProjectileEntity createArrow(World worldIn, ItemStack stack, LivingEntity shooter) {
-        return new EntitySeaSerpentArrow(IafEntityRegistry.SEA_SERPENT_ARROW.get(), worldIn, shooter);
+        return new EntitySeaSerpentArrow(IafEntityRegistry.SEA_SERPENT_ARROW, worldIn, shooter);
     }
 
     @Override

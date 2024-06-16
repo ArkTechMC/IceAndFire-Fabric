@@ -24,9 +24,9 @@ public class RenderDeathWormGauntlet extends BuiltinModelItemRenderer {
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         RenderLayer texture;
 
-        if (stack.getItem() == IafItemRegistry.DEATHWORM_GAUNTLET_RED.get()) {
+        if (stack.getItem() == IafItemRegistry.DEATHWORM_GAUNTLET_RED) {
             texture = RenderLayer.getEntityCutout(RenderDeathWorm.TEXTURE_RED);
-        } else if (stack.getItem() == IafItemRegistry.DEATHWORM_GAUNTLET_WHITE.get()) {
+        } else if (stack.getItem() == IafItemRegistry.DEATHWORM_GAUNTLET_WHITE) {
             texture = RenderLayer.getEntityCutout(RenderDeathWorm.TEXTURE_WHITE);
         } else {
             texture = RenderLayer.getEntityCutout(RenderDeathWorm.TEXTURE_YELLOW);

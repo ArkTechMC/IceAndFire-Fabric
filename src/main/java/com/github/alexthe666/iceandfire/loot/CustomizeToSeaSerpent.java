@@ -24,9 +24,9 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
             final int ancientModifier = seaSerpent.isAncient() ? 2 : 1;
             if (stack.getItem() instanceof ItemSeaSerpentScales) {
                 stack.setCount(1 + seaSerpent.getRandom().nextInt(1 + (int) Math.ceil(seaSerpent.getSeaSerpentScale() * 3 * ancientModifier)));
-                return new ItemStack(seaSerpent.getEnum().scale.get(), stack.getCount());
+                return new ItemStack(seaSerpent.getEnum().scale, stack.getCount());
             }
-            if (stack.getItem() == IafItemRegistry.SERPENT_FANG.get()) {
+            if (stack.getItem() == IafItemRegistry.SERPENT_FANG) {
                 stack.setCount(1 + seaSerpent.getRandom().nextInt(1 + (int) Math.ceil(seaSerpent.getSeaSerpentScale() * 2 * ancientModifier)));
                 return stack;
             }

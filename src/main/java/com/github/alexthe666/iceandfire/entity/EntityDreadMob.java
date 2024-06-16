@@ -30,7 +30,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     public static Entity necromancyEntity(LivingEntity entity) {
         Entity lichSummoned = null;
         if (entity.getGroup() == EntityGroup.ARTHROPOD) {
-            lichSummoned = new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER.get(), entity.getWorld());
+            lichSummoned = new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER, entity.getWorld());
             float readInScale = (entity.getWidth() / 1.5F);
             if (entity.getWorld() instanceof ServerWorldAccess) {
                 ((EntityDreadScuttler) lichSummoned).initialize((ServerWorldAccess) entity.getWorld(), entity.getWorld().getLocalDifficulty(entity.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);
@@ -39,7 +39,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
             return lichSummoned;
         }
         if (entity instanceof ZombieEntity || entity instanceof IHumanoid) {
-            lichSummoned = new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL.get(), entity.getWorld());
+            lichSummoned = new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL, entity.getWorld());
             float readInScale = (entity.getWidth() / 0.6F);
             if (entity.getWorld() instanceof ServerWorldAccess) {
                 ((EntityDreadGhoul) lichSummoned).initialize((ServerWorldAccess) entity.getWorld(), entity.getWorld().getLocalDifficulty(entity.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);
@@ -48,7 +48,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
             return lichSummoned;
         }
         if (entity.getGroup() == EntityGroup.UNDEAD || entity instanceof AbstractSkeletonEntity || entity instanceof PlayerEntity) {
-            lichSummoned = new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL.get(), entity.getWorld());
+            lichSummoned = new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL, entity.getWorld());
             EntityDreadThrall thrall = (EntityDreadThrall) lichSummoned;
             if (entity.getWorld() instanceof ServerWorldAccess) {
                 thrall.initialize((ServerWorldAccess) entity.getWorld(), entity.getWorld().getLocalDifficulty(entity.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);
@@ -63,11 +63,11 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
             return thrall;
         }
         if (entity instanceof AbstractHorseEntity) {
-            lichSummoned = new EntityDreadHorse(IafEntityRegistry.DREAD_HORSE.get(), entity.getWorld());
+            lichSummoned = new EntityDreadHorse(IafEntityRegistry.DREAD_HORSE, entity.getWorld());
             return lichSummoned;
         }
         if (entity instanceof AnimalEntity) {
-            lichSummoned = new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST.get(), entity.getWorld());
+            lichSummoned = new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST, entity.getWorld());
             float readInScale = (entity.getWidth() / 1.2F);
             if (entity.getWorld() instanceof ServerWorldAccess) {
                 ((EntityDreadBeast) lichSummoned).initialize((ServerWorldAccess) entity.getWorld(), entity.getWorld().getLocalDifficulty(entity.getBlockPos()), SpawnReason.MOB_SUMMONED, null, null);

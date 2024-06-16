@@ -263,7 +263,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
-        if (itemstack != null && itemstack.getItem() == IafItemRegistry.MANUSCRIPT.get() && !this.isHauntedShoppingList()) {
+        if (itemstack != null && itemstack.getItem() == IafItemRegistry.MANUSCRIPT && !this.isHauntedShoppingList()) {
             this.setColor(-1);
             this.playSound(IafSoundRegistry.BESTIARY_PAGE, 1, 1);
             if (!player.isCreative()) {

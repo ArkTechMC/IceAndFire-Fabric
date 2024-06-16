@@ -44,29 +44,29 @@ public class IafBlockTags extends BlockTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup pProvider) {
         this.tag(CHARRED_BLOCKS)
-                .add(IafBlockRegistry.CHARRED_COBBLESTONE.get())
-                .add(IafBlockRegistry.CHARRED_DIRT.get())
-                .add(IafBlockRegistry.CHARRED_DIRT_PATH.get())
-                .add(IafBlockRegistry.CHARRED_GRASS.get())
-                .add(IafBlockRegistry.CHARRED_GRAVEL.get())
-                .add(IafBlockRegistry.CHARRED_STONE.get());
+                .add(IafBlockRegistry.CHARRED_COBBLESTONE)
+                .add(IafBlockRegistry.CHARRED_DIRT)
+                .add(IafBlockRegistry.CHARRED_DIRT_PATH)
+                .add(IafBlockRegistry.CHARRED_GRASS)
+                .add(IafBlockRegistry.CHARRED_GRAVEL)
+                .add(IafBlockRegistry.CHARRED_STONE);
 
         this.tag(FROZEN_BLOCKS)
-                .add(IafBlockRegistry.FROZEN_COBBLESTONE.get())
-                .add(IafBlockRegistry.FROZEN_DIRT.get())
-                .add(IafBlockRegistry.FROZEN_DIRT_PATH.get())
-                .add(IafBlockRegistry.FROZEN_GRASS.get())
-                .add(IafBlockRegistry.FROZEN_GRAVEL.get())
-                .add(IafBlockRegistry.FROZEN_STONE.get())
-                .add(IafBlockRegistry.FROZEN_SPLINTERS.get());
+                .add(IafBlockRegistry.FROZEN_COBBLESTONE)
+                .add(IafBlockRegistry.FROZEN_DIRT)
+                .add(IafBlockRegistry.FROZEN_DIRT_PATH)
+                .add(IafBlockRegistry.FROZEN_GRASS)
+                .add(IafBlockRegistry.FROZEN_GRAVEL)
+                .add(IafBlockRegistry.FROZEN_STONE)
+                .add(IafBlockRegistry.FROZEN_SPLINTERS);
 
         this.tag(CRACKLED_BLOCKS)
-                .add(IafBlockRegistry.CRACKLED_COBBLESTONE.get())
-                .add(IafBlockRegistry.CRACKLED_DIRT.get())
-                .add(IafBlockRegistry.CRACKLED_DIRT_PATH.get())
-                .add(IafBlockRegistry.CRACKLED_GRASS.get())
-                .add(IafBlockRegistry.CRACKLED_GRASS.get())
-                .add(IafBlockRegistry.CRACKLED_STONE.get());
+                .add(IafBlockRegistry.CRACKLED_COBBLESTONE)
+                .add(IafBlockRegistry.CRACKLED_DIRT)
+                .add(IafBlockRegistry.CRACKLED_DIRT_PATH)
+                .add(IafBlockRegistry.CRACKLED_GRASS)
+                .add(IafBlockRegistry.CRACKLED_GRASS)
+                .add(IafBlockRegistry.CRACKLED_STONE);
 
         this.tag(DRAGON_ENVIRONMENT_BLOCKS)
                 .addTag(CHARRED_BLOCKS)
@@ -81,7 +81,7 @@ public class IafBlockTags extends BlockTagProvider {
                 .add(Blocks.LAPIS_ORE)
                 .add(Blocks.REDSTONE_ORE)
                 .add(Blocks.GOLD_ORE)
-                .add(IafBlockRegistry.SILVER_ORE.get());
+                .add(IafBlockRegistry.SILVER_ORE);
 
         this.tag(DRAGON_CAVE_COMMON_ORES)
                 .add(Blocks.COAL_ORE)
@@ -92,7 +92,7 @@ public class IafBlockTags extends BlockTagProvider {
                 .add(Blocks.EMERALD_ORE);
 
         this.tag(ICE_DRAGON_CAVE_ORES)
-                .add(IafBlockRegistry.SAPPHIRE_ORE.get());
+                .add(IafBlockRegistry.SAPPHIRE_ORE);
 
         this.tag(LIGHTNING_DRAGON_CAVE_ORES)
                 .add(Blocks.BUDDING_AMETHYST);
@@ -110,30 +110,30 @@ public class IafBlockTags extends BlockTagProvider {
                 .add(Blocks.GRASS_BLOCK);
 
         this.tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(IafBlockRegistry.SILVER_ORE.get())
-                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get())
-                .add(IafBlockRegistry.SILVER_BLOCK.get())
-                .add(IafBlockRegistry.RAW_SILVER_BLOCK.get());
+                .add(IafBlockRegistry.SILVER_ORE)
+                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE)
+                .add(IafBlockRegistry.SILVER_BLOCK)
+                .add(IafBlockRegistry.RAW_SILVER_BLOCK);
 
         this.tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(IafBlockRegistry.SAPPHIRE_ORE.get())
-                .add(IafBlockRegistry.SAPPHIRE_BLOCK.get());
+                .add(IafBlockRegistry.SAPPHIRE_ORE)
+                .add(IafBlockRegistry.SAPPHIRE_BLOCK);
 
         this.tag(Tags.Blocks.ORES)
-                .add(IafBlockRegistry.SILVER_ORE.get())
-                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get())
-                .add(IafBlockRegistry.SAPPHIRE_ORE.get());
+                .add(IafBlockRegistry.SILVER_ORE)
+                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE)
+                .add(IafBlockRegistry.SAPPHIRE_ORE);
 
         this.tag(Tags.Blocks.ORES_IN_GROUND_STONE)
-                .add(IafBlockRegistry.SILVER_ORE.get())
-                .add(IafBlockRegistry.SAPPHIRE_ORE.get());
+                .add(IafBlockRegistry.SILVER_ORE)
+                .add(IafBlockRegistry.SAPPHIRE_ORE);
 
         this.tag(Tags.Blocks.ORE_BEARING_GROUND_DEEPSLATE)
-                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get());
+                .add(IafBlockRegistry.DEEPSLATE_SILVER_ORE);
 
         // These are also used / created by other mods
-        this.tag(TagKey.of(RegistryKeys.BLOCK, new Identifier("forge", "ores/silver"))).add(IafBlockRegistry.SILVER_ORE.get());
-        this.tag(TagKey.of(RegistryKeys.BLOCK, new Identifier("forge", "ores/silver"))).add(IafBlockRegistry.DEEPSLATE_SILVER_ORE.get());
+        this.tag(TagKey.of(RegistryKeys.BLOCK, new Identifier("forge", "ores/silver"))).add(IafBlockRegistry.SILVER_ORE);
+        this.tag(TagKey.of(RegistryKeys.BLOCK, new Identifier("forge", "ores/silver"))).add(IafBlockRegistry.DEEPSLATE_SILVER_ORE);
     }
 
     @Override
