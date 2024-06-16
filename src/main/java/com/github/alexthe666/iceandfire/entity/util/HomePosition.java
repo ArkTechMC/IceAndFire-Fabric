@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.util;
 
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -1,11 +1,10 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.BlockRenderManager;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -35,7 +34,7 @@ public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntit
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(-90.0F));
         matrixStackIn.translate(-0.5D, -0.5D, 0.5D);
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0F));
-        MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(this.isFire ? Blocks.MAGMA_BLOCK.getDefaultState() : IafBlockRegistry.DRAGON_ICE.getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV);
+        MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(this.isFire ? Blocks.MAGMA_BLOCK.getDefaultState() : IafBlocks.DRAGON_ICE.getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV);
         matrixStackIn.pop();
     }
 

@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.block.WallBlock;
 import net.minecraft.entity.*;
@@ -32,7 +33,7 @@ public class EntityChainTie extends AbstractDecorationEntity {
     }
 
     public static EntityChainTie createTie(World worldIn, BlockPos fence) {
-        EntityChainTie entityChainTie = new EntityChainTie(IafEntityRegistry.CHAIN_TIE, worldIn, fence);
+        EntityChainTie entityChainTie = new EntityChainTie(IafEntities.CHAIN_TIE, worldIn, fence);
         worldIn.spawnEntity(entityChainTie);
         entityChainTie.onPlace();
         return entityChainTie;
@@ -124,7 +125,7 @@ public class EntityChainTie extends AbstractDecorationEntity {
             EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
             if (data.chainData.isChainedTo(this)) {
                 data.chainData.removeChain(this);
-                ItemEntity entityitem = new ItemEntity(this.getWorld(), this.getX(), this.getY() + 1, this.getZ(), new ItemStack(IafItemRegistry.CHAIN));
+                ItemEntity entityitem = new ItemEntity(this.getWorld(), this.getX(), this.getY() + 1, this.getZ(), new ItemStack(IafItems.CHAIN));
                 entityitem.resetPickupDelay();
                 this.getWorld().spawnEntity(entityitem);
             }

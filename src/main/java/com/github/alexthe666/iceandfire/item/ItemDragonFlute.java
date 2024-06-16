@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.entity.util.IDragonFlute;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IDragonFlute;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,7 +19,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ItemDragonFlute extends Item {
-
     public ItemDragonFlute() {
         super(new Settings().maxCount(1));
     }
@@ -49,7 +48,7 @@ public class ItemDragonFlute extends Item {
                 }
             }*/
         }
-        worldIn.playSound(player, player.getBlockPos(), IafSoundRegistry.DRAGONFLUTE, SoundCategory.NEUTRAL, 1, 1.75F);
+        worldIn.playSound(player, player.getBlockPos(), IafSounds.DRAGONFLUTE, SoundCategory.NEUTRAL, 1, 1.75F);
 
         return new TypedActionResult<>(ActionResult.SUCCESS, itemStackIn);
     }

@@ -1,5 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
+import com.github.alexthe666.iceandfire.block.util.IDragonProof;
+import com.github.alexthe666.iceandfire.block.util.IDreadBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.PillarBlock;
 import net.minecraft.block.enums.Instrument;

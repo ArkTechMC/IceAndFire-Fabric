@@ -1,23 +1,7 @@
 package dev.arktechmc.iafextra;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
-import com.github.alexthe666.iceandfire.inventory.IafContainerRegistry;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.IafTabRegistry;
-import com.github.alexthe666.iceandfire.loot.IafLootRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.recipe.IafBannerPatterns;
-import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
-import com.github.alexthe666.iceandfire.recipe.IafRecipeSerializers;
-import com.github.alexthe666.iceandfire.world.IafPlacementFilterRegistry;
-import com.github.alexthe666.iceandfire.world.IafProcessors;
-import com.github.alexthe666.iceandfire.world.IafStructureTypes;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
+import com.github.alexthe666.iceandfire.registry.*;
 import dev.arktechmc.iafextra.event.AttackEntityEvent;
 import dev.arktechmc.iafextra.event.EventBus;
 import dev.arktechmc.iafextra.event.ProjectileImpactEvent;
@@ -48,23 +32,23 @@ public class IceAndFire implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        IafItemRegistry.init();
-        IafBlockRegistry.init();
-        IafEntityRegistry.init();
-        IafSoundRegistry.init();
-        IafVillagerRegistry.init();
-        IafRecipeRegistry.init();
-        IafLootRegistry.init();
-        IafWorldRegistry.init();
-        IafTileEntityRegistry.init();
+        IafItems.init();
+        IafBlocks.init();
+        IafEntities.init();
+        IafSounds.init();
+        IafTrades.init();
+        IafRecipes.init();
+        IafLoots.init();
+        IafFeatures.init();
+        IafBlockEntities.init();
         IafBannerPatterns.init();
-        IafPlacementFilterRegistry.init();
+        IafPlacementFilters.init();
         IafStructureTypes.init();
-        IafContainerRegistry.init();
+        IafScreenHandlers.init();
         IafRecipeSerializers.init();
         IafProcessors.init();
-        IafTabRegistry.init();
-        IafParticleRegistry.init();
+        IafItemGroups.init();
+        IafParticles.init();
 
         EventBus.register(ProjectileImpactEvent.class, ServerEvents::onArrowCollide);
         EventBus.register(AttackEntityEvent.class, ServerEvents::onPlayerAttackMob);

@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityJar;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityPixieHouse;
 import dev.arktechmc.iafextra.network.S2CMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.block.entity.BlockEntity;
@@ -55,9 +55,9 @@ public class MessageUpdatePixieHouseModel implements S2CMessage {
         if (player != null) {
             BlockPos pos = BlockPos.fromLong(this.blockPos);
             BlockEntity blockEntity = player.getWorld().getBlockEntity(pos);
-            if (blockEntity instanceof TileEntityPixieHouse house)
+            if (blockEntity instanceof BlockEntityPixieHouse house)
                 house.houseType = this.houseType;
-            else if (blockEntity instanceof TileEntityJar jar)
+            else if (blockEntity instanceof BlockEntityJar jar)
                 jar.pixieType = this.houseType;
         }
     }

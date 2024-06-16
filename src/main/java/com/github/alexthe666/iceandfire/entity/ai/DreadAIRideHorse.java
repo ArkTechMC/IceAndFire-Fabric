@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityDreadKnight;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 
@@ -12,7 +12,7 @@ public class DreadAIRideHorse extends Goal {
     private final EntityDreadKnight knight;
     private AbstractHorseEntity horse;
 
-    private List<AbstractHorseEntity> list = IAFMath.emptyAbstractHorseEntityList;
+    private List<AbstractHorseEntity> list = IafMath.emptyAbstractHorseEntityList;
 
     public DreadAIRideHorse(EntityDreadKnight knight) {
         this.knight = knight;
@@ -22,7 +22,7 @@ public class DreadAIRideHorse extends Goal {
     @Override
     public boolean canStart() {
         if (this.knight.hasVehicle()) {
-            this.list = IAFMath.emptyAbstractHorseEntityList;
+            this.list = IafMath.emptyAbstractHorseEntityList;
             return false;
         } else {
 

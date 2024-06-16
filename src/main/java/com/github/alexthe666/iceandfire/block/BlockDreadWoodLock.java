@@ -1,6 +1,9 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.block.util.IDragonProof;
+import com.github.alexthe666.iceandfire.block.util.IDreadBlock;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
@@ -42,7 +45,7 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
         ItemStack stack = player.getStackInHand(hand);
-        if (stack.getItem() == IafItemRegistry.DREAD_KEY) {
+        if (stack.getItem() == IafItems.DREAD_KEY) {
             if (!player.isCreative())
                 stack.decrement(1);
             this.deleteNearbyWood(world, pos, pos);
@@ -54,7 +57,7 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
 
     private void deleteNearbyWood(World world, BlockPos pos, BlockPos startPos) {
         if (pos.getSquaredDistance(startPos) < 32)
-            if (world.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS || world.getBlockState(pos).getBlock() == IafBlockRegistry.DREADWOOD_PLANKS_LOCK) {
+            if (world.getBlockState(pos).getBlock() == IafBlocks.DREADWOOD_PLANKS || world.getBlockState(pos).getBlock() == IafBlocks.DREADWOOD_PLANKS_LOCK) {
                 world.breakBlock(pos, false);
                 for (Direction facing : Direction.values())
                     this.deleteNearbyWood(world, pos.offset(facing), startPos);

@@ -4,7 +4,6 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.github.alexthe666.iceandfire.entity.ai.AquaticAIGetOutOfWater;
 import com.github.alexthe666.iceandfire.entity.ai.SirenAIFindWaterTarget;
@@ -13,9 +12,10 @@ import com.github.alexthe666.iceandfire.entity.util.ChainBuffer;
 import com.github.alexthe666.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.github.alexthe666.iceandfire.entity.util.IHearsSiren;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageSirenSong;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
@@ -85,7 +85,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     public static boolean isWearingEarplugs(LivingEntity entity) {
         ItemStack helmet = entity.getEquippedStack(EquipmentSlot.HEAD);
-        return helmet.getItem() == IafItemRegistry.EARPLUGS || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
+        return helmet.getItem() == IafItems.EARPLUGS || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -139,12 +139,12 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         if (this.getRandom().nextInt(2) == 0) {
             if (this.getAnimation() != ANIMATION_PULL) {
                 this.setAnimation(ANIMATION_PULL);
-                this.playSound(IafSoundRegistry.NAGA_ATTACK, 1, 1);
+                this.playSound(IafSounds.NAGA_ATTACK, 1, 1);
             }
         } else {
             if (this.getAnimation() != ANIMATION_BITE) {
                 this.setAnimation(ANIMATION_BITE);
-                this.playSound(IafSoundRegistry.NAGA_ATTACK, 1, 1);
+                this.playSound(IafSounds.NAGA_ATTACK, 1, 1);
             }
         }
         return true;
@@ -290,12 +290,12 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
                     double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
                     double extraY = 1.2F;
                     double extraZ = radius * MathHelper.cos(angle);
-                    this.getWorld().addParticle(IafParticleRegistry.SIREN_MUSIC, this.getX() + extraX + this.random.nextFloat() - 0.5, this.getY() + extraY + this.random.nextFloat() - 0.5, this.getZ() + extraZ + this.random.nextFloat() - 0.5, 0, 0, 0);
+                    this.getWorld().addParticle(IafParticles.SIREN_MUSIC, this.getX() + extraX + this.random.nextFloat() - 0.5, this.getY() + extraY + this.random.nextFloat() - 0.5, this.getZ() + extraZ + this.random.nextFloat() - 0.5, 0, 0, 0);
                 }
             }
         }
         if (this.isActuallySinging() && !this.isTouchingWater() && this.age % 200 == 0) {
-            this.playSound(IafSoundRegistry.SIREN_SONG, 2, 1);
+            this.playSound(IafSounds.SIREN_SONG, 2, 1);
         }
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
@@ -492,17 +492,17 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isAgressive() ? IafSoundRegistry.NAGA_IDLE : IafSoundRegistry.MERMAID_IDLE;
+        return this.isAgressive() ? IafSounds.NAGA_IDLE : IafSounds.MERMAID_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return this.isAgressive() ? IafSoundRegistry.NAGA_HURT : IafSoundRegistry.MERMAID_HURT;
+        return this.isAgressive() ? IafSounds.NAGA_HURT : IafSounds.MERMAID_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isAgressive() ? IafSoundRegistry.NAGA_DIE : IafSoundRegistry.MERMAID_DIE;
+        return this.isAgressive() ? IafSounds.NAGA_DIE : IafSounds.MERMAID_DIE;
     }
 
     @Override

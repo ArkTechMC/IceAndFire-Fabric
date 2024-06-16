@@ -4,8 +4,9 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.collect.ImmutableList;
@@ -115,11 +116,11 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         if (this.getMyrmexAge() > IafConfig.myrmexEggTicks) {
             this.remove(RemovalReason.DISCARDED);
             EntityMyrmexBase myrmex = switch (this.getMyrmexCaste()) {
-                default -> new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER, this.getWorld());
-                case 1 -> new EntityMyrmexSoldier(IafEntityRegistry.MYRMEX_SOLDIER, this.getWorld());
-                case 2 -> new EntityMyrmexRoyal(IafEntityRegistry.MYRMEX_ROYAL, this.getWorld());
-                case 3 -> new EntityMyrmexSentinel(IafEntityRegistry.MYRMEX_SENTINEL, this.getWorld());
-                case 4 -> new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN, this.getWorld());
+                default -> new EntityMyrmexWorker(IafEntities.MYRMEX_WORKER, this.getWorld());
+                case 1 -> new EntityMyrmexSoldier(IafEntities.MYRMEX_SOLDIER, this.getWorld());
+                case 2 -> new EntityMyrmexRoyal(IafEntities.MYRMEX_ROYAL, this.getWorld());
+                case 3 -> new EntityMyrmexSentinel(IafEntities.MYRMEX_SENTINEL, this.getWorld());
+                case 4 -> new EntityMyrmexQueen(IafEntities.MYRMEX_QUEEN, this.getWorld());
             };
             myrmex.setJungleVariant(this.isJungle());
             myrmex.setGrowthStage(0);
@@ -155,7 +156,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
             if (!this.getWorld().isClient) {
                 this.getWorld().spawnEntity(myrmex);
             }
-            this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), IafSoundRegistry.EGG_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
+            this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), IafSounds.EGG_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
         }
     }
 
@@ -192,7 +193,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     private ItemStack getItem() {
-        ItemStack egg = new ItemStack(this.isJungle() ? IafItemRegistry.MYRMEX_JUNGLE_EGG : IafItemRegistry.MYRMEX_DESERT_EGG, 1);
+        ItemStack egg = new ItemStack(this.isJungle() ? IafItems.MYRMEX_JUNGLE_EGG : IafItems.MYRMEX_DESERT_EGG, 1);
         NbtCompound newTag = new NbtCompound();
         newTag.putInt("EggOrdinal", this.getMyrmexCaste());
         egg.setNbt(newTag);

@@ -11,23 +11,25 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.FoodUtils;
 import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
-import com.github.alexthe666.iceandfire.block.IDragonProof;
+import com.github.alexthe666.iceandfire.block.util.IDragonProof;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.client.model.util.LegSolverQuadruped;
 import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.datagen.tags.IafBlockTags;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.inventory.ContainerDragon;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
 import com.github.alexthe666.iceandfire.item.ItemSummoningCrystal;
+import com.github.alexthe666.iceandfire.item.armor.ItemDragonArmor;
 import com.github.alexthe666.iceandfire.message.MessageDragonSetBurnBlock;
 import com.github.alexthe666.iceandfire.message.MessageStartRidingMob;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.github.alexthe666.iceandfire.world.DragonPosWorldData;
 import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
@@ -210,10 +212,10 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public String prevArmorResLoc = "0|0|0|0";
     public String armorResLoc = "0|0|0|0";
     public boolean lookingForRoostAIFlag = false;
-    protected int flyHovering;
-    protected boolean hasHadHornUse = false;
+    public int flyHovering;
+    public boolean hasHadHornUse = false;
+    public int blockBreakCounter;
     protected int fireTicks;
-    protected int blockBreakCounter;
     protected boolean gliding = false;
     protected float glidingSpeedBonus = 0;
     // For slowly raise rider position
@@ -427,10 +429,10 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         EntityUtil.updatePart(this.tail4Part, this);
     }
 
-    protected void updateBurnTarget() {
+    public void updateBurnTarget() {
         if (this.burningTarget != null && !this.isSleeping() && !this.isModelDead() && !this.isBaby()) {
             float maxDist = 115 * this.getDragonStage();
-            if (this.getWorld().getBlockEntity(this.burningTarget) instanceof TileEntityDragonforgeInput forge && forge.isAssembled() && this.squaredDistanceTo(this.burningTarget.getX() + 0.5D, this.burningTarget.getY() + 0.5D, this.burningTarget.getZ() + 0.5D) < maxDist && this.canPositionBeSeen(this.burningTarget.getX() + 0.5D, this.burningTarget.getY() + 0.5D, this.burningTarget.getZ() + 0.5D)) {
+            if (this.getWorld().getBlockEntity(this.burningTarget) instanceof BlockEntityDragonForgeInput forge && forge.isAssembled() && this.squaredDistanceTo(this.burningTarget.getX() + 0.5D, this.burningTarget.getY() + 0.5D, this.burningTarget.getZ() + 0.5D) < maxDist && this.canPositionBeSeen(this.burningTarget.getX() + 0.5D, this.burningTarget.getY() + 0.5D, this.burningTarget.getZ() + 0.5D)) {
                 this.getLookControl().lookAt(this.burningTarget.getX() + 0.5D, this.burningTarget.getY() + 0.5D, this.burningTarget.getZ() + 0.5D, 180F, 180F);
                 this.breathFireAtPos(this.burningTarget);
                 this.setBreathingFire(true);
@@ -470,7 +472,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         return newNavigator;
     }
 
-    protected void switchNavigator(int navigatorType) {
+    public void switchNavigator(int navigatorType) {
         if (navigatorType == 0) {
             this.moveControl = new IafDragonFlightManager.GroundMoveHelper(this);
             this.navigation = this.createNavigator(this.getWorld(), AdvancedPathNavigate.MovementType.WALKING, this.createStuckHandler().withTeleportSteps(5));
@@ -557,7 +559,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     protected void spawnDeathParticles() {
     }
 
-    protected void spawnBabyParticles() {
+    public void spawnBabyParticles() {
     }
 
     @Override
@@ -858,7 +860,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         return null;
     }
 
-    protected void updateAttributes() {
+    public void updateAttributes() {
         this.prevArmorResLoc = this.armorResLoc;
         final int armorHead = this.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.HEAD));
         final int armorNeck = this.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.CHEST));
@@ -1050,7 +1052,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public boolean isFuelingForge() {
-        return this.burningTarget != null && this.getWorld().getBlockEntity(this.burningTarget) instanceof TileEntityDragonforgeInput;
+        return this.burningTarget != null && this.getWorld().getBlockEntity(this.burningTarget) instanceof BlockEntityDragonForgeInput;
     }
 
     @Override
@@ -1064,7 +1066,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public ActionResult interactAt(PlayerEntity player, Vec3d vec, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         int lastDeathStage = Math.min(this.getAgeInDays() / 5, 25);
-        if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK) {
+        if (stack.getItem() == IafItems.DRAGON_DEBUG_STICK) {
             this.logic.debug();
             return ActionResult.SUCCESS;
         }
@@ -1121,12 +1123,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             stack = player.getStackInHand(hand);
         }
 
-        if (stack.getItem() == IafItemRegistry.DRAGON_DEBUG_STICK) {
+        if (stack.getItem() == IafItems.DRAGON_DEBUG_STICK) {
             this.logic.debug();
             return ActionResult.SUCCESS;
         }
         if (!this.isModelDead()) {
-            if (stack.getItem() == IafItemRegistry.CREATIVE_DRAGON_MEAL) {
+            if (stack.getItem() == IafItems.CREATIVE_DRAGON_MEAL) {
                 this.setTamed(true);
                 this.setOwner(player);
                 this.setHunger(this.getHunger() + 20);
@@ -1162,7 +1164,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     return ActionResult.SUCCESS;
                 }
                 this.setOwner(player);
-                if (stack.getItem() == IafItemRegistry.DRAGON_HORN) {
+                if (stack.getItem() == IafItems.DRAGON_HORN) {
                     return super.interactMob(player, hand);
                 }
                 if (stack.isEmpty() && !player.isSneaking()) {
@@ -1199,7 +1201,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         return ActionResult.SUCCESS;
                     }
                     final Item stackItem = stack.getItem();
-                    if (stackItem == IafItemRegistry.DRAGON_MEAL) {
+                    if (stackItem == IafItems.DRAGON_MEAL) {
                         this.growDragon(1);
                         this.setHunger(this.getHunger() + 20);
                         this.heal(Math.min(this.getHealth(), (int) (this.getMaxHealth() / 2)));
@@ -1212,7 +1214,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             stack.decrement(1);
                         }
                         return ActionResult.SUCCESS;
-                    } else if (stackItem == IafItemRegistry.SICKLY_DRAGON_MEAL && !this.isAgingDisabled()) {
+                    } else if (stackItem == IafItems.SICKLY_DRAGON_MEAL && !this.isAgingDisabled()) {
                         this.setHunger(this.getHunger() + 20);
                         this.heal(this.getMaxHealth());
                         this.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, this.getSoundVolume(), this.getSoundPitch());
@@ -1227,7 +1229,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             stack.decrement(1);
                         }
                         return ActionResult.SUCCESS;
-                    } else if (stackItem == IafItemRegistry.DRAGON_STAFF) {
+                    } else if (stackItem == IafItems.DRAGON_STAFF) {
                         if (player.isSneaking()) {
                             if (this.hasHomePosition) {
                                 this.hasHomePosition = false;
@@ -1275,7 +1277,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     private ItemStack getRandomDrop() {
         ItemStack stack = this.getItemFromLootTable();
-        if (stack.getItem() == IafItemRegistry.DRAGON_BONE) {
+        if (stack.getItem() == IafItems.DRAGON_BONE) {
             this.playSound(SoundEvents.ENTITY_SKELETON_AMBIENT, 1, 1);
         } else {
             this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1, 1);
@@ -1377,7 +1379,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         return false;
     }
 
-    protected boolean isOverAir() {
+    public boolean isOverAir() {
         return this.isOverAir;
     }
 
@@ -1889,7 +1891,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public EntityDragonEgg createEgg(EntityDragonBase ageable) { // FIXME :: Unused parameter
-        EntityDragonEgg dragon = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG, this.getWorld());
+        EntityDragonEgg dragon = new EntityDragonEgg(IafEntities.DRAGON_EGG, this.getWorld());
         dragon.setEggType(EnumDragonEgg.byMetadata(new Random().nextInt(4) + this.getStartMetaForType()));
         dragon.setPosition(MathHelper.floor(this.getX()) + 0.5, MathHelper.floor(this.getY()) + 1, MathHelper.floor(this.getZ()) + 0.5);
         return dragon;
@@ -2141,7 +2143,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
      *
      * @param verticalDelta vertical distance from last update
      */
-    protected void updatePitch(final double verticalDelta) {
+    public void updatePitch(final double verticalDelta) {
         if (this.isOverAir() && !this.hasVehicle()) {
             // Update the pitch when in air, and stepping up many blocks
             if (!this.isHovering()) {
@@ -2434,7 +2436,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         if (this.isOwner(living) || this.isOwnersPet(living)) {
                             living.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 50 * size));
                         } else {
-                            if (living.getEquippedStack(EquipmentSlot.HEAD).getItem() != IafItemRegistry.EARPLUGS) {
+                            if (living.getEquippedStack(EquipmentSlot.HEAD).getItem() != IafItems.EARPLUGS) {
                                 living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 50 * size));
                             }
                         }
@@ -2687,7 +2689,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 if (this.isActuallyBreathingFire()) {
                     this.setYaw(this.bodyYaw);
                     if (this.age % 5 == 0) {
-                        this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
+                        this.playSound(IafSounds.FIREDRAGON_BREATH, 4, 1);
                     }
                     this.stimulateFire(this.getX() + distX * this.fireTicks / 40, entity.getY(), this.getZ() + distZ * this.fireTicks / 40, 1);
                 }
@@ -2807,7 +2809,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         return SoundEvents.BLOCK_FIRE_EXTINGUISH;
     }
 
-    protected boolean isPlayingAttackAnimation() {
+    public boolean isPlayingAttackAnimation() {
         return this.getAnimation() == ANIMATION_BITE || this.getAnimation() == ANIMATION_SHAKEPREY || this.getAnimation() == ANIMATION_WINGBLAST ||
                 this.getAnimation() == ANIMATION_TAILWHACK;
     }
@@ -2816,7 +2818,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         return new IafDragonLogic(this);
     }
 
-    protected int getFlightChancePerTick() {
+    public int getFlightChancePerTick() {
         return FLIGHT_CHANCE_PER_TICK;
     }
 

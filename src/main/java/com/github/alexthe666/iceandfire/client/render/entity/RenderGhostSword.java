@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.entity.EntityGhostSword;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -37,7 +37,7 @@ public class RenderGhostSword extends EntityRenderer<EntityGhostSword> {
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(0.0F));
         matrixStackIn.multiply(RotationAxis.NEGATIVE_Z.rotationDegrees((entityIn.age + partialTicks) * 30.0F));
         matrixStackIn.translate(0, -0.15F, 0);
-        MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(IafItemRegistry.GHOST_SWORD), ModelTransformationMode.GROUND, 240, OverlayTexture.DEFAULT_UV, matrixStackIn, bufferIn, MinecraftClient.getInstance().world, 0);
+        MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(IafItems.GHOST_SWORD), ModelTransformationMode.GROUND, 240, OverlayTexture.DEFAULT_UV, matrixStackIn, bufferIn, MinecraftClient.getInstance().world, 0);
         matrixStackIn.pop();
     }
 }

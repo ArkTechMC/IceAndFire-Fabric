@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.loot;
 
 import com.github.alexthe666.iceandfire.entity.EntitySeaSerpent;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentScales;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafLoots;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
@@ -26,7 +27,7 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
                 stack.setCount(1 + seaSerpent.getRandom().nextInt(1 + (int) Math.ceil(seaSerpent.getSeaSerpentScale() * 3 * ancientModifier)));
                 return new ItemStack(seaSerpent.getEnum().scale, stack.getCount());
             }
-            if (stack.getItem() == IafItemRegistry.SERPENT_FANG) {
+            if (stack.getItem() == IafItems.SERPENT_FANG) {
                 stack.setCount(1 + seaSerpent.getRandom().nextInt(1 + (int) Math.ceil(seaSerpent.getSeaSerpentScale() * 2 * ancientModifier)));
                 return stack;
             }
@@ -36,7 +37,7 @@ public class CustomizeToSeaSerpent extends ConditionalLootFunction {
 
     @Override
     public LootFunctionType getType() {
-        return IafLootRegistry.CUSTOMIZE_TO_SERPENT;
+        return IafLoots.CUSTOMIZE_TO_SERPENT;
     }
 
     public static class Serializer extends ConditionalLootFunction.Serializer<CustomizeToSeaSerpent> {

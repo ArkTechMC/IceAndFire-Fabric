@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -80,7 +80,7 @@ public class ItemSirenFlute extends Item {
             }
         }
 
-        player.playSound(IafSoundRegistry.SIREN_SONG, 1, 1);
+        player.playSound(IafSounds.SIREN_SONG, 1, 1);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 

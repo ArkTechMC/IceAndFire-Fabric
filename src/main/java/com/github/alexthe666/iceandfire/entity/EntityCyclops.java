@@ -8,10 +8,11 @@ import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
 import com.github.alexthe666.iceandfire.entity.ai.CyclopsAIAttackMelee;
 import com.github.alexthe666.iceandfire.entity.ai.CyclopsAITargetSheepPlayers;
 import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateCyclops;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
+import com.github.alexthe666.iceandfire.registry.IafTags;
 import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.block.*;
@@ -152,7 +153,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             if (!entityIn.hasPassenger(this)
                     && entityIn.getWidth() < 1.95F
                     && !(entityIn instanceof EntityDragonBase)
-                    && !entityIn.getType().isIn((TagKey.of(RegistryKeys.ENTITY_TYPE, IafTagRegistry.CYCLOPS_UNLIFTABLES)))) {
+                    && !entityIn.getType().isIn((TagKey.of(RegistryKeys.ENTITY_TYPE, IafTags.CYCLOPS_UNLIFTABLES)))) {
                 this.setAnimation(ANIMATION_EATPLAYER);
                 entityIn.stopRiding();
                 entityIn.startRiding(this, true);
@@ -254,10 +255,10 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             this.setTarget(null);
         }
         if (this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 5) {
-            this.playSound(IafSoundRegistry.CYCLOPS_BLINDED, 1, 1);
+            this.playSound(IafSounds.CYCLOPS_BLINDED, 1, 1);
         }
         if (this.getAnimation() == ANIMATION_EATPLAYER && this.getAnimationTick() == 25) {
-            this.playSound(IafSoundRegistry.CYCLOPS_BITE, 1, 1);
+            this.playSound(IafSounds.CYCLOPS_BITE, 1, 1);
         }
         if (this.getAnimation() == ANIMATION_STOMP && this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) < 12D && this.getAnimationTick() == 14) {
             this.getTarget().damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
@@ -386,17 +387,17 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.CYCLOPS_IDLE;
+        return IafSounds.CYCLOPS_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return IafSoundRegistry.CYCLOPS_HURT;
+        return IafSounds.CYCLOPS_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.CYCLOPS_DIE;
+        return IafSounds.CYCLOPS_DIE;
     }
 
     @Override

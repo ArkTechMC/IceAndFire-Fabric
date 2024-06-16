@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -25,7 +26,7 @@ public class BlockGoldPile extends Block {
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{VoxelShapes.empty(), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
     public BlockGoldPile() {
-        super(Settings.create().mapColor(MapColor.DIRT_BROWN).strength(0.3F, 1).ticksRandomly().sounds(IafBlockRegistry.SOUND_TYPE_GOLD));
+        super(Settings.create().mapColor(MapColor.DIRT_BROWN).strength(0.3F, 1).ticksRandomly().sounds(IafBlocks.SOUND_TYPE_GOLD));
 
         this.setDefaultState(this.stateManager.getDefaultState().with(LAYERS, 1));
     }

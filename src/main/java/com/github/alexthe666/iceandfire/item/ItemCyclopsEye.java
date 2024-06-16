@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemCyclopsEye extends Item {
-
     public ItemCyclopsEye() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(500));
     }

@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemDeathwormGauntlet extends Item {
-
     private boolean deathwormReceded = true;
     private boolean deathwormLaunched = false;
     private int specialDamage = 0;
@@ -56,7 +55,7 @@ public class ItemDeathwormGauntlet extends Item {
 
                 if (player.getItemCooldownManager().getCooldownProgress(this, 0.0F) == 0) {
                     player.getItemCooldownManager().set(this, 10);
-                    player.playSound(IafSoundRegistry.DEATHWORM_ATTACK, 1F, 1F);
+                    player.playSound(IafSounds.DEATHWORM_ATTACK, 1F, 1F);
                     this.deathwormReceded = false;
                     this.deathwormLaunched = true;
                 }

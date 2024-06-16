@@ -4,10 +4,11 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexTrades;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import com.github.alexthe666.iceandfire.item.ItemMyrmexEgg;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -106,13 +107,13 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
         }*/
         if (!this.getStackInHand(Hand.MAIN_HAND).isEmpty()) {
             if (this.getStackInHand(Hand.MAIN_HAND).getItem() instanceof ItemMyrmexEgg) {
-                boolean isJungle = this.getStackInHand(Hand.MAIN_HAND).getItem() == IafItemRegistry.MYRMEX_JUNGLE_EGG;
+                boolean isJungle = this.getStackInHand(Hand.MAIN_HAND).getItem() == IafItems.MYRMEX_JUNGLE_EGG;
                 NbtCompound tag = this.getStackInHand(Hand.MAIN_HAND).getNbt();
                 int metadata = 0;
                 if (tag != null) {
                     metadata = tag.getInt("EggOrdinal");
                 }
-                EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG, this.getWorld());
+                EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntities.MYRMEX_EGG, this.getWorld());
                 egg.copyPositionAndRotation(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
@@ -283,7 +284,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     public void onPickupItem(ItemEntity itemEntity) {
         Item item = itemEntity.getStack().getItem();
-        if (item == IafItemRegistry.MYRMEX_JUNGLE_RESIN && this.isJungle() || item == IafItemRegistry.MYRMEX_DESERT_RESIN && !this.isJungle()) {
+        if (item == IafItems.MYRMEX_JUNGLE_RESIN && this.isJungle() || item == IafItems.MYRMEX_DESERT_RESIN && !this.isJungle()) {
 
             PlayerEntity owner = null;
             try {

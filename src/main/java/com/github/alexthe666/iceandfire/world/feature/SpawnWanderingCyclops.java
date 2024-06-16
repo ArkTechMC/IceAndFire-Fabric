@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.world.feature;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntityCyclops;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafFeatures;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -30,9 +30,9 @@ public class SpawnWanderingCyclops extends Feature<DefaultFeatureConfig> {
 
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
-        if (IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position)) {
+        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
             if (rand.nextInt(IafConfig.spawnWanderingCyclopsChance + 1) == 0 && rand.nextInt(12) == 0) {
-                EntityCyclops cyclops = IafEntityRegistry.CYCLOPS.create(worldIn.toServerWorld());
+                EntityCyclops cyclops = IafEntities.CYCLOPS.create(worldIn.toServerWorld());
                 assert cyclops != null;
                 cyclops.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                 cyclops.initialize(worldIn, worldIn.getLocalDifficulty(position), SpawnReason.SPAWNER, null, null);

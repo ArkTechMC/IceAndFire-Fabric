@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
-import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IafDragonDestructionManager;
+import com.github.alexthe666.iceandfire.registry.IafDamageTypes;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -30,13 +31,13 @@ public class EntityDragonIceCharge extends EntityDragonCharge {
     public void tick() {
         if (this.getWorld().isClient)
             for (int i = 0; i < 10; ++i)
-                this.getWorld().addParticle(IafParticleRegistry.DRAGON_FROST, this.getX() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), 0.0D, 0.0D, 0.0D);
+                this.getWorld().addParticle(IafParticles.DRAGON_FROST, this.getX() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), 0.0D, 0.0D, 0.0D);
         super.tick();
     }
 
     @Override
     public DamageSource causeDamage(Entity cause) {
-        return IafDamageRegistry.causeDragonIceDamage(cause);
+        return IafDamageTypes.causeDragonIceDamage(cause);
     }
 
     @Override

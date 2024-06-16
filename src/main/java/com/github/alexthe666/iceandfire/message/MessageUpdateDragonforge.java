@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForge;
 import dev.arktechmc.iafextra.network.S2CMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
@@ -47,7 +47,7 @@ public class MessageUpdateDragonforge implements S2CMessage {
         PlayerEntity player = client.player;
         if (player != null) {
             BlockPos pos = BlockPos.fromLong(this.blockPos);
-            if (player.getWorld().getBlockEntity(pos) instanceof TileEntityDragonforge forge) {
+            if (player.getWorld().getBlockEntity(pos) instanceof BlockEntityDragonForge forge) {
                 forge.getPropertyDelegate().cookTime = this.cookTime;
                 if (this.cookTime > 0)
                     forge.lastDragonFlameTimer = 40;

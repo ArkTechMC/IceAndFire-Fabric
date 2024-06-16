@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.EntityPixie;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -23,7 +23,7 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected ItemEntity targetEntity;
 
-    private List<ItemEntity> list = IAFMath.emptyItemEntityList;
+    private List<ItemEntity> list = IafMath.emptyItemEntityList;
 
     public PixieAIPickupItem(EntityPixie creature, boolean checkSight) {
         this(creature, checkSight, false);
@@ -98,7 +98,7 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
 
             pixie.setStackInHand(Hand.MAIN_HAND, this.targetEntity.getStack());
             this.targetEntity.getStack().decrement(1);
-            pixie.playSound(IafSoundRegistry.PIXIE_TAUNT, 1F, 1F);
+            pixie.playSound(IafSounds.PIXIE_TAUNT, 1F, 1F);
             this.stop();
         }
     }

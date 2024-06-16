@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityLectern;
+import com.github.alexthe666.iceandfire.registry.IafBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -55,8 +55,8 @@ public class BlockLectern extends BlockWithEntity {
     @Override
     public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-        if (blockEntity instanceof TileEntityLectern) {
-            ItemScatterer.spawn(worldIn, pos, (TileEntityLectern) blockEntity);
+        if (blockEntity instanceof BlockEntityLectern) {
+            ItemScatterer.spawn(worldIn, pos, (BlockEntityLectern) blockEntity);
             worldIn.updateComparators(pos, this);
         }
         super.onStateReplaced(state, worldIn, pos, newState, isMoving);
@@ -64,7 +64,7 @@ public class BlockLectern extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
-        return world.isClient ? checkType(entityType, IafTileEntityRegistry.IAF_LECTERN, TileEntityLectern::bookAnimationTick) : null;
+        return world.isClient ? checkType(entityType, IafBlockEntities.IAF_LECTERN, BlockEntityLectern::bookAnimationTick) : null;
     }
 
 
@@ -98,6 +98,6 @@ public class BlockLectern extends BlockWithEntity {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityLectern(pos, state);
+        return new BlockEntityLectern(pos, state);
     }
 }

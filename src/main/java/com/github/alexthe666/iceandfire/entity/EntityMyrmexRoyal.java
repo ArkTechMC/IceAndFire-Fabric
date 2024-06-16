@@ -5,8 +5,9 @@ import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedP
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexTrades;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.google.common.base.Predicate;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -215,7 +216,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
                         if (this.isAlive()) {
                             this.mate.remove(RemovalReason.KILLED);
                             this.remove(RemovalReason.KILLED);
-                            EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntityRegistry.MYRMEX_QUEEN, this.getWorld());
+                            EntityMyrmexQueen queen = new EntityMyrmexQueen(IafEntities.MYRMEX_QUEEN, this.getWorld());
                             queen.copyPositionAndRotation(this);
                             queen.setJungleVariant(this.isJungle());
                             queen.setMadeHome(false);

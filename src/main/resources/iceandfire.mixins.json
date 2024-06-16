@@ -4,8 +4,8 @@
   "package": "com.github.alexthe666.iceandfire.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "gen.NoLakesInStructuresMixin",
-    "gen.WorldGenRegionMixin"
+    "NoLakesInStructuresMixin",
+    "WorldGenRegionMixin"
   ],
   "client": [
   ],

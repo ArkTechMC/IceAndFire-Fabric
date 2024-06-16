@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.ExperienceOrbEntity;
@@ -18,7 +18,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 public class DragonAIMate extends Goal {
-    private static final BlockState NEST = IafBlockRegistry.NEST.getDefaultState();
+    private static final BlockState NEST = IafBlocks.NEST.getDefaultState();
     final World theWorld;
     final double moveSpeed;
     private final EntityDragonBase dragon;

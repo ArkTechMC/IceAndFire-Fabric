@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
+import com.github.alexthe666.iceandfire.registry.IafScreenHandlers;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +24,7 @@ public class HippocampusContainerMenu extends ScreenHandler {
     }
 
     public HippocampusContainerMenu(int id, Inventory hippoInventory, PlayerInventory playerInventory, EntityHippocampus hippocampus, EntityPropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.HIPPOCAMPUS_CONTAINER, id);
+        super(IafScreenHandlers.HIPPOCAMPUS_CONTAINER, id);
         this.hippocampusInventory = hippoInventory;
         if (hippocampus != null)
             this.hippocampus = hippocampus;

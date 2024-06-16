@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityDreadLich;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.RangedAttackMob;
 import net.minecraft.entity.ai.goal.Goal;
@@ -37,7 +37,7 @@ public class DreadLichAIStrife extends Goal {
     }
 
     protected boolean isStaffInHand() {
-        return !this.entity.getMainHandStack().isEmpty() && this.entity.getMainHandStack().getItem() == IafItemRegistry.LICH_STAFF;
+        return !this.entity.getMainHandStack().isEmpty() && this.entity.getMainHandStack().getItem() == IafItems.LICH_STAFF;
     }
 
     @Override

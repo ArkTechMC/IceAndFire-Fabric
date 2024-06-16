@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.util;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.google.common.collect.ImmutableMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -45,7 +45,7 @@ public class MyrmexTrades {
                         new ItemsForDesertResinTrade(Items.IRON_ORE, 1, 6, 3, 2),
                         new DesertResinForItemsTrade(Items.SUGAR, 15, 2, 1),
                         new ItemsForDesertResinTrade(Items.STICK, 1, 64, 5, 2),
-                        new ItemsForDesertResinTrade(IafItemRegistry.COPPER_NUGGET, 1, 4, 10),
+                        new ItemsForDesertResinTrade(IafItems.COPPER_NUGGET, 1, 4, 10),
                 }));
         JUNGLE_WORKER = createTrades(ImmutableMap.of(1,
                 new TradeOffers.Factory[]{
@@ -59,7 +59,7 @@ public class MyrmexTrades {
                         new ItemsForJungleResinTrade(Items.GOLD_ORE, 2, 15, 3, 2),
                         new JungleResinForItemsTrade(Items.SUGAR, 15, 2, 3),
                         new ItemsForJungleResinTrade(Items.STICK, 1, 64, 5, 2),
-                        new ItemsForJungleResinTrade(IafItemRegistry.COPPER_NUGGET, 1, 4, 10),
+                        new ItemsForJungleResinTrade(IafItems.COPPER_NUGGET, 1, 4, 10),
                 }));
         DESERT_SOLDIER = createTrades(ImmutableMap.of(1,
                 new TradeOffers.Factory[]{
@@ -69,14 +69,14 @@ public class MyrmexTrades {
                         new ItemsForDesertResinTrade(Items.RABBIT, 1, 3, 6, 2),
                         new DesertResinForItemsTrade(Items.IRON_NUGGET, 4, 1, 4),
                         new ItemsForDesertResinTrade(Items.CHICKEN, 2, 2, 7),
-                        new ItemsForDesertResinTrade(IafItemRegistry.SILVER_NUGGET, 4, 1, 15),
+                        new ItemsForDesertResinTrade(IafItems.SILVER_NUGGET, 4, 1, 15),
                 },
                 //Only 3 of these appears per myrmex
                 2, new TradeOffers.Factory[]{
                         new ItemsForDesertResinTrade(Items.CACTUS, 1, 15, 6, 2),
                         new ItemsForDesertResinTrade(Items.GOLD_NUGGET, 1, 4, 6, 2),
-                        new ItemsForDesertResinTrade(IafItemRegistry.TROLL_TUSK, 6, 1, 4, 2),
-                        new DesertResinForItemsTrade(IafItemRegistry.DRAGON_BONE, 6, 2, 3),
+                        new ItemsForDesertResinTrade(IafItems.TROLL_TUSK, 6, 1, 4, 2),
+                        new DesertResinForItemsTrade(IafItems.DRAGON_BONE, 6, 2, 3),
                 }));
         JUNGLE_SOLDIER = createTrades(ImmutableMap.of(1,
                 new TradeOffers.Factory[]{
@@ -86,14 +86,14 @@ public class MyrmexTrades {
                         new ItemsForJungleResinTrade(Items.EGG, 1, 4, 6, 2),
                         new JungleResinForItemsTrade(Items.IRON_NUGGET, 4, 1, 4),
                         new ItemsForJungleResinTrade(Items.CHICKEN, 2, 2, 7),
-                        new ItemsForJungleResinTrade(IafItemRegistry.SILVER_NUGGET, 1, 4, 15),
+                        new ItemsForJungleResinTrade(IafItems.SILVER_NUGGET, 1, 4, 15),
                 },
                 //Only 3 of these appears per myrmex
                 2, new TradeOffers.Factory[]{
                         new ItemsForJungleResinTrade(Items.ROTTEN_FLESH, 1, 15, 6, 2),
                         new ItemsForJungleResinTrade(Items.GOLD_NUGGET, 1, 4, 6, 2),
-                        new ItemsForJungleResinTrade(IafItemRegistry.TROLL_TUSK, 6, 1, 4, 2),
-                        new JungleResinForItemsTrade(IafItemRegistry.DRAGON_BONE, 6, 2, 3),
+                        new ItemsForJungleResinTrade(IafItems.TROLL_TUSK, 6, 1, 4, 2),
+                        new JungleResinForItemsTrade(IafItems.DRAGON_BONE, 6, 2, 3),
                 }));
         DESERT_SENTINEL = createTrades(ImmutableMap.of(1,
                 new TradeOffers.Factory[]{
@@ -125,8 +125,8 @@ public class MyrmexTrades {
                 }));
         DESERT_ROYAL = createTrades(ImmutableMap.of(1,
                 new TradeOffers.Factory[]{
-                        new ItemsForDesertResinTrade(IafItemRegistry.MANUSCRIPT, 1, 3, 5, 1),
-                        new ItemsForDesertResinTrade(IafItemRegistry.WITHER_SHARD, 3, 1, 3, 1),
+                        new ItemsForDesertResinTrade(IafItems.MANUSCRIPT, 1, 3, 5, 1),
+                        new ItemsForDesertResinTrade(IafItems.WITHER_SHARD, 3, 1, 3, 1),
                         new ItemsForDesertResinTrade(Items.EMERALD, 10, 1, 3, 1),
                         new ItemsForDesertResinTrade(Items.QUARTZ, 2, 4, 3, 1),
                 },
@@ -135,15 +135,15 @@ public class MyrmexTrades {
                         new ItemsForDesertResinTrade(Items.GOLDEN_CARROT, 3, 1, 2, 1),
                         new ItemsForDesertResinTrade(Items.MAGMA_CREAM, 5, 1, 3, 1),
                         new ItemsForDesertResinTrade(Items.GOLD_INGOT, 3, 1, 5, 1),
-                        new ItemsForDesertResinTrade(IafItemRegistry.SILVER_INGOT, 3, 1, 5, 1),
+                        new ItemsForDesertResinTrade(IafItems.SILVER_INGOT, 3, 1, 5, 1),
                         new ItemsForDesertResinTrade(Items.COPPER_INGOT, 2, 2, 3, 1),
                         new ItemsForDesertResinTrade(Items.ENDER_PEARL, 8, 1, 5, 1),
                         new ItemsForDesertResinTrade(Items.RABBIT_FOOT, 3, 1, 5, 1),
                 }));
         JUNGLE_ROYAL = createTrades(ImmutableMap.of(1,
                 new TradeOffers.Factory[]{
-                        new ItemsForJungleResinTrade(IafItemRegistry.MANUSCRIPT, 1, 3, 5, 1),
-                        new ItemsForJungleResinTrade(IafItemRegistry.WITHER_SHARD, 3, 1, 3, 1),
+                        new ItemsForJungleResinTrade(IafItems.MANUSCRIPT, 1, 3, 5, 1),
+                        new ItemsForJungleResinTrade(IafItems.WITHER_SHARD, 3, 1, 3, 1),
                         new ItemsForJungleResinTrade(Items.EMERALD, 10, 1, 3, 1),
                         new ItemsForJungleResinTrade(Items.QUARTZ, 2, 4, 3, 1),
                 },
@@ -152,7 +152,7 @@ public class MyrmexTrades {
                         new ItemsForJungleResinTrade(Items.GOLDEN_CARROT, 3, 1, 2, 1),
                         new ItemsForJungleResinTrade(Items.MAGMA_CREAM, 5, 1, 3, 1),
                         new ItemsForJungleResinTrade(Items.GOLD_INGOT, 3, 1, 5, 1),
-                        new ItemsForJungleResinTrade(IafItemRegistry.SILVER_INGOT, 3, 1, 5, 1),
+                        new ItemsForJungleResinTrade(IafItems.SILVER_INGOT, 3, 1, 5, 1),
                         new ItemsForJungleResinTrade(Items.COPPER_INGOT, 2, 2, 3, 1),
                         new ItemsForJungleResinTrade(Items.ENDER_PEARL, 8, 1, 5, 1),
                         new ItemsForJungleResinTrade(Items.RABBIT_FOOT, 3, 1, 5, 1),
@@ -187,7 +187,7 @@ public class MyrmexTrades {
     }
 
     private static ItemStack createEgg(boolean jungle, int caste) {
-        ItemStack egg = new ItemStack(jungle ? IafItemRegistry.MYRMEX_JUNGLE_EGG : IafItemRegistry.MYRMEX_DESERT_EGG);
+        ItemStack egg = new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_EGG : IafItems.MYRMEX_DESERT_EGG);
         NbtCompound tag = new NbtCompound();
         tag.putInt("EggOrdinal", caste);
         egg.setNbt(tag);
@@ -225,7 +225,7 @@ public class MyrmexTrades {
 
         @Override
         public TradeOffer create(Entity trader, Random rand) {
-            return new TradeOffer(new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN, this.emeraldCount), new ItemStack(this.buyingItem.getItem(), this.buyingItemCount), new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
+            return new TradeOffer(new ItemStack(IafItems.MYRMEX_DESERT_RESIN, this.emeraldCount), new ItemStack(this.buyingItem.getItem(), this.buyingItemCount), new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
 
@@ -253,7 +253,7 @@ public class MyrmexTrades {
 
         @Override
         public TradeOffer create(Entity trader, Random rand) {
-            ItemStack lvt_3_1_ = new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN, this.emeraldCount);
+            ItemStack lvt_3_1_ = new ItemStack(IafItems.MYRMEX_DESERT_RESIN, this.emeraldCount);
             List<Potion> lvt_4_1_ = Registries.POTION.stream().filter((potion) -> !potion.getEffects().isEmpty() && BrewingRecipeRegistry.isBrewable(potion)).toList();
             Potion lvt_5_1_ = lvt_4_1_.get(rand.nextInt(lvt_4_1_.size()));
             ItemStack lvt_6_1_ = PotionUtil.setPotion(new ItemStack(this.potionStack.getItem(), this.potionCount), lvt_5_1_);
@@ -285,7 +285,7 @@ public class MyrmexTrades {
             int lvt_3_1_ = 5 + rand.nextInt(15);
             ItemStack lvt_4_1_ = EnchantmentHelper.enchant(rand, new ItemStack(this.sellingStack.getItem()), lvt_3_1_, false);
             int lvt_5_1_ = Math.min(this.emeraldCount + lvt_3_1_, 64);
-            ItemStack lvt_6_1_ = new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN, lvt_5_1_);
+            ItemStack lvt_6_1_ = new ItemStack(IafItems.MYRMEX_DESERT_RESIN, lvt_5_1_);
             return new TradeOffer(lvt_6_1_, lvt_4_1_, this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
@@ -307,7 +307,7 @@ public class MyrmexTrades {
         public TradeOffer create(Entity trader, Random rand) {
             ItemStack lvt_3_1_ = new ItemStack(Items.SUSPICIOUS_STEW, 1);
             SuspiciousStewItem.addEffectToStew(lvt_3_1_, this.effect, this.duration);
-            return new TradeOffer(new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN, 1), lvt_3_1_, 12, this.xpValue, this.priceMultiplier);
+            return new TradeOffer(new ItemStack(IafItems.MYRMEX_DESERT_RESIN, 1), lvt_3_1_, 12, this.xpValue, this.priceMultiplier);
         }
     }
 
@@ -348,7 +348,7 @@ public class MyrmexTrades {
         public TradeOffer create(Entity trader, Random rand) {
             ItemStack cloneStack = new ItemStack(this.stack.getItem(), this.itemCount);
             cloneStack.setNbt(this.stack.getNbt());
-            return new TradeOffer(new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN, this.emeraldCount), cloneStack, this.maxUses, this.exp, this.multiplier);
+            return new TradeOffer(new ItemStack(IafItems.MYRMEX_DESERT_RESIN, this.emeraldCount), cloneStack, this.maxUses, this.exp, this.multiplier);
         }
     }
 
@@ -370,7 +370,7 @@ public class MyrmexTrades {
         @Override
         public TradeOffer create(Entity trader, Random rand) {
             ItemStack lvt_3_1_ = new ItemStack(this.tradeItem, this.count);
-            return new TradeOffer(lvt_3_1_, new ItemStack(IafItemRegistry.MYRMEX_DESERT_RESIN), this.maxUses, this.xpValue, this.priceMultiplier);
+            return new TradeOffer(lvt_3_1_, new ItemStack(IafItems.MYRMEX_DESERT_RESIN), this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
 
@@ -402,7 +402,7 @@ public class MyrmexTrades {
 
         @Override
         public TradeOffer create(Entity trader, Random rand) {
-            return new TradeOffer(new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_RESIN, this.emeraldCount), new ItemStack(this.buyingItem.getItem(), this.buyingItemCount), new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
+            return new TradeOffer(new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN, this.emeraldCount), new ItemStack(this.buyingItem.getItem(), this.buyingItemCount), new ItemStack(this.sellingItem.getItem(), this.sellingItemCount), this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
 
@@ -429,7 +429,7 @@ public class MyrmexTrades {
 
         @Override
         public TradeOffer create(Entity trader, Random rand) {
-            ItemStack lvt_3_1_ = new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_RESIN, this.emeraldCount);
+            ItemStack lvt_3_1_ = new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN, this.emeraldCount);
             List<Potion> lvt_4_1_ = Registries.POTION.stream().filter((potion) -> !potion.getEffects().isEmpty() && BrewingRecipeRegistry.isBrewable(potion)).toList();
             Potion lvt_5_1_ = lvt_4_1_.get(rand.nextInt(lvt_4_1_.size()));
             ItemStack lvt_6_1_ = PotionUtil.setPotion(new ItemStack(this.potionStack.getItem(), this.potionCount), lvt_5_1_);
@@ -461,7 +461,7 @@ public class MyrmexTrades {
             int lvt_3_1_ = 5 + rand.nextInt(15);
             ItemStack lvt_4_1_ = EnchantmentHelper.enchant(rand, new ItemStack(this.sellingStack.getItem()), lvt_3_1_, false);
             int lvt_5_1_ = Math.min(this.emeraldCount + lvt_3_1_, 64);
-            ItemStack lvt_6_1_ = new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_RESIN, lvt_5_1_);
+            ItemStack lvt_6_1_ = new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN, lvt_5_1_);
             return new TradeOffer(lvt_6_1_, lvt_4_1_, this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
@@ -503,7 +503,7 @@ public class MyrmexTrades {
         public TradeOffer create(Entity trader, Random rand) {
             ItemStack cloneStack = new ItemStack(this.stack.getItem(), this.itemCount);
             cloneStack.setNbt(this.stack.getNbt());
-            return new TradeOffer(new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_RESIN, this.emeraldCount), cloneStack, this.maxUses, this.exp, this.multiplier);
+            return new TradeOffer(new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN, this.emeraldCount), cloneStack, this.maxUses, this.exp, this.multiplier);
         }
     }
 
@@ -525,7 +525,7 @@ public class MyrmexTrades {
         @Override
         public TradeOffer create(Entity trader, Random rand) {
             ItemStack lvt_3_1_ = new ItemStack(this.tradeItem, this.count);
-            return new TradeOffer(lvt_3_1_, new ItemStack(IafItemRegistry.MYRMEX_JUNGLE_RESIN), this.maxUses, this.xpValue, this.priceMultiplier);
+            return new TradeOffer(lvt_3_1_, new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN), this.maxUses, this.xpValue, this.priceMultiplier);
         }
     }
 }

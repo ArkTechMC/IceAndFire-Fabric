@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityPodium;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityPodium;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.Instrument;
@@ -38,8 +38,8 @@ public class BlockPodium extends BlockWithEntity {
     @Override
     public void onStateReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        if (tileentity instanceof TileEntityPodium) {
-            ItemScatterer.spawn(worldIn, pos, (TileEntityPodium) tileentity);
+        if (tileentity instanceof BlockEntityPodium) {
+            ItemScatterer.spawn(worldIn, pos, (BlockEntityPodium) tileentity);
             worldIn.updateComparators(pos, this);
         }
         super.onStateReplaced(state, worldIn, pos, newState, isMoving);
@@ -66,7 +66,7 @@ public class BlockPodium extends BlockWithEntity {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityPodium(pos, state);
+        return new BlockEntityPodium(pos, state);
     }
 
 }

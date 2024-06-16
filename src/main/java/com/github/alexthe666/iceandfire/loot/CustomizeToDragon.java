@@ -2,7 +2,12 @@ package com.github.alexthe666.iceandfire.loot;
 
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.item.*;
+import com.github.alexthe666.iceandfire.item.ItemDragonEgg;
+import com.github.alexthe666.iceandfire.item.ItemDragonScales;
+import com.github.alexthe666.iceandfire.item.ItemDragonSkull;
+import com.github.alexthe666.iceandfire.item.food.ItemDragonFlesh;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafLoots;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
@@ -21,7 +26,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
     @Override
     protected ItemStack process(final ItemStack stack, final LootContext context) {
         if (!stack.isEmpty() && context.get(LootContextParameters.THIS_ENTITY) instanceof EntityDragonBase dragon) {
-            if (stack.getItem() == IafItemRegistry.DRAGON_BONE) {
+            if (stack.getItem() == IafItems.DRAGON_BONE) {
                 stack.setCount(1 + dragon.getRandom().nextInt(1 + (dragon.getAgeInDays() / 25)));
                 return stack;
             } else if (stack.getItem() instanceof ItemDragonScales) {
@@ -52,7 +57,7 @@ public class CustomizeToDragon extends ConditionalLootFunction {
 
     @Override
     public LootFunctionType getType() {
-        return IafLootRegistry.CUSTOMIZE_TO_DRAGON;
+        return IafLoots.CUSTOMIZE_TO_DRAGON;
     }
 
     public static class Serializer extends ConditionalLootFunction.Serializer<CustomizeToDragon> {

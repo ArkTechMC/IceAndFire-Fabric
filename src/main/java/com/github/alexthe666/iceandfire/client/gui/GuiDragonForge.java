@@ -1,10 +1,10 @@
 package com.github.alexthe666.iceandfire.client.gui;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.DragonType;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
 import com.github.alexthe666.iceandfire.inventory.ContainerDragonForge;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
-import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
+import com.github.alexthe666.iceandfire.registry.IafRecipes;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -58,7 +58,7 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
     private int getCookTime(int time) {
         assert this.client != null;
         assert this.client.world != null;
-        List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE).stream().filter(item -> item.isValidInput(this.tileFurnace.getSlot(0).getStack()) && item.isValidBlood(this.tileFurnace.getSlot(1).getStack())).toList();
+        List<DragonForgeRecipe> recipes = this.client.world.getRecipeManager().listAllOfType(IafRecipes.DRAGON_FORGE_TYPE).stream().filter(item -> item.isValidInput(this.tileFurnace.getSlot(0).getStack()) && item.isValidBlood(this.tileFurnace.getSlot(1).getStack())).toList();
         int maxCookTime = recipes.isEmpty() ? 100 : recipes.get(0).getCookTime();
         double scale = 125000.0 / maxCookTime;
         return (int) (scale * time / maxCookTime);

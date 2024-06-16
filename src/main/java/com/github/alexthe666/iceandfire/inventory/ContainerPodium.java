@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.inventory;
 
+import com.github.alexthe666.iceandfire.registry.IafScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -19,7 +20,7 @@ public class ContainerPodium extends ScreenHandler {
 
 
     public ContainerPodium(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate vars) {
-        super(IafContainerRegistry.PODIUM_CONTAINER, id);
+        super(IafScreenHandlers.PODIUM_CONTAINER, id);
         this.podium = furnaceInventory;
         furnaceInventory.onOpen(playerInventory.player);
         byte b0 = 51;

@@ -1,9 +1,10 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.DragonType;
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
+import com.github.alexthe666.iceandfire.block.util.IDragonProof;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForge;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForgeInput;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
+import com.github.alexthe666.iceandfire.registry.IafBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -33,14 +34,14 @@ public class BlockDragonForgeInput extends BlockWithEntity implements IDragonPro
         this.setDefaultState(this.getStateManager().getDefaultState().with(ACTIVE, Boolean.FALSE));
     }
 
-    static String name(int dragonType) {
+    public static String name(int dragonType) {
         return "dragonforge_%s_input".formatted(DragonType.getNameFromInt(dragonType));
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hitResult) {
         if (this.getConnectedTileEntity(world, hitResult.getBlockPos()) != null) {
-            TileEntityDragonforge forge = this.getConnectedTileEntity(world, hitResult.getBlockPos());
+            BlockEntityDragonForge forge = this.getConnectedTileEntity(world, hitResult.getBlockPos());
             if (forge != null && forge.getPropertyDelegate().fireType == this.dragonType) {
                 if (!world.isClient) {
                     NamedScreenHandlerFactory inamedcontainerprovider = this.createScreenHandlerFactory(forge.getCachedState(), world, forge.getPos());
@@ -54,10 +55,10 @@ public class BlockDragonForgeInput extends BlockWithEntity implements IDragonPro
         return ActionResult.SUCCESS;
     }
 
-    private TileEntityDragonforge getConnectedTileEntity(World world, BlockPos pos) {
+    private BlockEntityDragonForge getConnectedTileEntity(World world, BlockPos pos) {
         for (Direction facing : Direction.values())
-            if (world.getBlockEntity(pos.offset(facing)) != null && world.getBlockEntity(pos.offset(facing)) instanceof TileEntityDragonforge)
-                return (TileEntityDragonforge) world.getBlockEntity(pos.offset(facing));
+            if (world.getBlockEntity(pos.offset(facing)) != null && world.getBlockEntity(pos.offset(facing)) instanceof BlockEntityDragonForge)
+                return (BlockEntityDragonForge) world.getBlockEntity(pos.offset(facing));
         return null;
     }
 
@@ -81,11 +82,11 @@ public class BlockDragonForgeInput extends BlockWithEntity implements IDragonPro
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
-        return world.isClient ? null : checkType(entityType, IafTileEntityRegistry.DRAGONFORGE_INPUT, TileEntityDragonforgeInput::tick);
+        return world.isClient ? null : checkType(entityType, IafBlockEntities.DRAGONFORGE_INPUT, BlockEntityDragonForgeInput::tick);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityDragonforgeInput(pos, state);
+        return new BlockEntityDragonForgeInput(pos, state);
     }
 }

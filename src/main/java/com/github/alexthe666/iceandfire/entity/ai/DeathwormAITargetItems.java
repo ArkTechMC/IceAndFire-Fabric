@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -22,7 +22,7 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected final int targetChance;
     private final EntityDeathWorm worm;
-    private final List<ItemEntity> list = IAFMath.emptyItemEntityList;
+    private final List<ItemEntity> list = IafMath.emptyItemEntityList;
     protected ItemEntity targetEntity;
 
     public DeathwormAITargetItems(EntityDeathWorm creature, boolean checkSight) {

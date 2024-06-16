@@ -5,9 +5,10 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexTrades;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.event.EventBus;
@@ -158,7 +159,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30));
                     this.setHive(hiveGen.hive);
                     for (int i = 0; i < 3; i++) {
-                        EntityMyrmexWorker worker = new EntityMyrmexWorker(IafEntityRegistry.MYRMEX_WORKER, this.getWorld());
+                        EntityMyrmexWorker worker = new EntityMyrmexWorker(IafEntities.MYRMEX_WORKER, this.getWorld());
                         worker.copyPositionAndRotation(this);
                         worker.setHive(this.getHive());
                         worker.setJungleVariant(this.isJungle());
@@ -179,7 +180,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
             if (this.getWorld().isAir(eggPos)) {
                 this.setAnimation(ANIMATION_EGG);
                 if (this.getAnimationTick() == 10) {
-                    EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntityRegistry.MYRMEX_EGG, this.getWorld());
+                    EntityMyrmexEgg egg = new EntityMyrmexEgg(IafEntities.MYRMEX_EGG, this.getWorld());
                     egg.setJungle(this.isJungle());
                     int caste = getRandomCaste(this.getWorld(), this.getRandom(), this.getHive() == null || this.getHive().reproduces);
                     egg.setMyrmexCaste(caste);

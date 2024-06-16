@@ -4,10 +4,10 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -109,8 +109,8 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
     @Override
     protected void initEquipment(Random pRandom, LocalDifficulty pDifficulty) {
         super.initEquipment(pRandom, pDifficulty);
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DREAD_QUEEN_SWORD));
-        this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(IafItemRegistry.DREAD_QUEEN_STAFF));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItems.DREAD_QUEEN_SWORD));
+        this.equipStack(EquipmentSlot.OFFHAND, new ItemStack(IafItems.DREAD_QUEEN_STAFF));
     }
 
     @Override

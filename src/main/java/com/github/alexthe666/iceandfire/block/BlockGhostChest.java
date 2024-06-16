@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityGhostChest;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityGhostChest;
+import com.github.alexthe666.iceandfire.registry.IafBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.MapColor;
@@ -20,12 +20,12 @@ import net.minecraft.world.BlockView;
 public class BlockGhostChest extends ChestBlock {
 
     public BlockGhostChest() {
-        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().strength(2.5F).sounds(BlockSoundGroup.WOOD), () -> IafTileEntityRegistry.GHOST_CHEST);
+        super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().strength(2.5F).sounds(BlockSoundGroup.WOOD), () -> IafBlockEntities.GHOST_CHEST);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityGhostChest(pos, state);
+        return new BlockEntityGhostChest(pos, state);
     }
 
     @Override

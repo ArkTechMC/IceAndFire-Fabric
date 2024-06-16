@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.compat.emi;
 
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
-import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
+import com.github.alexthe666.iceandfire.registry.IafRecipes;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiRecipe;
 import dev.emi.emi.api.recipe.EmiRecipeCategory;
@@ -30,7 +30,7 @@ public class ForgeRecipeHolder {
     public void register(EmiRegistry registry) {
         registry.addCategory(this.category);
         registry.addWorkstation(this.category, this.workstation);
-        List<DragonForgeRecipe> forgeRecipeList = registry.getRecipeManager().listAllOfType(IafRecipeRegistry.DRAGON_FORGE_TYPE);
+        List<DragonForgeRecipe> forgeRecipeList = registry.getRecipeManager().listAllOfType(IafRecipes.DRAGON_FORGE_TYPE);
         for (DragonForgeRecipe recipe : forgeRecipeList.stream().filter(item -> item.getDragonType().equals(this.dragonType)).toList())
             registry.addRecipe(new DragonForgeEmiRecipe(recipe, this.category));
     }

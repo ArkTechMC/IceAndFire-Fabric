@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
+import com.github.alexthe666.iceandfire.registry.IafScreenHandlers;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +24,7 @@ public class ContainerHippogryph extends ScreenHandler {
     }
 
     public ContainerHippogryph(int id, Inventory hippogryphInventory, PlayerInventory playerInventory, EntityHippogryph hippogryph, EntityPropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.HIPPOGRYPH_CONTAINER, id);
+        super(IafScreenHandlers.HIPPOGRYPH_CONTAINER, id);
         this.hippogryphInventory = hippogryphInventory;
         if (hippogryph != null)
             this.hippogryph = hippogryph;

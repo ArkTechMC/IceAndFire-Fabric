@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.github.alexthe666.iceandfire.util.WorldUtil;
 import com.github.alexthe666.iceandfire.world.IafWorldData;
 import com.mojang.serialization.Codec;
@@ -83,7 +83,7 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
     }
 
     private void spawnSiren(ServerWorldAccess worldIn, Random rand, BlockPos position) {
-        EntitySiren siren = new EntitySiren(IafEntityRegistry.SIREN, worldIn.toServerWorld());
+        EntitySiren siren = new EntitySiren(IafEntities.SIREN, worldIn.toServerWorld());
         siren.setSinging(true);
         siren.setHairColor(rand.nextInt(2));
         siren.setSingingPose(rand.nextInt(2));

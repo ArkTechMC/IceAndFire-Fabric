@@ -13,7 +13,8 @@ import com.github.alexthe666.iceandfire.entity.util.ChainBuffer;
 import com.github.alexthe666.iceandfire.entity.util.ICustomMoveController;
 import com.github.alexthe666.iceandfire.entity.util.ISyncMount;
 import com.github.alexthe666.iceandfire.inventory.HippocampusContainerMenu;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -525,7 +526,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Override
     public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageable) {
         if (ageable instanceof EntityHippocampus) {
-            EntityHippocampus hippo = new EntityHippocampus(IafEntityRegistry.HIPPOCAMPUS, this.getWorld());
+            EntityHippocampus hippo = new EntityHippocampus(IafEntities.HIPPOCAMPUS, this.getWorld());
             hippo.setVariant(this.getRandom().nextBoolean() ? this.getVariant() : ((EntityHippocampus) ageable).getVariant());
             return hippo;
         }
@@ -661,17 +662,17 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.HIPPOCAMPUS_IDLE;
+        return IafSounds.HIPPOCAMPUS_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return IafSoundRegistry.HIPPOCAMPUS_HURT;
+        return IafSounds.HIPPOCAMPUS_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.HIPPOCAMPUS_DIE;
+        return IafSounds.HIPPOCAMPUS_DIE;
     }
 
     @Override

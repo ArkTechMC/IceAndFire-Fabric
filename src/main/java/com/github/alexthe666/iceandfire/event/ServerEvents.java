@@ -2,17 +2,18 @@ package com.github.alexthe666.iceandfire.event;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
 import com.github.alexthe666.iceandfire.entity.ai.VillagerAIFearUntamed;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.item.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.item.ItemChain;
+import com.github.alexthe666.iceandfire.item.armor.ItemDragonsteelArmor;
+import com.github.alexthe666.iceandfire.item.armor.ItemScaleArmor;
+import com.github.alexthe666.iceandfire.item.armor.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
-import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
-import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
+import com.github.alexthe666.iceandfire.registry.*;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import dev.arktechmc.iafextra.event.AttackEntityEvent;
 import dev.arktechmc.iafextra.event.ProjectileImpactEvent;
@@ -124,31 +125,31 @@ public class ServerEvents {
     }
 
     public static boolean isLivestock(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.FEAR_DRAGONS, entity.getType());
+        return entity != null && isInEntityTag(IafTags.FEAR_DRAGONS, entity.getType());
     }
 
     public static boolean isVillager(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.VILLAGERS, entity.getType());
+        return entity != null && isInEntityTag(IafTags.VILLAGERS, entity.getType());
     }
 
     public static boolean isSheep(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.SHEEP, entity.getType());
+        return entity != null && isInEntityTag(IafTags.SHEEP, entity.getType());
     }
 
     public static boolean isChicken(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.CHICKENS, entity.getType());
+        return entity != null && isInEntityTag(IafTags.CHICKENS, entity.getType());
     }
 
     public static boolean isCockatriceTarget(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.COCKATRICE_TARGETS, entity.getType());
+        return entity != null && isInEntityTag(IafTags.COCKATRICE_TARGETS, entity.getType());
     }
 
     public static boolean doesScareCockatrice(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.SCARES_COCKATRICES, entity.getType());
+        return entity != null && isInEntityTag(IafTags.SCARES_COCKATRICES, entity.getType());
     }
 
     public static boolean isBlindMob(Entity entity) {
-        return entity != null && isInEntityTag(IafTagRegistry.BLINDED, entity.getType());
+        return entity != null && isInEntityTag(IafTags.BLINDED, entity.getType());
     }
 
     public static boolean isRidingOrBeingRiddenBy(final Entity first, final Entity entityIn) {
@@ -188,7 +189,7 @@ public class ServerEvents {
             Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
             Registry<StructureProcessorList> processorListRegistry = server.getRegistryManager().get(RegistryKeys.PROCESSOR_LIST);
             for (String type : VILLAGE_TYPES) {
-                IafVillagerRegistry.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.villagerHouseWeight);
+                IafTrades.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.villagerHouseWeight);
             }
         }
 
@@ -245,7 +246,7 @@ public class ServerEvents {
             }
             event.setAmount(event.getAmount() * multi);
         }
-        if (source.isOf(IafDamageRegistry.DRAGON_FIRE_TYPE) || source.isOf(IafDamageRegistry.DRAGON_ICE_TYPE) || source.isOf(IafDamageRegistry.DRAGON_LIGHTNING_TYPE)) {
+        if (source.isOf(IafDamageTypes.DRAGON_FIRE_TYPE) || source.isOf(IafDamageTypes.DRAGON_ICE_TYPE) || source.isOf(IafDamageTypes.DRAGON_LIGHTNING_TYPE)) {
             float multi = 1;
             if (entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemScaleArmor ||
                     entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemDragonsteelArmor) {
@@ -292,7 +293,7 @@ public class ServerEvents {
 
     public static boolean onEntityDrop(LivingEntity target, DamageSource source, Collection<ItemEntity> drops, int lootingLevel, boolean recentlyHit) {
         if (target instanceof WitherSkeletonEntity) {
-            drops.add(new ItemEntity(target.getWorld(), target.getX(), target.getY(), target.getZ(), new ItemStack(IafItemRegistry.WITHERBONE, target.getRandom().nextInt(2))));
+            drops.add(new ItemEntity(target.getWorld(), target.getX(), target.getY(), target.getZ(), new ItemStack(IafItems.WITHERBONE, target.getRandom().nextInt(2))));
         }
         return true;
     }
@@ -359,7 +360,7 @@ public class ServerEvents {
                         entity.remove(Entity.RemovalReason.KILLED);
 
                         if (EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, stack) > 0) {
-                            ItemStack statuette = new ItemStack(IafItemRegistry.STONE_STATUE);
+                            ItemStack statuette = new ItemStack(IafItems.STONE_STATUE);
                             NbtCompound tag = statuette.getOrCreateNbt();
                             tag.putBoolean("IAFStoneStatuePlayerEntity", statue.getTrappedEntityTypeString().equalsIgnoreCase("minecraft:player"));
                             tag.putString("IAFStoneStatueEntityID", statue.getTrappedEntityTypeString());
@@ -395,7 +396,7 @@ public class ServerEvents {
                     entity.getX(),
                     entity.getY() + 1,
                     entity.getZ(),
-                    new ItemStack(IafItemRegistry.CHAIN, data.chainData.getChainedTo().size()));
+                    new ItemStack(IafItems.CHAIN, data.chainData.getChainedTo().size()));
             entityitem.setToDefaultPickupDelay();
             entity.getWorld().spawnEntity(entityitem);
 
@@ -403,7 +404,7 @@ public class ServerEvents {
         }
 
         if (entity.getUuid().equals(ServerEvents.ALEX_UUID))
-            entity.dropStack(new ItemStack(IafItemRegistry.WEEZER_BLUE_ALBUM), 1);
+            entity.dropStack(new ItemStack(IafItems.WEEZER_BLUE_ALBUM), 1);
 
         if (entity instanceof PlayerEntity && IafConfig.ghostsFromPlayerDeaths) {
             Entity attacker = entity.getAttacker();
@@ -416,7 +417,7 @@ public class ServerEvents {
                 }
                 if (flag) {
                     World world = entity.getWorld();
-                    EntityGhost ghost = IafEntityRegistry.GHOST.create(world);
+                    EntityGhost ghost = IafEntities.GHOST.create(world);
                     assert ghost != null;
                     ghost.copyPositionAndRotation(entity);
                     if (!world.isClient) {
@@ -449,7 +450,7 @@ public class ServerEvents {
             if (data.chainData.isChainedTo(entity)) {
                 data.chainData.removeChain(entity);
                 if (!world.isClient)
-                    entity.dropItem(IafItemRegistry.CHAIN, 1);
+                    entity.dropItem(IafItems.CHAIN, 1);
                 return ActionResult.SUCCESS;
             }
         }
@@ -481,7 +482,7 @@ public class ServerEvents {
     }
 
     public static void onBreakBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
-        if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlockRegistry.GOLD_PILE) || state.isOf(IafBlockRegistry.SILVER_PILE) || state.isOf(IafBlockRegistry.COPPER_PILE))) {
+        if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlocks.GOLD_PILE) || state.isOf(IafBlocks.SILVER_PILE) || state.isOf(IafBlocks.COPPER_PILE))) {
             final float dist = IafConfig.dragonGoldSearchLength;
             List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (list.isEmpty()) return;

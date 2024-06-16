@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -43,7 +43,7 @@ public class ItemDragonEgg extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         ItemStack itemstack = context.getPlayer().getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide());
-        EntityDragonEgg egg = new EntityDragonEgg(IafEntityRegistry.DRAGON_EGG, context.getWorld());
+        EntityDragonEgg egg = new EntityDragonEgg(IafEntities.DRAGON_EGG, context.getWorld());
         egg.setEggType(this.type);
         egg.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);
         egg.onPlayerPlace(context.getPlayer());

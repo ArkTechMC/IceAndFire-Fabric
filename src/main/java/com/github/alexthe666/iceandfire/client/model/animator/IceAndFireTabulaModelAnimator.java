@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.client.model.animator;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.TabulaModel;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.util.math.MathHelper;
 
 public class IceAndFireTabulaModelAnimator {
@@ -52,7 +52,7 @@ public class IceAndFireTabulaModelAnimator {
     }
 
     public float distance(float rotateAngleFrom, float rotateAngleTo) {
-        return (float) IAFMath.atan2_accurate(MathHelper.sin(rotateAngleTo - rotateAngleFrom), MathHelper.cos(rotateAngleTo - rotateAngleFrom));
+        return (float) IafMath.atan2_accurate(MathHelper.sin(rotateAngleTo - rotateAngleFrom), MathHelper.cos(rotateAngleTo - rotateAngleFrom));
     }
 
     public void rotate(ModelAnimator animator, AdvancedModelBox model, float x, float y, float z) {

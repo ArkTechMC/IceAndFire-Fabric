@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.world.feature;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafFeatures;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.math.BlockPos;
@@ -27,9 +27,9 @@ public class SpawnDeathWorm extends Feature<DefaultFeatureConfig> {
         BlockPos position = context.getOrigin();
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
-        if (IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position)) {
+        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
             if (rand.nextInt(IafConfig.deathWormSpawnRate + 1) == 0) {
-                EntityDeathWorm deathWorm = IafEntityRegistry.DEATH_WORM.create(worldIn.toServerWorld());
+                EntityDeathWorm deathWorm = IafEntities.DEATH_WORM.create(worldIn.toServerWorld());
                 assert deathWorm != null;
                 deathWorm.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);
                 deathWorm.initialize(worldIn, worldIn.getLocalDifficulty(position), SpawnReason.CHUNK_GENERATION, null, null);

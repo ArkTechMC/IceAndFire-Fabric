@@ -1,6 +1,9 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
+import com.github.alexthe666.iceandfire.block.util.IDreadBlock;
+import com.github.alexthe666.iceandfire.block.util.IWallBlock;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
@@ -24,11 +27,11 @@ public class BlockDreadTorch extends TorchBlock implements IDreadBlock, IWallBlo
         double d0 = (double) pos.getX() + 0.5D;
         double d1 = (double) pos.getY() + 0.6D;
         double d2 = (double) pos.getZ() + 0.5D;
-        worldIn.addParticle(IafParticleRegistry.DREAD_TORCH, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        worldIn.addParticle(IafParticles.DREAD_TORCH, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
     public Block wallBlock() {
-        return IafBlockRegistry.DREAD_TORCH_WALL;
+        return IafBlocks.DREAD_TORCH_WALL;
     }
 }

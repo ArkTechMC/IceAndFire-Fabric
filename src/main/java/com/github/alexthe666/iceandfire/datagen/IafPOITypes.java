@@ -13,5 +13,4 @@ public class IafPOITypes {
     public static RegistryKey<PointOfInterestType> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.POINT_OF_INTEREST_TYPE, new Identifier(IceAndFire.MOD_ID, name));
     }
-
 }

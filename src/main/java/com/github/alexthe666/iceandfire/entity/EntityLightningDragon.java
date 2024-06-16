@@ -5,11 +5,15 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.event.DragonFireEvent;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IafDragonAttacks;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.misc.IafTagRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
+import com.github.alexthe666.iceandfire.registry.IafTags;
 import dev.arktechmc.iafextra.event.EventBus;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
@@ -51,7 +55,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     private static final TrackedData<Float> LIGHTNING_TARGET_Z = DataTracker.registerData(EntityLightningDragon.class, TrackedDataHandlerRegistry.FLOAT);
 
     public EntityLightningDragon(World worldIn) {
-        this(IafEntityRegistry.LIGHTNING_DRAGON, worldIn);
+        this(IafEntities.LIGHTNING_DRAGON, worldIn);
     }
 
     public EntityLightningDragon(EntityType<?> t, World worldIn) {
@@ -92,7 +96,7 @@ public class EntityLightningDragon extends EntityDragonBase {
         if (entity instanceof EntityDragonBase && !this.isTamed()) {
             return entity.getType() != this.getType() && this.getWidth() >= entity.getWidth() && !((EntityDragonBase) entity).isMobDead();
         }
-        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafTagRegistry.LIGHTNING_DRAGON_TARGETS) || !this.isTamed() && DragonUtils.isVillager(entity);
+        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafTags.LIGHTNING_DRAGON_TARGETS) || !this.isTamed() && DragonUtils.isVillager(entity);
     }
 
     @Override
@@ -129,20 +133,20 @@ public class EntityLightningDragon extends EntityDragonBase {
     @Override
     public Item getVariantScale(int variant) {
         return switch (variant) {
-            default -> IafItemRegistry.DRAGONSCALES_ELECTRIC;
-            case 1 -> IafItemRegistry.DRAGONSCALES_AMYTHEST;
-            case 2 -> IafItemRegistry.DRAGONSCALES_COPPER;
-            case 3 -> IafItemRegistry.DRAGONSCALES_BLACK;
+            default -> IafItems.DRAGONSCALES_ELECTRIC;
+            case 1 -> IafItems.DRAGONSCALES_AMYTHEST;
+            case 2 -> IafItems.DRAGONSCALES_COPPER;
+            case 3 -> IafItems.DRAGONSCALES_BLACK;
         };
     }
 
     @Override
     public Item getVariantEgg(int variant) {
         return switch (variant) {
-            default -> IafItemRegistry.DRAGONEGG_ELECTRIC;
-            case 1 -> IafItemRegistry.DRAGONEGG_AMYTHEST;
-            case 2 -> IafItemRegistry.DRAGONEGG_COPPER;
-            case 3 -> IafItemRegistry.DRAGONEGG_BLACK;
+            default -> IafItems.DRAGONEGG_ELECTRIC;
+            case 1 -> IafItems.DRAGONEGG_AMYTHEST;
+            case 2 -> IafItems.DRAGONEGG_COPPER;
+            case 3 -> IafItems.DRAGONEGG_BLACK;
         };
     }
 
@@ -174,7 +178,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public Item getSummoningCrystal() {
-        return IafItemRegistry.SUMMONING_CRYSTAL_LIGHTNING;
+        return IafItems.SUMMONING_CRYSTAL_LIGHTNING;
     }
 
 /*    @Override
@@ -245,7 +249,7 @@ public class EntityLightningDragon extends EntityDragonBase {
             if (this.isActuallyBreathingFire()) {
                 this.setYaw(this.bodyYaw);
                 if (this.fireTicks % 7 == 0) {
-                    this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
+                    this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
                 }
                 this.stimulateFire(burningTarget.getX() + 0.5F, burningTarget.getY() + 0.5F, burningTarget.getZ() + 0.5F, 1);
             }
@@ -262,7 +266,7 @@ public class EntityLightningDragon extends EntityDragonBase {
             } else if (this.getAnimationTick() == 20) {
                 this.setYaw(this.bodyYaw);
                 Vec3d headVec = this.getHeadPosition();
-                this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH_CRACKLE, 4, 1);
+                this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH_CRACKLE, 4, 1);
                 double d2 = controller.getRotationVector().x;
                 double d3 = controller.getRotationVector().y;
                 double d4 = controller.getRotationVector().z;
@@ -271,7 +275,7 @@ public class EntityLightningDragon extends EntityDragonBase {
                 d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(
-                        IafEntityRegistry.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
+                        IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
                 entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
                 if (!this.getWorld().isClient) {
                     this.getWorld().spawnEntity(entitylargefireball);
@@ -282,7 +286,7 @@ public class EntityLightningDragon extends EntityDragonBase {
                 if (this.isActuallyBreathingFire()) {
                     this.setYaw(this.bodyYaw);
                     if (this.fireTicks % 7 == 0) {
-                        this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
+                        this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
                     }
                     HitResult mop = this.rayTraceRider(controller, 10 * this.getDragonStage(), 1.0F);
                     if (mop != null) {
@@ -297,17 +301,17 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public Item getBloodItem() {
-        return IafItemRegistry.LIGHTNING_DRAGON_BLOOD;
+        return IafItems.LIGHTNING_DRAGON_BLOOD;
     }
 
     @Override
     public Item getFleshItem() {
-        return IafItemRegistry.LIGHTNING_DRAGON_FLESH;
+        return IafItems.LIGHTNING_DRAGON_FLESH;
     }
 
     @Override
     public ItemConvertible getHeartItem() {
-        return IafItemRegistry.LIGHTNING_DRAGON_HEART;
+        return IafItems.LIGHTNING_DRAGON_HEART;
     }
 
     @Override
@@ -334,9 +338,9 @@ public class EntityLightningDragon extends EntityDragonBase {
                     d2 = d2 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
-                    this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
+                    this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
                     EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(
-                            IafEntityRegistry.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
+                            IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
                     float size = this.isBaby() ? 0.4F : this.shouldDropLoot() ? 1.3F : 0.8F;
                     entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
                     if (!this.getWorld().isClient) {
@@ -352,7 +356,7 @@ public class EntityLightningDragon extends EntityDragonBase {
                     if (this.isActuallyBreathingFire()) {
                         this.setYaw(this.bodyYaw);
                         if (this.age % 5 == 0) {
-                            this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
+                            this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
                         }
                         this.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 1);
                         if (!entity.isAlive()) {
@@ -400,9 +404,9 @@ public class EntityLightningDragon extends EntityDragonBase {
                 d2 = d2 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
-                this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH_CRACKLE, 4, 1);
+                this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH_CRACKLE, 4, 1);
                 EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(
-                        IafEntityRegistry.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
+                        IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
                 float size = this.isBaby() ? 0.4F : this.shouldDropLoot() ? 1.3F : 0.8F;
                 entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
                 if (!this.getWorld().isClient) {
@@ -457,22 +461,22 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_IDLE : this.shouldDropLoot() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_IDLE : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_IDLE;
+        return this.isTeen() ? IafSounds.LIGHTNINGDRAGON_TEEN_IDLE : this.shouldDropLoot() ? IafSounds.LIGHTNINGDRAGON_ADULT_IDLE : IafSounds.LIGHTNINGDRAGON_CHILD_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_HURT : this.shouldDropLoot() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_HURT : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_HURT;
+        return this.isTeen() ? IafSounds.LIGHTNINGDRAGON_TEEN_HURT : this.shouldDropLoot() ? IafSounds.LIGHTNINGDRAGON_ADULT_HURT : IafSounds.LIGHTNINGDRAGON_CHILD_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_DEATH : this.shouldDropLoot() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_DEATH : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_DEATH;
+        return this.isTeen() ? IafSounds.LIGHTNINGDRAGON_TEEN_DEATH : this.shouldDropLoot() ? IafSounds.LIGHTNINGDRAGON_ADULT_DEATH : IafSounds.LIGHTNINGDRAGON_CHILD_DEATH;
     }
 
     @Override
     public SoundEvent getRoarSound() {
-        return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_ROAR : this.shouldDropLoot() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_ROAR : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_ROAR;
+        return this.isTeen() ? IafSounds.LIGHTNINGDRAGON_TEEN_ROAR : this.shouldDropLoot() ? IafSounds.LIGHTNINGDRAGON_ADULT_ROAR : IafSounds.LIGHTNINGDRAGON_CHILD_ROAR;
     }
 
     @Override
@@ -482,7 +486,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public boolean isBreedingItem(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() != null && stack.getItem() == IafItemRegistry.LIGHTNING_STEW;
+        return !stack.isEmpty() && stack.getItem() != null && stack.getItem() == IafItems.LIGHTNING_STEW;
     }
 
     @Override
@@ -501,7 +505,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     }
 
     @Override
-    protected void spawnBabyParticles() {
+    public void spawnBabyParticles() {
         for (int i = 0; i < 5; i++) {
             float radiusAdd = i * 0.15F;
             float headPosX = (float) (this.getX() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.cos((float) ((this.getYaw() + 90) * Math.PI / 180)));
@@ -513,7 +517,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public ItemStack getSkull() {
-        return new ItemStack(IafItemRegistry.DRAGON_SKULL_LIGHTNING);
+        return new ItemStack(IafItems.DRAGON_SKULL_LIGHTNING);
     }
 
     /* FIXME :: Check -> why is this the only dragon overriding this?

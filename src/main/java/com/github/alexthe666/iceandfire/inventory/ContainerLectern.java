@@ -1,10 +1,11 @@
 package com.github.alexthe666.iceandfire.inventory;
 
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityLectern;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemBestiary;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafScreenHandlers;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -28,7 +29,7 @@ public class ContainerLectern extends ScreenHandler {
 
 
     public ContainerLectern(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.IAF_LECTERN_CONTAINER, id);
+        super(IafScreenHandlers.IAF_LECTERN_CONTAINER, id);
         this.tileFurnace = furnaceInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(propertyDelegate);
@@ -41,7 +42,7 @@ public class ContainerLectern extends ScreenHandler {
         this.addSlot(new Slot(furnaceInventory, 1, 35, 47) {
             @Override
             public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() == IafItemRegistry.MANUSCRIPT;
+                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() == IafItems.MANUSCRIPT;
             }
         });
         for (int i = 0; i < 3; ++i) {
@@ -111,7 +112,7 @@ public class ContainerLectern extends ScreenHandler {
         this.possiblePagesInt[1] = this.getPageField(1);
         this.possiblePagesInt[2] = this.getPageField(2);
         EnumBestiaryPages[] pages = new EnumBestiaryPages[3];
-        if (this.tileFurnace.getStack(0).getItem() == IafItemRegistry.BESTIARY) {
+        if (this.tileFurnace.getStack(0).getItem() == IafItems.BESTIARY) {
             if (this.possiblePagesInt[0] < 0)
                 pages[0] = null;
             else
@@ -134,9 +135,9 @@ public class ContainerLectern extends ScreenHandler {
         ItemStack bookStack = this.tileFurnace.getStack(0);
         ItemStack manuscriptStack = this.tileFurnace.getStack(1);
         int i = 3;
-        if ((manuscriptStack.isEmpty() || manuscriptStack.getCount() < i || manuscriptStack.getItem() != IafItemRegistry.MANUSCRIPT)) {
+        if ((manuscriptStack.isEmpty() || manuscriptStack.getCount() < i || manuscriptStack.getItem() != IafItems.MANUSCRIPT)) {
             return false;
-        } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty() && bookStack.getItem() == IafItemRegistry.BESTIARY) {
+        } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty() && bookStack.getItem() == IafItems.BESTIARY) {
             EnumBestiaryPages page = this.getPossiblePages()[MathHelper.clamp(id, 0, 2)];
             if (page != null) {
                 if (!playerIn.getWorld().isClient) {
@@ -144,13 +145,13 @@ public class ContainerLectern extends ScreenHandler {
                     if (manuscriptStack.isEmpty())
                         this.tileFurnace.setStack(1, ItemStack.EMPTY);
                     EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(page.ordinal()), bookStack);
-                    if (this.tileFurnace instanceof TileEntityLectern entityLectern)
+                    if (this.tileFurnace instanceof BlockEntityLectern entityLectern)
                         entityLectern.randomizePages(bookStack, manuscriptStack);
                 }
                 this.tileFurnace.setStack(0, bookStack);
                 this.tileFurnace.markDirty();
                 this.onContentChanged(this.tileFurnace);
-                playerIn.getWorld().playSound(null, playerIn.getBlockPos(), IafSoundRegistry.BESTIARY_PAGE, SoundCategory.BLOCKS, 1.0F, playerIn.getWorld().random.nextFloat() * 0.1F + 0.9F);
+                playerIn.getWorld().playSound(null, playerIn.getBlockPos(), IafSounds.BESTIARY_PAGE, SoundCategory.BLOCKS, 1.0F, playerIn.getWorld().random.nextFloat() * 0.1F + 0.9F);
             }
             this.onUpdate();
             return true;

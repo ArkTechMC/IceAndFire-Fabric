@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,7 +17,7 @@ public class EntityHydraHead extends EntityMutlipartPart {
     }
 
     public EntityHydraHead(EntityHydra entity, float radius, float angle, float y, float width, float height, float damageMulti, int headIndex, boolean neck) {
-        super(IafEntityRegistry.HYDRA_MULTIPART, entity, radius, angle, y, width, height, damageMulti);
+        super(IafEntities.HYDRA_MULTIPART, entity, radius, angle, y, width, height, damageMulti);
         this.headIndex = headIndex;
         this.neck = neck;
         this.hydra = entity;
@@ -32,7 +33,7 @@ public class EntityHydraHead extends EntityMutlipartPart {
                         double d2 = 0.4;
                         double d0 = 0.1;
                         double d1 = 0.1;
-                        this.getWorld().addParticle(IafParticleRegistry.BLOOD, this.getX() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, this.getY() - 0.5D, this.getZ() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, d2, d0, d1);
+                        this.getWorld().addParticle(IafParticles.BLOOD, this.getX() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, this.getY() - 0.5D, this.getZ() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, d2, d0, d1);
                     }
                 }
             }

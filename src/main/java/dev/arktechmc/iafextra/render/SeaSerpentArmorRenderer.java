@@ -3,7 +3,7 @@ package dev.arktechmc.iafextra.render;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
-import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
+import com.github.alexthe666.iceandfire.item.armor.ItemSeaSerpentArmor;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;

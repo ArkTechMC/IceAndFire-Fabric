@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
@@ -17,7 +18,7 @@ public class EntityDragonPart extends EntityMutlipartPart {
     }
 
     public EntityDragonPart(EntityDragonBase parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
-        super(IafEntityRegistry.DRAGON_MULTIPART, parent, radius, angleYaw, offsetY, sizeX, sizeY,
+        super(IafEntities.DRAGON_MULTIPART, parent, radius, angleYaw, offsetY, sizeX, sizeY,
                 damageMultiplier);
         this.dragon = parent;
     }

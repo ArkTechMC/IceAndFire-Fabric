@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -33,7 +33,7 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
     public void tick() {
         super.tick();
         if ((this.age == 1 || this.age % 70 == 0) && !this.inGround && !this.isOnGround()) {
-            this.playSound(IafSoundRegistry.AMPHITHERE_GUST, 1, 1);
+            this.playSound(IafSounds.AMPHITHERE_GUST, 1, 1);
         }
         if (this.getWorld().isClient && !this.inGround) {
             double d0 = this.random.nextGaussian() * 0.02D;
@@ -87,6 +87,6 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.AMPHITHERE_ARROW);
+        return new ItemStack(IafItems.AMPHITHERE_ARROW);
     }
 }

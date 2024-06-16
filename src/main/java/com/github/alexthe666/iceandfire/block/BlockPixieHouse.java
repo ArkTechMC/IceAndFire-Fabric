@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityPixieHouse;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.PIXIE_HOUSE;
+import static com.github.alexthe666.iceandfire.registry.IafBlockEntities.PIXIE_HOUSE;
 
 public class BlockPixieHouse extends BlockWithEntity {
     public static final DirectionProperty FACING = DirectionProperty.of("facing", Direction.Type.HORIZONTAL);
@@ -26,7 +26,7 @@ public class BlockPixieHouse extends BlockWithEntity {
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH));
     }
 
-    static String name(String type) {
+    public static String name(String type) {
         return "pixie_house_%s".formatted(type);
     }
 
@@ -68,17 +68,17 @@ public class BlockPixieHouse extends BlockWithEntity {
     }
 
     public void dropPixie(World world, BlockPos pos) {
-        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityPixieHouse house && house.hasPixie)
+        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof BlockEntityPixieHouse house && house.hasPixie)
             house.releasePixie();
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
-        return level.isClient ? checkType(entityType, PIXIE_HOUSE, TileEntityPixieHouse::tickClient) : checkType(entityType, PIXIE_HOUSE, TileEntityPixieHouse::tickServer);
+        return level.isClient ? checkType(entityType, PIXIE_HOUSE, BlockEntityPixieHouse::tickClient) : checkType(entityType, PIXIE_HOUSE, BlockEntityPixieHouse::tickServer);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityPixieHouse(pos, state);
+        return new BlockEntityPixieHouse(pos, state);
     }
 }

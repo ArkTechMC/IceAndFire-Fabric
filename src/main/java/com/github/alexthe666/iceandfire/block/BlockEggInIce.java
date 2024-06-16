@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityEggInIce;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityEggInIce;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -15,7 +15,7 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.EGG_IN_ICE;
+import static com.github.alexthe666.iceandfire.registry.IafBlockEntities.EGG_IN_ICE;
 
 public class BlockEggInIce extends BlockWithEntity {
     public BlockEggInIce() {
@@ -24,12 +24,12 @@ public class BlockEggInIce extends BlockWithEntity {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityEggInIce(pos, state);
+        return new BlockEntityEggInIce(pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
-        return checkType(entityType, EGG_IN_ICE, TileEntityEggInIce::tickEgg);
+        return checkType(entityType, EGG_IN_ICE, BlockEntityEggInIce::tickEgg);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class BlockEggInIce extends BlockWithEntity {
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (world.getBlockEntity(pos) != null)
-            if (world.getBlockEntity(pos) instanceof TileEntityEggInIce tile)
+            if (world.getBlockEntity(pos) instanceof BlockEntityEggInIce tile)
                 tile.spawnEgg();
     }
 }

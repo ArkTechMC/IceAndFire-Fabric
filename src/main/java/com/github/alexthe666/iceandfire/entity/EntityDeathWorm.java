@@ -9,10 +9,11 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.event.GenericGriefEvent;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import com.github.alexthe666.iceandfire.message.MessageDeathWormHitbox;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormLand;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateDeathWormSand;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import dev.arktechmc.iafextra.event.EventBus;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.BlockState;
@@ -226,7 +227,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() != ANIMATION_BITE) {
             this.setAnimation(ANIMATION_BITE);
-            this.playSound(this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_ATTACK : IafSoundRegistry.DEATHWORM_ATTACK, 1, 1);
+            this.playSound(this.getScaleFactor() > 3 ? IafSounds.DEATHWORM_GIANT_ATTACK : IafSounds.DEATHWORM_ATTACK, 1, 1);
         }
         if (this.getRandom().nextInt(3) == 0 && this.getScaleFactor() > 1 && this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
             if (!EventBus.post(new GenericGriefEvent(this, entityIn.getX(), entityIn.getY(), entityIn.getZ()))) {
@@ -623,18 +624,18 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_IDLE : IafSoundRegistry.DEATHWORM_IDLE;
+        return this.getScaleFactor() > 3 ? IafSounds.DEATHWORM_GIANT_IDLE : IafSounds.DEATHWORM_IDLE;
     }
 
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_HURT : IafSoundRegistry.DEATHWORM_HURT;
+        return this.getScaleFactor() > 3 ? IafSounds.DEATHWORM_GIANT_HURT : IafSounds.DEATHWORM_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_DIE : IafSoundRegistry.DEATHWORM_DIE;
+        return this.getScaleFactor() > 3 ? IafSounds.DEATHWORM_GIANT_DIE : IafSounds.DEATHWORM_DIE;
     }
 
     @Override
@@ -646,7 +647,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
             LivingEntity target = DragonUtils.riderLookingAtEntity(this, this.getControllingPassenger(), 3);
             if (this.getAnimation() != ANIMATION_BITE) {
                 this.setAnimation(ANIMATION_BITE);
-                this.playSound(this.getScaleFactor() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_ATTACK : IafSoundRegistry.DEATHWORM_ATTACK, 1, 1);
+                this.playSound(this.getScaleFactor() > 3 ? IafSounds.DEATHWORM_GIANT_ATTACK : IafSounds.DEATHWORM_ATTACK, 1, 1);
                 if (this.getRandom().nextInt(3) == 0 && this.getScaleFactor() > 1) {
                     float radius = 1.5F * this.getScaleFactor();
                     float angle = (0.01745329251F * this.bodyYaw);

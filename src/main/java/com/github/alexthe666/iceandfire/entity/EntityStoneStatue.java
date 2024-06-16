@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -42,7 +43,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     public static EntityStoneStatue buildStatueEntity(LivingEntity parent) {
-        EntityStoneStatue statue = IafEntityRegistry.STONE_STATUE.create(parent.getWorld());
+        EntityStoneStatue statue = IafEntities.STONE_STATUE.create(parent.getWorld());
         NbtCompound entityTag = new NbtCompound();
         try {
             if (!(parent instanceof PlayerEntity)) {

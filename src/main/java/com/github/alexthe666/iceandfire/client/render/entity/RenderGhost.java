@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.ModelGhost;
-import com.github.alexthe666.iceandfire.client.render.IafRenderType;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
+import com.github.alexthe666.iceandfire.registry.IafRenderLayers;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -107,7 +107,7 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
         this.model.animateModel(entityIn, f5, f8, partialTicks);
         this.model.setAngles(entityIn, f5, f8, f7, f2, f6);
         float alphaForRender = this.getAlphaForRender(entityIn, partialTicks);
-        RenderLayer rendertype = entityIn.isDaytimeMode() ? IafRenderType.getGhostDaytime(this.getTexture(entityIn)) : IafRenderType.getGhost(this.getTexture(entityIn));//this.getRenderType(entityIn, flag, flag1, flag2);
+        RenderLayer rendertype = entityIn.isDaytimeMode() ? IafRenderLayers.getGhostDaytime(this.getTexture(entityIn)) : IafRenderLayers.getGhost(this.getTexture(entityIn));//this.getRenderType(entityIn, flag, flag1, flag2);
         if (!entityIn.isInvisible()) {
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(rendertype);
             int i = getOverlay(entityIn, this.getAnimationCounter(entityIn, partialTicks));

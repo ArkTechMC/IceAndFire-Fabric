@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonSteelFireArmor;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonSteelIceArmor;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelDragonSteelLightningArmor;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -16,7 +16,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-import static com.github.alexthe666.iceandfire.item.IafItemRegistry.*;
+import static com.github.alexthe666.iceandfire.registry.IafItems.*;
 
 public class DragonSteelArmorRenderer implements ArmorRenderer {
     public BipedEntityModel<?> getHumanoidArmorModel(ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<?> _default) {
@@ -38,7 +38,7 @@ public class DragonSteelArmorRenderer implements ArmorRenderer {
         ArmorMaterial material = ((ArmorItem) stack.getItem()).getMaterial();
         if (material == DRAGONSTEEL_FIRE_ARMOR_MATERIAL) {
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_fire" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
-        } else if (material == IafItemRegistry.DRAGONSTEEL_ICE_ARMOR_MATERIAL) {
+        } else if (material == IafItems.DRAGONSTEEL_ICE_ARMOR_MATERIAL) {
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_ice" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
         } else {
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_dragonsteel_lightning" + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));

@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.datagen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -56,39 +56,39 @@ public final class IafConfiguredFeatures {
     }
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> context) {
-        context.register(FIRE_DRAGON_ROOST, new ConfiguredFeature<>(IafWorldRegistry.FIRE_DRAGON_ROOST, FeatureConfig.DEFAULT));
-        context.register(ICE_DRAGON_ROOST, new ConfiguredFeature<>(IafWorldRegistry.ICE_DRAGON_ROOST, FeatureConfig.DEFAULT));
-        context.register(LIGHTNING_DRAGON_ROOST, new ConfiguredFeature<>(IafWorldRegistry.LIGHTNING_DRAGON_ROOST, FeatureConfig.DEFAULT));
-        context.register(FIRE_DRAGON_CAVE, new ConfiguredFeature<>(IafWorldRegistry.FIRE_DRAGON_CAVE, FeatureConfig.DEFAULT));
-        context.register(ICE_DRAGON_CAVE, new ConfiguredFeature<>(IafWorldRegistry.ICE_DRAGON_CAVE, FeatureConfig.DEFAULT));
-        context.register(LIGHTNING_DRAGON_CAVE, new ConfiguredFeature<>(IafWorldRegistry.LIGHTNING_DRAGON_CAVE, FeatureConfig.DEFAULT));
-        context.register(CYCLOPS_CAVE, new ConfiguredFeature<>(IafWorldRegistry.CYCLOPS_CAVE, FeatureConfig.DEFAULT));
-        context.register(PIXIE_VILLAGE, new ConfiguredFeature<>(IafWorldRegistry.PIXIE_VILLAGE, FeatureConfig.DEFAULT));
-        context.register(SIREN_ISLAND, new ConfiguredFeature<>(IafWorldRegistry.SIREN_ISLAND, FeatureConfig.DEFAULT));
-        context.register(HYDRA_CAVE, new ConfiguredFeature<>(IafWorldRegistry.HYDRA_CAVE, FeatureConfig.DEFAULT));
-        context.register(MYRMEX_HIVE_DESERT, new ConfiguredFeature<>(IafWorldRegistry.MYRMEX_HIVE_DESERT, FeatureConfig.DEFAULT));
-        context.register(MYRMEX_HIVE_JUNGLE, new ConfiguredFeature<>(IafWorldRegistry.MYRMEX_HIVE_JUNGLE, FeatureConfig.DEFAULT));
-        context.register(SPAWN_DEATH_WORM, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_DEATH_WORM, FeatureConfig.DEFAULT));
-        context.register(SPAWN_DRAGON_SKELETON_L, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_DRAGON_SKELETON_L, FeatureConfig.DEFAULT));
-        context.register(SPAWN_DRAGON_SKELETON_F, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_DRAGON_SKELETON_F, FeatureConfig.DEFAULT));
-        context.register(SPAWN_DRAGON_SKELETON_I, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_DRAGON_SKELETON_I, FeatureConfig.DEFAULT));
-        context.register(SPAWN_HIPPOCAMPUS, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_HIPPOCAMPUS, FeatureConfig.DEFAULT));
-        context.register(SPAWN_SEA_SERPENT, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_SEA_SERPENT, FeatureConfig.DEFAULT));
-        context.register(SPAWN_STYMPHALIAN_BIRD, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_STYMPHALIAN_BIRD, FeatureConfig.DEFAULT));
-        context.register(SPAWN_WANDERING_CYCLOPS, new ConfiguredFeature<>(IafWorldRegistry.SPAWN_WANDERING_CYCLOPS, FeatureConfig.DEFAULT));
+        context.register(FIRE_DRAGON_ROOST, new ConfiguredFeature<>(IafFeatures.FIRE_DRAGON_ROOST, FeatureConfig.DEFAULT));
+        context.register(ICE_DRAGON_ROOST, new ConfiguredFeature<>(IafFeatures.ICE_DRAGON_ROOST, FeatureConfig.DEFAULT));
+        context.register(LIGHTNING_DRAGON_ROOST, new ConfiguredFeature<>(IafFeatures.LIGHTNING_DRAGON_ROOST, FeatureConfig.DEFAULT));
+        context.register(FIRE_DRAGON_CAVE, new ConfiguredFeature<>(IafFeatures.FIRE_DRAGON_CAVE, FeatureConfig.DEFAULT));
+        context.register(ICE_DRAGON_CAVE, new ConfiguredFeature<>(IafFeatures.ICE_DRAGON_CAVE, FeatureConfig.DEFAULT));
+        context.register(LIGHTNING_DRAGON_CAVE, new ConfiguredFeature<>(IafFeatures.LIGHTNING_DRAGON_CAVE, FeatureConfig.DEFAULT));
+        context.register(CYCLOPS_CAVE, new ConfiguredFeature<>(IafFeatures.CYCLOPS_CAVE, FeatureConfig.DEFAULT));
+        context.register(PIXIE_VILLAGE, new ConfiguredFeature<>(IafFeatures.PIXIE_VILLAGE, FeatureConfig.DEFAULT));
+        context.register(SIREN_ISLAND, new ConfiguredFeature<>(IafFeatures.SIREN_ISLAND, FeatureConfig.DEFAULT));
+        context.register(HYDRA_CAVE, new ConfiguredFeature<>(IafFeatures.HYDRA_CAVE, FeatureConfig.DEFAULT));
+        context.register(MYRMEX_HIVE_DESERT, new ConfiguredFeature<>(IafFeatures.MYRMEX_HIVE_DESERT, FeatureConfig.DEFAULT));
+        context.register(MYRMEX_HIVE_JUNGLE, new ConfiguredFeature<>(IafFeatures.MYRMEX_HIVE_JUNGLE, FeatureConfig.DEFAULT));
+        context.register(SPAWN_DEATH_WORM, new ConfiguredFeature<>(IafFeatures.SPAWN_DEATH_WORM, FeatureConfig.DEFAULT));
+        context.register(SPAWN_DRAGON_SKELETON_L, new ConfiguredFeature<>(IafFeatures.SPAWN_DRAGON_SKELETON_L, FeatureConfig.DEFAULT));
+        context.register(SPAWN_DRAGON_SKELETON_F, new ConfiguredFeature<>(IafFeatures.SPAWN_DRAGON_SKELETON_F, FeatureConfig.DEFAULT));
+        context.register(SPAWN_DRAGON_SKELETON_I, new ConfiguredFeature<>(IafFeatures.SPAWN_DRAGON_SKELETON_I, FeatureConfig.DEFAULT));
+        context.register(SPAWN_HIPPOCAMPUS, new ConfiguredFeature<>(IafFeatures.SPAWN_HIPPOCAMPUS, FeatureConfig.DEFAULT));
+        context.register(SPAWN_SEA_SERPENT, new ConfiguredFeature<>(IafFeatures.SPAWN_SEA_SERPENT, FeatureConfig.DEFAULT));
+        context.register(SPAWN_STYMPHALIAN_BIRD, new ConfiguredFeature<>(IafFeatures.SPAWN_STYMPHALIAN_BIRD, FeatureConfig.DEFAULT));
+        context.register(SPAWN_WANDERING_CYCLOPS, new ConfiguredFeature<>(IafFeatures.SPAWN_WANDERING_CYCLOPS, FeatureConfig.DEFAULT));
 
         RuleTest stoneOreRule = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
         RuleTest deepslateOreRule = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
-        List<OreFeatureConfig.Target> silverOreConfiguration = List.of(OreFeatureConfig.createTarget(stoneOreRule, IafBlockRegistry.SILVER_ORE.getDefaultState()), OreFeatureConfig.createTarget(deepslateOreRule, IafBlockRegistry.DEEPSLATE_SILVER_ORE.getDefaultState()));
+        List<OreFeatureConfig.Target> silverOreConfiguration = List.of(OreFeatureConfig.createTarget(stoneOreRule, IafBlocks.SILVER_ORE.getDefaultState()), OreFeatureConfig.createTarget(deepslateOreRule, IafBlocks.DEEPSLATE_SILVER_ORE.getDefaultState()));
 
         context.register(SILVER_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(silverOreConfiguration, 4)));
 
         //TODO: Sapphires should only generate for ice dragon stuff
-        context.register(SAPPHIRE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), IafBlockRegistry.SAPPHIRE_ORE.getDefaultState(), 4, 0.5f)));
+        context.register(SAPPHIRE_ORE, new ConfiguredFeature<>(Feature.ORE, new OreFeatureConfig(new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES), IafBlocks.SAPPHIRE_ORE.getDefaultState(), 4, 0.5f)));
         //TODO: Look at VegetationFeatures.java
-        context.register(FIRE_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FIRE_LILY)));
-        context.register(FROST_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.FROST_LILY)));
-        context.register(LIGHTNING_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlockRegistry.LIGHTNING_LILY)));
+        context.register(FIRE_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlocks.FIRE_LILY)));
+        context.register(FROST_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlocks.FROST_LILY)));
+        context.register(LIGHTNING_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlocks.LIGHTNING_LILY)));
 
     }
 

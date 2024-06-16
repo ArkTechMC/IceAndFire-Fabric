@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityJar;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -22,7 +23,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import static com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry.PIXIE_JAR;
+import static com.github.alexthe666.iceandfire.registry.IafBlockEntities.PIXIE_JAR;
 
 public class BlockJar extends BlockWithEntity {
     protected static final VoxelShape AABB = Block.createCuboidShape(3, 0, 3, 13, 16, 13);
@@ -30,12 +31,12 @@ public class BlockJar extends BlockWithEntity {
     private final int pixieType;
 
     public BlockJar(int pixieType) {
-        super(pixieType != -1 ? Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS).luminance((state) -> 10).dropsLike(IafBlockRegistry.JAR_EMPTY) : Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS));
+        super(pixieType != -1 ? Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS).luminance((state) -> 10).dropsLike(IafBlocks.JAR_EMPTY) : Settings.create().mapColor(MapColor.CLEAR).instrument(Instrument.HAT).nonOpaque().dynamicBounds().strength(1, 2).sounds(BlockSoundGroup.GLASS));
         this.empty = pixieType == -1;
         this.pixieType = pixieType;
     }
 
-    static String name(int pixieType) {
+    public static String name(int pixieType) {
         if (pixieType == -1) return "pixie_jar_empty";
         return "pixie_jar_%d".formatted(pixieType);
     }
@@ -58,18 +59,18 @@ public class BlockJar extends BlockWithEntity {
     }
 
     public void dropPixie(World world, BlockPos pos) {
-        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityJar jar && jar.hasPixie)
+        if (world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof BlockEntityJar jar && jar.hasPixie)
             jar.releasePixie();
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockHitResult resultIn) {
-        if (!this.empty && world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof TileEntityJar jar && jar.hasPixie && jar.hasProduced) {
+        if (!this.empty && world.getBlockEntity(pos) != null && world.getBlockEntity(pos) instanceof BlockEntityJar jar && jar.hasPixie && jar.hasProduced) {
             jar.hasProduced = false;
-            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(IafItemRegistry.PIXIE_DUST));
+            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(IafItems.PIXIE_DUST));
             if (!world.isClient)
                 world.spawnEntity(item);
-            world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSoundRegistry.PIXIE_HURT, SoundCategory.NEUTRAL, 1, 1, false);
+            world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSounds.PIXIE_HURT, SoundCategory.NEUTRAL, 1, 1, false);
             return ActionResult.SUCCESS;
         }
         return ActionResult.PASS;
@@ -83,7 +84,7 @@ public class BlockJar extends BlockWithEntity {
 
     @Override
     public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-        if (world.getBlockEntity(pos) instanceof TileEntityJar jar) {
+        if (world.getBlockEntity(pos) instanceof BlockEntityJar jar) {
             if (!this.empty) {
                 jar.hasPixie = true;
                 jar.pixieType = this.pixieType;
@@ -95,11 +96,11 @@ public class BlockJar extends BlockWithEntity {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World level, BlockState state, BlockEntityType<T> entityType) {
-        return checkType(entityType, PIXIE_JAR, TileEntityJar::tick);
+        return checkType(entityType, PIXIE_JAR, BlockEntityJar::tick);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityJar(pos, state, this.empty);
+        return new BlockEntityJar(pos, state, this.empty);
     }
 }

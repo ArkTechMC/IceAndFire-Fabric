@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.client.particle;
 
 import com.github.alexthe666.iceandfire.client.model.ModelGhost;
-import com.github.alexthe666.iceandfire.client.render.IafRenderType;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderGhost;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
+import com.github.alexthe666.iceandfire.registry.IafRenderLayers;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.Perspective;
 import net.minecraft.client.particle.Particle;
@@ -55,7 +55,7 @@ public class ParticleGhostAppearance extends Particle {
             matrixstack.translate(0.0D, 0.3F, 1.25D);
             VertexConsumerProvider.Immediate irendertypebuffer$impl = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
-            VertexConsumer ivertexbuilder = irendertypebuffer$impl.getBuffer(IafRenderType.getGhost(RenderGhost.getGhostOverlayForType(ghostEntity.getColor())));
+            VertexConsumer ivertexbuilder = irendertypebuffer$impl.getBuffer(IafRenderLayers.getGhost(RenderGhost.getGhostOverlayForType(ghostEntity.getColor())));
             this.model.setAngles(ghostEntity, 0, 0, entity.age + partialTicks, 0, 0);
             this.model.render(matrixstack, ivertexbuilder, 240, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, f1);
             irendertypebuffer$impl.draw();

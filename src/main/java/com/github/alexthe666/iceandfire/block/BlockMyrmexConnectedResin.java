@@ -28,7 +28,7 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
         this.setDefaultState(this.getStateManager().getDefaultState().with(UP, Boolean.FALSE).with(DOWN, Boolean.FALSE).with(NORTH, Boolean.FALSE).with(EAST, Boolean.FALSE).with(SOUTH, Boolean.FALSE).with(WEST, Boolean.FALSE));
     }
 
-    static String name(boolean glass, boolean jungle) {
+    public static String name(boolean glass, boolean jungle) {
         String biome = jungle ? "jungle" : "desert";
         String type = glass ? "glass" : "block";
         return "myrmex_%s_resin_%s".formatted(biome, type);

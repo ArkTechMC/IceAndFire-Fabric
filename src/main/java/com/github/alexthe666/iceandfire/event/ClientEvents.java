@@ -1,12 +1,11 @@
 package com.github.alexthe666.iceandfire.event;
 
-import com.github.alexthe666.iceandfire.client.IafKeybindRegistry;
 import com.github.alexthe666.iceandfire.client.particle.CockatriceBeamRender;
+import com.github.alexthe666.iceandfire.client.render.block.RenderFrozenState;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderChain;
-import com.github.alexthe666.iceandfire.client.render.tile.RenderFrozenState;
-import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.ICustomMoveController;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
+import com.github.alexthe666.iceandfire.registry.IafKeybindings;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import net.fabricmc.api.EnvType;
@@ -58,10 +57,10 @@ public class ClientEvents {
             ICustomMoveController moveController = (Entity & ICustomMoveController) player.getVehicle();
             byte previousState = moveController.getControlState();
             moveController.up(mc.options.jumpKey.isPressed());
-            moveController.down(IafKeybindRegistry.dragon_down.isPressed());
-            moveController.attack(IafKeybindRegistry.dragon_strike.isPressed());
+            moveController.down(IafKeybindings.dragon_down.isPressed());
+            moveController.attack(IafKeybindings.dragon_strike.isPressed());
             moveController.dismount(mc.options.sneakKey.isPressed());
-            moveController.strike(IafKeybindRegistry.dragon_fireAttack.isPressed());
+            moveController.strike(IafKeybindings.dragon_fireAttack.isPressed());
             byte controlState = moveController.getControlState();
             if (controlState != previousState)
                 IafClientNetworkHandler.send(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));

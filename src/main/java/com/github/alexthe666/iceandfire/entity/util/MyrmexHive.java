@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexQueen;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -114,7 +114,7 @@ public class MyrmexHive {
             assert this.world.getServer() != null;
             ServerWorld serverWorld = this.world.getServer().getWorld(this.world.getRegistryKey());
             assert serverWorld != null;
-            List<? extends EntityMyrmexQueen> allQueens = serverWorld.getEntitiesByType(IafEntityRegistry.MYRMEX_QUEEN, EntityPredicates.EXCEPT_SPECTATOR);
+            List<? extends EntityMyrmexQueen> allQueens = serverWorld.getEntitiesByType(IafEntities.MYRMEX_QUEEN, EntityPredicates.EXCEPT_SPECTATOR);
             for (EntityMyrmexQueen queen : allQueens)
                 if (queen instanceof EntityMyrmexQueen && queen.getHive().equals(this))
                     ourQueens.add(queen);

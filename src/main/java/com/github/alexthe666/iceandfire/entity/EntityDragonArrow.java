@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -40,7 +40,7 @@ public class EntityDragonArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.DRAGONBONE_ARROW);
+        return new ItemStack(IafItems.DRAGONBONE_ARROW);
     }
 
 }

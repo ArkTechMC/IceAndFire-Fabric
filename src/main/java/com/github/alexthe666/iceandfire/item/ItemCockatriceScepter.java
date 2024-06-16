@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityGorgon;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -25,7 +25,6 @@ import java.util.Optional;
 import java.util.Random;
 
 public class ItemCockatriceScepter extends Item {
-
     private final Random rand = new Random();
     private int specialWeaponDmg;
 

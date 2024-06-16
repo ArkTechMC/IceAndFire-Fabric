@@ -2,10 +2,10 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.datagen.tags.IafEntityTags;
 import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
-import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafDamageTypes;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -90,14 +90,14 @@ public class ItemGorgonHead extends Item {
                 boolean wasSuccesful = true;
 
                 if (pointedEntity instanceof PlayerEntity) {
-                    wasSuccesful = pointedEntity.damage(IafDamageRegistry.causeGorgonDamage(pointedEntity), Integer.MAX_VALUE);
+                    wasSuccesful = pointedEntity.damage(IafDamageTypes.causeGorgonDamage(pointedEntity), Integer.MAX_VALUE);
                 } else {
                     if (!worldIn.isClient)
                         pointedEntity.remove(Entity.RemovalReason.KILLED);
                 }
 
                 if (wasSuccesful) {
-                    pointedEntity.playSound(IafSoundRegistry.TURN_STONE, 1, 1);
+                    pointedEntity.playSound(IafSounds.TURN_STONE, 1, 1);
                     EntityStoneStatue statue = EntityStoneStatue.buildStatueEntity(livingEntity);
                     statue.updatePositionAndAngles(pointedEntity.getX(), pointedEntity.getY(), pointedEntity.getZ(), pointedEntity.getYaw(), pointedEntity.getPitch());
                     statue.bodyYaw = pointedEntity.getYaw();

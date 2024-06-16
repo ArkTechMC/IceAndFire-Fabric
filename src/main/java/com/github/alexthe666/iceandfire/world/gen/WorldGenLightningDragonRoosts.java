@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.mojang.serialization.Codec;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.block.Block;
@@ -20,12 +20,12 @@ public class WorldGenLightningDragonRoosts extends WorldGenDragonRoosts {
     private static final Identifier DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/lightning_dragon_roost");
 
     public WorldGenLightningDragonRoosts(final Codec<DefaultFeatureConfig> configuration) {
-        super(configuration, IafBlockRegistry.COPPER_PILE);
+        super(configuration, IafBlocks.COPPER_PILE);
     }
 
     @Override
     protected EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.LIGHTNING_DRAGON;
+        return IafEntities.LIGHTNING_DRAGON;
     }
 
     @Override
@@ -38,19 +38,19 @@ public class WorldGenLightningDragonRoosts extends WorldGenDragonRoosts {
         Block block = null;
 
         if (state.isOf(Blocks.GRASS_BLOCK))
-            block = IafBlockRegistry.CRACKLED_GRASS;
+            block = IafBlocks.CRACKLED_GRASS;
         else if (state.isOf(Blocks.DIRT_PATH))
-            block = IafBlockRegistry.CRACKLED_DIRT_PATH;
+            block = IafBlocks.CRACKLED_DIRT_PATH;
         else if (state.isIn(Tags.Blocks.GRAVEL))
-            block = IafBlockRegistry.CRACKLED_GRAVEL;
+            block = IafBlocks.CRACKLED_GRAVEL;
         else if (state.isIn(BlockTags.DIRT))
-            block = IafBlockRegistry.CRACKLED_DIRT;
+            block = IafBlocks.CRACKLED_DIRT;
         else if (state.isIn(Tags.Blocks.STONE))
-            block = IafBlockRegistry.CRACKLED_STONE;
+            block = IafBlocks.CRACKLED_STONE;
         else if (state.isIn(Tags.Blocks.COBBLESTONE))
-            block = IafBlockRegistry.CRACKLED_COBBLESTONE;
+            block = IafBlocks.CRACKLED_COBBLESTONE;
         else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS))
-            block = IafBlockRegistry.ASH;
+            block = IafBlocks.ASH;
         else if (state.isOf(Blocks.GRASS) || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.FLOWERS) || state.isIn(BlockTags.CROPS))
             block = Blocks.AIR;
 

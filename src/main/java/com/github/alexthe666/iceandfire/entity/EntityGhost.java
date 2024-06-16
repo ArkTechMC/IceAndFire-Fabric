@@ -4,12 +4,13 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
 import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -85,17 +86,17 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.GHOST_IDLE;
+        return IafSounds.GHOST_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.GHOST_HURT;
+        return IafSounds.GHOST_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.GHOST_DIE;
+        return IafSounds.GHOST_DIE;
     }
 
     @Override
@@ -219,15 +220,15 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
             }
         } else {
             if (this.getAnimation() == ANIMATION_SCARE && this.getAnimationTick() == 3 && !this.isHauntedShoppingList() && this.random.nextInt(3) == 0) {
-                this.playSound(IafSoundRegistry.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
+                this.playSound(IafSounds.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
                 if (this.getWorld().isClient) {
-                    this.getWorld().addParticle(IafParticleRegistry.GHOST_APPEARANCE, this.getX(), this.getY(), this.getZ(), this.getId(), 0, 0);
+                    this.getWorld().addParticle(IafParticles.GHOST_APPEARANCE, this.getX(), this.getY(), this.getZ(), this.getId(), 0, 0);
                 }
             }
         }
         if (this.getAnimation() == ANIMATION_HIT && this.getTarget() != null) {
             if (this.distanceTo(this.getTarget()) < 1.4D && this.getAnimationTick() >= 4 && this.getAnimationTick() < 6) {
-                this.playSound(IafSoundRegistry.GHOST_ATTACK, this.getSoundVolume(), this.getSoundPitch());
+                this.playSound(IafSounds.GHOST_ATTACK, this.getSoundVolume(), this.getSoundPitch());
                 this.tryAttack(this.getTarget());
             }
         }
@@ -263,9 +264,9 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getStackInHand(hand);
-        if (itemstack != null && itemstack.getItem() == IafItemRegistry.MANUSCRIPT && !this.isHauntedShoppingList()) {
+        if (itemstack != null && itemstack.getItem() == IafItems.MANUSCRIPT && !this.isHauntedShoppingList()) {
             this.setColor(-1);
-            this.playSound(IafSoundRegistry.BESTIARY_PAGE, 1, 1);
+            this.playSound(IafSounds.BESTIARY_PAGE, 1, 1);
             if (!player.isCreative()) {
                 itemstack.decrement(1);
             }

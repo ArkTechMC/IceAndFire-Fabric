@@ -4,15 +4,16 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.github.alexthe666.iceandfire.entity.ai.DreadLichAIStrife;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IDreadMob;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -116,8 +117,8 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             float f = this.bodyYaw * 0.017453292F + MathHelper.cos(this.age * 0.6662F) * 0.25F;
             float f1 = MathHelper.cos(f);
             float f2 = MathHelper.sin(f);
-            this.getWorld().addParticle(IafParticleRegistry.DREAD_TORCH, this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, d0, d1, d2);
-            this.getWorld().addParticle(IafParticleRegistry.DREAD_TORCH, this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, d0, d1, d2);
+            this.getWorld().addParticle(IafParticles.DREAD_TORCH, this.getX() + (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() + (double) f2 * 0.6D, d0, d1, d2);
+            this.getWorld().addParticle(IafParticles.DREAD_TORCH, this.getX() - (double) f1 * 0.6D, this.getY() + 1.8D, this.getZ() - (double) f2 * 0.6D, d0, d1, d2);
         }
         if (this.fireCooldown > 0) {
             this.fireCooldown--;
@@ -131,7 +132,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     @Override
     protected void initEquipment(Random pRandom, LocalDifficulty pDifficulty) {
         super.initEquipment(pRandom, pDifficulty);
-        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.LICH_STAFF));
+        this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItems.LICH_STAFF));
     }
 
     @Override
@@ -224,7 +225,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             this.goalSelector.remove(this.aiAttackOnCollide);
             this.goalSelector.remove(this.aiArrowAttack);
             ItemStack itemstack = this.getMainHandStack();
-            if (itemstack.getItem() == IafItemRegistry.LICH_STAFF) {
+            if (itemstack.getItem() == IafItems.LICH_STAFF) {
                 int i = 100;
                 this.aiArrowAttack.setAttackCooldown(i);
                 this.goalSelector.add(4, this.aiArrowAttack);
@@ -239,7 +240,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         boolean flag = false;
         if (this.getMinionCount() < 5 && this.minionCooldown == 0) {
             this.setAnimation(ANIMATION_SUMMON);
-            this.playSound(IafSoundRegistry.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
+            this.playSound(IafSounds.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
             MobEntity minion = this.getRandomNewMinion();
             int x = (int) (this.getX()) - 5 + this.random.nextInt(10);
             int z = (int) (this.getZ()) - 5 + this.random.nextInt(10);
@@ -263,7 +264,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         if (this.fireCooldown == 0 && !flag) {
             this.swingHand(Hand.MAIN_HAND);
             this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, this.getSoundVolume(), this.getSoundPitch());
-            EntityDreadLichSkull skull = new EntityDreadLichSkull(IafEntityRegistry.DREAD_LICH_SKULL, this.getWorld(), this,
+            EntityDreadLichSkull skull = new EntityDreadLichSkull(IafEntities.DREAD_LICH_SKULL, this.getWorld(), this,
                     6);
             double d0 = target.getX() - this.getX();
             double d1 = target.getBoundingBox().minY + target.getHeight() * 2 - skull.getY();
@@ -278,13 +279,13 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     private MobEntity getRandomNewMinion() {
         float chance = this.random.nextFloat();
         if (chance > 0.5F) {
-            return new EntityDreadThrall(IafEntityRegistry.DREAD_THRALL, this.getWorld());
+            return new EntityDreadThrall(IafEntities.DREAD_THRALL, this.getWorld());
         } else if (chance > 0.35F) {
-            return new EntityDreadGhoul(IafEntityRegistry.DREAD_GHOUL, this.getWorld());
+            return new EntityDreadGhoul(IafEntities.DREAD_GHOUL, this.getWorld());
         } else if (chance > 0.15F) {
-            return new EntityDreadBeast(IafEntityRegistry.DREAD_BEAST, this.getWorld());
+            return new EntityDreadBeast(IafEntities.DREAD_BEAST, this.getWorld());
         } else {
-            return new EntityDreadScuttler(IafEntityRegistry.DREAD_SCUTTLER, this.getWorld());
+            return new EntityDreadScuttler(IafEntities.DREAD_SCUTTLER, this.getWorld());
         }
     }
 

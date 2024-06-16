@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.client.gui;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.ClientProxy;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageGetMyrmexHive;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
@@ -29,7 +29,7 @@ public class GuiMyrmexAddRoom extends Screen {
 
     public GuiMyrmexAddRoom(ItemStack staff, BlockPos interactPos, Direction facing) {
         super(Text.translatable("myrmex_add_room"));
-        this.jungle = staff.getItem() == IafItemRegistry.MYRMEX_JUNGLE_STAFF;
+        this.jungle = staff.getItem() == IafItems.MYRMEX_JUNGLE_STAFF;
         this.interactPos = interactPos;
         this.facing = facing;
         this.init();

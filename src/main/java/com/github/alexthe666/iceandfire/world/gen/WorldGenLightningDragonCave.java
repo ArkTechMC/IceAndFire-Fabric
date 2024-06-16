@@ -1,10 +1,10 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.datagen.tags.IafBlockTags;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
@@ -18,15 +18,15 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
         super(configuration);
         this.DRAGON_CHEST = LIGHTNING_DRAGON_CHEST;
         this.DRAGON_MALE_CHEST = LIGHTNING_DRAGON_CHEST_MALE;
-        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.CRACKLED_STONE, 6);
-        this.PALETTE_BLOCK1 = IafBlockRegistry.CRACKLED_STONE.getDefaultState();
-        this.PALETTE_BLOCK2 = IafBlockRegistry.CRACKLED_COBBLESTONE.getDefaultState();
-        this.TREASURE_PILE = IafBlockRegistry.COPPER_PILE.getDefaultState();
+        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlocks.CRACKLED_STONE, 6);
+        this.PALETTE_BLOCK1 = IafBlocks.CRACKLED_STONE.getDefaultState();
+        this.PALETTE_BLOCK2 = IafBlocks.CRACKLED_COBBLESTONE.getDefaultState();
+        this.TREASURE_PILE = IafBlocks.COPPER_PILE.getDefaultState();
         this.dragonTypeOreTag = IafBlockTags.LIGHTNING_DRAGON_CAVE_ORES;
     }
 
     @Override
     public EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.LIGHTNING_DRAGON;
+        return IafEntities.LIGHTNING_DRAGON;
     }
 }

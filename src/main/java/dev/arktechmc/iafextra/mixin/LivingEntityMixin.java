@@ -1,7 +1,7 @@
 package dev.arktechmc.iafextra.mixin;
 
 import com.github.alexthe666.iceandfire.event.ClientEvents;
-import com.github.alexthe666.iceandfire.item.ItemGhostSword;
+import com.github.alexthe666.iceandfire.item.tool.ItemGhostSword;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.LivingEntity;

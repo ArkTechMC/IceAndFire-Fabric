@@ -6,8 +6,10 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -450,10 +452,10 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
             this.ticksSinceRoar = 0;
         }
         if (this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 1) {
-            this.playSound(IafSoundRegistry.SEA_SERPENT_ROAR, this.getSoundVolume() + 1, 1);
+            this.playSound(IafSounds.SEA_SERPENT_ROAR, this.getSoundVolume() + 1, 1);
         }
         if (this.getAnimation() == ANIMATION_BITE && this.getAnimationTick() == 5) {
-            this.playSound(IafSoundRegistry.SEA_SERPENT_BITE, this.getSoundVolume(), 1);
+            this.playSound(IafSounds.SEA_SERPENT_BITE, this.getSoundVolume(), 1);
         }
         if (this.isJumpingOutOfWater() && isWaterBlock(this.getWorld(), this.getBlockPos().up(2))) {
             this.setJumpingOutOfWater(false);
@@ -482,7 +484,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
             this.jumpRot -= 0.1F;
         }
         if (prevJumping && !this.isJumpingOutOfWater()) {
-            this.playSound(IafSoundRegistry.SEA_SERPENT_SPLASH, 5F, 0.75F);
+            this.playSound(IafSounds.SEA_SERPENT_SPLASH, 5F, 0.75F);
             this.spawnSlamParticles();
             this.doSplashDamage();
         }
@@ -691,17 +693,17 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.SEA_SERPENT_IDLE;
+        return IafSounds.SEA_SERPENT_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.SEA_SERPENT_HURT;
+        return IafSounds.SEA_SERPENT_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.SEA_SERPENT_DIE;
+        return IafSounds.SEA_SERPENT_DIE;
     }
 
     @Override
@@ -737,7 +739,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
             }
             if (this.isBreathing()) {
                 if (this.age % 40 == 0) {
-                    this.playSound(IafSoundRegistry.SEA_SERPENT_BREATH, 4, 1);
+                    this.playSound(IafSounds.SEA_SERPENT_BREATH, 4, 1);
                 }
                 if (this.age % 10 == 0) {
                     this.setYaw(this.bodyYaw);
@@ -754,7 +756,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                     d2 = d2 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
-                    EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(IafEntityRegistry.SEA_SERPENT_BUBBLES, this.getWorld(), this, d2, d3, d4);
+                    EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(IafEntities.SEA_SERPENT_BUBBLES, this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);

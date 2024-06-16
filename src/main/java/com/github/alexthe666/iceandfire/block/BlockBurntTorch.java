@@ -1,5 +1,8 @@
 package com.github.alexthe666.iceandfire.block;
 
+import com.github.alexthe666.iceandfire.block.util.IDreadBlock;
+import com.github.alexthe666.iceandfire.block.util.IWallBlock;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
@@ -23,6 +26,6 @@ public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlo
 
     @Override
     public Block wallBlock() {
-        return IafBlockRegistry.BURNT_TORCH_WALL;
+        return IafBlocks.BURNT_TORCH_WALL;
     }
 }

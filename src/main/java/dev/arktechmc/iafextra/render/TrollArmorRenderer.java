@@ -3,7 +3,7 @@ package dev.arktechmc.iafextra.render;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.armor.ModelTrollArmor;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
-import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
+import com.github.alexthe666.iceandfire.item.armor.ItemTrollArmor;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;

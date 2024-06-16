@@ -6,9 +6,13 @@ import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.HomePosition;
+import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
+import com.github.alexthe666.iceandfire.entity.util.IHasCustomizableAttributes;
+import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -727,17 +731,17 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.COCKATRICE_IDLE;
+        return IafSounds.COCKATRICE_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.COCKATRICE_HURT;
+        return IafSounds.COCKATRICE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.COCKATRICE_DIE;
+        return IafSounds.COCKATRICE_DIE;
     }
 
     @Override

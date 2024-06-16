@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.data.delegate.DragonForgePropertyDelegate;
+import com.github.alexthe666.iceandfire.registry.IafScreenHandlers;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -25,7 +26,7 @@ public class ContainerDragonForge extends ScreenHandler {
 
 
     public ContainerDragonForge(int id, Inventory furnaceInventory, PlayerInventory playerInventory, DragonForgePropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.DRAGON_FORGE_CONTAINER, id);
+        super(IafScreenHandlers.DRAGON_FORGE_CONTAINER, id);
         this.tileFurnace = furnaceInventory;
         this.world = playerInventory.player.getWorld();
         this.propertyDelegate = propertyDelegate;

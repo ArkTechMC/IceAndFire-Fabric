@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.client.gui;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -150,7 +150,7 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
                         textScale = 1.0F - (fontrenderer.getWidth(s1) - 80) * 0.01F;
                 }
                 int j2 = 6839882;
-                if (this.handler.getSlot(0).getStack().getItem() == IafItemRegistry.BESTIARY) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
+                if (this.handler.getSlot(0).getStack().getItem() == IafItems.BESTIARY) { // Forge: render buttons as disabled when enchantable but enchantability not met on lower levels
                     int k2 = mouseX - (i + 60);
                     int l2 = mouseY - (j + 14 + 19 * i1);
                     int j3 = 0X9F988C;

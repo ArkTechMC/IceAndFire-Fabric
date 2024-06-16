@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.world.gen.processor;
 
-import com.github.alexthe666.iceandfire.world.IafProcessors;
+import com.github.alexthe666.iceandfire.registry.IafProcessors;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Waterloggable;

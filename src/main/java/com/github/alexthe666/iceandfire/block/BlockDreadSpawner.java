@@ -1,7 +1,8 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDreadSpawner;
+import com.github.alexthe666.iceandfire.block.util.IDreadBlock;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDreadSpawner;
+import com.github.alexthe666.iceandfire.registry.IafBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.SpawnerBlock;
@@ -21,11 +22,11 @@ public class BlockDreadSpawner extends SpawnerBlock implements IDreadBlock {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityDreadSpawner(pos, state);
+        return new BlockEntityDreadSpawner(pos, state);
     }
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, IafTileEntityRegistry.DREAD_SPAWNER, world.isClient ? TileEntityDreadSpawner::clientTick : TileEntityDreadSpawner::serverTick);
+        return checkType(type, IafBlockEntities.DREAD_SPAWNER, world.isClient ? BlockEntityDreadSpawner::clientTick : BlockEntityDreadSpawner::serverTick);
     }
 }

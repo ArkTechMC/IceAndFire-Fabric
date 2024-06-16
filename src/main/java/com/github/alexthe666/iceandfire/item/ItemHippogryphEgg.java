@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityHippogryphEgg;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -29,7 +30,7 @@ public class ItemHippogryphEgg extends Item {
 
     public static ItemStack createEggStack(EnumHippogryphTypes parent1, EnumHippogryphTypes parent2) {
         EnumHippogryphTypes eggType = ThreadLocalRandom.current().nextBoolean() ? parent1 : parent2;
-        ItemStack stack = new ItemStack(IafItemRegistry.HIPPOGRYPH_EGG);
+        ItemStack stack = new ItemStack(IafItems.HIPPOGRYPH_EGG);
         NbtCompound tag = new NbtCompound();
         tag.putInt("EggOrdinal", eggType.ordinal());
         stack.setNbt(tag);
@@ -63,7 +64,7 @@ public class ItemHippogryphEgg extends Item {
         worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
 
         if (!worldIn.isClient) {
-            EntityHippogryphEgg entityegg = new EntityHippogryphEgg(IafEntityRegistry.HIPPOGRYPH_EGG, worldIn,
+            EntityHippogryphEgg entityegg = new EntityHippogryphEgg(IafEntities.HIPPOGRYPH_EGG, worldIn,
                     playerIn, itemstack);
             entityegg.setVelocity(playerIn, playerIn.getPitch(), playerIn.getYaw(), 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntity(entityegg);

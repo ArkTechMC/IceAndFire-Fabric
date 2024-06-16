@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityLectern;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import dev.arktechmc.iafextra.network.C2SMessage;
 import dev.arktechmc.iafextra.network.S2CMessage;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
@@ -44,10 +44,10 @@ public class MessageUpdateLectern implements S2CMessage, C2SMessage {
         server.execute(() -> {
             if (player != null) {
                 BlockPos pos = BlockPos.fromLong(this.blockPos);
-                if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
+                if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof BlockEntityLectern lectern) {
                     if (this.updateStack) {
                         ItemStack bookStack = lectern.getStack(0);
-                        if (bookStack.getItem() == IafItemRegistry.BESTIARY)
+                        if (bookStack.getItem() == IafItems.BESTIARY)
                             EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(this.pageOrdinal), bookStack);
                         lectern.randomizePages(bookStack, lectern.getStack(1));
                     } else {
@@ -91,10 +91,10 @@ public class MessageUpdateLectern implements S2CMessage, C2SMessage {
             PlayerEntity player = client.player;
             if (player != null) {
                 BlockPos pos = BlockPos.fromLong(this.blockPos);
-                if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof TileEntityLectern lectern) {
+                if (player.getWorld().isChunkLoaded(pos) && player.getWorld().getBlockEntity(pos) instanceof BlockEntityLectern lectern) {
                     if (this.updateStack) {
                         ItemStack bookStack = lectern.getStack(0);
-                        if (bookStack.getItem() == IafItemRegistry.BESTIARY)
+                        if (bookStack.getItem() == IafItems.BESTIARY)
                             EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(this.pageOrdinal), bookStack);
                         lectern.randomizePages(bookStack, lectern.getStack(1));
                     } else {

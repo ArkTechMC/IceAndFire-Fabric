@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -55,7 +56,7 @@ public class EntityDeathWormEgg extends ThrownItemEntity {
         if (!this.getWorld().isClient) {
             float wormSize = 0.25F + (float) (Math.random() * 0.35F);
 
-            EntityDeathWorm deathworm = new EntityDeathWorm(IafEntityRegistry.DEATH_WORM, this.getWorld());
+            EntityDeathWorm deathworm = new EntityDeathWorm(IafEntities.DEATH_WORM, this.getWorld());
             deathworm.setVariant(this.random.nextInt(3));
             deathworm.setTamed(true);
             deathworm.setWormHome(this.getBlockPos());
@@ -74,6 +75,6 @@ public class EntityDeathWormEgg extends ThrownItemEntity {
 
     @Override
     protected Item getDefaultItem() {
-        return this.giant ? IafItemRegistry.DEATHWORM_EGG_GIGANTIC : IafItemRegistry.DEATHWORM_EGG;
+        return this.giant ? IafItems.DEATHWORM_EGG_GIGANTIC : IafItems.DEATHWORM_EGG;
     }
 }

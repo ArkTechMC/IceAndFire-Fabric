@@ -8,9 +8,12 @@ import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IDragonFlute;
 import com.github.alexthe666.iceandfire.pathfinding.PathNavigateFlyingCreature;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import dev.arktechmc.iafextra.data.EntityDataComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -214,7 +217,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
             return ActionResult.SUCCESS;
         }
         if (super.interactMob(player, hand) == ActionResult.PASS) {
-            if (itemstack != null && itemstack.getItem() == IafItemRegistry.DRAGON_STAFF && this.isOwner(player)) {
+            if (itemstack != null && itemstack.getItem() == IafItems.DRAGON_STAFF && this.isOwner(player)) {
                 if (player.isSneaking()) {
                     this.homePos = this.getBlockPos();
                     this.hasHomePosition = true;
@@ -656,10 +659,10 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
             }
         }
         if (this.getAnimation() == ANIMATION_WING_BLAST && this.getAnimationTick() == 5) {
-            this.playSound(IafSoundRegistry.AMPHITHERE_GUST, 1, 1);
+            this.playSound(IafSounds.AMPHITHERE_GUST, 1, 1);
         }
         if ((this.getAnimation() == ANIMATION_BITE || this.getAnimation() == ANIMATION_BITE_RIDER) && this.getAnimationTick() == 1) {
-            this.playSound(IafSoundRegistry.AMPHITHERE_BITE, 1, 1);
+            this.playSound(IafSounds.AMPHITHERE_BITE, 1, 1);
         }
         if (target != null && this.getAnimation() == ANIMATION_WING_BLAST && this.getAnimationTick() > 5 && this.getAnimationTick() < 22) {
 
@@ -848,17 +851,17 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.AMPHITHERE_IDLE;
+        return IafSounds.AMPHITHERE_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.AMPHITHERE_HURT;
+        return IafSounds.AMPHITHERE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.AMPHITHERE_DIE;
+        return IafSounds.AMPHITHERE_DIE;
     }
 
     @Override
@@ -908,7 +911,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
     @Override
     public PassiveEntity createChild(ServerWorld serverWorld, PassiveEntity ageableEntity) {
-        EntityAmphithere amphithere = new EntityAmphithere(IafEntityRegistry.AMPHITHERE, this.getWorld());
+        EntityAmphithere amphithere = new EntityAmphithere(IafEntities.AMPHITHERE, this.getWorld());
         amphithere.setVariant(this.getVariant());
         return amphithere;
     }

@@ -1,9 +1,9 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.mojang.serialization.Codec;
 import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.block.Block;
@@ -20,12 +20,12 @@ public class WorldGenIceDragonRoosts extends WorldGenDragonRoosts {
     private static final Identifier DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/ice_dragon_roost");
 
     public WorldGenIceDragonRoosts(final Codec<DefaultFeatureConfig> configuration) {
-        super(configuration, IafBlockRegistry.SILVER_PILE);
+        super(configuration, IafBlocks.SILVER_PILE);
     }
 
     @Override
     protected EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.ICE_DRAGON;
+        return IafEntities.ICE_DRAGON;
     }
 
     @Override
@@ -38,19 +38,19 @@ public class WorldGenIceDragonRoosts extends WorldGenDragonRoosts {
         Block block = null;
 
         if (state.isOf(Blocks.GRASS_BLOCK))
-            block = IafBlockRegistry.FROZEN_GRASS;
+            block = IafBlocks.FROZEN_GRASS;
         else if (state.isOf(Blocks.DIRT_PATH))
-            block = IafBlockRegistry.FROZEN_DIRT_PATH;
+            block = IafBlocks.FROZEN_DIRT_PATH;
         else if (state.isIn(Tags.Blocks.GRAVEL))
-            block = IafBlockRegistry.FROZEN_GRAVEL;
+            block = IafBlocks.FROZEN_GRAVEL;
         else if (state.isIn(BlockTags.DIRT))
-            block = IafBlockRegistry.FROZEN_DIRT;
+            block = IafBlocks.FROZEN_DIRT;
         else if (state.isIn(Tags.Blocks.STONE))
-            block = IafBlockRegistry.FROZEN_STONE;
+            block = IafBlocks.FROZEN_STONE;
         else if (state.isIn(Tags.Blocks.COBBLESTONE))
-            block = IafBlockRegistry.FROZEN_COBBLESTONE;
+            block = IafBlocks.FROZEN_COBBLESTONE;
         else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS))
-            block = IafBlockRegistry.FROZEN_SPLINTERS;
+            block = IafBlocks.FROZEN_SPLINTERS;
         else if (state.isOf(Blocks.GRASS) || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.FLOWERS) || state.isIn(BlockTags.CROPS))
             block = Blocks.AIR;
 
@@ -65,6 +65,6 @@ public class WorldGenIceDragonRoosts extends WorldGenDragonRoosts {
     @Override
     protected void handleCustomGeneration(final FeatureContext<DefaultFeatureConfig> context, final BlockPos position, double distance) {
         if (context.getRandom().nextInt(1000) == 0)
-            this.generateRoostPile(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position), IafBlockRegistry.DRAGON_ICE);
+            this.generateRoostPile(context.getWorld(), context.getRandom(), this.getSurfacePosition(context.getWorld(), position), IafBlocks.DRAGON_ICE);
     }
 }

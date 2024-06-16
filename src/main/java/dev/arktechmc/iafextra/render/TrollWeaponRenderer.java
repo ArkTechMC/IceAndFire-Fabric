@@ -1,6 +1,6 @@
 package dev.arktechmc.iafextra.render;
 
-import com.github.alexthe666.iceandfire.client.render.tile.RenderTrollWeapon;
+import com.github.alexthe666.iceandfire.client.render.block.RenderTrollWeapon;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;

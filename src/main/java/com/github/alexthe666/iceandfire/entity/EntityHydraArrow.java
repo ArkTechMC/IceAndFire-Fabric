@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -46,8 +46,8 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
             double d3 = 10.0D;
             double xRatio = this.getVelocity().x * this.getHeight();
             double zRatio = this.getVelocity().z * this.getHeight();
-            this.getWorld().addParticle(IafParticleRegistry.HYDRA_BREATH, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
-            this.getWorld().addParticle(IafParticleRegistry.HYDRA_BREATH, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
+            this.getWorld().addParticle(IafParticles.HYDRA_BREATH, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
+            this.getWorld().addParticle(IafParticles.HYDRA_BREATH, this.getX() + xRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d0 * 10.0D, this.getY() + (double) (this.random.nextFloat() * this.getHeight()) - d1 * 10.0D, this.getZ() + zRatio + (double) (this.random.nextFloat() * this.getWidth() * 1.0F) - (double) this.getWidth() - d2 * 10.0D, 0.1D, 1.0D, 0.1D);
         }
     }
 
@@ -85,6 +85,6 @@ public class EntityHydraArrow extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.HYDRA_ARROW);
+        return new ItemStack(IafItems.HYDRA_ARROW);
     }
 }

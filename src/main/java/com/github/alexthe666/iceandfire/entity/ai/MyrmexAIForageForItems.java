@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
@@ -19,7 +19,7 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected ItemEntity targetEntity;
 
-    private List<ItemEntity> list = IAFMath.emptyItemEntityList;
+    private List<ItemEntity> list = IafMath.emptyItemEntityList;
 
     public MyrmexAIForageForItems(EntityMyrmexWorker myrmex) {
         super(myrmex, false, false);
@@ -32,7 +32,7 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
     @Override
     public boolean canStart() {
         if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || this.myrmex.shouldEnterHive() || !this.myrmex.keepSearching || this.myrmex.getTarget() != null) {
-            this.list = IAFMath.emptyItemEntityList;
+            this.list = IafMath.emptyItemEntityList;
             return false;
         }
 

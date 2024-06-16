@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelTideTrident;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -27,7 +27,7 @@ public class RenderTideTridentItem extends BuiltinModelItemRenderer {
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         stackIn.translate(0.5F, 0.5f, 0.5f);
         if (type == ModelTransformationMode.GUI || type == ModelTransformationMode.FIXED || type == ModelTransformationMode.NONE || type == ModelTransformationMode.GROUND) {
-            ItemStack tridentInventory = new ItemStack(IafItemRegistry.TIDE_TRIDENT_INVENTORY);
+            ItemStack tridentInventory = new ItemStack(IafItems.TIDE_TRIDENT_INVENTORY);
             if (stack.hasEnchantments()) {
                 assert stack.getNbt() != null;
                 NbtList enchantments = stack.getNbt().getList("Enchantments", 10);

@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.server.world.ServerWorld;
@@ -31,9 +32,9 @@ public class BlockCharedPath extends DirtPathBlock {
 
     public BlockState getSmushedState(int dragonType) {
         return switch (dragonType) {
-            case 0 -> IafBlockRegistry.CHARRED_DIRT.getDefaultState();
-            case 1 -> IafBlockRegistry.FROZEN_DIRT.getDefaultState();
-            case 2 -> IafBlockRegistry.CRACKLED_DIRT.getDefaultState();
+            case 0 -> IafBlocks.CHARRED_DIRT.getDefaultState();
+            case 1 -> IafBlocks.FROZEN_DIRT.getDefaultState();
+            case 2 -> IafBlocks.CRACKLED_DIRT.getDefaultState();
             default -> null;
         };
     }

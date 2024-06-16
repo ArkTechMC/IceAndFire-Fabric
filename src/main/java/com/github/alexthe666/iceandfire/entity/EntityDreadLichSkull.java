@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -112,7 +112,7 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
         double z = this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth();
         float f = (this.getWidth() + this.getHeight() + this.getWidth()) * 0.333F + 0.5F;
         if (this.particleDistSq(x, y, z) < f * f)
-            this.getWorld().addParticle(IafParticleRegistry.DREAD_TORCH, x, y + 0.5D, z, d0, d1, d2);
+            this.getWorld().addParticle(IafParticles.DREAD_TORCH, x, y + 0.5D, z, d0, d1, d2);
         super.tick();
     }
 

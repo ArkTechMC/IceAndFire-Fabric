@@ -3,10 +3,10 @@ package com.github.alexthe666.iceandfire.enums;
 import com.github.alexthe666.citadel.server.item.CustomArmorMaterial;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.item.ItemTrollLeather;
-import com.github.alexthe666.iceandfire.item.ItemTrollWeapon;
+import com.github.alexthe666.iceandfire.item.armor.ItemTrollArmor;
+import com.github.alexthe666.iceandfire.item.tool.ItemTrollWeapon;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
@@ -20,20 +20,20 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public enum EnumTroll {
-    FOREST(IafItemRegistry.TROLL_FOREST_ARMOR_MATERIAL, Weapon.TRUNK, Weapon.COLUMN_FOREST, Weapon.AXE, Weapon.HAMMER),
-    FROST(IafItemRegistry.TROLL_FROST_ARMOR_MATERIAL, Weapon.COLUMN_FROST, Weapon.TRUNK_FROST, Weapon.AXE, Weapon.HAMMER),
-    MOUNTAIN(IafItemRegistry.TROLL_MOUNTAIN_ARMOR_MATERIAL, Weapon.COLUMN, Weapon.AXE, Weapon.HAMMER);
+    FOREST(IafItems.TROLL_FOREST_ARMOR_MATERIAL, Weapon.TRUNK, Weapon.COLUMN_FOREST, Weapon.AXE, Weapon.HAMMER),
+    FROST(IafItems.TROLL_FROST_ARMOR_MATERIAL, Weapon.COLUMN_FROST, Weapon.TRUNK_FROST, Weapon.AXE, Weapon.HAMMER),
+    MOUNTAIN(IafItems.TROLL_MOUNTAIN_ARMOR_MATERIAL, Weapon.COLUMN, Weapon.AXE, Weapon.HAMMER);
 
     public final Identifier TEXTURE;
     public final Identifier TEXTURE_STONE;
     public final Identifier TEXTURE_EYES;
     public final CustomArmorMaterial material;
-    private final Weapon[] weapons;
     public final Item leather;
     public final Item helmet;
     public final Item chestplate;
     public final Item leggings;
     public final Item boots;
+    private final Weapon[] weapons;
 
     EnumTroll(CustomArmorMaterial material, Weapon... weapons) {
         this.weapons = weapons;
@@ -69,11 +69,11 @@ public enum EnumTroll {
 
     public static void initArmors() {
         for (EnumTroll troll : EnumTroll.values()) {
-            IafItemRegistry.register("troll_leather_%s".formatted(troll.name().toLowerCase(Locale.ROOT)), troll.leather);
-            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.HEAD), troll.helmet);
-            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.CHEST), troll.chestplate);
-            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.LEGS), troll.leggings);
-            IafItemRegistry.register(ItemTrollArmor.getName(troll, EquipmentSlot.FEET), troll.boots);
+            IafItems.register("troll_leather_%s".formatted(troll.name().toLowerCase(Locale.ROOT)), troll.leather);
+            IafItems.register(ItemTrollArmor.getName(troll, EquipmentSlot.HEAD), troll.helmet);
+            IafItems.register(ItemTrollArmor.getName(troll, EquipmentSlot.CHEST), troll.chestplate);
+            IafItems.register(ItemTrollArmor.getName(troll, EquipmentSlot.LEGS), troll.leggings);
+            IafItems.register(ItemTrollArmor.getName(troll, EquipmentSlot.FEET), troll.boots);
         }
     }
 
@@ -84,7 +84,7 @@ public enum EnumTroll {
 
         Weapon() {
             this.TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");
-            this.item = IafItemRegistry.register("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), new ItemTrollWeapon(this));
+            this.item = IafItems.register("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), new ItemTrollWeapon(this));
         }
     }
 }

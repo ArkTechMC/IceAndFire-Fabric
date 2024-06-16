@@ -1,10 +1,10 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.datagen.tags.IafBlockTags;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
@@ -18,15 +18,15 @@ public class WorldGenFireDragonCave extends WorldGenDragonCave {
         super(configuration);
         this.DRAGON_CHEST = FIRE_DRAGON_CHEST;
         this.DRAGON_MALE_CHEST = FIRE_DRAGON_CHEST_MALE;
-        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlockRegistry.CHARRED_STONE, 3);
-        this.PALETTE_BLOCK1 = IafBlockRegistry.CHARRED_STONE.getDefaultState();
-        this.PALETTE_BLOCK2 = IafBlockRegistry.CHARRED_COBBLESTONE.getDefaultState();
-        this.TREASURE_PILE = IafBlockRegistry.GOLD_PILE.getDefaultState();
+        this.CEILING_DECO = new WorldGenCaveStalactites(IafBlocks.CHARRED_STONE, 3);
+        this.PALETTE_BLOCK1 = IafBlocks.CHARRED_STONE.getDefaultState();
+        this.PALETTE_BLOCK2 = IafBlocks.CHARRED_COBBLESTONE.getDefaultState();
+        this.TREASURE_PILE = IafBlocks.GOLD_PILE.getDefaultState();
         this.dragonTypeOreTag = IafBlockTags.FIRE_DRAGON_CAVE_ORES;
     }
 
     @Override
     public EntityType<? extends EntityDragonBase> getDragonType() {
-        return IafEntityRegistry.FIRE_DRAGON;
+        return IafEntities.FIRE_DRAGON;
     }
 }

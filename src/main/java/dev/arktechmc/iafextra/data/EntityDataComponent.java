@@ -1,7 +1,7 @@
 package dev.arktechmc.iafextra.data;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.props.*;
+import com.github.alexthe666.iceandfire.entity.data.*;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.ComponentV3;

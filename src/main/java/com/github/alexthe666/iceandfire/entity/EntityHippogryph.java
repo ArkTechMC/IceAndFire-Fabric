@@ -12,11 +12,13 @@ import com.github.alexthe666.iceandfire.entity.ai.HippogryphAITarget;
 import com.github.alexthe666.iceandfire.entity.ai.HippogryphAITargetItems;
 import com.github.alexthe666.iceandfire.entity.ai.HippogryphAIWander;
 import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IDragonFlute;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
 import com.github.alexthe666.iceandfire.inventory.ContainerHippogryph;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageHippogryphArmor;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.network.IafClientNetworkHandler;
 import net.minecraft.block.BlockState;
@@ -111,11 +113,11 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     }
 
     public static int getIntFromArmor(ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.IRON_HIPPOGRYPH_ARMOR)
+        if (!stack.isEmpty() && stack.getItem() == IafItems.IRON_HIPPOGRYPH_ARMOR)
             return 1;
-        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.GOLD_HIPPOGRYPH_ARMOR)
+        if (!stack.isEmpty() && stack.getItem() == IafItems.GOLD_HIPPOGRYPH_ARMOR)
             return 2;
-        if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.DIAMOND_HIPPOGRYPH_ARMOR)
+        if (!stack.isEmpty() && stack.getItem() == IafItems.DIAMOND_HIPPOGRYPH_ARMOR)
             return 3;
         return 0;
     }
@@ -670,17 +672,17 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.HIPPOGRYPH_IDLE;
+        return IafSounds.HIPPOGRYPH_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return IafSoundRegistry.HIPPOGRYPH_HURT;
+        return IafSounds.HIPPOGRYPH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.HIPPOGRYPH_DIE;
+        return IafSounds.HIPPOGRYPH_DIE;
     }
 
     @Override

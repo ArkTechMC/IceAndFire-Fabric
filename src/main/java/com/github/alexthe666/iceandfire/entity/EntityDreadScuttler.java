@@ -4,11 +4,11 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IDreadMob;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -250,7 +250,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(IafSoundRegistry.MYRMEX_WALK, 0.25F, 1.0F);
+        this.playSound(IafSounds.MYRMEX_WALK, 0.25F, 1.0F);
     }
 
     @Override

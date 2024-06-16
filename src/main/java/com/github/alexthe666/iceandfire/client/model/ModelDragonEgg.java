@@ -3,9 +3,9 @@ package com.github.alexthe666.iceandfire.client.model;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
-import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityEggInIce;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityEggInIce;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.tag.BlockTags;
@@ -69,7 +69,7 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
         this.Egg1.rotateAngleX = (float) Math.toRadians(-180);
     }
 
-    public void renderFrozen(TileEntityEggInIce tile) {
+    public void renderFrozen(BlockEntityEggInIce tile) {
         this.resetToDefaultPose();
         this.Egg1.rotateAngleX = (float) Math.toRadians(-180);
         this.walk(this.Egg1, 0.3F, 0.1F, true, 1, 0, tile.ticksExisted, 1);

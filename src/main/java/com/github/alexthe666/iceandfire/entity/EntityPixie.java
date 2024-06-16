@@ -1,12 +1,12 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.ai.*;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityPixieHouse;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import dev.arktechmc.iafextra.network.IafServerNetworkHandler;
 import net.minecraft.block.Block;
@@ -78,7 +78,7 @@ public class EntityPixie extends TameableEntity {
         for (int xSearch = -10; xSearch < 10; xSearch++) {
             for (int ySearch = -10; ySearch < 10; ySearch++) {
                 for (int zSearch = -10; zSearch < 10; zSearch++) {
-                    if (world.getBlockEntity(entity.getBlockPos().add(xSearch, ySearch, zSearch)) != null && world.getBlockEntity(entity.getBlockPos().add(xSearch, ySearch, zSearch)) instanceof TileEntityPixieHouse house) {
+                    if (world.getBlockEntity(entity.getBlockPos().add(xSearch, ySearch, zSearch)) != null && world.getBlockEntity(entity.getBlockPos().add(xSearch, ySearch, zSearch)) instanceof BlockEntityPixieHouse house) {
                         if (!house.hasPixie) {
                             return entity.getBlockPos().add(xSearch, ySearch, zSearch);
                         }
@@ -193,7 +193,7 @@ public class EntityPixie extends TameableEntity {
             if (player.getStackInHand(hand).isIn(IafItemTags.HEAL_PIXIE) && this.getHealth() < this.getMaxHealth()) {
                 this.heal(5);
                 player.getStackInHand(hand).decrement(1);
-                this.playSound(IafSoundRegistry.PIXIE_TAUNT, 1F, 1F);
+                this.playSound(IafSounds.PIXIE_TAUNT, 1F, 1F);
                 return ActionResult.SUCCESS;
             } else {
 
@@ -205,16 +205,16 @@ public class EntityPixie extends TameableEntity {
 
                 return ActionResult.SUCCESS;
             }
-        } else if (player.getStackInHand(hand).getItem() == IafBlockRegistry.JAR_EMPTY.asItem() && !this.isTamed()) {
+        } else if (player.getStackInHand(hand).getItem() == IafBlocks.JAR_EMPTY.asItem() && !this.isTamed()) {
             if (!player.isCreative()) {
                 player.getStackInHand(hand).decrement(1);
             }
             Block jar = switch (this.getColor()) {
-                case 0 -> IafBlockRegistry.JAR_PIXIE_0;
-                case 1 -> IafBlockRegistry.JAR_PIXIE_1;
-                case 2 -> IafBlockRegistry.JAR_PIXIE_2;
-                case 3 -> IafBlockRegistry.JAR_PIXIE_3;
-                case 4 -> IafBlockRegistry.JAR_PIXIE_4;
+                case 0 -> IafBlocks.JAR_PIXIE_0;
+                case 1 -> IafBlocks.JAR_PIXIE_1;
+                case 2 -> IafBlocks.JAR_PIXIE_2;
+                case 3 -> IafBlocks.JAR_PIXIE_3;
+                case 4 -> IafBlocks.JAR_PIXIE_4;
                 default -> Blocks.AIR;
             };
             ItemStack stack = new ItemStack(jar, 1);
@@ -315,13 +315,13 @@ public class EntityPixie extends TameableEntity {
             this.setVelocity(this.getVelocity().add(0, 0.08, 0));
         }
         if (this.getWorld().isClient) {
-            this.getWorld().addParticle(IafParticleRegistry.PIXIE_DUST, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2F) - (double) this.getWidth(), PARTICLE_RGB[this.getColor()][0], PARTICLE_RGB[this.getColor()][1], PARTICLE_RGB[this.getColor()][2]);
+            this.getWorld().addParticle(IafParticles.PIXIE_DUST, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2F) - (double) this.getWidth(), PARTICLE_RGB[this.getColor()][0], PARTICLE_RGB[this.getColor()][1], PARTICLE_RGB[this.getColor()][2]);
         }
         if (this.ticksUntilHouseAI > 0) {
             this.ticksUntilHouseAI--;
         }
         if (!this.getWorld().isClient) {
-            if (this.housePos != null && this.squaredDistanceTo(Vec3d.ofCenter(this.housePos)) < 1.5F && this.getWorld().getBlockEntity(this.housePos) != null && this.getWorld().getBlockEntity(this.housePos) instanceof TileEntityPixieHouse house) {
+            if (this.housePos != null && this.squaredDistanceTo(Vec3d.ofCenter(this.housePos)) < 1.5F && this.getWorld().getBlockEntity(this.housePos) != null && this.getWorld().getBlockEntity(this.housePos) instanceof BlockEntityPixieHouse house) {
                 if (house.hasPixie) {
                     this.housePos = null;
                 } else {
@@ -395,17 +395,17 @@ public class EntityPixie extends TameableEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.PIXIE_IDLE;
+        return IafSounds.PIXIE_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return IafSoundRegistry.PIXIE_HURT;
+        return IafSounds.PIXIE_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.PIXIE_DIE;
+        return IafSounds.PIXIE_DIE;
     }
 
     @Override

@@ -2,7 +2,8 @@ package com.github.alexthe666.iceandfire.inventory;
 
 import com.github.alexthe666.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
+import com.github.alexthe666.iceandfire.item.armor.ItemDragonArmor;
+import com.github.alexthe666.iceandfire.registry.IafScreenHandlers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -22,7 +23,7 @@ public class ContainerDragon extends ScreenHandler {
     }
 
     public ContainerDragon(int id, Inventory dragonInventory, PlayerInventory playerInventory, EntityPropertyDelegate propertyDelegate) {
-        super(IafContainerRegistry.DRAGON_CONTAINER, id);
+        super(IafScreenHandlers.DRAGON_CONTAINER, id);
         this.dragonInventory = dragonInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(this.propertyDelegate);

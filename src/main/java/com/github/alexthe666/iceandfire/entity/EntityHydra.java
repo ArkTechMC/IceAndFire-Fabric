@@ -4,7 +4,9 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -148,7 +150,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                 if (this.age % 7 == 0 && attackTarget != null && i < this.getHeadCount()) {
                     Vec3d Vector3d = this.getRotationVec(1.0F);
                     if (this.random.nextFloat() < 0.2F) {
-                        this.playSound(IafSoundRegistry.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
+                        this.playSound(IafSounds.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
                     }
                     double headPosX = this.headBoxes[i].getX() + Vector3d.x;
                     double headPosY = this.headBoxes[i].getY() + 1.3F;
@@ -156,7 +158,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                     double d2 = attackTarget.getX() - headPosX + this.random.nextGaussian() * 0.4D;
                     double d3 = attackTarget.getY() + attackTarget.getStandingEyeHeight() - headPosY + this.random.nextGaussian() * 0.4D;
                     double d4 = attackTarget.getZ() - headPosZ + this.random.nextGaussian() * 0.4D;
-                    EntityHydraBreath entitylargefireball = new EntityHydraBreath(IafEntityRegistry.HYDRA_BREATH, this.getWorld(), this, d2, d3, d4);
+                    EntityHydraBreath entitylargefireball = new EntityHydraBreath(IafEntities.HYDRA_BREATH, this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
                     if (!this.getWorld().isClient) {
                         this.getWorld().spawnEntity(entitylargefireball);
@@ -213,7 +215,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                 if (this.isOnFire()) {
                     this.setHeadCount(this.getHeadCount() - 1);
                 } else {
-                    this.playSound(IafSoundRegistry.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
+                    this.playSound(IafSounds.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
                     if (!this.onlyRegrowOneHeadNotTwo) {
                         this.setHeadCount(this.getHeadCount() + 1);
                     }
@@ -460,17 +462,17 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.HYDRA_IDLE;
+        return IafSounds.HYDRA_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.HYDRA_HURT;
+        return IafSounds.HYDRA_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.HYDRA_DIE;
+        return IafSounds.HYDRA_DIE;
     }
 
 }

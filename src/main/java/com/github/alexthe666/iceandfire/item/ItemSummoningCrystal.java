@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.item;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.github.alexthe666.iceandfire.world.DragonPosWorldData;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.resource.language.I18n;
@@ -57,10 +58,10 @@ public class ItemSummoningCrystal extends Item {
 
         boolean flag = false;
         String desc = "entity.iceandfire.fire_dragon";
-        if (stack.getItem() == IafItemRegistry.SUMMONING_CRYSTAL_ICE) {
+        if (stack.getItem() == IafItems.SUMMONING_CRYSTAL_ICE) {
             desc = "entity.iceandfire.ice_dragon";
         }
-        if (stack.getItem() == IafItemRegistry.SUMMONING_CRYSTAL_LIGHTNING) {
+        if (stack.getItem() == IafItems.SUMMONING_CRYSTAL_LIGHTNING) {
             desc = "entity.iceandfire.lightning_dragon";
         }
         if (stack.getNbt() != null) {

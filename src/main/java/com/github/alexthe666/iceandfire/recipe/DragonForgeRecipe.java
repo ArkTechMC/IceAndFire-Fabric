@@ -1,8 +1,10 @@
 package com.github.alexthe666.iceandfire.recipe;
 
 import com.github.alexthe666.citadel.client.model.container.JsonUtils;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForge;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafRecipeSerializers;
+import com.github.alexthe666.iceandfire.registry.IafRecipes;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -12,7 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 
-public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
+public class DragonForgeRecipe implements Recipe<BlockEntityDragonForge> {
     private final Ingredient input;
     private final Ingredient blood;
     private final ItemStack result;
@@ -51,7 +53,7 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
     }
 
     @Override
-    public boolean matches(TileEntityDragonforge inv, World worldIn) {
+    public boolean matches(BlockEntityDragonForge inv, World worldIn) {
         return this.input.test(inv.getStack(0)) && this.blood.test(inv.getStack(1)) && this.dragonType.equals(inv.getTypeID());
     }
 
@@ -73,7 +75,7 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
     }
 
     @Override
-    public ItemStack craft(TileEntityDragonforge dragonforge, DynamicRegistryManager registryAccess) {
+    public ItemStack craft(BlockEntityDragonForge dragonforge, DynamicRegistryManager registryAccess) {
         return this.result;
     }
 
@@ -89,7 +91,7 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE);
+        return new ItemStack(IafBlocks.DRAGONFORGE_FIRE_CORE);
     }
 
     @Override
@@ -99,7 +101,7 @@ public class DragonForgeRecipe implements Recipe<TileEntityDragonforge> {
 
     @Override
     public RecipeType<?> getType() {
-        return IafRecipeRegistry.DRAGON_FORGE_TYPE;
+        return IafRecipes.DRAGON_FORGE_TYPE;
     }
 
     public static class Serializer implements RecipeSerializer<DragonForgeRecipe> {

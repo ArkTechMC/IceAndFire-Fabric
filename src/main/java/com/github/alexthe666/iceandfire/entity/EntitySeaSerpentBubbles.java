@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
-import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IDragonProjectile;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -72,7 +72,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
             float f = this.getDrag();
             if (this.getWorld().isClient) {
                 for (int i = 0; i < 3; ++i) {
-                    this.getWorld().addParticle(IafParticleRegistry.SERPENT_BUBBLE, this.getX() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, this.getY() - 0.5D, this.getZ() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, 0, 0, 0);
+                    this.getWorld().addParticle(IafParticles.SERPENT_BUBBLE, this.getX() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, this.getY() - 0.5D, this.getZ() + (double) (this.random.nextFloat() * this.getWidth()) - (double) this.getWidth() * 0.5F, 0, 0, 0);
                 }
             }
 

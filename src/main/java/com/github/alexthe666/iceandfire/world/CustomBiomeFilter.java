@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.world;
 
+import com.github.alexthe666.iceandfire.registry.IafPlacementFilters;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -37,6 +38,6 @@ public class CustomBiomeFilter extends AbstractConditionalPlacementModifier {
     }
 
     public PlacementModifierType<?> getType() {
-        return IafPlacementFilterRegistry.CUSTOM_BIOME_FILTER;
+        return IafPlacementFilters.CUSTOM_BIOME_FILTER;
     }
 }

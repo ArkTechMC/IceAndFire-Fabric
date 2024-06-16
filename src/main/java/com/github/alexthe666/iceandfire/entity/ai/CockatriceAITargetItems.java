@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.datagen.tags.IafItemTags;
 import com.github.alexthe666.iceandfire.entity.EntityCockatrice;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
 import net.minecraft.sound.SoundEvents;
@@ -17,7 +17,7 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected final int targetChance;
     protected ItemEntity targetEntity;
-    private List<ItemEntity> list = IAFMath.emptyItemEntityList;
+    private List<ItemEntity> list = IafMath.emptyItemEntityList;
 
     public CockatriceAITargetItems(EntityCockatrice creature, boolean checkSight) {
         this(creature, checkSight, false);
@@ -42,7 +42,7 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
         }
 
         if ((!((EntityCockatrice) this.mob).canMove()) || this.mob.getHealth() >= this.mob.getMaxHealth()) {
-            this.list = IAFMath.emptyItemEntityList;
+            this.list = IafMath.emptyItemEntityList;
             return false;
         }
 

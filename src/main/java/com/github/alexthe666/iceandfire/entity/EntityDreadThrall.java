@@ -4,8 +4,12 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
-import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
+import com.github.alexthe666.iceandfire.entity.util.IDreadMob;
+import com.github.alexthe666.iceandfire.entity.util.IHasArmorVariant;
+import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -109,7 +113,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         if (this.random.nextFloat() < 0.75F) {
             double chance = this.random.nextFloat();
             if (chance < 0.0025F) {
-                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DRAGONSTEEL_ICE_SWORD));
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItems.DRAGONSTEEL_ICE_SWORD));
             }
             if (chance < 0.01F) {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
@@ -118,7 +122,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
             }
             if (chance < 0.75F) {
-                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.DREAD_SWORD));
+                this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(IafItems.DREAD_SWORD));
             }
         }
         if (this.random.nextFloat() < 0.75F) {

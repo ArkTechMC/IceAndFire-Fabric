@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityMobSkull;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ public class ItemMobSkull extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         PlayerEntity player = context.getPlayer();
-        EntityMobSkull skull = new EntityMobSkull(IafEntityRegistry.MOB_SKULL, context.getWorld());
+        EntityMobSkull skull = new EntityMobSkull(IafEntities.MOB_SKULL, context.getWorld());
         assert player != null;
         ItemStack stack = player.getStackInHand(context.getHand());
         BlockPos offset = context.getBlockPos().offset(context.getSide(), 1);

@@ -20,7 +20,7 @@ public class BlockMyrmexResin extends Block {
         this.sticky = sticky;
     }
 
-    static String name(boolean sticky, String suffix) {
+    public static String name(boolean sticky, String suffix) {
         return sticky ? "myrmex_resin_sticky_%s".formatted(suffix) : "myrmex_resin_%s".formatted(suffix);
     }
 

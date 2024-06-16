@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.world.gen;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -31,9 +31,9 @@ public class WorldGenRoostSpike {
                     int height = Math.max(blockpos.getY() - up.getY(), 0);
                     if (i == 0) {
                         if (rand.nextFloat() < height * 0.3F)
-                            worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.getDefaultState(), 2);
+                            worldIn.setBlockState(blockpos, IafBlocks.CRACKLED_STONE.getDefaultState(), 2);
                     } else
-                        worldIn.setBlockState(blockpos, IafBlockRegistry.CRACKLED_STONE.getDefaultState(), 2);
+                        worldIn.setBlockState(blockpos, IafBlocks.CRACKLED_STONE.getDefaultState(), 2);
                 }
             }
         }

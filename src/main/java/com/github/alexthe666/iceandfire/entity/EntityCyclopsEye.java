@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,7 +15,7 @@ public class EntityCyclopsEye extends EntityMutlipartPart {
     }
 
     public EntityCyclopsEye(LivingEntity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
-        super(IafEntityRegistry.CYCLOPS_MULTIPART, parent, radius, angleYaw, offsetY, sizeX, sizeY,
+        super(IafEntities.CYCLOPS_MULTIPART, parent, radius, angleYaw, offsetY, sizeX, sizeY,
                 damageMultiplier);
     }
 

@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityDragonSkull;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,7 +26,7 @@ public class ItemDragonSkull extends Item {
         this.dragonType = dragonType;
     }
 
-    static String getName(int type) {
+    public static String getName(int type) {
         return "dragon_skull_%s".formatted(getType(type));
     }
 
@@ -73,7 +73,7 @@ public class ItemDragonSkull extends Item {
          * 0.5); if(!worldIn.isRemote){ worldIn.spawnEntityInWorld(egg); }
          */
         if (stack.getNbt() != null) {
-            EntityDragonSkull skull = new EntityDragonSkull(IafEntityRegistry.DRAGON_SKULL, context.getWorld());
+            EntityDragonSkull skull = new EntityDragonSkull(IafEntities.DRAGON_SKULL, context.getWorld());
             skull.setDragonType(this.dragonType);
             skull.setStage(stack.getNbt().getInt("Stage"));
             skull.setDragonAge(stack.getNbt().getInt("DragonAge"));

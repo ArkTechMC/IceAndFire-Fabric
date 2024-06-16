@@ -5,9 +5,9 @@ import com.github.alexthe666.iceandfire.block.BlockGoldPile;
 import com.github.alexthe666.iceandfire.datagen.tags.IafBlockTags;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.HomePosition;
+import com.github.alexthe666.iceandfire.registry.IafFeatures;
 import com.github.alexthe666.iceandfire.util.ShapeBuilder;
 import com.github.alexthe666.iceandfire.world.IafWorldData;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import com.mojang.serialization.Codec;
 import io.github.fabricators_of_create.porting_lib.tags.TagHelper;
 import net.minecraft.block.*;
@@ -55,7 +55,7 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         StructureWorldAccess worldIn = context.getWorld();
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
-        if (rand.nextInt(IafConfig.generateDragonDenChance) != 0 || !IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position) || !IafWorldRegistry.isFarEnoughFromDangerousGen(worldIn, position, this.getId(), this.getFeatureType())) {
+        if (rand.nextInt(IafConfig.generateDragonDenChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId(), this.getFeatureType())) {
             return false;
         }
         this.isMale = rand.nextBoolean();

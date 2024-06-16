@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.config.BiomeConfig;
 import com.github.alexthe666.iceandfire.datagen.IafBiomeTagGenerator;
 import com.github.alexthe666.iceandfire.datagen.IafStructurePieces;
-import com.github.alexthe666.iceandfire.world.IafStructureTypes;
+import com.github.alexthe666.iceandfire.registry.IafStructureTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.Registerable;

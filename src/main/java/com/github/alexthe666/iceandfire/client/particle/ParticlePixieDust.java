@@ -21,7 +21,7 @@ public class ParticlePixieDust extends SpriteBillboardParticle {
         this(worldIn, xCoordIn, yCoordIn, zCoordIn, 1F, p_i46349_8_, p_i46349_9_, p_i46349_10_);
     }
 
-    protected ParticlePixieDust(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float scale, float red, float green, float blue) {
+    public ParticlePixieDust(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, float scale, float red, float green, float blue) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0.0D, 0.0D, 0.0D);
         this.velocityX *= 0.10000000149011612D;
         this.velocityY *= 0.10000000149011612D;

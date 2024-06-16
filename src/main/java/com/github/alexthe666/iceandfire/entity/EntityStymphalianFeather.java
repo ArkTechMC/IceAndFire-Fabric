@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -63,6 +63,6 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
 
     @Override
     protected ItemStack asItemStack() {
-        return new ItemStack(IafItemRegistry.STYMPHALIAN_BIRD_FEATHER);
+        return new ItemStack(IafItems.STYMPHALIAN_BIRD_FEATHER);
     }
 }

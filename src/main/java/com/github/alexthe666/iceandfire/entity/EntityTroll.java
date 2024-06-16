@@ -11,7 +11,8 @@ import com.github.alexthe666.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import dev.arktechmc.iafextra.event.EventBus;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -68,7 +69,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public static boolean canTrollSpawnOn(EntityType<? extends MobEntity> typeIn, ServerWorldAccess worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return worldIn.getDifficulty() != Difficulty.PEACEFUL && isSpawnDark(worldIn, pos, randomIn) && canMobSpawn(IafEntityRegistry.TROLL, worldIn, reason, pos, randomIn);
+        return worldIn.getDifficulty() != Difficulty.PEACEFUL && isSpawnDark(worldIn, pos, randomIn) && canMobSpawn(IafEntities.TROLL, worldIn, reason, pos, randomIn);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -299,7 +300,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
             this.setAnimation(ANIMATION_ROAR);
         }
         if (this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 5) {
-            this.playSound(IafSoundRegistry.TROLL_ROAR, 1, 1);
+            this.playSound(IafSounds.TROLL_ROAR, 1, 1);
         }
         if (!stone && this.getHealth() < this.getMaxHealth() && this.age % 30 == 0) {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 30, 1, false, false));
@@ -311,7 +312,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
             if (f > 0.5F && this.getWorld().isSkyVisible(blockpos)) {
                 this.setVelocity(0, 0, 0);
                 this.setAnimation(NO_ANIMATION);
-                this.playSound(IafSoundRegistry.TURN_STONE, 1, 1);
+                this.playSound(IafSounds.TURN_STONE, 1, 1);
                 this.stoneProgress = 20;
                 EntityStoneStatue statue = EntityStoneStatue.buildStatueEntity(this);
                 statue.getTrappedTag().putFloat("StoneProgress", 20);
@@ -430,17 +431,17 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.TROLL_IDLE;
+        return IafSounds.TROLL_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.TROLL_HURT;
+        return IafSounds.TROLL_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.TROLL_DIE;
+        return IafSounds.TROLL_DIE;
     }
 
 

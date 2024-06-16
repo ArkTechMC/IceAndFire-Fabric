@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.enums;
 
-import com.github.alexthe666.iceandfire.entity.DragonType;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
 import net.minecraft.util.Formatting;
 
 public enum EnumDragonEgg {

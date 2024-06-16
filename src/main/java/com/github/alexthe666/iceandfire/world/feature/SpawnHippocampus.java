@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.world.feature;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.mojang.serialization.Codec;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +32,7 @@ public class SpawnHippocampus extends Feature<DefaultFeatureConfig> {
             for (int i = 0; i < rand.nextInt(5); i++) {
                 BlockPos pos = oceanPos.add(rand.nextInt(10) - 5, rand.nextInt(30), rand.nextInt(10) - 5);
                 if (worldIn.getFluidState(pos).getFluid() == Fluids.WATER) {
-                    EntityHippocampus campus = IafEntityRegistry.HIPPOCAMPUS.create(worldIn.toServerWorld());
+                    EntityHippocampus campus = IafEntities.HIPPOCAMPUS.create(worldIn.toServerWorld());
                     assert campus != null;
                     campus.setVariant(rand.nextInt(6));
                     campus.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);

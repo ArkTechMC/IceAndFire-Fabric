@@ -3,9 +3,9 @@ package com.github.alexthe666.iceandfire.world.gen;
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafFeatures;
 import com.github.alexthe666.iceandfire.world.IafWorldData;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
@@ -44,7 +44,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
         BlockPos position = context.getOrigin();
         ChunkGenerator generator = context.getGenerator();
 
-        if (rand.nextInt(IafConfig.generateHydraChance) != 0 || !IafWorldRegistry.isFarEnoughFromSpawn(worldIn, position) || !IafWorldRegistry.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
+        if (rand.nextInt(IafConfig.generateHydraChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
             return false;
         }
 
@@ -142,7 +142,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
                 }
             }
         }
-        EntityHydra hydra = new EntityHydra(IafEntityRegistry.HYDRA, worldIn.toServerWorld());
+        EntityHydra hydra = new EntityHydra(IafEntities.HYDRA, worldIn.toServerWorld());
         hydra.setVariant(rand.nextInt(3));
         hydra.setPositionTarget(position, 15);
         hydra.updatePositionAndAngles(position.getX() + 0.5, position.getY() + 1.5, position.getZ() + 0.5, rand.nextFloat() * 360, 0);

@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.world.gen.processor;
 
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.world.IafProcessors;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafProcessors;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -28,11 +28,11 @@ public class DreadRuinProcessor extends StructureProcessor {
     public static BlockState getRandomCrackedBlock(BlockState prev, Random random) {
         float rand = random.nextFloat();
         if (rand < 0.5) {
-            return IafBlockRegistry.DREAD_STONE_BRICKS.getDefaultState();
+            return IafBlocks.DREAD_STONE_BRICKS.getDefaultState();
         } else if (rand < 0.9) {
-            return IafBlockRegistry.DREAD_STONE_BRICKS_CRACKED.getDefaultState();
+            return IafBlocks.DREAD_STONE_BRICKS_CRACKED.getDefaultState();
         } else {
-            return IafBlockRegistry.DREAD_STONE_BRICKS_MOSSY.getDefaultState();
+            return IafBlocks.DREAD_STONE_BRICKS_MOSSY.getDefaultState();
         }
     }
 
@@ -40,11 +40,11 @@ public class DreadRuinProcessor extends StructureProcessor {
     public StructureTemplate.StructureBlockInfo process(WorldView worldReader, BlockPos pos, BlockPos pos2, StructureTemplate.StructureBlockInfo infoIn1, StructureTemplate.StructureBlockInfo infoIn2, StructurePlacementData settings) {
         Random random = settings.getRandom(infoIn2.pos());
 
-        if (infoIn2.state().getBlock() == IafBlockRegistry.DREAD_STONE_BRICKS) {
+        if (infoIn2.state().getBlock() == IafBlocks.DREAD_STONE_BRICKS) {
             BlockState state = getRandomCrackedBlock(null, random);
             return new StructureTemplate.StructureBlockInfo(infoIn2.pos(), state, null);
         }
-        if (infoIn2.state().getBlock() == IafBlockRegistry.DREAD_SPAWNER) {
+        if (infoIn2.state().getBlock() == IafBlocks.DREAD_SPAWNER) {
             NbtCompound tag = new NbtCompound();
             NbtCompound spawnData = new NbtCompound();
             Identifier spawnerMobId = Registries.ENTITY_TYPE.getId(this.getRandomMobForMobSpawner(random));
@@ -53,7 +53,7 @@ public class DreadRuinProcessor extends StructureProcessor {
             spawnData.put("entity", entity);
             tag.remove("SpawnPotentials");
             tag.put("SpawnData", spawnData.copy());
-            return new StructureTemplate.StructureBlockInfo(infoIn2.pos(), IafBlockRegistry.DREAD_SPAWNER.getDefaultState(), tag);
+            return new StructureTemplate.StructureBlockInfo(infoIn2.pos(), IafBlocks.DREAD_SPAWNER.getDefaultState(), tag);
 
         }
         return infoIn2;
@@ -68,14 +68,14 @@ public class DreadRuinProcessor extends StructureProcessor {
     private EntityType getRandomMobForMobSpawner(Random random) {
         float rand = random.nextFloat();
         if (rand < 0.3D) {
-            return IafEntityRegistry.DREAD_THRALL;
+            return IafEntities.DREAD_THRALL;
         } else if (rand < 0.5D) {
-            return IafEntityRegistry.DREAD_GHOUL;
+            return IafEntities.DREAD_GHOUL;
         } else if (rand < 0.7D) {
-            return IafEntityRegistry.DREAD_BEAST;
+            return IafEntities.DREAD_BEAST;
         } else if (rand < 0.85D) {
-            return IafEntityRegistry.DREAD_SCUTTLER;
+            return IafEntities.DREAD_SCUTTLER;
         }
-        return IafEntityRegistry.DREAD_KNIGHT;
+        return IafEntities.DREAD_KNIGHT;
     }
 }

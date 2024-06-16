@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityMyrmexCocoon;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -54,6 +54,6 @@ public class BlockMyrmexCocoon extends BlockWithEntity {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityMyrmexCocoon(pos, state);
+        return new BlockEntityMyrmexCocoon(pos, state);
     }
 }

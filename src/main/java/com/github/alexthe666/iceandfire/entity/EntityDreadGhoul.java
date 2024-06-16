@@ -4,11 +4,11 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IDreadMob;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -234,7 +234,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.DREAD_GHOUL_IDLE;
+        return IafSounds.DREAD_GHOUL_IDLE;
     }
 
     @Override

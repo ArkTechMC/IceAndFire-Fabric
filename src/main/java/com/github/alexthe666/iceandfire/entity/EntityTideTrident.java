@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -26,11 +27,11 @@ public class EntityTideTrident extends TridentEntity {
 
     public EntityTideTrident(EntityType<? extends TridentEntity> type, World worldIn) {
         super(type, worldIn);
-        this.tridentStack = new ItemStack(IafItemRegistry.TIDE_TRIDENT);
+        this.tridentStack = new ItemStack(IafItems.TIDE_TRIDENT);
     }
 
     public EntityTideTrident(World worldIn, LivingEntity thrower, ItemStack thrownStackIn) {
-        this(IafEntityRegistry.TIDE_TRIDENT, worldIn);
+        this(IafEntities.TIDE_TRIDENT, worldIn);
         this.setPosition(thrower.getX(), thrower.getEyeY() - 0.1F, thrower.getZ());
         this.setOwner(thrower);
         this.tridentStack = thrownStackIn;

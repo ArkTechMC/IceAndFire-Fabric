@@ -10,7 +10,8 @@ import com.github.alexthe666.iceandfire.entity.ai.StymphalianBirdAITarget;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.entity.util.StymphalianBirdFlock;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -266,7 +267,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                 if (this.isFlying()) {
                     this.setYaw(this.bodyYaw);
                     if ((this.getAnimationTick() == 7 || this.getAnimationTick() == 14) && this.isDirectPathBetweenPoints(this, this.getPos(), target.getPos())) {
-                        this.playSound(IafSoundRegistry.STYMPHALIAN_BIRD_ATTACK, 1, 1);
+                        this.playSound(IafSounds.STYMPHALIAN_BIRD_ATTACK, 1, 1);
                         for (int i = 0; i < 4; i++) {
                             float wingX = (float) (this.getX() + 1.8F * 0.5F * MathHelper.cos((float) ((this.getYaw() + 180 * (i % 2)) * Math.PI / 180)));
                             float wingZ = (float) (this.getZ() + 1.8F * 0.5F * MathHelper.sin((float) ((this.getYaw() + 180 * (i % 2)) * Math.PI / 180)));
@@ -275,7 +276,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                             double d1 = target.getBoundingBox().minY - wingY;
                             double d2 = target.getZ() - wingZ;
                             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-                            EntityStymphalianFeather entityarrow = new EntityStymphalianFeather(IafEntityRegistry.STYMPHALIAN_FEATHER, this.getWorld(), this);
+                            EntityStymphalianFeather entityarrow = new EntityStymphalianFeather(IafEntities.STYMPHALIAN_FEATHER, this.getWorld(), this);
                             entityarrow.setPosition(wingX, wingY, wingZ);
                             entityarrow.setVelocity(d0, d1 + d3 * 0.10000000298023224D, d2, 1.6F,
                                     14 - this.getWorld().getDifficulty().getId() * 4);
@@ -417,17 +418,17 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.STYMPHALIAN_BIRD_IDLE;
+        return IafSounds.STYMPHALIAN_BIRD_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return IafSoundRegistry.STYMPHALIAN_BIRD_HURT;
+        return IafSounds.STYMPHALIAN_BIRD_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.STYMPHALIAN_BIRD_DIE;
+        return IafSounds.STYMPHALIAN_BIRD_DIE;
     }
 
     @Override

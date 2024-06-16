@@ -5,11 +5,11 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.model.ICustomStatueModel;
 import com.github.alexthe666.iceandfire.client.model.ModelHydraBody;
 import com.github.alexthe666.iceandfire.client.model.ModelStonePlayer;
-import com.github.alexthe666.iceandfire.client.render.IafRenderType;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerHydraHead;
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
 import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
 import com.github.alexthe666.iceandfire.entity.EntityTroll;
+import com.github.alexthe666.iceandfire.registry.IafRenderLayers;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -88,7 +88,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
         } else {
             fakeEntity = this.hollowEntityMap.get(entityIn.getTrappedEntityTypeString());
         }
-        RenderLayer tex = IafRenderType.getStoneMobRenderType(200, 200);
+        RenderLayer tex = IafRenderLayers.getStoneMobRenderType(200, 200);
         if (fakeEntity instanceof EntityTroll) {
             tex = RenderLayer.getEntityCutout(((EntityTroll) fakeEntity).getTrollType().TEXTURE_STONE);
         }
@@ -124,7 +124,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
 
         if (entityIn.getCrackAmount() >= 1) {
             int i = MathHelper.clamp(entityIn.getCrackAmount() - 1, 0, DESTROY_STAGES.length - 1);
-            RenderLayer crackTex = IafRenderType.getStoneCrackRenderType(DESTROY_STAGES[i]);
+            RenderLayer crackTex = IafRenderLayers.getStoneCrackRenderType(DESTROY_STAGES[i]);
             VertexConsumer ivertexbuilder2 = bufferIn.getBuffer(crackTex);
             matrixStackIn.push();
             matrixStackIn.push();

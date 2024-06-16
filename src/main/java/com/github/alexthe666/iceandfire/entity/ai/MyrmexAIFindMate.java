@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexRoyal;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
@@ -20,7 +20,7 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
     protected final Predicate<? super Entity> targetEntitySelector;
     protected EntityMyrmexBase targetEntity;
 
-    private List<Entity> list = IAFMath.emptyEntityList;
+    private List<Entity> list = IafMath.emptyEntityList;
 
     public MyrmexAIFindMate(EntityMyrmexRoyal myrmex) {
         super(myrmex, false, false);
@@ -33,11 +33,11 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
     @Override
     public boolean canStart() {
         if (!this.myrmex.shouldHaveNormalAI()) {
-            this.list = IAFMath.emptyEntityList;
+            this.list = IafMath.emptyEntityList;
             return false;
         }
         if (!this.myrmex.canMove() || this.myrmex.getTarget() != null || this.myrmex.releaseTicks < 400 || this.myrmex.mate != null) {
-            this.list = IAFMath.emptyEntityList;
+            this.list = IafMath.emptyEntityList;
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
@@ -45,7 +45,7 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
             village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 100);
         }
         if (village != null && village.getCenter().getSquaredDistanceFromCenter(this.myrmex.getX(), village.getCenter().getY(), this.myrmex.getZ()) < 2000) {
-            this.list = IAFMath.emptyEntityList;
+            this.list = IafMath.emptyEntityList;
             return false;
         }
 

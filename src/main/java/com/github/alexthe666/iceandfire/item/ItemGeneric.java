@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.item;
 
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class ItemGeneric extends Item {
 
     @Override
     public boolean hasGlint(ItemStack stack) {
-        if (this == IafItemRegistry.CREATIVE_DRAGON_MEAL) {
+        if (this == IafItems.CREATIVE_DRAGON_MEAL) {
             return true;
         } else {
             return super.hasGlint(stack);

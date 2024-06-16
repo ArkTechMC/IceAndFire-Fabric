@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -147,9 +147,9 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
 
     public Item getDragonSkullItem() {
         return switch (this.getDragonType()) {
-            case 1 -> IafItemRegistry.DRAGON_SKULL_ICE;
-            case 2 -> IafItemRegistry.DRAGON_SKULL_LIGHTNING;
-            default -> IafItemRegistry.DRAGON_SKULL_FIRE;
+            case 1 -> IafItems.DRAGON_SKULL_ICE;
+            case 2 -> IafItems.DRAGON_SKULL_LIGHTNING;
+            default -> IafItems.DRAGON_SKULL_FIRE;
         };
     }
 

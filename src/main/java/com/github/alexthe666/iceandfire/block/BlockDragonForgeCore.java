@@ -1,8 +1,11 @@
 package com.github.alexthe666.iceandfire.block;
 
-import com.github.alexthe666.iceandfire.entity.DragonType;
-import com.github.alexthe666.iceandfire.entity.tile.IafTileEntityRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
+import com.github.alexthe666.iceandfire.block.util.IDragonProof;
+import com.github.alexthe666.iceandfire.block.util.INoTab;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForge;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
+import com.github.alexthe666.iceandfire.registry.IafBlockEntities;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -32,7 +35,7 @@ public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProo
         this.activated = activated;
     }
 
-    static String name(int dragonType, boolean activated) {
+    public static String name(int dragonType, boolean activated) {
         return "dragonforge_%s_core%s".formatted(DragonType.getNameFromInt(dragonType), activated ? "" : "_disabled");
     }
 
@@ -40,19 +43,16 @@ public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProo
         BlockEntity blockEntity = worldIn.getBlockEntity(pos);
         if (active) {
             switch (dragonType) {
-                case 0 -> worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE.getDefaultState(), 3);
-                case 1 -> worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE.getDefaultState(), 3);
-                case 2 ->
-                        worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE.getDefaultState(), 3);
+                case 0 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_FIRE_CORE.getDefaultState(), 3);
+                case 1 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_ICE_CORE.getDefaultState(), 3);
+                case 2 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_LIGHTNING_CORE.getDefaultState(), 3);
             }
         } else {
             switch (dragonType) {
-                case 0 ->
-                        worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.getDefaultState(), 3);
-                case 1 ->
-                        worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.getDefaultState(), 3);
+                case 0 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_FIRE_CORE_DISABLED.getDefaultState(), 3);
+                case 1 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_ICE_CORE_DISABLED.getDefaultState(), 3);
                 case 2 ->
-                        worldIn.setBlockState(pos, IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.getDefaultState(), 3);
+                        worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_LIGHTNING_CORE_DISABLED.getDefaultState(), 3);
             }
         }
         if (blockEntity != null) {
@@ -76,9 +76,9 @@ public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProo
 
     public ItemStack getItem(World world, BlockPos pos, BlockState state) {
         return switch (this.isFire) {
-            case 1 -> new ItemStack(IafBlockRegistry.DRAGONFORGE_ICE_CORE_DISABLED.asItem());
-            case 2 -> new ItemStack(IafBlockRegistry.DRAGONFORGE_LIGHTNING_CORE_DISABLED.asItem());
-            default -> new ItemStack(IafBlockRegistry.DRAGONFORGE_FIRE_CORE_DISABLED.asItem());
+            case 1 -> new ItemStack(IafBlocks.DRAGONFORGE_ICE_CORE_DISABLED.asItem());
+            case 2 -> new ItemStack(IafBlocks.DRAGONFORGE_LIGHTNING_CORE_DISABLED.asItem());
+            default -> new ItemStack(IafBlocks.DRAGONFORGE_FIRE_CORE_DISABLED.asItem());
         };
     }
 
@@ -90,8 +90,8 @@ public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProo
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof TileEntityDragonforge) {
-            ItemScatterer.spawn(world, pos, (TileEntityDragonforge) blockEntity);
+        if (blockEntity instanceof BlockEntityDragonForge) {
+            ItemScatterer.spawn(world, pos, (BlockEntityDragonForge) blockEntity);
             world.updateComparators(pos, this);
             world.removeBlockEntity(pos);
         }
@@ -115,11 +115,11 @@ public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProo
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> entityType) {
-        return checkType(entityType, IafTileEntityRegistry.DRAGONFORGE_CORE, TileEntityDragonforge::tick);
+        return checkType(entityType, IafBlockEntities.DRAGONFORGE_CORE, BlockEntityDragonForge::tick);
     }
 
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new TileEntityDragonforge(pos, state, this.isFire);
+        return new BlockEntityDragonForge(pos, state, this.isFire);
     }
 }

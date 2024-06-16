@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.client.render.entity.layer;
 
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.iceandfire.client.texture.ArrayLayeredTexture;
-import com.github.alexthe666.iceandfire.entity.DragonType;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
 import com.github.alexthe666.iceandfire.enums.EnumDragonTextures;
 import com.google.common.collect.Maps;
 import net.minecraft.client.MinecraftClient;

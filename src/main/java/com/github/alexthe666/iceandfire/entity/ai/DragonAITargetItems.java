@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 import com.github.alexthe666.iceandfire.api.FoodUtils;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
@@ -24,7 +24,7 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
 
     protected ItemEntity targetEntity;
 
-    private List<ItemEntity> list = IAFMath.emptyItemEntityList;
+    private List<ItemEntity> list = IafMath.emptyItemEntityList;
 
     public DragonAITargetItems(EntityDragonBase creature, boolean checkSight) {
         this(creature, 20, checkSight, false, false);
@@ -58,7 +58,7 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
         }
 
         if (dragon.getHunger() >= 100 || !dragon.canMove() || (this.targetChance > 0 && this.mob.getRandom().nextInt(10) != 0)) {
-            this.list = IAFMath.emptyItemEntityList;
+            this.list = IafMath.emptyItemEntityList;
             return false;
         } else {
             return this.updateList();

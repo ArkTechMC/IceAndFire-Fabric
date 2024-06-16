@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -60,7 +60,7 @@ public class ItemStoneStatue extends Item {
             if (stack.getNbt() != null) {
                 String id = stack.getNbt().getString("IAFStoneStatueEntityID");
                 NbtCompound statueNBT = stack.getNbt().getCompound("IAFStoneStatueNBT");
-                EntityStoneStatue statue = new EntityStoneStatue(IafEntityRegistry.STONE_STATUE, context.getWorld());
+                EntityStoneStatue statue = new EntityStoneStatue(IafEntities.STONE_STATUE, context.getWorld());
                 statue.readCustomDataFromNbt(statueNBT);
                 statue.setTrappedEntityTypeString(id);
                 double d1 = context.getPlayer().getX() - (context.getBlockPos().getX() + 0.5);

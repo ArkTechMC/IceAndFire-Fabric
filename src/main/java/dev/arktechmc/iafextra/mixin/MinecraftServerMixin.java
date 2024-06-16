@@ -1,7 +1,7 @@
 package dev.arktechmc.iafextra.mixin;
 
 import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.arktechmc.iafextra.IceAndFire;
 import dev.arktechmc.iafextra.StaticVariables;
@@ -25,7 +25,7 @@ public class MinecraftServerMixin {
 
     @Inject(method = "prepareStartRegion", at = @At("HEAD"))
     private void beforeLoadingWorld(CallbackInfo ci) {
-        IceAndFire.LOGGER.info(IafEntityRegistry.LOADED_ENTITIES);
+        IceAndFire.LOGGER.info(IafEntities.LOADED_ENTITIES);
         //TODO
 //        ServerEvents.addNewVillageBuilding((MinecraftServer) (Object) this);
         Citadel.onServerAboutToStart();

@@ -2,13 +2,14 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityEggInIce;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityEggInIce;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonType;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafBlocks;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.collect.ImmutableList;
 import dev.arktechmc.iafextra.util.BlockUtil;
 import net.minecraft.block.BlockState;
@@ -144,9 +145,9 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
         } else if (dragonType == DragonType.ICE) {
             BlockState state = this.getWorld().getBlockState(this.getBlockPos());
             if (state.isOf(Blocks.WATER) && this.getRandom().nextInt(500) == 0) {
-                this.getWorld().setBlockState(this.getBlockPos(), IafBlockRegistry.EGG_IN_ICE.getDefaultState());
+                this.getWorld().setBlockState(this.getBlockPos(), IafBlocks.EGG_IN_ICE.getDefaultState());
                 this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), SoundEvents.BLOCK_GLASS_BREAK, this.getSoundCategory(), 2.5F, 1.0F, false);
-                if (this.getWorld().getBlockEntity(this.getBlockPos()) instanceof TileEntityEggInIce eggInIce) {
+                if (this.getWorld().getBlockEntity(this.getBlockPos()) instanceof BlockEntityEggInIce eggInIce) {
                     eggInIce.type = this.getEggType();
                     eggInIce.ownerUUID = this.getOwnerId();
                 }
@@ -208,7 +209,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
                 this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 2.5F, 1.0F, false);
             }
 
-            this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), IafSoundRegistry.EGG_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
+            this.getWorld().playSound(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ(), IafSounds.EGG_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
             this.remove(RemovalReason.DISCARDED);
         }
     }
@@ -246,18 +247,18 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
 
     private ItemStack getItem() {
         return switch (this.getEggType().ordinal()) {
-            default -> new ItemStack(IafItemRegistry.DRAGONEGG_RED);
-            case 1 -> new ItemStack(IafItemRegistry.DRAGONEGG_GREEN);
-            case 2 -> new ItemStack(IafItemRegistry.DRAGONEGG_BRONZE);
-            case 3 -> new ItemStack(IafItemRegistry.DRAGONEGG_GRAY);
-            case 4 -> new ItemStack(IafItemRegistry.DRAGONEGG_BLUE);
-            case 5 -> new ItemStack(IafItemRegistry.DRAGONEGG_WHITE);
-            case 6 -> new ItemStack(IafItemRegistry.DRAGONEGG_SAPPHIRE);
-            case 7 -> new ItemStack(IafItemRegistry.DRAGONEGG_SILVER);
-            case 8 -> new ItemStack(IafItemRegistry.DRAGONEGG_ELECTRIC);
-            case 9 -> new ItemStack(IafItemRegistry.DRAGONEGG_AMYTHEST);
-            case 10 -> new ItemStack(IafItemRegistry.DRAGONEGG_COPPER);
-            case 11 -> new ItemStack(IafItemRegistry.DRAGONEGG_BLACK);
+            default -> new ItemStack(IafItems.DRAGONEGG_RED);
+            case 1 -> new ItemStack(IafItems.DRAGONEGG_GREEN);
+            case 2 -> new ItemStack(IafItems.DRAGONEGG_BRONZE);
+            case 3 -> new ItemStack(IafItems.DRAGONEGG_GRAY);
+            case 4 -> new ItemStack(IafItems.DRAGONEGG_BLUE);
+            case 5 -> new ItemStack(IafItems.DRAGONEGG_WHITE);
+            case 6 -> new ItemStack(IafItems.DRAGONEGG_SAPPHIRE);
+            case 7 -> new ItemStack(IafItems.DRAGONEGG_SILVER);
+            case 8 -> new ItemStack(IafItems.DRAGONEGG_ELECTRIC);
+            case 9 -> new ItemStack(IafItems.DRAGONEGG_AMYTHEST);
+            case 10 -> new ItemStack(IafItems.DRAGONEGG_COPPER);
+            case 11 -> new ItemStack(IafItems.DRAGONEGG_BLACK);
         };
     }
 

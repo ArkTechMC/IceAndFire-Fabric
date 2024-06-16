@@ -3,8 +3,8 @@ package com.github.alexthe666.iceandfire.client.gui;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.ClientProxy;
 import com.github.alexthe666.iceandfire.client.gui.bestiary.ChangePageButton;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageGetMyrmexHive;
+import com.github.alexthe666.iceandfire.registry.IafItems;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -38,7 +38,7 @@ public class GuiMyrmexStaff extends Screen {
 
     public GuiMyrmexStaff(ItemStack staff) {
         super(Text.translatable("myrmex_staff_screen"));
-        this.jungle = staff.getItem() == IafItemRegistry.MYRMEX_JUNGLE_STAFF;
+        this.jungle = staff.getItem() == IafItems.MYRMEX_JUNGLE_STAFF;
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexEgg;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -21,7 +21,7 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
     protected final Predicate<? super LivingEntity> targetEntitySelector;
     protected LivingEntity targetEntity;
 
-    private List<LivingEntity> listBabies = IAFMath.emptyLivingEntityList;
+    private List<LivingEntity> listBabies = IafMath.emptyLivingEntityList;
 
     public MyrmexAIPickupBabies(EntityMyrmexWorker myrmex) {
         super(myrmex, false, false);
@@ -36,7 +36,7 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
     @Override
     public boolean canStart() {
         if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || !this.myrmex.getNavigation().isIdle() || this.myrmex.shouldEnterHive() || !this.myrmex.keepSearching || this.myrmex.holdingBaby()) {
-            this.listBabies = IAFMath.emptyLivingEntityList;
+            this.listBabies = IafMath.emptyLivingEntityList;
             return false;
         }
 

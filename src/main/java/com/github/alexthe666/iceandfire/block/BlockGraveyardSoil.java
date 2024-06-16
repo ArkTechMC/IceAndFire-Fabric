@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;
@@ -30,7 +30,7 @@ public class BlockGraveyardSoil extends Block {
                 int checkRange = 32;
                 int k = worldIn.getNonSpectatingEntities(EntityGhost.class, (new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1)).expand(checkRange)).size();
                 if (k < 10) {
-                    EntityGhost ghost = IafEntityRegistry.GHOST.create(worldIn);
+                    EntityGhost ghost = IafEntities.GHOST.create(worldIn);
                     assert ghost != null;
                     ghost.updatePositionAndAngles(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, ThreadLocalRandom.current().nextFloat() * 360F, 0);
                     ghost.initialize(worldIn, worldIn.getLocalDifficulty(pos), SpawnReason.SPAWNER, null, null);

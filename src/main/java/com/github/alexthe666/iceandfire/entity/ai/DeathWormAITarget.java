@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.mob.HostileEntity;
@@ -25,7 +25,7 @@ public class DeathWormAITarget<T extends LivingEntity> extends ActiveTargetGoal<
     public boolean canStart() {
         boolean canUse = super.canStart();
 
-        if (canUse && this.targetEntity != null && this.targetEntity.getType() != (IafEntityRegistry.DEATH_WORM)) {
+        if (canUse && this.targetEntity != null && this.targetEntity.getType() != (IafEntities.DEATH_WORM)) {
             if (this.targetEntity instanceof PlayerEntity && !this.deathworm.isOwner(this.targetEntity)) {
                 return !this.deathworm.isTamed();
             } else if (this.deathworm.isOwner(this.targetEntity)) {

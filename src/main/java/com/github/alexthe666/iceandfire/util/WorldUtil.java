@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.util;
 
+import com.github.alexthe666.iceandfire.registry.IafFeatures;
 import com.github.alexthe666.iceandfire.world.IafWorldData;
-import com.github.alexthe666.iceandfire.world.IafWorldRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKey;
@@ -228,7 +228,7 @@ public class WorldUtil {
     }
 
     public static boolean canGenerate(int configChance, final StructureWorldAccess level, final Random random, final BlockPos origin, final String id, final IafWorldData.FeatureType type, boolean checkFluid) {
-        boolean canGenerate = random.nextInt(configChance) == 0 && IafWorldRegistry.isFarEnoughFromSpawn(level, origin) && IafWorldRegistry.isFarEnoughFromDangerousGen(level, origin, id, type);
+        boolean canGenerate = random.nextInt(configChance) == 0 && IafFeatures.isFarEnoughFromSpawn(level, origin) && IafFeatures.isFarEnoughFromDangerousGen(level, origin, id, type);
 
         if (canGenerate && checkFluid) {
             if (!level.getFluidState(origin.down()).isEmpty()) {

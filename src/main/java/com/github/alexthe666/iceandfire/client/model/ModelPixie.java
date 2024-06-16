@@ -3,8 +3,8 @@ package com.github.alexthe666.iceandfire.client.model;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.github.alexthe666.iceandfire.entity.EntityPixie;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityJar;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityPixieHouse;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
@@ -162,7 +162,7 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
 
     }
 
-    public void animateInHouse(TileEntityPixieHouse house) {
+    public void animateInHouse(BlockEntityPixieHouse house) {
         this.resetToDefaultPose();
         float speed_fly = 1.1F;
         float speed_idle = 0.05F;
@@ -213,7 +213,7 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
         */
     }
 
-    public void animateInJar(boolean sitting, TileEntityJar jar, float headRot) {
+    public void animateInJar(boolean sitting, BlockEntityJar jar, float headRot) {
         this.resetToDefaultPose();
         float speed_fly = 1.1F;
         float speed_idle = 0.05F;

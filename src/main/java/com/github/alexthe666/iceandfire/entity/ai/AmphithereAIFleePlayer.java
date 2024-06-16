@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityAmphithere;
-import com.github.alexthe666.iceandfire.util.IAFMath;
+import com.github.alexthe666.iceandfire.util.IafMath;
 import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -20,7 +20,7 @@ public class AmphithereAIFleePlayer extends Goal {
     protected PlayerEntity closestLivingEntity;
     private Path path;
 
-    private List<PlayerEntity> list = IAFMath.emptyPlayerEntityList;
+    private List<PlayerEntity> list = IafMath.emptyPlayerEntityList;
 
     public AmphithereAIFleePlayer(EntityAmphithere entityIn, float avoidDistanceIn, double farSpeedIn, double nearSpeedIn) {
         this.entity = entityIn;
@@ -53,7 +53,7 @@ public class AmphithereAIFleePlayer extends Goal {
             }
 
         } else {
-            this.list = IAFMath.emptyPlayerEntityList;
+            this.list = IafMath.emptyPlayerEntityList;
             return false;
         }
     }

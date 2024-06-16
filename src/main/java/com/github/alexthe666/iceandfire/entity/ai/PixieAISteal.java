@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.IafConfig;
 import com.github.alexthe666.iceandfire.entity.EntityPixie;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -84,7 +84,7 @@ public class PixieAISteal extends Goal {
                 this.temptedEntity.setStackInHand(Hand.MAIN_HAND, randomItem);
                 this.temptingPlayer.getInventory().removeStack(slot);
                 this.temptedEntity.flipAI(true);
-                this.temptedEntity.playSound(IafSoundRegistry.PIXIE_TAUNT, 1F, 1F);
+                this.temptedEntity.playSound(IafSounds.PIXIE_TAUNT, 1F, 1F);
 
                 for (EntityPixie pixie : this.temptingPlayer.getWorld().getNonSpectatingEntities(EntityPixie.class, this.temptedEntity.getBoundingBox().expand(40))) {
                     pixie.stealCooldown = 1000 + pixie.getRandom().nextInt(3000);

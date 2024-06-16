@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
-import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IDragonProjectile;
+import com.github.alexthe666.iceandfire.entity.util.dragon.IafDragonDestructionManager;
+import com.github.alexthe666.iceandfire.registry.IafDamageTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -27,7 +28,7 @@ public class EntityDragonLightningCharge extends EntityDragonCharge implements I
 
     @Override
     public DamageSource causeDamage(Entity cause) {
-        return IafDamageRegistry.causeDragonLightningDamage(cause);
+        return IafDamageTypes.causeDragonLightningDamage(cause);
     }
 
     @Override

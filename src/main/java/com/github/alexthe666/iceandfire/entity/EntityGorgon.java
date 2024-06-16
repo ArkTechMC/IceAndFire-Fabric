@@ -4,13 +4,14 @@ import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.iceandfire.IafConfig;
-import com.github.alexthe666.iceandfire.client.particle.IafParticleRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.github.alexthe666.iceandfire.entity.util.*;
+import com.github.alexthe666.iceandfire.entity.util.dragon.DragonUtils;
 import com.github.alexthe666.iceandfire.event.ServerEvents;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafDamageRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafDamageTypes;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafParticles;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import com.google.common.base.Predicate;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -62,7 +63,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     }
 
     public static boolean isBlindfolded(LivingEntity attackTarget) {
-        return attackTarget != null && (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItemRegistry.BLINDFOLD || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || ServerEvents.isBlindMob(attackTarget));
+        return attackTarget != null && (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItems.BLINDFOLD || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || ServerEvents.isBlindMob(attackTarget));
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -169,7 +170,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
                 double d2 = 0.4;
                 double d0 = 0.1;
                 double d1 = 0.1;
-                this.getWorld().addParticle(IafParticleRegistry.BLOOD, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY(), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
+                this.getWorld().addParticle(IafParticles.BLOOD, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY(), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), d2, d0, d1);
             }
         }
         if (this.deathTime >= 200) {
@@ -214,7 +215,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
             boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) attackTarget).canBeTurnedToStone();
             if (!blindness && this.deathTime == 0) {
                 if (this.getAnimation() != ANIMATION_SCARE) {
-                    this.playSound(IafSoundRegistry.GORGON_ATTACK, 1, 1);
+                    this.playSound(IafSounds.GORGON_ATTACK, 1, 1);
                     this.setAnimation(ANIMATION_SCARE);
                 }
                 if (this.getAnimation() == ANIMATION_SCARE) {
@@ -234,7 +235,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
                                 this.playerStatueCooldown = 40;
                                 if (attackTarget instanceof PlayerEntity) {
 
-                                    attackTarget.damage(IafDamageRegistry.causeGorgonDamage(this), Integer.MAX_VALUE);
+                                    attackTarget.damage(IafDamageTypes.causeGorgonDamage(this), Integer.MAX_VALUE);
                                 } else {
                                     attackTarget.remove(RemovalReason.KILLED);
                                 }
@@ -304,17 +305,17 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return IafSoundRegistry.GORGON_IDLE;
+        return IafSounds.GORGON_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return IafSoundRegistry.GORGON_HURT;
+        return IafSounds.GORGON_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return IafSoundRegistry.GORGON_DIE;
+        return IafSounds.GORGON_DIE;
     }
 
     @Override

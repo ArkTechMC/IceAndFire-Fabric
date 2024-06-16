@@ -6,7 +6,7 @@ import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResul
 import com.github.alexthe666.iceandfire.block.BlockMyrmexCocoon;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
+import com.github.alexthe666.iceandfire.entity.block.BlockEntityMyrmexCocoon;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.world.gen.WorldGenMyrmexHive;
 import net.minecraft.block.entity.BlockEntity;
@@ -86,7 +86,7 @@ public class MyrmexAIStoreItems extends Goal {
         if (!this.first && this.nextCocoon != null) {
             final double dist = 9.0D; // 3 * 3
             if (this.myrmex.isCloseEnoughToTarget(this.nextCocoon, dist) && !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty() && this.isUseableCocoon(this.nextCocoon)) {
-                TileEntityMyrmexCocoon cocoon = (TileEntityMyrmexCocoon) this.myrmex.getWorld().getBlockEntity(this.nextCocoon);
+                BlockEntityMyrmexCocoon cocoon = (BlockEntityMyrmexCocoon) this.myrmex.getWorld().getBlockEntity(this.nextCocoon);
                 ItemStack itemstack = this.myrmex.getStackInHand(Hand.MAIN_HAND);
                 if (!itemstack.isEmpty()) {
                     for (int i = 0; i < cocoon.size(); ++i) {
@@ -144,8 +144,8 @@ public class MyrmexAIStoreItems extends Goal {
         List<BlockPos> closeCocoons = new ArrayList<>();
         BlockPos.stream(roomCenter.add(-RADIUS_XZ, -RADIUS_Y, -RADIUS_XZ), roomCenter.add(RADIUS_XZ, RADIUS_Y, RADIUS_XZ)).forEach(blockpos -> {
             BlockEntity te = this.myrmex.getWorld().getBlockEntity(blockpos);
-            if (te instanceof TileEntityMyrmexCocoon) {
-                if (!((TileEntityMyrmexCocoon) te).isFull(this.myrmex.getStackInHand(Hand.MAIN_HAND))) {
+            if (te instanceof BlockEntityMyrmexCocoon) {
+                if (!((BlockEntityMyrmexCocoon) te).isFull(this.myrmex.getStackInHand(Hand.MAIN_HAND))) {
                     closeCocoons.add(te.getPos());
                 }
             }
@@ -157,8 +157,8 @@ public class MyrmexAIStoreItems extends Goal {
     }
 
     public boolean isUseableCocoon(BlockPos blockpos) {
-        if (this.myrmex.getWorld().getBlockState(blockpos).getBlock() instanceof BlockMyrmexCocoon && this.myrmex.getWorld().getBlockEntity(blockpos) != null && this.myrmex.getWorld().getBlockEntity(blockpos) instanceof TileEntityMyrmexCocoon) {
-            return !((TileEntityMyrmexCocoon) this.myrmex.getWorld().getBlockEntity(blockpos)).isFull(this.myrmex.getStackInHand(Hand.MAIN_HAND));
+        if (this.myrmex.getWorld().getBlockState(blockpos).getBlock() instanceof BlockMyrmexCocoon && this.myrmex.getWorld().getBlockEntity(blockpos) != null && this.myrmex.getWorld().getBlockEntity(blockpos) instanceof BlockEntityMyrmexCocoon) {
+            return !((BlockEntityMyrmexCocoon) this.myrmex.getWorld().getBlockEntity(blockpos)).isFull(this.myrmex.getStackInHand(Hand.MAIN_HAND));
         }
         return false;
     }

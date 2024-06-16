@@ -1,8 +1,9 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.entity.EntityPixieCharge;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
+import com.github.alexthe666.iceandfire.registry.IafItems;
+import com.github.alexthe666.iceandfire.registry.IafSounds;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -47,13 +48,13 @@ public class ItemPixieWand extends Item {
             d2 = d2 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d3 = d3 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
             d4 = d4 + playerIn.getRandom().nextGaussian() * 0.007499999832361937D * inaccuracy;
-            EntityPixieCharge charge = new EntityPixieCharge(IafEntityRegistry.PIXIE_CHARGE, worldIn, playerIn,
+            EntityPixieCharge charge = new EntityPixieCharge(IafEntities.PIXIE_CHARGE, worldIn, playerIn,
                     d2, d3, d4);
             charge.setPosition(playerIn.getX(), playerIn.getY() + 1, playerIn.getZ());
             if (!worldIn.isClient) {
                 worldIn.spawnEntity(charge);
             }
-            playerIn.playSound(IafSoundRegistry.PIXIE_WAND, 1F, 0.75F + 0.5F * playerIn.getRandom().nextFloat());
+            playerIn.playSound(IafSounds.PIXIE_WAND, 1F, 0.75F + 0.5F * playerIn.getRandom().nextFloat());
             itemstack.damage(1, playerIn, (player) -> player.sendToolBreakStatus(playerIn.getActiveHand()));
             playerIn.getItemCooldownManager().set(this, 5);
         }
@@ -62,7 +63,7 @@ public class ItemPixieWand extends Item {
 
     public boolean isInfinite(ItemStack stack, ItemStack bow, PlayerEntity player) {
         int enchant = EnchantmentHelper.getLevel(Enchantments.INFINITY, bow);
-        return enchant > 0 && stack.getItem() == IafItemRegistry.PIXIE_DUST;
+        return enchant > 0 && stack.getItem() == IafItems.PIXIE_DUST;
     }
 
     private ItemStack findAmmo(PlayerEntity player) {
@@ -84,7 +85,7 @@ public class ItemPixieWand extends Item {
     }
 
     protected boolean isAmmo(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() == IafItemRegistry.PIXIE_DUST;
+        return !stack.isEmpty() && stack.getItem() == IafItems.PIXIE_DUST;
     }
 
 

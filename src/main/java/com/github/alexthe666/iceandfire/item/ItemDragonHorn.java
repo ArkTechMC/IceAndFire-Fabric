@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.item;
 
 
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -26,7 +26,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemDragonHorn extends Item {
-
     public ItemDragonHorn() {
         super((new Settings())/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
     }
@@ -36,11 +35,11 @@ public class ItemDragonHorn extends Item {
             String id = stack.getNbt().getString("DragonHornEntityID");
             if (EntityType.get(id).isPresent()) {
                 EntityType<?> entityType = EntityType.get(id).get();
-                if (entityType == IafEntityRegistry.FIRE_DRAGON)
+                if (entityType == IafEntities.FIRE_DRAGON)
                     return 1;
-                if (entityType == IafEntityRegistry.ICE_DRAGON)
+                if (entityType == IafEntities.ICE_DRAGON)
                     return 2;
-                if (entityType == IafEntityRegistry.LIGHTNING_DRAGON)
+                if (entityType == IafEntities.LIGHTNING_DRAGON)
                     return 3;
             }
         }
@@ -153,13 +152,13 @@ public class ItemDragonHorn extends Item {
     }
 
     private Formatting getTextColorForEntityType(EntityType type) {
-        if (type == IafEntityRegistry.FIRE_DRAGON)
+        if (type == IafEntities.FIRE_DRAGON)
             return Formatting.DARK_RED;
 
-        if (type == IafEntityRegistry.ICE_DRAGON)
+        if (type == IafEntities.ICE_DRAGON)
             return Formatting.BLUE;
 
-        if (type == IafEntityRegistry.LIGHTNING_DRAGON)
+        if (type == IafEntities.LIGHTNING_DRAGON)
             return Formatting.DARK_PURPLE;
 
         return Formatting.GRAY;
