@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.client.render.entity.layer;
 
+import com.google.common.collect.Maps;
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.client.texture.ArrayLayeredTexture;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
-import com.google.common.collect.Maps;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

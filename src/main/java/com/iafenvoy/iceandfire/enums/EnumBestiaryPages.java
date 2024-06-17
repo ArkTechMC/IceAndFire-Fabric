@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.enums;
 
-import com.iafenvoy.iceandfire.item.ItemBestiary;
 import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
+import com.iafenvoy.iceandfire.item.ItemBestiary;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 

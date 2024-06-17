@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.entity;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
@@ -116,13 +116,13 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.seaSerpentBaseHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().seaSerpentBaseHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
                 //FALLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.dragonTargetSearchLength))
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.getInstance().dragonTargetSearchLength))
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 3.0D);
     }
@@ -189,8 +189,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.seaSerpentBaseHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.dragonTargetSearchLength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().seaSerpentBaseHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragonTargetSearchLength));
         this.updateAttributes();
     }
 
@@ -369,9 +369,9 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     private void updateAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.25D, 0.15D * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafConfig.seaSerpentAttackStrength * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafConfig.seaSerpentBaseHealth * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.dragonTargetSearchLength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafConfig.getInstance().seaSerpentAttackStrength * this.getSeaSerpentScale() * this.getAncientModifier()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafConfig.getInstance().seaSerpentBaseHealth * this.getSeaSerpentScale() * this.getAncientModifier()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragonTargetSearchLength));
         this.heal(30F * this.getSeaSerpentScale());
     }
 
@@ -611,25 +611,19 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public void breakBlock() {
-        if (IafConfig.seaSerpentGriefing) {
-            for (int a = (int) Math.round(this.getBoundingBox().minX) - 2; a <= (int) Math.round(this.getBoundingBox().maxX) + 2; a++) {
-                for (int b = (int) Math.round(this.getBoundingBox().minY) - 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++) {
+        if (IafConfig.getInstance().seaSerpentGriefing)
+            for (int a = (int) Math.round(this.getBoundingBox().minX) - 2; a <= (int) Math.round(this.getBoundingBox().maxX) + 2; a++)
+                for (int b = (int) Math.round(this.getBoundingBox().minY) - 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++)
                     for (int c = (int) Math.round(this.getBoundingBox().minZ) - 2; c <= (int) Math.round(this.getBoundingBox().maxZ) + 2; c++) {
                         BlockPos pos = new BlockPos(a, b, c);
                         BlockState state = this.getWorld().getBlockState(pos);
                         FluidState fluidState = this.getWorld().getFluidState(pos);
                         Block block = state.getBlock();
-                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable || state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty()) {
-                            if (block != Blocks.AIR) {
-                                if (!this.getWorld().isClient) {
+                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable || state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty())
+                            if (block != Blocks.AIR)
+                                if (!this.getWorld().isClient)
                                     this.getWorld().breakBlock(pos, true);
-                                }
-                            }
-                        }
                     }
-                }
-            }
-        }
     }
 
     @Override

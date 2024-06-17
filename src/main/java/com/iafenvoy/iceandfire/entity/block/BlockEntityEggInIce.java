@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.block;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
@@ -32,7 +32,7 @@ public class BlockEntityEggInIce extends BlockEntity {
 
     public static void tickEgg(World level, BlockPos pos, BlockState state, BlockEntityEggInIce entityEggInIce) {
         entityEggInIce.age++;
-        if (entityEggInIce.age >= IafConfig.dragonEggTime && entityEggInIce.type != null && !entityEggInIce.spawned)
+        if (entityEggInIce.age >= IafConfig.getInstance().dragonEggTime && entityEggInIce.type != null && !entityEggInIce.spawned)
             if (!level.isClient) {
                 EntityIceDragon dragon = new EntityIceDragon(level);
                 dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.block.BlockGoldPile;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.util.WorldUtil;
@@ -46,7 +46,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafConfig.generateDragonRoostChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
+        if (!WorldUtil.canGenerate(IafConfig.getInstance().generateDragonRoostChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
 

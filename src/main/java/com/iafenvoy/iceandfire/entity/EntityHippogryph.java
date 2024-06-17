@@ -5,7 +5,7 @@ import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.datagen.tags.IafItemTags;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAIMate;
@@ -126,14 +126,14 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.hippogryphFlightSpeedMod)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.getInstance().hippogryphFlightSpeedMod)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.0D)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafConfig.hippogryphFlightSpeedMod);
+        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafConfig.getInstance().hippogryphFlightSpeedMod);
     }
 
     protected boolean isOverAir() {
@@ -572,7 +572,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     public double getFlightSpeedModifier() {
-        return IafConfig.hippogryphFlightSpeedMod * 0.9F;
+        return IafConfig.getInstance().hippogryphFlightSpeedMod * 0.9F;
     }
 
     @Override
@@ -861,7 +861,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
             this.setVelocity(this.getVelocity().add(0, up, 0));
         }
         if ((flying || hovering) && this.age % 20 == 0 && this.isOverAir()) {
-            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafConfig.dragonFlapNoiseDistance / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
+            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafConfig.getInstance().dragonFlapNoiseDistance / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
         }
         if (this.isOnGround() && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
             this.setFlying(false);

@@ -4,8 +4,8 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.CyclopsAIAttackMelee;
 import com.iafenvoy.iceandfire.entity.ai.CyclopsAITargetSheepPlayers;
 import com.iafenvoy.iceandfire.entity.util.*;
@@ -74,11 +74,11 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.cyclopsMaxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().cyclopsMaxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.cyclopsAttackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().cyclopsAttackStrength)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
                 //ARMOR
@@ -87,7 +87,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.cyclopsMaxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().cyclopsMaxHealth);
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.35D);
     }
 
@@ -221,7 +221,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             double extraZ = radius * MathHelper.cos(angle);
             passenger.setPosition(this.getX() + extraX, this.getY() + raiseUp, this.getZ() + extraZ);
             if (this.getAnimationTick() == 32) {
-                passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafConfig.cyclopsBiteStrength);
+                passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafConfig.getInstance().cyclopsBiteStrength);
                 passenger.stopRiding();
             }
         }
@@ -315,9 +315,9 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     public void breakBlock() {
-        if (IafConfig.cyclopsGriefing) {
-            for (int a = (int) Math.round(this.getBoundingBox().minX) - 1; a <= (int) Math.round(this.getBoundingBox().maxX) + 1; a++) {
-                for (int b = (int) Math.round(this.getBoundingBox().minY) + 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++) {
+        if (IafConfig.getInstance().cyclopsGriefing)
+            for (int a = (int) Math.round(this.getBoundingBox().minX) - 1; a <= (int) Math.round(this.getBoundingBox().maxX) + 1; a++)
+                for (int b = (int) Math.round(this.getBoundingBox().minY) + 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++)
                     for (int c = (int) Math.round(this.getBoundingBox().minZ) - 1; c <= (int) Math.round(this.getBoundingBox().maxZ) + 1; c++) {
                         BlockPos pos = new BlockPos(a, b, c);
                         BlockState state = this.getWorld().getBlockState(pos);
@@ -325,16 +325,11 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
                         if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && !(block instanceof PlantBlock) && block != Blocks.BEDROCK && (state.getBlock() instanceof LeavesBlock || state.isIn(BlockTags.LOGS))) {
                             this.getVelocity().multiply(0.6D);
                             if (EventBus.post(new GenericGriefEvent(this, a, b, c))) continue;
-                            if (block != Blocks.AIR) {
-                                if (!this.getWorld().isClient) {
+                            if (block != Blocks.AIR)
+                                if (!this.getWorld().isClient)
                                     this.getWorld().breakBlock(pos, true);
-                                }
-                            }
                         }
                     }
-                }
-            }
-        }
     }
 
     @Override

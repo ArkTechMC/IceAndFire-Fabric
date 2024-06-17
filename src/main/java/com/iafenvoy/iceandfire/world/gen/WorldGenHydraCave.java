@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityHydra;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
@@ -44,7 +44,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
         BlockPos position = context.getOrigin();
         ChunkGenerator generator = context.getGenerator();
 
-        if (rand.nextInt(IafConfig.generateHydraChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
+        if (rand.nextInt(IafConfig.getInstance().generateHydraChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
             return false;
         }
 

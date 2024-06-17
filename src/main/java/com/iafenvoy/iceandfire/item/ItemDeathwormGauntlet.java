@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

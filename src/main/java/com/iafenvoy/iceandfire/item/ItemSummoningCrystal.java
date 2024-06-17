@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.world.DragonPosWorldData;
@@ -118,7 +118,7 @@ public class ItemSummoningCrystal extends Item {
                                 if (data != null) {
                                     dragonChunkPos = data.getDragonPos(id);
                                 }
-                                if (IafConfig.chunkLoadSummonCrystal) {
+                                if (IafConfig.getInstance().chunkLoadSummonCrystal) {
                                     try {
                                         boolean flag2 = false;
                                         if (!flag) {//server side but couldn't find dragon
@@ -173,7 +173,7 @@ public class ItemSummoningCrystal extends Item {
         if (entity instanceof EntityDragonBase) {
             ((EntityDragonBase) entity).setCrystalBound(false);
         }
-        if (IafConfig.chunkLoadSummonCrystal) {
+        if (IafConfig.getInstance().chunkLoadSummonCrystal) {
             DragonPosWorldData data = DragonPosWorldData.get(worldIn);
             if (data != null) {
                 data.removeDragon(entity.getUuid());

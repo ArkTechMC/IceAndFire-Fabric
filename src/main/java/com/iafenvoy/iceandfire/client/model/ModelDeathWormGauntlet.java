@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
-import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.feature;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityStymphalianBird;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
@@ -27,7 +27,7 @@ public class SpawnStymphalianBird extends Feature<DefaultFeatureConfig> {
 
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
-        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position) && rand.nextInt(IafConfig.stymphalianBirdSpawnChance + 1) == 0)
+        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position) && rand.nextInt(IafConfig.getInstance().stymphalianBirdSpawnChance + 1) == 0)
             for (int i = 0; i < 4 + rand.nextInt(4); i++) {
                 BlockPos pos = position.add(rand.nextInt(10) - 5, 0, rand.nextInt(10) - 5);
                 pos = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);

@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
 import com.iafenvoy.citadel.server.item.CustomToolMaterial;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.datagen.tags.BannerPatternTagGenerator;
 import com.iafenvoy.iceandfire.datagen.tags.IafItemTags;
 import com.iafenvoy.iceandfire.enums.*;
@@ -41,9 +41,9 @@ public class IafItems {
     public static final CustomArmorMaterial TROLL_MOUNTAIN_ARMOR_MATERIAL = new IafArmorMaterial("mountain troll", 20, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F);
     public static final CustomArmorMaterial TROLL_FOREST_ARMOR_MATERIAL = new IafArmorMaterial("forest troll", 20, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F);
     public static final CustomArmorMaterial TROLL_FROST_ARMOR_MATERIAL = new IafArmorMaterial("frost troll", 20, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F);
-    public static final CustomArmorMaterial DRAGONSTEEL_FIRE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_fire", (int) (0.02D * IafConfig.dragonsteelBaseDurabilityEquipment), new int[]{IafConfig.dragonsteelBaseArmor - 6, IafConfig.dragonsteelBaseArmor - 3, IafConfig.dragonsteelBaseArmor, IafConfig.dragonsteelBaseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafConfig.dragonsteelBaseArmorToughness);
-    public static final CustomArmorMaterial DRAGONSTEEL_ICE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_ice", (int) (0.02D * IafConfig.dragonsteelBaseDurabilityEquipment), new int[]{IafConfig.dragonsteelBaseArmor - 6, IafConfig.dragonsteelBaseArmor - 3, IafConfig.dragonsteelBaseArmor, IafConfig.dragonsteelBaseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafConfig.dragonsteelBaseArmorToughness);
-    public static final CustomArmorMaterial DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_lightning", (int) (0.02D * IafConfig.dragonsteelBaseDurabilityEquipment), new int[]{IafConfig.dragonsteelBaseArmor - 6, IafConfig.dragonsteelBaseArmor - 3, IafConfig.dragonsteelBaseArmor, IafConfig.dragonsteelBaseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafConfig.dragonsteelBaseArmorToughness);
+    public static final CustomArmorMaterial DRAGONSTEEL_FIRE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_fire", (int) (0.02D * IafConfig.getInstance().dragonsteelBaseDurabilityEquipment), new int[]{IafConfig.getInstance().dragonsteelBaseArmor - 6, IafConfig.getInstance().dragonsteelBaseArmor - 3, IafConfig.getInstance().dragonsteelBaseArmor, IafConfig.getInstance().dragonsteelBaseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafConfig.getInstance().dragonsteelBaseArmorToughness);
+    public static final CustomArmorMaterial DRAGONSTEEL_ICE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_ice", (int) (0.02D * IafConfig.getInstance().dragonsteelBaseDurabilityEquipment), new int[]{IafConfig.getInstance().dragonsteelBaseArmor - 6, IafConfig.getInstance().dragonsteelBaseArmor - 3, IafConfig.getInstance().dragonsteelBaseArmor, IafConfig.getInstance().dragonsteelBaseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafConfig.getInstance().dragonsteelBaseArmorToughness);
+    public static final CustomArmorMaterial DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_lightning", (int) (0.02D * IafConfig.getInstance().dragonsteelBaseDurabilityEquipment), new int[]{IafConfig.getInstance().dragonsteelBaseArmor - 6, IafConfig.getInstance().dragonsteelBaseArmor - 3, IafConfig.getInstance().dragonsteelBaseArmor, IafConfig.getInstance().dragonsteelBaseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafConfig.getInstance().dragonsteelBaseArmorToughness);
     public static final CustomToolMaterial SILVER_TOOL_MATERIAL = new CustomToolMaterial("silver", 2, 460, 1.0F, 11.0F, 18);
     public static final CustomToolMaterial COPPER_TOOL_MATERIAL = new CustomToolMaterial("copper", 2, 300, 0.0F, 0.7F, 10);
     public static final CustomToolMaterial DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("Dragonbone", 3, 1660, 4.0F, 10.0F, 22);

@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.google.common.collect.Multimap;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDeathWorm;
 import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.google.common.collect.Multimap;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -79,17 +79,17 @@ public interface DragonSteelOverrides<T extends ToolItem> {
                 target.damage(attacker.getWorld().getDamageSources().generic(), this.getAttackDamage(item) + 5.0F);
             }
         }
-        if (this.isDragonsteelFire(item.getMaterial()) && IafConfig.dragonWeaponFireAbility) {
+        if (this.isDragonsteelFire(item.getMaterial()) && IafConfig.getInstance().dragonWeaponFireAbility) {
             target.setOnFireFor(15);
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (this.isDragonsteelIce(item.getMaterial()) && IafConfig.dragonWeaponIceAbility) {
+        if (this.isDragonsteelIce(item.getMaterial()) && IafConfig.getInstance().dragonWeaponIceAbility) {
             EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
             data.frozenData.setFrozen(target, 300);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (this.isDragonsteelLightning(item.getMaterial()) && IafConfig.dragonWeaponLightningAbility) {
+        if (this.isDragonsteelLightning(item.getMaterial()) && IafConfig.getInstance().dragonWeaponLightningAbility) {
             boolean flag = true;
             if (attacker instanceof PlayerEntity) {
                 if (attacker.handSwingProgress > 0.2) {
@@ -118,13 +118,13 @@ public interface DragonSteelOverrides<T extends ToolItem> {
         if (tier == IafItems.MYRMEX_CHITIN_TOOL_MATERIAL) {
             tooltip.add(Text.translatable("myrmextools.hurt").formatted(Formatting.GREEN));
         }
-        if (this.isDragonsteelFire(tier) && IafConfig.dragonWeaponFireAbility) {
+        if (this.isDragonsteelFire(tier) && IafConfig.getInstance().dragonWeaponFireAbility) {
             tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
         }
-        if (this.isDragonsteelIce(tier) && IafConfig.dragonWeaponIceAbility) {
+        if (this.isDragonsteelIce(tier) && IafConfig.getInstance().dragonWeaponIceAbility) {
             tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
         }
-        if (this.isDragonsteelLightning(tier) && IafConfig.dragonWeaponLightningAbility) {
+        if (this.isDragonsteelLightning(tier) && IafConfig.getInstance().dragonWeaponLightningAbility) {
             tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
         }
     }

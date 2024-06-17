@@ -1,13 +1,13 @@
 package com.iafenvoy.iceandfire.client.gui;
 
+import com.google.common.collect.Lists;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.client.ClientProxy;
 import com.iafenvoy.iceandfire.client.gui.bestiary.ChangePageButton;
 import com.iafenvoy.iceandfire.message.MessageGetMyrmexHive;
+import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
-import com.google.common.collect.Lists;
-import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

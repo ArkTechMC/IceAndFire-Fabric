@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.entity.ai;
 
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
 import com.iafenvoy.iceandfire.event.EventBus;
@@ -179,8 +179,8 @@ public class MyrmexAIForage extends Goal {
         this.wanderRadius *= 2;
         // this.myrmex.setWaitTicks(80+new Random().nextInt(40));
         // Set target as random position inside wanderRadius
-        if (this.wanderRadius >= IafConfig.myrmexMaximumWanderRadius) {
-            this.wanderRadius = IafConfig.myrmexMaximumWanderRadius;
+        if (this.wanderRadius >= IafConfig.getInstance().myrmexMaximumWanderRadius) {
+            this.wanderRadius = IafConfig.getInstance().myrmexMaximumWanderRadius;
             this.myrmex.setWaitTicks(80 + ThreadLocalRandom.current().nextInt(40));
             // Keep track of how many times the myrmex has potentially not found a path to a
             // target

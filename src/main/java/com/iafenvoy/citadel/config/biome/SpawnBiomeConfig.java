@@ -1,9 +1,9 @@
 package com.iafenvoy.citadel.config.biome;
 
-import com.iafenvoy.citadel.Citadel;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.iafenvoy.citadel.Citadel;
 import net.minecraft.util.Identifier;
 import org.apache.commons.io.FileUtils;
 
@@ -44,7 +44,7 @@ public class SpawnBiomeConfig {
 
     private File getConfigDirFile() {
         Path configPath = Path.of("./config/");
-        Path jsonPath = Paths.get(configPath.toAbsolutePath().toString(), this.fileName.getNamespace());
+        Path jsonPath = Paths.get(configPath.toAbsolutePath().toString(), this.fileName.getNamespace(), "biomes");
         return jsonPath.toFile();
     }
 

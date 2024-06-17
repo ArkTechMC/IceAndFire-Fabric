@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.item.tool;
 
+import com.google.common.collect.Multimap;
 import com.iafenvoy.iceandfire.entity.EntityGhostSword;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;

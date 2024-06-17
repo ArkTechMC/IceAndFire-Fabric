@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.datagen;
 
-import com.iafenvoy.iceandfire.IceAndFire;
 import com.google.common.collect.ImmutableList;
+import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.util.IdUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.registry.Registerable;

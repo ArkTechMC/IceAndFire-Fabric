@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.GhostAICharge;
 import com.iafenvoy.iceandfire.entity.ai.GhostPathNavigator;
 import com.iafenvoy.iceandfire.entity.util.*;
@@ -68,13 +68,13 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.ghostMaxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().ghostMaxHealth)
                 //FOLLOW_RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64D)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.ghostAttackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().ghostAttackStrength)
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 1D);
     }
@@ -101,8 +101,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.ghostMaxHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.ghostAttackStrength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().ghostMaxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().ghostAttackStrength);
     }
 
     @Override

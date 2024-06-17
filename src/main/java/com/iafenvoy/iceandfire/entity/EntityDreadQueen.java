@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.entity;
 import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.iafenvoy.iceandfire.entity.util.IAnimalFear;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
@@ -39,7 +39,7 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.dreadQueenMaxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().dreadQueenMaxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK

@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.loot;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 import com.iafenvoy.iceandfire.entity.EntitySeaSerpent;
 import com.iafenvoy.iceandfire.item.ItemSeaSerpentScales;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafLoots;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.context.LootContext;

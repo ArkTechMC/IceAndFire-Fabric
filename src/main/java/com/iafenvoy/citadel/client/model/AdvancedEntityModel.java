@@ -1,8 +1,8 @@
 package com.iafenvoy.citadel.client.model;
 
+import com.google.common.collect.Maps;
 import com.iafenvoy.citadel.client.model.basic.BasicEntityModel;
 import com.iafenvoy.citadel.client.model.tabula.TextureOffset;
-import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;

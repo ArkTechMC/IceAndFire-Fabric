@@ -1,7 +1,7 @@
 package com.iafenvoy.citadel.client.model;
 
-import com.iafenvoy.citadel.client.model.tabula.TabulaModelContainer;
 import com.google.gson.*;
+import com.iafenvoy.citadel.client.model.tabula.TabulaModelContainer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.model.json.ModelTransformation;

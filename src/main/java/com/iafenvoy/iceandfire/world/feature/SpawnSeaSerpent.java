@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.feature;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntitySeaSerpent;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
@@ -29,7 +29,7 @@ public class SpawnSeaSerpent extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
         BlockPos oceanPos = worldIn.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, position.add(8, 0, 8));
 
-        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position) && rand.nextInt(IafConfig.seaSerpentSpawnChance + 1) == 0) {
+        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position) && rand.nextInt(IafConfig.getInstance().seaSerpentSpawnChance + 1) == 0) {
             BlockPos pos = oceanPos.add(rand.nextInt(10) - 5, rand.nextInt(30), rand.nextInt(10) - 5);
             if (worldIn.getFluidState(pos).getFluid() == Fluids.WATER) {
                 EntitySeaSerpent serpent = IafEntities.SEA_SERPENT.create(worldIn.toServerWorld());

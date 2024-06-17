@@ -1,5 +1,7 @@
 package com.iafenvoy.iceandfire.client.gui.bestiary;
 
+import com.google.common.collect.Maps;
+import com.google.common.primitives.Ints;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.client.StatCollector;
 import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
@@ -9,8 +11,6 @@ import com.iafenvoy.iceandfire.enums.EnumTroll;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.google.common.collect.Maps;
-import com.google.common.primitives.Ints;
 import com.iafenvoy.iceandfire.util.IdUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;

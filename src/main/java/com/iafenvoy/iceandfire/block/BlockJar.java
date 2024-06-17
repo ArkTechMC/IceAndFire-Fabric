@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.block;
 
 import com.iafenvoy.iceandfire.entity.block.BlockEntityJar;
+import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

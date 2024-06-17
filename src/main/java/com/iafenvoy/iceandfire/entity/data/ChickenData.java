@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.data;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.entity.LivingEntity;
@@ -12,14 +12,14 @@ public class ChickenData {
     public int timeUntilNextEgg = -1;
 
     public void tickChicken(final LivingEntity entity) {
-        if (!IafConfig.chickensLayRottenEggs || entity.getWorld().isClient() || !ServerEvents.isChicken(entity) || entity.isBaby())
+        if (!IafConfig.getInstance().chickensLayRottenEggs || entity.getWorld().isClient() || !ServerEvents.isChicken(entity) || entity.isBaby())
             return;
 
         if (this.timeUntilNextEgg == -1)
             this.timeUntilNextEgg = this.createDefaultTime(entity.getRandom());
 
         if (this.timeUntilNextEgg == 0) {
-            if (entity.age > 30 && entity.getRandom().nextInt(IafConfig.cockatriceEggChance + 1) == 0) {
+            if (entity.age > 30 && entity.getRandom().nextInt(IafConfig.getInstance().cockatriceEggChance + 1) == 0) {
                 entity.playSound(SoundEvents.ENTITY_CHICKEN_HURT, 2.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
                 entity.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
                 entity.dropItem(IafItems.ROTTEN_EGG, 1);

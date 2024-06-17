@@ -3,7 +3,6 @@ package com.iafenvoy.iceandfire.client.render.entity;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.client.model.ModelDragonEgg;
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.util.Identifier;

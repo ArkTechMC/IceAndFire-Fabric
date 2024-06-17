@@ -2,9 +2,9 @@ package com.iafenvoy.iceandfire.message;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
-import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import com.iafenvoy.iceandfire.network.C2SMessage;
 import com.iafenvoy.iceandfire.network.S2CMessage;
+import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;

@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.client.model.util.HideableModelRenderer;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 
 public class ModelDreadLichSkull extends AdvancedEntityModel {

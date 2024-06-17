@@ -8,11 +8,11 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNaviga
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.IPassabilityNavigator;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.block.BlockMyrmexConnectedResin;
 import com.iafenvoy.iceandfire.block.BlockMyrmexResin;
 import com.iafenvoy.iceandfire.config.BiomeConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.registry.IafItems;
@@ -245,7 +245,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         }
         if (this.getGrowthStage() < 2) {
             this.growthTicks++;
-            if (this.growthTicks == IafConfig.myrmexLarvaTicks) {
+            if (this.growthTicks == IafConfig.getInstance().myrmexLarvaTicks) {
                 this.setGrowthStage(this.getGrowthStage() + 1);
                 this.growthTicks = 0;
             }
@@ -905,7 +905,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     public int maxSearchNodes() {
-        return IafConfig.maxDragonPathingNodes;
+        return IafConfig.getInstance().maxDragonPathingNodes;
     }
 
     @Override

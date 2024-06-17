@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.feature;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.mojang.serialization.Codec;
 import net.minecraft.entity.EntityType;
@@ -29,8 +29,8 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
 
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
-        if (IafConfig.generateDragonSkeletons) {
-            if (rand.nextInt(IafConfig.generateDragonSkeletonChance + 1) == 0) {
+        if (IafConfig.getInstance().generateDragonSkeletons) {
+            if (rand.nextInt(IafConfig.getInstance().generateDragonSkeletonChance + 1) == 0) {
                 EntityDragonBase dragon = this.dragonType.create(worldIn.toServerWorld());
                 assert dragon != null;
                 dragon.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);

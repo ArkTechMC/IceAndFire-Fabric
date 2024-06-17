@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.world;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.world.gen.TypedFeature;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.NbtCompound;
@@ -57,7 +57,7 @@ public class IafWorldData extends PersistentState {
                 toRemove = entry;
             }
 
-            canGenerate = position.getSquaredDistance(entry.getSecond()) > IafConfig.dangerousWorldGenSeparationLimit * IafConfig.dangerousWorldGenSeparationLimit;
+            canGenerate = position.getSquaredDistance(entry.getSecond()) > IafConfig.getInstance().dangerousWorldGenSeparationLimit * IafConfig.getInstance().dangerousWorldGenSeparationLimit;
         }
 
         if (toRemove != null) {

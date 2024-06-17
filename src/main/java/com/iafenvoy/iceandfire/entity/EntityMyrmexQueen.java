@@ -2,9 +2,9 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.entity.util.MyrmexTrades;
@@ -66,7 +66,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 3.5D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmexBaseAttackStrength * 3.5D)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
                 //ARMOR
@@ -171,7 +171,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                 }
             }
         }
-        if (!this.getWorld().isClient && this.eggTicks > IafConfig.myrmexPregnantTicks && this.getHive() == null || !this.getWorld().isClient && this.getHive() != null && this.getHive().repopulate() && this.eggTicks > IafConfig.myrmexPregnantTicks) {
+        if (!this.getWorld().isClient && this.eggTicks > IafConfig.getInstance().myrmexPregnantTicks && this.getHive() == null || !this.getWorld().isClient && this.getHive() != null && this.getHive().repopulate() && this.eggTicks > IafConfig.getInstance().myrmexPregnantTicks) {
             float radius = -5.25F;
             float angle = (0.01745329251F * this.bodyYaw);
             double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
@@ -269,7 +269,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.myrmexBaseAttackStrength * 3.5D);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmexBaseAttackStrength * 3.5D);
     }
 
     @Override

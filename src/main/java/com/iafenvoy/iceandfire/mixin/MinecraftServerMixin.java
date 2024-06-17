@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.mixin;
 
 import com.iafenvoy.citadel.Citadel;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.StaticVariables;
+import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;

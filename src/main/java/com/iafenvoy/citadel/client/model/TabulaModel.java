@@ -1,10 +1,10 @@
 package com.iafenvoy.citadel.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
 import com.iafenvoy.citadel.client.model.tabula.TabulaCubeContainer;
 import com.iafenvoy.citadel.client.model.tabula.TabulaCubeGroupContainer;
 import com.iafenvoy.citadel.client.model.tabula.TabulaModelContainer;
-import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;

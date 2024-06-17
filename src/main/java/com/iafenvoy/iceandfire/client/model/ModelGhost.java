@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.ModelAnimator;
 import com.iafenvoy.iceandfire.client.model.util.HideableModelRenderer;
 import com.iafenvoy.iceandfire.entity.EntityGhost;
-import com.google.common.collect.ImmutableList;
 
 public class ModelGhost extends ModelBipedBase<EntityGhost> {
     public final AdvancedModelBox robe;

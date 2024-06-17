@@ -1,7 +1,7 @@
 package com.iafenvoy.citadel.config.biome;
 
-import com.iafenvoy.citadel.Citadel;
 import com.google.gson.*;
+import com.iafenvoy.citadel.Citadel;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;

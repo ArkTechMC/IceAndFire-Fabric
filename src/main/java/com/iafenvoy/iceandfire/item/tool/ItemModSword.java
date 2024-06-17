@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -27,7 +27,7 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return this.isDragonsteel(this.getMaterial()) ? IafConfig.dragonsteelBaseDurability : this.getMaterial().getDurability();
+        return this.isDragonsteel(this.getMaterial()) ? IafConfig.getInstance().dragonsteelBaseDurability : this.getMaterial().getDurability();
     }
 
     @Override
@@ -39,9 +39,9 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
-        if (this.getMaterial().getAttackDamage() != IafConfig.dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
+        if (this.getMaterial().getAttackDamage() != IafConfig.getInstance().dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
             ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> lvt_5_1_ = ImmutableMultimap.builder();
-            lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.dragonsteelBaseDamage - 1F, EntityAttributeModifier.Operation.ADDITION));
+            lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F, EntityAttributeModifier.Operation.ADDITION));
             lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.4, EntityAttributeModifier.Operation.ADDITION));
             this.dragonsteelModifiers = lvt_5_1_.build();
             return this.dragonsteelModifiers;

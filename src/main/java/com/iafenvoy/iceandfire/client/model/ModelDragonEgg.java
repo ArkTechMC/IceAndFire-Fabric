@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityEggInIce;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.tag.BlockTags;
 

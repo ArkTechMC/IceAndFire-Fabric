@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.registry.IafDamageTypes;
 import net.minecraft.entity.Entity;
@@ -57,7 +57,7 @@ public class EntityDragonFireCharge extends EntityDragonCharge {
 
     @Override
     public float getDamage() {
-        return (float) IafConfig.dragonAttackDamageFire;
+        return (float) IafConfig.getInstance().dragonAttackDamageFire;
     }
 
 }

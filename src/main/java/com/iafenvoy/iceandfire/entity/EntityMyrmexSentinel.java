@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.MyrmexTrades;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
@@ -56,7 +56,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.myrmexBaseAttackStrength * 3D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmexBaseAttackStrength * 3D)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
                 //ARMOR
@@ -186,7 +186,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.myrmexBaseAttackStrength * 3D);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmexBaseAttackStrength * 3D);
     }
 
     @Override

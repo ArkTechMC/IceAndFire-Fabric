@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.item;
 
+import com.google.common.primitives.Ints;
 import com.iafenvoy.iceandfire.client.gui.bestiary.GuiBestiary;
 import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
-import com.google.common.primitives.Ints;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.util.InputUtil;

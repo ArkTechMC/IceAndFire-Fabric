@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.armor;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.sound.SoundEvent;
 
@@ -11,17 +11,17 @@ public class DragonSteelArmorMaterial extends IafArmorMaterial {
 
     @Override
     public int getProtection(ArmorItem.Type slotIn) {
-        int[] damageReduction = new int[]{IafConfig.dragonsteelBaseArmor - 6, IafConfig.dragonsteelBaseArmor - 3, IafConfig.dragonsteelBaseArmor, IafConfig.dragonsteelBaseArmor - 5};
+        int[] damageReduction = new int[]{IafConfig.getInstance().dragonsteelBaseArmor - 6, IafConfig.getInstance().dragonsteelBaseArmor - 3, IafConfig.getInstance().dragonsteelBaseArmor, IafConfig.getInstance().dragonsteelBaseArmor - 5};
         return damageReduction[slotIn.getEquipmentSlot().getEntitySlotId()];
     }
 
     @Override
     public float getToughness() {
-        return IafConfig.dragonsteelBaseArmorToughness;
+        return IafConfig.getInstance().dragonsteelBaseArmorToughness;
     }
 
     @Override
     public int getDurability(ArmorItem.Type slotIn) {
-        return (int) (MAX_DAMAGE_ARRAY[slotIn.getEquipmentSlot().getEntitySlotId()] * 0.02D * IafConfig.dragonsteelBaseDurabilityEquipment);
+        return (int) (MAX_DAMAGE_ARRAY[slotIn.getEquipmentSlot().getEntitySlotId()] * 0.02D * IafConfig.getInstance().dragonsteelBaseDurabilityEquipment);
     }
 }

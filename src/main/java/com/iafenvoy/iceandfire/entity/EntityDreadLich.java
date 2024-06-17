@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.iafenvoy.iceandfire.entity.ai.DreadLichAIStrife;
 import com.iafenvoy.iceandfire.entity.util.IAnimalFear;
@@ -62,7 +62,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     public static boolean canLichSpawnOn(EntityType<? extends MobEntity> typeIn, ServerWorldAccess worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
         BlockPos blockpos = pos.down();
-        return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn) && randomIn.nextInt(IafConfig.lichSpawnChance) == 0;
+        return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn) && randomIn.nextInt(IafConfig.getInstance().lichSpawnChance) == 0;
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

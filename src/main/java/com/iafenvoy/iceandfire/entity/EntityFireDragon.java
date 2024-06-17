@@ -2,9 +2,9 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.event.DragonFireEvent;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
@@ -49,7 +49,7 @@ public class EntityFireDragon extends EntityDragonBase {
     }
 
     public EntityFireDragon(EntityType<?> t, World worldIn) {
-        super(t, worldIn, DragonType.FIRE, 1, 1 + IafConfig.dragonAttackDamage, IafConfig.dragonHealth * 0.04, IafConfig.dragonHealth, 0.15F, 0.4F);
+        super(t, worldIn, DragonType.FIRE, 1, 1 + IafConfig.getInstance().dragonAttackDamage, IafConfig.getInstance().dragonHealth * 0.04, IafConfig.getInstance().dragonHealth, 0.15F, 0.4F);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         ANIMATION_SPEAK = Animation.create(20);

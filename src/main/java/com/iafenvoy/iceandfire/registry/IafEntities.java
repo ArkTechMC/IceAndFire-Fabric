@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.citadel.client.model.ITabulaModelAnimator;
 import com.iafenvoy.citadel.client.model.TabulaModel;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.client.model.*;
 import com.iafenvoy.iceandfire.client.model.animator.FireDragonTabulaModelAnimator;
@@ -12,6 +11,7 @@ import com.iafenvoy.iceandfire.client.model.animator.SeaSerpentTabulaModelAnimat
 import com.iafenvoy.iceandfire.client.model.util.TabulaModelHandlerHelper;
 import com.iafenvoy.iceandfire.client.render.entity.*;
 import com.iafenvoy.iceandfire.config.BiomeConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -171,26 +171,26 @@ public class IafEntities {
     }
 
     public static void addSpawners() {
-        if (IafConfig.spawnHippogryphs) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.hippogryphSpawnRate, 1, 1);
+        if (IafConfig.getInstance().spawnHippogryphs) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphSpawnRate, 1, 1);
             LOADED_ENTITIES.put("HIPPOGRYPH", true);
         }
-        if (IafConfig.spawnLiches) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.lichSpawnRate, 1, 1);
+        if (IafConfig.getInstance().spawnLiches) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lichSpawnRate, 1, 1);
             LOADED_ENTITIES.put("DREAD_LICH", true);
         }
-        if (IafConfig.spawnCockatrices) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.cockatriceSpawnRate, 1, 2);
+        if (IafConfig.getInstance().spawnCockatrices) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatriceSpawnRate, 1, 2);
             LOADED_ENTITIES.put("COCKATRICE", true);
         }
-        if (IafConfig.spawnAmphitheres) {
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.amphithereSpawnRate, 1, 3);
+        if (IafConfig.getInstance().spawnAmphitheres) {
+            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithereSpawnRate, 1, 3);
             LOADED_ENTITIES.put("AMPHITHERE", true);
         }
-        if (IafConfig.spawnTrolls) {
+        if (IafConfig.getInstance().spawnTrolls) {
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.forestTrollBiomes, context.getBiomeRegistryEntry()) ||
                     BiomeConfig.test(BiomeConfig.snowyTrollBiomes, context.getBiomeRegistryEntry()) ||
-                    BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.trollSpawnRate, 1, 3);
+                    BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().trollSpawnRate, 1, 3);
             LOADED_ENTITIES.put("TROLL_F", true);
             LOADED_ENTITIES.put("TROLL_S", true);
             LOADED_ENTITIES.put("TROLL_M", true);

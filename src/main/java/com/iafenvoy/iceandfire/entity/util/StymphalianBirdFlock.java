@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.util;
 
-import com.iafenvoy.iceandfire.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityStymphalianBird;
 import com.iafenvoy.iceandfire.entity.ai.StymphalianBirdAIAirTarget;
 import net.minecraft.entity.Entity;
@@ -33,7 +33,7 @@ public class StymphalianBirdFlock {
     }
 
     public static StymphalianBirdFlock getNearbyFlock(EntityStymphalianBird bird) {
-        float d0 = IafConfig.stymphalianBirdFlockLength;
+        float d0 = IafConfig.getInstance().stymphalianBirdFlockLength;
         List<Entity> list = bird.getWorld().getOtherEntities(bird, (new Box(bird.getX(), bird.getY(), bird.getZ(), bird.getX() + 1.0D, bird.getY() + 1.0D, bird.getZ() + 1.0D)).expand(d0, 10.0D, d0), EntityStymphalianBird.STYMPHALIAN_PREDICATE);
         if (!list.isEmpty())
             for (Entity entity : list)

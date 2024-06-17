@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.entity.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexQueen;
 import com.iafenvoy.iceandfire.registry.IafEntities;
@@ -141,7 +141,7 @@ public class MyrmexHive {
     }
 
     public void setWanderRadius(int wanderRadius) {
-        this.wanderRadius = Math.min(wanderRadius, IafConfig.myrmexMaximumWanderRadius);
+        this.wanderRadius = Math.min(wanderRadius, IafConfig.getInstance().myrmexMaximumWanderRadius);
     }
 
     public boolean isBlockPosWithinSqVillageRadius(BlockPos pos) {
@@ -552,7 +552,7 @@ public class MyrmexHive {
 
     public boolean repopulate() {
         int roomCount = this.getAllRooms().size();
-        return this.numMyrmex < Math.min(IafConfig.myrmexColonySize, roomCount * 9) && this.reproduces;
+        return this.numMyrmex < Math.min(IafConfig.getInstance().myrmexColonySize, roomCount * 9) && this.reproduces;
     }
 
     public void addMyrmex(EntityMyrmexBase myrmex) {

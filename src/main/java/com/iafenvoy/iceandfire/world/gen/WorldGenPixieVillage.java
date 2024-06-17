@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.block.BlockPixieHouse;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafEntities;
@@ -31,11 +31,11 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
 
-        if (rand.nextInt(IafConfig.spawnPixiesChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
+        if (rand.nextInt(IafConfig.getInstance().spawnPixiesChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
             return false;
         }
 
-        int maxRoads = IafConfig.pixieVillageSize + rand.nextInt(5);
+        int maxRoads = IafConfig.getInstance().pixieVillageSize + rand.nextInt(5);
         BlockPos buildPosition = position;
         int placedRoads = 0;
         while (placedRoads < maxRoads) {

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.event;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
@@ -65,7 +65,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -76,10 +75,9 @@ public class ServerEvents {
     // FIXME :: No check for shouldFear()?
     private static final Predicate<LivingEntity> VILLAGER_FEAR = entity -> entity instanceof IVillagerFear;
     private static final String[] VILLAGE_TYPES = new String[]{"plains", "desert", "snowy", "savanna", "taiga"};
-    private final Random rand = new Random();
 
     private static void signalChickenAlarm(LivingEntity chicken, LivingEntity attacker) {
-        final float d0 = IafConfig.cockatriceChickenSearchLength;
+        final float d0 = IafConfig.getInstance().cockatriceChickenSearchLength;
         final List<EntityCockatrice> list = chicken.getWorld().getNonSpectatingEntities(EntityCockatrice.class, (new Box(chicken.getX(), chicken.getY(), chicken.getZ(), chicken.getX() + 1.0D, chicken.getY() + 1.0D, chicken.getZ() + 1.0D)).expand(d0, 10.0D, d0));
         if (list.isEmpty()) return;
 
@@ -99,7 +97,7 @@ public class ServerEvents {
     }
 
     private static void signalAmphithereAlarm(LivingEntity villager, LivingEntity attacker) {
-        final float d0 = IafConfig.amphithereVillagerSearchLength;
+        final float d0 = IafConfig.getInstance().amphithereVillagerSearchLength;
         final List<EntityAmphithere> list = villager.getWorld().getNonSpectatingEntities(EntityAmphithere.class, (new Box(villager.getX() - 1.0D, villager.getY() - 1.0D, villager.getZ() - 1.0D, villager.getX() + 1.0D, villager.getY() + 1.0D, villager.getZ() + 1.0D)).expand(d0, d0, d0));
         if (list.isEmpty()) return;
 
@@ -183,11 +181,11 @@ public class ServerEvents {
     }
 
     public static void addNewVillageBuilding(MinecraftServer server) {
-        if (IafConfig.villagerHouseWeight > 0) {
+        if (IafConfig.getInstance().villagerHouseWeight > 0) {
             Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
             Registry<StructureProcessorList> processorListRegistry = server.getRegistryManager().get(RegistryKeys.PROCESSOR_LIST);
             for (String type : VILLAGE_TYPES) {
-                IafTrades.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.villagerHouseWeight);
+                IafTrades.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.getInstance().villagerHouseWeight);
             }
         }
 
@@ -328,7 +326,7 @@ public class ServerEvents {
 
     public static ActionResult onPlayerAttack(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         if (isSheep(entity)) {
-            float dist = IafConfig.cyclopesSheepSearchLength;
+            float dist = IafConfig.getInstance().cyclopesSheepSearchLength;
             final List<Entity> list = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty()) {
                 for (final Entity e : list) {
@@ -404,7 +402,7 @@ public class ServerEvents {
         if (entity.getUuid().equals(ServerEvents.ALEX_UUID))
             entity.dropStack(new ItemStack(IafItems.WEEZER_BLUE_ALBUM), 1);
 
-        if (entity instanceof PlayerEntity && IafConfig.ghostsFromPlayerDeaths) {
+        if (entity instanceof PlayerEntity && IafConfig.getInstance().ghostsFromPlayerDeaths) {
             Entity attacker = entity.getAttacker();
             if (attacker instanceof PlayerEntity && entity.getRandom().nextInt(3) == 0) {
                 DamageTracker combat = entity.getDamageTracker();
@@ -458,7 +456,7 @@ public class ServerEvents {
     public static ActionResult onPlayerRightClick(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         if (player != null && (world.getBlockState(pos).getBlock() instanceof AbstractChestBlock) && !player.isCreative()) {
-            float dist = IafConfig.dragonGoldSearchLength;
+            float dist = IafConfig.getInstance().dragonGoldSearchLength;
             final List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty()) {
                 for (final Entity entity : list) {
@@ -481,7 +479,7 @@ public class ServerEvents {
 
     public static void onBreakBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlocks.GOLD_PILE) || state.isOf(IafBlocks.SILVER_PILE) || state.isOf(IafBlocks.COPPER_PILE))) {
-            final float dist = IafConfig.dragonGoldSearchLength;
+            final float dist = IafConfig.getInstance().dragonGoldSearchLength;
             List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (list.isEmpty()) return;
 
@@ -511,10 +509,10 @@ public class ServerEvents {
                 if (isSheep(mob) && mob instanceof AnimalEntity animal) {
                     animal.goalSelector.add(8, new EntitySheepAIFollowCyclops(animal, 1.2D));
                 }
-                if (isVillager(mob) && IafConfig.villagersFearDragons) {
+                if (isVillager(mob) && IafConfig.getInstance().villagersFearDragons) {
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 8.0F, 0.8D, 0.8D, VILLAGER_FEAR));
                 }
-                if (isLivestock(mob) && IafConfig.animalsFearDragons) {
+                if (isLivestock(mob) && IafConfig.getInstance().animalsFearDragons) {
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 30, 1.0D, 0.5D, e -> e instanceof IAnimalFear fear && fear.shouldAnimalsFear(mob)));
                 }
             } catch (Exception e) {

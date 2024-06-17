@@ -1,8 +1,8 @@
 package com.iafenvoy.citadel.mixin;
 
-import com.iafenvoy.citadel.server.world.ExpandedBiomeSource;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableSet;
+import com.iafenvoy.citadel.server.world.ExpandedBiomeSource;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.biome.Biome;

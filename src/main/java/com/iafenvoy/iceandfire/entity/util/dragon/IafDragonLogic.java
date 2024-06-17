@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.util.dragon;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityDreadQueen;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -37,7 +37,7 @@ public class IafDragonLogic {
         if (this.dragon.lookingForRoostAIFlag && this.dragon.getAttacker() != null || this.dragon.isSleeping()) {
             this.dragon.lookingForRoostAIFlag = false;
         }
-        if (IafConfig.doDragonsSleep && !this.dragon.isSleeping() && !this.dragon.isTimeToWake() && this.dragon.getPassengerList().isEmpty() && this.dragon.getCommand() != 2) {
+        if (IafConfig.getInstance().doDragonsSleep && !this.dragon.isSleeping() && !this.dragon.isTimeToWake() && this.dragon.getPassengerList().isEmpty() && this.dragon.getCommand() != 2) {
             if (this.dragon.hasHomePosition
                     && this.dragon.getPositionTarget() != null
                     && DragonUtils.isInHomeDimension(this.dragon)
@@ -56,7 +56,7 @@ public class IafDragonLogic {
         if (this.dragon.isSitting() && this.dragon.getControllingPassenger() != null)
             this.dragon.setSitting(false);
         if (this.dragon.blockBreakCounter <= 0)
-            this.dragon.blockBreakCounter = IafConfig.dragonBreakBlockCooldown;
+            this.dragon.blockBreakCounter = IafConfig.getInstance().dragonBreakBlockCooldown;
         this.dragon.updateBurnTarget();
         if (this.dragon.isSitting()) {
             if (this.dragon.getCommand() != 1 || this.dragon.getControllingPassenger() != null)
@@ -202,7 +202,7 @@ public class IafDragonLogic {
                 this.dragon.growDragon(0);
             }
         }
-        if (this.dragon.age % IafConfig.dragonHungerTickRate == 0 && IafConfig.dragonHungerTickRate > 0)
+        if (this.dragon.age % IafConfig.getInstance().dragonHungerTickRate == 0 && IafConfig.getInstance().dragonHungerTickRate > 0)
             if (this.dragon.getHunger() > 0)
                 this.dragon.setHunger(this.dragon.getHunger() - 1);
         if ((this.dragon.groundAttack == IafDragonAttacks.Ground.FIRE) && this.dragon.getDragonStage() < 2) {
@@ -288,7 +288,7 @@ public class IafDragonLogic {
 
         if (this.dragon.flightCycle == 2)
             if (!this.dragon.isDiving() && (this.dragon.isFlying() || this.dragon.isHovering())) {
-                float dragonSoundVolume = IafConfig.dragonFlapNoiseDistance;
+                float dragonSoundVolume = IafConfig.getInstance().dragonFlapNoiseDistance;
                 float dragonSoundPitch = this.dragon.getSoundPitch();
                 this.dragon.playSound(IafSounds.DRAGON_FLIGHT, dragonSoundVolume, dragonSoundPitch);
             }

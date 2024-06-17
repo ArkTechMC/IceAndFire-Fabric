@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.client.render.entity;
 
+import com.google.common.collect.Maps;
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.client.render.entity.layer.LayerDragonArmor;
@@ -9,7 +10,6 @@ import com.iafenvoy.iceandfire.client.render.entity.layer.LayerDragonRider;
 import com.iafenvoy.iceandfire.client.texture.ArrayLayeredTexture;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
-import com.google.common.collect.Maps;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

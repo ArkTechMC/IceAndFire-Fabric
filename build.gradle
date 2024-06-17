@@ -56,7 +56,6 @@ dependencies {
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:base:${project.porting_version}"))
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:common:${project.porting_version}"))
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:core:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:config:${project.porting_version}"))
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:data:${project.porting_version}"))
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:entity:${project.porting_version}"))
     modImplementation(include("io.github.fabricators_of_create.Porting-Lib:level_events:${project.porting_version}"))

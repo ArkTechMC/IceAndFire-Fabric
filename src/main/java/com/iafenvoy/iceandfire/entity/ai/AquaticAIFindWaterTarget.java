@@ -28,8 +28,7 @@ public class AquaticAIFindWaterTarget extends Goal {
         if (!this.mob.isTouchingWater() || this.mob.hasVehicle() || this.mob.hasPassengers())
             return false;
         Path path = this.mob.getNavigation().getCurrentPath();
-        if (this.mob.getRandom().nextFloat() < 0.15F || path != null && path.getEnd() != null && this.mob.squaredDistanceTo(path.getEnd().x, path.getEnd().y, path.getEnd().z) < 3) {
-            assert path != null;
+        if (this.mob.getRandom().nextFloat() < 0.15F && path != null && path.getEnd() != null && this.mob.squaredDistanceTo(path.getEnd().x, path.getEnd().y, path.getEnd().z) < 3) {
             assert path.getEnd() != null;
             if (path.getEnd() != null || !this.mob.getNavigation().isIdle() && !this.isDirectPathBetweenPoints(this.mob, this.mob.getPos(), new Vec3d(path.getEnd().x, path.getEnd().y, path.getEnd().z)))
                 this.mob.getNavigation().stop();

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.entity.EntityChainTie;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.entity.EntityChainTie;
 import net.minecraft.block.Block;
 import net.minecraft.block.WallBlock;
 import net.minecraft.client.item.TooltipContext;

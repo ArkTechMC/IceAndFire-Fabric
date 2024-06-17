@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -34,7 +34,7 @@ public class ItemModHoe extends HoeItem implements DragonSteelOverrides<ItemModH
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
-        if (this.getMaterial().getAttackDamage() != IafConfig.dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
+        if (this.getMaterial().getAttackDamage() != IafConfig.getInstance().dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
             ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
             builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 1F, EntityAttributeModifier.Operation.ADDITION));
             builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3F, EntityAttributeModifier.Operation.ADDITION));
@@ -47,7 +47,7 @@ public class ItemModHoe extends HoeItem implements DragonSteelOverrides<ItemModH
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return this.isDragonsteel(this.getMaterial()) ? IafConfig.dragonsteelBaseDurability : this.getMaterial().getDurability();
+        return this.isDragonsteel(this.getMaterial()) ? IafConfig.getInstance().dragonsteelBaseDurability : this.getMaterial().getDurability();
     }
 
     @Override

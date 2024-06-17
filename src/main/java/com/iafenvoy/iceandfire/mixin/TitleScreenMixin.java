@@ -1,6 +1,7 @@
 package com.iafenvoy.iceandfire.mixin;
 
 import com.iafenvoy.iceandfire.client.gui.TitleScreenRenderManager;
+import com.iafenvoy.iceandfire.config.ClientConfig;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.RotatingCubeMapRenderer;
@@ -28,6 +29,7 @@ public class TitleScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
+        if(!ClientConfig.getInstance().customMainMenu) return;
         SplashTextRenderer renderer = TitleScreenRenderManager.getSplash();
         if (renderer != null)
             this.splashText = renderer;
@@ -35,11 +37,13 @@ public class TitleScreenMixin extends Screen {
 
     @Inject(method = "tick", at = @At("RETURN"))
     private void onTick(CallbackInfo ci) {
+        if(!ClientConfig.getInstance().customMainMenu) return;
         TitleScreenRenderManager.tick();
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"))
     private void onRenderBackground(RotatingCubeMapRenderer instance, float delta, float alpha, @Local(ordinal = 0, argsOnly = true) DrawContext context) {
+        if(!ClientConfig.getInstance().customMainMenu) return;
         TitleScreenRenderManager.renderBackground(context, this.width, this.height);
         TitleScreenRenderManager.drawModName(context, this.width, this.height);
     }

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.config.BiomeConfig;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.datagen.IafBiomeTagGenerator;
 import com.iafenvoy.iceandfire.datagen.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
@@ -65,7 +65,7 @@ public class GorgonTempleStructure extends IafStructure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        if (!IafConfig.generateGorgonTemple)
+        if (!IafConfig.getInstance().generateGorgonTemple)
             return Optional.empty();
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);

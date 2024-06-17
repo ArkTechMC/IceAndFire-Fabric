@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.IafConfig;
 import com.iafenvoy.iceandfire.block.BlockMyrmexBiolight;
 import com.iafenvoy.iceandfire.block.BlockMyrmexConnectedResin;
 import com.iafenvoy.iceandfire.block.BlockMyrmexResin;
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
@@ -69,7 +69,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         Random rand = context.getRandom();
         BlockPos pos = context.getOrigin();
         if (!this.small) {
-            if (rand.nextInt(IafConfig.myrmexColonyGenChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, pos) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, pos, this.getId())) {
+            if (rand.nextInt(IafConfig.getInstance().myrmexColonyGenChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, pos) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, pos, this.getId())) {
                 return false;
             }
             if (MyrmexWorldData.get(worldIn.toServerWorld()) != null && MyrmexWorldData.get(worldIn.toServerWorld()).getNearestHive(pos, 200) != null) {
