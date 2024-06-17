@@ -1,0 +1,45 @@
+package com.iafenvoy.iceandfire.client.model;
+
+import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
+import com.iafenvoy.citadel.client.model.AdvancedModelBox;
+import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.iceandfire.client.model.util.HideableModelRenderer;
+import com.google.common.collect.ImmutableList;
+import net.minecraft.entity.Entity;
+
+public class ModelDreadLichSkull extends AdvancedEntityModel {
+    public final HideableModelRenderer bipedHead;
+    public final HideableModelRenderer bipedHeadwear;
+
+    public ModelDreadLichSkull() {
+        this(0.0F);
+    }
+
+    public ModelDreadLichSkull(float modelSize) {
+        this.texHeight = 32;
+        this.texWidth = 64;
+        this.bipedHead = new HideableModelRenderer(this, 0, 0);
+        this.bipedHead.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, modelSize - 0.5F);
+        this.bipedHead.setPos(0.0F, 0.0F, 0.0F);
+        this.bipedHeadwear = new HideableModelRenderer(this, 32, 0);
+        this.bipedHeadwear.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, modelSize);
+        this.bipedHeadwear.setPos(0.0F, 0.0F, 0.0F);
+        this.updateDefaultPose();
+    }
+
+    @Override
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.resetToDefaultPose();
+    }
+
+    @Override
+    public Iterable<BasicModelPart> parts() {
+        return ImmutableList.of(this.bipedHead, this.bipedHeadwear);
+    }
+
+    @Override
+    public Iterable<AdvancedModelBox> getAllParts() {
+        return ImmutableList.of(this.bipedHead, this.bipedHeadwear);
+    }
+
+}

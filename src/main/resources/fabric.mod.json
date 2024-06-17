@@ -16,22 +16,22 @@
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "com.github.alexthe666.iceandfire.datagen.ModDataGenerator"
+      "com.iafenvoy.iceandfire.datagen.ModDataGenerator"
     ],
     "main": [
-      "dev.arktechmc.iafextra.IceAndFire"
+      "com.iafenvoy.iceandfire.IceAndFire"
     ],
     "client": [
-      "dev.arktechmc.iafextra.IceAndFireClient"
+      "com.iafenvoy.iceandfire.IceAndFireClient"
     ],
     "emi": [
-      "com.github.alexthe666.iceandfire.compat.emi.IceAndFireEmiPlugin"
+      "com.iafenvoy.iceandfire.compat.emi.IceAndFireEmiPlugin"
     ],
     "jade": [
-      "com.github.alexthe666.iceandfire.compat.jade.IceAndFireJadePlugin"
+      "com.iafenvoy.iceandfire.compat.jade.IceAndFireJadePlugin"
     ],
     "cardinal-components-entity": [
-      "dev.arktechmc.iafextra.data.ModComponentEntry"
+      "com.iafenvoy.iceandfire.data.ModComponentEntry"
     ]
   },
   "custom": {
@@ -41,8 +41,7 @@
   },
   "mixins": [
     "citadel.mixins.json",
-    "iceandfire.mixins.json",
-    "iceandfire.extra.mixins.json"
+    "iceandfire.mixins.json"
   ],
   "accessWidener": "iceandfire.accesswidener",
   "depends": {
