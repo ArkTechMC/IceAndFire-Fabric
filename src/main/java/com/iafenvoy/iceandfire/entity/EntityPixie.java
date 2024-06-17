@@ -1,7 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.datagen.tags.IafItemTags;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPixieHouse;
 import com.iafenvoy.iceandfire.message.MessageUpdatePixieHouse;
@@ -9,6 +8,7 @@ import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.tag.IafItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.datagen.tags.IafEntityTags;
 import com.iafenvoy.iceandfire.entity.EntityStoneStatue;
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.IafDamageTypes;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.tag.IafEntityTags;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -74,7 +74,7 @@ public class ItemGorgonHead extends Item {
                 double d3 = Vector3d.distanceTo(optional.get());
 
                 if (d3 < d2 || d2 == 0.0D) {
-                    if (entity1.getRootVehicle() == entity.getRootVehicle() && !entity.canRiderInteract()) {
+                    if (entity1.getRootVehicle() == entity.getRootVehicle()) {
                         if (d2 == 0.0D) {
                             pointedEntity = entity1;
                         }

@@ -28,7 +28,7 @@ public class ItemModHoe extends HoeItem implements DragonSteelOverrides<ItemModH
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot equipmentSlot) {
-        return equipmentSlot == EquipmentSlot.MAINHAND && this.isDragonsteel(this.getMaterial()) ? this.bakeDragonsteel() : super.getAttributeModifiers(equipmentSlot);
+        return equipmentSlot == EquipmentSlot.MAINHAND && this.isDragonSteel(this.getMaterial()) ? this.bakeDragonsteel() : super.getAttributeModifiers(equipmentSlot);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ItemModHoe extends HoeItem implements DragonSteelOverrides<ItemModH
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return this.isDragonsteel(this.getMaterial()) ? IafConfig.getInstance().dragonsteelBaseDurability : this.getMaterial().getDurability();
+        return this.isDragonSteel(this.getMaterial()) ? IafConfig.getInstance().dragonsteelBaseDurability : this.getMaterial().getDurability();
     }
 
     @Override

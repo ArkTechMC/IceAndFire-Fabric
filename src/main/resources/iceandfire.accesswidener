@@ -24,3 +24,8 @@ accessible class net/minecraft/client/render/RenderPhase$DepthTest
 mutable field net/minecraft/client/render/RenderPhase beginAction Ljava/lang/Runnable;
 accessible method net/minecraft/entity/damage/DamageTracker getBiggestFall ()Lnet/minecraft/entity/damage/DamageRecord;
 accessible method net/minecraft/client/gui/DrawContext drawTexturedQuad (Lnet/minecraft/util/Identifier;IIIIIFFFFFFFF)V
+accessible class net/minecraft/client/render/model/json/Transformation$Deserializer
+accessible method net/minecraft/client/render/model/json/Transformation$Deserializer <init> ()V
+accessible class net/minecraft/client/render/model/json/ModelTransformation$Deserializer
+accessible method net/minecraft/client/render/model/json/ModelTransformation$Deserializer <init> ()V
+accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;

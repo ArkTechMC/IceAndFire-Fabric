@@ -10,17 +10,12 @@ loom {
     accessWidenerPath = file("src/main/resources/iceandfire.accesswidener")
 }
 
-fabricApi {
-    configureDataGeneration()
-}
-
 repositories {
     // Add repositories to retrieve artifacts from in here.
     // You should only use this when depending on other mods because
     // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html
     // for more information about repositories.
-    maven { url = "https://mvn.devos.one/releases/" }
     maven {
         url "https://maven.jamieswhiteshirt.com/libs-release"
         content {
@@ -51,16 +46,6 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-    // Porting Lib
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:base:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:common:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:core:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:data:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:entity:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:level_events:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:tags:${project.porting_version}"))
-    modImplementation(include("io.github.fabricators_of_create.Porting-Lib:utility:${project.porting_version}"))
 
     // CCA
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"))

@@ -10,11 +10,7 @@ import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import io.github.fabricators_of_create.porting_lib.common.util.IPlantable;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
 import net.minecraft.entity.ai.goal.LookAroundGoal;
@@ -262,21 +258,17 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public void tick() {
         super.tick();
-        if (this.jumpCooldown > 0) {
+        if (this.jumpCooldown > 0)
             this.jumpCooldown--;
-        }
         this.calculateDimensions();
         this.onUpdateParts();
-        if (this.isTouchingWater()) {
+        if (this.isTouchingWater())
             this.spawnParticlesAroundEntity(this, (int) this.getSeaSerpentScale());
 
-        }
-        if (!this.getWorld().isClient && this.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+        if (!this.getWorld().isClient && this.getWorld().getDifficulty() == Difficulty.PEACEFUL)
             this.remove(RemovalReason.DISCARDED);
-        }
-        if (this.getTarget() != null && !this.getTarget().isAlive()) {
+        if (this.getTarget() != null && !this.getTarget().isAlive())
             this.setTarget(null);
-        }
         System.arraycopy(this.tailYaw, 0, this.prevTailYaw, 0, this.tailYaw.length);
         System.arraycopy(this.tailPitch, 0, this.prevTailPitch, 0, this.tailPitch.length);
         this.tailYaw[0] = this.bodyYaw;
@@ -287,16 +279,14 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public float getPieceYaw(int index, float partialTicks) {
-        if (index < this.segments.length && index >= 0) {
+        if (index < this.segments.length && index >= 0)
             return this.prevTailYaw[index] + (this.tailYaw[index] - this.prevTailYaw[index]) * partialTicks;
-        }
         return 0;
     }
 
     public float getPiecePitch(int index, float partialTicks) {
-        if (index < this.segments.length && index >= 0) {
+        if (index < this.segments.length && index >= 0)
             return this.prevTailPitch[index] + (this.tailPitch[index] - this.prevTailPitch[index]) * partialTicks;
-        }
         return 0;
     }
 
@@ -619,11 +609,17 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                         BlockState state = this.getWorld().getBlockState(pos);
                         FluidState fluidState = this.getWorld().getFluidState(pos);
                         Block block = state.getBlock();
-                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (state.getBlock() instanceof IPlantable || state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty())
+                        if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && (canBreak(state.getBlock()) || state.getBlock() instanceof LeavesBlock) && fluidState.isEmpty())
                             if (block != Blocks.AIR)
                                 if (!this.getWorld().isClient)
                                     this.getWorld().breakBlock(pos, true);
                     }
+    }
+
+    private static boolean canBreak(Block block) {
+        return block instanceof CropBlock || block instanceof SaplingBlock || block instanceof FlowerBlock
+                || block == Blocks.DEAD_BUSH || block == Blocks.LILY_PAD || block == Blocks.RED_MUSHROOM
+                || block == Blocks.BROWN_MUSHROOM || block == Blocks.NETHER_WART || block == Blocks.TALL_GRASS;
     }
 
     @Override

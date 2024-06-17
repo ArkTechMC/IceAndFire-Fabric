@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -67,7 +66,7 @@ public class ClientEvents {
         }
     }
 
-    public static void onPostRenderLiving(LivingEntity entity, LivingEntityRenderer<?, ?> renderer, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
+    public static void onPostRenderLiving(LivingEntity entity, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
         EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
         for (LivingEntity target : data.miscData.getTargetedByScepter())
             CockatriceBeamRender.render(entity, target, matrixStack, buffers, partialRenderTick);

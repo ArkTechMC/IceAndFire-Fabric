@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.iafenvoy.iceandfire.datagen.tags.IafItemTags;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemDragonScales;
@@ -10,6 +9,7 @@ import com.iafenvoy.iceandfire.item.ItemDragonSkull;
 import com.iafenvoy.iceandfire.item.food.ItemDragonFlesh;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafLoots;
+import com.iafenvoy.iceandfire.tag.IafItemTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.context.LootContext;

@@ -2,9 +2,9 @@ package com.iafenvoy.iceandfire.world.structure;
 
 import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.datagen.IafBiomeTagGenerator;
 import com.iafenvoy.iceandfire.datagen.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
+import com.iafenvoy.iceandfire.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.Registerable;
@@ -48,7 +48,7 @@ public class GraveyardStructure extends IafStructure {
 
         return new GraveyardStructure(
                 new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTagGenerator.HAS_GRAVEYARD),
+                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.HAS_GRAVEYARD),
                         new HashMap<>(),
                         //Arrays.stream(MobCategory.values()).collect(Collectors.toMap(category -> category, category -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
                         GenerationStep.Feature.SURFACE_STRUCTURES,

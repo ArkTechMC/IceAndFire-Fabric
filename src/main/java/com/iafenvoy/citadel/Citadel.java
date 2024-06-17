@@ -1,7 +1,5 @@
 package com.iafenvoy.citadel;
 
-import com.iafenvoy.citadel.config.ConfigHolder;
-import com.iafenvoy.citadel.config.ServerConfig;
 import com.iafenvoy.citadel.server.world.ExpandedBiomeSource;
 import com.iafenvoy.iceandfire.StaticVariables;
 import net.minecraft.registry.DynamicRegistryManager;
@@ -22,10 +20,6 @@ public class Citadel {
     public static final String MOD_ID = "citadel";
     public static final Logger LOGGER = LogManager.getLogger("citadel");
 
-    public Citadel() {
-        this.onModConfigEvent();
-    }
-
     public static void onServerAboutToStart() {
         DynamicRegistryManager registryAccess = StaticVariables.server.getRegistryManager();
         Registry<Biome> allBiomes = registryAccess.get(RegistryKeys.BIOME);
@@ -40,13 +34,5 @@ public class Citadel {
             if (holderOptional.isPresent() && holderOptional.get().value().chunkGenerator().getBiomeSource() instanceof ExpandedBiomeSource expandedBiomeSource)
                 expandedBiomeSource.setResourceKeyMap(biomeMap);
         }
-    }
-
-    public void onModConfigEvent() {
-        // Rebake the configs when they change
-        ServerConfig.skipWarnings = ConfigHolder.SERVER.skipDatapackWarnings.get();
-        ServerConfig.citadelEntityTrack = ConfigHolder.SERVER.citadelEntityTracker.get();
-        ServerConfig.chunkGenSpawnModifierVal = ConfigHolder.SERVER.chunkGenSpawnModifier.get();
-        //citadelTestBiomeData = SpawnBiomeConfig.create(new ResourceLocation("citadel:config_biome"), CitadelBiomeDefinitions.TERRALITH_TEST);
     }
 }

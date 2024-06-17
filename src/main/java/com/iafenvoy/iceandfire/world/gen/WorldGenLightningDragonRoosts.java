@@ -4,8 +4,8 @@ import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafEntities;
+import com.iafenvoy.iceandfire.tag.CommonTags;
 import com.mojang.serialization.Codec;
-import io.github.fabricators_of_create.porting_lib.tags.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -41,13 +41,13 @@ public class WorldGenLightningDragonRoosts extends WorldGenDragonRoosts {
             block = IafBlocks.CRACKLED_GRASS;
         else if (state.isOf(Blocks.DIRT_PATH))
             block = IafBlocks.CRACKLED_DIRT_PATH;
-        else if (state.isIn(Tags.Blocks.GRAVEL))
+        else if (state.isIn(CommonTags.Blocks.GRAVEL))
             block = IafBlocks.CRACKLED_GRAVEL;
         else if (state.isIn(BlockTags.DIRT))
             block = IafBlocks.CRACKLED_DIRT;
-        else if (state.isIn(Tags.Blocks.STONE))
+        else if (state.isIn(CommonTags.Blocks.STONE))
             block = IafBlocks.CRACKLED_STONE;
-        else if (state.isIn(Tags.Blocks.COBBLESTONE))
+        else if (state.isIn(CommonTags.Blocks.COBBLESTONE))
             block = IafBlocks.CRACKLED_COBBLESTONE;
         else if (state.isIn(BlockTags.LOGS) || state.isIn(BlockTags.PLANKS))
             block = IafBlocks.ASH;

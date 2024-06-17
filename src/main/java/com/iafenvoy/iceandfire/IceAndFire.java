@@ -1,15 +1,8 @@
 package com.iafenvoy.iceandfire;
 
-import com.iafenvoy.iceandfire.event.AttackEntityEvent;
-import com.iafenvoy.iceandfire.event.EventBus;
-import com.iafenvoy.iceandfire.event.ProjectileImpactEvent;
-import com.iafenvoy.iceandfire.event.ServerEvents;
+import com.iafenvoy.iceandfire.event.*;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
-import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.PlayerEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingDamageEvent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.*;
@@ -64,8 +57,7 @@ public class IceAndFire implements ModInitializer {
         EntityEvents.ON_JOIN_WORLD.register(ServerEvents::onEntityJoinWorld);
         EntityEvents.START_TRACKING_TAIL.register(ServerEvents::onLivingSetTarget);
         EventBus.register(AttackEntityEvent.class, ServerEvents::onLivingAttacked);
-        LivingDamageEvent.DAMAGE.register(ServerEvents::onEntityDamage);
-        LivingEntityEvents.DROPS.register(ServerEvents::onEntityDrop);
+        LivingEntityEvents.DAMAGE.register(ServerEvents::onEntityDamage);
         LivingEntityEvents.FALL.register(ServerEvents::onEntityFall);
 
         IafServerNetworkHandler.register();

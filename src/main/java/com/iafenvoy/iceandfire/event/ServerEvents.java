@@ -18,8 +18,6 @@ import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.util.IdUtil;
 import com.iafenvoy.iceandfire.util.RandomHelper;
-import io.github.fabricators_of_create.porting_lib.entity.events.LivingEntityEvents;
-import io.github.fabricators_of_create.porting_lib.entity.events.living.LivingDamageEvent;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -35,7 +33,6 @@ import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.mob.WitherSkeletonEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -63,7 +60,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -213,55 +209,46 @@ public class ServerEvents {
         }
     }
 
-    public static void onEntityFall(LivingEntityEvents.Fall.FallEvent event) {
-        if (event.getEntity() instanceof PlayerEntity) {
-            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(event.getEntity());
+    public static void onEntityFall(LivingEntity entity, float fallDistance, float multiplier, DamageSource source) {
+        if (entity instanceof PlayerEntity) {
+            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
             if (data.miscData.hasDismounted) {
-                event.setDamageMultiplier(0);
+                multiplier = 0;
                 data.miscData.setDismounted(false);
             }
         }
     }
 
-    public static void onEntityDamage(LivingDamageEvent event) {
-        DamageSource source = event.getSource();
-        LivingEntity entity = event.getEntity();
+    public static float onEntityDamage(LivingEntity entity, DamageSource source, float amount) {
         if (source.isIn(DamageTypeTags.IS_PROJECTILE)) {
             float multi = 1;
-            if (entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemTrollArmor) {
+            if (entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemTrollArmor)
                 multi -= 0.1f;
-            }
-            if (entity.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ItemTrollArmor) {
+            if (entity.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ItemTrollArmor)
                 multi -= 0.3f;
-            }
-            if (entity.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof ItemTrollArmor) {
+            if (entity.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof ItemTrollArmor)
                 multi -= 0.2f;
-            }
-            if (entity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof ItemTrollArmor) {
+            if (entity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof ItemTrollArmor)
                 multi -= 0.1f;
-            }
-            event.setAmount(event.getAmount() * multi);
+            amount *= multi;
         }
         if (source.isOf(IafDamageTypes.DRAGON_FIRE_TYPE) || source.isOf(IafDamageTypes.DRAGON_ICE_TYPE) || source.isOf(IafDamageTypes.DRAGON_LIGHTNING_TYPE)) {
             float multi = 1;
             if (entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemScaleArmor ||
-                    entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemDragonsteelArmor) {
+                    entity.getEquippedStack(EquipmentSlot.HEAD).getItem() instanceof ItemDragonsteelArmor)
                 multi -= 0.1f;
-            }
             if (entity.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ItemScaleArmor ||
-                    entity.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ItemDragonsteelArmor) {
+                    entity.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof ItemDragonsteelArmor)
                 multi -= 0.3f;
-            }
             if (entity.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof ItemScaleArmor ||
-                    entity.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof ItemDragonsteelArmor) {
+                    entity.getEquippedStack(EquipmentSlot.LEGS).getItem() instanceof ItemDragonsteelArmor)
                 multi -= 0.2f;
-            }
             if (entity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof ItemScaleArmor ||
-                    entity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof ItemDragonsteelArmor) {
+                    entity.getEquippedStack(EquipmentSlot.FEET).getItem() instanceof ItemDragonsteelArmor)
                 multi -= 0.1f;
-            }
-            event.setAmount(event.getAmount() * multi);
+            amount *= multi;
         }
+        return amount;
     }
 
 //    @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -286,13 +273,6 @@ public class ServerEvents {
 //            event.getDrops().addAll(fireImmuneDrops);
 //        }
 //    }
-
-    public static boolean onEntityDrop(LivingEntity target, DamageSource source, Collection<ItemEntity> drops, int lootingLevel, boolean recentlyHit) {
-        if (target instanceof WitherSkeletonEntity) {
-            drops.add(new ItemEntity(target.getWorld(), target.getX(), target.getY(), target.getZ(), new ItemStack(IafItems.WITHERBONE, target.getRandom().nextInt(2))));
-        }
-        return true;
-    }
 
     public static void onLivingAttacked(final AttackEntityEvent event) {
         if (event.getEntity() != null) {
@@ -503,7 +483,7 @@ public class ServerEvents {
         }
     }
 
-    public static boolean onEntityJoinWorld(Entity entity, World world, boolean loadedFromDisk) {
+    public static boolean onEntityJoinWorld(Entity entity, World world) {
         if (entity instanceof MobEntity mob)
             try {
                 if (isSheep(mob) && mob instanceof AnimalEntity animal) {

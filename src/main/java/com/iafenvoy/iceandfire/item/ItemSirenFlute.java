@@ -60,10 +60,8 @@ public class ItemSirenFlute extends Item {
             } else if (raytraceresult.isPresent()) {
                 double d3 = Vector3d.distanceTo(raytraceresult.get());
                 if (d3 < d2 || d2 == 0.0D) {
-                    if (entity1.getRootVehicle() == player.getRootVehicle() && !player.canRiderInteract()) {
-                        if (d2 == 0.0D) {
-                            pointedEntity = entity1;
-                        }
+                    if (entity1.getRootVehicle() == player.getRootVehicle()) {
+                        if (d2 == 0.0D) pointedEntity = entity1;
                     } else {
                         pointedEntity = entity1;
                         d2 = d3;

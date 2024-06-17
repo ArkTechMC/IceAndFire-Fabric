@@ -9,15 +9,12 @@
     "IAFEnvoy"
   ],
   "contact": {
-    "repo": "https://github.com/IAFEnvoy/IceAndFire-Fabric"
+    "sources": "https://github.com/ArkTechMC/IceAndFire-Fabric"
   },
   "license": "LGPL-3.0",
   "icon": "logo.png",
   "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      "com.iafenvoy.iceandfire.datagen.ModDataGenerator"
-    ],
     "main": [
       "com.iafenvoy.iceandfire.IceAndFire"
     ],

@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemTrollWeapon extends SwordItem {
-
     public EnumTroll.Weapon weapon;
 
     public ItemTrollWeapon(EnumTroll.Weapon weapon) {
@@ -24,8 +23,17 @@ public class ItemTrollWeapon extends SwordItem {
     }
 
     @Override
-    public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
-        return player.getAttackCooldownProgress(0) < 0.95 || player.handSwingProgress != 0;
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if (attacker instanceof PlayerEntity player)
+            return player.getAttackCooldownProgress(0) < 0.95 || player.handSwingProgress != 0;
+        else return super.postHit(stack, target, attacker);
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        if (entity instanceof PlayerEntity player && selected)
+            if (player.getAttackCooldownProgress(0) < 0.95 && player.handSwingProgress > 0)
+                player.handSwingTicks--;
     }
 
     public boolean onEntitySwing(LivingEntity LivingEntity, ItemStack stack) {
@@ -39,17 +47,8 @@ public class ItemTrollWeapon extends SwordItem {
         return false;
     }
 
-    public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (entityIn instanceof PlayerEntity player && isSelected) {
-            if (player.getAttackCooldownProgress(0) < 0.95 && player.handSwingProgress > 0) {
-                player.handSwingTicks--;
-            }
-        }
-    }
-
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
     }
-
 }

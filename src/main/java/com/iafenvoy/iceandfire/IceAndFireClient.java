@@ -4,12 +4,9 @@ import com.iafenvoy.iceandfire.client.model.util.DragonAnimationsLibrary;
 import com.iafenvoy.iceandfire.client.model.util.EnumDragonModelTypes;
 import com.iafenvoy.iceandfire.client.model.util.EnumDragonPoses;
 import com.iafenvoy.iceandfire.client.model.util.EnumSeaSerpentAnimations;
-import com.iafenvoy.iceandfire.event.ClientEvents;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.render.*;
-import io.github.fabricators_of_create.porting_lib.event.client.LivingEntityRenderEvents;
-import io.github.fabricators_of_create.porting_lib.event.client.RenderTooltipBorderColorCallback;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,9 +17,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 public class IceAndFireClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        LivingEntityRenderEvents.POST.register(ClientEvents::onPostRenderLiving);
-        RenderTooltipBorderColorCallback.EVENT.register((stack, originalBorderColorStart, originalBorderColorEnd) -> new RenderTooltipBorderColorCallback.BorderColorEntry(originalBorderColorStart, originalBorderColorEnd));
-
         IafScreenHandlers.registerGui();
         EnumSeaSerpentAnimations.initializeSerpentModels();
         DragonAnimationsLibrary.register(EnumDragonPoses.values(), EnumDragonModelTypes.values());

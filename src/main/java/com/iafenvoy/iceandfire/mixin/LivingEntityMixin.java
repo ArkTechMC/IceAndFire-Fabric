@@ -1,10 +1,12 @@
 package com.iafenvoy.iceandfire.mixin;
 
 import com.iafenvoy.iceandfire.event.ClientEvents;
+import com.iafenvoy.iceandfire.event.LivingEntityEvents;
 import com.iafenvoy.iceandfire.item.tool.ItemGhostSword;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,6 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
@@ -33,5 +36,10 @@ public abstract class LivingEntityMixin {
         LivingEntity self = (LivingEntity) (Object) this;
         if (item instanceof ItemGhostSword && self instanceof PlayerEntity player)
             ItemGhostSword.spawnGhostSwordEntity(stack, player);
+    }
+
+    @Inject(method = "handleFallDamage", at = @At("HEAD"))
+    public void onEntityFall(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntityEvents.FALL.invoker().onFall((LivingEntity) (Object) this,fallDistance, multiplier, source);
     }
 }

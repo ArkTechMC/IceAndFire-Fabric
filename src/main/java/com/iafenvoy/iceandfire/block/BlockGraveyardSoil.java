@@ -25,7 +25,7 @@ public class BlockGraveyardSoil extends Block {
     @Override
     public void scheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (!worldIn.isClient) {
-            if (!worldIn.isAreaLoaded(pos, 3)) return;
+            if (!worldIn.isRegionLoaded(pos.add(-3, -3, -3), pos.add(3, 3, 3))) return;
             if (!worldIn.isDay() && !worldIn.getBlockState(pos.up()).isOpaque() && rand.nextInt(9) == 0 && worldIn.getDifficulty() != Difficulty.PEACEFUL) {
                 int checkRange = 32;
                 int k = worldIn.getNonSpectatingEntities(EntityGhost.class, (new Box(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1)).expand(checkRange)).size();

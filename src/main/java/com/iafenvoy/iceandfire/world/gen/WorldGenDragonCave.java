@@ -2,19 +2,19 @@ package com.iafenvoy.iceandfire.world.gen;
 
 import com.iafenvoy.iceandfire.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.datagen.tags.IafBlockTags;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
+import com.iafenvoy.iceandfire.tag.IafBlockTags;
 import com.iafenvoy.iceandfire.util.ShapeBuilder;
 import com.iafenvoy.iceandfire.world.IafWorldData;
 import com.mojang.serialization.Codec;
-import io.github.fabricators_of_create.porting_lib.tags.TagHelper;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -30,6 +30,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -148,22 +149,20 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
                     } else {
                         worldIn.setBlockState(blockPos, rand.nextBoolean() ? this.PALETTE_BLOCK1 : this.PALETTE_BLOCK2, Block.NOTIFY_LISTENERS);
                     }
-                } else {
+                } else
                     worldIn.setBlockState(blockPos, rand.nextBoolean() ? this.PALETTE_BLOCK1 : this.PALETTE_BLOCK2, Block.NOTIFY_LISTENERS);
-                }
             }
         });
     }
 
     private List<Block> getBlockList(final TagKey<Block> tagKey) {
-        return TagHelper.getContents(Registries.BLOCK, tagKey);
+        return Registries.BLOCK.getEntryList(tagKey).map(holders -> holders.stream().map(RegistryEntry::value).toList()).orElse(Collections.emptyList());
     }
 
     public void hollowOut(WorldAccess worldIn, Set<BlockPos> positions) {
         positions.forEach(blockPos -> {
-            if (!(worldIn.getBlockState(blockPos).getBlock() instanceof BlockWithEntity)) {
+            if (!(worldIn.getBlockState(blockPos).getBlock() instanceof BlockWithEntity))
                 worldIn.setBlockState(blockPos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
-            }
         });
     }
 

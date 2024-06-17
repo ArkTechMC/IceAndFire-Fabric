@@ -34,7 +34,7 @@ public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDread
         if (state.get(PLAYER_PLACED)) {
             float f = 8f;
             //Code from super method
-            return player.getDigSpeed(state, pos) / f / (float) 30;
+            return player.getBlockBreakingSpeed(state) / f / (float) 30;
         }
         return super.calcBlockBreakingDelta(state, player, world, pos);
     }

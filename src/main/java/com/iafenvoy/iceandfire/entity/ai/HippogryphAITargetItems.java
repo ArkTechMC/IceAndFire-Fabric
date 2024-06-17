@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
-import com.iafenvoy.iceandfire.datagen.tags.IafItemTags;
 import com.iafenvoy.iceandfire.entity.EntityHippogryph;
+import com.iafenvoy.iceandfire.tag.IafItemTags;
 import com.iafenvoy.iceandfire.util.IafMath;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;

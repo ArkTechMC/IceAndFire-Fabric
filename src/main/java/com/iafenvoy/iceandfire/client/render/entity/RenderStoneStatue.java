@@ -92,9 +92,11 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
 
         matrixStackIn.push();
         float yaw = entityIn.prevYaw + (entityIn.getYaw() - entityIn.prevYaw) * partialTicks;
-        boolean shouldSit = entityIn.hasVehicle() && (entityIn.getVehicle() != null && entityIn.getVehicle().canRiderInteract());
+        if (entityIn.hasVehicle()) {
+            entityIn.getVehicle();
+        }
         model.child = entityIn.isBaby();
-        model.riding = shouldSit;
+        model.riding = false;
         model.handSwingProgress = entityIn.getHandSwingProgress(partialTicks);
         if (model instanceof AdvancedEntityModel advancedEntityModel)
             advancedEntityModel.resetToDefaultPose();

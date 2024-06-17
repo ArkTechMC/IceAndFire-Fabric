@@ -2,10 +2,10 @@ package com.iafenvoy.iceandfire.entity.util.dragon;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.datagen.tags.IafBlockTags;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
+import com.iafenvoy.iceandfire.tag.IafBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -127,7 +127,7 @@ public class DragonUtils {
             } else {
                 double d3 = Vector3d.distanceTo(raytraceresult);
                 if (d3 < d2 || d2 == 0.0D) {
-                    if (entity1.getRootVehicle() == rider.getRootVehicle() && !rider.canRiderInteract()) {
+                    if (entity1.getRootVehicle() == rider.getRootVehicle()) {
                         if (d2 == 0.0D) pointedEntity = entity1;
                     } else {
                         pointedEntity = entity1;

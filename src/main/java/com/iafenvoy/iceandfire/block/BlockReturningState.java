@@ -42,7 +42,7 @@ public class BlockReturningState extends Block {
     @Override
     public void scheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
         if (!worldIn.isClient) {
-            if (!worldIn.isAreaLoaded(pos, 3))
+            if (!worldIn.isRegionLoaded(pos.add(-3, -3, -3), pos.add(3, 3, 3)))
                 return;
             if (state.get(REVERTS) && rand.nextInt(3) == 0)
                 worldIn.setBlockState(pos, this.returnState);
