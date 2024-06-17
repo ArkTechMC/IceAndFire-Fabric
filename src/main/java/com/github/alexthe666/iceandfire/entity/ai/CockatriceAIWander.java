@@ -29,21 +29,15 @@ public class CockatriceAIWander extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.cockatrice.canMove()) {
+        if (!this.cockatrice.canMove()) return false;
+        if (this.cockatrice.getCommand() != 3 && this.cockatrice.getCommand() != 0)
             return false;
-        }
-        if (this.cockatrice.getCommand() != 3 && this.cockatrice.getCommand() != 0) {
-            return false;
-        }
-        if (!this.mustUpdate) {
-            if (this.cockatrice.getRandom().nextInt(this.executionChance) != 0) {
+        if (!this.mustUpdate)
+            if (this.cockatrice.getRandom().nextInt(this.executionChance) != 0)
                 return false;
-            }
-        }
         Vec3d Vector3d = NoPenaltyTargeting.find(this.cockatrice, 10, 7);
-        if (Vector3d == null) {
-            return false;
-        } else {
+        if (Vector3d == null) return false;
+        else {
             this.xPosition = Vector3d.x;
             this.yPosition = Vector3d.y;
             this.zPosition = Vector3d.z;

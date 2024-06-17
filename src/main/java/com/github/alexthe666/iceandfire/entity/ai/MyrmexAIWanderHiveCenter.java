@@ -23,18 +23,14 @@ public class MyrmexAIWanderHiveCenter extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.myrmex.canMove() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigation().isIdle() || this.myrmex.canSeeSky()) {
+        if (!this.myrmex.canMove() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigation().isIdle() || this.myrmex.canSeeSky())
             return false;
-        }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 300);
-        if (village == null) {
+        if (village == null)
             village = this.myrmex.getHive();
-        }
-        if (village == null) {
-            return false;
-        } else {
+        if (village == null) return false;
+        else {
             this.target = this.getNearPos(MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getCenter()));
-
             this.path = this.myrmex.getNavigation().findPathTo(this.target, 0);
             return this.path != null;
         }
@@ -54,7 +50,6 @@ public class MyrmexAIWanderHiveCenter extends Goal {
     public void stop() {
         this.target = BlockPos.ORIGIN;
         this.myrmex.getNavigation().startMovingAlong(null, this.movementSpeed);
-
     }
 
     public BlockPos getNearPos(BlockPos pos) {

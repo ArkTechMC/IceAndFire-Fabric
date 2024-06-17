@@ -39,10 +39,6 @@ public class BlockFallingReturningState extends FallingBlock {
         }
     }
 
-    public int getDustColor(BlockState blkst) {
-        return -8356741;
-    }
-
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         builder.add(REVERTS);

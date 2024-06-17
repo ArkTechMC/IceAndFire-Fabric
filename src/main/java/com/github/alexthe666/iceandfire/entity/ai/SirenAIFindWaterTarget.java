@@ -19,9 +19,8 @@ public class SirenAIFindWaterTarget extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.mob.isTouchingWater()) {
+        if (!this.mob.isTouchingWater())
             return false;
-        }
         if (this.mob.getRandom().nextFloat() < 0.5F) {
             Path path = this.mob.getNavigation().getCurrentPath();
             if (path != null
@@ -56,28 +55,20 @@ public class SirenAIFindWaterTarget extends Goal {
             final int posX = (int) this.mob.getX();
             final int posY = (int) this.mob.getY();
             final int posZ = (int) this.mob.getZ();
-            for (int x = posX - 5; x < posX + 5; x++) {
-                for (int y = posY - 5; y < posY + 5; y++) {
+            for (int x = posX - 5; x < posX + 5; x++)
+                for (int y = posY - 5; y < posY + 5; y++)
                     for (int z = posZ - 5; z < posZ + 5; z++) {
-                        if (this.mob.wantsToSing()) {
-                            if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isSolid() && this.mob.getWorld().isAir(new BlockPos(x, y + 1, z)) && this.mob.isDirectPathBetweenPoints(this.mob.getPos(), new Vec3d(x, y + 1, z))) {
+                        if (this.mob.wantsToSing())
+                            if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isSolid() && this.mob.getWorld().isAir(new BlockPos(x, y + 1, z)) && this.mob.isDirectPathBetweenPoints(this.mob.getPos(), new Vec3d(x, y + 1, z)))
                                 singTargets.add(new Vec3d(x, y + 1, z));
-                            }
-                        }
-                        if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isOf(Blocks.WATER) && this.mob.isDirectPathBetweenPoints(this.mob.getPos(), new Vec3d(x, y, z))) {
+                        if (this.mob.getWorld().getBlockState(new BlockPos(x, y, z)).isOf(Blocks.WATER) && this.mob.isDirectPathBetweenPoints(this.mob.getPos(), new Vec3d(x, y, z)))
                             water.add(new Vec3d(x, y, z));
-                        }
 
                     }
-                }
-            }
-            if (!singTargets.isEmpty()) {
+            if (!singTargets.isEmpty())
                 return singTargets.get(this.mob.getRandom().nextInt(singTargets.size()));
-
-            }
-            if (!water.isEmpty()) {
+            if (!water.isEmpty())
                 return water.get(this.mob.getRandom().nextInt(water.size()));
-            }
         } else {
             BlockPos blockpos1 = this.mob.getTarget().getBlockPos();
             return new Vec3d(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());

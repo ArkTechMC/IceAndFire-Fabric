@@ -31,9 +31,8 @@ public class LocalEntityTickRateModifier extends LocalTickRateModifier {
     @Override
     public Vec3d getCenter(World level) {
         Entity entity = level.getEntityById(this.entityId);
-        if (this.isEntityValid(level) && entity != null) {
+        if (this.isEntityValid(level) && entity != null)
             return entity.getPos();
-        }
         return Vec3d.ZERO;
     }
 

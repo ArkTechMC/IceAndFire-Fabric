@@ -19,8 +19,8 @@ public class ModelChainTie extends BasicEntityModel<EntityChainTie> {
     }
 
     @Override
-    public void setAngles(EntityChainTie entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.knotRenderer.rotateAngleY = netHeadYaw * 0.017453292F;
+    public void setAngles(EntityChainTie entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.knotRenderer.rotateAngleY = headYaw * 0.017453292F;
         this.knotRenderer.rotateAngleX = headPitch * 0.017453292F;
     }
 

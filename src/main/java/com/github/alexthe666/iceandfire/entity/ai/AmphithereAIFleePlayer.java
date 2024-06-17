@@ -33,25 +33,20 @@ public class AmphithereAIFleePlayer extends Goal {
     @Override
     public boolean canStart() {
         if (!this.entity.isFlying() && !this.entity.isTamed()) {
-
             if (this.entity.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
                 this.list = this.entity.getWorld().getEntitiesByClass(PlayerEntity.class, this.entity.getBoundingBox().expand(this.avoidDistance, 6D, this.avoidDistance), EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR);
-
-            if (this.list.isEmpty())
-                return false;
+            if (this.list.isEmpty()) return false;
 
             this.closestLivingEntity = this.list.get(0);
             Vec3d Vector3d = NoPenaltyTargeting.findFrom(this.entity, 20, 7, new Vec3d(this.closestLivingEntity.getX(), this.closestLivingEntity.getY(), this.closestLivingEntity.getZ()));
 
-            if (Vector3d == null) {
+            if (Vector3d == null) return false;
+            else if (this.closestLivingEntity.squaredDistanceTo(Vector3d) < this.closestLivingEntity.squaredDistanceTo(this.entity))
                 return false;
-            } else if (this.closestLivingEntity.squaredDistanceTo(Vector3d) < this.closestLivingEntity.squaredDistanceTo(this.entity)) {
-                return false;
-            } else {
+            else {
                 this.path = this.entity.getNavigation().findPathTo(Vector3d.x, Vector3d.y, Vector3d.z, 0);
                 return this.path != null;
             }
-
         } else {
             this.list = IafMath.emptyPlayerEntityList;
             return false;
@@ -75,10 +70,6 @@ public class AmphithereAIFleePlayer extends Goal {
 
     @Override
     public void tick() {
-        if (this.entity.squaredDistanceTo(this.closestLivingEntity) < 49.0D) {
-            this.entity.getNavigation().setSpeed(this.nearSpeed);
-        } else {
-            this.entity.getNavigation().setSpeed(this.farSpeed);
-        }
+        this.entity.getNavigation().setSpeed(this.entity.squaredDistanceTo(this.closestLivingEntity) < 49.0D ? this.nearSpeed : this.farSpeed);
     }
 }

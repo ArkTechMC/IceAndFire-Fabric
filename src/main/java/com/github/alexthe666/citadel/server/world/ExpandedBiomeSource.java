@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 public interface ExpandedBiomeSource {
-
     Map<RegistryKey<Biome>, RegistryEntry<Biome>> getResourceKeyMap();
 
     void setResourceKeyMap(Map<RegistryKey<Biome>, RegistryEntry<Biome>> map);

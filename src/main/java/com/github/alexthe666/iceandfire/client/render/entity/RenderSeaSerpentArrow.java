@@ -17,5 +17,4 @@ public class RenderSeaSerpentArrow extends ProjectileEntityRenderer {
     public Identifier getTexture(Entity entity) {
         return TEXTURE;
     }
-
 }

@@ -9,7 +9,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops> {
-
     public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_0.png");
     public static final Identifier BLINK_0_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_0_blink.png");
     public static final Identifier BLINDED_0_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/cyclops/cyclops_0_injured.png");
@@ -30,50 +29,32 @@ public class RenderCyclops extends MobEntityRenderer<EntityCyclops, ModelCyclops
     @Override
     protected void scale(EntityCyclops entity, MatrixStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(2.25F, 2.25F, 2.25F);
-
     }
 
     @Override
     public Identifier getTexture(EntityCyclops cyclops) {
         switch (cyclops.getVariant()) {
             case 0 -> {
-                if (cyclops.isBlinded()) {
-                    return BLINDED_0_TEXTURE;
-                } else if (cyclops.isBlinking()) {
-                    return BLINK_0_TEXTURE;
-                } else {
-                    return TEXTURE_0;
-                }
+                if (cyclops.isBlinded()) return BLINDED_0_TEXTURE;
+                else if (cyclops.isBlinking()) return BLINK_0_TEXTURE;
+                else return TEXTURE_0;
             }
             case 1 -> {
-                if (cyclops.isBlinded()) {
-                    return BLINDED_1_TEXTURE;
-                } else if (cyclops.isBlinking()) {
-                    return BLINK_1_TEXTURE;
-                } else {
-                    return TEXTURE_1;
-                }
+                if (cyclops.isBlinded()) return BLINDED_1_TEXTURE;
+                else if (cyclops.isBlinking()) return BLINK_1_TEXTURE;
+                else return TEXTURE_1;
             }
             case 2 -> {
-                if (cyclops.isBlinded()) {
-                    return BLINDED_2_TEXTURE;
-                } else if (cyclops.isBlinking()) {
-                    return BLINK_2_TEXTURE;
-                } else {
-                    return TEXTURE_2;
-                }
+                if (cyclops.isBlinded()) return BLINDED_2_TEXTURE;
+                else if (cyclops.isBlinking()) return BLINK_2_TEXTURE;
+                else return TEXTURE_2;
             }
             case 3 -> {
-                if (cyclops.isBlinded()) {
-                    return BLINDED_3_TEXTURE;
-                } else if (cyclops.isBlinking()) {
-                    return BLINK_3_TEXTURE;
-                } else {
-                    return TEXTURE_3;
-                }
+                if (cyclops.isBlinded()) return BLINDED_3_TEXTURE;
+                else if (cyclops.isBlinking()) return BLINK_3_TEXTURE;
+                else return TEXTURE_3;
             }
         }
         return TEXTURE_0;
     }
-
 }

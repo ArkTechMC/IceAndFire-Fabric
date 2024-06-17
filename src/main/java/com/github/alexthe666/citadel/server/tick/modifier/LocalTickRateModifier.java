@@ -23,9 +23,8 @@ public abstract class LocalTickRateModifier extends TickRateModifier {
         super(tag);
         this.range = tag.getDouble("Range");
         RegistryKey<World> dimFromTag = World.OVERWORLD;
-        if (tag.contains("Dimension")) {
+        if (tag.contains("Dimension"))
             dimFromTag = RegistryKey.of(RegistryKeys.WORLD, new Identifier(tag.getString("dimension")));
-        }
         this.dimension = dimFromTag;
     }
 

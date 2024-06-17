@@ -376,31 +376,31 @@ public class ModelCyclops extends ModelDragonBase<EntityCyclops> {
     }
 
     @Override
-    public void setAngles(EntityCyclops entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate(entity, f, f1, f2, f3, f4);
+    public void setAngles(EntityCyclops entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
         float speed_walk = 0.2F;
         float speed_idle = 0.05F;
         float degree_walk = 0.75F;
         float degree_idle = 0.5F;
-        this.walk(this.rightleg, speed_walk, degree_walk * -0.75F, true, 0, 0F, f, f1);
-        this.walk(this.leftleg, speed_walk, degree_walk * -0.75F, false, 0, 0F, f, f1);
-        this.walk(this.rightleg2, speed_walk, degree_walk * -0.5F, true, 1, -0.3F, f, f1);
-        this.walk(this.leftleg2, speed_walk, degree_walk * -0.5F, false, 1, 0.3F, f, f1);
-        this.walk(this.rightarm, speed_walk, degree_walk * -0.75F, false, 0, 0F, f, f1);
-        this.walk(this.leftarm, speed_walk, degree_walk * -0.75F, true, 0, 0F, f, f1);
-        this.walk(this.rightarm2, speed_walk, degree_walk * -0.5F, false, 1, -0.3F, f, f1);
-        this.walk(this.leftarm2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, f, f1);
-        this.swing(this.body, speed_walk, degree_walk * -0.5F, false, 0, 0F, f, f1);
-        this.swing(this.UpperBody, speed_walk, degree_walk * -0.25F, true, 0, 0F, f, f1);
-        this.swing(this.Belly, speed_walk, degree_walk * -0.25F, false, 0, 0F, f, f1);
-        this.walk(this.UpperBody, speed_idle, degree_idle * -0.1F, true, 0F, -0.1F, f2, 1);
-        this.flap(this.leftarm, speed_idle, degree_idle * -0.1F, true, 0, 0F, f2, 1);
-        this.flap(this.rightarm, speed_idle, degree_idle * -0.1F, false, 0, 0F, f2, 1);
-        this.flap(this.leftarm2, speed_idle, degree_idle * -0.1F, true, 0, -0.1F, f2, 1);
-        this.flap(this.rightarm2, speed_idle, degree_idle * -0.1F, false, 0, -0.1F, f2, 1);
+        this.walk(this.rightleg, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.leftleg, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.rightleg2, speed_walk, degree_walk * -0.5F, true, 1, -0.3F, limbAngle, limbDistance);
+        this.walk(this.leftleg2, speed_walk, degree_walk * -0.5F, false, 1, 0.3F, limbAngle, limbDistance);
+        this.walk(this.rightarm, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.leftarm, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.rightarm2, speed_walk, degree_walk * -0.5F, false, 1, -0.3F, limbAngle, limbDistance);
+        this.walk(this.leftarm2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, limbAngle, limbDistance);
+        this.swing(this.body, speed_walk, degree_walk * -0.5F, false, 0, 0F, limbAngle, limbDistance);
+        this.swing(this.UpperBody, speed_walk, degree_walk * -0.25F, true, 0, 0F, limbAngle, limbDistance);
+        this.swing(this.Belly, speed_walk, degree_walk * -0.25F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.UpperBody, speed_idle, degree_idle * -0.1F, true, 0F, -0.1F, animationProgress, 1);
+        this.flap(this.leftarm, speed_idle, degree_idle * -0.1F, true, 0, 0F, animationProgress, 1);
+        this.flap(this.rightarm, speed_idle, degree_idle * -0.1F, false, 0, 0F, animationProgress, 1);
+        this.flap(this.leftarm2, speed_idle, degree_idle * -0.1F, true, 0, -0.1F, animationProgress, 1);
+        this.flap(this.rightarm2, speed_idle, degree_idle * -0.1F, false, 0, -0.1F, animationProgress, 1);
         if (entity.getAnimation() != EntityCyclops.ANIMATION_EATPLAYER)
-            this.faceTarget(f3, f4, 1, this.Head);
-        this.walk(this.Jaw, speed_idle, degree_idle * -0.15F, true, 0F, -0.1F, f2, 1);
+            this.faceTarget(headYaw, headPitch, 1, this.Head);
+        this.walk(this.Jaw, speed_idle, degree_idle * -0.15F, true, 0F, -0.1F, animationProgress, 1);
 
     }
 

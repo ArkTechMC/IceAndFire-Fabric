@@ -52,10 +52,8 @@ public class SeaSerpentAIMeleeJump extends DiveJumpingGoal {
                 this.dolphin.setVelocity(this.dolphin.getVelocity().add(d0 * 0.3D, up, d2 * 0.3D));
                 this.dolphin.getNavigation().stop();
                 this.dolphin.jumpCooldown = this.dolphin.getRandom().nextInt(32) + 32;
-            } else {
+            } else
                 this.dolphin.getNavigation().startMovingTo(target, 1.0F);
-            }
-
         }
     }
 
@@ -72,30 +70,25 @@ public class SeaSerpentAIMeleeJump extends DiveJumpingGoal {
             FluidState fluidstate = this.dolphin.getWorld().getFluidState(this.dolphin.getBlockPos());
             this.inWater = fluidstate.isIn(FluidTags.WATER);
         }
-        if (this.attackCooldown > 0) {
-            this.attackCooldown--;
-        }
-        if (this.inWater && !flag) {
+        if (this.attackCooldown > 0) this.attackCooldown--;
+        if (this.inWater && !flag)
             this.dolphin.playSound(SoundEvents.ENTITY_DOLPHIN_JUMP, 1.0F, 1.0F);
-        }
         LivingEntity target = this.dolphin.getTarget();
         if (target != null) {
             if (this.dolphin.distanceTo(target) < 3F && this.attackCooldown <= 0) {
                 this.dolphin.onJumpHit(target);
                 this.attackCooldown = 20;
-            } else if (this.dolphin.distanceTo(target) < 5F) {
+            } else if (this.dolphin.distanceTo(target) < 5F)
                 this.dolphin.setAnimation(EntitySeaSerpent.ANIMATION_BITE);
-            }
         }
 
         Vec3d vector3d = this.dolphin.getVelocity();
-        if (vector3d.y * vector3d.y < 0.1F && this.dolphin.getPitch() != 0.0F) {
+        if (vector3d.y * vector3d.y < 0.1F && this.dolphin.getPitch() != 0.0F)
             this.dolphin.setPitch(MathHelper.lerpAngleDegrees(this.dolphin.getPitch(), 0.0F, 0.2F));
-        } else {
+        else {
             final double d0 = vector3d.horizontalLength();
             final double d1 = Math.signum(-vector3d.y) * Math.acos(d0 / vector3d.length()) * (180F / (float) Math.PI);
             this.dolphin.setPitch((float) d1);
         }
-
     }
 }

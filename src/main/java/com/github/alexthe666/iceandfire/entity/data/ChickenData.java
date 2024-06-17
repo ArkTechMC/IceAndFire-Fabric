@@ -12,13 +12,11 @@ public class ChickenData {
     public int timeUntilNextEgg = -1;
 
     public void tickChicken(final LivingEntity entity) {
-        if (!IafConfig.chickensLayRottenEggs || entity.getWorld().isClient() || !ServerEvents.isChicken(entity) || entity.isBaby()) {
+        if (!IafConfig.chickensLayRottenEggs || entity.getWorld().isClient() || !ServerEvents.isChicken(entity) || entity.isBaby())
             return;
-        }
 
-        if (this.timeUntilNextEgg == -1) {
+        if (this.timeUntilNextEgg == -1)
             this.timeUntilNextEgg = this.createDefaultTime(entity.getRandom());
-        }
 
         if (this.timeUntilNextEgg == 0) {
             if (entity.age > 30 && entity.getRandom().nextInt(IafConfig.cockatriceEggChance + 1) == 0) {
@@ -26,11 +24,9 @@ public class ChickenData {
                 entity.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
                 entity.dropItem(IafItems.ROTTEN_EGG, 1);
             }
-
             this.timeUntilNextEgg = -1;
-        } else {
+        } else
             this.timeUntilNextEgg--;
-        }
     }
 
     public void setTime(int timeUntilNextEgg) {

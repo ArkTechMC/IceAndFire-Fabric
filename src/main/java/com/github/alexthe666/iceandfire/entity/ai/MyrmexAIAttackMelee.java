@@ -19,7 +19,6 @@ public class MyrmexAIAttackMelee extends Goal {
     private double targetX;
     private double targetY;
     private double targetZ;
-    private int failedPathFindingPenalty = 0;
 
     public MyrmexAIAttackMelee(EntityMyrmexBase dragon, double speedIn, boolean useLongMemory) {
         this.myrmex = dragon;
@@ -31,37 +30,31 @@ public class MyrmexAIAttackMelee extends Goal {
     @Override
     public boolean canStart() {
         LivingEntity LivingEntity = this.myrmex.getTarget();
-        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate)) {
+        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate))
             return false;
-        }
-        if (LivingEntity instanceof PlayerEntity && this.myrmex.getHive() != null) {
-            if (!this.myrmex.getHive().isPlayerReputationLowEnoughToFight(LivingEntity.getUuid())) {
+        if (LivingEntity instanceof PlayerEntity && this.myrmex.getHive() != null)
+            if (!this.myrmex.getHive().isPlayerReputationLowEnoughToFight(LivingEntity.getUuid()))
                 return false;
-            }
-        }
-        if (LivingEntity == null) {
+        if (LivingEntity == null)
             return false;
-        } else if (!LivingEntity.isAlive()) {
+        else if (!LivingEntity.isAlive())
             return false;
-        } else if (!this.myrmex.canMove()) {
+        else if (!this.myrmex.canMove())
             return false;
-        } else {
-
+        else {
             PathResult attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, this.speedTowardsTarget);
-            if (attackPath != null) {
+            if (attackPath != null)
                 return true;
-            } else {
+            else
                 return this.getAttackReachSqr(LivingEntity) >= this.myrmex.squaredDistanceTo(LivingEntity.getX(), LivingEntity.getBoundingBox().minY, LivingEntity.getZ());
-            }
         }
     }
 
     @Override
     public boolean shouldContinue() {
         LivingEntity LivingEntity = this.myrmex.getTarget();
-        if (this.myrmex.getAttacking() != null && this.myrmex.getAttacking().isAlive()) {
+        if (this.myrmex.getAttacking() != null && this.myrmex.getAttacking().isAlive())
             LivingEntity = this.myrmex.getAttacking();
-        }
         if (LivingEntity != null && !LivingEntity.isAlive() || !(this.myrmex.getNavigation() instanceof AdvancedPathNavigate)) {
             this.stop();
             return false;
@@ -98,16 +91,12 @@ public class MyrmexAIAttackMelee extends Goal {
                 this.targetZ = entity.getZ();
                 this.delayCounter = 4 + this.myrmex.getRandom().nextInt(7);
 
-                boolean canPenalize = false;
-
-                if (d0 > 1024.0D) {
+                if (d0 > 1024.0D)
                     this.delayCounter += 10;
-                } else if (d0 > 256.0D) {
+                else if (d0 > 256.0D)
                     this.delayCounter += 5;
-                }
-                if (this.myrmex.canMove()) {
+                if (this.myrmex.canMove())
                     this.delayCounter += 15;
-                }
             }
 
             this.attackTick = Math.max(this.attackTick - 1, 0);

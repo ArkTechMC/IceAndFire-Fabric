@@ -30,26 +30,18 @@ public class DragonAIWander extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.dragon.canMove() || this.dragon.isFuelingForge()) {
-            return false;
-        }
-        if (this.dragon.isFlying() || this.dragon.isHovering()) {
-            return false;
-        }
-        if (!this.mustUpdate) {
-            if (this.dragon.getRandom().nextInt(this.executionChance) != 0) {
+        if (!this.dragon.canMove() || this.dragon.isFuelingForge()) return false;
+        if (this.dragon.isFlying() || this.dragon.isHovering()) return false;
+        if (!this.mustUpdate)
+            if (this.dragon.getRandom().nextInt(this.executionChance) != 0)
                 return false;
-            }
-        }
         Vec3d Vector3d = NoPenaltyTargeting.find(this.dragon, 10, 7);
-        if (Vector3d == null) {
-            return false;
-        } else {
+        if (Vector3d == null) return false;
+        else {
             this.xPosition = Vector3d.x;
             this.yPosition = Vector3d.y;
             this.zPosition = Vector3d.z;
             this.mustUpdate = false;
-
             return true;
         }
     }

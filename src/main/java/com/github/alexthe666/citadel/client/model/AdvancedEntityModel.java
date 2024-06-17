@@ -1,7 +1,7 @@
 package com.github.alexthe666.citadel.client.model;
 
 import com.github.alexthe666.citadel.client.model.basic.BasicEntityModel;
-import com.github.alexthe666.citadel.client.model.container.TextureOffset;
+import com.github.alexthe666.citadel.client.model.tabula.TextureOffset;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

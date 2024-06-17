@@ -14,15 +14,9 @@ public class EntityAIWatchClosestIgnoreRider extends LookAtEntityGoal {
 
     public static boolean isRidingOrBeingRiddenBy(Entity first, Entity entityIn) {
         for (Entity entity : first.getPassengerList()) {
-            if (entity.equals(entityIn)) {
-                return true;
-            }
-
-            if (isRidingOrBeingRiddenBy(entity, entityIn)) {
-                return true;
-            }
+            if (entity.equals(entityIn)) return true;
+            if (isRidingOrBeingRiddenBy(entity, entityIn)) return true;
         }
-
         return false;
     }
 
@@ -30,5 +24,4 @@ public class EntityAIWatchClosestIgnoreRider extends LookAtEntityGoal {
     public boolean canStart() {
         return super.canStart() && this.target != null && isRidingOrBeingRiddenBy(this.target, this.entity);
     }
-
 }

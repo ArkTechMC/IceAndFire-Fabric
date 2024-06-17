@@ -2,7 +2,6 @@ package com.github.alexthe666.citadel;
 
 import com.github.alexthe666.citadel.config.ConfigHolder;
 import com.github.alexthe666.citadel.config.ServerConfig;
-import com.github.alexthe666.citadel.server.generation.VillageHouseManager;
 import com.github.alexthe666.citadel.server.world.ExpandedBiomeSource;
 import dev.arktechmc.iafextra.StaticVariables;
 import net.minecraft.registry.DynamicRegistryManager;
@@ -29,7 +28,6 @@ public class Citadel {
 
     public static void onServerAboutToStart() {
         DynamicRegistryManager registryAccess = StaticVariables.server.getRegistryManager();
-        VillageHouseManager.addAllHouses(registryAccess);
         Registry<Biome> allBiomes = registryAccess.get(RegistryKeys.BIOME);
         Registry<DimensionOptions> levelStems = registryAccess.get(RegistryKeys.DIMENSION);
         Map<RegistryKey<Biome>, RegistryEntry<Biome>> biomeMap = new HashMap<>();

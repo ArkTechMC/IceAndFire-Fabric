@@ -7,7 +7,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class AmphithereAIHurtByTarget extends RevengeGoal {
-
     public AmphithereAIHurtByTarget(EntityAmphithere amphithere, boolean help, Class<?>[] classes) {
         super(amphithere, classes);
     }

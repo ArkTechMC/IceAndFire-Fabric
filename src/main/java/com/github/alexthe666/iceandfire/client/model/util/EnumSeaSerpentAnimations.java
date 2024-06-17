@@ -23,14 +23,12 @@ public enum EnumSeaSerpentAnimations {
     JUMPING1("jumping1"),
     JUMPING2("jumping2");
 
-
     private final String fileSuffix;
     public TabulaModel seaserpent_model;
 
     EnumSeaSerpentAnimations(String fileSuffix) {
         this.fileSuffix = fileSuffix;
     }
-
 
     public static void initializeSerpentModels() {
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)

@@ -1,7 +1,6 @@
 package com.github.alexthe666.citadel.server.world;
 
 public interface ModifiableTickRateServer {
-
     void setGlobalTickLengthMs(long msPerTick);
 
     long getMasterMs();

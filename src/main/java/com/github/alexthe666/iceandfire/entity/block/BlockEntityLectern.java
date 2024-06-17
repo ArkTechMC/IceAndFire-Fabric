@@ -65,9 +65,7 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
 
     public static void bookAnimationTick(World world, BlockPos pos, BlockState state, BlockEntityLectern lectern) {
         float f1 = lectern.pageHelp1;
-        do {
-            lectern.pageHelp1 += RANDOM.nextInt(4) - RANDOM.nextInt(4);
-        } while (f1 == lectern.pageHelp1);
+        do lectern.pageHelp1 += RANDOM.nextInt(4) - RANDOM.nextInt(4); while (f1 == lectern.pageHelp1);
         lectern.pageFlipPrev = lectern.pageFlip;
         float f = (lectern.pageHelp1 - lectern.pageFlip) * 0.04F;
         float f3 = 0.02F;
@@ -88,9 +86,7 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
 
     private List<EnumBestiaryPages> getPossiblePages() {
         final List<EnumBestiaryPages> list = EnumBestiaryPages.possiblePages(this.stacks.get(0));
-        if (!list.isEmpty()) {
-            return list;
-        }
+        if (!list.isEmpty()) return list;
         return EMPTY_LIST;
     }
 
@@ -98,17 +94,13 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
     public ItemStack removeStack(int index, int count) {
         if (!this.stacks.get(index).isEmpty()) {
             ItemStack itemstack;
-
             if (this.stacks.get(index).getCount() <= count) {
                 itemstack = this.stacks.get(index);
                 this.stacks.set(index, ItemStack.EMPTY);
             } else {
                 itemstack = this.stacks.get(index).split(count);
-
-                if (this.stacks.get(index).getCount() == 0) {
+                if (this.stacks.get(index).getCount() == 0)
                     this.stacks.set(index, ItemStack.EMPTY);
-                }
-
             }
             return itemstack;
         } else {
@@ -118,7 +110,6 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
 
     @Override
     public void setStack(int index, ItemStack stack) {
-        boolean isSame = !stack.isEmpty() && ItemStack.areItemsEqual(stack, this.stacks.get(index)) && ItemStack.areEqual(stack, this.stacks.get(index));
         this.stacks.set(index, stack);
 
         if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack())
@@ -136,31 +127,13 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
 
     public EnumBestiaryPages[] randomizePages(ItemStack bestiary, ItemStack manuscript) {
         assert this.world != null;
-        if (!this.world.isClient) {
-            if (bestiary.getItem() == IafItems.BESTIARY) {
-                List<EnumBestiaryPages> possibleList = this.getPossiblePages();
-                this.localRand.setSeed(this.world.getTime());
-                Collections.shuffle(possibleList, this.localRand);
-                if (!possibleList.isEmpty()) {
-                    this.selectedPages[0] = possibleList.get(0);
-                } else {
-                    this.selectedPages[0] = null;
-                }
-                if (possibleList.size() > 1) {
-                    this.selectedPages[1] = possibleList.get(1);
-                } else {
-                    this.selectedPages[1] = null;
-                }
-                if (possibleList.size() > 2) {
-                    this.selectedPages[2] = possibleList.get(2);
-                } else {
-                    this.selectedPages[2] = null;
-                }
-            }
-            int page1 = this.selectedPages[0] == null ? -1 : this.selectedPages[0].ordinal();
-            int page2 = this.selectedPages[1] == null ? -1 : this.selectedPages[1].ordinal();
-            int page3 = this.selectedPages[2] == null ? -1 : this.selectedPages[2].ordinal();
-//            IafServerNetworkHandler.sendToAll(new MessageUpdateLectern(this.pos.asLong(), page1, page2, page3, false, 0));
+        if (!this.world.isClient && bestiary.getItem() == IafItems.BESTIARY) {
+            List<EnumBestiaryPages> possibleList = this.getPossiblePages();
+            this.localRand.setSeed(this.world.getTime());
+            Collections.shuffle(possibleList, this.localRand);
+            this.selectedPages[0] = !possibleList.isEmpty() ? possibleList.get(0) : null;
+            this.selectedPages[1] = possibleList.size() > 1 ? possibleList.get(1) : null;
+            this.selectedPages[2] = possibleList.size() > 2 ? possibleList.get(2) : null;
         }
         return this.selectedPages;
     }
@@ -170,7 +143,6 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
         super.readNbt(compound);
         this.stacks = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
         Inventories.readNbt(compound, this.stacks);
-
     }
 
     @Override
@@ -265,11 +237,9 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
 
     @Override
     public boolean isEmpty() {
-        for (ItemStack itemstack : this.stacks) {
-            if (!itemstack.isEmpty()) {
+        for (ItemStack itemstack : this.stacks)
+            if (!itemstack.isEmpty())
                 return false;
-            }
-        }
         return true;
     }
 

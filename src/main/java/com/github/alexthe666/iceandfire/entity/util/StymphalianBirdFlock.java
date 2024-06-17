@@ -35,16 +35,11 @@ public class StymphalianBirdFlock {
     public static StymphalianBirdFlock getNearbyFlock(EntityStymphalianBird bird) {
         float d0 = IafConfig.stymphalianBirdFlockLength;
         List<Entity> list = bird.getWorld().getOtherEntities(bird, (new Box(bird.getX(), bird.getY(), bird.getZ(), bird.getX() + 1.0D, bird.getY() + 1.0D, bird.getZ() + 1.0D)).expand(d0, 10.0D, d0), EntityStymphalianBird.STYMPHALIAN_PREDICATE);
-        if (!list.isEmpty()) {
-            for (Entity entity : list) {
-                if (entity instanceof EntityStymphalianBird other) {
-                    if (other.flock != null) {
+        if (!list.isEmpty())
+            for (Entity entity : list)
+                if (entity instanceof EntityStymphalianBird other)
+                    if (other.flock != null)
                         return other.flock;
-                    }
-                }
-
-            }
-        }
         return null;
     }
 
@@ -57,9 +52,8 @@ public class StymphalianBirdFlock {
     }
 
     public void update() {
-        if (!this.members.isEmpty() && (this.leader == null || !this.leader.isAlive())) {
+        if (!this.members.isEmpty() && (this.leader == null || !this.leader.isAlive()))
             this.leader = this.members.get(this.random.nextInt(this.members.size()));
-        }
         if (this.leader != null && this.leader.isAlive()) {
             BlockPos prevLeaderTarget = this.leaderTarget;
             this.leaderTarget = this.leader.airTarget;
@@ -67,11 +61,9 @@ public class StymphalianBirdFlock {
     }
 
     public void onLeaderAttack(LivingEntity attackTarget) {
-        for (EntityStymphalianBird bird : this.members) {
-            if (bird.getTarget() == null && !this.isLeader(bird)) {
+        for (EntityStymphalianBird bird : this.members)
+            if (bird.getTarget() == null && !this.isLeader(bird))
                 bird.setTarget(attackTarget);
-            }
-        }
     }
 
     public EntityStymphalianBird getLeader() {
@@ -81,24 +73,19 @@ public class StymphalianBirdFlock {
 
     public void setTarget(BlockPos target) {
         this.leaderTarget = target;
-        for (EntityStymphalianBird bird : this.members) {
-            if (!this.isLeader(bird)) {
+        for (EntityStymphalianBird bird : this.members)
+            if (!this.isLeader(bird))
                 bird.airTarget = StymphalianBirdAIAirTarget.getNearbyAirTarget(bird);
-            }
-        }
     }
 
     public void setFlying(boolean flying) {
-        for (EntityStymphalianBird bird : this.members) {
-            if (!this.isLeader(bird)) {
+        for (EntityStymphalianBird bird : this.members)
+            if (!this.isLeader(bird))
                 bird.setFlying(flying);
-            }
-        }
     }
 
     public void setFearTarget(LivingEntity living) {
-        for (EntityStymphalianBird bird : this.members) {
+        for (EntityStymphalianBird bird : this.members)
             bird.setVictor(living);
-        }
     }
 }

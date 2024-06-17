@@ -13,7 +13,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoal {
+public class MyrmexAIForageForItems extends TrackTargetGoal {
     public final EntityMyrmexWorker myrmex;
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
@@ -39,8 +39,7 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
             this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(), this.targetEntitySelector);
 
-        if (this.list.isEmpty())
-            return false;
+        if (this.list.isEmpty()) return false;
 
         this.list.sort(this.theNearestAttackableTargetSorter);
         this.targetEntity = this.list.get(0);
@@ -60,9 +59,9 @@ public class MyrmexAIForageForItems<T extends ItemEntity> extends TrackTargetGoa
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity == null || (!this.targetEntity.isAlive() || this.targetEntity.isTouchingWater())) {
+        if (this.targetEntity == null || (!this.targetEntity.isAlive() || this.targetEntity.isTouchingWater()))
             this.stop();
-        } else if (this.mob.squaredDistanceTo(this.targetEntity) < 8F) {
+        else if (this.mob.squaredDistanceTo(this.targetEntity) < 8F) {
             this.myrmex.onPickupItem(this.targetEntity);
             this.myrmex.setStackInHand(Hand.MAIN_HAND, this.targetEntity.getStack());
             this.targetEntity.remove(Entity.RemovalReason.DISCARDED);

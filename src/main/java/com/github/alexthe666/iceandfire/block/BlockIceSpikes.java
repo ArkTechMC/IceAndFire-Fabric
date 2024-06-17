@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -15,8 +14,7 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class BlockIceSpikes extends Block {
-    protected static final VoxelShape AABB = Block.createCuboidShape(1, 0, 1, 15, 8, 15);
-    public Item itemBlock;
+    protected static final VoxelShape VOXEL_SHAPE = Block.createCuboidShape(1, 0, 1, 15, 8, 15);
 
     public BlockIceSpikes() {
         super(Settings.create().mapColor(MapColor.PALE_PURPLE).nonOpaque().dynamicBounds().ticksRandomly().sounds(BlockSoundGroup.GLASS).strength(2.5F).requiresTool());
@@ -44,12 +42,12 @@ public class BlockIceSpikes extends Block {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
-        return AABB;
+        return VOXEL_SHAPE;
     }
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockView worldIn, BlockPos pos, ShapeContext context) {
-        return AABB;
+        return VOXEL_SHAPE;
     }
 
     @Override

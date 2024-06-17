@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-
 public class SirenData {
     public EntitySiren charmedBy;
     public int charmTime;
@@ -29,17 +28,13 @@ public class SirenData {
     private boolean triggerClientUpdate;
 
     public void tickCharmed(final LivingEntity holder) {
-        if (!(holder instanceof PlayerEntity || holder instanceof MerchantEntity || holder instanceof IHearsSiren)) {
+        if (!(holder instanceof PlayerEntity || holder instanceof MerchantEntity || holder instanceof IHearsSiren))
             return;
-        }
 
-        if (!this.isInitialized) {
+        if (!this.isInitialized)
             this.initialize(holder.getWorld());
-        }
 
-        if (this.charmedBy == null) {
-            return;
-        }
+        if (this.charmedBy == null) return;
 
         if (this.charmedBy.isActuallySinging()) {
             if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafConfig.sirenMaxSingTime) {
@@ -65,19 +60,16 @@ public class SirenData {
 
             this.isCharmed = true;
             this.charmTime++;
-            if (holder.getRandom().nextInt(7) == 0) {
-                for (int i = 0; i < 5; i++) {
+            if (holder.getRandom().nextInt(7) == 0)
+                for (int i = 0; i < 5; i++)
                     holder.getWorld().addParticle(ParticleTypes.HEART,
                             holder.getX() + ((holder.getRandom().nextDouble() - 0.5D) * 3),
                             holder.getY() + ((holder.getRandom().nextDouble() - 0.5D) * 3),
                             holder.getZ() + ((holder.getRandom().nextDouble() - 0.5D) * 3),
                             0, 0, 0);
-                }
-            }
 
-            if (holder.horizontalCollision) {
+            if (holder.horizontalCollision)
                 holder.setJumping(true);
-            }
 
             double motionXAdd = (Math.signum(this.charmedBy.getX() - holder.getX()) * 0.5D - holder.getVelocity().x) * 0.100000000372529;
             double motionYAdd = (Math.signum(this.charmedBy.getY() - holder.getY() + 1) * 0.5D - holder.getVelocity().y) * 0.100000000372529;
@@ -85,9 +77,8 @@ public class SirenData {
 
             holder.setVelocity(holder.getVelocity().add(motionXAdd, motionYAdd, motionZAdd));
 
-            if (holder.hasVehicle()) {
+            if (holder.hasVehicle())
                 holder.stopRiding();
-            }
 
             if (!(holder instanceof PlayerEntity)) {
                 double x = this.charmedBy.getX() - holder.getX();
@@ -103,9 +94,7 @@ public class SirenData {
     }
 
     public void setCharmed(final Entity entity) {
-        if (!(entity instanceof EntitySiren siren)) {
-            return;
-        }
+        if (!(entity instanceof EntitySiren siren)) return;
 
         this.charmedBy = siren;
         this.isCharmed = true;
@@ -125,9 +114,8 @@ public class SirenData {
         if (this.charmedBy != null) {
             sirenData.put("charmedByUUID", NbtHelper.fromUuid(this.charmedBy.getUuid()));
             sirenData.putInt("charmedById", this.charmedBy.getId());
-        } else {
+        } else
             sirenData.putInt("charmedById", -1);
-        }
 
         sirenData.putInt("charmTime", this.charmTime);
         sirenData.putBoolean("isCharmed", this.isCharmed);
@@ -139,9 +127,8 @@ public class SirenData {
         NbtCompound sirenData = tag.getCompound("sirenData");
         NbtElement uuidTag = sirenData.get("charmedByUUID");
 
-        if (uuidTag != null) {
+        if (uuidTag != null)
             this.charmedByUUID = NbtHelper.toUuid(uuidTag);
-        }
 
         this.charmedById = sirenData.getInt("charmedById");
         this.charmTime = sirenData.getInt("charmTime");
@@ -160,15 +147,8 @@ public class SirenData {
 
     private float updateRotation(float angle, float targetAngle) {
         float f = MathHelper.wrapDegrees(targetAngle - angle);
-
-        if (f > (float) 30.0) {
-            f = (float) 30.0;
-        }
-
-        if (f < -(float) 30.0) {
-            f = -(float) 30.0;
-        }
-
+        if (f > 30) f = 30f;
+        if (f < -30) f = -30f;
         return angle + f;
     }
 
@@ -186,10 +166,8 @@ public class SirenData {
             }
         } else if (this.charmedById != -1) {
             Entity entity = level.getEntityById(this.charmedById);
-
-            if (entity instanceof EntitySiren siren) {
+            if (entity instanceof EntitySiren siren)
                 this.charmedBy = siren;
-            }
         }
 
         this.isInitialized = true;

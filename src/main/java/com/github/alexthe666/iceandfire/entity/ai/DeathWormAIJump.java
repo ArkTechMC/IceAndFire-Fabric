@@ -9,7 +9,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 public class DeathWormAIJump extends DiveJumpingGoal {
-
     private static final int[] JUMP_DISTANCES = new int[]{
             0, 1, 4, 5, 6, 7
     };
@@ -25,22 +24,17 @@ public class DeathWormAIJump extends DiveJumpingGoal {
 
     @Override
     public boolean canStart() {
-        if (this.jumpCooldown > 0) {
-            this.jumpCooldown--;
-        }
-        if (this.dolphin.getRandom().nextInt(this.chance) != 0 || this.dolphin.hasPassengers()
-                || this.dolphin.getTarget() != null) {
+        if (this.jumpCooldown > 0) this.jumpCooldown--;
+        if (this.dolphin.getRandom().nextInt(this.chance) != 0 || this.dolphin.hasPassengers() || this.dolphin.getTarget() != null)
             return false;
-        } else {
+        else {
             Direction direction = this.dolphin.getMovementDirection();
             final int i = direction.getOffsetX();
             final int j = direction.getOffsetZ();
             BlockPos blockpos = this.dolphin.getBlockPos();
-            for (int k : JUMP_DISTANCES) {
-                if (!this.canJumpTo(blockpos, i, j, k) || !this.isAirAbove(blockpos, i, j, k)) {
+            for (int k : JUMP_DISTANCES)
+                if (!this.canJumpTo(blockpos, i, j, k) || !this.isAirAbove(blockpos, i, j, k))
                     return false;
-                }
-            }
             return true;
         }
     }
@@ -77,8 +71,7 @@ public class DeathWormAIJump extends DiveJumpingGoal {
     public void start() {
         Direction direction = this.dolphin.getMovementDirection();
         final float up = (this.dolphin.getScaleFactor() > 3 ? 0.7F : 0.4F) + this.dolphin.getRandom().nextFloat() * 0.4F;
-        this.dolphin
-                .setVelocity(this.dolphin.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
+        this.dolphin.setVelocity(this.dolphin.getVelocity().add(direction.getOffsetX() * 0.6D, up, direction.getOffsetZ() * 0.6D));
         this.dolphin.getNavigation().stop();
         this.dolphin.setWormJumping(30);
         this.jumpCooldown = this.dolphin.getRandom().nextInt(65) + 32;
@@ -99,18 +92,15 @@ public class DeathWormAIJump extends DiveJumpingGoal {
     @Override
     public void tick() {
         final boolean flag = this.inWater;
-        if (!flag) {
+        if (!flag)
             this.inWater = this.dolphin.getWorld().getBlockState(this.dolphin.getBlockPos()).isIn(BlockTags.SAND);
-        }
         Vec3d vector3d = this.dolphin.getVelocity();
-        if (vector3d.y * vector3d.y < 0.1F && this.dolphin.getPitch() != 0.0F) {
+        if (vector3d.y * vector3d.y < 0.1F && this.dolphin.getPitch() != 0.0F)
             this.dolphin.setPitch(MathHelper.lerpAngleDegrees(this.dolphin.getPitch(), 0.0F, 0.2F));
-        } else {
-
+        else {
             final double d0 = (vector3d.horizontalLength());
             final double d1 = Math.signum(-vector3d.y) * Math.acos(d0 / vector3d.length()) * (180F / (float) Math.PI);
             this.dolphin.setPitch((float) d1);
         }
-
     }
 }

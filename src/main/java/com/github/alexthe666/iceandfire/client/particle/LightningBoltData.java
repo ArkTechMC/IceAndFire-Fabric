@@ -96,9 +96,8 @@ public class LightningBoltData {
                 Vec3d perpendicularDist = data.perpendicularDist;
                 float progress = data.progress + (1F / this.segments) * (1 - this.renderInfo.parallelNoise + this.random.nextFloat() * this.renderInfo.parallelNoise * 2);
                 Vec3d segmentEnd;
-                if (progress >= 1) {
-                    segmentEnd = this.end;
-                } else {
+                if (progress >= 1) segmentEnd = this.end;
+                else {
                     float segmentDiffScale = this.renderInfo.spreadFunction.getMaxSpread(progress);
                     float maxDiff = this.renderInfo.spreadFactor * segmentDiffScale * totalDistance * this.renderInfo.randomFunction.getRandom(this.random);
                     Vec3d randVec = findRandomOrthogonalVector(diff, this.random);
@@ -110,20 +109,17 @@ public class LightningBoltData {
                 Pair<BoltQuads, QuadCache> quadData = this.createQuads(data.cache, data.start, segmentEnd, boltSize);
                 quads.add(quadData.getLeft());
 
-                if (segmentEnd == this.end) {
-                    break; // break if we've reached the defined end point
-                } else if (!data.isBranch) {
+                if (segmentEnd == this.end) break; // break if we've reached the defined end point
+                else if (!data.isBranch)
                     // continue the bolt if this is the primary (non-branch) segment
                     drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, quadData.getRight(), false));
-                } else if (this.random.nextFloat() < this.renderInfo.branchContinuationFactor) {
+                else if (this.random.nextFloat() < this.renderInfo.branchContinuationFactor)
                     // branch continuation
                     drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, quadData.getRight(), true));
-                }
 
-                while (this.random.nextFloat() < this.renderInfo.branchInitiationFactor * (1 - progress)) {
+                while (this.random.nextFloat() < this.renderInfo.branchInitiationFactor * (1 - progress))
                     // branch initiation (probability decreases as progress increases)
                     drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, quadData.getRight(), true));
-                }
             }
         }
         return quads;

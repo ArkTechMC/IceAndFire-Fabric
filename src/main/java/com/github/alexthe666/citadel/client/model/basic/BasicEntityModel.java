@@ -17,8 +17,8 @@ public abstract class BasicEntityModel<T extends Entity> extends EntityModel<T> 
         this(RenderLayer::getEntityCutoutNoCull);
     }
 
-    protected BasicEntityModel(Function<Identifier, RenderLayer> p_102613_) {
-        super(p_102613_);
+    protected BasicEntityModel(Function<Identifier, RenderLayer> layerFunction) {
+        super(layerFunction);
     }
 
     @Override
@@ -29,9 +29,9 @@ public abstract class BasicEntityModel<T extends Entity> extends EntityModel<T> 
     public abstract Iterable<BasicModelPart> parts();
 
     @Override
-    public abstract void setAngles(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_);
+    public abstract void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch);
 
     @Override
-    public void animateModel(T p_102614_, float p_102615_, float p_102616_, float p_102617_) {
+    public void animateModel(T entity, float limbAngle, float limbDistance, float tickDelta) {
     }
 }

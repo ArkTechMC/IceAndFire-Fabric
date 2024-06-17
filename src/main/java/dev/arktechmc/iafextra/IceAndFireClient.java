@@ -1,6 +1,5 @@
 package dev.arktechmc.iafextra;
 
-import com.github.alexthe666.citadel.client.render.pathfinding.WorldEventContext;
 import com.github.alexthe666.iceandfire.client.model.util.DragonAnimationsLibrary;
 import com.github.alexthe666.iceandfire.client.model.util.EnumDragonModelTypes;
 import com.github.alexthe666.iceandfire.client.model.util.EnumDragonPoses;
@@ -16,7 +15,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 
 @Environment(EnvType.CLIENT)
 public class IceAndFireClient implements ClientModInitializer {
@@ -35,7 +33,6 @@ public class IceAndFireClient implements ClientModInitializer {
         IafKeybindings.init();
         IafParticles.registerParticleRenderers();
 
-        WorldRenderEvents.LAST.register(WorldEventContext.INSTANCE::renderWorldLastEvent);
         ArmorRenderer.register(new CopperArmorRenderer(), IafItems.COPPER_HELMET, IafItems.COPPER_CHESTPLATE, IafItems.COPPER_LEGGINGS, IafItems.COPPER_BOOTS);
         ArmorRenderer.register(new DeathWormArmorRenderer(), IafItems.DEATHWORM_WHITE_HELMET, IafItems.DEATHWORM_WHITE_CHESTPLATE, IafItems.DEATHWORM_WHITE_LEGGINGS, IafItems.DEATHWORM_WHITE_BOOTS);
         ArmorRenderer.register(new DeathWormArmorRenderer(), IafItems.DEATHWORM_YELLOW_HELMET, IafItems.DEATHWORM_YELLOW_CHESTPLATE, IafItems.DEATHWORM_YELLOW_LEGGINGS, IafItems.DEATHWORM_YELLOW_BOOTS);

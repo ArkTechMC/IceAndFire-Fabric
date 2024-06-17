@@ -9,7 +9,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 
 public class RenderNothing<T extends Entity> extends EntityRenderer<T> {
-
     public RenderNothing(EntityRendererFactory.Context context) {
         super(context);
     }

@@ -27,7 +27,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
     private final Map<String, Identifier> LAYERED_TEXTURE_CACHE = Maps.newHashMap();
     private final int dragonType;
 
-    public RenderDragonBase(EntityRendererFactory.Context context, AdvancedEntityModel<EntityDragonBase> model, int dragonType) {
+    public RenderDragonBase(EntityRendererFactory.Context context, AdvancedEntityModel model, int dragonType) {
         super(context, model, 0.15F);
         this.addFeature(new LayerDragonEyes(this));
         this.addFeature(new LayerDragonRider(this, false));
@@ -74,5 +74,4 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
         }
         return resourcelocation;
     }
-
 }

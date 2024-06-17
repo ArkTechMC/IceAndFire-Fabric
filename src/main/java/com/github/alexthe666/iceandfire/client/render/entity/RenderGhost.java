@@ -29,7 +29,6 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
 
     public RenderGhost(EntityRendererFactory.Context renderManager) {
         super(renderManager, new ModelGhost(0.0F), 0.55F);
-
     }
 
     public static Identifier getGhostOverlayForType(int ghost) {
@@ -44,9 +43,6 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
     @Override
     public void render(EntityGhost entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         this.shadowRadius = 0;
-        //TODO: Event
-//        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Pre<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn)))
-//            return;
         matrixStackIn.push();
         this.model.handSwingProgress = this.getHandSwingProgress(entityIn, partialTicks);
 
@@ -60,19 +56,10 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
             f = MathHelper.lerpAngleDegrees(partialTicks, livingentity.prevBodyYaw, livingentity.bodyYaw);
             f2 = f1 - f;
             float f3 = MathHelper.wrapDegrees(f2);
-            if (f3 < -85.0F) {
-                f3 = -85.0F;
-            }
-
-            if (f3 >= 85.0F) {
-                f3 = 85.0F;
-            }
-
+            if (f3 < -85.0F) f3 = -85.0F;
+            if (f3 >= 85.0F) f3 = 85.0F;
             f = f1 - f3;
-            if (f3 * f3 > 2500.0F) {
-                f += f3 * 0.2F;
-            }
-
+            if (f3 * f3 > 2500.0F) f += f3 * 0.2F;
             f2 = f1 - f;
         }
 
@@ -95,13 +82,8 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
         if (!shouldSit && entityIn.isAlive()) {
             f8 = entityIn.limbAnimator.getSpeed();
             f5 = entityIn.limbAnimator.getPos();
-            if (entityIn.isBaby()) {
-                f5 *= 3.0F;
-            }
-
-            if (f8 > 1.0F) {
-                f8 = 1.0F;
-            }
+            if (entityIn.isBaby()) f5 *= 3.0F;
+            if (f8 > 1.0F) f8 = 1.0F;
         }
 
         this.model.animateModel(entityIn, f5, f8, partialTicks);
@@ -140,26 +122,15 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
                     matrixStackIn.pop();
                 }
                 matrixStackIn.pop();
-
-            } else {
+            } else
                 this.model.render(matrixStackIn, ivertexbuilder, 240, i, 1.0F, 1.0F, 1.0F, alphaForRender);
-            }
         }
 
-        if (!entityIn.isSpectator()) {
-            for (FeatureRenderer<EntityGhost, ModelGhost> layerrenderer : this.features) {
+        if (!entityIn.isSpectator())
+            for (FeatureRenderer<EntityGhost, ModelGhost> layerrenderer : this.features)
                 layerrenderer.render(matrixStackIn, bufferIn, packedLightIn, entityIn, f5, f8, partialTicks, f7, f2, f6);
-            }
-        }
 
         matrixStackIn.pop();
-        //TODO: Event
-//        net.minecraftforge.client.event.RenderNameTagEvent renderNameplateEvent = new net.minecraftforge.client.event.RenderNameTagEvent(entityIn, entityIn.getDisplayName(), this, matrixStackIn, bufferIn, packedLightIn, partialTicks);
-//        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(renderNameplateEvent);
-//        if (renderNameplateEvent.getResult() != net.minecraftforge.eventbus.api.Event.Result.DENY && (renderNameplateEvent.getResult() == net.minecraftforge.eventbus.api.Event.Result.ALLOW || this.hasLabel(entityIn))) {
-//            this.renderLabelIfPresent(entityIn, renderNameplateEvent.getContent(), matrixStackIn, bufferIn, packedLightIn);
-//        }
-//        net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderLivingEvent.Post<EntityGhost, ModelGhost>(entityIn, this, partialTicks, matrixStackIn, bufferIn, packedLightIn));
     }
 
     @Override
@@ -168,9 +139,8 @@ public class RenderGhost extends MobEntityRenderer<EntityGhost, ModelGhost> {
     }
 
     public float getAlphaForRender(EntityGhost entityIn, float partialTicks) {
-        if (entityIn.isDaytimeMode()) {
+        if (entityIn.isDaytimeMode())
             return MathHelper.clamp((101 - Math.min(entityIn.getDaytimeCounter(), 100)) / 100F, 0, 1);
-        }
         return MathHelper.clamp((MathHelper.sin((entityIn.age + partialTicks) * 0.1F) + 1F) * 0.5F + 0.1F, 0F, 1F);
     }
 

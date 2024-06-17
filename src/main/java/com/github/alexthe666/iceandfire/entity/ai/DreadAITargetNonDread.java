@@ -10,18 +10,14 @@ import net.minecraft.entity.mob.MobEntity;
 import java.util.function.Predicate;
 
 public class DreadAITargetNonDread extends ActiveTargetGoal<LivingEntity> {
-
-    public DreadAITargetNonDread(MobEntity entityIn, Class<LivingEntity> classTarget, boolean checkSight,
-                                 Predicate<LivingEntity> targetSelector) {
+    public DreadAITargetNonDread(MobEntity entityIn, Class<LivingEntity> classTarget, boolean checkSight, Predicate<LivingEntity> targetSelector) {
         super(entityIn, classTarget, 0, checkSight, false, targetSelector);
     }
 
     @Override
     protected boolean canTrack(LivingEntity target, TargetPredicate targetPredicate) {
-        if (super.canTrack(target, targetPredicate)) {
+        if (super.canTrack(target, targetPredicate))
             return !(target instanceof IDreadMob) && DragonUtils.isAlive(target);
-        }
         return false;
     }
-
 }

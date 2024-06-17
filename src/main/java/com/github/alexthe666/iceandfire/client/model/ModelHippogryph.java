@@ -537,8 +537,8 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
     }
 
     @Override
-    public void setAngles(EntityHippogryph entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate(entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(EntityHippogryph entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         if (this.child) {
             this.Body.setShouldScaleChildren(true);
             this.Head.setShouldScaleChildren(false);
@@ -701,41 +701,41 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
         float degree_walk = 0.5F;
         float degree_idle = 0.5F;
         float degree_fly = 0.5F + (entity.getEnumVariant() == EnumHippogryphTypes.DODO ? 1f : 0);
-        this.bob(this.Body, speed_idle, degree_idle, false, f2, 1);
-        this.bob(this.BackLegR1, -speed_idle, degree_idle, false, f2, 1);
-        this.bob(this.BackLegR1_1, -speed_idle, degree_idle, false, f2, 1);
-        this.bob(this.HindThighR, -speed_idle, degree_idle, false, f2, 1);
-        this.bob(this.HindThighL, -speed_idle, degree_idle, false, f2, 1);
+        this.bob(this.Body, speed_idle, degree_idle, false, animationProgress, 1);
+        this.bob(this.BackLegR1, -speed_idle, degree_idle, false, animationProgress, 1);
+        this.bob(this.BackLegR1_1, -speed_idle, degree_idle, false, animationProgress, 1);
+        this.bob(this.HindThighR, -speed_idle, degree_idle, false, animationProgress, 1);
+        this.bob(this.HindThighL, -speed_idle, degree_idle, false, animationProgress, 1);
         AdvancedModelBox[] NECK = new AdvancedModelBox[]{this.Neck, this.Neck2, this.Head};
-        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, f2, 1);
+        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, animationProgress, 1);
 
         if (entity.isFlying() || entity.airBorneCounter > 50 || entity.isHovering()) {
             //hippo.roll_buffer.applyChainFlapBuffer(Body);
-            this.flap(this.WingL, speed_fly, degree_fly, false, 0, 0, f2, 1);
-            this.flap(this.WingR, speed_fly, -degree_fly, false, 0, 0, f2, 1);
-            this.flap(this.WingL2, speed_fly, degree_fly, false, 0, 0, f2, 1);
-            this.flap(this.WingR2, speed_fly, -degree_fly, false, 0, 0, f2, 1);
+            this.flap(this.WingL, speed_fly, degree_fly, false, 0, 0, animationProgress, 1);
+            this.flap(this.WingR, speed_fly, -degree_fly, false, 0, 0, animationProgress, 1);
+            this.flap(this.WingL2, speed_fly, degree_fly, false, 0, 0, animationProgress, 1);
+            this.flap(this.WingR2, speed_fly, -degree_fly, false, 0, 0, animationProgress, 1);
         } else {
-            this.faceTarget(f3, f4, 3, NECK);
-            this.bob(this.Body, speed_walk, degree_walk, false, f, f1);
-            this.bob(this.BackLegR1, -speed_walk, degree_walk, false, f, f1);
-            this.bob(this.BackLegR1_1, -speed_walk, degree_walk, false, f, f1);
-            this.bob(this.HindThighR, -speed_walk, degree_walk, false, f, f1);
-            this.bob(this.HindThighL, -speed_walk, degree_walk, false, f, f1);
-            this.chainWave(NECK, speed_walk, degree_walk * 0.15F, -2, f, f1);
-            this.walk(this.BackLegR1, speed_walk, degree_walk * -0.75F, true, 0, 0F, f, f1);
-            this.walk(this.BackLegR1_1, speed_walk, degree_walk * -0.75F, false, 0, 0F, f, f1);
-            this.walk(this.BackLegR2, speed_walk, degree_walk * 0.5F, false, 0, 0F, f, f1);
-            this.walk(this.BackLegR2_1, speed_walk, degree_walk * 0.5F, true, 0, 0F, f, f1);
-            this.walk(this.HindThighR, speed_walk, degree_walk * -0.75F, false, 0, 0F, f, f1);
-            this.walk(this.HindThighL, speed_walk, degree_walk * -0.75F, true, 0, 0F, f, f1);
-            this.walk(this.HindLegR, speed_walk, degree_walk * 0.5F, true, 0, 0F, f, f1);
-            this.walk(this.HindLegL, speed_walk, degree_walk * 0.5F, false, 0, 0F, f, f1);
-            this.walk(this.HindFootR, -speed_walk, degree_walk, true, 2.75F, 0F, f, f1);
-            this.walk(this.HindFootL, -speed_walk, degree_walk, false, 2.75F, 0F, f, f1);
+            this.faceTarget(headYaw, headPitch, 3, NECK);
+            this.bob(this.Body, speed_walk, degree_walk, false, limbAngle, limbDistance);
+            this.bob(this.BackLegR1, -speed_walk, degree_walk, false, limbAngle, limbDistance);
+            this.bob(this.BackLegR1_1, -speed_walk, degree_walk, false, limbAngle, limbDistance);
+            this.bob(this.HindThighR, -speed_walk, degree_walk, false, limbAngle, limbDistance);
+            this.bob(this.HindThighL, -speed_walk, degree_walk, false, limbAngle, limbDistance);
+            this.chainWave(NECK, speed_walk, degree_walk * 0.15F, -2, limbAngle, limbDistance);
+            this.walk(this.BackLegR1, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.BackLegR1_1, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.BackLegR2, speed_walk, degree_walk * 0.5F, false, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.BackLegR2_1, speed_walk, degree_walk * 0.5F, true, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.HindThighR, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.HindThighL, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.HindLegR, speed_walk, degree_walk * 0.5F, true, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.HindLegL, speed_walk, degree_walk * 0.5F, false, 0, 0F, limbAngle, limbDistance);
+            this.walk(this.HindFootR, -speed_walk, degree_walk, true, 2.75F, 0F, limbAngle, limbDistance);
+            this.walk(this.HindFootL, -speed_walk, degree_walk, false, 2.75F, 0F, limbAngle, limbDistance);
         }
 
-        float f12 = -1.1344640137963142F + f1;
+        float f12 = -1.1344640137963142F + limbDistance;
         if (f12 > 0.0F) {
             f12 = 0.0F;
         }

@@ -30,19 +30,15 @@ public class RenderDreadThrall extends MobEntityRenderer<EntityDreadThrall, Mode
 
     public RenderDreadThrall(EntityRendererFactory.Context context) {
         super(context, new ModelDreadThrall(0.0F, false), 0.6F);
-
         this.addFeature(new LayerGenericGlowing<>(this, TEXTURE_EYES));
         this.itemLayer = new HideableLayer<>(new HeldItemFeatureRenderer<>(this, context.getHeldItemRenderer()), this);
         this.addFeature(this.itemLayer);
-        this.addFeature(new LayerBipedArmorMultiple<>(this,
-                new ModelDreadThrall(0.5F, true), new ModelDreadThrall(1.0F, true),
-                TEXTURE_ARMOR_0, TEXTURE_LEG_ARMOR));
+        this.addFeature(new LayerBipedArmorMultiple<>(this, new ModelDreadThrall(0.5F, true), new ModelDreadThrall(1.0F, true), TEXTURE_ARMOR_0, TEXTURE_LEG_ARMOR));
     }
 
     @Override
     public Identifier getArmorResource(int variant, EquipmentSlot equipmentSlotType) {
-        if (equipmentSlotType == EquipmentSlot.LEGS)
-            return TEXTURE_LEG_ARMOR;
+        if (equipmentSlotType == EquipmentSlot.LEGS) return TEXTURE_LEG_ARMOR;
         return switch (variant) {
             case 1 -> TEXTURE_ARMOR_1;
             case 2 -> TEXTURE_ARMOR_2;

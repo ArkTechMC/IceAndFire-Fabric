@@ -15,7 +15,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 
 public class BlockMyrmexConnectedResin extends TransparentBlock {
-
     public static final BooleanProperty UP = BooleanProperty.of("up");
     public static final BooleanProperty DOWN = BooleanProperty.of("down");
     public static final BooleanProperty NORTH = BooleanProperty.of("north");
@@ -67,7 +66,6 @@ public class BlockMyrmexConnectedResin extends TransparentBlock {
         };
         return stateIn.with(connect, this.canFenceConnectTo(facingState, false, facing.getOpposite()));
     }
-
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

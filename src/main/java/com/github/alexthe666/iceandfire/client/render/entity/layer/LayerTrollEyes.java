@@ -23,7 +23,6 @@ public class LayerTrollEyes extends FeatureRenderer<EntityTroll, ModelTroll> {
             RenderLayer tex = RenderLayer.getEyes(troll.getTrollType().TEXTURE_EYES);
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(tex);
             this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-
         }
     }
 }

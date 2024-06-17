@@ -9,7 +9,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class ParticleDragonFrost extends SpriteBillboardParticle {
-
     private static final Identifier SNOWFLAKE = new Identifier(IceAndFire.MOD_ID, "textures/particles/snowflake_0.png");
     private static final Identifier SNOWFLAKE_BIG = new Identifier(IceAndFire.MOD_ID, "textures/particles/snowflake_1.png");
     private final float dragonSize;
@@ -21,7 +20,6 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
     private final double targetY;
     private final double targetZ;
     private EntityDragonBase dragon;
-
 
     public ParticleDragonFrost(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, SpriteProvider provider) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, xSpeedIn, ySpeedIn, zSpeedIn);
@@ -114,10 +112,7 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
         int k = i >> 16 & 255;
         j = j + (int) (f * 15.0F * 16.0F);
 
-        if (j > 240) {
-            j = 240;
-        }
-
+        if (j > 240) j = 240;
         return j | k << 16;
     }
 
@@ -158,5 +153,4 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
             return new ParticleDragonFrost(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
         }
     }
-
 }

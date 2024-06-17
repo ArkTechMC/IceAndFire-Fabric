@@ -30,18 +30,15 @@ public class EntitySheepAIFollowCyclops extends Goal {
 
         for (EntityCyclops cyclops1 : list) {
             final double d1 = this.childAnimal.squaredDistanceTo(cyclops1);
-
             if (d1 <= d0) {
                 d0 = d1;
                 cyclops = cyclops1;
             }
         }
 
-        if (cyclops == null) {
-            return false;
-        } else if (d0 < 10.0D) {
-            return false;
-        } else {
+        if (cyclops == null) return false;
+        else if (d0 < 10.0D) return false;
+        else {
             this.cyclops = cyclops;
             return true;
         }
@@ -50,9 +47,8 @@ public class EntitySheepAIFollowCyclops extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        if (this.cyclops.isAlive()) {
-            return false;
-        } else {
+        if (this.cyclops.isAlive()) return false;
+        else {
             final double d0 = this.childAnimal.squaredDistanceTo(this.cyclops);
             return d0 >= 9.0D && d0 <= 256.0D;
         }
@@ -75,10 +71,8 @@ public class EntitySheepAIFollowCyclops extends Goal {
             this.delayCounter = this.getTickCount(10);
             if (this.childAnimal.squaredDistanceTo(this.cyclops) > 10) {
                 Path path = this.getPathToLivingEntity(this.childAnimal, this.cyclops);
-                if (path != null) {
+                if (path != null)
                     this.childAnimal.getNavigation().startMovingAlong(path, this.moveSpeed);
-
-                }
             }
         }
     }

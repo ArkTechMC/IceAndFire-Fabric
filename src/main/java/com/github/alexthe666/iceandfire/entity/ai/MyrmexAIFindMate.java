@@ -14,7 +14,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoal {
+public class MyrmexAIFindMate extends TrackTargetGoal {
     public final EntityMyrmexRoyal myrmex;
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super Entity> targetEntitySelector;
@@ -41,9 +41,8 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
-        if (village == null) {
+        if (village == null)
             village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 100);
-        }
         if (village != null && village.getCenter().getSquaredDistanceFromCenter(this.myrmex.getX(), village.getCenter().getY(), this.myrmex.getZ()) < 2000) {
             this.list = IafMath.emptyEntityList;
             return false;
@@ -52,17 +51,15 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends TrackTargetGoa
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
             this.list = this.mob.getWorld().getOtherEntities(this.myrmex, this.getTargetableArea(), this.targetEntitySelector);
 
-        if (this.list.isEmpty())
-            return false;
+        if (this.list.isEmpty()) return false;
 
         this.list.sort(this.theNearestAttackableTargetSorter);
-        for (Entity royal : this.list) {
+        for (Entity royal : this.list)
             if (this.myrmex.canBreedWith((EntityMyrmexRoyal) royal)) {
                 this.myrmex.mate = (EntityMyrmexRoyal) royal;
                 this.myrmex.getWorld().sendEntityStatus(this.myrmex, (byte) 76);
                 return true;
             }
-        }
         return false;
     }
 

@@ -14,7 +14,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntity> {
-
     public final boolean isFire;
 
     public RenderDragonFireCharge(EntityRendererFactory.Context context, boolean isFire) {
@@ -37,5 +36,4 @@ public class RenderDragonFireCharge extends EntityRenderer<AbstractFireballEntit
         MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(this.isFire ? Blocks.MAGMA_BLOCK.getDefaultState() : IafBlocks.DRAGON_ICE.getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.DEFAULT_UV);
         matrixStackIn.pop();
     }
-
 }

@@ -88,18 +88,18 @@ public class ModelDreadKnight extends ModelDreadBase<EntityDreadKnight> {
     }
 
     @Override
-    public void animateModel(EntityDreadKnight livingEntityIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
+    public void animateModel(EntityDreadKnight entity, float limbAngle, float limbDistance, float tickDelta) {
         this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
-        ItemStack itemstack = livingEntityIn.getStackInHand(Hand.MAIN_HAND);
+        ItemStack itemstack = entity.getStackInHand(Hand.MAIN_HAND);
 
-        if (itemstack.getItem() == Items.BOW && livingEntityIn.handSwinging)
-            if (livingEntityIn.getMainArm() == Arm.RIGHT)
+        if (itemstack.getItem() == Items.BOW && entity.handSwinging)
+            if (entity.getMainArm() == Arm.RIGHT)
                 this.rightArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
             else
                 this.leftArmPose = BipedEntityModel.ArmPose.BOW_AND_ARROW;
 
-        super.animateModel(livingEntityIn, limbSwing, limbSwingAmount, partialTickTime);
+        super.animateModel(entity, limbAngle, limbDistance, tickDelta);
     }
 
     @Override

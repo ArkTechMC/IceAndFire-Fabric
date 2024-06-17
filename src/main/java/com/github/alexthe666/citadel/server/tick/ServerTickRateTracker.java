@@ -33,9 +33,8 @@ public class ServerTickRateTracker extends TickRateTracker {
     }
 
     public static void modifyTickRate(World level, TickRateModifier modifier) {
-        if (level instanceof ServerWorld serverLevel) {
+        if (level instanceof ServerWorld serverLevel)
             getForServer(serverLevel.getServer()).addTickRateModifier(modifier);
-        }
     }
 
     public void addTickRateModifier(TickRateModifier modifier) {
@@ -45,9 +44,8 @@ public class ServerTickRateTracker extends TickRateTracker {
 
     @Override
     public void tickEntityAtCustomRate(Entity entity) {
-        if (!entity.getWorld().isClient && entity.getWorld() instanceof ServerWorld) {
-            ((ServerWorld) entity.getWorld()).tickEntity(entity);
-        }
+        if (!entity.getWorld().isClient && entity.getWorld() instanceof ServerWorld serverWorld)
+            serverWorld.tickEntity(entity);
     }
 
     @Override
@@ -57,14 +55,10 @@ public class ServerTickRateTracker extends TickRateTracker {
 
     public int getServerTickLengthMs() {
         int i = (int) StaticVariables.MSPT;
-        for (TickRateModifier modifier : this.tickRateModifierList) {
-            if (modifier.getType() == TickRateModifierType.GLOBAL) {
+        for (TickRateModifier modifier : this.tickRateModifierList)
+            if (modifier.getType() == TickRateModifierType.GLOBAL)
                 i *= (int) modifier.getTickRateMultiplier();
-            }
-        }
-        if (i <= 0) {
-            return 1;
-        }
+        if (i <= 0) return 1;
         return i;
     }
 }

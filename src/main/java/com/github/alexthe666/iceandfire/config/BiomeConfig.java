@@ -81,9 +81,7 @@ public class BiomeConfig {
     }
 
     public static boolean test(Pair<String, SpawnBiomeData> entry, RegistryEntry<Biome> biome, Identifier name) {
-        if (!init) {
-            init();
-        }
+        if (!init) init();
         return biomeConfigValues.get(entry.getKey()).matches(biome, name);
     }
 
@@ -94,5 +92,4 @@ public class BiomeConfig {
     public static boolean test(Pair<String, SpawnBiomeData> entry, RegistryEntry.Reference<Biome> biome) {
         return test(entry, biome, biome.registryKey().getValue());
     }
-
 }

@@ -24,7 +24,6 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockEntityPixieHouse extends BlockEntity {
-
     private static final float PARTICLE_WIDTH = 0.3F;
     private static final float PARTICLE_HEIGHT = 0.6F;
     private final Random rand;
@@ -51,20 +50,18 @@ public class BlockEntityPixieHouse extends BlockEntity {
     }
 
     public static void tickClient(World level, BlockPos pos, BlockState state, BlockEntityPixieHouse entityPixieHouse) {
-        if (entityPixieHouse.hasPixie) {
+        if (entityPixieHouse.hasPixie)
             level.addParticle(IafParticles.PIXIE_DUST,
                     pos.getX() + 0.5F + (double) (entityPixieHouse.rand.nextFloat() * PARTICLE_WIDTH * 2F) - PARTICLE_WIDTH,
                     pos.getY() + (double) (entityPixieHouse.rand.nextFloat() * PARTICLE_HEIGHT),
                     pos.getZ() + 0.5F + (double) (entityPixieHouse.rand.nextFloat() * PARTICLE_WIDTH * 2F) - PARTICLE_WIDTH,
                     EntityPixie.PARTICLE_RGB[entityPixieHouse.pixieType][0], EntityPixie.PARTICLE_RGB[entityPixieHouse.pixieType][1],
                     EntityPixie.PARTICLE_RGB[entityPixieHouse.pixieType][2]);
-        }
     }
 
     public static void tickServer(World level, BlockPos pos, BlockState state, BlockEntityPixieHouse entityPixieHouse) {
-        if (entityPixieHouse.hasPixie && ThreadLocalRandom.current().nextInt(100) == 0) {
+        if (entityPixieHouse.hasPixie && ThreadLocalRandom.current().nextInt(100) == 0)
             entityPixieHouse.releasePixie();
-        }
     }
 
     @Override
@@ -73,9 +70,8 @@ public class BlockEntityPixieHouse extends BlockEntity {
         compound.putBoolean("HasPixie", this.hasPixie);
         compound.putInt("PixieType", this.pixieType);
         compound.putBoolean("TamedPixie", this.tamedPixie);
-        if (this.pixieOwnerUUID != null) {
+        if (this.pixieOwnerUUID != null)
             compound.putUuid("PixieOwnerUUID", this.pixieOwnerUUID);
-        }
         Inventories.writeNbt(compound, this.pixieItems);
     }
 
@@ -95,9 +91,8 @@ public class BlockEntityPixieHouse extends BlockEntity {
         this.hasPixie = compound.getBoolean("HasPixie");
         this.pixieType = compound.getInt("PixieType");
         this.tamedPixie = compound.getBoolean("TamedPixie");
-        if (compound.containsUuid("PixieOwnerUUID")) {
+        if (compound.containsUuid("PixieOwnerUUID"))
             this.pixieOwnerUUID = compound.getUuid("PixieOwnerUUID");
-        }
         this.pixieItems = DefaultedList.ofSize(1, ItemStack.EMPTY);
         Inventories.readNbt(compound, this.pixieItems);
         super.readNbt(compound);
@@ -105,21 +100,18 @@ public class BlockEntityPixieHouse extends BlockEntity {
 
     public void releasePixie() {
         EntityPixie pixie = new EntityPixie(IafEntities.PIXIE, this.world);
-        pixie.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 1F, this.pos.getZ() + 0.5F,
-                ThreadLocalRandom.current().nextInt(360), 0);
+        pixie.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 1F, this.pos.getZ() + 0.5F, ThreadLocalRandom.current().nextInt(360), 0);
         pixie.setStackInHand(Hand.MAIN_HAND, this.pixieItems.get(0));
         pixie.setColor(this.pixieType);
         assert this.world != null;
-        if (!this.world.isClient) {
+        if (!this.world.isClient)
             this.world.spawnEntity(pixie);
-        }
         this.hasPixie = false;
         this.pixieType = 0;
         pixie.ticksUntilHouseAI = 500;
         pixie.setTamed(this.tamedPixie);
         pixie.setOwnerUuid(this.pixieOwnerUUID);
-        if (!this.world.isClient) {
+        if (!this.world.isClient)
             IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
-        }
     }
 }

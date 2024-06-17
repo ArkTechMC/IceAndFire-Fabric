@@ -29,26 +29,21 @@ public class HippogryphAIWander extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.hippo.canMove()) {
+        if (!this.hippo.canMove())
             return false;
-        }
-        if (this.hippo.isFlying() || this.hippo.isHovering()) {
+        if (this.hippo.isFlying() || this.hippo.isHovering())
             return false;
-        }
-        if (!this.mustUpdate) {
-            if (this.hippo.getRandom().nextInt(this.executionChance) != 0) {
+        if (!this.mustUpdate)
+            if (this.hippo.getRandom().nextInt(this.executionChance) != 0)
                 return false;
-            }
-        }
         Vec3d Vector3d = NoPenaltyTargeting.find(this.hippo, 10, 7);
-        if (Vector3d == null) {
+        if (Vector3d == null)
             return false;
-        } else {
+        else {
             this.xPosition = Vector3d.x;
             this.yPosition = Vector3d.y;
             this.zPosition = Vector3d.z;
             this.mustUpdate = false;
-
             return true;
         }
     }

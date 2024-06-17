@@ -9,7 +9,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderSiren extends MobEntityRenderer<EntitySiren, ModelSiren> {
-
     public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/siren/siren_0.png");
     public static final Identifier TEXTURE_0_AGGRESSIVE = new Identifier(IceAndFire.MOD_ID, "textures/models/siren/siren_0_aggressive.png");
     public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/siren/siren_1.png");
@@ -43,5 +42,4 @@ public class RenderSiren extends MobEntityRenderer<EntitySiren, ModelSiren> {
             case 2 -> siren.isAgressive() ? TEXTURE_2_AGGRESSIVE : TEXTURE_2;
         };
     }
-
 }

@@ -55,7 +55,7 @@ public class GuiBestiary extends Screen {
     public GuiBestiary(ItemStack book) {
         super(Text.translatable("bestiary_gui"));
         this.book = book;
-        if (!book.isEmpty() && book.getItem() != null && book.getItem() == IafItems.BESTIARY) {
+        if (!book.isEmpty() && book.getItem() != null && book.getItem() == IafItems.BESTIARY)
             if (book.getNbt() != null) {
                 Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(book.getNbt().getIntArray("Pages")));
                 this.allPageTypes.addAll(pages);
@@ -63,7 +63,6 @@ public class GuiBestiary extends Screen {
                 this.allPageTypes.sort(Comparator.comparingInt(Enum::ordinal));
                 this.indexPagesTotal = (int) Math.ceil(pages.size() / 10D);
             }
-        }
         this.index = true;
     }
 
@@ -83,17 +82,15 @@ public class GuiBestiary extends Screen {
                 if (this.index) {
                     this.indexPages--;
                     MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
-                } else {
-                    if (this.bookPages > 0) {
-                        this.bookPages--;
-                        MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
-                    } else this.index = true;
-                }
+                } else if (this.bookPages > 0) {
+                    this.bookPages--;
+                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
+                } else this.index = true;
             }
         });
         this.addDrawableChild(this.previousPage);
         this.nextPage = new ChangePageButton(centerX + 357, centerY + 215, true, 0, (p_214132_1_) -> {
-            if ((this.index ? this.indexPages < this.indexPagesTotal - 1 : this.pageType != null && this.bookPages < this.pageType.pages)) {
+            if (this.index ? this.indexPages < this.indexPagesTotal - 1 : this.pageType != null && this.bookPages < this.pageType.pages) {
                 if (this.index) {
                     this.indexPages++;
                     MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
@@ -109,7 +106,7 @@ public class GuiBestiary extends Screen {
                 int xIndex = i % -2;
                 int yIndex = i % 10;
                 int id = 2 + i;
-                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase()), (p_214132_1_) -> {
+                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase()), widget -> {
                     if (this.indexButtons.get(id - 2) != null && this.allPageTypes.get(id - 2) != null) {
                         MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
                         this.index = false;
@@ -259,31 +256,28 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItems.DRAGONSCALES_RED), 18, 16, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 70, 10, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 112, 70, 2.5F);
-                    {
-                        int j = 18;
-                        this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.helmet), j += 16, 115, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.chestplate), j += 16, 115, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.leggings), j += 16, 115, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.boots), j + 16, 115, 1.5F);
-                    }
+
+                    int j = 18;
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.helmet), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.chestplate), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.leggings), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.boots), j + 16, 115, 1.5F);
                 }
                 if (bookPages == 1) {
-                    {
-                        int j = 1;
-                        this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SWORD), j += 16, 14, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_PICKAXE), j += 16, 14, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_AXE), j += 16, 14, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SHOVEL), j += 16, 14, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_HOE), j += 16, 14, 1.5F);
-                        this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BOW), j + 16, 14, 1.5F);
-                    }
+                    int j = 1;
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SWORD), j += 16, 14, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_PICKAXE), j += 16, 14, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_AXE), j += 16, 14, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SHOVEL), j += 16, 14, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_HOE), j += 16, 14, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BOW), j + 16, 14, 1.5F);
+
                     this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_FLESH), 18, 24, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_HEART), 70, 14, 3.75F);
                     this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_SKULL_FIRE), 70, 39, 3.75F);
                 }
-                if (bookPages == 2) {
+                if (bookPages == 2)
                     this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_BLOOD), 18, 24, 3.75F);
-                }
             }
             case ALCHEMY -> {
                 if (bookPages == 0) {
@@ -333,7 +327,6 @@ public class GuiBestiary extends Screen {
             }
             case GORGON -> {
                 if (bookPages == 0) {
-
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
                     this.drawImage(ms, DRAWINGS_0, 10, 89, 473, 117, 19, 34, 512F);
@@ -358,7 +351,6 @@ public class GuiBestiary extends Screen {
                     this.drawImage(ms, DRAWINGS_0, 37, 95, 473, 117, 19, 34, 512F);
                     this.drawImage(ms, DRAWINGS_0, 60, 95, 455, 117, 18, 34, 512F);
                     ms.getMatrices().pop();
-
                 }
             }
             case PIXIE -> {
@@ -493,7 +485,6 @@ public class GuiBestiary extends Screen {
                 if (bookPages == 1) {
                     this.drawItemStack(ms, new ItemStack(IafItems.EARPLUGS), 18, 40, 3.75F);
 
-
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
                     this.drawImage(ms, DRAWINGS_0, 160, 0, 389, 1, 50, 50, 512F);
@@ -543,13 +534,11 @@ public class GuiBestiary extends Screen {
                 }
                 if (bookPages == 2) {
                     int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
-                    Item chitin = IafItems.DEATH_WORM_CHITIN_YELLOW;
-                    if (drawType == 2) {
-                        chitin = IafItems.DEATH_WORM_CHITIN_RED;
-                    }
-                    if (drawType == 1) {
-                        chitin = IafItems.DEATH_WORM_CHITIN_WHITE;
-                    }
+                    Item chitin = switch (drawType) {
+                        case 2 -> IafItems.DEATH_WORM_CHITIN_RED;
+                        case 1 -> IafItems.DEATH_WORM_CHITIN_WHITE;
+                        default -> IafItems.DEATH_WORM_CHITIN_YELLOW;
+                    };
                     this.drawItemStack(ms, new ItemStack(chitin, 1), 17, 30, 3.75F);
                     this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_HELMET : drawType == 1 ? IafItems.DEATHWORM_WHITE_HELMET : IafItems.DEATHWORM_YELLOW_HELMET), 92, 8, 2.25F);
                     this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_CHESTPLATE : drawType == 1 ? IafItems.DEATHWORM_WHITE_CHESTPLATE : IafItems.DEATHWORM_YELLOW_CHESTPLATE), 112, 8, 2.25F);
@@ -604,7 +593,6 @@ public class GuiBestiary extends Screen {
                     this.drawItemStack(ms, new ItemStack(Items.STICK), 40, 30, 1.35F);
                     this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_BIRD_FEATHER), 40, 49, 1.35F);
                     this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_ARROW), 60, 18, 2F);
-
                 }
             }
             case TROLL -> {
@@ -760,16 +748,15 @@ public class GuiBestiary extends Screen {
         Optional<Resource> resource;
 
         resource = MinecraftClient.getInstance().getResourceManager().getResource(fileLoc);
-        if (resource.isEmpty()) {
+        if (resource.isEmpty())
             resource = MinecraftClient.getInstance().getResourceManager().getResource(backupLoc);
-        }
         try {
             if (resource.isPresent()) {
                 final List<String> lines = IOUtils.readLines(resource.get().getInputStream(), StandardCharsets.UTF_8);
                 int zLevelAdd = 0;
                 for (String line : lines) {
                     line = line.trim();
-                    if (line.contains("<") || line.contains(">")) {
+                    if (line.contains("<") || line.contains(">"))
                         if (line.contains("<image>")) {
                             line = line.substring(8, line.length() - 1);
                             String[] split = line.split(" ");
@@ -783,7 +770,6 @@ public class GuiBestiary extends Screen {
                             this.drawImage(ms, resourcelocation, Integer.parseInt(split[1]), Integer.parseInt(split[2]), Integer.parseInt(split[3]), Integer.parseInt(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), Float.parseFloat(split[7]) * 512F);
                             ms.getMatrices().pop();
                         }
-                    }
                     if (line.contains("<item>")) {
                         line = line.substring(7, line.length() - 1);
                         String[] split = line.split(" ");
@@ -824,9 +810,6 @@ public class GuiBestiary extends Screen {
     }
 
     private void drawRecipe(DrawContext ms, ItemStack result, ItemStack[] ingredients, int x, int y, float scale) {
-        // Code snippet based on Citadels GuiBasicBook
-        int k = (this.width - X + 84) / 2;
-        int l = (this.height - Y + 40) / 2;
         ms.getMatrices().push();
         ms.getMatrices().translate(x, y, 0.0D);
         ms.getMatrices().scale(scale, scale, scale);
@@ -871,8 +854,7 @@ public class GuiBestiary extends Screen {
             int linenumber = 0;
             for (String line : lines) {
                 line = line.trim();
-                if (line.contains("<") || line.contains(">"))
-                    continue;
+                if (line.contains("<") || line.contains(">")) continue;
                 ms.getMatrices().push();
                 if (this.usingVanillaFont()) {
                     ms.getMatrices().scale(0.945F, 0.945F, 0.945F);

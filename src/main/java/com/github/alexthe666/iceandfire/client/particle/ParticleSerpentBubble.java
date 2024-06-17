@@ -24,17 +24,15 @@ public class ParticleSerpentBubble extends SpriteBillboardParticle {
 
     @Override
     public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
-        if (this.age > this.getMaxAge())
-            this.markDead();
+        if (this.age > this.getMaxAge()) this.markDead();
 
         Vec3d Vector3d = renderInfo.getPos();
         float f = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.x) - Vector3d.getX());
         float f1 = (float) (MathHelper.lerp(partialTicks, this.prevPosY, this.y) - Vector3d.getY());
         float f2 = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.z) - Vector3d.getZ());
         Quaternionf quaternion;
-        if (this.angle == 0.0F) {
-            quaternion = renderInfo.getRotation();
-        } else {
+        if (this.angle == 0.0F) quaternion = renderInfo.getRotation();
+        else {
             quaternion = new Quaternionf(renderInfo.getRotation());
             float f3 = MathHelper.lerp(partialTicks, this.prevAngle, this.angle);
             quaternion.mul(RotationAxis.POSITIVE_Z.rotation(f3));
@@ -76,5 +74,4 @@ public class ParticleSerpentBubble extends SpriteBillboardParticle {
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
-
 }

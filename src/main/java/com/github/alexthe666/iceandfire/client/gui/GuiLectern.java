@@ -75,7 +75,6 @@ public class GuiLectern extends HandledScreen<ContainerLectern> {
         for (int k = 0; k < 3; ++k) {
             double l = mouseX - (i + 60);
             double i1 = mouseY - (j + 14 + 19 * k);
-
             if (l >= 0 && i1 >= 0 && l < 108 && i1 < 19 && this.handler.onButtonClick(this.client.player, k)) {
                 this.flapTimer = 5;
                 this.client.interactionManager.clickButton(this.handler.syncId, k);

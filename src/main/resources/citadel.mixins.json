@@ -8,7 +8,6 @@
     "ChunkStatusMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
-    "NoiseChunkGeneratorMixin",
     "ServerWorldMixin"
   ],
   "client": [

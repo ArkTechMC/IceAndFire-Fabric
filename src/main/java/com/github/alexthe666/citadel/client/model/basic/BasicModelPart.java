@@ -111,42 +111,32 @@ public class BasicModelPart {
     }
 
     public void render(MatrixStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        if (this.showModel) {
+        if (this.showModel)
             if (!this.cubeList.isEmpty() || !this.childModels.isEmpty()) {
                 matrixStackIn.push();
                 this.translateRotate(matrixStackIn);
                 this.doRender(matrixStackIn.peek(), bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-
-                for (BasicModelPart BasicModelPart : this.childModels) {
-                    BasicModelPart.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-                }
-
+                for (BasicModelPart basicModelPart : this.childModels)
+                    basicModelPart.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
                 matrixStackIn.pop();
             }
-        }
     }
 
     public void translateRotate(MatrixStack matrixStackIn) {
         matrixStackIn.translate(this.rotationPointX / 16.0F, this.rotationPointY / 16.0F, (double) (this.rotationPointZ / 16.0F));
-        if (this.rotateAngleZ != 0.0F) {
+        if (this.rotateAngleZ != 0.0F)
             matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(this.rotateAngleZ));
-        }
-
-        if (this.rotateAngleY != 0.0F) {
+        if (this.rotateAngleY != 0.0F)
             matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotation(this.rotateAngleY));
-        }
-
-        if (this.rotateAngleX != 0.0F) {
+        if (this.rotateAngleX != 0.0F)
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotation(this.rotateAngleX));
-        }
-
     }
 
     private void doRender(MatrixStack.Entry matrixEntryIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         Matrix4f matrix4f = matrixEntryIn.getPositionMatrix();
         Matrix3f matrix3f = matrixEntryIn.getNormalMatrix();
 
-        for (ModelBox BasicModelPart$modelbox : this.cubeList) {
+        for (ModelBox BasicModelPart$modelbox : this.cubeList)
             for (TexturedQuad BasicModelPart$texturedquad : BasicModelPart$modelbox.quads) {
                 Vector3f vector3f = new Vector3f(BasicModelPart$texturedquad.normal);
                 vector3f.mul(matrix3f);
@@ -164,8 +154,6 @@ public class BasicModelPart {
                     bufferIn.vertex(vector4f.x(), vector4f.y(), vector4f.z(), red, green, blue, alpha, BasicModelPart$positiontexturevertex.textureU, BasicModelPart$positiontexturevertex.textureV, packedOverlayIn, packedLightIn, f, f1, f2);
                 }
             }
-        }
-
     }
 
     /**

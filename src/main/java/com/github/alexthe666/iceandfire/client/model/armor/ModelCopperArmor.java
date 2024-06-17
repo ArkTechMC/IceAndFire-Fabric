@@ -27,5 +27,4 @@ public class ModelCopperArmor extends ArmorModelBase {
     public static ModelPart getBakedModel(boolean inner) {
         return inner ? INNER_MODEL : OUTER_MODEL;
     }
-
 }

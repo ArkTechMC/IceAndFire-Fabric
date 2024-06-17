@@ -60,5 +60,4 @@ public class GuiHippogryph extends HandledScreen<ContainerHippogryph> {
             InventoryScreen.drawEntity(pGuiGraphics, i + 51, j + 60, 17, i + 51 - this.mousePosx, j + 75 - 50 - this.mousePosY, hippo);
         }
     }
-
 }

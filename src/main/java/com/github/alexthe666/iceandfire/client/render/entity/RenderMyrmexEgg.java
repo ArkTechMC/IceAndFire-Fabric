@@ -9,7 +9,6 @@ import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class RenderMyrmexEgg extends LivingEntityRenderer<EntityMyrmexEgg, AdvancedEntityModel<EntityMyrmexEgg>> {
-
     public static final Identifier EGG_JUNGLE = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_jungle_egg.png");
     public static final Identifier EGG_DESERT = new Identifier(IceAndFire.MOD_ID, "textures/models/myrmex/myrmex_desert_egg.png");
 
@@ -26,5 +25,4 @@ public class RenderMyrmexEgg extends LivingEntityRenderer<EntityMyrmexEgg, Advan
     public Identifier getTexture(EntityMyrmexEgg entity) {
         return entity.isJungle() ? EGG_JUNGLE : EGG_DESERT;
     }
-
 }

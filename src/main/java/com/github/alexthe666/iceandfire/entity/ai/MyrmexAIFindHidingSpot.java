@@ -49,11 +49,9 @@ public class MyrmexAIFindHidingSpot extends Goal {
                     this.wanderRadius += RADIUS;
                     this.targetBlock = this.getTargetPosition(this.wanderRadius);
                 }
-            } else {
-                if (this.myrmex.getTarget() == null && this.myrmex.getCustomer() == null && this.myrmex.visibleTicks == 0 && this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
-                    this.myrmex.setHiding(true);
-                    this.myrmex.getNavigation().stop();
-                }
+            } else if (this.myrmex.getTarget() == null && this.myrmex.getCustomer() == null && this.myrmex.visibleTicks == 0 && this.myrmex.squaredDistanceTo(Vec3d.ofCenter(this.targetBlock)) < 9) {
+                this.myrmex.setHiding(true);
+                this.myrmex.getNavigation().stop();
             }
         }
 
@@ -78,11 +76,9 @@ public class MyrmexAIFindHidingSpot extends Goal {
     private boolean areMyrmexNear() {
         List<Entity> sentinels = this.myrmex.getWorld().getOtherEntities(this.myrmex, this.getTargetableArea(5), this.targetEntitySelector);
         List<Entity> hiddenSentinels = new ArrayList<>();
-        for (Entity sentinel : sentinels) {
-            if (sentinel instanceof EntityMyrmexSentinel && ((EntityMyrmexSentinel) sentinel).isHiding()) {
+        for (Entity sentinel : sentinels)
+            if (sentinel instanceof EntityMyrmexSentinel && ((EntityMyrmexSentinel) sentinel).isHiding())
                 hiddenSentinels.add(sentinel);
-            }
-        }
         return !hiddenSentinels.isEmpty();
     }
 

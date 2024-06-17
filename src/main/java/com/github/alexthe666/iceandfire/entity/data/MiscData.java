@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-
 public class MiscData {
     public int loveTicks;
     public int lungeTicks;
@@ -26,9 +25,8 @@ public class MiscData {
     private boolean triggerClientUpdate;
 
     public void tickMisc(final LivingEntity entity) {
-        if (!this.isInitialized) {
+        if (!this.isInitialized)
             this.initialize(entity.getWorld());
-        }
 
         if (this.loveTicks > 0) {
             this.loveTicks--;
@@ -56,19 +54,15 @@ public class MiscData {
     public void addScepterTarget(final LivingEntity target) {
         if (this.targetedByScepter == null) {
             this.targetedByScepter = new ArrayList<>();
-        } else if (this.targetedByScepter.contains(target)) {
+        } else if (this.targetedByScepter.contains(target))
             return;
-        }
 
         this.targetedByScepter.add(target);
         this.triggerClientUpdate = true;
     }
 
     public void removeScepterTarget(final LivingEntity target) {
-        if (this.targetedByScepter == null) {
-            return;
-        }
-
+        if (this.targetedByScepter == null)             return;
         this.targetedByScepter.remove(target);
         this.triggerClientUpdate = true;
     }
@@ -96,11 +90,8 @@ public class MiscData {
 
         if (this.targetedByScepter != null) {
             int[] ids = new int[this.targetedByScepter.size()];
-
-            for (int i = 0; i < this.targetedByScepter.size(); i++) {
+            for (int i = 0; i < this.targetedByScepter.size(); i++)
                 ids[i] = this.targetedByScepter.get(i).getId();
-            }
-
             tag.putIntArray("targetedByScepterIds", ids);
         }
 
@@ -118,10 +109,8 @@ public class MiscData {
 
         if (loadedChainedToIds.length > 0) {
             this.targetedByScepterIds = new ArrayList<>();
-
-            for (int loadedChainedToId : loadedChainedToIds) {
+            for (int loadedChainedToId : loadedChainedToIds)
                 this.targetedByScepterIds.add(loadedChainedToId);
-            }
         }
     }
 
@@ -130,7 +119,6 @@ public class MiscData {
             this.triggerClientUpdate = false;
             return true;
         }
-
         return false;
     }
 
@@ -150,24 +138,14 @@ public class MiscData {
 
         if (this.targetedByScepterIds != null) {
             for (int id : this.targetedByScepterIds) {
-                if (id == -1) {
-                    continue;
-                }
-
+                if (id == -1)                     continue;
                 Entity entity = level.getEntityById(id);
-
-                if (entity instanceof LivingEntity livingEntity) {
+                if (entity instanceof LivingEntity livingEntity)
                     entities.add(livingEntity);
-                }
             }
         }
 
-        if (!entities.isEmpty()) {
-            this.targetedByScepter = entities;
-        } else {
-            this.targetedByScepter = null;
-        }
-
+        this.targetedByScepter = !entities.isEmpty() ? entities : null;
         this.targetedByScepterIds = null;
         this.isInitialized = true;
     }

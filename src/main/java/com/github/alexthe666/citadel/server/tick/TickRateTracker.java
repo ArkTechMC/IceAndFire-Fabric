@@ -20,14 +20,11 @@ public abstract class TickRateTracker {
         this.masterTickCount++;
         this.specialTickRateEntities.forEach(this::tickBlockedEntity);
         this.specialTickRateEntities.removeIf(this::hasNormalTickRate);
-        for (TickRateModifier modifier : this.tickRateModifierList) {
+        for (TickRateModifier modifier : this.tickRateModifierList)
             modifier.masterTick();
-        }
-        if (!this.tickRateModifierList.isEmpty()) {
-            if (this.tickRateModifierList.removeIf(TickRateModifier::doRemove)) {
+        if (!this.tickRateModifierList.isEmpty())
+            if (this.tickRateModifierList.removeIf(TickRateModifier::doRemove))
                 this.sync();
-            }
-        }
     }
 
     protected void sync() {
@@ -40,11 +37,9 @@ public abstract class TickRateTracker {
     public NbtCompound toTag() {
         NbtCompound tag = new NbtCompound();
         NbtList list = new NbtList();
-        for (TickRateModifier modifier : this.tickRateModifierList) {
-            if (!modifier.doRemove()) {
+        for (TickRateModifier modifier : this.tickRateModifierList)
+            if (!modifier.doRemove())
                 list.add(modifier.toTag());
-            }
-        }
         tag.put("TickRateModifiers", list);
         return tag;
     }
@@ -56,20 +51,17 @@ public abstract class TickRateTracker {
                 NbtCompound tag1 = list.getCompound(i);
                 TickRateModifier modifier = TickRateModifier.fromTag(tag1);
                 assert modifier != null;
-                if (!modifier.doRemove()) {
+                if (!modifier.doRemove())
                     this.tickRateModifierList.add(modifier);
-                }
             }
         }
     }
 
     public long getDayTimeIncrement(long timeIn) {
         float f = 1F;
-        for (TickRateModifier modifier : this.tickRateModifierList) {
-            if (modifier.getType() == TickRateModifierType.CELESTIAL) {
+        for (TickRateModifier modifier : this.tickRateModifierList)
+            if (modifier.getType() == TickRateModifierType.CELESTIAL)
                 f *= modifier.getTickRateMultiplier();
-            }
-        }
         if (f < 1F && f > 0F) {
             int inverse = (int) (1 / f);
             return this.masterTickCount % inverse == 0 ? timeIn : 0;
@@ -79,11 +71,9 @@ public abstract class TickRateTracker {
 
     public float getEntityTickLengthModifier(Entity entity) {
         float f = 1.0F;
-        for (TickRateModifier modifier : this.tickRateModifierList) {
-            if (modifier.getType().isLocal() && modifier.appliesTo(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ())) {
+        for (TickRateModifier modifier : this.tickRateModifierList)
+            if (modifier.getType().isLocal() && modifier.appliesTo(entity.getWorld(), entity.getX(), entity.getY(), entity.getZ()))
                 f *= modifier.getTickRateMultiplier();
-            }
-        }
         return f;
     }
 
@@ -96,9 +86,8 @@ public abstract class TickRateTracker {
     }
 
     public void addTickBlockedEntity(Entity entity) {
-        if (!this.isTickingHandled(entity)) {
+        if (!this.isTickingHandled(entity))
             this.specialTickRateEntities.add(entity);
-        }
     }
 
     protected void tickBlockedEntity(Entity entity) {

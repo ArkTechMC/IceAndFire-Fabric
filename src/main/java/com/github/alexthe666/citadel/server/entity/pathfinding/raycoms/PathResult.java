@@ -126,8 +126,6 @@ public class PathResult<T extends Callable<Path>> {
 
     /**
      * Get the queried job for the pathresult
-     *
-     * @return
      */
     public T getJob() {
         return this.job;
@@ -135,8 +133,6 @@ public class PathResult<T extends Callable<Path>> {
 
     /**
      * Set the job for this result
-     *
-     * @param job
      */
     public void setJob(final T job) {
         this.job = job;
@@ -148,7 +144,7 @@ public class PathResult<T extends Callable<Path>> {
      * @param executorService executor
      */
     public void startJob(final ExecutorService executorService) {
-        if (this.job != null) {
+        if (this.job != null)
             try {
                 if (!threadException)
                     this.pathCalculation = executorService.submit(this.job);
@@ -160,16 +156,13 @@ public class PathResult<T extends Callable<Path>> {
             } catch (Exception e) {
                 Citadel.LOGGER.catching(e);
             }
-        }
     }
 
     /**
      * Processes the completed calculation results
      */
     public void processCalculationResults() {
-        if (this.pathingDoneAndProcessed) {
-            return;
-        }
+        if (this.pathingDoneAndProcessed) return;
 
         try {
             this.path = this.pathCalculation.get();
@@ -195,13 +188,11 @@ public class PathResult<T extends Callable<Path>> {
      * @return true if calculation is done and processed
      */
     public boolean isFinished() {
-        if (!this.pathingDoneAndProcessed) {
+        if (!this.pathingDoneAndProcessed)
             if (this.pathCalculation != null && this.pathCalculation.isDone()) {
                 this.processCalculationResults();
                 this.pathingDoneAndProcessed = true;
             }
-        }
-
         return this.pathingDoneAndProcessed;
     }
 
@@ -213,7 +204,6 @@ public class PathResult<T extends Callable<Path>> {
             this.pathCalculation.cancel(false);
             this.pathCalculation = null;
         }
-
         this.pathingDoneAndProcessed = true;
     }
 }

@@ -11,11 +11,9 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BlockBurntTorchWall extends WallTorchBlock implements IDreadBlock {
-
     public BlockBurntTorchWall() {
-        super(Settings.create().mapColor(MapColor.OAK_TAN).burnable().luminance((state) -> 0).sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds()
-//                    .lootFrom(IafBlockRegistry.BURNT_TORCH)
-                .noCollision(), DustParticleEffect.DEFAULT);
+        super(Settings.create().mapColor(MapColor.OAK_TAN).burnable().luminance((state) -> 0).sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds().noCollision(), DustParticleEffect.DEFAULT);
+        //                    .lootFrom(IafBlockRegistry.BURNT_TORCH)
     }
 
     @Override

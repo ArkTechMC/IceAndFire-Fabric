@@ -26,16 +26,13 @@ public class TrollAIFleeSun extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.world.isDay()) {
+        if (!this.world.isDay()) return false;
+        else if (!this.world.isSkyVisible(BlockPos.ofFloored(this.troll.getBlockX(), this.troll.getBoundingBox().minY, this.troll.getBlockZ())))
             return false;
-        } else if (!this.world.isSkyVisible(BlockPos.ofFloored(this.troll.getBlockX(), this.troll.getBoundingBox().minY, this.troll.getBlockZ()))) {
-            return false;
-        } else {
+        else {
             Vec3d Vector3d = this.findPossibleShelter();
-
-            if (Vector3d == null) {
-                return false;
-            } else {
+            if (Vector3d == null) return false;
+            else {
                 this.shelterX = Vector3d.x;
                 this.shelterY = Vector3d.y;
                 this.shelterZ = Vector3d.z;
@@ -63,15 +60,11 @@ public class TrollAIFleeSun extends Goal {
     private Vec3d findPossibleShelter() {
         Random random = this.troll.getRandom();
         BlockPos blockpos = BlockPos.ofFloored(this.troll.getBlockX(), this.troll.getBoundingBox().minY, this.troll.getBlockZ());
-
         for (int i = 0; i < 10; ++i) {
             BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-
-            if (!this.world.isSkyVisible(blockpos1) && this.troll.getPathfindingFavor(blockpos1) < 0.0F) {
+            if (!this.world.isSkyVisible(blockpos1) && this.troll.getPathfindingFavor(blockpos1) < 0.0F)
                 return new Vec3d(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
-            }
         }
-
         return null;
     }
 }

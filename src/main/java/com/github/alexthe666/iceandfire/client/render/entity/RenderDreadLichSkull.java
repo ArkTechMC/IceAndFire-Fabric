@@ -15,7 +15,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class RenderDreadLichSkull extends EntityRenderer<EntityDreadLichSkull> {
-
     public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_lich_skull.png");
     private static final ModelDreadLichSkull MODEL_SPIRIT = new ModelDreadLichSkull();
 
@@ -25,7 +24,6 @@ public class RenderDreadLichSkull extends EntityRenderer<EntityDreadLichSkull> {
 
     @Override
     public void render(EntityDreadLichSkull entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
-        float f = 0.0625F;
         if (entity.age > 3) {
             matrixStackIn.push();
             matrixStackIn.scale(1.5F, -1.5F, 1.5F);
@@ -36,12 +34,7 @@ public class RenderDreadLichSkull extends EntityRenderer<EntityDreadLichSkull> {
             MODEL_SPIRIT.render(matrixStackIn, ivertexbuilder, 240, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.pop();
         }
-
         super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-    }
-
-    private float interpolateValue(float start, float end, float pct) {
-        return start + (end - start) * pct;
     }
 
     @Override

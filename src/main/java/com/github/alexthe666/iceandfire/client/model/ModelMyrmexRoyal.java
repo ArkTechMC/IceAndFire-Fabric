@@ -310,8 +310,8 @@ public class ModelMyrmexRoyal extends ModelMyrmexBase {
     }
 
     @Override
-    public void setAngles(Entity entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate((IAnimatedEntity) entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         AdvancedModelBox[] GASTER = new AdvancedModelBox[]{this.Body4, this.Body5, this.Tail1, this.Tail2, this.Stinger};
         AdvancedModelBox[] NECK = new AdvancedModelBox[]{this.Neck1, this.HeadBase};
         AdvancedModelBox[] LEGR1 = new AdvancedModelBox[]{this.legTopR1, this.legMidR1, this.legBottomR1};
@@ -329,24 +329,24 @@ public class ModelMyrmexRoyal extends ModelMyrmexBase {
         float speed_fly = 1.1F;
         float degree_fly = 1F;
         if (entity.getPassengerList().isEmpty())
-            this.faceTarget(f3, f4, 2, NECK);
-        this.chainWave(GASTER, speed_idle, degree_idle * 0.25F, 0, f2, 1);
-        this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, f2, 1);
-        this.swing(this.MandibleR, speed_idle * 2F, degree_idle * -0.75F, false, 1, 0.2F, f2, 1);
-        this.swing(this.MandibleL, speed_idle * 2F, degree_idle * -0.75F, true, 1, 0.2F, f2, 1);
+            this.faceTarget(headYaw, headPitch, 2, NECK);
+        this.chainWave(GASTER, speed_idle, degree_idle * 0.25F, 0, animationProgress, 1);
+        this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, animationProgress, 1);
+        this.swing(this.MandibleR, speed_idle * 2F, degree_idle * -0.75F, false, 1, 0.2F, animationProgress, 1);
+        this.swing(this.MandibleL, speed_idle * 2F, degree_idle * -0.75F, true, 1, 0.2F, animationProgress, 1);
 
         EntityMyrmexRoyal myrmex = (EntityMyrmexRoyal) entity;
         if (myrmex.isFlying() && !myrmex.isOnGround()) {
-            this.chainWave(LEFT_WINGS, speed_fly, degree_fly * 0.75F, 2, f2, 1);
-            this.chainWave(RIGHT_WINGS, speed_fly, degree_fly * 0.75F, 2, f2, 1);
+            this.chainWave(LEFT_WINGS, speed_fly, degree_fly * 0.75F, 2, animationProgress, 1);
+            this.chainWave(RIGHT_WINGS, speed_fly, degree_fly * 0.75F, 2, animationProgress, 1);
             this.bob(this.Body2, speed_fly, degree_fly * 10, false, 0, 0);
         } else {
-            this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, f, f1);
-            this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, f, f1);
-            this.animateLeg(LEGR2, speed_walk, degree_walk, true, 0, 1, f, f1);
-            this.animateLeg(LEGL1, speed_walk, degree_walk, false, 1, -1, f, f1);
-            this.animateLeg(LEGL3, speed_walk, degree_walk, false, 1, -1, f, f1);
-            this.animateLeg(LEGL2, speed_walk, degree_walk, true, 1, -1, f, f1);
+            this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, limbAngle, limbDistance);
+            this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, limbAngle, limbDistance);
+            this.animateLeg(LEGR2, speed_walk, degree_walk, true, 0, 1, limbAngle, limbDistance);
+            this.animateLeg(LEGL1, speed_walk, degree_walk, false, 1, -1, limbAngle, limbDistance);
+            this.animateLeg(LEGL3, speed_walk, degree_walk, false, 1, -1, limbAngle, limbDistance);
+            this.animateLeg(LEGL2, speed_walk, degree_walk, true, 1, -1, limbAngle, limbDistance);
         }
         this.progressRotation(this.HeadBase, myrmex.flyProgress, (float) Math.toRadians(52F), 0, 0);
         this.progressPosition(this.Body2, myrmex.flyProgress, 0, -8, 0);

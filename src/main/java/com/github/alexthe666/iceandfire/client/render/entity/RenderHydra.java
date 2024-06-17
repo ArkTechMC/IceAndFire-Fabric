@@ -11,7 +11,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderHydra extends MobEntityRenderer<EntityHydra, ModelHydraBody> {
-
     public static final Identifier TEXUTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/hydra/hydra_0.png");
     public static final Identifier TEXUTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/hydra/hydra_1.png");
     public static final Identifier TEXUTURE_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/hydra/hydra_2.png");
@@ -36,5 +35,4 @@ public class RenderHydra extends MobEntityRenderer<EntityHydra, ModelHydraBody> 
             case 2 -> TEXUTURE_2;
         };
     }
-
 }

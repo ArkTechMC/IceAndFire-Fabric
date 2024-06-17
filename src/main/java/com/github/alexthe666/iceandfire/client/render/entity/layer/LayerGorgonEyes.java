@@ -27,8 +27,4 @@ public class LayerGorgonEyes extends FeatureRenderer<EntityGorgon, ModelGorgon> 
             this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
-
-    public boolean shouldCombineTextures() {
-        return false;
-    }
 }

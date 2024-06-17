@@ -153,21 +153,21 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
     }
 
     @Override
-    public void setAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.resetToDefaultPose();
-        this.animate(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, 0);
-        this.faceTarget(netHeadYaw, headPitch, 1.0F, this.head);
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 0);
+        this.faceTarget(headYaw, headPitch, 1.0F, this.head);
         float f = 1.0F;
-        this.armRight.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
-        this.armLeft.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F / f;
-        this.legRight.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount / f;
-        this.legLeft.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount / f;
+        this.armRight.rotateAngleX += MathHelper.cos(limbAngle * 0.6662F + (float) Math.PI) * 2.0F * limbDistance * 0.5F / f;
+        this.armLeft.rotateAngleX += MathHelper.cos(limbAngle * 0.6662F) * 2.0F * limbDistance * 0.5F / f;
+        this.legRight.rotateAngleX = MathHelper.cos(limbAngle * 0.6662F) * 1.4F * limbDistance / f;
+        this.legLeft.rotateAngleX = MathHelper.cos(limbAngle * 0.6662F + (float) Math.PI) * 1.4F * limbDistance / f;
         this.legRight.rotateAngleY = 0.0F;
         this.legLeft.rotateAngleY = 0.0F;
         this.legRight.rotateAngleZ = 0.0F;
         this.legLeft.rotateAngleZ = 0.0F;
 
-        if (entityIn.hasVehicle()) {
+        if (entity.hasVehicle()) {
             this.armRight.rotateAngleX -= ((float) Math.PI / 5F);
             this.armLeft.rotateAngleX -= ((float) Math.PI / 5F);
             this.legRight.rotateAngleX = -1.4137167F;
@@ -178,7 +178,7 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
             this.legLeft.rotateAngleZ = -0.07853982F;
         }
         if (this.handSwingProgress > 0.0F) {
-            Arm handSide = this.getMainHand(entityIn);
+            Arm handSide = this.getMainHand(entity);
             HideableModelRenderer modelrenderer = this.getArmForSide(handSide);
             float f1 = this.handSwingProgress;
             this.body.rotateAngleY = MathHelper.sin(MathHelper.sqrt(f1) * ((float) Math.PI * 2F)) * 0.2F;
@@ -221,10 +221,10 @@ public abstract class ModelBipedBase<T extends LivingEntity> extends AdvancedEnt
             this.head.rotationPointY = 0.0F;
         }
 
-        this.armRight.rotateAngleZ += MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-        this.armLeft.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
-        this.armRight.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-        this.armLeft.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
+        this.armRight.rotateAngleZ += MathHelper.cos(animationProgress * 0.09F) * 0.05F + 0.05F;
+        this.armLeft.rotateAngleZ -= MathHelper.cos(animationProgress * 0.09F) * 0.05F + 0.05F;
+        this.armRight.rotateAngleX += MathHelper.sin(animationProgress * 0.067F) * 0.05F;
+        this.armLeft.rotateAngleX -= MathHelper.sin(animationProgress * 0.067F) * 0.05F;
 
     }
 

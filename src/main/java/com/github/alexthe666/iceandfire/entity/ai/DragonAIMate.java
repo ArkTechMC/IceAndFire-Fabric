@@ -34,9 +34,8 @@ public class DragonAIMate extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.dragon.isInLove() || !this.dragon.canMove()) {
-            return false;
-        } else {
+        if (!this.dragon.isInLove() || !this.dragon.canMove()) return false;
+        else {
             this.targetMate = this.getNearbyMate();
             return this.targetMate != null;
         }
@@ -68,9 +67,8 @@ public class DragonAIMate extends Goal {
         this.dragon.setFlying(false);
         this.dragon.setHovering(false);
         ++this.spawnBabyDelay;
-        if (this.spawnBabyDelay >= 60 && this.dragon.distanceTo(this.targetMate) < 35) {
+        if (this.spawnBabyDelay >= 60 && this.dragon.distanceTo(this.targetMate) < 35)
             this.spawnBaby();
-        }
     }
 
     /**
@@ -81,7 +79,7 @@ public class DragonAIMate extends Goal {
         List<? extends EntityDragonBase> list = this.theWorld.getNonSpectatingEntities(this.dragon.getClass(), this.dragon.getBoundingBox().expand(180.0D, 180.0D, 180.0D));
         double d0 = Double.MAX_VALUE;
         EntityDragonBase mate = null;
-        for (EntityDragonBase partner : list) {
+        for (EntityDragonBase partner : list)
             if (this.dragon.canBreedWith(partner)) {
                 double d1 = this.dragon.squaredDistanceTo(partner);
                 if (d1 < d0) { // find min distance
@@ -89,7 +87,6 @@ public class DragonAIMate extends Goal {
                     d0 = d1;
                 }
             }
-        }
         return mate;
     }
 
@@ -97,9 +94,7 @@ public class DragonAIMate extends Goal {
      * Spawns a baby animal of the same type.
      */
     private void spawnBaby() {
-
         EntityDragonEgg egg = this.dragon.createEgg(this.targetMate);
-
         if (egg != null) {
 //            PlayerEntity PlayerEntity = this.dragon.getLoveCause();
 //
@@ -131,21 +126,17 @@ public class DragonAIMate extends Goal {
             BlockPos eggPos = new BlockPos(nestX - 2, nestY, nestZ - 2);
             BlockPos dirtPos = eggPos.add(1, 0, 1);
 
-            for (int x = 0; x < 3; x++) {
+            for (int x = 0; x < 3; x++)
                 for (int z = 0; z < 3; z++) {
                     BlockPos add = eggPos.add(x, 0, z);
                     BlockState prevState = this.theWorld.getBlockState(add);
-                    if (prevState.isReplaceable() || this.theWorld.getBlockState(add).isIn(BlockTags.DIRT) || this.theWorld.getBlockState(add).getHardness(this.theWorld, add) < 5F || this.theWorld.getBlockState(add).getHardness(this.theWorld, add) >= 0F) {
+                    if (prevState.isReplaceable() || this.theWorld.getBlockState(add).isIn(BlockTags.DIRT) || this.theWorld.getBlockState(add).getHardness(this.theWorld, add) < 5F || this.theWorld.getBlockState(add).getHardness(this.theWorld, add) >= 0F)
                         this.theWorld.setBlockState(add, NEST);
-                    }
                 }
-            }
-            if (this.theWorld.getBlockState(dirtPos).isReplaceable() || this.theWorld.getBlockState(dirtPos) == NEST) {
+            if (this.theWorld.getBlockState(dirtPos).isReplaceable() || this.theWorld.getBlockState(dirtPos) == NEST)
                 this.theWorld.setBlockState(dirtPos, Blocks.DIRT_PATH.getDefaultState());
-            }
-            if (this.theWorld.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
+            if (this.theWorld.getGameRules().getBoolean(GameRules.DO_MOB_LOOT))
                 this.theWorld.spawnEntity(new ExperienceOrbEntity(this.theWorld, this.dragon.getX(), this.dragon.getY(), this.dragon.getZ(), random.nextInt(15) + 10));
-            }
         }
     }
 }

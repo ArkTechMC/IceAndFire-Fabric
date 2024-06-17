@@ -17,7 +17,6 @@ public class IafBiomeTagGenerator extends VanillaBiomeTagProvider {
     public static final TagKey<Biome> HAS_MAUSOLEUM = TagKey.of(RegistryKeys.BIOME, new Identifier(IceAndFire.MOD_ID, "has_structure/mausoleum"));
     public static final TagKey<Biome> HAS_GRAVEYARD = TagKey.of(RegistryKeys.BIOME, new Identifier(IceAndFire.MOD_ID, "has_structure/graveyard"));
 
-
     public IafBiomeTagGenerator(DataOutput pOutput, CompletableFuture<RegistryWrapper.WrapperLookup> pProvider) {
         super(pOutput, pProvider);
     }

@@ -11,7 +11,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class GuiPodium extends HandledScreen<ContainerPodium> {
-
     public static final Identifier PODUIM_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/podium.png");
 
     public GuiPodium(ContainerPodium container, PlayerInventory inv, Text name) {
@@ -28,7 +27,6 @@ public class GuiPodium extends HandledScreen<ContainerPodium> {
         }
         pGuiGraphics.drawText(this.textRenderer, this.playerInventoryTitle, 8, this.backgroundHeight - 96 + 2, 4210752, false);
     }
-
 
     @Override
     public void render(DrawContext pGuiGraphics, int mouseX, int mouseY, float partialTicks) {

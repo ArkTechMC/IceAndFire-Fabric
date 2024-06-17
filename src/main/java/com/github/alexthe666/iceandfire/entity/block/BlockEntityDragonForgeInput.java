@@ -118,15 +118,12 @@ public class BlockEntityDragonForgeInput extends BlockEntity {
     private int getDragonType() {
         assert this.world != null;
         BlockState state = this.world.getBlockState(this.pos);
-
-        if (state.getBlock() == IafBlocks.DRAGONFORGE_FIRE_INPUT) {
+        if (state.getBlock() == IafBlocks.DRAGONFORGE_FIRE_INPUT)
             return 0;
-        } else if (state.getBlock() == IafBlocks.DRAGONFORGE_ICE_INPUT) {
+        else if (state.getBlock() == IafBlocks.DRAGONFORGE_ICE_INPUT)
             return 1;
-        } else if (state.getBlock() == IafBlocks.DRAGONFORGE_LIGHTNING_INPUT) {
+        else if (state.getBlock() == IafBlocks.DRAGONFORGE_LIGHTNING_INPUT)
             return 2;
-        }
-
         return 0;
     }
 
@@ -139,11 +136,9 @@ public class BlockEntityDragonForgeInput extends BlockEntity {
     private BlockEntityDragonForge getConnectedTileEntity(final BlockPos position) {
         for (Direction facing : HORIZONTALS) {
             assert this.world != null;
-            if (this.world.getBlockEntity(position.offset(facing)) instanceof BlockEntityDragonForge forge) {
+            if (this.world.getBlockEntity(position.offset(facing)) instanceof BlockEntityDragonForge forge)
                 return forge;
-            }
         }
-
         return null;
     }
 }

@@ -18,12 +18,11 @@ public class SeaSerpentTabulaModelAnimator extends IceAndFireTabulaModelAnimator
     public void setRotationAngles(TabulaModel model, EntitySeaSerpent entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
         model.getCube("BodyUpper").rotationPointY += 9;//model was made too high
-        model.llibAnimator.update(entity);
+        model.animator.update(entity);
         this.animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
         int currentIndex = entity.swimCycle / 10;
         int prevIndex = currentIndex - 1;
-        if (prevIndex < 0)
-            prevIndex = 3;
+        if (prevIndex < 0) prevIndex = 3;
         TabulaModel prevPosition = this.swimPose[prevIndex];
         TabulaModel currentPosition = this.swimPose[currentIndex];
         float partialTicks = MinecraftClient.getInstance().getTickDelta();
@@ -85,34 +84,34 @@ public class SeaSerpentTabulaModelAnimator extends IceAndFireTabulaModelAnimator
     }
 
     private void animate(TabulaModel model, EntitySeaSerpent entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
-        if (model.llibAnimator.setAnimation(EntitySeaSerpent.ANIMATION_SPEAK)) {
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, model.getCube("Jaw"), 25, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.setStaticKeyframe(5);
-            model.llibAnimator.resetKeyframe(5);
+        if (model.animator.setAnimation(EntitySeaSerpent.ANIMATION_SPEAK)) {
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, model.getCube("Jaw"), 25, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.setStaticKeyframe(5);
+            model.animator.resetKeyframe(5);
         }
-        if (model.llibAnimator.setAnimation(EntitySeaSerpent.ANIMATION_BITE)) {
-            model.llibAnimator.startKeyframe(5);
+        if (model.animator.setAnimation(EntitySeaSerpent.ANIMATION_BITE)) {
+            model.animator.startKeyframe(5);
             this.moveToPose(model, EnumSeaSerpentAnimations.BITE1.seaserpent_model);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, EnumSeaSerpentAnimations.BITE2.seaserpent_model);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.setStaticKeyframe(2);
-            model.llibAnimator.resetKeyframe(3);
+            model.animator.endKeyframe();
+            model.animator.setStaticKeyframe(2);
+            model.animator.resetKeyframe(3);
         }
-        if (model.llibAnimator.setAnimation(EntitySeaSerpent.ANIMATION_ROAR)) {
-            model.llibAnimator.startKeyframe(10);
+        if (model.animator.setAnimation(EntitySeaSerpent.ANIMATION_ROAR)) {
+            model.animator.startKeyframe(10);
             this.moveToPose(model, EnumSeaSerpentAnimations.ROAR1.seaserpent_model);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, EnumSeaSerpentAnimations.ROAR2.seaserpent_model);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, EnumSeaSerpentAnimations.ROAR3.seaserpent_model);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
     }
 }

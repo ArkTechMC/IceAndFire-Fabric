@@ -8,7 +8,6 @@ import static io.github.fabricators_of_create.porting_lib.tags.Tags.Biomes.*;
 import static net.minecraft.registry.tag.BiomeTags.*;
 
 public class DefaultBiomes {
-
     public static final SpawnBiomeData OVERWORLD = new SpawnBiomeData()
             .addBiomeEntry(BiomeEntryType.BIOME_TAG, false, IS_OVERWORLD.id().toString(), 0);
 
@@ -225,5 +224,4 @@ public class DefaultBiomes {
     public static final SpawnBiomeData HIPPOGRYPH_CREAMY = new SpawnBiomeData()
             .addBiomeEntry(BiomeEntryType.REGISTRY_NAME, false, "minecraft:savanna_plateau", 0)
             .addBiomeEntry(BiomeEntryType.REGISTRY_NAME, false, "terralith:fractured_savanna", 1);
-
 }

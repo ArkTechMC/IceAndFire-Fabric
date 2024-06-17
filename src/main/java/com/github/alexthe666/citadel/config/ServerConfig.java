@@ -3,7 +3,6 @@ package com.github.alexthe666.citadel.config;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 public class ServerConfig {
-
     public static boolean citadelEntityTrack;
     public static boolean skipWarnings;
     public static double chunkGenSpawnModifierVal = 1.0D;

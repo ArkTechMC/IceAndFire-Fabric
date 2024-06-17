@@ -28,24 +28,22 @@ public class ParticleDreadTorch extends SpriteBillboardParticle {
 
     @Override
     public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
-        Vec3d inerp = renderInfo.getPos();
         this.scale = 0.125F * (this.maxAge - (this.age));
         this.scale = this.scale * 0.09F;
         this.velocityX *= 0.75D;
         this.velocityY *= 0.75D;
         this.velocityZ *= 0.75D;
-        if (this.age > this.getMaxAge()) {
+        if (this.age > this.getMaxAge())
             this.markDead();
-        }
 
         Vec3d Vector3d = renderInfo.getPos();
         float f = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.x) - Vector3d.getX());
         float f1 = (float) (MathHelper.lerp(partialTicks, this.prevPosY, this.y) - Vector3d.getY());
         float f2 = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.z) - Vector3d.getZ());
         Quaternionf quaternion;
-        if (this.angle == 0.0F) {
+        if (this.angle == 0.0F)
             quaternion = renderInfo.getRotation();
-        } else {
+        else {
             quaternion = new Quaternionf(renderInfo.getRotation());
             float f3 = MathHelper.lerp(partialTicks, this.prevAngle, this.angle);
             quaternion.mul(RotationAxis.POSITIVE_Z.rotation(f3));
@@ -77,7 +75,6 @@ public class ParticleDreadTorch extends SpriteBillboardParticle {
         vertexbuffer.vertex(avector3f[3].x(), avector3f[3].y(), avector3f[3].z()).texture(f7, f6).color(this.red, this.green, this.blue, this.alpha).light(j).next();
         Tessellator.getInstance().draw();
     }
-
 
     @Override
     public int getBrightness(float partialTick) {

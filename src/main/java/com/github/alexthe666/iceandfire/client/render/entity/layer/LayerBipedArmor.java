@@ -17,9 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 //TODO: Consider support for default minecraft armors/ dynamically selecting custom armors
-
 //Base code from minecrafts ArmorBipedLayer
-
 public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity, M extends ModelBipedBase<T>, A extends ModelBipedBase<T>> extends FeatureRenderer<T, M> {
     private final A modelLeggings;
     private final A modelArmor;
@@ -94,5 +92,4 @@ public class LayerBipedArmor<T extends LivingEntity & IAnimatedEntity, M extends
         if (this.isLegSlot(slot)) return this.defaultLegArmor;
         return this.defaultArmor;
     }
-
 }

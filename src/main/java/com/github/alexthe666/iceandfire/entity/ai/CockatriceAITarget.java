@@ -20,15 +20,13 @@ public class CockatriceAITarget<T extends LivingEntity> extends ActiveTargetGoal
 
     @Override
     public boolean canStart() {
-        if (this.mob.getRandom().nextInt(20) != 0 || this.cockatrice.getWorld().getDifficulty() == Difficulty.PEACEFUL) {
+        if (this.mob.getRandom().nextInt(20) != 0 || this.cockatrice.getWorld().getDifficulty() == Difficulty.PEACEFUL)
             return false;
-        }
         if (super.canStart() && this.targetEntity != null && !this.targetEntity.getClass().equals(this.cockatrice.getClass())) {
-            if (this.targetEntity instanceof PlayerEntity && !this.cockatrice.isOwner(this.targetEntity)) {
+            if (this.targetEntity instanceof PlayerEntity && !this.cockatrice.isOwner(this.targetEntity))
                 return !this.cockatrice.isTamed();
-            } else {
+            else
                 return !this.cockatrice.isOwner(this.targetEntity) && this.cockatrice.canMove();
-            }
         }
         return false;
     }

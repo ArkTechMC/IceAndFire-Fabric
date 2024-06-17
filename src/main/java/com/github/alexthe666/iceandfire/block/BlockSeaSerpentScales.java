@@ -11,21 +11,12 @@ import net.minecraft.world.BlockView;
 
 import java.util.List;
 
-
 public class BlockSeaSerpentScales extends Block {
     final Formatting color;
     final String name;
 
     public BlockSeaSerpentScales(String name, Formatting color) {
-        super(
-                Settings
-                        .create()
-                        .mapColor(MapColor.STONE_GRAY)
-                        .strength(30F, 500F)
-                        .sounds(BlockSoundGroup.STONE)
-                        .requiresTool()
-        );
-
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).strength(30F, 500F).sounds(BlockSoundGroup.STONE).requiresTool());
         this.color = color;
         this.name = name;
     }

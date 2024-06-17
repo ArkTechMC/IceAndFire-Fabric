@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.function.Predicate;
 
 public class MyrmexAIAttackPlayers extends ActiveTargetGoal {
-
     private final EntityMyrmexBase myrmex;
 
     @SuppressWarnings("unchecked")

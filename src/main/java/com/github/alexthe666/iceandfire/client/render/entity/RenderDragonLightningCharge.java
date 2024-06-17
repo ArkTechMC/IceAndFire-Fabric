@@ -14,7 +14,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class RenderDragonLightningCharge extends EntityRenderer<EntityDragonLightningCharge> {
-
     public static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/charge.png");
     public static final Identifier TEXTURE_CORE = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/charge_core.png");
     private static final ModelDreadLichSkull MODEL_SPIRIT = new ModelDreadLichSkull();
@@ -22,7 +21,6 @@ public class RenderDragonLightningCharge extends EntityRenderer<EntityDragonLigh
     public RenderDragonLightningCharge(EntityRendererFactory.Context context) {
         super(context);
     }
-
 
     @Override
     public void render(EntityDragonLightningCharge entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
@@ -61,10 +59,6 @@ public class RenderDragonLightningCharge extends EntityRenderer<EntityDragonLigh
         matrixStackIn.pop();
 
         super.render(entity, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-    }
-
-    private float interpolateValue(float start, float end, float pct) {
-        return start + (end - start) * pct;
     }
 
     @Override

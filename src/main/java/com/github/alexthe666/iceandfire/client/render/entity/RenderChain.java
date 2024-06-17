@@ -18,7 +18,6 @@ import org.joml.Matrix4f;
 import java.util.List;
 
 public class RenderChain {
-
     private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/chain_link.png");
 
     public static void render(LivingEntity entityLivingIn, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int lightIn, List<Entity> chainedTo) {
@@ -84,8 +83,8 @@ public class RenderChain {
         matrixStackIn.pop();
     }
 
-    private static void vertex(VertexConsumer p_229108_0_, Matrix4f p_229108_1_, Matrix3f p_229108_2_, float p_229108_3_, float p_229108_4_, float p_229108_5_, int p_229108_6_, int p_229108_7_, int p_229108_8_, float p_229108_9_, float p_229108_10_, int packedLight) {
-        p_229108_0_.vertex(p_229108_1_, p_229108_3_, p_229108_4_, p_229108_5_).color(p_229108_6_, p_229108_7_, p_229108_8_, 255).texture(p_229108_9_, p_229108_10_).overlay(OverlayTexture.DEFAULT_UV).light(packedLight).normal(p_229108_2_, 0.0F, 1.0F, 0.0F).next();
+    private static void vertex(VertexConsumer consumer, Matrix4f matrix4f, Matrix3f matrix3f, float x, float y, float z, int r, int g, int b, float u, float v, int packedLight) {
+        consumer.vertex(matrix4f, x, y, z).color(r, g, b, 255).texture(u, v).overlay(OverlayTexture.DEFAULT_UV).light(packedLight).normal(matrix3f, 0.0F, 1.0F, 0.0F).next();
     }
 
     private static Vec3d getPosition(Entity LivingEntityIn, double p_177110_2_, float p_177110_4_) {

@@ -10,7 +10,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderGorgon extends MobEntityRenderer<EntityGorgon, ModelGorgon> {
-
     public static final Identifier PASSIVE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_passive.png");
     public static final Identifier AGRESSIVE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_active.png");
     public static final Identifier DEAD_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/gorgon_decapitated.png");
@@ -27,13 +26,8 @@ public class RenderGorgon extends MobEntityRenderer<EntityGorgon, ModelGorgon> {
 
     @Override
     public Identifier getTexture(EntityGorgon gorgon) {
-        if (gorgon.getAnimation() == EntityGorgon.ANIMATION_SCARE) {
-            return AGRESSIVE_TEXTURE;
-        } else if (gorgon.deathTime > 0) {
-            return DEAD_TEXTURE;
-        } else {
-            return PASSIVE_TEXTURE;
-        }
+        if (gorgon.getAnimation() == EntityGorgon.ANIMATION_SCARE) return AGRESSIVE_TEXTURE;
+        else if (gorgon.deathTime > 0) return DEAD_TEXTURE;
+        else return PASSIVE_TEXTURE;
     }
-
 }

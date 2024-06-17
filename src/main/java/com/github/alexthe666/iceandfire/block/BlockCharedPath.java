@@ -43,8 +43,7 @@ public class BlockCharedPath extends DirtPathBlock {
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
         super.scheduledTick(state, world, pos, rand);
         if (!world.isClient) {
-            if (!world.isAreaLoaded(pos, 3))
-                return;
+            if (!world.isAreaLoaded(pos, 3)) return;
             if (state.get(REVERTS) && rand.nextInt(3) == 0)
                 world.setBlockState(pos, Blocks.DIRT_PATH.getDefaultState());
         }

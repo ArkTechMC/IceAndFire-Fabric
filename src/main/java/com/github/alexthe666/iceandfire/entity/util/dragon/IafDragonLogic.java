@@ -46,22 +46,17 @@ public class IafDragonLogic {
                 this.dragon.lookingForRoostAIFlag = true;
             } else {
                 this.dragon.lookingForRoostAIFlag = false;
-                if ((/* Avoid immediately sleeping after killing the target */ this.dragon.getWorld().getTime() - this.ticksAfterClearingTarget >= 20) && !this.dragon.isTouchingWater() && this.dragon.isOnGround() && !this.dragon.isFlying() && !this.dragon.isHovering() && this.dragon.getTarget() == null) {
+                if ((/* Avoid immediately sleeping after killing the target */ this.dragon.getWorld().getTime() - this.ticksAfterClearingTarget >= 20) && !this.dragon.isTouchingWater() && this.dragon.isOnGround() && !this.dragon.isFlying() && !this.dragon.isHovering() && this.dragon.getTarget() == null)
                     this.dragon.setInSittingPose(true);
-                }
             }
-        } else {
+        } else
             this.dragon.lookingForRoostAIFlag = false;
-        }
-        if (this.dragon.isSleeping() && (this.dragon.isFlying() || this.dragon.isHovering() || this.dragon.isTouchingWater() || (this.dragon.getWorld().isSkyVisibleAllowingSea(this.dragon.getBlockPos()) && this.dragon.isTimeToWake() && !this.dragon.isTamed() || this.dragon.isTimeToWake() && this.dragon.isTamed()) || this.dragon.getTarget() != null || !this.dragon.getPassengerList().isEmpty())) {
+        if (this.dragon.isSleeping() && (this.dragon.isFlying() || this.dragon.isHovering() || this.dragon.isTouchingWater() || (this.dragon.getWorld().isSkyVisibleAllowingSea(this.dragon.getBlockPos()) && this.dragon.isTimeToWake() && !this.dragon.isTamed() || this.dragon.isTimeToWake() && this.dragon.isTamed()) || this.dragon.getTarget() != null || !this.dragon.getPassengerList().isEmpty()))
             this.dragon.setInSittingPose(false);
-        }
-        if (this.dragon.isSitting() && this.dragon.getControllingPassenger() != null) {
+        if (this.dragon.isSitting() && this.dragon.getControllingPassenger() != null)
             this.dragon.setSitting(false);
-        }
-        if (this.dragon.blockBreakCounter <= 0) {
+        if (this.dragon.blockBreakCounter <= 0)
             this.dragon.blockBreakCounter = IafConfig.dragonBreakBlockCooldown;
-        }
         this.dragon.updateBurnTarget();
         if (this.dragon.isSitting()) {
             if (this.dragon.getCommand() != 1 || this.dragon.getControllingPassenger() != null)
@@ -70,17 +65,13 @@ public class IafDragonLogic {
             if (this.dragon.getCommand() == 1 && this.dragon.getControllingPassenger() == null)
                 this.dragon.setSitting(true);
         }
-        if (this.dragon.isSitting()) {
+        if (this.dragon.isSitting())
             this.dragon.getNavigation().stop();
-        }
-        if (this.dragon.isInLove()) {
+        if (this.dragon.isInLove())
             this.dragon.getWorld().sendEntityStatus(this.dragon, (byte) 18);
-        }
-        if (new Vec3i((int) this.dragon.prevX, (int) this.dragon.prevY, (int) this.dragon.prevZ).getSquaredDistance(this.dragon.getBlockPos()) <= 0.5) {
+        if (new Vec3i((int) this.dragon.prevX, (int) this.dragon.prevY, (int) this.dragon.prevZ).getSquaredDistance(this.dragon.getBlockPos()) <= 0.5)
             this.dragon.ticksStill++;
-        } else {
-            this.dragon.ticksStill = 0;
-        }
+        else this.dragon.ticksStill = 0;
         if (this.dragon.getControllingPassenger() == null && this.dragon.isTackling() && !this.dragon.isFlying() && this.dragon.isOnGround()) {
             this.dragon.tacklingTicks++;
             if (this.dragon.tacklingTicks == 40) {
@@ -89,15 +80,15 @@ public class IafDragonLogic {
                 this.dragon.setFlying(false);
             }
         }
-        if (this.dragon.getRandom().nextInt(500) == 0 && !this.dragon.isModelDead() && !this.dragon.isSleeping()) {
+        if (this.dragon.getRandom().nextInt(500) == 0 && !this.dragon.isModelDead() && !this.dragon.isSleeping())
             this.dragon.roar();
-        }
+
         // In air tackle attack
         if (this.dragon.isFlying() && this.dragon.getTarget() != null) {
             if (this.dragon.airAttack == IafDragonAttacks.Air.TACKLE)
                 this.dragon.setTackling(true);
 
-            if (this.dragon.isTackling()) {
+            if (this.dragon.isTackling())
                 if (this.dragon.getBoundingBox().stretch(2.0D, 2.0D, 2.0D).intersects(this.dragon.getTarget().getBoundingBox())) {
                     this.dragon.usingGroundAttack = true;
                     this.dragon.randomizeAttacks();
@@ -105,7 +96,6 @@ public class IafDragonLogic {
                     this.dragon.setFlying(false);
                     this.dragon.setHovering(false);
                 }
-            }
         }
 
         if (this.dragon.getControllingPassenger() == null && this.dragon.isTackling() && (this.dragon.getTarget() == null || this.dragon.airAttack != IafDragonAttacks.Air.TACKLE)) {
@@ -117,9 +107,8 @@ public class IafDragonLogic {
             this.dragon.setHovering(false);
             this.dragon.setInSittingPose(false);
         }
-        if (this.dragon.isFlying() && this.dragon.age % 40 == 0 || this.dragon.isFlying() && this.dragon.isSleeping()) {
+        if (this.dragon.isFlying() && this.dragon.age % 40 == 0 || this.dragon.isFlying() && this.dragon.isSleeping())
             this.dragon.setInSittingPose(false);
-        }
         if (!this.dragon.canMove()) {
             if (this.dragon.getTarget() != null) {
                 this.dragon.setTarget(null);
@@ -127,25 +116,21 @@ public class IafDragonLogic {
             }
             this.dragon.getNavigation().stop();
         }
-        if (!this.dragon.isTamed()) {
+        if (!this.dragon.isTamed())
             this.dragon.updateCheckPlayer();
-        }
         if (this.dragon.isModelDead() && (this.dragon.isFlying() || this.dragon.isHovering())) {
             this.dragon.setFlying(false);
             this.dragon.setHovering(false);
         }
         if (this.dragon.getControllingPassenger() == null) {
-            if ((this.dragon.useFlyingPathFinder() || this.dragon.isHovering()) && this.dragon.navigatorType != 1) {
+            if ((this.dragon.useFlyingPathFinder() || this.dragon.isHovering()) && this.dragon.navigatorType != 1)
                 this.dragon.switchNavigator(1);
-            }
         } else {
-            if ((this.dragon.useFlyingPathFinder() || this.dragon.isHovering()) && this.dragon.navigatorType != 2) {
+            if ((this.dragon.useFlyingPathFinder() || this.dragon.isHovering()) && this.dragon.navigatorType != 2)
                 this.dragon.switchNavigator(2);
-            }
         }
-        if (this.dragon.getControllingPassenger() == null && !this.dragon.useFlyingPathFinder() && !this.dragon.isHovering() && this.dragon.navigatorType != 0) {
+        if (this.dragon.getControllingPassenger() == null && !this.dragon.useFlyingPathFinder() && !this.dragon.isHovering() && this.dragon.navigatorType != 0)
             this.dragon.switchNavigator(0);
-        }
         // Dragon landing
         if (this.dragon.getControllingPassenger() == null && !this.dragon.isOverAir() && this.dragon.doesWantToLand() && (this.dragon.isFlying() || this.dragon.isHovering()) && !this.dragon.isTouchingWater()) {
             this.dragon.setFlying(false);
@@ -157,17 +142,13 @@ public class IafDragonLogic {
                 this.dragon.setFlying(true);
             }
             this.dragon.hoverTicks++;
-        } else {
-            this.dragon.hoverTicks = 0;
-        }
+        } else this.dragon.hoverTicks = 0;
         if (this.dragon.isHovering() && !this.dragon.isFlying()) {
-            if (this.dragon.isSleeping()) {
-                this.dragon.setHovering(false);
-            }
+            if (this.dragon.isSleeping()) this.dragon.setHovering(false);
             // Slowly land the hovering dragon
-            if (this.dragon.getControllingPassenger() == null && this.dragon.doesWantToLand() && !this.dragon.isOnGround() && !this.dragon.isTouchingWater()) {
+            if (this.dragon.getControllingPassenger() == null && this.dragon.doesWantToLand() && !this.dragon.isOnGround() && !this.dragon.isTouchingWater())
                 this.dragon.setVelocity(this.dragon.getVelocity().add(0, -0.25, 0));
-            } else {
+            else {
                 if ((this.dragon.getControllingPassenger() == null || this.dragon.getControllingPassenger() instanceof EntityDreadQueen) && !this.dragon.isBeyondHeight()) {
                     double up = this.dragon.isTouchingWater() ? 0.12D : 0.08D;
                     this.dragon.setVelocity(this.dragon.getVelocity().add(0, up, 0));
@@ -181,12 +162,10 @@ public class IafDragonLogic {
                 }
             }
         }
-        if (this.dragon.isSleeping()) {
+        if (this.dragon.isSleeping())
             this.dragon.getNavigation().stop();
-        }
-        if ((this.dragon.isOnGround() || this.dragon.isTouchingWater()) && this.dragon.flyTicks != 0) {
+        if ((this.dragon.isOnGround() || this.dragon.isTouchingWater()) && this.dragon.flyTicks != 0)
             this.dragon.flyTicks = 0;
-        }
         if (this.dragon.isAllowedToTriggerFlight() && this.dragon.isFlying() && this.dragon.doesWantToLand()) {
             this.dragon.setFlying(false);
             this.dragon.setHovering(this.dragon.isOverAir());
@@ -195,15 +174,14 @@ public class IafDragonLogic {
                 this.dragon.setFlying(false);
             }
         }
-        if (this.dragon.isFlying()) {
+        if (this.dragon.isFlying())
             this.dragon.flyTicks++;
-        }
         if ((this.dragon.isHovering() || this.dragon.isFlying()) && this.dragon.isSleeping()) {
             this.dragon.setFlying(false);
             this.dragon.setHovering(false);
         }
-        if (!this.dragon.isFlying() && !this.dragon.isHovering()) {
-            if (this.dragon.isAllowedToTriggerFlight() || this.dragon.getY() < this.dragon.getWorld().getBottomY()) {
+        if (!this.dragon.isFlying() && !this.dragon.isHovering())
+            if (this.dragon.isAllowedToTriggerFlight() || this.dragon.getY() < this.dragon.getWorld().getBottomY())
                 if (this.dragon.getRandom().nextInt(this.dragon.getFlightChancePerTick()) == 0 || this.dragon.getY() < this.dragon.getWorld().getBottomY() || this.dragon.getTarget() != null && Math.abs(this.dragon.getTarget().getY() - this.dragon.getY()) > 5 || this.dragon.isTouchingWater()) {
                     this.dragon.setHovering(true);
                     this.dragon.setInSittingPose(false);
@@ -212,14 +190,11 @@ public class IafDragonLogic {
                     this.dragon.hoverTicks = 0;
                     this.dragon.flyTicks = 0;
                 }
-            }
-        }
-        if (this.dragon.getTarget() != null) {
+        if (this.dragon.getTarget() != null)
             if (!DragonUtils.isAlive(this.dragon.getTarget())) {
                 this.dragon.setTarget(null);
                 this.ticksAfterClearingTarget = this.dragon.getWorld().getTime();
             }
-        }
         if (!this.dragon.isAgingDisabled()) {
             this.dragon.setAgeInTicks(this.dragon.getAgeInTicks() + 1);
             if (this.dragon.getAgeInTicks() % 24000 == 0) {
@@ -227,11 +202,9 @@ public class IafDragonLogic {
                 this.dragon.growDragon(0);
             }
         }
-        if (this.dragon.age % IafConfig.dragonHungerTickRate == 0 && IafConfig.dragonHungerTickRate > 0) {
-            if (this.dragon.getHunger() > 0) {
+        if (this.dragon.age % IafConfig.dragonHungerTickRate == 0 && IafConfig.dragonHungerTickRate > 0)
+            if (this.dragon.getHunger() > 0)
                 this.dragon.setHunger(this.dragon.getHunger() - 1);
-            }
-        }
         if ((this.dragon.groundAttack == IafDragonAttacks.Ground.FIRE) && this.dragon.getDragonStage() < 2) {
             this.dragon.usingGroundAttack = true;
             this.dragon.randomizeAttacks();
@@ -241,24 +214,21 @@ public class IafDragonLogic {
             if (this.dragon.isSleeping() || this.dragon.isModelDead()) {
                 this.dragon.setBreathingFire(false);
                 this.dragon.randomizeAttacks();
-                this.dragon.setFireTicks(0);
+                this.dragon.fireBreathTicks = 0;
             }
-            if (this.dragon.burningTarget == null) {
+            if (this.dragon.burningTarget == null)
                 if (this.dragon.getFireTicks() > this.dragon.getDragonStage() * 25 || this.dragon.getOwner() != null && this.dragon.getPassengerList().contains(this.dragon.getOwner()) && this.dragon.fireStopTicks <= 0) {
                     this.dragon.setBreathingFire(false);
                     this.dragon.randomizeAttacks();
-                    this.dragon.setFireTicks(0);
+                    this.dragon.fireBreathTicks = 0;
                 }
-            }
 
-            if (this.dragon.fireStopTicks > 0 && this.dragon.getOwner() != null && this.dragon.getPassengerList().contains(this.dragon.getOwner())) {
+            if (this.dragon.fireStopTicks > 0 && this.dragon.getOwner() != null && this.dragon.getPassengerList().contains(this.dragon.getOwner()))
                 this.dragon.fireStopTicks--;
-            }
         }
         if (this.dragon.isFlying()) {
-            if (this.dragon.getTarget() != null && this.dragon.getBoundingBox().stretch(3.0F, 3.0F, 3.0F).intersects(this.dragon.getTarget().getBoundingBox())) {
+            if (this.dragon.getTarget() != null && this.dragon.getBoundingBox().stretch(3.0F, 3.0F, 3.0F).intersects(this.dragon.getTarget().getBoundingBox()))
                 this.dragon.tryAttack(this.dragon.getTarget());
-            }
             if (this.dragon.airAttack == IafDragonAttacks.Air.TACKLE && (this.dragon.horizontalCollision || this.dragon.isOnGround())) {
                 this.dragon.usingGroundAttack = true;
                 if (this.dragon.getControllingPassenger() == null) {
@@ -266,12 +236,10 @@ public class IafDragonLogic {
                     this.dragon.setHovering(false);
                 }
             }
-            if (this.dragon.usingGroundAttack) {
+            if (this.dragon.usingGroundAttack)
                 this.dragon.airAttack = IafDragonAttacks.Air.TACKLE;
-            }
-            if (this.dragon.airAttack == IafDragonAttacks.Air.TACKLE && this.dragon.getTarget() != null && this.dragon.isTargetBlocked(this.dragon.getTarget().getPos())) {
+            if (this.dragon.airAttack == IafDragonAttacks.Air.TACKLE && this.dragon.getTarget() != null && this.dragon.isTargetBlocked(this.dragon.getTarget().getPos()))
                 this.dragon.randomizeAttacks();
-            }
         }
     }
 
@@ -295,22 +263,17 @@ public class IafDragonLogic {
                 this.dragon.pitch_buffer_body.calculateChainWaveBuffer(80, 10, 1, 0.5F, this.dragon);
             }
         }
-        if (this.dragon.walkCycle < 39) {
-            this.dragon.walkCycle++;
-        } else {
-            this.dragon.walkCycle = 0;
-        }
-        if (this.dragon.getAnimation() == EntityDragonBase.ANIMATION_WINGBLAST && (this.dragon.getAnimationTick() == 17 || this.dragon.getAnimationTick() == 22 || this.dragon.getAnimationTick() == 28)) {
+        if (this.dragon.walkCycle < 39) this.dragon.walkCycle++;
+        else this.dragon.walkCycle = 0;
+
+        if (this.dragon.getAnimation() == EntityDragonBase.ANIMATION_WINGBLAST && (this.dragon.getAnimationTick() == 17 || this.dragon.getAnimationTick() == 22 || this.dragon.getAnimationTick() == 28))
             this.dragon.spawnGroundEffects();
-        }
         this.dragon.legSolver.update(this.dragon, this.dragon.getRenderSize() / 3F);
 
-        if (this.dragon.flightCycle == 11) {
+        if (this.dragon.flightCycle == 11)
             this.dragon.spawnGroundEffects();
-        }
-        if (this.dragon.isModelDead() && this.dragon.flightCycle != 0) {
+        if (this.dragon.isModelDead() && this.dragon.flightCycle != 0)
             this.dragon.flightCycle = 0;
-        }
     }
 
     /*
@@ -318,24 +281,20 @@ public class IafDragonLogic {
     */
     public void updateDragonCommon() {
         if (this.dragon.isBreathingFire()) {
-            this.dragon.setFireTicks(this.dragon.getFireTicks() + 1);
+            this.dragon.fireBreathTicks++;
             if (this.dragon.burnProgress < 40)
                 this.dragon.burnProgress++;
-        } else
-            this.dragon.burnProgress = 0;
+        } else this.dragon.burnProgress = 0;
 
-        if (this.dragon.flightCycle == 2) {
+        if (this.dragon.flightCycle == 2)
             if (!this.dragon.isDiving() && (this.dragon.isFlying() || this.dragon.isHovering())) {
                 float dragonSoundVolume = IafConfig.dragonFlapNoiseDistance;
                 float dragonSoundPitch = this.dragon.getSoundPitch();
                 this.dragon.playSound(IafSounds.DRAGON_FLIGHT, dragonSoundVolume, dragonSoundPitch);
             }
-        }
-        if (this.dragon.flightCycle < 58) {
-            this.dragon.flightCycle += 2;
-        } else {
-            this.dragon.flightCycle = 0;
-        }
+
+        if (this.dragon.flightCycle < 58) this.dragon.flightCycle += 2;
+        else this.dragon.flightCycle = 0;
 
         final boolean flying = this.dragon.isFlying();
         if (flying) {

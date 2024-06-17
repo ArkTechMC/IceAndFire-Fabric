@@ -21,14 +21,11 @@ public class MyrmexAISummonerHurtTarget extends TrackTargetGoal {
     @Override
     public boolean canStart() {
         LivingEntity living = this.tameable.getSummoner();
-
-        if (living == null) {
-            return false;
-        } else {
+        if (living == null) return false;
+        else {
             this.attacker = living.getAttacking();
             int i = living.getLastAttackTime();
-            return i != this.timestamp && this.canTrack(this.attacker, TargetPredicate.DEFAULT)
-                    && this.tameable.shouldAttackEntity(this.attacker, living);
+            return i != this.timestamp && this.canTrack(this.attacker, TargetPredicate.DEFAULT) && this.tameable.shouldAttackEntity(this.attacker, living);
         }
     }
 
@@ -36,11 +33,8 @@ public class MyrmexAISummonerHurtTarget extends TrackTargetGoal {
     public void start() {
         this.mob.setTarget(this.attacker);
         LivingEntity LivingEntity = this.tameable.getSummoner();
-
-        if (LivingEntity != null) {
+        if (LivingEntity != null)
             this.timestamp = LivingEntity.getLastAttackTime();
-        }
-
         super.start();
     }
 }

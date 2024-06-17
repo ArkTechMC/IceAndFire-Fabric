@@ -17,7 +17,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class BlockMyrmexBiolight extends PlantBlock {
-
     public static final BooleanProperty CONNECTED_DOWN = BooleanProperty.of("down");
 
     public BlockMyrmexBiolight() {

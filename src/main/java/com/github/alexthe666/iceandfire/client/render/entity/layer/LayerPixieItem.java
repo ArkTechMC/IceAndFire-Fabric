@@ -15,7 +15,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.RotationAxis;
 
 public class LayerPixieItem extends FeatureRenderer<EntityPixie, ModelPixie> {
-
     final RenderPixie renderer;
 
     public LayerPixieItem(RenderPixie renderer) {
@@ -29,8 +28,6 @@ public class LayerPixieItem extends FeatureRenderer<EntityPixie, ModelPixie> {
         if (!itemstack.isEmpty()) {
             matrixStackIn.push();
             matrixStackIn.translate(-0.0625F, 0.53125F, 0.21875F);
-            Item item = itemstack.getItem();
-            MinecraftClient minecraft = MinecraftClient.getInstance();
             matrixStackIn.translate(-0.075F, 0, -0.05F);
             matrixStackIn.translate(0.05F, 0.55F, -0.4F);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(200.0F));

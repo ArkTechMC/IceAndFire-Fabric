@@ -21,7 +21,6 @@ public class ClientTickRateTracker extends TickRateTracker {
 
     public ClientTickRateTracker(MinecraftClient client) {
         this.client = client;
-
     }
 
     public static ClientTickRateTracker getForClient(MinecraftClient minecraft) {

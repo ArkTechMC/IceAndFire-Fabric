@@ -87,16 +87,16 @@ public class ModelGhost extends ModelBipedBase<EntityGhost> {
     }
 
     @Override
-    public void setAngles(EntityGhost entity, float f, float f1, float f2, float f3, float f4) {
+    public void setAngles(EntityGhost entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.resetToDefaultPose();
-        this.animate(entity, f, f1, f2, f3, f4, 1);
-        this.faceTarget(f3, f4, 1, this.head);
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
+        this.faceTarget(headYaw, headPitch, 1, this.head);
         float speed_walk = 0.6F;
         float speed_idle = 0.05F;
         float degree_walk = 1F;
         float degree_idle = 0.25F;
 
-        float f12 = (float) Math.toRadians(-1.29f) + f1;
+        float f12 = (float) Math.toRadians(-1.29f) + limbDistance;
         if (f12 < 0.0F) {
             f12 = 0.0F;
         }
@@ -108,16 +108,16 @@ public class ModelGhost extends ModelBipedBase<EntityGhost> {
         this.armRight.rotateAngleX = this.armRight.rotateAngleX - f12;
         this.armLeft.rotateAngleX = this.armLeft.rotateAngleX - f12;
 
-        this.walk(this.jaw, speed_idle * 2F, degree_idle * 0.5F, false, 0, 0.1F, f2, 1);
-        this.walk(this.armRight, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.0F, f2, 1);
-        this.walk(this.armLeft, speed_idle * 1.5F, degree_idle * 0.4F, true, 2, 0.0F, f2, 1);
-        this.flap(this.armRight, speed_idle * 1.5F, degree_idle * 0.2F, false, 2, 0.2F, f2, 1);
-        this.flap(this.armRight, speed_idle * 1.5F, degree_idle * 0.2F, true, 2, 0.2F, f2, 1);
-        this.walk(this.legLeft, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, f2, 1);
-        this.walk(this.legRight, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, f2, 1);
-        this.flap(this.body, speed_idle, degree_idle * 0.1F, true, 3, 0, f2, 1);
-        this.bob(this.body, speed_idle * 0.5F, degree_idle * 4.1F, false, f2, 1);
-        this.bob(this.body, speed_walk * 0.75F, degree_walk * 2.1F, false, f, f1);
+        this.walk(this.jaw, speed_idle * 2F, degree_idle * 0.5F, false, 0, 0.1F, animationProgress, 1);
+        this.walk(this.armRight, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.0F, animationProgress, 1);
+        this.walk(this.armLeft, speed_idle * 1.5F, degree_idle * 0.4F, true, 2, 0.0F, animationProgress, 1);
+        this.flap(this.armRight, speed_idle * 1.5F, degree_idle * 0.2F, false, 2, 0.2F, animationProgress, 1);
+        this.flap(this.armRight, speed_idle * 1.5F, degree_idle * 0.2F, true, 2, 0.2F, animationProgress, 1);
+        this.walk(this.legLeft, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, animationProgress, 1);
+        this.walk(this.legRight, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, animationProgress, 1);
+        this.flap(this.body, speed_idle, degree_idle * 0.1F, true, 3, 0, animationProgress, 1);
+        this.bob(this.body, speed_idle * 0.5F, degree_idle * 4.1F, false, animationProgress, 1);
+        this.bob(this.body, speed_walk * 0.75F, degree_walk * 2.1F, false, limbAngle, limbDistance);
 
     }
 

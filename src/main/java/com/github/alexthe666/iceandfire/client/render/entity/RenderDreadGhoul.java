@@ -10,7 +10,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderDreadGhoul extends MobEntityRenderer<EntityDreadGhoul, ModelDreadGhoul> {
-
     public static final Identifier TEXTURE_EYES = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_eyes.png");
 
     public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/dread/dread_ghoul_closed_1.png");
@@ -28,7 +27,6 @@ public class RenderDreadGhoul extends MobEntityRenderer<EntityDreadGhoul, ModelD
         this.addFeature(new LayerGenericGlowing<>(this, TEXTURE_EYES));
     }
 
-
     @Override
     protected void scale(EntityDreadGhoul entity, MatrixStack matrixStackIn, float partialTickTime) {
         float scale = entity.getSize() < 0.01F ? 1F : entity.getSize();
@@ -37,26 +35,22 @@ public class RenderDreadGhoul extends MobEntityRenderer<EntityDreadGhoul, ModelD
 
     @Override
     public Identifier getTexture(EntityDreadGhoul ghoul) {
-        if (ghoul.getScreamStage() == 2) {
-            return switch (ghoul.getVariant()) {
+        return switch (ghoul.getScreamStage()) {
+            case 2 -> switch (ghoul.getVariant()) {
                 case 1 -> TEXTURE_1_OPEN;
                 case 2 -> TEXTURE_2_OPEN;
                 default -> TEXTURE_0_OPEN;
             };
-        } else if (ghoul.getScreamStage() == 1) {
-            return switch (ghoul.getVariant()) {
+            case 1 -> switch (ghoul.getVariant()) {
                 case 1 -> TEXTURE_1_MID;
                 case 2 -> TEXTURE_2_MID;
                 default -> TEXTURE_0_MID;
             };
-        } else {
-            return switch (ghoul.getVariant()) {
+            default -> switch (ghoul.getVariant()) {
                 case 1 -> TEXTURE_1;
                 case 2 -> TEXTURE_2;
                 default -> TEXTURE_0;
             };
-        }
-
+        };
     }
-
 }

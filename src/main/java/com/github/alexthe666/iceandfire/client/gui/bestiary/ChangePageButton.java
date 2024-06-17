@@ -23,10 +23,8 @@ public class ChangePageButton extends ButtonWidget {
             boolean flag = mouseX >= this.getX() && mouseY >= this.getY() && mouseX < this.getX() + this.width && mouseY < this.getY() + this.height;
             int i = 0;
             int j = 64;
-            if (flag)
-                i += 23;
-            if (!this.right)
-                j += 13;
+            if (flag) i += 23;
+            if (!this.right) j += 13;
             j += this.color * 23;
             matrixStack.drawTexture(resourceLocation, this.getX(), this.getY(), i, j, this.width, this.height);
         }

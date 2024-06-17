@@ -48,7 +48,7 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
     }
 
     @Override
-    public void setAngles(LivingEntity entity, float f, float f1, float f2, float f3, float f4) {
+    public void setAngles(LivingEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.resetToDefaultPose();
         this.Egg1.setPos(0.0F, 19.6F, 0.0F);
         this.Egg4.setPos(0.0F, -0.9F, 0.0F);
@@ -59,8 +59,8 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
             else if (egg.getEggType().dragonType == DragonType.LIGHTNING)
                 isLocationValid = egg.getWorld().hasRain(egg.getBlockPos());
             if (isLocationValid) {
-                this.walk(this.Egg1, 0.3F, 0.3F, true, 1, 0, f2, 1);
-                this.flap(this.Egg1, 0.3F, 0.3F, false, 0, 0, f2, 1);
+                this.walk(this.Egg1, 0.3F, 0.3F, true, 1, 0, animationProgress, 1);
+                this.flap(this.Egg1, 0.3F, 0.3F, false, 0, 0, animationProgress, 1);
             }
         }
     }

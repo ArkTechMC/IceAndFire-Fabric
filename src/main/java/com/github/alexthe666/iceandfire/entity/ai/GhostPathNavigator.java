@@ -6,13 +6,11 @@ import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.world.World;
 
 public class GhostPathNavigator extends BirdNavigation {
-
     public final EntityGhost ghost;
 
     public GhostPathNavigator(EntityGhost entityIn, World worldIn) {
         super(entityIn, worldIn);
         this.ghost = entityIn;
-
     }
 
     @Override

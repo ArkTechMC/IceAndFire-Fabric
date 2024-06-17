@@ -9,7 +9,6 @@ import net.minecraft.util.math.Box;
 import java.util.function.Predicate;
 
 public class FlyingAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> {
-
     public FlyingAITarget(MobEntity creature, Class<T> classTarget, boolean checkSight) {
         super(creature, classTarget, checkSight);
     }
@@ -18,8 +17,7 @@ public class FlyingAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> 
         super(creature, classTarget, checkSight, onlyNearby);
     }
 
-    public FlyingAITarget(MobEntity creature, Class<T> classTarget, int chance, boolean checkSight,
-                          boolean onlyNearby, final Predicate<LivingEntity> targetSelector) {
+    public FlyingAITarget(MobEntity creature, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, final Predicate<LivingEntity> targetSelector) {
         super(creature, classTarget, chance, checkSight, onlyNearby, targetSelector);
     }
 
@@ -30,10 +28,8 @@ public class FlyingAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> 
 
     @Override
     public boolean canStart() {
-        if (this.mob instanceof EntitySeaSerpent && (((EntitySeaSerpent) this.mob).isJumpingOutOfWater() || !this.mob.isTouchingWater())) {
+        if (this.mob instanceof EntitySeaSerpent seaSerpent && (seaSerpent.isJumpingOutOfWater() || !this.mob.isTouchingWater()))
             return false;
-        }
         return super.canStart();
     }
-
 }

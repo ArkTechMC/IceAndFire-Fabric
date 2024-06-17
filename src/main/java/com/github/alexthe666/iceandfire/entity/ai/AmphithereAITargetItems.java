@@ -40,24 +40,20 @@ public class AmphithereAITargetItems<T extends ItemEntity> extends TrackTargetGo
 
     @Override
     public boolean canStart() {
-        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0) {
-            return false;
-        }
+        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0) return false;
+
         if (!((EntityAmphithere) this.mob).canMove()) {
             this.list = IafMath.emptyItemEntityList;
             return false;
         }
 
         // If the target entity already is what we want skip AABB
-        if (this.targetEntitySelector.test(this.targetEntity)) {
-            return true;
-        }
+        if (this.targetEntitySelector.test(this.targetEntity)) return true;
 
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
             this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (this.list.isEmpty())
-            return false;
+        if (this.list.isEmpty()) return false;
 
         this.list.sort(this.theNearestAttackableTargetSorter);
         this.targetEntity = this.list.get(0);
@@ -83,9 +79,7 @@ public class AmphithereAITargetItems<T extends ItemEntity> extends TrackTargetGo
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity == null || !this.targetEntity.isAlive()) {
-            this.stop();
-        }
+        if (this.targetEntity == null || !this.targetEntity.isAlive()) this.stop();
         if (this.targetEntity != null && this.targetEntity.isAlive() && this.mob.squaredDistanceTo(this.targetEntity) < 1) {
             EntityAmphithere hippo = (EntityAmphithere) this.mob;
             this.targetEntity.getStack().decrement(1);

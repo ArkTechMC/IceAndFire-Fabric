@@ -18,7 +18,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.RotationAxis;
 
 public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedEntityModel<EntityMyrmexBase>> {
-
     protected final RenderMyrmexBase livingEntityRenderer;
 
     public LayerMyrmexItem(RenderMyrmexBase livingEntityRendererIn) {
@@ -26,16 +25,8 @@ public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedE
         this.livingEntityRenderer = livingEntityRendererIn;
     }
 
-    private void renderHeldItem(EntityMyrmexBase myrmex, ItemStack stack, ModelTransformationMode transform, Arm handSide) {
-
-    }
-
     protected void translateToHand(MatrixStack stack) {
         ((ModelMyrmexBase<?>) this.livingEntityRenderer.getModel()).postRenderArm(0, stack);
-    }
-
-    public boolean shouldCombineTextures() {
-        return false;
     }
 
     @Override
@@ -46,17 +37,14 @@ public class LayerMyrmexItem extends FeatureRenderer<EntityMyrmexBase, AdvancedE
                 matrixStackIn.push();
                 if (!itemstack.isEmpty()) {
                     matrixStackIn.push();
-
-                    if (entitylivingbaseIn.isSneaking()) {
+                    if (entitylivingbaseIn.isSneaking())
                         matrixStackIn.translate(0.0F, 0.2F, 0.0F);
-                    }
                     this.translateToHand(matrixStackIn);
                     matrixStackIn.translate(0F, 0.3F, -1.6F);
-                    if (itemstack.getItem() instanceof BlockItem) {
+                    if (itemstack.getItem() instanceof BlockItem)
                         matrixStackIn.translate(0F, 0, 0.2F);
-                    } else {
+                    else
                         matrixStackIn.translate(0F, 0.2F, 0.3F);
-                    }
                     matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(160.0F));
                     matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
                     MinecraftClient.getInstance().getItemRenderer().renderItem(itemstack, ModelTransformationMode.FIXED, packedLightIn, OverlayTexture.DEFAULT_UV, matrixStackIn, bufferIn, MinecraftClient.getInstance().world, 0);

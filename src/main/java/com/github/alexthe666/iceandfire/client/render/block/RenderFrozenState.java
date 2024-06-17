@@ -20,19 +20,17 @@ public class RenderFrozenState {
     public static void render(LivingEntity entity, MatrixStack matrixStack, VertexConsumerProvider bufferIn, int light, int frozenTicks) {
         float sideExpand = -0.125F;
         float sideExpandY = 0.325F;
-        Box axisalignedbb1 = new Box(-entity.getWidth() / 2F - sideExpand, 0, -entity.getWidth() / 2F - sideExpand,
-                entity.getWidth() / 2F + sideExpand, entity.getHeight() + sideExpandY, entity.getWidth() / 2F + sideExpand);
+        Box box = new Box(-entity.getWidth() / 2F - sideExpand, 0, -entity.getWidth() / 2F - sideExpand, entity.getWidth() / 2F + sideExpand, entity.getHeight() + sideExpandY, entity.getWidth() / 2F + sideExpand);
         matrixStack.push();
-        renderMovingAABB(axisalignedbb1, matrixStack, bufferIn, light, 255, frozenTicks);
+        renderMovingAABB(box, matrixStack, bufferIn, light, 255, frozenTicks);
         matrixStack.pop();
     }
 
     private static Identifier getIceTexture(int ticksFrozen) {
         if (ticksFrozen < 100) {
             if (ticksFrozen < 50) {
-                if (ticksFrozen < 20) {
+                if (ticksFrozen < 20)
                     return TEXTURE_3;
-                }
                 return TEXTURE_2;
             }
             return TEXTURE_1;
@@ -61,13 +59,11 @@ public class RenderFrozenState {
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.maxY, (float) boundingBox.minZ).color(255, 255, 255, alpha).texture(minU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(1.0F, 0.0F, 0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.maxY, (float) boundingBox.maxZ).color(255, 255, 255, alpha).texture(maxU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(1.0F, 0.0F, 0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.minY, (float) boundingBox.maxZ).color(255, 255, 255, alpha).texture(maxU, maxV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(1.0F, 0.0F, 0F).next();
-
         // X-
         vertexbuffer.vertex(matrix4f, (float) boundingBox.minX, (float) boundingBox.minY, (float) boundingBox.maxZ).color(255, 255, 255, alpha).texture(minU, maxV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(-1.0F, 0.0F, 0.0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.minX, (float) boundingBox.maxY, (float) boundingBox.maxZ).color(255, 255, 255, alpha).texture(minU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(-1.0F, 0.0F, 0.0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.minX, (float) boundingBox.maxY, (float) boundingBox.minZ).color(255, 255, 255, alpha).texture(maxU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(-1.0F, 0.0F, 0.0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.minX, (float) boundingBox.minY, (float) boundingBox.minZ).color(255, 255, 255, alpha).texture(maxU, maxV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(-1.0F, 0.0F, 0.0F).next();
-
 
         maxU = maxX - minX;
         maxV = maxY - minY;
@@ -78,7 +74,6 @@ public class RenderFrozenState {
         vertexbuffer.vertex(matrix4f, (float) boundingBox.minX, (float) boundingBox.maxY, (float) boundingBox.minZ).color(255, 255, 255, alpha).texture(minU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(0.0F, 0.0F, -1.0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.maxY, (float) boundingBox.minZ).color(255, 255, 255, alpha).texture(maxU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(0.0F, 0.0F, -1.0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.minY, (float) boundingBox.minZ).color(255, 255, 255, alpha).texture(maxU, maxV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(0.0F, 0.0F, -1.0F).next();
-
         // Z+
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.minY, (float) boundingBox.maxZ).color(255, 255, 255, alpha).texture(minU, maxV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(0.0F, 0.0F, 1.0F).next();
         vertexbuffer.vertex(matrix4f, (float) boundingBox.maxX, (float) boundingBox.maxY, (float) boundingBox.maxZ).color(255, 255, 255, alpha).texture(minU, minV).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(0.0F, 0.0F, 1.0F).next();

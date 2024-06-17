@@ -41,20 +41,19 @@ public class BlockDragonForgeCore extends BlockWithEntity implements IDragonProo
 
     public static void setState(int dragonType, boolean active, World worldIn, BlockPos pos) {
         BlockEntity blockEntity = worldIn.getBlockEntity(pos);
-        if (active) {
+        if (active)
             switch (dragonType) {
                 case 0 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_FIRE_CORE.getDefaultState(), 3);
                 case 1 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_ICE_CORE.getDefaultState(), 3);
                 case 2 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_LIGHTNING_CORE.getDefaultState(), 3);
             }
-        } else {
+        else
             switch (dragonType) {
                 case 0 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_FIRE_CORE_DISABLED.getDefaultState(), 3);
                 case 1 -> worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_ICE_CORE_DISABLED.getDefaultState(), 3);
                 case 2 ->
                         worldIn.setBlockState(pos, IafBlocks.DRAGONFORGE_LIGHTNING_CORE_DISABLED.getDefaultState(), 3);
             }
-        }
         if (blockEntity != null) {
             blockEntity.cancelRemoval();
             worldIn.addBlockEntity(blockEntity);

@@ -18,5 +18,4 @@ public class FireDragonTabulaModelAnimator extends DragonTabulaModelAnimator<Ent
     protected TabulaModel getModel(EnumDragonPoses pose) {
         return DragonAnimationsLibrary.getModel(pose, EnumDragonModelTypes.FIRE_DRAGON_MODEL);
     }
-
 }

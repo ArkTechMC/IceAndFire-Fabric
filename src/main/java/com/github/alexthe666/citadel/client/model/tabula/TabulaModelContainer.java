@@ -1,4 +1,4 @@
-package com.github.alexthe666.citadel.client.model.container;
+package com.github.alexthe666.citadel.client.model.tabula;
 
 
 import java.util.ArrayList;

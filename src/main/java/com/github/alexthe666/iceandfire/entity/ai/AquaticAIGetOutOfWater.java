@@ -27,14 +27,12 @@ public class AquaticAIGetOutOfWater extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.creature.isTouchingWater() || !((EntitySiren) this.creature).wantsToSing()) {
+        if (!this.creature.isTouchingWater() || !((EntitySiren) this.creature).wantsToSing())
             return false;
-        } else {
+        else {
             Vec3d Vector3d = this.findPossibleShelter();
-
-            if (Vector3d == null) {
-                return false;
-            } else {
+            if (Vector3d == null) return false;
+            else {
                 this.shelterX = Vector3d.x;
                 this.shelterY = Vector3d.y;
                 this.shelterZ = Vector3d.z;
@@ -59,11 +57,9 @@ public class AquaticAIGetOutOfWater extends Goal {
 
         for (int i = 0; i < 10; ++i) {
             BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-            if (this.world.getBlockState(blockpos1).isOpaqueFullCube(this.world, blockpos1)) {
+            if (this.world.getBlockState(blockpos1).isOpaqueFullCube(this.world, blockpos1))
                 return new Vec3d(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
-            }
         }
-
         return null;
     }
 }

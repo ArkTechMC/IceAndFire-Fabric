@@ -215,7 +215,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public int flyHovering;
     public boolean hasHadHornUse = false;
     public int blockBreakCounter;
-    protected int fireTicks;
+    public int fireBreathTicks;
     protected boolean gliding = false;
     protected float glidingSpeedBonus = 0;
     // For slowly raise rider position
@@ -1496,7 +1496,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public boolean isActuallyBreathingFire() {
-        return this.fireTicks > 20 && this.isBreathingFire();
+        return this.fireBreathTicks > 20 && this.isBreathingFire();
     }
 
     public boolean doesWantToLand() {
@@ -2691,7 +2691,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     if (this.age % 5 == 0) {
                         this.playSound(IafSounds.FIREDRAGON_BREATH, 4, 1);
                     }
-                    this.stimulateFire(this.getX() + distX * this.fireTicks / 40, entity.getY(), this.getZ() + distZ * this.fireTicks / 40, 1);
+                    this.stimulateFire(this.getX() + distX * this.fireBreathTicks / 40, entity.getY(), this.getZ() + distZ * this.fireBreathTicks / 40, 1);
                 }
             } else {
                 this.setBreathingFire(true);

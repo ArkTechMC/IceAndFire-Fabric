@@ -3,9 +3,7 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.Pathfinding;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +33,6 @@ public class PathJobMoveToLocation extends AbstractPathJob {
      */
     public PathJobMoveToLocation(final World world, final BlockPos start, final BlockPos end, final int range, final LivingEntity entity) {
         super(world, start, end, range, entity);
-
         this.destination = new BlockPos(end);
     }
 
@@ -46,16 +43,9 @@ public class PathJobMoveToLocation extends AbstractPathJob {
      */
     @Override
     protected Path search() {
-        if (Pathfinding.isDebug()) {
-            Citadel.LOGGER.info(String.format("Pathfinding from [%d,%d,%d] to [%d,%d,%d]",
-                    this.start.getX(), this.start.getY(), this.start.getZ(), this.destination.getX(), this.destination.getY(), this.destination.getZ()));
-        }
-
         //  Compute destination slack - if the destination point cannot be stood in
-        if (this.getGroundHeight(null, this.destination) != this.destination.getY()) {
+        if (this.getGroundHeight(null, this.destination) != this.destination.getY())
             this.destinationSlack = DESTINATION_SLACK_ADJACENT;
-        }
-
         return super.search();
     }
 
@@ -77,15 +67,10 @@ public class PathJobMoveToLocation extends AbstractPathJob {
      */
     @Override
     protected boolean isAtDestination(final MNode n) {
-        if (this.destinationSlack <= DESTINATION_SLACK_NONE) {
-            return n.pos.getX() == this.destination.getX()
-                    && n.pos.getY() == this.destination.getY()
-                    && n.pos.getZ() == this.destination.getZ();
-        }
-
-        if (n.pos.getY() == this.destination.getY() - 1) {
+        if (this.destinationSlack <= DESTINATION_SLACK_NONE)
+            return n.pos.getX() == this.destination.getX() && n.pos.getY() == this.destination.getY() && n.pos.getZ() == this.destination.getZ();
+        if (n.pos.getY() == this.destination.getY() - 1)
             return this.destination.isWithinDistance(new Vec3i(n.pos.getX(), this.destination.getY(), n.pos.getZ()), DESTINATION_SLACK_ADJACENT);
-        }
         return this.destination.isWithinDistance(n.pos, DESTINATION_SLACK_ADJACENT);
     }
 

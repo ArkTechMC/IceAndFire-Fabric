@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public class IceAndFireTEISR extends BuiltinModelItemRenderer {
-
     private final RenderPixieHouse PIXIE_HOUSE_RENDERER;
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     private final BlockEntityGhostChest chest = new BlockEntityGhostChest(BlockPos.ORIGIN, IafBlocks.GHOST_CHEST.getDefaultState());
@@ -36,8 +35,8 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         if (stack.getItem() == IafBlocks.GHOST_CHEST.asItem())
             this.blockEntityRenderDispatcher.renderEntity(this.chest, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
-        if (stack.getItem() instanceof BlockItem)
-            ((BlockItem) stack.getItem()).getBlock();
+        if (stack.getItem() instanceof BlockItem blockItem)
+            blockItem.getBlock();
         //            this.blockEntityRenderDispatcher.renderEntity(this.portal, stackIn, bufferIn, combinedLightIn, combinedOverlayIn);
         if (stack.getItem() instanceof BlockItem && ((BlockItem) stack.getItem()).getBlock() instanceof BlockPixieHouse) {
             this.PIXIE_HOUSE_RENDERER.metaOverride = (BlockItem) stack.getItem();

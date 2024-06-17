@@ -41,21 +41,13 @@ public class PacketBufferUtils {
         do {
             b0 = buf.readByte();
             i |= (b0 & 127) << j++ * 7;
-
-            if (j > maxSize) {
-                throw new RuntimeException("VarInt too big");
-            }
-        }
-        while ((b0 & 128) == 128);
-
+            if (j > maxSize) throw new RuntimeException("VarInt too big");
+        } while ((b0 & 128) == 128);
         return i;
     }
 
     /**
      * An extended length short. Used by custom payload packets to extend size.
-     *
-     * @param buf
-     * @return
      */
     public static int readVarShort(ByteBuf buf) {
         int low = buf.readUnsignedShort();
@@ -70,13 +62,9 @@ public class PacketBufferUtils {
     public static void writeVarShort(ByteBuf buf, int toWrite) {
         int low = toWrite & 0x7FFF;
         int high = (toWrite & 0x7F8000) >> 15;
-        if (high != 0) {
-            low = low | 0x8000;
-        }
+        if (high != 0) low = low | 0x8000;
         buf.writeShort(low);
-        if (high != 0) {
-            buf.writeByte(high);
-        }
+        if (high != 0) buf.writeByte(high);
     }
 
     /**
@@ -93,7 +81,6 @@ public class PacketBufferUtils {
             to.writeByte(toWrite & 127 | 128);
             toWrite >>>= 7;
         }
-
         to.writeByte(toWrite);
     }
 

@@ -8,7 +8,6 @@ import net.minecraft.util.math.Vec3d;
 import java.util.EnumSet;
 
 public class DragonAIReturnToRoost extends Goal {
-
     private final EntityDragonBase dragon;
 
     public DragonAIReturnToRoost(EntityDragonBase entityIn, double movementSpeedIn) {
@@ -46,32 +45,24 @@ public class DragonAIReturnToRoost extends Goal {
                     if (this.dragon.isOnGround()) {
                         this.dragon.setFlying(false);
                         this.dragon.setHovering(false);
-                        this.dragon.flightManager.setFlightTarget(
-                                Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
-                        this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(),
-                                this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
+                        this.dragon.flightManager.setFlightTarget(Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
+                        this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(), this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1.0F);
                         return;
                     }
                 }
-                if (!this.dragon.isFlying() && !this.dragon.isHovering() && xzDist > 40) {
+                if (!this.dragon.isFlying() && !this.dragon.isHovering() && xzDist > 40)
                     this.dragon.setHovering(true);
-                }
                 if (this.dragon.isFlying()) {
-                    this.dragon.flightManager.setFlightTarget(
-                            Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
-                    this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(),
-                            yAddition + this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1F);
+                    this.dragon.flightManager.setFlightTarget(Vec3d.ofCenter(this.dragon.getPositionTarget(), yAddition));
+                    this.dragon.getNavigation().startMovingTo(this.dragon.getPositionTarget().getX(), yAddition + this.dragon.getPositionTarget().getY(), this.dragon.getPositionTarget().getZ(), 1F);
                 }
                 this.dragon.flyTicks = 0;
             }
-
         }
-
     }
 
     @Override
     public boolean shouldContinue() {
         return this.canStart();
     }
-
 }

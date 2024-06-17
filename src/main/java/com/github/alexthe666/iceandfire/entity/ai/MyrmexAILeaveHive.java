@@ -27,23 +27,16 @@ public class MyrmexAILeaveHive extends Goal {
 
     @Override
     public boolean canStart() {
-        if (this.myrmex instanceof EntityMyrmexQueen) {
-            return false;
-        }
+        if (this.myrmex instanceof EntityMyrmexQueen) return false;
         //If it's riding something don't execute
-        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle()) {
+        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle())
             return false;
-        }
-        if (this.myrmex.isBaby()) {
+        if (this.myrmex.isBaby()) return false;
+        if (!this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || this.myrmex.shouldEnterHive() || !this.myrmex.isInHive() || this.myrmex instanceof EntityMyrmexWorker && (((EntityMyrmexWorker) this.myrmex).holdingSomething() || !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty()) || this.myrmex.isEnteringHive)
             return false;
-        }
-        if (!this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || this.myrmex.shouldEnterHive() || !this.myrmex.isInHive() || this.myrmex instanceof EntityMyrmexWorker && (((EntityMyrmexWorker) this.myrmex).holdingSomething() || !this.myrmex.getStackInHand(Hand.MAIN_HAND).isEmpty()) || this.myrmex.isEnteringHive) {
-            return false;
-        }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 1000);
-        if (village == null) {
-            return false;
-        } else {
+        if (village == null) return false;
+        else {
             this.nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
             this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextEntrance.getX(), this.nextEntrance.getY(), this.nextEntrance.getZ(), this.movementSpeed);
             return true;
@@ -52,10 +45,8 @@ public class MyrmexAILeaveHive extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        if (this.myrmex.isCloseEnoughToTarget(this.nextEntrance, 12) || this.myrmex.shouldEnterHive()) {
+        if (this.myrmex.isCloseEnoughToTarget(this.nextEntrance, 12) || this.myrmex.shouldEnterHive())
             return false;
-        }
-
         return this.myrmex.shouldLeaveHive();
     }
 

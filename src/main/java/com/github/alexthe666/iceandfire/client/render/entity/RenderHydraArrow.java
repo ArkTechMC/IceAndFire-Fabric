@@ -17,5 +17,4 @@ public class RenderHydraArrow extends ProjectileEntityRenderer {
     public Identifier getTexture(Entity entity) {
         return TEXTURES;
     }
-
 }

@@ -19,19 +19,14 @@ public final class Pathfinding {
         //Hides default constructor.
     }
 
-    public static boolean isDebug() {
-        return PathfindingConstants.isDebugMode;
-    }
-
     /**
      * Creates a new thread pool for pathfinding jobs
      *
      * @return the threadpool executor.
      */
     public static ThreadPoolExecutor getExecutor() {
-        if (executor == null) {
+        if (executor == null)
             executor = new ThreadPoolExecutor(1, PathfindingConstants.pathfindingThreads, 10, TimeUnit.SECONDS, jobQueue, new CitadelThreadFactory());
-        }
         return executor;
     }
 

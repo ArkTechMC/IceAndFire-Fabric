@@ -66,36 +66,36 @@ public class ModelDreadGhoul extends ModelBipedBase<EntityDreadGhoul> {
     }
 
     @Override
-    public void setAngles(EntityDreadGhoul thrall, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(EntityDreadGhoul entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.resetToDefaultPose();
-        this.faceTarget(netHeadYaw, headPitch, 1.0F, this.head);
-        this.animate(thrall, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, 0f);
+        this.faceTarget(headYaw, headPitch, 1.0F, this.head);
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 0f);
         float speed_walk = 0.6F;
         float speed_idle = 0.05F;
         float degree_walk = 1F;
-        if (thrall.getAnimation() == EntityDreadGhoul.ANIMATION_SPAWN) {
-            if (thrall.getAnimationTick() < 30) {
-                this.swing(this.armRight, 0.5F, 0.5F, false, 2, -0.7F, thrall.age, 1);
-                this.swing(this.armLeft, 0.5F, 0.5F, true, 2, -0.7F, thrall.age, 1);
-                this.flap(this.armRight, 0.5F, 0.5F, true, 1, 0, thrall.age, 1);
-                this.flap(this.armLeft, 0.5F, 0.5F, true, 1, 0, thrall.age, 1);
+        if (entity.getAnimation() == EntityDreadGhoul.ANIMATION_SPAWN) {
+            if (entity.getAnimationTick() < 30) {
+                this.swing(this.armRight, 0.5F, 0.5F, false, 2, -0.7F, entity.age, 1);
+                this.swing(this.armLeft, 0.5F, 0.5F, true, 2, -0.7F, entity.age, 1);
+                this.flap(this.armRight, 0.5F, 0.5F, true, 1, 0, entity.age, 1);
+                this.flap(this.armLeft, 0.5F, 0.5F, true, 1, 0, entity.age, 1);
             }
         }
-        this.flap(this.armLeft, speed_idle, 0.15F, false, 2, -0.1F, thrall.age, 1);
-        this.flap(this.armRight, speed_idle, 0.15F, true, 2, -0.1F, thrall.age, 1);
-        this.walk(this.head, speed_idle, 0.1F, true, 1, -0.05F, thrall.age, 1);
+        this.flap(this.armLeft, speed_idle, 0.15F, false, 2, -0.1F, entity.age, 1);
+        this.flap(this.armRight, speed_idle, 0.15F, true, 2, -0.1F, entity.age, 1);
+        this.walk(this.head, speed_idle, 0.1F, true, 1, -0.05F, entity.age, 1);
 
-        this.walk(this.legRight, speed_walk, degree_walk, false, 0, 0, limbSwing, limbSwingAmount);
-        this.walk(this.legLeft, speed_walk, degree_walk, true, 0, 0, limbSwing, limbSwingAmount);
-        this.flap(this.legRight, speed_walk, degree_walk * 0.1F, true, 3, -0.05F, limbSwing, limbSwingAmount);
-        this.flap(this.legLeft, speed_walk, degree_walk * 0.1F, true, 3, 0.05F, limbSwing, limbSwingAmount);
-        this.flap(this.body, speed_walk, degree_walk * 0.1F, true, 1, 0, limbSwing, limbSwingAmount);
+        this.walk(this.legRight, speed_walk, degree_walk, false, 0, 0, limbAngle, limbDistance);
+        this.walk(this.legLeft, speed_walk, degree_walk, true, 0, 0, limbAngle, limbDistance);
+        this.flap(this.legRight, speed_walk, degree_walk * 0.1F, true, 3, -0.05F, limbAngle, limbDistance);
+        this.flap(this.legLeft, speed_walk, degree_walk * 0.1F, true, 3, 0.05F, limbAngle, limbDistance);
+        this.flap(this.body, speed_walk, degree_walk * 0.1F, true, 1, 0, limbAngle, limbDistance);
 
-        this.walk(this.armRight, speed_walk, degree_walk, true, -2, 0, limbSwing, limbSwingAmount);
-        this.walk(this.armLeft, speed_walk, degree_walk, false, -2, 0, limbSwing, limbSwingAmount);
-        this.flap(this.armRight, speed_walk, degree_walk * 0.8F, true, -2, -0.1F, limbSwing, limbSwingAmount);
-        this.flap(this.armLeft, speed_walk, degree_walk * 0.8F, true, -2, 0.1F, limbSwing, limbSwingAmount);
-        this.flap(this.head, speed_walk, degree_walk * 0.2F, false, 0, 0, limbSwing, limbSwingAmount);
+        this.walk(this.armRight, speed_walk, degree_walk, true, -2, 0, limbAngle, limbDistance);
+        this.walk(this.armLeft, speed_walk, degree_walk, false, -2, 0, limbAngle, limbDistance);
+        this.flap(this.armRight, speed_walk, degree_walk * 0.8F, true, -2, -0.1F, limbAngle, limbDistance);
+        this.flap(this.armLeft, speed_walk, degree_walk * 0.8F, true, -2, 0.1F, limbAngle, limbDistance);
+        this.flap(this.head, speed_walk, degree_walk * 0.2F, false, 0, 0, limbAngle, limbDistance);
 
     }
 

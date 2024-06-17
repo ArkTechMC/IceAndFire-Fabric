@@ -1,9 +1,9 @@
 package com.github.alexthe666.citadel.client.model;
 
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
-import com.github.alexthe666.citadel.client.model.container.TabulaCubeContainer;
-import com.github.alexthe666.citadel.client.model.container.TabulaCubeGroupContainer;
-import com.github.alexthe666.citadel.client.model.container.TabulaModelContainer;
+import com.github.alexthe666.citadel.client.model.tabula.TabulaCubeContainer;
+import com.github.alexthe666.citadel.client.model.tabula.TabulaCubeGroupContainer;
+import com.github.alexthe666.citadel.client.model.tabula.TabulaModelContainer;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Environment(EnvType.CLIENT)
 public class TabulaModel extends AdvancedEntityModel {
-    public final ModelAnimator llibAnimator;
+    public final ModelAnimator animator;
     protected final Map<String, AdvancedModelBox> cubes = new HashMap<>();
     protected final List<AdvancedModelBox> rootBoxes = new ArrayList<>();
     protected final ITabulaModelAnimator tabulaAnimator;
@@ -37,7 +37,7 @@ public class TabulaModel extends AdvancedEntityModel {
         container.getCubeGroups().forEach(this::parseCubeGroup);
         this.updateDefaultPose();
         this.scale = container.getScale();
-        this.llibAnimator = ModelAnimator.create();
+        this.animator = ModelAnimator.create();
     }
 
     public TabulaModel(TabulaModelContainer container) {
@@ -84,18 +84,14 @@ public class TabulaModel extends AdvancedEntityModel {
     }
 
     @Override
-    public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch) {
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         if (this.tabulaAnimator != null) {
-            this.tabulaAnimator.setRotationAngles(this, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, 1.0F);
+            this.tabulaAnimator.setRotationAngles(this, entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1.0F);
         }
     }
 
     public AdvancedModelBox getCube(String name) {
         return this.cubes.get(name);
-    }
-
-    public AdvancedModelBox getCubeByIdentifier(String identifier) {
-        return this.identifierMap.get(identifier);
     }
 
     public Map<String, AdvancedModelBox> getCubes() {
@@ -111,6 +107,4 @@ public class TabulaModel extends AdvancedEntityModel {
     public Iterable<AdvancedModelBox> getAllParts() {
         return ImmutableList.copyOf(this.cubes.values());
     }
-
-
 }

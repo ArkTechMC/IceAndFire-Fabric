@@ -59,7 +59,7 @@ public class ModelPixieHouse extends AdvancedEntityModel<LivingEntity> {
     }
 
     @Override
-    public void setAngles(LivingEntity tileEntityPixieHouse, float v, float v1, float v2, float v3, float v4) {
+    public void setAngles(LivingEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
 
     }
 

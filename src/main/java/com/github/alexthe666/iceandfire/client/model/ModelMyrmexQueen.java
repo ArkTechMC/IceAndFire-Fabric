@@ -353,8 +353,8 @@ public class ModelMyrmexQueen extends ModelMyrmexBase {
     }
 
     @Override
-    public void setAngles(Entity entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate((IAnimatedEntity) entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         this.Body5.setScale(1.0F, 1.0F, 1.0F);
         this.Tail1.setScale(1.0F, 1.0F, 1.0F);
         this.Tail2.setScale(1.0F, 1.0F, 1.0F);
@@ -382,28 +382,28 @@ public class ModelMyrmexQueen extends ModelMyrmexBase {
             this.Stinger.rotationPointZ += 20 * gasterSwell3;
         }
         if (myrmexQueen.getAnimation() == EntityMyrmexQueen.ANIMATION_DIGNEST) {
-            this.animateLeg(LEGR1, speed_walk * 0.5F, degree_walk * 0.5F, false, 0, 1, f2, 1);
-            this.animateLeg(LEGR3, speed_walk * 0.5F, degree_walk * 0.5F, false, 0, 1, f2, 1);
-            this.animateLeg(LEGR2, speed_walk * 0.5F, degree_walk * 0.5F, true, 0, 1, f2, 1);
+            this.animateLeg(LEGR1, speed_walk * 0.5F, degree_walk * 0.5F, false, 0, 1, animationProgress, 1);
+            this.animateLeg(LEGR3, speed_walk * 0.5F, degree_walk * 0.5F, false, 0, 1, animationProgress, 1);
+            this.animateLeg(LEGR2, speed_walk * 0.5F, degree_walk * 0.5F, true, 0, 1, animationProgress, 1);
 
-            this.animateLeg(LEGL1, speed_walk * 0.5F, degree_walk * 0.5F, false, 1, -1, f2, 1);
-            this.animateLeg(LEGL3, speed_walk * 0.5F, degree_walk * 0.5F, false, 1, -1, f2, 1);
-            this.animateLeg(LEGL2, speed_walk * 0.5F, degree_walk * 0.5F, true, 1, -1, f2, 1);
+            this.animateLeg(LEGL1, speed_walk * 0.5F, degree_walk * 0.5F, false, 1, -1, animationProgress, 1);
+            this.animateLeg(LEGL3, speed_walk * 0.5F, degree_walk * 0.5F, false, 1, -1, animationProgress, 1);
+            this.animateLeg(LEGL2, speed_walk * 0.5F, degree_walk * 0.5F, true, 1, -1, animationProgress, 1);
         }
         if (entity.getPassengerList().isEmpty()) {
-            this.faceTarget(f3, f4, 2, NECK);
+            this.faceTarget(headYaw, headPitch, 2, NECK);
         }
-        this.chainWave(GASTER, speed_idle, degree_idle * 0.15F, 0, f2, 1);
-        this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, f2, 1);
-        this.swing(this.MandibleR, speed_idle * 2F, degree_idle * -0.75F, false, 1, 0.2F, f2, 1);
-        this.swing(this.MandibleL, speed_idle * 2F, degree_idle * -0.75F, true, 1, 0.2F, f2, 1);
-        this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, f, f1);
-        this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, f, f1);
-        this.animateLeg(LEGR2, speed_walk, degree_walk, true, 0, 1, f, f1);
+        this.chainWave(GASTER, speed_idle, degree_idle * 0.15F, 0, animationProgress, 1);
+        this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, animationProgress, 1);
+        this.swing(this.MandibleR, speed_idle * 2F, degree_idle * -0.75F, false, 1, 0.2F, animationProgress, 1);
+        this.swing(this.MandibleL, speed_idle * 2F, degree_idle * -0.75F, true, 1, 0.2F, animationProgress, 1);
+        this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, limbAngle, limbDistance);
+        this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, limbAngle, limbDistance);
+        this.animateLeg(LEGR2, speed_walk, degree_walk, true, 0, 1, limbAngle, limbDistance);
 
-        this.animateLeg(LEGL1, speed_walk, degree_walk, false, 1, -1, f, f1);
-        this.animateLeg(LEGL3, speed_walk, degree_walk, false, 1, -1, f, f1);
-        this.animateLeg(LEGL2, speed_walk, degree_walk, true, 1, -1, f, f1);
+        this.animateLeg(LEGL1, speed_walk, degree_walk, false, 1, -1, limbAngle, limbDistance);
+        this.animateLeg(LEGL3, speed_walk, degree_walk, false, 1, -1, limbAngle, limbDistance);
+        this.animateLeg(LEGL2, speed_walk, degree_walk, true, 1, -1, limbAngle, limbDistance);
     }
 
     private void animateLeg(AdvancedModelBox[] models, float speed, float degree, boolean reverse, float offset, float weight, float f, float f1) {

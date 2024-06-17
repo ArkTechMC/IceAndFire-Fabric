@@ -36,9 +36,8 @@ public class ArmorModelBase extends BipedEntityModel<LivingEntity> {
             this.rightLeg.yaw = ((float) Math.PI / 180F) * armorStand.getRightLegRotation().getYaw();
             this.rightLeg.roll = ((float) Math.PI / 180F) * armorStand.getRightLegRotation().getRoll();
             this.hat.copyTransform(this.head);
-        } else {
+        } else
             super.setAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        }
     }
 
     //this.(?<name>.*).addChild\(this.(?<name2>.*)\);

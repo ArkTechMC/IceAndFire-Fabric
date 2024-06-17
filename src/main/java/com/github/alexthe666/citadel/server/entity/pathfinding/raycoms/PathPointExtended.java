@@ -124,21 +124,11 @@ public class PathPointExtended extends PathNode {
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || this.getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         final PathPointExtended that = (PathPointExtended) o;
-
-        if (this.onLadder != that.onLadder) {
-            return false;
-        }
+        if (this.onLadder != that.onLadder) return false;
         return this.ladderFacing == that.ladderFacing;
     }
 

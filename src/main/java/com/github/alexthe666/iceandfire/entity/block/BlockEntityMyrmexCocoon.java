@@ -19,7 +19,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockEntityMyrmexCocoon extends LootableContainerBlockEntity {
-
     private DefaultedList<ItemStack> chestContents = DefaultedList.ofSize(18, ItemStack.EMPTY);
 
     public BlockEntityMyrmexCocoon(BlockPos pos, BlockState state) {
@@ -33,30 +32,25 @@ public class BlockEntityMyrmexCocoon extends LootableContainerBlockEntity {
 
     @Override
     public boolean isEmpty() {
-        for (ItemStack itemstack : this.chestContents) {
-            if (!itemstack.isEmpty()) {
+        for (ItemStack itemstack : this.chestContents)
+            if (!itemstack.isEmpty())
                 return false;
-            }
-        }
         return true;
     }
-
 
     @Override
     public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.chestContents = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
 
-        if (!this.deserializeLootTable(compound)) {
+        if (!this.deserializeLootTable(compound))
             Inventories.readNbt(compound, this.chestContents);
-        }
     }
 
     @Override
     public void writeNbt(NbtCompound compound) {
-        if (!this.serializeLootTable(compound)) {
+        if (!this.serializeLootTable(compound))
             Inventories.writeNbt(compound, this.chestContents);
-        }
     }
 
     @Override
@@ -74,7 +68,6 @@ public class BlockEntityMyrmexCocoon extends LootableContainerBlockEntity {
         return new GenericContainerScreenHandler(ScreenHandlerType.GENERIC_9X2, id, playerInventory, this, 2);
     }
 
-
     @Override
     public int getMaxCountPerStack() {
         return 64;
@@ -88,7 +81,6 @@ public class BlockEntityMyrmexCocoon extends LootableContainerBlockEntity {
 
     @Override
     protected void setInvStackList(DefaultedList<ItemStack> itemsIn) {
-
     }
 
     @Override
@@ -114,11 +106,9 @@ public class BlockEntityMyrmexCocoon extends LootableContainerBlockEntity {
     }
 
     public boolean isFull(ItemStack heldStack) {
-        for (ItemStack itemstack : this.chestContents) {
-            if (itemstack.isEmpty() || heldStack != null && !heldStack.isEmpty() && ItemStack.areItemsEqual(itemstack, heldStack) && itemstack.getCount() + heldStack.getCount() < itemstack.getMaxCount()) {
+        for (ItemStack itemstack : this.chestContents)
+            if (itemstack.isEmpty() || heldStack != null && !heldStack.isEmpty() && ItemStack.areItemsEqual(itemstack, heldStack) && itemstack.getCount() + heldStack.getCount() < itemstack.getMaxCount())
                 return false;
-            }
-        }
         return true;
     }
 }

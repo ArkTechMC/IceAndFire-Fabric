@@ -26,19 +26,15 @@ public class MyrmexAIReEnterHive extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.myrmex.canMove() || this.myrmex.shouldLeaveHive() || !this.myrmex.shouldEnterHive() || this.currentPhase != Phases.GOTOENTRANCE) {
+        if (!this.myrmex.canMove() || this.myrmex.shouldLeaveHive() || !this.myrmex.shouldEnterHive() || this.currentPhase != Phases.GOTOENTRANCE)
             return false;
-        }
         MyrmexHive village = this.myrmex.getHive();
-        if (village == null) {
+        if (village == null)
             village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 500);
-        }
-        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle()) {
+        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle())
             return false;
-        }
-        if (village == null || this.myrmex.isInHive()) {
-            return false;
-        } else {
+        if (village == null || this.myrmex.isInHive()) return false;
+        else {
             this.hive = village;
             this.currentTarget = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), this.hive.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), false));
             this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.currentTarget.getX(), this.currentTarget.getY(), this.currentTarget.getZ(), 1);
@@ -54,20 +50,18 @@ public class MyrmexAIReEnterHive extends Goal {
             this.currentTarget = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), this.hive.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRandom(), true));
             this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.currentTarget.getX(), this.currentTarget.getY(), this.currentTarget.getZ(), this.movementSpeed);
         }
-        if (this.currentPhase == Phases.GOTOENTRANCE && this.myrmex.isCloseEnoughToTarget(this.currentTarget, 12)) {
+        if (this.currentPhase == Phases.GOTOENTRANCE && this.myrmex.isCloseEnoughToTarget(this.currentTarget, 12))
             if (this.hive != null) {
                 this.currentTarget = this.hive.getClosestEntranceBottomToEntity(this.myrmex, this.myrmex.getRandom());
                 this.currentPhase = Phases.GOTOEXIT;
                 this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.currentTarget.getX(), this.currentTarget.getY(), this.currentTarget.getZ(), 1);
             }
-        }
-        if (this.currentPhase == Phases.GOTOEXIT && this.myrmex.isCloseEnoughToTarget(this.currentTarget, 12)) {
+        if (this.currentPhase == Phases.GOTOEXIT && this.myrmex.isCloseEnoughToTarget(this.currentTarget, 12))
             if (this.hive != null) {
                 this.currentTarget = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), this.hive.getCenter());
                 this.currentPhase = Phases.GOTOCENTER;
                 this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.currentTarget.getX(), this.currentTarget.getY(), this.currentTarget.getZ(), 1);
             }
-        }
         this.myrmex.isEnteringHive = !this.myrmex.isCloseEnoughToTarget(this.currentTarget, 14) && this.currentPhase != Phases.GOTOCENTER;
     }
 

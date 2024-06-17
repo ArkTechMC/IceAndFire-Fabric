@@ -26,23 +26,17 @@ public class BlockEntityDreadPortal extends BlockEntity {
     public void writeNbt(NbtCompound compound) {
         super.writeNbt(compound);
         compound.putLong("Age", this.age);
-
         //   compound.setTag("ExitPortal", NBTUtil.createPosTag(this.exitPortal));
-
-        if (this.exactTeleport) {
+        if (this.exactTeleport)
             compound.putBoolean("ExactTeleport", true);
-        }
     }
 
     @Override
     public void readNbt(NbtCompound compound) {
         super.readNbt(compound);
         this.age = compound.getLong("Age");
-
-        if (compound.contains("ExitPortal", 10)) {
+        if (compound.contains("ExitPortal", 10))
             this.exitPortal = BlockPos.ORIGIN;
-        }
-
         this.exactTeleport = compound.getBoolean("ExactTeleport");
     }
 

@@ -128,9 +128,8 @@ public class MNode implements Comparable<MNode> {
      * @param byteBuf the buffer to load it from.
      */
     public MNode(final PacketByteBuf byteBuf) {
-        if (byteBuf.readBoolean()) {
+        if (byteBuf.readBoolean())
             this.parent = new MNode(byteBuf.readBlockPos(), 0);
-        }
         this.pos = byteBuf.readBlockPos();
         this.cost = byteBuf.readDouble();
         this.heuristic = byteBuf.readDouble();
@@ -141,14 +140,11 @@ public class MNode implements Comparable<MNode> {
 
     /**
      * Serialize the Node to buf.
-     *
-     * @param byteBuf
      */
     public void serializeToBuf(final PacketByteBuf byteBuf) {
         byteBuf.writeBoolean(this.parent != null);
-        if (this.parent != null) {
+        if (this.parent != null)
             byteBuf.writeBlockPos(this.parent.pos);
-        }
         byteBuf.writeBlockPos(this.pos);
         byteBuf.writeDouble(this.cost);
         byteBuf.writeDouble(this.heuristic);
@@ -159,21 +155,10 @@ public class MNode implements Comparable<MNode> {
     @Override
     public int compareTo(final MNode o) {
         //  Comparing doubles and returning value as int; can't simply cast the result
-        if (this.score < o.score) {
-            return -1;
-        }
-
-        if (this.score > o.score) {
-            return 1;
-        }
-
-        if (this.heuristic < o.heuristic) {
-            return -1;
-        }
-
-        if (this.heuristic > o.heuristic) {
-            return 1;
-        }
+        if (this.score < o.score) return -1;
+        if (this.score > o.score) return 1;
+        if (this.heuristic < o.heuristic) return -1;
+        if (this.heuristic > o.heuristic) return 1;
 
         //  In case of score tie, older node has better score
         return this.counterAdded - o.counterAdded;
@@ -188,11 +173,8 @@ public class MNode implements Comparable<MNode> {
     public boolean equals(final Object o) {
         if (o != null && o.getClass() == this.getClass()) {
             final MNode other = (MNode) o;
-            return this.pos.getX() == other.pos.getX()
-                    && this.pos.getY() == other.pos.getY()
-                    && this.pos.getZ() == other.pos.getZ();
+            return this.pos.getX() == other.pos.getX() && this.pos.getY() == other.pos.getY() && this.pos.getZ() == other.pos.getZ();
         }
-
         return false;
     }
 

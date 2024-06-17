@@ -101,24 +101,24 @@ public class ModelHydraBody extends ModelDragonBase<EntityHydra> {
     }
 
     @Override
-    public void setAngles(EntityHydra entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate(entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(EntityHydra entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         float speed_walk = 0.6F;
         float speed_idle = 0.05F;
         float degree_walk = 1F;
         float degree_idle = 0.25F;
         AdvancedModelBox[] TAIL = new AdvancedModelBox[]{this.BodyLower, this.Tail1, this.Tail2, this.Tail3, this.Tail4, this.Tail5};
-        this.chainSwing(TAIL, speed_walk, degree_walk * 0.75F, -3, f, f1);
-        this.swing(this.BodyUpper, speed_walk * 1.5F, degree_walk * 0.12F, true, 3, 0F, f, f1);
-        this.swing(this.Tail5, speed_idle * 1.5F, degree_idle * 0.2F, false, 3, 0F, f2, 1);
-        this.swing(this.Tail4, speed_idle * 1.5F, degree_idle * 0.2F, false, 2, 0F, f2, 1);
-        this.walk(this.BodySpike1, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, -0.2F, f2, 1);
-        this.walk(this.BodySpike2, speed_idle * 1.5F, degree_idle * 0.4F, false, 3, -0.2F, f2, 1);
-        this.walk(this.BodySpike3, speed_idle * 1.5F, degree_idle * 0.4F, false, 4, -0.2F, f2, 1);
+        this.chainSwing(TAIL, speed_walk, degree_walk * 0.75F, -3, limbAngle, limbDistance);
+        this.swing(this.BodyUpper, speed_walk * 1.5F, degree_walk * 0.12F, true, 3, 0F, limbAngle, limbDistance);
+        this.swing(this.Tail5, speed_idle * 1.5F, degree_idle * 0.2F, false, 3, 0F, animationProgress, 1);
+        this.swing(this.Tail4, speed_idle * 1.5F, degree_idle * 0.2F, false, 2, 0F, animationProgress, 1);
+        this.walk(this.BodySpike1, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, -0.2F, animationProgress, 1);
+        this.walk(this.BodySpike2, speed_idle * 1.5F, degree_idle * 0.4F, false, 3, -0.2F, animationProgress, 1);
+        this.walk(this.BodySpike3, speed_idle * 1.5F, degree_idle * 0.4F, false, 4, -0.2F, animationProgress, 1);
 
-        this.walk(this.TailSpike1, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, -0.2F, f2, 1);
-        this.walk(this.TailSpike2, speed_idle * 1.5F, degree_idle * 0.4F, false, 3, -0.2F, f2, 1);
-        this.walk(this.TailSpike3, speed_idle * 1.5F, degree_idle * 0.4F, false, 4, -0.2F, f2, 1);
+        this.walk(this.TailSpike1, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, -0.2F, animationProgress, 1);
+        this.walk(this.TailSpike2, speed_idle * 1.5F, degree_idle * 0.4F, false, 3, -0.2F, animationProgress, 1);
+        this.walk(this.TailSpike3, speed_idle * 1.5F, degree_idle * 0.4F, false, 4, -0.2F, animationProgress, 1);
     }
 
     @Override

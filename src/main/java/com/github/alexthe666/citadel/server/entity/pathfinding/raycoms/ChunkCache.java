@@ -35,7 +35,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-
 public class ChunkCache implements WorldView {
     protected final int chunkX;
     protected final int chunkZ;
@@ -64,18 +63,14 @@ public class ChunkCache implements WorldView {
         this.chunkArray = new WorldChunk[i - this.chunkX + 1][j - this.chunkZ + 1];
         this.empty = true;
 
-        for (int k = this.chunkX; k <= i; ++k) {
-            for (int l = this.chunkZ; l <= j; ++l) {
+        for (int k = this.chunkX; k <= i; ++k)
+            for (int l = this.chunkZ; l <= j; ++l)
                 if (WorldChunkUtil.isEntityChunkLoaded(this.world, new ChunkPos(k, l)) && worldIn.getChunkManager() instanceof ServerChunkManager serverChunkCache) {
                     final ChunkHolder holder = serverChunkCache.threadedAnvilChunkStorage.getChunkHolder(ChunkPos.toLong(k, l));
-                    if (holder != null) {
+                    if (holder != null)
                         this.chunkArray[k - this.chunkX][l - this.chunkZ] = holder.getAccessibleFuture().getNow(ChunkHolder.UNLOADED_WORLD_CHUNK).left().orElse(null);
-                    }
                 }
-            }
-        }
         this.dimType = type;
-
         this.minBuildHeight = worldIn.getBottomY();
         this.maxBuildHeight = worldIn.getTopY();
     }
@@ -97,9 +92,7 @@ public class ChunkCache implements WorldView {
     public BlockEntity getTileEntity(BlockPos pos, WorldChunk.CreationType createType) {
         int i = (pos.getX() >> 4) - this.chunkX;
         int j = (pos.getZ() >> 4) - this.chunkZ;
-        if (!this.withinBounds(i, j)) {
-            return null;
-        }
+        if (!this.withinBounds(i, j)) return null;
         return this.chunkArray[i][j].getBlockEntity(pos, createType);
     }
 
@@ -119,16 +112,11 @@ public class ChunkCache implements WorldView {
         if (pos.getY() >= this.getBottomY() && pos.getY() < this.getTopY()) {
             int i = (pos.getX() >> 4) - this.chunkX;
             int j = (pos.getZ() >> 4) - this.chunkZ;
-
             if (i >= 0 && i < this.chunkArray.length && j >= 0 && j < this.chunkArray[i].length) {
                 WorldChunk chunk = this.chunkArray[i][j];
-
-                if (chunk != null) {
-                    return chunk.getBlockState(pos);
-                }
+                if (chunk != null) return chunk.getBlockState(pos);
             }
         }
-
         return Blocks.AIR.getDefaultState();
     }
 
@@ -137,16 +125,11 @@ public class ChunkCache implements WorldView {
         if (pos.getY() >= this.getBottomY() && pos.getY() < this.getTopY()) {
             int i = (pos.getX() >> 4) - this.chunkX;
             int j = (pos.getZ() >> 4) - this.chunkZ;
-
             if (i >= 0 && i < this.chunkArray.length && j >= 0 && j < this.chunkArray[i].length) {
                 WorldChunk chunk = this.chunkArray[i][j];
-
-                if (chunk != null) {
-                    return chunk.getFluidState(pos);
-                }
+                if (chunk != null) return chunk.getFluidState(pos);
             }
         }
-
         return Fluids.EMPTY.getDefaultState();
     }
 
@@ -169,10 +152,8 @@ public class ChunkCache implements WorldView {
     public Chunk getChunk(final int x, final int z, final ChunkStatus requiredStatus, final boolean nonnull) {
         int i = x - this.chunkX;
         int j = z - this.chunkZ;
-
-        if (i >= 0 && i < this.chunkArray.length && j >= 0 && j < this.chunkArray[i].length) {
+        if (i >= 0 && i < this.chunkArray.length && j >= 0 && j < this.chunkArray[i].length)
             return this.chunkArray[i][j];
-        }
         return null;
     }
 

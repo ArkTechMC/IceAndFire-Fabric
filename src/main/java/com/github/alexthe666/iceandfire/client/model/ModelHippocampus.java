@@ -241,8 +241,8 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
     }
 
     @Override
-    public void setAngles(EntityHippocampus entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate(entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(EntityHippocampus entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         if (this.child) {
             this.Body.setShouldScaleChildren(true);
             this.Body.setScale(0.5F, 0.5F, 0.5F);
@@ -288,28 +288,28 @@ public class ModelHippocampus extends ModelDragonBase<EntityHippocampus> {
         AdvancedModelBox[] LEG_R = {this.FrontThighR, this.FrontLegR};
         AdvancedModelBox[] NECK = new AdvancedModelBox[]{this.Neck, this.Head};
         if (entity.isTouchingWater()) {
-            this.chainWave(NECK, speed_swim, degree_swim * 0.15F, -2, f, f1);
-            this.chainWave(TAIL_W_BODY, speed_swim, degree_swim * 0.15F, -3, f, f1);
-            this.walk(this.Tail_3, speed_swim, degree_swim * -0.5F, false, 0, 0, f, f1);
-            this.chainWave(LEG_L, speed_swim, degree_swim * 0.75F, 1, f, f1);
-            this.chainWave(LEG_R, speed_swim, degree_swim * 0.75F, 1, f, f1);
-            this.walk(this.Tail_1, speed_idle, degree_idle * 0.15F, false, 0, 0F, f2, 1);
-            this.walk(this.Tail_2, speed_idle, degree_idle * 0.25F, false, 0, 0F, f2, 1);
+            this.chainWave(NECK, speed_swim, degree_swim * 0.15F, -2, limbAngle, limbDistance);
+            this.chainWave(TAIL_W_BODY, speed_swim, degree_swim * 0.15F, -3, limbAngle, limbDistance);
+            this.walk(this.Tail_3, speed_swim, degree_swim * -0.5F, false, 0, 0, limbAngle, limbDistance);
+            this.chainWave(LEG_L, speed_swim, degree_swim * 0.75F, 1, limbAngle, limbDistance);
+            this.chainWave(LEG_R, speed_swim, degree_swim * 0.75F, 1, limbAngle, limbDistance);
+            this.walk(this.Tail_1, speed_idle, degree_idle * 0.15F, false, 0, 0F, animationProgress, 1);
+            this.walk(this.Tail_2, speed_idle, degree_idle * 0.25F, false, 0, 0F, animationProgress, 1);
 
         } else {
-            this.chainWave(LEG_L, speed_walk, degree_walk * 0.5F, 1, f, f1);
-            this.chainWave(LEG_R, speed_walk, degree_walk * 0.5F, 1, f, f1);
-            this.walk(this.Body, speed_walk, degree_walk * 0.05F, false, 0, 0.1F, f, f1);
-            this.walk(this.Tail_1, speed_walk, degree_walk * 0.05F, false, 1, 0.1F, f, f1);
-            this.walk(this.Tail_2, speed_walk, degree_walk * 0.05F, false, 2, 0.1F, f, f1);
-            this.walk(this.FrontThighL, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, f2, 1);
-            this.walk(this.FrontThighR, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, f2, 1);
-            this.walk(this.FrontLegL, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, f2, 1);
-            this.walk(this.FrontLegR, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, f2, 1);
-            this.swing(this.FinLBack, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, f2, 1);
-            this.swing(this.FinRBack, speed_idle, degree_idle * 0.25F, true, 0, -0.1F, f2, 1);
+            this.chainWave(LEG_L, speed_walk, degree_walk * 0.5F, 1, limbAngle, limbDistance);
+            this.chainWave(LEG_R, speed_walk, degree_walk * 0.5F, 1, limbAngle, limbDistance);
+            this.walk(this.Body, speed_walk, degree_walk * 0.05F, false, 0, 0.1F, limbAngle, limbDistance);
+            this.walk(this.Tail_1, speed_walk, degree_walk * 0.05F, false, 1, 0.1F, limbAngle, limbDistance);
+            this.walk(this.Tail_2, speed_walk, degree_walk * 0.05F, false, 2, 0.1F, limbAngle, limbDistance);
+            this.walk(this.FrontThighL, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, animationProgress, 1);
+            this.walk(this.FrontThighR, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, animationProgress, 1);
+            this.walk(this.FrontLegL, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, animationProgress, 1);
+            this.walk(this.FrontLegR, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, animationProgress, 1);
+            this.swing(this.FinLBack, speed_idle, degree_idle * 0.25F, false, 0, -0.1F, animationProgress, 1);
+            this.swing(this.FinRBack, speed_idle, degree_idle * 0.25F, true, 0, -0.1F, animationProgress, 1);
         }
-        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, f2, 1);
+        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -2, animationProgress, 1);
         if (entity.tail_buffer != null) {
             entity.tail_buffer.applyChainSwingBuffer(TAIL);
         }

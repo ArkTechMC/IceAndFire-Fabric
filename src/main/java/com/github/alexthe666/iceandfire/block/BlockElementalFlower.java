@@ -15,7 +15,6 @@ import java.util.Random;
 
 public class BlockElementalFlower extends PlantBlock {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
-    public Item itemBlock;
 
     public BlockElementalFlower() {
         super(Settings.create().mapColor(MapColor.DARK_GREEN).replaceable().burnable().pistonBehavior(PistonBehavior.DESTROY).nonOpaque().noCollision().dynamicBounds().ticksRandomly().sounds(BlockSoundGroup.GRASS));

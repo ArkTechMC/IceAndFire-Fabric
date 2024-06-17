@@ -14,7 +14,6 @@ public class IceDragonTabulaModelAnimator extends DragonTabulaModelAnimator<Enti
         this.swimPoses = new TabulaModel[]{this.getModel(EnumDragonPoses.SWIM1), this.getModel(EnumDragonPoses.SWIM2), this.getModel(EnumDragonPoses.SWIM3), this.getModel(EnumDragonPoses.SWIM4), this.getModel(EnumDragonPoses.SWIM5)};
     }
 
-
     @Override
     protected TabulaModel getModel(EnumDragonPoses pose) {
         return DragonAnimationsLibrary.getModel(pose, EnumDragonModelTypes.ICE_DRAGON_MODEL);

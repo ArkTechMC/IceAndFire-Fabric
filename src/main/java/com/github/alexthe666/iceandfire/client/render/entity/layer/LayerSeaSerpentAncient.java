@@ -13,7 +13,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class LayerSeaSerpentAncient extends FeatureRenderer<EntitySeaSerpent, AdvancedEntityModel<EntitySeaSerpent>> {
-
     private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/ancient_overlay.png");
     private static final Identifier TEXTURE_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/ancient_overlay_blink.png");
 
@@ -27,7 +26,6 @@ public class LayerSeaSerpentAncient extends FeatureRenderer<EntitySeaSerpent, Ad
             RenderLayer tex = RenderLayer.getEntityNoOutline(serpent.isBlinking() ? TEXTURE_BLINK : TEXTURE);
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(tex);
             this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-
         }
     }
 }

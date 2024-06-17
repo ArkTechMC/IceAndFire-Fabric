@@ -32,7 +32,7 @@ public class BlockEntityEggInIce extends BlockEntity {
 
     public static void tickEgg(World level, BlockPos pos, BlockState state, BlockEntityEggInIce entityEggInIce) {
         entityEggInIce.age++;
-        if (entityEggInIce.age >= IafConfig.dragonEggTime && entityEggInIce.type != null && !entityEggInIce.spawned) {
+        if (entityEggInIce.age >= IafConfig.dragonEggTime && entityEggInIce.type != null && !entityEggInIce.spawned)
             if (!level.isClient) {
                 EntityIceDragon dragon = new EntityIceDragon(level);
                 dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
@@ -46,23 +46,16 @@ public class BlockEntityEggInIce extends BlockEntity {
                 level.breakBlock(pos, false);
                 level.setBlockState(pos, Blocks.WATER.getDefaultState());
             }
-        }
         entityEggInIce.ticksExisted++;
     }
 
     @Override
     public void writeNbt(NbtCompound tag) {
-        if (this.type != null) {
-            tag.putByte("Color", (byte) this.type.ordinal());
-        } else {
-            tag.putByte("Color", (byte) 0);
-        }
+        if (this.type != null) tag.putByte("Color", (byte) this.type.ordinal());
+        else tag.putByte("Color", (byte) 0);
         tag.putInt("Age", this.age);
-        if (this.ownerUUID == null) {
-            tag.putString("OwnerUUID", "");
-        } else {
-            tag.putUuid("OwnerUUID", this.ownerUUID);
-        }
+        if (this.ownerUUID == null) tag.putString("OwnerUUID", "");
+        else tag.putUuid("OwnerUUID", this.ownerUUID);
     }
 
     @Override
@@ -71,20 +64,16 @@ public class BlockEntityEggInIce extends BlockEntity {
         this.type = EnumDragonEgg.values()[tag.getByte("Color")];
         this.age = tag.getInt("Age");
         UUID s = null;
-
-        if (tag.containsUuid("OwnerUUID")) {
+        if (tag.containsUuid("OwnerUUID"))
             s = tag.getUuid("OwnerUUID");
-        } else {
+        else
             try {
                 String s1 = tag.getString("OwnerUUID");
                 assert this.world != null;
                 s = ServerConfigHandler.getPlayerUuidByName(this.world.getServer(), s1);
             } catch (Exception ignored) {
             }
-        }
-        if (s != null) {
-            this.ownerUUID = s;
-        }
+        if (s != null) this.ownerUUID = s;
     }
 
     @Override
@@ -108,9 +97,8 @@ public class BlockEntityEggInIce extends BlockEntity {
             egg.setPosition(this.pos.getX() + 0.5, this.pos.getY() + 1, this.pos.getZ() + 0.5);
             egg.setOwnerId(this.ownerUUID);
             assert this.world != null;
-            if (!this.world.isClient) {
+            if (!this.world.isClient)
                 this.world.spawnEntity(egg);
-            }
         }
     }
 }

@@ -12,9 +12,9 @@ abstract class ModelDreadBase<T extends LivingEntity & IAnimatedEntity> extends 
     public abstract Animation getSpawnAnimation();
 
     @Override
-    public void setAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        this.setRotationAnglesSpawn(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+        this.setRotationAnglesSpawn(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
     }
 
     public void setRotationAnglesSpawn(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

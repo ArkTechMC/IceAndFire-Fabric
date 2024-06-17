@@ -66,12 +66,6 @@ public class AdvancedModelBox extends BasicModelPart {
         this.childModels = new ObjectArrayList<>();
     }
 
-    public BasicModelPart setTexSize(int width, int height) {
-        this.textureWidth = (float) width;
-        this.textureHeight = (float) height;
-        return this;
-    }
-
     public BasicModelPart addBox(String p_217178_1_, float p_217178_2_, float p_217178_3_, float p_217178_4_, int p_217178_5_, int p_217178_6_, int p_217178_7_, float p_217178_8_, int p_217178_9_, int p_217178_10_) {
         this.setTextureOffset(p_217178_9_, p_217178_10_);
         this.addBox(this.textureOffsetX, this.textureOffsetY, p_217178_2_, p_217178_3_, p_217178_4_, (float) p_217178_5_, (float) p_217178_6_, (float) p_217178_7_, p_217178_8_, p_217178_8_, p_217178_8_, this.mirror);
@@ -104,7 +98,6 @@ public class AdvancedModelBox extends BasicModelPart {
         this.cubeList.add(new TabulaModelRenderUtils.ModelBox(p_228305_1_, p_228305_2_, p_228305_3_, p_228305_4_, p_228305_5_, p_228305_6_, p_228305_7_, p_228305_8_, p_228305_9_, p_228305_10_, p_228305_11_, p_228305_12_, this.textureWidth, this.textureHeight));
     }
 
-
     /**
      * If true, when using setScale, the children of this model part will be scaled as well as just this part. If false, just this part will be scaled.
      *
@@ -126,18 +119,6 @@ public class AdvancedModelBox extends BasicModelPart {
     public void setScale(float scaleX, float scaleY, float scaleZ) {
         this.scaleX = scaleX;
         this.scaleY = scaleY;
-        this.scaleZ = scaleZ;
-    }
-
-    public void setScaleX(float scaleX) {
-        this.scaleX = scaleX;
-    }
-
-    public void setScaleY(float scaleY) {
-        this.scaleY = scaleY;
-    }
-
-    public void setScaleZ(float scaleZ) {
         this.scaleZ = scaleZ;
     }
 
@@ -185,9 +166,8 @@ public class AdvancedModelBox extends BasicModelPart {
     public void addChild(BasicModelPart child) {
         super.addChild(child);
         this.childModels.add(child);
-        if (child instanceof AdvancedModelBox advancedChild) {
+        if (child instanceof AdvancedModelBox advancedChild)
             advancedChild.setParent(this);
-        }
     }
 
     /**
@@ -206,90 +186,55 @@ public class AdvancedModelBox extends BasicModelPart {
         this.parent = parent;
     }
 
-    /**
-     * Post renders this box with all its parents
-     *
-     * @param scale the render scale
-     */
-    public void parentedPostRender(float scale) {
-        if (this.parent != null) {
-            this.parent.parentedPostRender(scale);
-        }
-        // this.postRender(scale);
-    }
-
-    /**
-     * Renders this box with all it's parents
-     *
-     * @param scale the render scale
-     */
-    public void renderWithParents(float scale) {
-        if (this.parent != null) {
-            this.parent.renderWithParents(scale);
-        }
-        //this.render(scale);
-    }
-
     public void translateAndRotate(MatrixStack matrixStackIn) {
         matrixStackIn.translate(this.rotationPointX / 16.0F, this.rotationPointY / 16.0F, (double) (this.rotationPointZ / 16.0F));
-        if (this.rotateAngleZ != 0.0F) {
+        if (this.rotateAngleZ != 0.0F)
             matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(this.rotateAngleZ));
-        }
-
-        if (this.rotateAngleY != 0.0F) {
+        if (this.rotateAngleY != 0.0F)
             matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotation(this.rotateAngleY));
-        }
-
-        if (this.rotateAngleX != 0.0F) {
+        if (this.rotateAngleX != 0.0F)
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotation(this.rotateAngleX));
-        }
-
         matrixStackIn.scale(this.scaleX, this.scaleY, this.scaleZ);
     }
 
     @Override
-    public void render(MatrixStack p_228309_1_, VertexConsumer p_228309_2_, int p_228309_3_, int p_228309_4_, float p_228309_5_, float p_228309_6_, float p_228309_7_, float p_228309_8_) {
-        if (this.showModel) {
+    public void render(MatrixStack matrixStack, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
+        if (this.showModel)
             if (!this.cubeList.isEmpty() || !this.childModels.isEmpty()) {
-                p_228309_1_.push();
-                this.translateAndRotate(p_228309_1_);
-                this.doRender(p_228309_1_.peek(), p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
+                matrixStack.push();
+                this.translateAndRotate(matrixStack);
+                this.doRender(matrixStack.peek(), consumer, light, overlay, red, green, blue, alpha);
                 ObjectListIterator<BasicModelPart> var9 = this.childModels.iterator();
-                if (!this.scaleChildren) {
-                    p_228309_1_.scale(1F / Math.max(this.scaleX, 0.0001F), 1F / Math.max(this.scaleY, 0.0001F), 1F / Math.max(this.scaleZ, 0.0001F));
-                }
+                if (!this.scaleChildren)
+                    matrixStack.scale(1F / Math.max(this.scaleX, 0.0001F), 1F / Math.max(this.scaleY, 0.0001F), 1F / Math.max(this.scaleZ, 0.0001F));
                 while (var9.hasNext()) {
                     BasicModelPart lvt_10_1_ = var9.next();
-                    lvt_10_1_.render(p_228309_1_, p_228309_2_, p_228309_3_, p_228309_4_, p_228309_5_, p_228309_6_, p_228309_7_, p_228309_8_);
+                    lvt_10_1_.render(matrixStack, consumer, light, overlay, red, green, blue, alpha);
                 }
-
-                p_228309_1_.pop();
+                matrixStack.pop();
             }
-        }
     }
 
-    private void doRender(MatrixStack.Entry p_228306_1_, VertexConsumer p_228306_2_, int p_228306_3_, int p_228306_4_, float p_228306_5_, float p_228306_6_, float p_228306_7_, float p_228306_8_) {
-        Matrix4f lvt_9_1_ = p_228306_1_.getPositionMatrix();
-        Matrix3f lvt_10_1_ = p_228306_1_.getNormalMatrix();
+    private void doRender(MatrixStack.Entry entry, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
+        Matrix4f lvt_9_1_ = entry.getPositionMatrix();
+        Matrix3f lvt_10_1_ = entry.getNormalMatrix();
 
-        for (TabulaModelRenderUtils.ModelBox lvt_12_1_ : this.cubeList) {
-            TabulaModelRenderUtils.TexturedQuad[] var13 = lvt_12_1_.quads;
-
-            for (TabulaModelRenderUtils.TexturedQuad lvt_16_1_ : var13) {
-                Vector3f lvt_17_1_ = new Vector3f(lvt_16_1_.normal);
-                lvt_17_1_.mul(lvt_10_1_);
-                float lvt_18_1_ = lvt_17_1_.x();
-                float lvt_19_1_ = lvt_17_1_.y();
-                float lvt_20_1_ = lvt_17_1_.z();
-
+        for (TabulaModelRenderUtils.ModelBox modelBox : this.cubeList) {
+            TabulaModelRenderUtils.TexturedQuad[] quads = modelBox.quads;
+            for (TabulaModelRenderUtils.TexturedQuad texturedQuad : quads) {
+                Vector3f vector3f = new Vector3f(texturedQuad.normal);
+                vector3f.mul(lvt_10_1_);
+                float normalX = vector3f.x();
+                float normalY = vector3f.y();
+                float normalZ = vector3f.z();
                 for (int i = 0; i < 4; ++i) {
-                    TabulaModelRenderUtils.PositionTextureVertex vertexPosition = lvt_16_1_.vertexPositions[i];
-                    float lvt_23_1_ = vertexPosition.position.x() / 16.0F;
-                    float lvt_24_1_ = vertexPosition.position.y() / 16.0F;
-                    float lvt_25_1_ = vertexPosition.position.z() / 16.0F;
-                    Vector4f lvt_26_1_ = new Vector4f(lvt_23_1_, lvt_24_1_, lvt_25_1_, 1.0F);
-                    lvt_26_1_.mul(lvt_9_1_);
-                    p_228306_2_.vertex(lvt_26_1_.x(), lvt_26_1_.y(), lvt_26_1_.z(), p_228306_5_, p_228306_6_, p_228306_7_, p_228306_8_, vertexPosition.textureU, vertexPosition.textureV, p_228306_4_, p_228306_3_, lvt_18_1_, lvt_19_1_, lvt_20_1_);
+                    TabulaModelRenderUtils.PositionTextureVertex vertexPosition = texturedQuad.vertexPositions[i];
+                    float x = vertexPosition.position.x() / 16.0F;
+                    float y = vertexPosition.position.y() / 16.0F;
+                    float z = vertexPosition.position.z() / 16.0F;
+                    Vector4f vector4f = new Vector4f(x, y, z, 1.0F);
+                    vector4f.mul(lvt_9_1_);
+                    consumer.vertex(vector4f.x(), vector4f.y(), vector4f.z(), red, green, blue, alpha, vertexPosition.textureU, vertexPosition.textureV, overlay, light, normalX, normalY, normalZ);
                 }
             }
         }
@@ -375,19 +320,5 @@ public class AdvancedModelBox extends BasicModelPart {
     public void setTextureOffset(int textureOffsetX, int textureOffsetY) {
         this.textureOffsetX = textureOffsetX;
         this.textureOffsetY = textureOffsetY;
-    }
-
-    public void transitionTo(AdvancedModelBox to, float timer, float maxTime) {
-        this.rotateAngleX += ((to.rotateAngleX - this.rotateAngleX) / maxTime) * timer;
-        this.rotateAngleY += ((to.rotateAngleY - this.rotateAngleY) / maxTime) * timer;
-        this.rotateAngleZ += ((to.rotateAngleZ - this.rotateAngleZ) / maxTime) * timer;
-
-        this.rotationPointX += ((to.rotationPointX - this.rotationPointX) / maxTime) * timer;
-        this.rotationPointY += ((to.rotationPointY - this.rotationPointY) / maxTime) * timer;
-        this.rotationPointZ += ((to.rotationPointZ - this.rotationPointZ) / maxTime) * timer;
-
-        this.offsetX += ((to.offsetX - this.offsetX) / maxTime) * timer;
-        this.offsetY += ((to.offsetY - this.offsetY) / maxTime) * timer;
-        this.offsetZ += ((to.offsetZ - this.offsetZ) / maxTime) * timer;
     }
 }

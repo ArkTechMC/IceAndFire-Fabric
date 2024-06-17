@@ -43,8 +43,7 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
         if (this.myrmex.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
             this.listBabies = this.mob.getWorld().getEntitiesByClass(LivingEntity.class, this.getTargetableArea(), this.targetEntitySelector);
 
-        if (this.listBabies.isEmpty())
-            return false;
+        if (this.listBabies.isEmpty()) return false;
 
         this.listBabies.sort(this.theNearestAttackableTargetSorter);
         this.targetEntity = this.listBabies.get(0);
@@ -64,10 +63,8 @@ public class MyrmexAIPickupBabies<T extends ItemEntity> extends TrackTargetGoal 
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity != null && this.targetEntity.isAlive()
-                && this.mob.squaredDistanceTo(this.targetEntity) < 2) {
+        if (this.targetEntity != null && this.targetEntity.isAlive() && this.mob.squaredDistanceTo(this.targetEntity) < 2)
             this.targetEntity.startRiding(this.myrmex);
-        }
         this.stop();
     }
 

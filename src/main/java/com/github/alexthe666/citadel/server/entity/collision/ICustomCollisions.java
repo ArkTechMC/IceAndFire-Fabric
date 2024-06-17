@@ -42,49 +42,46 @@ public interface ICustomCollisions {
     }
 
     //1.18 logic
-    private static Vec3d collideBoundingBox2(Entity p_198895_, Vec3d p_198896_, Box p_198897_, World p_198898_, List<VoxelShape> p_198899_) {
-        ImmutableList.Builder<VoxelShape> builder = ImmutableList.builderWithExpectedSize(p_198899_.size() + 1);
-        if (!p_198899_.isEmpty()) {
-            builder.addAll(p_198899_);
-        }
+    private static Vec3d collideBoundingBox2(Entity entity, Vec3d vec3d, Box box, World world, List<VoxelShape> voxelShapes) {
+        ImmutableList.Builder<VoxelShape> builder = ImmutableList.builderWithExpectedSize(voxelShapes.size() + 1);
+        if (!voxelShapes.isEmpty()) builder.addAll(voxelShapes);
 
-        WorldBorder worldborder = p_198898_.getWorldBorder();
-        boolean flag = p_198895_ != null && worldborder.canCollide(p_198895_, p_198897_.stretch(p_198896_));
-        if (flag)
-            builder.add(worldborder.asVoxelShape());
+        WorldBorder worldborder = world.getWorldBorder();
+        boolean flag = entity != null && worldborder.canCollide(entity, box.stretch(vec3d));
+        if (flag) builder.add(worldborder.asVoxelShape());
 
-        builder.addAll(new CustomCollisionsBlockCollisions(p_198898_, p_198895_, p_198897_.stretch(p_198896_)));
-        return collideWithShapes2(p_198896_, p_198897_, builder.build());
+        builder.addAll(new CustomCollisionsBlockCollisions(world, entity, box.stretch(vec3d)));
+        return collideWithShapes2(vec3d, box, builder.build());
     }
 
-    private static Vec3d collideWithShapes2(Vec3d p_198901_, Box p_198902_, List<VoxelShape> p_198903_) {
-        if (p_198903_.isEmpty())
-            return p_198901_;
+    private static Vec3d collideWithShapes2(Vec3d vec3d, Box box, List<VoxelShape> voxelShapes) {
+        if (voxelShapes.isEmpty())
+            return vec3d;
         else {
-            double d0 = p_198901_.x;
-            double d1 = p_198901_.y;
-            double d2 = p_198901_.z;
+            double d0 = vec3d.x;
+            double d1 = vec3d.y;
+            double d2 = vec3d.z;
             if (d1 != 0.0D) {
-                d1 = VoxelShapes.calculateMaxOffset(Direction.Axis.Y, p_198902_, p_198903_, d1);
+                d1 = VoxelShapes.calculateMaxOffset(Direction.Axis.Y, box, voxelShapes, d1);
                 if (d1 != 0.0D)
-                    p_198902_ = p_198902_.offset(0.0D, d1, 0.0D);
+                    box = box.offset(0.0D, d1, 0.0D);
             }
 
             boolean flag = Math.abs(d0) < Math.abs(d2);
             if (flag && d2 != 0.0D) {
-                d2 = VoxelShapes.calculateMaxOffset(Direction.Axis.Z, p_198902_, p_198903_, d2);
+                d2 = VoxelShapes.calculateMaxOffset(Direction.Axis.Z, box, voxelShapes, d2);
                 if (d2 != 0.0D)
-                    p_198902_ = p_198902_.offset(0.0D, 0.0D, d2);
+                    box = box.offset(0.0D, 0.0D, d2);
             }
 
             if (d0 != 0.0D) {
-                d0 = VoxelShapes.calculateMaxOffset(Direction.Axis.X, p_198902_, p_198903_, d0);
+                d0 = VoxelShapes.calculateMaxOffset(Direction.Axis.X, box, voxelShapes, d0);
                 if (!flag && d0 != 0.0D)
-                    p_198902_ = p_198902_.offset(d0, 0.0D, 0.0D);
+                    box = box.offset(d0, 0.0D, 0.0D);
             }
 
             if (!flag && d2 != 0.0D)
-                d2 = VoxelShapes.calculateMaxOffset(Direction.Axis.Z, p_198902_, p_198903_, d2);
+                d2 = VoxelShapes.calculateMaxOffset(Direction.Axis.Z, box, voxelShapes, d2);
 
             return new Vec3d(d0, d1, d2);
         }

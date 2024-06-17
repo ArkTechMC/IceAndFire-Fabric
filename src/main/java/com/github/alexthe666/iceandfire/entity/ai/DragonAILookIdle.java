@@ -19,9 +19,8 @@ public class DragonAILookIdle extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.dragon.canMove() || this.dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY || this.dragon.isFuelingForge()) {
+        if (!this.dragon.canMove() || this.dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY || this.dragon.isFuelingForge())
             return false;
-        }
         return this.dragon.getRandom().nextFloat() < 0.02F;
     }
 
@@ -40,9 +39,7 @@ public class DragonAILookIdle extends Goal {
 
     @Override
     public void tick() {
-        if (this.idleTime > 0) {
-            --this.idleTime;
-        }
+        if (this.idleTime > 0) --this.idleTime;
         this.dragon.getLookControl().lookAt(this.dragon.getX() + this.lookX, this.dragon.getY() + this.dragon.getStandingEyeHeight(), this.dragon.getZ() + this.lookZ, this.dragon.getMaxHeadRotation(), this.dragon.getMaxLookPitchChange());
     }
 }

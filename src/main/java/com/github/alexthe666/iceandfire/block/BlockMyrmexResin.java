@@ -12,7 +12,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class BlockMyrmexResin extends Block {
-
     private final boolean sticky;
 
     public BlockMyrmexResin(boolean sticky) {

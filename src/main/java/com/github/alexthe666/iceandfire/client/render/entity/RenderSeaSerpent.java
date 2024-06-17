@@ -10,7 +10,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderSeaSerpent extends MobEntityRenderer<EntitySeaSerpent, AdvancedEntityModel<EntitySeaSerpent>> {
-
     public static final Identifier TEXTURE_BLUE = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/seaserpent_blue.png");
     public static final Identifier TEXTURE_BLUE_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/seaserpent_blue_blink.png");
     public static final Identifier TEXTURE_BRONZE = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/seaserpent_bronze.png");
@@ -26,10 +25,9 @@ public class RenderSeaSerpent extends MobEntityRenderer<EntitySeaSerpent, Advanc
     public static final Identifier TEXTURE_TEAL = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/seaserpent_teal.png");
     public static final Identifier TEXTURE_TEAL_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/seaserpent/seaserpent_teal_blink.png");
 
-    public RenderSeaSerpent(EntityRendererFactory.Context context, AdvancedEntityModel<EntitySeaSerpent> model) {
+    public RenderSeaSerpent(EntityRendererFactory.Context context, AdvancedEntityModel model) {
         super(context, model, 1.6F);
         this.features.add(new LayerSeaSerpentAncient(this));
-
     }
 
     @Override

@@ -11,7 +11,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
-
     public static final Identifier TEXTURE_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_0.png");
     public static final Identifier TEXTURE_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_1.png");
     public static final Identifier TEXTURE_2 = new Identifier(IceAndFire.MOD_ID, "textures/models/pixie/pixie_2.png");
@@ -23,7 +22,6 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
         super(context, new ModelPixie(), 0.2F);
         this.features.add(new LayerPixieItem(this));
         this.features.add(new LayerPixieGlow(this));
-
     }
 
     @Override
@@ -46,5 +44,4 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
             case 5 -> TEXTURE_5;
         };
     }
-
 }

@@ -43,11 +43,10 @@ public class AnimationMessage implements S2CMessage {
         if (MinecraftClient.getInstance().world != null) {
             IAnimatedEntity entity = (IAnimatedEntity) MinecraftClient.getInstance().world.getEntityById(this.entityID);
             if (entity != null) {
-                if (this.index == -1) {
+                if (this.index == -1)
                     entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
-                } else {
+                else
                     entity.setAnimation(entity.getAnimations()[this.index]);
-                }
                 entity.setAnimationTick(0);
             }
         }

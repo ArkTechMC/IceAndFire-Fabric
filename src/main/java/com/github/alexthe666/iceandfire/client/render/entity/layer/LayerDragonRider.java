@@ -70,13 +70,10 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                             matrixStackIn.translate((horse ? -0.08F : -0.15F) * passenger.getWidth(), 0.1F * dragonScale - 0.15F * passenger.getWidth(), -0.1F * dragonScale - 0.1F * passenger.getWidth());
                             matrixStackIn.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(90.0F));
                         }
-                    } else {
+                    } else
                         matrixStackIn.translate(0, 0.555F * dragonScale, -0.5F * dragonScale);
-                    }
-
-                } else {
+                } else
                     matrixStackIn.translate(0, -0.01F * dragonScale, -0.035F * dragonScale);
-                }
                 matrixStackIn.push();
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(riderRot + 180));
@@ -104,9 +101,8 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
 
     protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn) {
         if (renderer.rotateAngleX == 0.0F && renderer.rotateAngleY == 0.0F && renderer.rotateAngleZ == 0.0F) {
-            if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.rotationPointZ != 0.0F) {
+            if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.rotationPointZ != 0.0F)
                 matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
-            }
         } else {
             matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
             if (renderer.rotateAngleZ != 0.0F)

@@ -24,7 +24,6 @@ public class RenderTrollWeapon extends BuiltinModelItemRenderer {
         EnumTroll.Weapon weapon = EnumTroll.Weapon.AXE;
         if (stack.getItem() instanceof ItemTrollWeapon)
             weapon = ((ItemTrollWeapon) stack.getItem()).weapon;
-
         stackIn.push();
         stackIn.translate(0.5F, -0.75F, 0.5F);
         MODEL.render(stackIn, bufferIn.getBuffer(RenderLayer.getEntityCutout(weapon.TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);

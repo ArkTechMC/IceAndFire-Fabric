@@ -22,25 +22,16 @@ public class DragonAITargetNonTamed<T extends LivingEntity> extends ActiveTarget
 
     @Override
     public boolean canStart() {
-        if (this.dragon.isTamed()) {
-            return false;
-        }
-
-        if (this.dragon.lookingForRoostAIFlag) {
-            return false;
-        }
+        if (this.dragon.isTamed()) return false;
+        if (this.dragon.lookingForRoostAIFlag) return false;
 
         boolean canUse = super.canStart();
         boolean isSleeping = this.dragon.isSleeping();
-
         if (canUse) {
-            if (isSleeping && this.targetEntity instanceof PlayerEntity) {
+            if (isSleeping && this.targetEntity instanceof PlayerEntity)
                 return this.dragon.squaredDistanceTo(this.targetEntity) <= 16;
-            }
-
             return !isSleeping;
         }
-
         return false;
     }
 

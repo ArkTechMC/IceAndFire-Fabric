@@ -26,25 +26,19 @@ public class StymphalianBirdAIFlee extends Goal {
         this.setControls(EnumSet.of(Control.MOVE));
     }
 
-
     @Override
     public boolean canStart() {
-        if (this.stymphalianBird.getVictor() == null) {
-            return false;
-        }
-        List<LivingEntity> list = this.stymphalianBird.getWorld().getEntitiesByClass(LivingEntity.class, this.stymphalianBird.getBoundingBox().expand(this.avoidDistance, 3.0D, this.avoidDistance),
-                this.canBeSeenSelector);
+        if (this.stymphalianBird.getVictor() == null) return false;
+        List<LivingEntity> list = this.stymphalianBird.getWorld().getEntitiesByClass(LivingEntity.class, this.stymphalianBird.getBoundingBox().expand(this.avoidDistance, 3.0D, this.avoidDistance), this.canBeSeenSelector);
 
-        if (list.isEmpty())
-            return false;
+        if (list.isEmpty()) return false;
 
         this.closestLivingEntity = list.get(0);
         if (this.closestLivingEntity != null && this.stymphalianBird.getVictor() != null && this.closestLivingEntity.equals(this.stymphalianBird.getVictor())) {
             Vec3d Vector3d = NoPenaltyTargeting.findFrom(this.stymphalianBird, 32, 7, new Vec3d(this.closestLivingEntity.getX(), this.closestLivingEntity.getY(), this.closestLivingEntity.getZ()));
 
-            if (Vector3d == null) {
-                return false;
-            } else {
+            if (Vector3d == null) return false;
+            else {
                 Vector3d = Vector3d.add(0, 3, 0);
                 this.stymphalianBird.getMoveControl().moveTo(Vector3d.x, Vector3d.y, Vector3d.z, 3D);
                 this.stymphalianBird.getLookControl().lookAt(Vector3d.x, Vector3d.y, Vector3d.z, 180.0F, 20.0F);

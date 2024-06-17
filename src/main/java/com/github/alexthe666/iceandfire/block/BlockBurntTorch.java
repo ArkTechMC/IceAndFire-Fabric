@@ -14,14 +14,12 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BlockBurntTorch extends TorchBlock implements IDreadBlock, IWallBlock {
-
     public BlockBurntTorch() {
         super(Settings.create().mapColor(MapColor.OAK_TAN).burnable().luminance((state) -> 0).sounds(BlockSoundGroup.WOOD).nonOpaque().dynamicBounds().noCollision(), DustParticleEffect.DEFAULT);
     }
 
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-
     }
 
     @Override

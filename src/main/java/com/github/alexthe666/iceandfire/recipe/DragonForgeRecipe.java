@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.recipe;
 
-import com.github.alexthe666.citadel.client.model.container.JsonUtils;
+import com.github.alexthe666.citadel.client.model.tabula.JsonUtils;
 import com.github.alexthe666.iceandfire.entity.block.BlockEntityDragonForge;
 import com.github.alexthe666.iceandfire.registry.IafBlocks;
 import com.github.alexthe666.iceandfire.registry.IafRecipeSerializers;

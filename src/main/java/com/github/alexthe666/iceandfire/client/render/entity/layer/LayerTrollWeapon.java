@@ -11,13 +11,8 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class LayerTrollWeapon extends FeatureRenderer<EntityTroll, ModelTroll> {
-
     public LayerTrollWeapon(RenderTroll renderer) {
         super(renderer);
-    }
-
-    public void render(EntityTroll entity, float f, float f1, float i, float f2, float f3, float f4, float f5) {
-
     }
 
     @Override

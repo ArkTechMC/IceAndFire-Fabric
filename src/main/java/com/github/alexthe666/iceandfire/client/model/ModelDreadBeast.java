@@ -204,35 +204,35 @@ public class ModelDreadBeast extends ModelDragonBase<EntityDreadBeast> {
     }
 
     @Override
-    public void setAngles(EntityDreadBeast entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate(entity, f, f1, f2, f3, f4, 0);
+    public void setAngles(EntityDreadBeast entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 0);
         float speed_walk = 0.45F;
         float speed_idle = 0.05F;
         float degree_walk = 1F;
         float degree_idle = 0.5F;
         AdvancedModelBox[] NECK = new AdvancedModelBox[]{this.Neck1, this.HeadBase};
         AdvancedModelBox[] TAIL = new AdvancedModelBox[]{this.Tail, this.Tail2, this.Tail3};
-        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -1, f2, 1);
-        this.walk(this.Jaw, speed_idle, degree_idle * 0.35F, true, 1, -0.1F, f2, 1);
-        this.walk(this.pelt, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, f2, 1);
-        this.walk(this.pelt_1, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, f2, 1);
-        this.walk(this.pelt_2, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, f2, 1);
-        this.walk(this.pelt_3, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, f2, 1);
-        this.walk(this.pelt_4, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, f2, 1);
-        this.chainSwing(TAIL, speed_idle, degree_idle * 0.75F, -2, f2, 1);
-        this.chainWave(TAIL, speed_idle, degree_idle * 0.15F, 0, f2, 1);
-        this.chainWave(NECK, speed_walk, degree_walk * 0.15F, -1, f, f1);
-        this.chainWave(TAIL, speed_walk, degree_walk * 0.15F, 2, f, f1);
-        this.bob(this.Body, speed_walk, degree_walk * 1.15F, false, f, f1);
-        this.walk(this.BackLegR1, speed_walk, degree_walk * -0.75F, true, 0, 0F, f, f1);
-        this.walk(this.BackLegL1, speed_walk, degree_walk * -0.75F, true, 0, 0F, f, f1);
-        this.walk(this.BackLegR2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, f, f1);
-        this.walk(this.BackLegL2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, f, f1);
-        this.walk(this.LegR1, speed_walk, degree_walk * -0.75F, false, 0, 0F, f, f1);
-        this.walk(this.LegL1, speed_walk, degree_walk * -0.75F, false, 0, 0F, f, f1);
-        this.walk(this.LegR2, speed_walk, degree_walk * -0.5F, false, -1, 0.3F, f, f1);
-        this.walk(this.LegL2, speed_walk, degree_walk * -0.5F, false, -1, 0.3F, f, f1);
-        float f12 = -0.9560913642424937F + f1;
+        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, -1, animationProgress, 1);
+        this.walk(this.Jaw, speed_idle, degree_idle * 0.35F, true, 1, -0.1F, animationProgress, 1);
+        this.walk(this.pelt, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, animationProgress, 1);
+        this.walk(this.pelt_1, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, animationProgress, 1);
+        this.walk(this.pelt_2, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, animationProgress, 1);
+        this.walk(this.pelt_3, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, animationProgress, 1);
+        this.walk(this.pelt_4, speed_idle, degree_idle * 0.2F, false, 3, -0.1F, animationProgress, 1);
+        this.chainSwing(TAIL, speed_idle, degree_idle * 0.75F, -2, animationProgress, 1);
+        this.chainWave(TAIL, speed_idle, degree_idle * 0.15F, 0, animationProgress, 1);
+        this.chainWave(NECK, speed_walk, degree_walk * 0.15F, -1, limbAngle, limbDistance);
+        this.chainWave(TAIL, speed_walk, degree_walk * 0.15F, 2, limbAngle, limbDistance);
+        this.bob(this.Body, speed_walk, degree_walk * 1.15F, false, limbAngle, limbDistance);
+        this.walk(this.BackLegR1, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.BackLegL1, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.BackLegR2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, limbAngle, limbDistance);
+        this.walk(this.BackLegL2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, limbAngle, limbDistance);
+        this.walk(this.LegR1, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.LegL1, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.LegR2, speed_walk, degree_walk * -0.5F, false, -1, 0.3F, limbAngle, limbDistance);
+        this.walk(this.LegL2, speed_walk, degree_walk * -0.5F, false, -1, 0.3F, limbAngle, limbDistance);
+        float f12 = -0.9560913642424937F + limbDistance;
         if (f12 > Math.toRadians(-20))
             f12 = (float) Math.toRadians(-20);
         this.Tail.rotateAngleX = f12;

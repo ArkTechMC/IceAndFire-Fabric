@@ -35,21 +35,19 @@ public enum AnimationHandler {
     public <T extends Entity & IAnimatedEntity> void updateAnimations(T entity) {
         if (entity.getAnimation() == null)
             entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
-        else {
-            if (entity.getAnimation() != IAnimatedEntity.NO_ANIMATION) {
-                if (entity.getAnimationTick() == 0) {
-                    AnimationEvent<?> event = new AnimationEvent.Start<>(entity, entity.getAnimation());
-                    if (!EventBus.post(event))
-                        this.sendAnimationMessage(entity, event.getAnimation());
-                }
-                if (entity.getAnimationTick() < entity.getAnimation().getDuration()) {
-                    entity.setAnimationTick(entity.getAnimationTick() + 1);
-                    EventBus.post(new AnimationEvent.Tick<>(entity, entity.getAnimation(), entity.getAnimationTick()));
-                }
-                if (entity.getAnimationTick() == entity.getAnimation().getDuration()) {
-                    entity.setAnimationTick(0);
-                    entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
-                }
+        else if (entity.getAnimation() != IAnimatedEntity.NO_ANIMATION) {
+            if (entity.getAnimationTick() == 0) {
+                AnimationEvent<?> event = new AnimationEvent.Start<>(entity, entity.getAnimation());
+                if (!EventBus.post(event))
+                    this.sendAnimationMessage(entity, event.getAnimation());
+            }
+            if (entity.getAnimationTick() < entity.getAnimation().getDuration()) {
+                entity.setAnimationTick(entity.getAnimationTick() + 1);
+                EventBus.post(new AnimationEvent.Tick<>(entity, entity.getAnimation(), entity.getAnimationTick()));
+            }
+            if (entity.getAnimationTick() == entity.getAnimation().getDuration()) {
+                entity.setAnimationTick(0);
+                entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
             }
         }
     }

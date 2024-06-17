@@ -46,13 +46,12 @@ public class LayerDragonArmor extends FeatureRenderer<EntityDragonBase, Advanced
                 resourcelocation = new Identifier("iceandfire" + "dragon_armor_" + armorTexture);
                 List<String> tex = new ArrayList<>();
                 for (EquipmentSlot slot : ARMOR_SLOTS) {
-                    if (dragon.dragonType == DragonType.FIRE) {
+                    if (dragon.dragonType == DragonType.FIRE)
                         tex.add(EnumDragonTextures.Armor.getArmorForDragon(dragon, slot).FIRETEXTURE.toString());
-                    } else if (dragon.dragonType == DragonType.ICE) {
+                    else if (dragon.dragonType == DragonType.ICE)
                         tex.add(EnumDragonTextures.Armor.getArmorForDragon(dragon, slot).ICETEXTURE.toString());
-                    } else {
+                    else
                         tex.add(EnumDragonTextures.Armor.getArmorForDragon(dragon, slot).LIGHTNINGTEXTURE.toString());
-                    }
                 }
                 ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
                 MinecraftClient.getInstance().getTextureManager().registerTexture(resourcelocation, layeredBase);

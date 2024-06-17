@@ -28,7 +28,6 @@ public class BlockEntityDreadSpawner extends MobSpawnerBlockEntity {
                 BlockState blockstate = world.getBlockState(pos);
                 world.updateListeners(pos, blockstate, blockstate, 4);
             }
-
         }
     };
 
@@ -38,15 +37,15 @@ public class BlockEntityDreadSpawner extends MobSpawnerBlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound p_155760_) {
-        super.readNbt(p_155760_);
-        this.spawner.readNbt(this.world, this.pos, p_155760_);
+    public void readNbt(NbtCompound compound) {
+        super.readNbt(compound);
+        this.spawner.readNbt(this.world, this.pos, compound);
     }
 
-    public NbtCompound save(NbtCompound p_59795_) {
-        super.writeNbt(p_59795_);
-        this.spawner.writeNbt(p_59795_);
-        return p_59795_;
+    public NbtCompound save(NbtCompound compound) {
+        super.writeNbt(compound);
+        this.spawner.writeNbt(compound);
+        return compound;
     }
 
     @Override
@@ -80,5 +79,4 @@ public class BlockEntityDreadSpawner extends MobSpawnerBlockEntity {
     public BlockEntityType<?> getType() {
         return this.type != null ? this.type : super.getType();
     }
-
 }

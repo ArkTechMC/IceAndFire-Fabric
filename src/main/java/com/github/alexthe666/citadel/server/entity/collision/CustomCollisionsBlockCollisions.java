@@ -66,12 +66,10 @@ public class CustomCollisionsBlockCollisions extends AbstractIterator<VoxelShape
                 int j = this.cursor.getY();
                 int k = this.cursor.getZ();
                 int l = this.cursor.getEdgeCoordinatesCount();
-                if (l == 3)
-                    continue;
+                if (l == 3) continue;
 
                 BlockView blockgetter = this.getChunk(i, k);
-                if (blockgetter == null)
-                    continue;
+                if (blockgetter == null) continue;
 
                 this.pos.set(i, j, k);
                 BlockState blockstate = blockgetter.getBlockState(this.pos);

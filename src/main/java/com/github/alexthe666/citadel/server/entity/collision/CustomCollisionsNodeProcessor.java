@@ -10,31 +10,26 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
 
 public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
-
     public CustomCollisionsNodeProcessor() {
     }
 
-    public static PathNodeType getLandNodeType(BlockView p_237231_0_, BlockPos.Mutable p_237231_1_) {
-        int i = p_237231_1_.getX();
-        int j = p_237231_1_.getY();
-        int k = p_237231_1_.getZ();
-        PathNodeType pathnodetype = getNodes(p_237231_0_, p_237231_1_);
+    public static PathNodeType getLandNodeType(BlockView view, BlockPos.Mutable mutable) {
+        int i = mutable.getX();
+        int j = mutable.getY();
+        int k = mutable.getZ();
+        PathNodeType pathnodetype = getNodes(view, mutable);
         if (pathnodetype == PathNodeType.OPEN && j >= 1) {
-            PathNodeType nodes = getNodes(p_237231_0_, p_237231_1_.set(i, j - 1, k));
+            PathNodeType nodes = getNodes(view, mutable.set(i, j - 1, k));
             pathnodetype = nodes != PathNodeType.WALKABLE && nodes != PathNodeType.OPEN && nodes != PathNodeType.WATER && nodes != PathNodeType.LAVA ? PathNodeType.WALKABLE : PathNodeType.OPEN;
             if (nodes == PathNodeType.DAMAGE_FIRE)
                 pathnodetype = PathNodeType.DAMAGE_FIRE;
-
             if (nodes == PathNodeType.DAMAGE_OTHER)
                 pathnodetype = PathNodeType.DAMAGE_OTHER;
-
             if (nodes == PathNodeType.STICKY_HONEY)
                 pathnodetype = PathNodeType.STICKY_HONEY;
         }
-
         if (pathnodetype == PathNodeType.WALKABLE)
-            pathnodetype = getNodeTypeFromNeighbors(p_237231_0_, p_237231_1_.set(i, j, k), pathnodetype);
-
+            pathnodetype = getNodeTypeFromNeighbors(view, mutable.set(i, j, k), pathnodetype);
         return pathnodetype;
     }
 
@@ -46,7 +41,6 @@ public class CustomCollisionsNodeProcessor extends LandPathNodeMaker {
         if (blockstate.isAir()) return PathNodeType.OPEN;
         else if (blockstate.getBlock() == Blocks.BAMBOO) return PathNodeType.OPEN;
         else return getCommonNodeType(p_237238_0_, p_237238_1_);
-
     }
 
     @Override

@@ -27,7 +27,6 @@ public class BlockGoldPile extends Block {
 
     public BlockGoldPile() {
         super(Settings.create().mapColor(MapColor.DIRT_BROWN).strength(0.3F, 1).ticksRandomly().sounds(IafBlocks.SOUND_TYPE_GOLD));
-
         this.setDefaultState(this.stateManager.getDefaultState().with(LAYERS, 1));
     }
 

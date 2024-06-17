@@ -18,7 +18,6 @@ public class DragonAIAttackMelee extends Goal {
     private double targetX;
     private double targetY;
     private double targetZ;
-    private int failedPathFindingPenalty = 0;
 
     public DragonAIAttackMelee(EntityDragonBase dragon, double speedIn, boolean useLongMemory) {
         this.dragon = dragon;
@@ -30,16 +29,12 @@ public class DragonAIAttackMelee extends Goal {
     @Override
     public boolean canStart() {
         LivingEntity livingEntity = this.dragon.getTarget();
-        if (!(this.dragon.getNavigation() instanceof AdvancedPathNavigate)) {
-            return false;
-        }
-        if (livingEntity == null) {
-            return false;
-        } else if (!livingEntity.isAlive()) {
-            return false;
-        } else if (!this.dragon.canMove() || this.dragon.isHovering() || this.dragon.isFlying()) {
-            return false;
-        } else {
+        if (!(this.dragon.getNavigation() instanceof AdvancedPathNavigate)) return false;
+
+        if (livingEntity == null) return false;
+        else if (!livingEntity.isAlive()) return false;
+        else if (!this.dragon.canMove() || this.dragon.isHovering() || this.dragon.isFlying()) return false;
+        else {
             ((AdvancedPathNavigate) this.dragon.getNavigation()).moveToLivingEntity(livingEntity, this.speedTowardsTarget);
             return true;
         }
@@ -47,15 +42,12 @@ public class DragonAIAttackMelee extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        if (!(this.dragon.getNavigation() instanceof AdvancedPathNavigate)) {
-            return false;
-        }
+        if (!(this.dragon.getNavigation() instanceof AdvancedPathNavigate)) return false;
         LivingEntity livingEntity = this.dragon.getTarget();
         if (livingEntity != null && !livingEntity.isAlive()) {
             this.stop();
             return false;
         }
-
         return livingEntity != null && livingEntity.isAlive() && !this.dragon.isFlying() && !this.dragon.isHovering();
     }
 
@@ -67,18 +59,15 @@ public class DragonAIAttackMelee extends Goal {
     @Override
     public void stop() {
         LivingEntity LivingEntity = this.dragon.getTarget();
-        if (LivingEntity instanceof PlayerEntity && (LivingEntity.isSpectator() || ((PlayerEntity) LivingEntity).isCreative())) {
+        if (LivingEntity instanceof PlayerEntity && (LivingEntity.isSpectator() || ((PlayerEntity) LivingEntity).isCreative()))
             this.dragon.setTarget(null);
-        }
         this.dragon.getNavigation().stop();
     }
 
     @Override
     public void tick() {
         LivingEntity entity = this.dragon.getTarget();
-        if (this.delayCounter > 0) {
-            this.delayCounter--;
-        }
+        if (this.delayCounter > 0) this.delayCounter--;
         if (entity != null) {
             if (this.dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
                 this.stop();
@@ -96,16 +85,9 @@ public class DragonAIAttackMelee extends Goal {
                 this.targetZ = entity.getZ();
                 this.delayCounter = 4 + this.dragon.getRandom().nextInt(7);
 
-                boolean canPenalize = false;
-
-                if (d0 > 1024.0D) {
-                    this.delayCounter += 10;
-                } else if (d0 > 256.0D) {
-                    this.delayCounter += 5;
-                }
-                if (this.dragon.canMove()) {
-                    this.delayCounter += 15;
-                }
+                if (d0 > 1024.0D) this.delayCounter += 10;
+                else if (d0 > 256.0D) this.delayCounter += 5;
+                if (this.dragon.canMove()) this.delayCounter += 15;
             }
 
             this.attackTick = Math.max(this.attackTick - 1, 0);

@@ -10,7 +10,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.function.Predicate;
 
 public class CockatriceAIAggroLook extends ActiveTargetGoal<PlayerEntity> {
-
     private final EntityCockatrice cockatrice;
     private final TargetPredicate predicate;
     private PlayerEntity player;
@@ -28,10 +27,8 @@ public class CockatriceAIAggroLook extends ActiveTargetGoal<PlayerEntity> {
      */
     @Override
     public boolean canStart() {
-        if (this.cockatrice.isTamed())
-            return false;
-        this.player = this.cockatrice.getWorld().getClosestPlayer(this.predicate, this.cockatrice.getX(),
-                this.cockatrice.getY(), this.cockatrice.getZ());
+        if (this.cockatrice.isTamed()) return false;
+        this.player = this.cockatrice.getWorld().getClosestPlayer(this.predicate, this.cockatrice.getX(), this.cockatrice.getY(), this.cockatrice.getZ());
         return this.player != null;
     }
 
@@ -51,9 +48,9 @@ public class CockatriceAIAggroLook extends ActiveTargetGoal<PlayerEntity> {
     @Override
     public boolean shouldContinue() {
         if (this.player != null && !this.player.isCreative() && !this.player.isSpectator()) {
-            if (!EntityGorgon.isEntityLookingAt(this.player, this.cockatrice, 0.4F)) {
+            if (!EntityGorgon.isEntityLookingAt(this.player, this.cockatrice, 0.4F))
                 return false;
-            } else {
+            else {
                 this.cockatrice.lookAtEntity(this.player, 10.0F, 10.0F);
                 if (!this.cockatrice.isTamed()) {
                     this.cockatrice.setTargetedEntity(this.player.getId());
@@ -61,8 +58,6 @@ public class CockatriceAIAggroLook extends ActiveTargetGoal<PlayerEntity> {
                 }
                 return true;
             }
-        } else {
-            return this.target != null && this.target.isAlive() || super.shouldContinue();
-        }
+        } else return this.target != null && this.target.isAlive() || super.shouldContinue();
     }
 }

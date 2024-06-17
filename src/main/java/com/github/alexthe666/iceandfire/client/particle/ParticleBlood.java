@@ -85,5 +85,4 @@ public class ParticleBlood extends SpriteBillboardParticle {
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
-
 }

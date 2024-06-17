@@ -29,46 +29,31 @@ public class RenderAmphithere extends MobEntityRenderer<EntityAmphithere, ModelA
     @Override
     protected void scale(EntityAmphithere entity, MatrixStack matrixStackIn, float partialTickTime) {
         matrixStackIn.scale(2.0F, 2.0F, 2.0F);
-
     }
 
     @Override
     public Identifier getTexture(EntityAmphithere amphithere) {
         switch (amphithere.getVariant()) {
             case 0 -> {
-                if (amphithere.isBlinking()) {
-                    return TEXTURE_BLUE_BLINK;
-                } else {
-                    return TEXTURE_BLUE;
-                }
+                if (amphithere.isBlinking()) return TEXTURE_BLUE_BLINK;
+                else return TEXTURE_BLUE;
             }
             case 1 -> {
-                if (amphithere.isBlinking()) {
-                    return TEXTURE_GREEN_BLINK;
-                } else {
-                    return TEXTURE_GREEN;
-                }
+                if (amphithere.isBlinking()) return TEXTURE_GREEN_BLINK;
+                else return TEXTURE_GREEN;
             }
             case 2 -> {
-                if (amphithere.isBlinking()) {
-                    return TEXTURE_OLIVE_BLINK;
-                } else {
-                    return TEXTURE_OLIVE;
-                }
+                if (amphithere.isBlinking()) return TEXTURE_OLIVE_BLINK;
+                else return TEXTURE_OLIVE;
             }
             case 3 -> {
-                if (amphithere.isBlinking()) {
-                    return TEXTURE_RED_BLINK;
-                } else {
-                    return TEXTURE_RED;
-                }
+                if (amphithere.isBlinking()) return TEXTURE_RED_BLINK;
+                else return TEXTURE_RED;
+
             }
             case 4 -> {
-                if (amphithere.isBlinking()) {
-                    return TEXTURE_YELLOW_BLINK;
-                } else {
-                    return TEXTURE_YELLOW;
-                }
+                if (amphithere.isBlinking()) return TEXTURE_YELLOW_BLINK;
+                else return TEXTURE_YELLOW;
             }
         }
         return TEXTURE_GREEN;

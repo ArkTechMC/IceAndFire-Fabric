@@ -39,9 +39,8 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
 
     @Override
     public boolean canStart() {
-        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0) {
+        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0)
             return false;
-        }
         if (!((EntityHippogryph) this.mob).canMove()) {
             this.list = IafMath.emptyItemEntityList;
             return false;
@@ -52,9 +51,8 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
 
     private boolean updateList() {
         this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
-        if (this.list.isEmpty()) {
-            return false;
-        } else {
+        if (this.list.isEmpty()) return false;
+        else {
             this.list.sort(this.theNearestAttackableTargetSorter);
             this.targetEntity = this.list.get(0);
             return true;
@@ -74,9 +72,9 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity == null || !this.targetEntity.isAlive()) {
+        if (this.targetEntity == null || !this.targetEntity.isAlive())
             this.stop();
-        } else if (this.getAttackReachSqr(this.targetEntity) >= this.mob.squaredDistanceTo(this.targetEntity)) {
+        else if (this.getAttackReachSqr(this.targetEntity) >= this.mob.squaredDistanceTo(this.targetEntity)) {
             EntityHippogryph hippo = (EntityHippogryph) this.mob;
             this.targetEntity.getStack().decrement(1);
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
@@ -90,9 +88,7 @@ public class HippogryphAITargetItems<T extends ItemEntity> extends TrackTargetGo
                 hippo.setSitting(true);
             }
             this.stop();
-        } else {
-            this.updateList();
-        }
+        } else this.updateList();
     }
 
     @Override

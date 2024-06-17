@@ -24,7 +24,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class BlockEntityPodium extends LockableContainerBlockEntity implements SidedInventory {
-
     private static final int[] slotsTop = new int[]{0};
     public int ticksExisted;
     public int prevTicksExisted;
@@ -54,22 +53,16 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
     public ItemStack removeStack(int index, int count) {
         if (!this.stacks.get(index).isEmpty()) {
             ItemStack itemstack;
-
             if (this.stacks.get(index).getCount() <= count) {
                 itemstack = this.stacks.get(index);
                 this.stacks.set(index, ItemStack.EMPTY);
             } else {
                 itemstack = this.stacks.get(index).split(count);
-
-                if (this.stacks.get(index).isEmpty()) {
+                if (this.stacks.get(index).isEmpty())
                     this.stacks.set(index, ItemStack.EMPTY);
-                }
-
             }
             return itemstack;
-        } else {
-            return ItemStack.EMPTY;
-        }
+        } else return ItemStack.EMPTY;
     }
 
     public ItemStack getStackInSlotOnClosing(int index) {
@@ -77,23 +70,18 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
             ItemStack itemstack = this.stacks.get(index);
             this.stacks.set(index, itemstack);
             return itemstack;
-        } else {
-            return ItemStack.EMPTY;
-        }
+        } else return ItemStack.EMPTY;
     }
 
     @Override
     public void setStack(int index, ItemStack stack) {
         this.stacks.set(index, stack);
-
-        if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack()) {
+        if (!stack.isEmpty() && stack.getCount() > this.getMaxCountPerStack())
             stack.setCount(this.getMaxCountPerStack());
-        }
         this.writeNbt(this.toInitialChunkDataNbt());
         assert this.world != null;
-        if (!this.world.isClient) {
+        if (!this.world.isClient)
             IafServerNetworkHandler.sendToAll(new MessageUpdatePodium(this.getPos().asLong(), this.stacks.get(0)));
-        }
     }
 
     @Override
@@ -188,10 +176,9 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
 
     @Override
     public boolean isEmpty() {
-        for (int i = 0; i < this.size(); i++) {
+        for (int i = 0; i < this.size(); i++)
             if (!this.getStack(i).isEmpty())
                 return false;
-        }
         return true;
     }
 

@@ -17,23 +17,17 @@ public class DragonType {
     }
 
     public static String getNameFromInt(int type) {
-        if (type == 2) {
-            return "lightning";
-        } else if (type == 1) {
-            return "ice";
-        } else {
-            return "fire";
-        }
+        return switch (type) {
+            case 2 -> "lightning";
+            case 1 -> "ice";
+            default -> "fire";
+        };
     }
 
     public int getIntFromType() {
-        if (this == LIGHTNING) {
-            return 2;
-        } else if (this == ICE) {
-            return 1;
-        } else {
-            return 0;
-        }
+        if (this == LIGHTNING) return 2;
+        else if (this == ICE) return 1;
+        else return 0;
     }
 
     public EntityType<? extends EntityDragonBase> getEntity() {

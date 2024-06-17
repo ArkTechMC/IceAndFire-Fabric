@@ -21,16 +21,13 @@ public class DeathWormAIAttack extends Goal {
 
     @Override
     public boolean canStart() {
-        if (this.jumpCooldown > 0) {
+        if (this.jumpCooldown > 0)
             this.jumpCooldown--;
-        }
-        return !(this.worm.getTarget() == null || this.worm.hasPassengers()
-                || !this.worm.isOnGround() && !this.worm.isInSandStrict() || this.jumpCooldown > 0);
+        return !(this.worm.getTarget() == null || this.worm.hasPassengers() || !this.worm.isOnGround() && !this.worm.isInSandStrict() || this.jumpCooldown > 0);
     }
 
     @Override
     public boolean shouldContinue() {
-
         return this.worm.getTarget() != null && this.worm.getTarget().isAlive();
     }
 
@@ -45,17 +42,12 @@ public class DeathWormAIAttack extends Goal {
         if (target != null) {
             if (this.worm.isInSand()) {
                 BlockPos topSand = this.worm.getBlockPos();
-                while (this.worm.getWorld().getBlockState(topSand.up()).isIn(BlockTags.SAND)) {
+                while (this.worm.getWorld().getBlockState(topSand.up()).isIn(BlockTags.SAND))
                     topSand = topSand.up();
-                }
                 this.worm.setPosition(this.worm.getX(), topSand.getY() + 0.5F, this.worm.getZ());
             }
-            if (this.shouldJump()) {
-                this.jumpAttack();
-            } else {
-                this.worm.getNavigation().startMovingTo(target, 1.0F);
-            }
-
+            if (this.shouldJump()) this.jumpAttack();
+            else this.worm.getNavigation().startMovingTo(target, 1.0F);
         }
     }
 
@@ -65,20 +57,18 @@ public class DeathWormAIAttack extends Goal {
             final double distanceXZ = this.worm.squaredDistanceTo(target.getX(), this.worm.getY(), target.getZ());
             final float distanceXZSqrt = (float) Math.sqrt(distanceXZ);
             double d0 = this.worm.getVelocity().y;
-            if (distanceXZSqrt < 12 && distanceXZSqrt > 2) {
+            if (distanceXZSqrt < 12 && distanceXZSqrt > 2)
                 return this.jumpCooldown <= 0
                         && (d0 * d0 >= 0.03F || this.worm.getPitch() == 0.0F || Math.abs(this.worm.getPitch()) >= 10.0F
                         || !this.worm.isTouchingWater())
                         && !this.worm.isOnGround();
-            }
         }
         return false;
     }
 
     public void jumpAttack() {
         LivingEntity target = this.worm.getTarget();
-        if (target == null)
-            return;
+        if (target == null) return;
         this.worm.lookAtEntity(target, 260, 30);
         final double smoothX = MathHelper.clamp(Math.abs(target.getX() - this.worm.getX()), 0, 1);
         //MathHelper.clamp(Math.abs(target.getPosY() - worm.getPosY()), 0, 1);
@@ -100,28 +90,22 @@ public class DeathWormAIAttack extends Goal {
 
     @Override
     public void tick() {
-        if (this.jumpCooldown > 0) {
-            this.jumpCooldown--;
-        }
+        if (this.jumpCooldown > 0) this.jumpCooldown--;
         LivingEntity target = this.worm.getTarget();
-        if (target != null && this.worm.canSee(target)) {
-            if (this.worm.distanceTo(target) < 3F) {
+        if (target != null && this.worm.canSee(target))
+            if (this.worm.distanceTo(target) < 3F)
                 this.worm.tryAttack(target);
-            }
-        }
 
         Vec3d vector3d = this.worm.getVelocity();
-        if (vector3d.y * vector3d.y < 0.1F && this.worm.getPitch() != 0.0F) {
+        if (vector3d.y * vector3d.y < 0.1F && this.worm.getPitch() != 0.0F)
             this.worm.setPitch(MathHelper.lerpAngleDegrees(this.worm.getPitch(), 0.0F, 0.2F));
-        } else {
+        else {
             final double d0 = vector3d.horizontalLength();
             final double d1 = Math.signum(-vector3d.y) * Math.acos(d0 / vector3d.length()) * (180F / (float) Math.PI);
             this.worm.setPitch((float) d1);
         }
-        if (this.shouldJump())
-            this.jumpAttack();
-        else if (this.worm.getNavigation().isIdle()) {
+        if (this.shouldJump()) this.jumpAttack();
+        else if (this.worm.getNavigation().isIdle())
             this.worm.getNavigation().startMovingTo(target, 1.0F);
-        }
     }
 }

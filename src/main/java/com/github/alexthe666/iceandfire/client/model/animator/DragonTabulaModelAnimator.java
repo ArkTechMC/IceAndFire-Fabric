@@ -10,7 +10,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.MathHelper;
 
 public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> extends IceAndFireTabulaModelAnimator implements ITabulaModelAnimator<T> {
-
     protected TabulaModel[] walkPoses;
     protected TabulaModel[] flyPoses;
     protected TabulaModel[] swimPoses;
@@ -39,34 +38,25 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
     @Override
     public void setRotationAngles(TabulaModel model, T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
-        if (this.neckParts == null) {
+        if (this.neckParts == null)
             this.init(model);
-        }
         this.animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
 
         boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress <= 0 && entity.flyProgress <= 0;
         boolean swimming = entity.isTouchingWater() && entity.swimProgress > 0;
 
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
-        if (swimming) {
-            currentIndex = entity.swimCycle / 10;
-        }
+        if (swimming) currentIndex = entity.swimCycle / 10;
         int prevIndex = currentIndex - 1;
-        if (prevIndex < 0) {
-            prevIndex = swimming ? 4 : walking ? 3 : 5;
-        }
+        if (prevIndex < 0) prevIndex = swimming ? 4 : walking ? 3 : 5;
 
         TabulaModel currentPosition = swimming ? this.swimPoses[currentIndex] : walking ? this.walkPoses[currentIndex] : this.flyPoses[currentIndex];
         TabulaModel prevPosition = swimming ? this.swimPoses[prevIndex] : walking ? this.walkPoses[prevIndex] : this.flyPoses[prevIndex];
         float delta = ((walking ? entity.walkCycle : entity.flightCycle) / 10.0F) % 1.0F;
-        if (swimming) {
-            delta = ((entity.swimCycle) / 10.0F) % 1.0F;
-        }
+        if (swimming) delta = (entity.swimCycle / 10.0F) % 1.0F;
         float partialTick = MinecraftClient.getInstance().getTickDelta();
         float deltaTicks = delta + (partialTick / 10.0F);
-        if (delta == 0) {
-            deltaTicks = 0;
-        }
+        if (delta == 0) deltaTicks = 0;
 
         float speed_walk = 0.2F;
         float speed_idle = entity.isSleeping() ? 0.025F : 0.05F;
@@ -123,7 +113,6 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
             model.chainSwing(this.neckParts, speed_shake * 0.65F, degree_shake * 0.1F, 1, ageInTicks, 1);
         }
 
-
         if (entity.turn_buffer != null && !entity.hasPassengers() && !entity.hasVehicle() && entity.isBreathingFire())
             entity.turn_buffer.applyChainSwingBuffer(this.neckParts);
         if (entity.tail_buffer != null && !entity.hasVehicle())
@@ -134,7 +123,7 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
                 entity.pitch_buffer_body.applyChainWaveBuffer(model.getCube("BodyUpper"));
                 entity.pitch_buffer.applyChainWaveBufferReverse(this.tailPartsWBody);
             }
-        if (entity.getWidth() >= 2 && entity.flyProgress == 0 && entity.hoverProgress == 0) {
+        if (entity.getWidth() >= 2 && entity.flyProgress == 0 && entity.hoverProgress == 0)
             LegArticulator.articulateQuadruped(entity, entity.legSolver, model.getCube("BodyUpper"), model.getCube("BodyLower"), model.getCube("Neck1"),
                     model.getCube("ThighL"), model.getCube("LegL"), this.toesPartsL,
                     model.getCube("ThighR"), model.getCube("LegR"), this.toesPartsR,
@@ -143,7 +132,6 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
                     1.0F, 0.5F, 0.5F, -0.15F, -0.15F, 0F,
                     MinecraftClient.getInstance().getTickDelta()
             );
-        }
     }
 
 
@@ -243,8 +231,7 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
             TabulaModel femaleModel = this.getModel(EnumDragonPoses.FEMALE);
             AdvancedModelBox femaleModelCube = femaleModel.getCube(cube.boxName);
             AdvancedModelBox maleModelCube = maleModel.getCube(cube.boxName);
-            if (maleModelCube == null || femaleModelCube == null)
-                return;
+            if (maleModelCube == null || femaleModelCube == null) return;
             float x = femaleModelCube.rotateAngleX;
             float y = femaleModelCube.rotateAngleY;
             float z = femaleModelCube.rotateAngleZ;
@@ -258,167 +245,167 @@ public abstract class DragonTabulaModelAnimator<T extends EntityDragonBase> exte
     protected void animate(TabulaModel model, T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         AdvancedModelBox modelCubeJaw = model.getCube("Jaw");
         AdvancedModelBox modelCubeBodyUpper = model.getCube("BodyUpper");
-        model.llibAnimator.update(entity);
+        model.animator.update(entity);
         //Firecharge
-        if (model.llibAnimator.setAnimation(T.ANIMATION_FIRECHARGE)) {
-            model.llibAnimator.startKeyframe(10);
+        if (model.animator.setAnimation(T.ANIMATION_FIRECHARGE)) {
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.BLAST_CHARGE1));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.BLAST_CHARGE2));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.BLAST_CHARGE3));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(5);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(5);
         }
         //Speak
-        if (model.llibAnimator.setAnimation(T.ANIMATION_SPEAK)) {
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, modelCubeJaw, 18, 0, 0);
-            model.llibAnimator.move(modelCubeJaw, 0, 0, 0.2F);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.setStaticKeyframe(5);
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, modelCubeJaw, 18, 0, 0);
-            model.llibAnimator.move(modelCubeJaw, 0, 0, 0.2F);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(5);
+        if (model.animator.setAnimation(T.ANIMATION_SPEAK)) {
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, modelCubeJaw, 18, 0, 0);
+            model.animator.move(modelCubeJaw, 0, 0, 0.2F);
+            model.animator.endKeyframe();
+            model.animator.setStaticKeyframe(5);
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, modelCubeJaw, 18, 0, 0);
+            model.animator.move(modelCubeJaw, 0, 0, 0.2F);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(5);
         }
         //Bite
-        if (model.llibAnimator.setAnimation(T.ANIMATION_BITE)) {
-            model.llibAnimator.startKeyframe(10);
+        if (model.animator.setAnimation(T.ANIMATION_BITE)) {
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.BITE1));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.BITE2));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.BITE3));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
         //Shakeprey
-        if (model.llibAnimator.setAnimation(T.ANIMATION_SHAKEPREY)) {
-            model.llibAnimator.startKeyframe(15);
+        if (model.animator.setAnimation(T.ANIMATION_SHAKEPREY)) {
+            model.animator.startKeyframe(15);
             this.moveToPose(model, this.getModel(EnumDragonPoses.GRAB1));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.GRAB2));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.GRAB_SHAKE1));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.GRAB_SHAKE2));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.GRAB_SHAKE3));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
         //Tailwhack
-        if (model.llibAnimator.setAnimation(T.ANIMATION_TAILWHACK)) {
-            model.llibAnimator.startKeyframe(10);
+        if (model.animator.setAnimation(T.ANIMATION_TAILWHACK)) {
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.TAIL_WHIP1));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.TAIL_WHIP2));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.TAIL_WHIP3));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
         //Wingblast
-        if (model.llibAnimator.setAnimation(T.ANIMATION_WINGBLAST)) {
-            model.llibAnimator.startKeyframe(5);
+        if (model.animator.setAnimation(T.ANIMATION_WINGBLAST)) {
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST1));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.move(modelCubeBodyUpper, 0, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST2));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, -2F, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.move(modelCubeBodyUpper, 0, -2F, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST3));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, -4F, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.move(modelCubeBodyUpper, 0, -4F, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST4));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, -4F, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.move(modelCubeBodyUpper, 0, -4F, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST5));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, -4F, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.move(modelCubeBodyUpper, 0, -4F, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST6));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, -4F, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
+            model.animator.move(modelCubeBodyUpper, 0, -4F, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
             this.moveToPose(model, this.getModel(EnumDragonPoses.WING_BLAST7));
-            model.llibAnimator.move(modelCubeBodyUpper, 0, -2F, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.move(modelCubeBodyUpper, 0, -2F, 0);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
         //Roar
-        if (model.llibAnimator.setAnimation(T.ANIMATION_ROAR)) {
-            model.llibAnimator.startKeyframe(10);
+        if (model.animator.setAnimation(T.ANIMATION_ROAR)) {
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.ROAR1));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.ROAR2));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.ROAR3));
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
         //Epicroar
-        if (model.llibAnimator.setAnimation(T.ANIMATION_EPIC_ROAR)) {
-            model.llibAnimator.startKeyframe(10);
+        if (model.animator.setAnimation(T.ANIMATION_EPIC_ROAR)) {
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.EPIC_ROAR1));
-            model.llibAnimator.rotate(modelCubeBodyUpper, -0.1F, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.rotate(modelCubeBodyUpper, -0.1F, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.EPIC_ROAR2));
-            model.llibAnimator.rotate(modelCubeBodyUpper, -0.2F, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.rotate(modelCubeBodyUpper, -0.2F, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.EPIC_ROAR3));
-            model.llibAnimator.rotate(modelCubeBodyUpper, -0.2F, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.rotate(modelCubeBodyUpper, -0.2F, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.EPIC_ROAR2));
-            model.llibAnimator.rotate(modelCubeBodyUpper, -0.2F, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(10);
+            model.animator.rotate(modelCubeBodyUpper, -0.2F, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(10);
             this.moveToPose(model, this.getModel(EnumDragonPoses.EPIC_ROAR3));
-            model.llibAnimator.rotate(modelCubeBodyUpper, -0.1F, 0, 0);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.resetKeyframe(10);
+            model.animator.rotate(modelCubeBodyUpper, -0.1F, 0, 0);
+            model.animator.endKeyframe();
+            model.animator.resetKeyframe(10);
         }
         // EATING
-        if (model.llibAnimator.setAnimation(T.ANIMATION_EAT)) {
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, model.getCube("Neck1"), 18, 0, 0);
-            this.rotate(model.llibAnimator, model.getCube("Neck2"), 18, 0, 0);
-            model.llibAnimator.endKeyframe();
+        if (model.animator.setAnimation(T.ANIMATION_EAT)) {
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, model.getCube("Neck1"), 18, 0, 0);
+            this.rotate(model.animator, model.getCube("Neck2"), 18, 0, 0);
+            model.animator.endKeyframe();
             //CODE from speak
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, modelCubeJaw, 18, 0, 0);
-            model.llibAnimator.move(modelCubeJaw, 0, 0, 0.2F);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.setStaticKeyframe(5);
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, modelCubeJaw, 18, 0, 0);
-            model.llibAnimator.move(modelCubeJaw, 0, 0, 0.2F);
-            model.llibAnimator.endKeyframe();
-            model.llibAnimator.startKeyframe(5);
-            this.rotate(model.llibAnimator, model.getCube("Neck1"), -18, 0, 0);
-            this.rotate(model.llibAnimator, model.getCube("Neck2"), -18, 0, 0);
-            model.llibAnimator.endKeyframe();
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, modelCubeJaw, 18, 0, 0);
+            model.animator.move(modelCubeJaw, 0, 0, 0.2F);
+            model.animator.endKeyframe();
+            model.animator.setStaticKeyframe(5);
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, modelCubeJaw, 18, 0, 0);
+            model.animator.move(modelCubeJaw, 0, 0, 0.2F);
+            model.animator.endKeyframe();
+            model.animator.startKeyframe(5);
+            this.rotate(model.animator, model.getCube("Neck1"), -18, 0, 0);
+            this.rotate(model.animator, model.getCube("Neck2"), -18, 0, 0);
+            model.animator.endKeyframe();
         }
     }
 }

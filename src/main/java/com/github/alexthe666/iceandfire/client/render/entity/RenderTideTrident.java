@@ -39,5 +39,4 @@ public class RenderTideTrident extends EntityRenderer<EntityTideTrident> {
     public Identifier getTexture(EntityTideTrident entity) {
         return TRIDENT;
     }
-
 }

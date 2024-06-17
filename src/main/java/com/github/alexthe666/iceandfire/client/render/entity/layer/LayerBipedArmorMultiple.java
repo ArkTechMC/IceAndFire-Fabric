@@ -9,15 +9,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-public class LayerBipedArmorMultiple<R extends MobEntityRenderer & IHasArmorVariantResource,
-        T extends LivingEntity & IHasArmorVariant & IAnimatedEntity,
-        M extends ModelBipedBase<T>,
-        A extends ModelBipedBase<T>> extends LayerBipedArmor<T, M, A> {
-
+public class LayerBipedArmorMultiple<R extends MobEntityRenderer & IHasArmorVariantResource, T extends LivingEntity & IHasArmorVariant & IAnimatedEntity, M extends ModelBipedBase<T>, A extends ModelBipedBase<T>> extends LayerBipedArmor<T, M, A> {
     final R mobRenderer;
 
-    public LayerBipedArmorMultiple(R mobRenderer, A modelLeggings, A modelArmor,
-                                   Identifier defaultArmor, Identifier defaultLegArmor) {
+    public LayerBipedArmorMultiple(R mobRenderer, A modelLeggings, A modelArmor, Identifier defaultArmor, Identifier defaultLegArmor) {
         super(mobRenderer, modelLeggings, modelArmor, defaultArmor, defaultLegArmor);
         this.mobRenderer = mobRenderer;
     }

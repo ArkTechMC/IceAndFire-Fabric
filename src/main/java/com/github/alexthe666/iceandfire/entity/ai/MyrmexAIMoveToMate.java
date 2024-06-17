@@ -31,5 +31,4 @@ public class MyrmexAIMoveToMate extends Goal {
     public boolean shouldContinue() {
         return this.myrmex.canMove() && this.myrmex.getTarget() == null && this.myrmex.mate != null && this.myrmex.mate.isAlive() && (this.myrmex.distanceTo(this.myrmex.mate) < 15 || !this.myrmex.getNavigation().isIdle());
     }
-
 }

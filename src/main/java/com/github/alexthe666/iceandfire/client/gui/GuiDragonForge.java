@@ -70,5 +70,4 @@ public class GuiDragonForge extends HandledScreen<ContainerDragonForge> {
         super.render(pGuiGraphics, mouseX, mouseY, partialTicks);
         this.drawMouseoverTooltip(pGuiGraphics, mouseX, mouseY);
     }
-
 }

@@ -22,18 +22,15 @@ public class MyrmexAIDefendHive extends TrackTargetGoal {
     public boolean canStart() {
         MyrmexHive village = this.myrmex.getHive();
 
-        if (!this.myrmex.canMove() || village == null) {
-            return false;
-        } else {
+        if (!this.myrmex.canMove() || village == null) return false;
+        else {
             this.villageAgressorTarget = village.findNearestVillageAggressor(this.myrmex);
-            if (this.canTrack(this.villageAgressorTarget, TargetPredicate.DEFAULT)) {
+            if (this.canTrack(this.villageAgressorTarget, TargetPredicate.DEFAULT))
                 return true;
-            } else if (this.mob.getRandom().nextInt(20) == 0) {
+            else if (this.mob.getRandom().nextInt(20) == 0) {
                 this.villageAgressorTarget = village.getNearestTargetPlayer(this.myrmex, this.myrmex.getWorld());
                 return this.canTrack(this.villageAgressorTarget, TargetPredicate.DEFAULT);
-            } else {
-                return false;
-            }
+            } else return false;
         }
     }
 

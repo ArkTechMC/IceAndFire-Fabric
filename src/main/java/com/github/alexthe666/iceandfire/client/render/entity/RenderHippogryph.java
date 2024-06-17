@@ -14,11 +14,9 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelHippogryph> {
-
     public RenderHippogryph(EntityRendererFactory.Context context) {
         super(context, new ModelHippogryph(), 0.8F);
         this.features.add(new LayerHippogriffSaddle(this));
-
     }
 
     @Override
@@ -31,7 +29,6 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
         return entity.isBlinking() ? entity.getEnumVariant().TEXTURE_BLINK : entity.getEnumVariant().TEXTURE;
     }
 
-
     private static class LayerHippogriffSaddle extends FeatureRenderer<EntityHippogryph, ModelHippogryph> {
         private final RenderLayer SADDLE_TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/saddle.png"));
         private final RenderLayer BRIDLE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/bridle.png"));
@@ -39,7 +36,6 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
         private final RenderLayer TEXTURE_DIAMOND = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_diamond.png"));
         private final RenderLayer TEXTURE_GOLD = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_gold.png"));
         private final RenderLayer TEXTURE_IRON = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_iron.png"));
-
 
         public LayerHippogriffSaddle(RenderHippogryph renderer) {
             super(renderer);

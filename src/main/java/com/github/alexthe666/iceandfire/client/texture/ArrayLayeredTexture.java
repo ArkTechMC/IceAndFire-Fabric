@@ -28,7 +28,7 @@ public class ArrayLayeredTexture extends AbstractTexture {
         Iterator<String> iterator = this.layeredTextureNames.iterator();
         String s = iterator.next();
         Optional<Resource> iresource = manager.getResource(new Identifier(s));
-        if (iresource.isPresent()) {
+        if (iresource.isPresent())
             try {
                 NativeImage nativeimage = NativeImage.read(iresource.get().getInputStream());
                 while (iterator.hasNext()) {
@@ -36,26 +36,18 @@ public class ArrayLayeredTexture extends AbstractTexture {
                     if (s1 != null) {
                         Optional<Resource> iresource1 = manager.getResource(new Identifier(s1));
                         NativeImage nativeimage1 = NativeImage.read(iresource1.get().getInputStream());
-                        for (int i = 0; i < Math.min(nativeimage1.getHeight(), nativeimage.getHeight()); i++) {
-                            for (int j = 0; j < Math.min(nativeimage1.getWidth(), nativeimage.getWidth()); j++) {
+                        for (int i = 0; i < Math.min(nativeimage1.getHeight(), nativeimage.getHeight()); i++)
+                            for (int j = 0; j < Math.min(nativeimage1.getWidth(), nativeimage.getWidth()); j++)
                                 nativeimage.blend(j, i, nativeimage1.getColor(j, i));
-                            }
-                        }
                     }
                 }
-
-                if (!RenderSystem.isOnRenderThreadOrInit()) {
+                if (!RenderSystem.isOnRenderThreadOrInit())
                     RenderSystem.recordRenderCall(() -> this.loadImage(nativeimage));
-                } else {
-                    this.loadImage(nativeimage);
-                }
+                else this.loadImage(nativeimage);
             } catch (IOException exception) {
                 LOGGER.error("Couldn't load layered image", exception);
             }
-        } else {
-            LOGGER.error("Couldn't load layered image");
-        }
-
+        else LOGGER.error("Couldn't load layered image");
     }
 
     private void loadImage(NativeImage imageIn) {

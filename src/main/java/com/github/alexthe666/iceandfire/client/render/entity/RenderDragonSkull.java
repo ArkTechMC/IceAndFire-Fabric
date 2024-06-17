@@ -15,7 +15,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 
 public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
-
     public static final float[] growth_stage_1 = new float[]{1F, 3F};
     public static final float[] growth_stage_2 = new float[]{3F, 7F};
     public static final float[] growth_stage_3 = new float[]{7F, 12.5F};
@@ -43,18 +42,14 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     @Override
     public void render(EntityDragonSkull entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         TabulaModel model;
-        if (entity.getDragonType() == 2) {
-            model = this.lightningDragonModel;
-        } else if (entity.getDragonType() == 1) {
-            model = this.iceDragonModel;
-        } else {
-            model = this.fireDragonModel;
-        }
+        if (entity.getDragonType() == 2) model = this.lightningDragonModel;
+        else if (entity.getDragonType() == 1) model = this.iceDragonModel;
+        else model = this.fireDragonModel;
+
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderLayer.getEntityTranslucent(this.getTexture(entity)));
         matrixStackIn.push();
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-180.0F));
         matrixStackIn.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(-180.0F - entity.getYaw()));
-        float f = 0.0625F;
         matrixStackIn.scale(1.0F, 1.0F, 1.0F);
         float size = this.getRenderSize(entity) / 3;
         matrixStackIn.scale(size, size, size);
@@ -67,26 +62,22 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
 
     @Override
     public Identifier getTexture(EntityDragonSkull entity) {
-        if (entity.getDragonType() == 2) {
-            return EnumDragonTextures.getLightningDragonSkullTextures(entity);
-        }
-        if (entity.getDragonType() == 1) {
-            return EnumDragonTextures.getIceDragonSkullTextures(entity);
-        }
-        return EnumDragonTextures.getFireDragonSkullTextures(entity);
+        return switch (entity.getDragonType()) {
+            case 2 -> EnumDragonTextures.getLightningDragonSkullTextures(entity);
+            case 1 -> EnumDragonTextures.getIceDragonSkullTextures(entity);
+            default -> EnumDragonTextures.getFireDragonSkullTextures(entity);
+        };
     }
 
 
     public float getRenderSize(EntityDragonSkull skull) {
         float step = (this.growth_stages[skull.getDragonStage() - 1][1] - this.growth_stages[skull.getDragonStage() - 1][0]) / 25;
-        if (skull.getDragonAge() > 125) {
+        if (skull.getDragonAge() > 125)
             return this.growth_stages[skull.getDragonStage() - 1][0] + ((step * 25));
-        }
         return this.growth_stages[skull.getDragonStage() - 1][0] + ((step * this.getAgeFactor(skull)));
     }
 
     private int getAgeFactor(EntityDragonSkull skull) {
         return (skull.getDragonStage() > 1 ? skull.getDragonAge() - (25 * (skull.getDragonStage() - 1)) : skull.getDragonAge());
     }
-
 }

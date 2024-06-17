@@ -14,26 +14,23 @@ public abstract class DreadSpawnerBaseLogic extends MobSpawnerLogic {
 
     @Override
     public void clientTick(World world, BlockPos pos) {
-        if (!this.isPlayerInRange(world, pos)) {
+        if (!this.isPlayerInRange(world, pos))
             this.oSpin = this.spin;
-        } else {
+        else {
             double d0 = (double) pos.getX() + world.random.nextDouble();
             double d1 = (double) pos.getY() + world.random.nextDouble();
             double d2 = (double) pos.getZ() + world.random.nextDouble();
             world.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             world.addParticle(IafParticles.DREAD_TORCH, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            if (this.spawnDelay > 0) {
-                --this.spawnDelay;
-            }
+            if (this.spawnDelay > 0)                 --this.spawnDelay;
 
             this.oSpin = this.spin;
             this.spin = (this.spin + (double) (1000.0F / ((float) this.spawnDelay + 200.0F))) % 360.0D;
         }
-
     }
 
-    private boolean isPlayerInRange(World p_151344_, BlockPos p_151345_) {
-        return p_151344_.isPlayerInRange((double) p_151345_.getX() + 0.5D, (double) p_151345_.getY() + 0.5D, (double) p_151345_.getZ() + 0.5D, 20);
+    private boolean isPlayerInRange(World world, BlockPos pos) {
+        return world.isPlayerInRange((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, 20);
     }
 
     @Override

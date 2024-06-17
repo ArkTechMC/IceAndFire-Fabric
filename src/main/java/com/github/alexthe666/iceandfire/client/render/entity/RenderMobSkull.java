@@ -22,7 +22,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
-
     private static final Map<String, Identifier> SKULL_TEXTURE_CACHE = Maps.newHashMap();
     private final ModelHippogryph hippogryphModel;
     private final ModelCyclops cyclopsModel;
@@ -83,26 +82,20 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
                 this.cyclopsModel.Head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             case COCKATRICE -> {
-                if (onWall) {
-                    matrixStackIn.translate(0, 0F, 0.35F);
-                }
+                if (onWall) matrixStackIn.translate(0, 0F, 0.35F);
                 this.cockatriceModel.resetToDefaultPose();
                 setRotationAngles(this.cockatriceModel.head, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.cockatriceModel.head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             case STYMPHALIAN -> {
-                if (!onWall) {
-                    matrixStackIn.translate(0, 0F, -0.35F);
-                }
+                if (!onWall) matrixStackIn.translate(0, 0F, -0.35F);
                 this.stymphalianBirdModel.resetToDefaultPose();
                 setRotationAngles(this.stymphalianBirdModel.HeadBase, onWall ? (float) Math.toRadians(50F) : 0F);
                 this.stymphalianBirdModel.HeadBase.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             case TROLL -> {
                 matrixStackIn.translate(0, 1F, -0.35F);
-                if (onWall) {
-                    matrixStackIn.translate(0, 0F, 0.35F);
-                }
+                if (onWall) matrixStackIn.translate(0, 0F, 0.35F);
                 this.trollModel.resetToDefaultPose();
                 setRotationAngles(this.trollModel.head, onWall ? (float) Math.toRadians(50F) : (float) Math.toRadians(-20));
                 this.trollModel.head.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);

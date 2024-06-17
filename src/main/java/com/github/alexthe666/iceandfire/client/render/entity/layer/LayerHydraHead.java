@@ -41,9 +41,8 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
     private static final ModelHydraHead[] modelArr = new ModelHydraHead[EntityHydra.HEADS];
 
     static {
-        for (int i = 0; i < modelArr.length; i++) {
+        for (int i = 0; i < modelArr.length; i++)
             modelArr[i] = new ModelHydraHead(i);
-        }
     }
 
     private final RenderHydra renderer;
@@ -51,7 +50,6 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
     public LayerHydraHead(RenderHydra renderer) {
         super(renderer);
         this.renderer = renderer;
-
     }
 
     public static void renderHydraHeads(ModelHydraBody model, boolean stone, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHydra hydra, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -85,30 +83,22 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
 
     protected static void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn) {
         if (renderer.rotateAngleX == 0.0F && renderer.rotateAngleY == 0.0F && renderer.rotateAngleZ == 0.0F) {
-            if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F) {
+            if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F)
                 matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotateAngleZ * (float) 0.0625);
-            }
         } else {
             matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotateAngleZ * (float) 0.0625);
-            if (renderer.rotateAngleZ != 0.0F) {
+            if (renderer.rotateAngleZ != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(renderer.rotateAngleZ));
-            }
-
-            if (renderer.rotateAngleY != 0.0F) {
+            if (renderer.rotateAngleY != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotation(renderer.rotateAngleY));
-            }
-
-            if (renderer.rotateAngleX != 0.0F) {
+            if (renderer.rotateAngleX != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotation(renderer.rotateAngleX));
-            }
         }
     }
 
     @Override
     public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHydra entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isInvisible()) {
-            return;
-        }
+        if (entity.isInvisible()) return;
         renderHydraHeads(this.renderer.getModel(), false, matrixStackIn, bufferIn, packedLightIn, entity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
     }
 

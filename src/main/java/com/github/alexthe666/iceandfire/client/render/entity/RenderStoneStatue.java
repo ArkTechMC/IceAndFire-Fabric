@@ -33,7 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
-
     protected static final Identifier[] DESTROY_STAGES = new Identifier[]{new Identifier("textures/block/destroy_stage_0.png"), new Identifier("textures/block/destroy_stage_1.png"), new Identifier("textures/block/destroy_stage_2.png"), new Identifier("textures/block/destroy_stage_3.png"), new Identifier("textures/block/destroy_stage_4.png"), new Identifier("textures/block/destroy_stage_5.png"), new Identifier("textures/block/destroy_stage_6.png"), new Identifier("textures/block/destroy_stage_7.png"), new Identifier("textures/block/destroy_stage_8.png"), new Identifier("textures/block/destroy_stage_9.png")};
     private final Map<String, EntityModel> modelMap = new HashMap<>();
     private final Map<String, Entity> hollowEntityMap = new HashMap<>();
@@ -59,20 +58,18 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
         EntityModel model = new PigEntityModel(this.context.getPart(EntityModelLayers.PIG));
 
         // Get the correct model
-        if (this.modelMap.get(entityIn.getTrappedEntityTypeString()) != null) {
+        if (this.modelMap.get(entityIn.getTrappedEntityTypeString()) != null)
             model = this.modelMap.get(entityIn.getTrappedEntityTypeString());
-        } else {
+        else {
             EntityRenderer renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().renderers.get(entityIn.getTrappedEntityType());
 
-            if (renderer instanceof FeatureRendererContext) {
+            if (renderer instanceof FeatureRendererContext)
                 model = ((FeatureRendererContext<?, ?>) renderer).getModel();
-            } else if (entityIn.getTrappedEntityType() == EntityType.PLAYER) {
+            else if (entityIn.getTrappedEntityType() == EntityType.PLAYER)
                 model = new ModelStonePlayer(this.context.getPart(EntityModelLayers.PLAYER));
-            }
             this.modelMap.put(entityIn.getTrappedEntityTypeString(), model);
         }
-        if (model == null)
-            return;
+        if (model == null) return;
 
         Entity fakeEntity = null;
         if (this.hollowEntityMap.get(entityIn.getTrappedEntityTypeString()) == null) {
@@ -85,16 +82,13 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
                 }
                 fakeEntity = this.hollowEntityMap.putIfAbsent(entityIn.getTrappedEntityTypeString(), build);
             }
-        } else {
+        } else
             fakeEntity = this.hollowEntityMap.get(entityIn.getTrappedEntityTypeString());
-        }
         RenderLayer tex = IafRenderLayers.getStoneMobRenderType(200, 200);
-        if (fakeEntity instanceof EntityTroll) {
-            tex = RenderLayer.getEntityCutout(((EntityTroll) fakeEntity).getTrollType().TEXTURE_STONE);
-        }
+        if (fakeEntity instanceof EntityTroll troll)
+            tex = RenderLayer.getEntityCutout(troll.getTrollType().TEXTURE_STONE);
 
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(tex);
-
 
         matrixStackIn.push();
         float yaw = entityIn.prevYaw + (entityIn.getYaw() - entityIn.prevYaw) * partialTicks;
@@ -102,23 +96,20 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
         model.child = entityIn.isBaby();
         model.riding = shouldSit;
         model.handSwingProgress = entityIn.getHandSwingProgress(partialTicks);
-        if (model instanceof AdvancedEntityModel) {
-            ((AdvancedEntityModel<?>) model).resetToDefaultPose();
-        } else if (fakeEntity != null) {
+        if (model instanceof AdvancedEntityModel advancedEntityModel)
+            advancedEntityModel.resetToDefaultPose();
+        else if (fakeEntity != null)
             model.setAngles(fakeEntity, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F);
-        }
         this.preRenderCallback(entityIn, matrixStackIn, partialTicks);
         matrixStackIn.translate(0, 1.5F, 0);
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
         matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));
-        if (model instanceof ICustomStatueModel && fakeEntity != null) {
-            ((ICustomStatueModel) model).renderStatue(matrixStackIn, ivertexbuilder, packedLightIn, fakeEntity);
-            if (model instanceof ModelHydraBody && fakeEntity instanceof EntityHydra) {
-                LayerHydraHead.renderHydraHeads((ModelHydraBody) model, true, matrixStackIn, bufferIn, packedLightIn, (EntityHydra) fakeEntity, 0, 0, partialTicks, 0, 0, 0);
-            }
-        } else {
+        if (model instanceof ICustomStatueModel  statueModel&& fakeEntity != null) {
+            statueModel.renderStatue(matrixStackIn, ivertexbuilder, packedLightIn, fakeEntity);
+            if (model instanceof ModelHydraBody hydraBody&& fakeEntity instanceof EntityHydra hydra)
+                LayerHydraHead.renderHydraHeads(hydraBody, true, matrixStackIn, bufferIn, packedLightIn, hydra, 0, 0, partialTicks, 0, 0, 0);
+        } else
             model.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-        }
 
         matrixStackIn.pop();
 
@@ -132,11 +123,10 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
             matrixStackIn.translate(0, 1.5F, 0);
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
             matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(yaw));
-            if (model instanceof ICustomStatueModel) {
-                ((ICustomStatueModel) model).renderStatue(matrixStackIn, ivertexbuilder2, packedLightIn, fakeEntity);
-            } else {
+            if (model instanceof ICustomStatueModel statueModel)
+                statueModel.renderStatue(matrixStackIn, ivertexbuilder2, packedLightIn, fakeEntity);
+            else
                 model.render(matrixStackIn, ivertexbuilder2, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-            }
             matrixStackIn.pop();
             matrixStackIn.pop();
         }

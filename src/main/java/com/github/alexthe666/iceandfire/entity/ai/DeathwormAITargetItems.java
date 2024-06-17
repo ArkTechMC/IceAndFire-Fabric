@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
-
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected final int targetChance;
@@ -33,28 +32,22 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
         this(creature, 10, checkSight, onlyNearby, null);
     }
 
-    public DeathwormAITargetItems(EntityDeathWorm creature, int chance, boolean checkSight, boolean onlyNearby,
-                                  final Predicate<? super T> targetSelector) {
+    public DeathwormAITargetItems(EntityDeathWorm creature, int chance, boolean checkSight, boolean onlyNearby, final Predicate<? super T> targetSelector) {
         super(creature, checkSight, onlyNearby);
         this.worm = creature;
         this.targetChance = chance;
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(creature);
-        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && item.getStack().getItem() == Blocks.TNT.asItem() &&
-                item.getWorld().getBlockState(item.getBlockPos().down()).isIn(BlockTags.SAND);
+        this.targetEntitySelector = (Predicate<ItemEntity>) item -> item != null && !item.getStack().isEmpty() && item.getStack().getItem() == Blocks.TNT.asItem() && item.getWorld().getBlockState(item.getBlockPos().down()).isIn(BlockTags.SAND);
         this.setControls(EnumSet.of(Control.TARGET));
-
     }
 
     @Override
     public boolean canStart() {
-        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0) {
+        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0)
             return false;
-        }
-        List<ItemEntity> list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class,
-                this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
-        if (list.isEmpty()) {
-            return false;
-        } else {
+        List<ItemEntity> list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
+        if (list.isEmpty()) return false;
+        else {
             list.sort(this.theNearestAttackableTargetSorter);
             this.targetEntity = list.get(0);
             return true;
@@ -67,8 +60,7 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
 
     @Override
     public void start() {
-        this.mob.getNavigation().startMovingTo(this.targetEntity.getX(), this.targetEntity.getY(),
-                this.targetEntity.getZ(), 1);
+        this.mob.getNavigation().startMovingTo(this.targetEntity.getX(), this.targetEntity.getY(), this.targetEntity.getZ(), 1);
         super.start();
     }
 
@@ -76,16 +68,13 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
     public boolean shouldContinue() {
         Entity itemTarget = this.targetEntity;
 
-        if (itemTarget == null) {
-            return false;
-        } else if (!itemTarget.isAlive()) {
-            return false;
-        } else {
+        if (itemTarget == null) return false;
+        else if (!itemTarget.isAlive()) return false;
+        else {
             AbstractTeam team = this.mob.getScoreboardTeam();
             AbstractTeam team1 = itemTarget.getScoreboardTeam();
-            if (team != null && team1 == team) {
-                return false;
-            } else {
+            if (team != null && team1 == team) return false;
+            else {
                 double d0 = this.getFollowRange();
                 return !(this.mob.squaredDistanceTo(itemTarget) > d0 * d0);
             }
@@ -95,9 +84,8 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity == null || !this.targetEntity.isAlive()) {
-            this.stop();
-        } else if (this.mob.squaredDistanceTo(this.targetEntity) < 1) {
+        if (this.targetEntity == null || !this.targetEntity.isAlive()) this.stop();
+        else if (this.mob.squaredDistanceTo(this.targetEntity) < 1) {
             EntityDeathWorm deathWorm = (EntityDeathWorm) this.mob;
             this.targetEntity.getStack().decrement(1);
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
@@ -108,12 +96,7 @@ public class DeathwormAITargetItems<T extends ItemEntity> extends TrackTargetGoa
             deathWorm.setExplosive(true, thrower);
             this.stop();
         }
-
-        if (this.worm.getNavigation().isIdle()) {
+        if (this.worm.getNavigation().isIdle())
             this.worm.getNavigation().startMovingTo(this.targetEntity, 1.0F);
-        }
-
     }
-
-
 }

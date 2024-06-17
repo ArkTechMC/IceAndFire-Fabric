@@ -7,7 +7,6 @@ import net.minecraft.nbt.NbtCompound;
  * @since 1.7.0
  */
 public interface ICitadelDataEntity {
-
     NbtCompound getCitadelEntityData();
 
     void setCitadelEntityData(NbtCompound nbt);

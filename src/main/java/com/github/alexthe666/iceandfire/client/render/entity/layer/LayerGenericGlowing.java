@@ -19,10 +19,6 @@ public class LayerGenericGlowing<T extends LivingEntity, M extends EntityModel<T
         this.texture = texture;
     }
 
-    public boolean shouldCombineTextures() {
-        return true;
-    }
-
     @Override
     public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         RenderLayer eyes = RenderLayer.getEyes(this.texture);

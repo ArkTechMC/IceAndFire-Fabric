@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public class RenderGorgonHead extends BuiltinModelItemRenderer {
-
     private static final RenderLayer ACTIVE_TEXTURE = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/head_active.png"), false);
     private static final RenderLayer INACTIVE_TEXTURE = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/gorgon/head_inactive.png"), false);
     private static final AdvancedEntityModel ACTIVE_MODEL = new ModelGorgonHeadActive();
@@ -31,12 +30,10 @@ public class RenderGorgonHead extends BuiltinModelItemRenderer {
     @Override
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         boolean active = false;
-        if (stack.getItem() == IafItems.GORGON_HEAD) {
-            if (stack.getNbt() != null) {
+        if (stack.getItem() == IafItems.GORGON_HEAD)
+            if (stack.getNbt() != null)
                 if (stack.getNbt().getBoolean("Active"))
                     active = true;
-            }
-        }
         AdvancedEntityModel model = active ? ACTIVE_MODEL : INACTIVE_MODEL;
         stackIn.push();
         stackIn.translate(0.5F, active ? 1.5F : 1.25F, 0.5F);
@@ -44,5 +41,4 @@ public class RenderGorgonHead extends BuiltinModelItemRenderer {
         model.render(stackIn, ivertexbuilder, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
         stackIn.pop();
     }
-
 }

@@ -12,7 +12,6 @@ import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
-
 public class RenderChainTie extends EntityRenderer<EntityChainTie> {
     private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/misc/chain_tie.png");
     private final ModelChainTie leashKnotModel = new ModelChainTie();
@@ -33,9 +32,6 @@ public class RenderChainTie extends EntityRenderer<EntityChainTie> {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     */
     @Override
     public Identifier getTexture(EntityChainTie entity) {
         return TEXTURE;

@@ -16,7 +16,6 @@ import net.minecraft.world.gen.placementmodifier.*;
 import java.util.List;
 
 public final class IafPlacedFeatures {
-
     public static final RegistryKey<PlacedFeature> PLACED_FIRE_DRAGON_ROOST = registerKey("fire_dragon_roost");
     public static final RegistryKey<PlacedFeature> PLACED_ICE_DRAGON_ROOST = registerKey("ice_dragon_roost");
     public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_DRAGON_ROOST = registerKey("lightning_dragon_roost");
@@ -42,7 +41,6 @@ public final class IafPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PLACED_FIRE_LILY = registerKey("fire_lily");
     public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_LILY = registerKey("lightning_lily");
     public static final RegistryKey<PlacedFeature> PLACED_FROST_LILY = registerKey("frost_lily");
-
 
     private static List<PlacementModifier> orePlacement(PlacementModifier pCountPlacement, PlacementModifier pHeightRange) {
         return List.of(pCountPlacement, SquarePlacementModifier.of(), pHeightRange, BiomePlacementModifier.of());

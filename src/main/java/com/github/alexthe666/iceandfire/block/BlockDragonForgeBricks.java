@@ -20,7 +20,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class BlockDragonForgeBricks extends BlockWithEntity implements IDragonProof {
-
     public static final BooleanProperty GRILL = BooleanProperty.of("grill");
     private final int isFire;
 

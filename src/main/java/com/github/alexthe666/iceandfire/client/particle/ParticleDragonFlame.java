@@ -51,7 +51,6 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
         this.age = startingAge;
     }
 
-
     @Override
     public int getMaxAge() {
         return this.dragon == null ? 10 : 30;
@@ -70,9 +69,9 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
         float f1 = (float) (MathHelper.lerp(partialTicks, this.prevPosY, this.y) - Vector3d.getY());
         float f2 = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.z) - Vector3d.getZ());
         Quaternionf quaternion;
-        if (this.angle == 0.0F) {
+        if (this.angle == 0.0F)
             quaternion = renderInfo.getRotation();
-        } else {
+        else {
             quaternion = new Quaternionf(renderInfo.getRotation());
             float f3 = MathHelper.lerp(partialTicks, this.prevAngle, this.angle);
             quaternion.mul(RotationAxis.POSITIVE_Z.rotation(f3));
@@ -124,12 +123,10 @@ public class ParticleDragonFlame extends SpriteBillboardParticle {
             double d2 = this.targetX - this.initialX;
             double d3 = this.targetY - this.initialY;
             double d4 = this.targetZ - this.initialZ;
-            double dist = Math.sqrt(d2 * d2 + d3 * d3 + d4 * d4);
             float speed = 0.015F + this.speedBonus;
             this.velocityX += d2 * speed;
             this.velocityY += d3 * speed;
             this.velocityZ += d4 * speed;
-            int touchedTime = 0;
         }
     }
 

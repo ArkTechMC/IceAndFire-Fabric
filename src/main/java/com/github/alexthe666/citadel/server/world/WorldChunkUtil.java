@@ -1,6 +1,5 @@
 package com.github.alexthe666.citadel.server.world;
 
-
 import net.minecraft.server.world.ChunkHolder;
 import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
@@ -13,7 +12,6 @@ import net.minecraft.world.chunk.ChunkStatus;
  * Class which has world related util functions like chunk load checks
  */
 public class WorldChunkUtil {
-
     /**
      * Checks if the block is loaded for block access
      *
@@ -34,12 +32,10 @@ public class WorldChunkUtil {
      * @return true if loaded
      */
     public static boolean isChunkLoaded(final WorldAccess world, final int x, final int z) {
-        if (world.getChunkManager() instanceof ServerChunkManager) {
-            final ChunkHolder holder = ((ServerChunkManager) world.getChunkManager()).threadedAnvilChunkStorage.getChunkHolder(ChunkPos.toLong(x, z));
-            if (holder != null) {
+        if (world.getChunkManager() instanceof ServerChunkManager serverChunkManager) {
+            final ChunkHolder holder = serverChunkManager.threadedAnvilChunkStorage.getChunkHolder(ChunkPos.toLong(x, z));
+            if (holder != null)
                 return holder.getAccessibleFuture().getNow(ChunkHolder.UNLOADED_WORLD_CHUNK).left().isPresent();
-            }
-
             return false;
         }
         return world.getChunk(x, z, ChunkStatus.FULL, false) != null;
@@ -88,9 +84,8 @@ public class WorldChunkUtil {
      * @return true if loaded
      */
     public static boolean isEntityChunkLoaded(final WorldAccess world, final ChunkPos pos) {
-        if (world instanceof ServerWorld) {
-            return isChunkLoaded(world, pos) && ((ServerWorld) world).shouldTickEntity(pos.getStartPos());
-        }
+        if (world instanceof ServerWorld serverWorld)
+            return isChunkLoaded(world, pos) && serverWorld.shouldTickEntity(pos.getStartPos());
         return isChunkLoaded(world, pos);
     }
 }

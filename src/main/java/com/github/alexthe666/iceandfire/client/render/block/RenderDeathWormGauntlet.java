@@ -16,29 +16,23 @@ import net.minecraft.item.ItemStack;
 public class RenderDeathWormGauntlet extends BuiltinModelItemRenderer {
     private static final ModelDeathWormGauntlet MODEL = new ModelDeathWormGauntlet();
 
-    public RenderDeathWormGauntlet(BlockEntityRenderDispatcher p_172550_, EntityModelLoader p_172551_) {
-        super(p_172550_, p_172551_);
+    public RenderDeathWormGauntlet(BlockEntityRenderDispatcher dispatcher, EntityModelLoader modelLoader) {
+        super(dispatcher, modelLoader);
     }
 
     @Override
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         RenderLayer texture;
-
-        if (stack.getItem() == IafItems.DEATHWORM_GAUNTLET_RED) {
+        if (stack.getItem() == IafItems.DEATHWORM_GAUNTLET_RED)
             texture = RenderLayer.getEntityCutout(RenderDeathWorm.TEXTURE_RED);
-        } else if (stack.getItem() == IafItems.DEATHWORM_GAUNTLET_WHITE) {
+        else if (stack.getItem() == IafItems.DEATHWORM_GAUNTLET_WHITE)
             texture = RenderLayer.getEntityCutout(RenderDeathWorm.TEXTURE_WHITE);
-        } else {
+        else
             texture = RenderLayer.getEntityCutout(RenderDeathWorm.TEXTURE_YELLOW);
-        }
         stackIn.push();
         stackIn.translate(0.5F, 0.5F, 0.5F);
-        stackIn.push();
-        stackIn.push();
         MODEL.animate(stack, MinecraftClient.getInstance().getTickDelta());
         MODEL.render(stackIn, bufferIn.getBuffer(texture), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
-        stackIn.pop();
-        stackIn.pop();
         stackIn.pop();
     }
 }

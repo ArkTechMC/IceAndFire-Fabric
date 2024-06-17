@@ -47,23 +47,16 @@ public class LayerDragonBanner extends FeatureRenderer<EntityDragonBase, Advance
 
     protected void postRender(AdvancedModelBox renderer, MatrixStack matrixStackIn) {
         if (renderer.rotateAngleX == 0.0F && renderer.rotateAngleY == 0.0F && renderer.rotateAngleZ == 0.0F) {
-            if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.offsetZ != 0.0F) {
+            if (renderer.rotationPointX != 0.0F || renderer.rotationPointY != 0.0F || renderer.offsetZ != 0.0F)
                 matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
-            }
         } else {
             matrixStackIn.translate(renderer.rotationPointX * (float) 0.0625, renderer.rotationPointY * (float) 0.0625, renderer.rotationPointZ * (float) 0.0625);
-            if (renderer.rotateAngleZ != 0.0F) {
+            if (renderer.rotateAngleZ != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotation(renderer.rotateAngleZ));
-            }
-
-            if (renderer.rotateAngleY != 0.0F) {
+            if (renderer.rotateAngleY != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotation(renderer.rotateAngleY));
-            }
-
-            if (renderer.rotateAngleX != 0.0F) {
+            if (renderer.rotateAngleX != 0.0F)
                 matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotation(renderer.rotateAngleX));
-            }
         }
     }
-
 }

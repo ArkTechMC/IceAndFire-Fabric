@@ -17,9 +17,7 @@ public class RenderDreadPortal<T extends BlockEntityDreadPortal> implements Bloc
     public static final Identifier DREAD_PORTAL_BACKGROUND = new Identifier(IceAndFire.MOD_ID, "textures/environment/dread_portal_background.png");
     public static final Identifier DREAD_PORTAL = new Identifier(IceAndFire.MOD_ID, "textures/environment/dread_portal.png");
 
-
     public RenderDreadPortal(BlockEntityRendererFactory.Context context) {
-
     }
 
     @Override
@@ -39,20 +37,19 @@ public class RenderDreadPortal<T extends BlockEntityDreadPortal> implements Bloc
         this.renderFace(tileEntityIn, matrix4f, consumer, 0.0F, 1.0F, f1, f1, 1.0F, 1.0F, 0.0F, 0.0F, Direction.UP);
     }
 
-    private void renderFace(T p_173695_, Matrix4f p_173696_, VertexConsumer p_173697_, float p_173698_, float p_173699_, float p_173700_, float p_173701_, float p_173702_, float p_173703_, float p_173704_, float p_173705_, Direction p_173706_) {
+    private void renderFace(T model, Matrix4f matrix4f, VertexConsumer consumer, float x1, float x2, float y1, float y2, float z1, float z2, float z3, float z4, Direction direction) {
         float r = 1.0F;
         float g = 1.0F;
         float b = 1.0F;
-        if (p_173695_.shouldRenderFace(p_173706_)) {
-            p_173697_.vertex(p_173696_, p_173698_, p_173700_, p_173702_).color(r, g, b, 1.0F).next();
-            p_173697_.vertex(p_173696_, p_173699_, p_173700_, p_173703_).color(r, g, b, 1.0F).next();
-            p_173697_.vertex(p_173696_, p_173699_, p_173701_, p_173704_).color(r, g, b, 1.0F).next();
-            p_173697_.vertex(p_173696_, p_173698_, p_173701_, p_173705_).color(r, g, b, 1.0F).next();
+        if (model.shouldRenderFace(direction)) {
+            consumer.vertex(matrix4f, x1, y1, z1).color(r, g, b, 1.0F).next();
+            consumer.vertex(matrix4f, x2, y1, z2).color(r, g, b, 1.0F).next();
+            consumer.vertex(matrix4f, x2, y2, z3).color(r, g, b, 1.0F).next();
+            consumer.vertex(matrix4f, x1, y2, z4).color(r, g, b, 1.0F).next();
         }
     }
 
     protected RenderLayer renderType() {
         return IafRenderLayers.getDreadlandsPortal();
     }
-
 }

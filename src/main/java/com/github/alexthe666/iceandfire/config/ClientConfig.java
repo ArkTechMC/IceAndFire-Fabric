@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.config;
 import io.github.fabricators_of_create.porting_lib.config.ModConfigSpec;
 
 public class ClientConfig {
-
     public final ModConfigSpec.BooleanValue customMainMenu;
     public final ModConfigSpec.BooleanValue useVanillaFont;
     public final ModConfigSpec.BooleanValue dragonAuto3rdPerson;

@@ -61,24 +61,20 @@ public class BlockEntityJar extends BlockEntity {
         }
         if (entityJar.ticksExisted % 24000 == 0 && !entityJar.hasProduced && entityJar.hasPixie) {
             entityJar.hasProduced = true;
-            if (!level.isClient) {
+            if (!level.isClient)
                 IafServerNetworkHandler.sendToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
-            }
         }
         if (entityJar.hasPixie && entityJar.hasProduced != entityJar.prevHasProduced && entityJar.ticksExisted > 5) {
-            if (!level.isClient) {
+            if (!level.isClient)
                 IafServerNetworkHandler.sendToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
-            } else {
+            else
                 level.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSounds.PIXIE_HURT, SoundCategory.BLOCKS, 1, 1, false);
-            }
         }
         entityJar.prevRotationYaw = entityJar.rotationYaw;
-        if (entityJar.rand.nextInt(30) == 0) {
+        if (entityJar.rand.nextInt(30) == 0)
             entityJar.rotationYaw = (entityJar.rand.nextFloat() * 360F) - 180F;
-        }
-        if (entityJar.hasPixie && entityJar.ticksExisted % 40 == 0 && entityJar.rand.nextInt(6) == 0 && level.isClient) {
+        if (entityJar.hasPixie && entityJar.ticksExisted % 40 == 0 && entityJar.rand.nextInt(6) == 0 && level.isClient)
             level.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSounds.PIXIE_IDLE, SoundCategory.BLOCKS, 1, 1, false);
-        }
         entityJar.prevHasProduced = entityJar.hasProduced;
     }
 
@@ -88,9 +84,8 @@ public class BlockEntityJar extends BlockEntity {
         compound.putInt("PixieType", this.pixieType);
         compound.putBoolean("HasProduced", this.hasProduced);
         compound.putBoolean("TamedPixie", this.tamedPixie);
-        if (this.pixieOwnerUUID != null) {
+        if (this.pixieOwnerUUID != null)
             compound.putUuid("PixieOwnerUUID", this.pixieOwnerUUID);
-        }
         compound.putInt("TicksExisted", this.ticksExisted);
         Inventories.writeNbt(compound, this.pixieItems);
     }
@@ -107,9 +102,8 @@ public class BlockEntityJar extends BlockEntity {
         this.hasProduced = compound.getBoolean("HasProduced");
         this.ticksExisted = compound.getInt("TicksExisted");
         this.tamedPixie = compound.getBoolean("TamedPixie");
-        if (compound.containsUuid("PixieOwnerUUID")) {
+        if (compound.containsUuid("PixieOwnerUUID"))
             this.pixieOwnerUUID = compound.getUuid("PixieOwnerUUID");
-        }
         this.pixieItems = DefaultedList.ofSize(1, ItemStack.EMPTY);
         Inventories.readNbt(compound, this.pixieItems);
         super.readNbt(compound);
@@ -128,8 +122,7 @@ public class BlockEntityJar extends BlockEntity {
         pixie.setTamed(this.tamedPixie);
         pixie.setOwnerUuid(this.pixieOwnerUUID);
 
-        if (!this.world.isClient) {
+        if (!this.world.isClient)
             IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
-        }
     }
 }

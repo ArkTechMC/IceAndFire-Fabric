@@ -40,16 +40,13 @@ public final class IafConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPAWN_STYMPHALIAN_BIRD = registerKey("spawn_stymphalian_bird");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPAWN_WANDERING_CYCLOPS = registerKey("spawn_wandering_cyclops");
 
-
     public static final RegistryKey<ConfiguredFeature<?, ?>> SILVER_ORE = registerKey("silver_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SAPPHIRE_ORE = registerKey("sapphire_ore");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIRE_LILY = registerKey("fire_lily");
     public static final RegistryKey<ConfiguredFeature<?, ?>> FROST_LILY = registerKey("frost_lily");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIGHTNING_LILY = registerKey("lightning_lily");
 
-
     private static final Function<Block, RandomPatchFeatureConfig> flowerConf = (block) -> ConfiguredFeatures.createRandomPatchFeatureConfig(8, PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(BlockStateProvider.of(block.getDefaultState().getBlock()))));
-
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(IceAndFire.MOD_ID, name));
@@ -89,7 +86,5 @@ public final class IafConfiguredFeatures {
         context.register(FIRE_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlocks.FIRE_LILY)));
         context.register(FROST_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlocks.FROST_LILY)));
         context.register(LIGHTNING_LILY, new ConfiguredFeature<>(Feature.FLOWER, flowerConf.apply(IafBlocks.LIGHTNING_LILY)));
-
     }
-
 }

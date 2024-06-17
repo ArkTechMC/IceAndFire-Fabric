@@ -9,7 +9,6 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.util.Identifier;
 
 public class RenderTroll extends MobEntityRenderer<EntityTroll, ModelTroll> {
-
     public RenderTroll(EntityRendererFactory.Context context) {
         super(context, new ModelTroll(), 0.9F);
         this.features.add(new LayerTrollWeapon(this));

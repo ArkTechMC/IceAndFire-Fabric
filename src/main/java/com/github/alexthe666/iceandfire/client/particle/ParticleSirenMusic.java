@@ -15,7 +15,6 @@ import org.joml.Vector3f;
 
 public class ParticleSirenMusic extends SpriteBillboardParticle {
     private static final Identifier SIREN_MUSIC = new Identifier(IceAndFire.MOD_ID, "textures/particles/siren_music.png");
-
     float colorScale;
 
     public ParticleSirenMusic(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ, float size) {
@@ -37,9 +36,8 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
         float f1 = (float) (MathHelper.lerp(partialTicks, this.prevPosY, this.y) - Vector3d.getY());
         float f2 = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.z) - Vector3d.getZ());
         Quaternionf quaternion;
-        if (this.angle == 0.0F) {
-            quaternion = renderInfo.getRotation();
-        } else {
+        if (this.angle == 0.0F) quaternion = renderInfo.getRotation();
+        else {
             quaternion = new Quaternionf(renderInfo.getRotation());
             float f3 = MathHelper.lerp(partialTicks, this.prevAngle, this.angle);
             quaternion.mul(RotationAxis.POSITIVE_Z.rotation(f3));
@@ -76,8 +74,7 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     public void tick() {
         super.tick();
         this.colorScale += 0.015F;
-        if (this.colorScale > 25)
-            this.colorScale = 0;
+        if (this.colorScale > 25) this.colorScale = 0;
         this.red = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.0F) * 6.2831855F) * 0.65F + 0.35F);
         this.green = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.33333334F) * 6.2831855F) * 0.65F + 0.35F);
         this.blue = Math.max(0.0F, MathHelper.sin((this.colorScale + 0.6666667F) * 6.2831855F) * 0.65F + 0.35F);
@@ -93,5 +90,4 @@ public class ParticleSirenMusic extends SpriteBillboardParticle {
     public ParticleTextureSheet getType() {
         return ParticleTextureSheet.CUSTOM;
     }
-
 }

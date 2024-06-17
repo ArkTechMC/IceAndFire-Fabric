@@ -48,10 +48,7 @@ public class ModelDragonSteelLightningArmor extends ArmorModelBase {
         return modelData;
     }
 
-
     public static ModelPart getBakedModel(boolean inner) {
         return inner ? INNER_MODEL : OUTER_MODEL;
     }
-
-
 }

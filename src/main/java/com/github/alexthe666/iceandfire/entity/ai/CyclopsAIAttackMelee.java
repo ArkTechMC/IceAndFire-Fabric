@@ -6,7 +6,6 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.util.Hand;
 
 public class CyclopsAIAttackMelee extends MeleeAttackGoal {
-
     public CyclopsAIAttackMelee(EntityCyclops creature, double speedIn, boolean useLongMemory) {
         super(creature, speedIn, useLongMemory);
     }

@@ -26,35 +26,28 @@ public class RenderMyrmexBase extends MobEntityRenderer<EntityMyrmexBase, Advanc
 
     @Override
     public void render(EntityMyrmexBase entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
-        if (entityIn.getGrowthStage() == 0) {
-            this.model = LARVA_MODEL;
-        } else if (entityIn.getGrowthStage() == 1) {
-            this.model = PUPA_MODEL;
-        } else {
-            this.model = this.adultModel;
+        switch (entityIn.getGrowthStage()) {
+            case 0 -> this.model = LARVA_MODEL;
+            case 1 -> this.model = PUPA_MODEL;
+            default -> this.model = this.adultModel;
         }
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-
     }
 
     @Override
     protected void scale(EntityMyrmexBase myrmex, MatrixStack matrixStackIn, float partialTickTime) {
         float scale = myrmex.getModelScale();
-        if (myrmex.getGrowthStage() == 0) {
+        if (myrmex.getGrowthStage() == 0)
             scale /= 2;
-        }
-        if (myrmex.getGrowthStage() == 1) {
+        if (myrmex.getGrowthStage() == 1)
             scale /= 1.5F;
-        }
         matrixStackIn.scale(scale, scale, scale);
-        if (myrmex.hasVehicle() && myrmex.getGrowthStage() < 2) {
+        if (myrmex.hasVehicle() && myrmex.getGrowthStage() < 2)
             matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0F));
-        }
     }
 
     @Override
     public Identifier getTexture(EntityMyrmexBase myrmex) {
         return myrmex.getTexture();
     }
-
 }

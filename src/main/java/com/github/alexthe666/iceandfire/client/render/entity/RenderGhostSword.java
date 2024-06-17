@@ -21,7 +21,6 @@ public class RenderGhostSword extends EntityRenderer<EntityGhostSword> {
         super(context);
     }
 
-
     @Override
     public Identifier getTexture(EntityGhostSword entity) {
         return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;

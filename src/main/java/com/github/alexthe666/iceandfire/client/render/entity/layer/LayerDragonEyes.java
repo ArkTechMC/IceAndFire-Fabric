@@ -30,12 +30,9 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     public LayerDragonEyes(MobEntityRenderer renderIn) {
         super(renderIn);
         try {
-            this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/firedragon/firedragon_ground"), null),
-                    Collections.singletonList("HeadFront"));
-            this.iceHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/icedragon/icedragon_ground"), null),
-                    Collections.singletonList("HeadFront"));
-            this.lightningHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/lightningdragon/lightningdragon_ground"), null),
-                    Collections.singletonList("HeadFront"));
+            this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/firedragon/firedragon_ground"), null), Collections.singletonList("HeadFront"));
+            this.iceHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/icedragon/icedragon_ground"), null), Collections.singletonList("HeadFront"));
+            this.lightningHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/lightningdragon/lightningdragon_ground"), null), Collections.singletonList("HeadFront"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -57,9 +54,8 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
                 this.fireHead.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
             }
             //Fallback method
-            else {
+            else
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-            }
         }
     }
 
@@ -119,11 +115,6 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
                 cube.rotationPointY = modelToCube.rotationPointY;
                 cube.rotationPointZ = modelToCube.rotationPointZ;
             }
-
         }
-    }
-
-    public boolean shouldCombineTextures() {
-        return true;
     }
 }

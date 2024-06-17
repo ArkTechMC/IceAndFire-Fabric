@@ -31,9 +31,6 @@ public class CockatriceAIStareAttack extends Goal {
         return d1 > 1.0D - degree / d0 && !looker.isSpectator();
     }
 
-    public void setAttackCooldown(int cooldown) {
-    }
-
     @Override
     public boolean canStart() {
         return this.entity.getTarget() != null;
@@ -57,7 +54,6 @@ public class CockatriceAIStareAttack extends Goal {
     public void tick() {
         LivingEntity LivingEntity = this.entity.getTarget();
         if (LivingEntity != null) {
-
             if (EntityGorgon.isStoneMob(LivingEntity) || !LivingEntity.isAlive()) {
                 this.entity.setTarget(null);
                 this.entity.setTargetedEntity(0);
@@ -67,32 +63,22 @@ public class CockatriceAIStareAttack extends Goal {
             if (!isEntityLookingAt(LivingEntity, this.entity, EntityCockatrice.VIEW_RADIUS) || (LivingEntity.prevX != this.entity.getX() || LivingEntity.prevY != this.entity.getY() || LivingEntity.prevZ != this.entity.getZ())) {
                 this.entity.getNavigation().stop();
                 BlockPos pos = DragonUtils.getBlockInTargetsViewCockatrice(this.entity, LivingEntity);
-                if (this.target == null || pos.getSquaredDistance(this.target) > 4) {
+                if (this.target == null || pos.getSquaredDistance(this.target) > 4)
                     this.target = pos;
-                }
             }
             this.entity.setTargetedEntity(LivingEntity.getId());
 
-            this.entity.squaredDistanceTo(LivingEntity.getX(), LivingEntity.getBoundingBox().minY,
-                    LivingEntity.getZ());
+            this.entity.squaredDistanceTo(LivingEntity.getX(), LivingEntity.getBoundingBox().minY, LivingEntity.getZ());
             final boolean flag = this.entity.getVisibilityCache().canSee(LivingEntity);
             final boolean flag1 = this.seeTime > 0;
 
-            if (flag != flag1) {
-                this.seeTime = 0;
-            }
+            if (flag != flag1) this.seeTime = 0;
+            if (flag) ++this.seeTime;
+            else --this.seeTime;
 
-            if (flag) {
-                ++this.seeTime;
-            } else {
-                --this.seeTime;
-            }
-            if (this.target != null) {
-                if (this.entity.squaredDistanceTo(this.target.getX(), this.target.getY(), this.target.getZ()) > 16 && !isEntityLookingAt(LivingEntity, this.entity, EntityCockatrice.VIEW_RADIUS)) {
+            if (this.target != null)
+                if (this.entity.squaredDistanceTo(this.target.getX(), this.target.getY(), this.target.getZ()) > 16 && !isEntityLookingAt(LivingEntity, this.entity, EntityCockatrice.VIEW_RADIUS))
                     this.entity.getNavigation().startMovingTo(this.target.getX(), this.target.getY(), this.target.getZ(), this.moveSpeedAmp);
-                }
-
-            }
             this.entity.getLookControl().lookAt(LivingEntity.getX(), LivingEntity.getY() + LivingEntity.getStandingEyeHeight(), LivingEntity.getZ(), this.entity.getMaxHeadRotation(), this.entity.getMaxLookPitchChange());
         }
     }

@@ -89,14 +89,12 @@ public class GuiMyrmexStaff extends Screen {
                 //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
             }
         }
-        for (BlockPos pos : ClientProxy.getReferedClientHive().getEntrances().keySet()) {
+        for (BlockPos pos : ClientProxy.getReferedClientHive().getEntrances().keySet())
             this.allRoomPos.add(new Room(pos, "enterance_surface"));
-            //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
-        }
-        for (BlockPos pos : ClientProxy.getReferedClientHive().getEntranceBottoms().keySet()) {
+        //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
+        for (BlockPos pos : ClientProxy.getReferedClientHive().getEntranceBottoms().keySet())
             this.allRoomPos.add(new Room(pos, "enterance_bottom"));
-            //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
-        }
+        //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
     }
 
     @Override
@@ -159,7 +157,6 @@ public class GuiMyrmexStaff extends Screen {
         if (ClientProxy.getReferedClientHive() != null)
             IafClientNetworkHandler.send(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
     }
-
 
     private void drawRoomInfo(DrawContext ms, String type, BlockPos pos, int i, int j, int color) {
         String translate = "myrmex.message.room." + type;

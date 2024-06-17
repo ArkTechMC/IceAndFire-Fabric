@@ -18,8 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockMyrmexCocoon extends BlockWithEntity {
-
-
     public BlockMyrmexCocoon() {
         super(Settings.create().mapColor(MapColor.DIRT_BROWN).strength(2.5F).nonOpaque().dynamicBounds().sounds(BlockSoundGroup.SLIME));
     }

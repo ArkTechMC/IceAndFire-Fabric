@@ -18,12 +18,7 @@ public class SpawnBiomeConfig {
     private final Identifier fileName;
 
     private SpawnBiomeConfig(Identifier fileName) {
-        if (!fileName.getNamespace().endsWith(".json")) {
-            this.fileName = new Identifier(fileName.getNamespace(), fileName.getPath() + ".json");
-        } else {
-            this.fileName = fileName;
-        }
-
+        this.fileName = !fileName.getNamespace().endsWith(".json") ? new Identifier(fileName.getNamespace(), fileName.getPath() + ".json") : fileName;
     }
 
     public static SpawnBiomeData create(Identifier fileName, SpawnBiomeData dataDefault) {
@@ -33,19 +28,17 @@ public class SpawnBiomeConfig {
 
     public static <T> T getOrCreateConfigFile(File configDir, String configName, T defaults, Type type) {
         File configFile = new File(configDir, configName);
-        if (!configFile.exists()) {
+        if (!configFile.exists())
             try {
                 FileUtils.write(configFile, GSON.toJson(defaults));
             } catch (IOException e) {
                 Citadel.LOGGER.error("Spawn Biome Config: Could not write {}", configFile, e);
             }
-        }
         try {
             return GSON.fromJson(FileUtils.readFileToString(configFile), type);
         } catch (Exception e) {
             Citadel.LOGGER.error("Spawn Biome Config: Could not load {}", configFile, e);
         }
-
         return defaults;
     }
 

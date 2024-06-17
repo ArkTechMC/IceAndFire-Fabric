@@ -11,7 +11,6 @@ import net.minecraft.client.util.math.MatrixStack;
 // don't get rendered. This is a workaround for that
 
 public class HideableModelRenderer extends AdvancedModelBox {
-
     public boolean invisible;
 
     public HideableModelRenderer(AdvancedEntityModel<?> model, String name) {
@@ -23,11 +22,11 @@ public class HideableModelRenderer extends AdvancedModelBox {
     }
 
     @Override
-    public void render(MatrixStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    public void render(MatrixStack matrixStack, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
         if (this.invisible)
-            this.invisibleRender(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+            this.invisibleRender(matrixStack, consumer, light, overlay, red, green, blue, alpha);
         else
-            super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+            super.render(matrixStack, consumer, light, overlay, red, green, blue, alpha);
     }
 
     public void copyFrom(BasicModelPart currentModel) {

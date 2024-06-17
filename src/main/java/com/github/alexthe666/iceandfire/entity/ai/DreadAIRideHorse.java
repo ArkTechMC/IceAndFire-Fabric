@@ -25,14 +25,12 @@ public class DreadAIRideHorse extends Goal {
             this.list = IafMath.emptyAbstractHorseEntityList;
             return false;
         } else {
-
             if (this.knight.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
                 this.list = this.knight.getWorld().getEntitiesByClass(AbstractHorseEntity.class,
                         this.knight.getBoundingBox().expand(16.0D, 7.0D, 16.0D), entity -> !entity.hasPassengers());
 
-            if (this.list.isEmpty()) {
-                return false;
-            } else {
+            if (this.list.isEmpty()) return false;
+            else {
                 this.horse = this.list.get(0);
                 return true;
             }

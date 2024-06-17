@@ -3,16 +3,16 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.*;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AbstractAdvancedPathNavigate;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathResult;
+import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.SurfaceType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-
 
 /**
  * Job that handles random pathing.
@@ -118,17 +118,6 @@ public class PathJobRandomPos extends AbstractPathJob {
     }
 
     @Override
-    protected Path search() {
-        if (Pathfinding.isDebug()) {
-            Citadel.LOGGER.info(String.format("Pathfinding from [%d,%d,%d] in the direction of [%d,%d,%d]",
-                    this.start.getX(), this.start.getY(), this.start.getZ(), this.destination.getX(), this.destination.getY(), this.destination.getZ()));
-        }
-
-        return super.search();
-    }
-
-
-    @Override
     public PathResult getResult() {
         return super.getResult();
     }
@@ -161,6 +150,4 @@ public class PathJobRandomPos extends AbstractPathJob {
     public boolean posAndRangeMatch(final int range, final BlockPos pos) {
         return this.destination != null && range == this.maxDistToDest && this.destination.equals(pos);
     }
-
-
 }

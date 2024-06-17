@@ -24,19 +24,14 @@ public class MyrmexAIMoveThroughHive extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.myrmex.canMove() || this.myrmex instanceof EntityMyrmexWorker && ((EntityMyrmexWorker) this.myrmex).holdingSomething() || !this.myrmex.shouldMoveThroughHive() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigation().isIdle() || this.myrmex.canSeeSky()) {
+        if (!this.myrmex.canMove() || this.myrmex instanceof EntityMyrmexWorker myrmexWorker && myrmexWorker.holdingSomething() || !this.myrmex.shouldMoveThroughHive() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigation().isIdle() || this.myrmex.canSeeSky())
             return false;
-        }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.getWorld()).getNearestHive(this.myrmex.getBlockPos(), 300);
-        if (village == null) {
-            village = this.myrmex.getHive();
-        }
-        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle()) {
+        if (village == null) village = this.myrmex.getHive();
+        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle())
             return false;
-        }
-        if (village == null) {
-            return false;
-        } else {
+        if (village == null) return false;
+        else {
             this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(this.myrmex.getRandom(), this.myrmex.getBlockPos()));
             PathResult path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
             return path != null;
@@ -55,6 +50,5 @@ public class MyrmexAIMoveThroughHive extends Goal {
     @Override
     public void stop() {
         this.nextRoom = BlockPos.ORIGIN;
-
     }
 }

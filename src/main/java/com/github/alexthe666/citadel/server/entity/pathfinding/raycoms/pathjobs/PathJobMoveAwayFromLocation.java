@@ -3,11 +3,8 @@ package com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.pathjobs
     All of this code is used with permission from Raycoms, one of the developers of the minecolonies project.
  */
 
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.MNode;
-import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.Pathfinding;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -35,32 +32,10 @@ public class PathJobMoveAwayFromLocation extends AbstractPathJob {
      * @param range         max range to search.
      * @param entity        the entity.
      */
-    public PathJobMoveAwayFromLocation(
-            final World world,
-            final BlockPos start,
-            final BlockPos avoid,
-            final int avoidDistance,
-            final int range,
-            final LivingEntity entity) {
+    public PathJobMoveAwayFromLocation(final World world, final BlockPos start, final BlockPos avoid, final int avoidDistance, final int range, final LivingEntity entity) {
         super(world, start, avoid, range, entity);
-
         this.avoid = new BlockPos(avoid);
         this.avoidDistance = avoidDistance;
-    }
-
-    /**
-     * Perform the search.
-     *
-     * @return Path of a path to the given location, a best-effort, or null.
-     */
-    @Override
-    protected Path search() {
-        if (Pathfinding.isDebug()) {
-            Citadel.LOGGER.info(String.format("Pathfinding from [%d,%d,%d] away from [%d,%d,%d]",
-                    this.start.getX(), this.start.getY(), this.start.getZ(), this.avoid.getX(), this.avoid.getY(), this.avoid.getZ()));
-        }
-
-        return super.search();
     }
 
     /**

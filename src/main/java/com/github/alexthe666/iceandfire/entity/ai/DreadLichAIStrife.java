@@ -9,7 +9,6 @@ import net.minecraft.entity.ai.goal.Goal;
 import java.util.EnumSet;
 
 public class DreadLichAIStrife extends Goal {
-
     private final EntityDreadLich entity;
     private final double moveSpeedAmp;
     private final float maxAttackDistance;
@@ -66,15 +65,9 @@ public class DreadLichAIStrife extends Goal {
             final boolean flag = this.entity.getVisibilityCache().canSee(LivingEntity);
             final boolean flag1 = this.seeTime > 0;
 
-            if (flag != flag1) {
-                this.seeTime = 0;
-            }
-
-            if (flag) {
-                ++this.seeTime;
-            } else {
-                --this.seeTime;
-            }
+            if (flag != flag1) this.seeTime = 0;
+            if (flag) ++this.seeTime;
+            else --this.seeTime;
 
             if (d0 <= this.maxAttackDistance && this.seeTime >= 20) {
                 this.entity.getNavigation().stop();
@@ -85,33 +78,27 @@ public class DreadLichAIStrife extends Goal {
             }
 
             if (this.strafingTime >= 20) {
-                if (this.entity.getRandom().nextFloat() < 0.3D) {
+                if (this.entity.getRandom().nextFloat() < 0.3D)
                     this.strafingClockwise = !this.strafingClockwise;
-                }
-
-                if (this.entity.getRandom().nextFloat() < 0.3D) {
+                if (this.entity.getRandom().nextFloat() < 0.3D)
                     this.strafingBackwards = !this.strafingBackwards;
-                }
-
                 this.strafingTime = 0;
             }
 
             if (this.strafingTime > -1) {
-                if (d0 > this.maxAttackDistance * 0.75F) {
+                if (d0 > this.maxAttackDistance * 0.75F)
                     this.strafingBackwards = false;
-                } else if (d0 < this.maxAttackDistance * 0.25F) {
+                else if (d0 < this.maxAttackDistance * 0.25F)
                     this.strafingBackwards = true;
-                }
 
                 this.entity.getMoveControl().strafeTo(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
                 this.entity.lookAtEntity(LivingEntity, 30.0F, 30.0F);
-            } else {
+            } else
                 this.entity.getLookControl().lookAt(LivingEntity, 30.0F, 30.0F);
-            }
 
-            if (!flag && this.seeTime < -60) {
+            if (!flag && this.seeTime < -60)
                 this.entity.clearActiveItem();
-            } else if (flag) {
+            else if (flag) {
                 this.entity.clearActiveItem();
                 ((RangedAttackMob) this.entity).attack(LivingEntity, 0);
             }

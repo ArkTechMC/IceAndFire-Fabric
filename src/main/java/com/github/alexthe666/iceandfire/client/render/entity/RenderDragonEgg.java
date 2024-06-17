@@ -9,7 +9,6 @@ import net.minecraft.util.Identifier;
 
 
 public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, ModelDragonEgg<EntityDragonEgg>> {
-
     public static final Identifier EGG_RED = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/egg_red.png");
     public static final Identifier EGG_GREEN = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/egg_green.png");
     public static final Identifier EGG_BRONZE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/egg_bronze.png");
@@ -44,5 +43,4 @@ public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, Model
             case BLACK -> EGG_BLACK;
         };
     }
-
 }

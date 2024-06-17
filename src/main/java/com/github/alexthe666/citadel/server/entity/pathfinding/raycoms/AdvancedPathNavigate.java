@@ -24,7 +24,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 /**
  * Minecolonies async PathNavigate.
@@ -484,7 +483,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     }
 
     private void processCompletedCalculationResult() {
-        this.pathResult.getJob().synchToClient(this.entity);
         this.startMovingAlong(this.pathResult.getPath(), this.getSpeedFactor());
 
         if (this.pathResult != null)
@@ -494,24 +492,21 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
     private boolean handleLadders(int oldIndex) {
         //  Ladder Workaround
         if (!this.isIdle()) {
+            assert this.getCurrentPath() != null;
             final PathPointExtended pEx = (PathPointExtended) this.getCurrentPath().getNode(this.getCurrentPath().getCurrentNodeIndex());
             final PathPointExtended pExNext = this.getCurrentPath().getLength() > this.getCurrentPath().getCurrentNodeIndex() + 1
-                    ? (PathPointExtended) this.getCurrentPath()
-                    .getNode(this.getCurrentPath()
-                            .getCurrentNodeIndex() + 1) : null;
-
+                    ? (PathPointExtended) this.getCurrentPath().getNode(this.getCurrentPath().getCurrentNodeIndex() + 1) : null;
 
             final BlockPos pos = new BlockPos(pEx.x, pEx.y, pEx.z);
-            if (pEx.isOnLadder() && pExNext != null && (pEx.y != pExNext.y || this.entity.getY() > pEx.y) && BlockUtil.isLadder(this.world.getBlockState(pos))) {
+            if (pEx.isOnLadder() && pExNext != null && (pEx.y != pExNext.y || this.entity.getY() > pEx.y) && BlockUtil.isLadder(this.world.getBlockState(pos)))
                 return this.handlePathPointOnLadder(pEx);
-            } else if (this.ourEntity.isTouchingWater()) {
+            else if (this.ourEntity.isTouchingWater())
                 return this.handleEntityInWater(oldIndex, pEx);
-            } else if (this.world.random.nextInt(10) == 0) {
-                if (!pEx.isOnLadder() && pExNext != null && pExNext.isOnLadder()) {
+            else if (this.world.random.nextInt(10) == 0) {
+                if (!pEx.isOnLadder() && pExNext != null && pExNext.isOnLadder())
                     this.speed = this.getSpeedFactor() / 4.0;
-                } else {
+                else
                     this.speed = this.getSpeedFactor();
-                }
             }
         }
         return false;
@@ -537,22 +532,17 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
      */
     private boolean handleRails() {
         if (!this.isIdle()) {
+            assert this.getCurrentPath() != null;
             final PathPointExtended pEx = (PathPointExtended) this.getCurrentPath().getNode(this.getCurrentPath().getCurrentNodeIndex());
             PathPointExtended pExNext = this.getCurrentPath().getLength() > this.getCurrentPath().getCurrentNodeIndex() + 1
-                    ? (PathPointExtended) this.getCurrentPath()
-                    .getNode(this.getCurrentPath()
-                            .getCurrentNodeIndex() + 1) : null;
+                    ? (PathPointExtended) this.getCurrentPath().getNode(this.getCurrentPath().getCurrentNodeIndex() + 1) : null;
 
-            if (pExNext != null && pEx.x == pExNext.x && pEx.z == pExNext.z) {
+            if (pExNext != null && pEx.x == pExNext.x && pEx.z == pExNext.z)
                 pExNext = this.getCurrentPath().getLength() > this.getCurrentPath().getCurrentNodeIndex() + 2
-                        ? (PathPointExtended) this.getCurrentPath()
-                        .getNode(this.getCurrentPath()
-                                .getCurrentNodeIndex() + 2) : null;
-            }
+                        ? (PathPointExtended) this.getCurrentPath().getNode(this.getCurrentPath().getCurrentNodeIndex() + 2) : null;
 
-            if (pEx.isOnRails() || pEx.isRailsExit()) {
+            if (pEx.isOnRails() || pEx.isRailsExit())
                 return this.handlePathOnRails(pEx, pExNext);
-            }
         }
         return false;
     }
@@ -576,41 +566,28 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             double newSpeed = 0.3;
             switch (pEx.getLadderFacing()) {
                 //  Any of these values is climbing, so adjust our direction of travel towards the ladder
-                case NORTH:
-                    vec3 = vec3.add(0, 0, 0.4);
-                    break;
-                case SOUTH:
-                    vec3 = vec3.add(0, 0, -0.4);
-                    break;
-                case WEST:
-                    vec3 = vec3.add(0.4, 0, 0);
-                    break;
-                case EAST:
-                    vec3 = vec3.add(-0.4, 0, 0);
-                    break;
-                case UP:
-                    vec3 = vec3.add(0, 1, 0);
-                    break;
+                case NORTH -> vec3 = vec3.add(0, 0, 0.4);
+                case SOUTH -> vec3 = vec3.add(0, 0, -0.4);
+                case WEST -> vec3 = vec3.add(0.4, 0, 0);
+                case EAST -> vec3 = vec3.add(-0.4, 0, 0);
+                case UP -> vec3 = vec3.add(0, 1, 0);
                 //  Any other value is going down, so lets not move at all
-                default:
+                default -> {
                     newSpeed = 0;
                     this.entity.setSneaking(true);
                     this.isSneaking = true;
                     this.ourEntity.getMoveControl().moveTo(vec3.x, vec3.y, vec3.z, 0.2);
-                    break;
+                }
             }
 
             if (newSpeed > 0) {
-                if (!(this.world.getBlockState(this.ourEntity.getBlockPos()).getBlock() instanceof LadderBlock)) {
+                if (!(this.world.getBlockState(this.ourEntity.getBlockPos()).getBlock() instanceof LadderBlock))
                     this.ourEntity.setVelocity(this.ourEntity.getVelocity().add(0, 0.1D, 0));
-                }
                 this.ourEntity.getMoveControl().moveTo(vec3.x, vec3.y, vec3.z, newSpeed);
             } else {
-                if (BlockUtil.isLadder(this.world.getBlockState(entityPos.down()))) {
+                if (BlockUtil.isLadder(this.world.getBlockState(entityPos.down())))
                     this.ourEntity.setUpwardSpeed(-0.5f);
-                } else {
-                    return false;
-                }
+                else return false;
                 return true;
             }
         }
@@ -619,25 +596,20 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
 
     private boolean handleEntityInWater(int oldIndex, final PathPointExtended pEx) {
         //  Prevent shortcuts when swimming
+        assert this.getCurrentPath() != null;
         final int curIndex = this.getCurrentPath().getCurrentNodeIndex();
-        if (curIndex > 0
-                && (curIndex + 1) < this.getCurrentPath().getLength()
-                && this.getCurrentPath().getNode(curIndex - 1).y != pEx.y) {
+        if (curIndex > 0 && (curIndex + 1) < this.getCurrentPath().getLength() && this.getCurrentPath().getNode(curIndex - 1).y != pEx.y)
             //  Work around the initial 'spin back' when dropping into water
             oldIndex = curIndex + 1;
-        }
 
         this.getCurrentPath().setCurrentNodeIndex(oldIndex);
 
         Vec3d vec3d = this.getCurrentPath().getNodePosition(this.ourEntity);
 
-        if (vec3d.squaredDistanceTo(new Vec3d(this.ourEntity.getX(), vec3d.y, this.ourEntity.getZ())) < 0.1
-                && Math.abs(this.ourEntity.getY() - vec3d.y) < 0.5) {
+        if (vec3d.squaredDistanceTo(new Vec3d(this.ourEntity.getX(), vec3d.y, this.ourEntity.getZ())) < 0.1 && Math.abs(this.ourEntity.getY() - vec3d.y) < 0.5) {
             this.getCurrentPath().next();
-            if (this.isIdle()) {
+            if (this.isIdle())
                 return true;
-            }
-
             vec3d = this.getCurrentPath().getNodePosition(this.ourEntity);
         }
 
@@ -652,21 +624,18 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         final int curNode = this.currentPath.getCurrentNodeIndex();
         final int curNodeNext = curNode + 1;
         if (curNodeNext < this.currentPath.getLength()) {
-            if (!(this.currentPath.getNode(curNode) instanceof PathPointExtended)) {
+            if (!(this.currentPath.getNode(curNode) instanceof PathPointExtended))
                 this.currentPath = this.convertPath(this.currentPath);
-            }
 
             final PathPointExtended pEx = (PathPointExtended) this.currentPath.getNode(curNode);
             final PathPointExtended pExNext = (PathPointExtended) this.currentPath.getNode(curNodeNext);
 
             //  If current node is bottom of a ladder, then stay on this node until
             //  the ourEntity reaches the bottom, otherwise they will try to head out early
-            if (pEx.isOnLadder() && pEx.getLadderFacing() == Direction.DOWN
-                    && !pExNext.isOnLadder()) {
+            if (pEx.isOnLadder() && pEx.getLadderFacing() == Direction.DOWN && !pExNext.isOnLadder()) {
                 final Vec3d vec3 = this.getPos();
-                if ((vec3.y - (double) pEx.y) < MIN_Y_DISTANCE) {
+                if ((vec3.y - (double) pEx.y) < MIN_Y_DISTANCE)
                     this.currentPath.setCurrentNodeIndex(curNodeNext);
-                }
                 return;
             }
         }
@@ -678,7 +647,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         // TODO: Figure out a better way to derive this value ideally from the pathfinding code
         int maxDropHeight = 3;
 
-        final HashSet<BlockPos> reached = new HashSet<>();
         // Look at multiple points, incase we're too fast
         for (int i = this.currentPath.getCurrentNodeIndex(); i < Math.min(this.currentPath.getLength(), this.currentPath.getCurrentNodeIndex() + 4); i++) {
             Vec3d next = this.currentPath.getNodePosition(this.entity, i);
@@ -688,17 +656,7 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
                             Math.abs(this.entity.getY() - next.y) <= Math.ceil(this.entity.getWidth() / 2) * maxDropHeight)) {
                 this.currentPath.next();
                 wentAhead = true;
-
-                if (isTracking) {
-                    final PathNode point = this.currentPath.getNode(i);
-                    reached.add(new BlockPos(point.x, point.y, point.z));
-                }
             }
-        }
-
-        if (isTracking) {
-            AbstractPathJob.synchToClient(reached, this.ourEntity);
-            reached.clear();
         }
 
         if (this.currentPath.isFinished()) {
@@ -706,13 +664,8 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             return;
         }
 
-        if (wentAhead) {
-            return;
-        }
-
-        if (curNode >= this.currentPath.getLength() || curNode <= 1) {
-            return;
-        }
+        if (wentAhead) return;
+        if (curNode >= this.currentPath.getLength() || curNode <= 1) return;
 
         // Check some past nodes case we fell behind.
         final Vec3d curr = this.currentPath.getNodePosition(this.entity, curNode - 1);
@@ -726,18 +679,10 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             while (currentIndex > 0) {
                 final Vec3d tempoPos = this.currentPath.getNodePosition(this.entity, currentIndex);
                 final Vec3i tempoPosI = new Vec3i((int) Math.round(tempoPos.x), (int) Math.round(tempoPos.y), (int) Math.round(tempoPos.z));
-                if (this.entity.getBlockPos().isWithinDistance(tempoPosI, 1.0)) {
+                if (this.entity.getBlockPos().isWithinDistance(tempoPosI, 1.0))
                     this.currentPath.setCurrentNodeIndex(currentIndex);
-                } else if (isTracking) {
-                    reached.add(new BlockPos(tempoPosI));
-                }
                 currentIndex--;
             }
-        }
-
-        if (isTracking) {
-            AbstractPathJob.synchToClient(reached, this.ourEntity);
-            reached.clear();
         }
     }
 
@@ -762,24 +707,20 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
 
     public boolean entityOnAndBelowPath(Entity entity, Vec3d slack) {
         Path path = this.getCurrentPath();
-        if (path == null) {
-            return false;
-        }
+        if (path == null) return false;
 
         int closest = path.getCurrentNodeIndex();
         //Search through path from the current index outwards to improve performance
         for (int i = 0; i < path.getLength() - 1; i++) {
             if (closest + i < path.getLength()) {
                 PathNode currentPoint = path.getNode(closest + i);
-                if (this.entityNearAndBelowPoint(currentPoint, entity, slack)) {
+                if (this.entityNearAndBelowPoint(currentPoint, entity, slack))
                     return true;
-                }
             }
             if (closest - i >= 0) {
                 PathNode currentPoint = path.getNode(closest - i);
-                if (this.entityNearAndBelowPoint(currentPoint, entity, slack)) {
+                if (this.entityNearAndBelowPoint(currentPoint, entity, slack))
                     return true;
-                }
             }
         }
         return false;
@@ -798,7 +739,6 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
             this.pathResult.setStatus(PathFindingStatus.CANCELLED);
             this.pathResult = null;
         }
-
         this.destination = null;
         super.stop();
     }
@@ -844,6 +784,4 @@ public class AdvancedPathNavigate extends AbstractAdvancedPathNavigate {
         FLYING,
         CLIMBING
     }
-
-
 }

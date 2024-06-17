@@ -14,7 +14,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public class RenderLightningDragon extends RenderDragonBase {
-
     private final LightningRender lightningRender = new LightningRender();
 
     public RenderLightningDragon(EntityRendererFactory.Context context, AdvancedEntityModel model, int dragonType) {
@@ -27,9 +26,9 @@ public class RenderLightningDragon extends RenderDragonBase {
 
     @Override
     public boolean shouldRender(EntityDragonBase livingEntityIn, Frustum camera, double camX, double camY, double camZ) {
-        if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ)) {
+        if (super.shouldRender(livingEntityIn, camera, camX, camY, camZ))
             return true;
-        } else {
+        else {
             EntityLightningDragon lightningDragon = (EntityLightningDragon) livingEntityIn;
             if (lightningDragon.hasLightningTarget()) {
                 Vec3d Vector3d1 = lightningDragon.getHeadPosition();
@@ -62,6 +61,5 @@ public class RenderLightningDragon extends RenderDragonBase {
             }
         }
         matrixStackIn.pop();
-
     }
 }

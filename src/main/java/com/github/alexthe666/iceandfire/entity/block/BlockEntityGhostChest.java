@@ -33,13 +33,10 @@ public class BlockEntityGhostChest extends ChestBlockEntity {
         if (this.world.getDifficulty() != Difficulty.PEACEFUL) {
             EntityGhost ghost = IafEntities.GHOST.create(this.world);
             assert ghost != null;
-            ghost.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F,
-                    ThreadLocalRandom.current().nextFloat() * 360F, 0);
+            ghost.updatePositionAndAngles(this.pos.getX() + 0.5F, this.pos.getY() + 0.5F, this.pos.getZ() + 0.5F, ThreadLocalRandom.current().nextFloat() * 360F, 0);
             if (!this.world.isClient) {
                 ghost.initialize((ServerWorld) this.world, this.world.getLocalDifficulty(this.pos), SpawnReason.SPAWNER, null, null);
-                if (!player.isCreative()) {
-                    ghost.setTarget(player);
-                }
+                if (!player.isCreative()) ghost.setTarget(player);
                 ghost.setPersistent();
                 this.world.spawnEntity(ghost);
             }

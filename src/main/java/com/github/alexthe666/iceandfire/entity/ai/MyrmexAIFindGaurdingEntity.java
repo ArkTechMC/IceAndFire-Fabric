@@ -29,13 +29,11 @@ public class MyrmexAIFindGaurdingEntity<T extends EntityMyrmexBase> extends Trac
 
     @Override
     public boolean canStart() {
-        if (!this.myrmex.canMove() || this.myrmex.getTarget() != null || this.myrmex.guardingEntity != null) {
+        if (!this.myrmex.canMove() || this.myrmex.getTarget() != null || this.myrmex.guardingEntity != null)
             return false;
-        }
         List<EntityMyrmexBase> list = this.mob.getWorld().getEntitiesByClass(EntityMyrmexBase.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
-        if (list.isEmpty()) {
-            return false;
-        } else {
+        if (list.isEmpty()) return false;
+        else {
             list.sort(this.theNearestAttackableTargetSorter);
             this.myrmex.guardingEntity = list.get(0);
             return true;

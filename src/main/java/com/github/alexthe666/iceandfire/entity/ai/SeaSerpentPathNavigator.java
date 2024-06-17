@@ -15,7 +15,6 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public class SeaSerpentPathNavigator extends EntityNavigation {
-
     public SeaSerpentPathNavigator(MobEntity entitylivingIn, World worldIn) {
         super(entitylivingIn, worldIn);
     }
@@ -39,26 +38,23 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
     @Override
     public void tick() {
         ++this.tickCount;
-        if (this.inRecalculationCooldown) {
+        if (this.inRecalculationCooldown)
             this.recalculatePath();
-        }
 
         if (!this.isIdle()) {
-            Vec3d lvt_1_2_;
-            if (this.isAtValidPosition()) {
+            if (this.isAtValidPosition())
                 this.continueFollowingPath();
-            } else if (this.currentPath != null && !this.currentPath.isFinished()) {
-                lvt_1_2_ = this.currentPath.getNodePosition(this.entity);
-                if (MathHelper.floor(this.entity.getX()) == MathHelper.floor(lvt_1_2_.x) && MathHelper.floor(this.entity.getY()) == MathHelper.floor(lvt_1_2_.y) && MathHelper.floor(this.entity.getZ()) == MathHelper.floor(lvt_1_2_.z)) {
+            else if (this.currentPath != null && !this.currentPath.isFinished()) {
+                Vec3d vec3d = this.currentPath.getNodePosition(this.entity);
+                if (MathHelper.floor(this.entity.getX()) == MathHelper.floor(vec3d.x) && MathHelper.floor(this.entity.getY()) == MathHelper.floor(vec3d.y) && MathHelper.floor(this.entity.getZ()) == MathHelper.floor(vec3d.z))
                     this.currentPath.next();
-                }
             }
 
             DebugInfoSender.sendPathfindingData(this.world, this.entity, this.currentPath, this.nodeReachProximity);
             if (!this.isIdle()) {
                 assert this.currentPath != null;
-                lvt_1_2_ = this.currentPath.getNodePosition(this.entity);
-                this.entity.getMoveControl().moveTo(lvt_1_2_.x, lvt_1_2_.y, lvt_1_2_.z, this.speed);
+                Vec3d vec3d = this.currentPath.getNodePosition(this.entity);
+                this.entity.getMoveControl().moveTo(vec3d.x, vec3d.y, vec3d.z, this.speed);
             }
         }
     }
@@ -68,22 +64,19 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
         if (this.currentPath != null) {
             Vec3d entityPos = this.getPos();
             final float entityWidth = this.entity.getWidth();
-            float lvt_3_1_ = entityWidth > 0.75F ? entityWidth / 2.0F : 0.75F - entityWidth / 2.0F;
-            Vec3d lvt_4_1_ = this.entity.getVelocity();
-            if (Math.abs(lvt_4_1_.x) > 0.2D || Math.abs(lvt_4_1_.z) > 0.2D) {
-                lvt_3_1_ = (float) (lvt_3_1_ * lvt_4_1_.length() * 6.0D);
-            }
-            Vec3d lvt_6_1_ = Vec3d.ofCenter(this.currentPath.getCurrentNodePos());
-            if (Math.abs(this.entity.getX() - lvt_6_1_.x) < lvt_3_1_
-                    && Math.abs(this.entity.getZ() - lvt_6_1_.z) < lvt_3_1_
-                    && Math.abs(this.entity.getY() - lvt_6_1_.y) < lvt_3_1_ * 2.0F) {
+            float range = entityWidth > 0.75F ? entityWidth / 2.0F : 0.75F - entityWidth / 2.0F;
+            Vec3d velocity = this.entity.getVelocity();
+            if (Math.abs(velocity.x) > 0.2D || Math.abs(velocity.z) > 0.2D)
+                range = (float) (range * velocity.length() * 6.0D);
+            Vec3d center = Vec3d.ofCenter(this.currentPath.getCurrentNodePos());
+            if (Math.abs(this.entity.getX() - center.x) < range
+                    && Math.abs(this.entity.getZ() - center.z) < range
+                    && Math.abs(this.entity.getY() - center.y) < range * 2.0F)
                 this.currentPath.next();
-            }
 
             for (int lvt_7_1_ = Math.min(this.currentPath.getCurrentNodeIndex() + 6, this.currentPath.getLength() - 1); lvt_7_1_ > this.currentPath.getCurrentNodeIndex(); --lvt_7_1_) {
-                lvt_6_1_ = this.currentPath.getNodePosition(this.entity, lvt_7_1_);
-                if (lvt_6_1_.squaredDistanceTo(entityPos) <= 36.0D
-                        && this.canPathDirectlyThrough(entityPos, lvt_6_1_)) {
+                center = this.currentPath.getNodePosition(this.entity, lvt_7_1_);
+                if (center.squaredDistanceTo(entityPos) <= 36.0D && this.canPathDirectlyThrough(entityPos, center)) {
                     this.currentPath.setCurrentNodeIndex(lvt_7_1_);
                     break;
                 }
@@ -96,20 +89,19 @@ public class SeaSerpentPathNavigator extends EntityNavigation {
     @Override
     protected void checkTimeouts(Vec3d positionVec3) {
         if (this.tickCount - this.pathStartTime > 100) {
-            if (positionVec3.squaredDistanceTo(this.pathStartPos) < 2.25D) {
+            if (positionVec3.squaredDistanceTo(this.pathStartPos) < 2.25D)
                 this.stop();
-            }
 
             this.pathStartTime = this.tickCount;
             this.pathStartPos = positionVec3;
         }
 
         if (this.currentPath != null && !this.currentPath.isFinished()) {
-            Vec3i lvt_2_1_ = this.currentPath.getCurrentNodePos();
-            if (lvt_2_1_.equals(this.lastNodePosition)) {
+            Vec3i pos = this.currentPath.getCurrentNodePos();
+            if (pos.equals(this.lastNodePosition))
                 this.currentNodeMs += Util.getMeasuringTimeMs() - this.lastActiveTickMs;
-            } else {
-                this.lastNodePosition = lvt_2_1_;
+            else {
+                this.lastNodePosition = pos;
                 final double lvt_3_1_ = positionVec3.distanceTo(Vec3d.ofCenter(this.lastNodePosition));
                 this.currentNodeTimeout = this.entity.getMovementSpeed() > 0.0F
                         ? lvt_3_1_ / this.entity.getMovementSpeed() * 100.0D

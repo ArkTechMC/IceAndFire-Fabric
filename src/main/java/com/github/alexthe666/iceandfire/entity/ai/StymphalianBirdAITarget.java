@@ -20,13 +20,11 @@ public class StymphalianBirdAITarget extends ActiveTargetGoal<LivingEntity> {
         this.bird = entityIn;
     }
 
-
     @Override
     public boolean canStart() {
         boolean supe = super.canStart();
-        if (this.targetEntity != null && this.bird.getVictor() != null && this.bird.getVictor().getUuid().equals(this.targetEntity.getUuid())) {
+        if (this.targetEntity != null && this.bird.getVictor() != null && this.bird.getVictor().getUuid().equals(this.targetEntity.getUuid()))
             return false;
-        }
         return supe && this.targetEntity != null && !this.targetEntity.getClass().equals(this.bird.getClass());
     }
 

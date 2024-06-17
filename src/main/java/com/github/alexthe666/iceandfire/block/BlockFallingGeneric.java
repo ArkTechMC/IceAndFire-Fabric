@@ -35,8 +35,4 @@ public class BlockFallingGeneric extends FallingBlock {
         Settings props = Settings.create().mapColor(color).instrument(instrument).sounds(sound).strength(hardness, resistance);
         return new BlockFallingGeneric(props);
     }
-
-    public int getDustColor(BlockState blkst) {
-        return -8356741;
-    }
 }

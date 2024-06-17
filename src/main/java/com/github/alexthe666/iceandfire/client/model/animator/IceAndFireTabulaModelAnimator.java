@@ -38,8 +38,7 @@ public class IceAndFireTabulaModelAnimator {
             from.rotateAngleX += ((to.rotateAngleX - from.rotateAngleX) / maxTime) * timer;
             from.rotateAngleY += ((to.rotateAngleY - from.rotateAngleY) / maxTime) * timer;
             from.rotateAngleZ += ((to.rotateAngleZ - from.rotateAngleZ) / maxTime) * timer;
-        } else
-            this.transitionAngles(from, to, timer, maxTime);
+        } else this.transitionAngles(from, to, timer, maxTime);
         from.rotationPointX += ((to.rotationPointX - from.rotationPointX) / maxTime) * timer;
         from.rotationPointY += ((to.rotationPointY - from.rotationPointY) / maxTime) * timer;
         from.rotationPointZ += ((to.rotationPointZ - from.rotationPointZ) / maxTime) * timer;
@@ -66,13 +65,13 @@ public class IceAndFireTabulaModelAnimator {
                 float toX = cubeTo.rotateAngleX;
                 float toY = cubeTo.rotateAngleY;
                 float toZ = cubeTo.rotateAngleZ;
-                model.llibAnimator.rotate(cube, this.distance(cube.rotateAngleX, toX), this.distance(cube.rotateAngleY, toY), this.distance(cube.rotateAngleZ, toZ));
+                model.animator.rotate(cube, this.distance(cube.rotateAngleX, toX), this.distance(cube.rotateAngleY, toY), this.distance(cube.rotateAngleZ, toZ));
             }
             if (!this.isPositionEqual(this.baseModel.getCube(cube.boxName), cubeTo)) {
                 float toX = cubeTo.rotationPointX;
                 float toY = cubeTo.rotationPointY;
                 float toZ = cubeTo.rotationPointZ;
-                model.llibAnimator.move(cube, toX - cube.rotationPointX, toY - cube.rotationPointY, toZ - cube.rotationPointZ);
+                model.animator.move(cube, toX - cube.rotationPointX, toY - cube.rotationPointY, toZ - cube.rotationPointZ);
             }
         }
     }

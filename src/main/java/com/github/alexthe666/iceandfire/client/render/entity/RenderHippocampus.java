@@ -18,7 +18,6 @@ import net.minecraft.util.Identifier;
 
 
 public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, ModelHippocampus> {
-
     private static final Identifier VARIANT_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_0.png");
     private static final Identifier VARIANT_0_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_0_blinking.png");
     private static final Identifier VARIANT_1 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_1.png");
@@ -31,7 +30,6 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
     private static final Identifier VARIANT_4_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_4_blinking.png");
     private static final Identifier VARIANT_5 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_5.png");
     private static final Identifier VARIANT_5_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_5_blinking.png");
-
 
     public RenderHippocampus(EntityRendererFactory.Context context) {
         super(context, new ModelHippocampus(), 0.8F);
@@ -50,7 +48,6 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
             case 5 -> entity.isBlinking() ? VARIANT_5_BLINK : VARIANT_5;
         };
     }
-
 
     private static class LayerHippocampusSaddle extends FeatureRenderer<EntityHippocampus, ModelHippocampus> {
         private final RenderLayer SADDLE_TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/saddle.png"));
@@ -87,7 +84,6 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
                 };
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(type);
                 this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-
             }
         }
     }
@@ -104,7 +100,6 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
         public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHippocampus hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
             if (hippo.hasCustomName() && hippo.getCustomName().toString().toLowerCase().contains("rainbow")) {
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(hippo.isBlinking() ? this.TEXTURE_BLINK : this.TEXTURE);
-                int i1 = 25;
                 int i = hippo.age / 25 + hippo.getId();
                 int j = DyeColor.values().length;
                 int k = i % j;

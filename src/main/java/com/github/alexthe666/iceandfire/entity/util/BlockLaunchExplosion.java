@@ -49,19 +49,15 @@ public class BlockLaunchExplosion extends Explosion {
 
     private static void handleExplosionDrops(ObjectArrayList<Pair<ItemStack, BlockPos>> dropPositionArray, ItemStack stack, BlockPos pos) {
         int i = dropPositionArray.size();
-
         for (int j = 0; j < i; ++j) {
             Pair<ItemStack, BlockPos> pair = dropPositionArray.get(j);
             ItemStack itemstack = pair.getFirst();
             if (ItemEntity.canMerge(itemstack, stack)) {
                 ItemStack itemstack1 = ItemEntity.merge(itemstack, stack, 16);
                 dropPositionArray.set(j, Pair.of(itemstack1, pair.getSecond()));
-                if (stack.isEmpty()) {
-                    return;
-                }
+                if (stack.isEmpty())                     return;
             }
         }
-
         dropPositionArray.add(Pair.of(stack, pos));
     }
 
@@ -70,17 +66,15 @@ public class BlockLaunchExplosion extends Explosion {
      */
     @Override
     public void affectWorld(boolean spawnParticles) {
-        if (this.world.isClient) {
+        if (this.world.isClient)
             this.world.playSound(this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.random.nextFloat() - this.world.random.nextFloat()) * 0.2F) * 0.7F, false);
-        }
 
         boolean flag = this.mode != DestructionType.KEEP;
         if (spawnParticles) {
-            if (!(this.size < 2.0F) && flag) {
+            if (!(this.size < 2.0F) && flag)
                 this.world.addParticle(ParticleTypes.EXPLOSION_EMITTER, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
-            } else {
+            else
                 this.world.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
-            }
         }
 
         if (flag) {
@@ -110,5 +104,4 @@ public class BlockLaunchExplosion extends Explosion {
             }
         }
     }
-
 }

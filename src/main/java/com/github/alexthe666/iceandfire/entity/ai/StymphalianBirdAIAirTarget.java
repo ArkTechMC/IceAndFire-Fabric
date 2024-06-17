@@ -16,39 +16,28 @@ public class StymphalianBirdAIAirTarget extends Goal {
     public static BlockPos getNearbyAirTarget(EntityStymphalianBird bird) {
         if (bird.getTarget() == null) {
             BlockPos pos = DragonUtils.getBlockInViewStymphalian(bird);
-            if (pos != null && bird.getWorld().getBlockState(pos).isAir()) {
+            if (pos != null && bird.getWorld().getBlockState(pos).isAir())
                 return pos;
-            }
-            if (bird.flock != null && bird.flock.isLeader(bird)) {
+            if (bird.flock != null && bird.flock.isLeader(bird))
                 bird.flock.setTarget(bird.airTarget);
-            }
-        } else {
+        } else
             return BlockPos.ofFloored(bird.getTarget().getBlockX(), bird.getTarget().getY() + bird.getTarget().getStandingEyeHeight(), bird.getTarget().getBlockZ());
-        }
         return bird.getBlockPos();
     }
 
     @Override
     public boolean canStart() {
         if (this.bird != null) {
-            if (!this.bird.isFlying()) {
-                return false;
-            }
-            if (this.bird.isBaby() || this.bird.doesWantToLand()) {
-                return false;
-            }
-            if (this.bird.airTarget != null && (this.bird.isTargetBlocked(Vec3d.ofCenter(this.bird.airTarget)))) {
+            if (!this.bird.isFlying()) return false;
+            if (this.bird.isBaby() || this.bird.doesWantToLand()) return false;
+            if (this.bird.airTarget != null && (this.bird.isTargetBlocked(Vec3d.ofCenter(this.bird.airTarget))))
                 this.bird.airTarget = null;
-            }
-
-            if (this.bird.airTarget != null) {
+            if (this.bird.airTarget != null)
                 return false;
-            } else {
+            else {
                 Vec3d vec = this.findAirTarget();
-
-                if (vec == null) {
-                    return false;
-                } else {
+                if (vec == null) return false;
+                else {
                     this.bird.airTarget = BlockPos.ofFloored(vec);
                     return true;
                 }
@@ -59,12 +48,8 @@ public class StymphalianBirdAIAirTarget extends Goal {
 
     @Override
     public boolean shouldContinue() {
-        if (!this.bird.isFlying()) {
-            return false;
-        }
-        if (this.bird.isBaby()) {
-            return false;
-        }
+        if (!this.bird.isFlying()) return false;
+        if (this.bird.isBaby()) return false;
         return this.bird.airTarget != null;
     }
 

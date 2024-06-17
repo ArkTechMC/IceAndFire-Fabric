@@ -258,8 +258,8 @@ public class ModelDreadScuttler extends ModelDragonBase<EntityDreadScuttler> {
     }
 
     @Override
-    public void setAngles(EntityDreadScuttler beast, float f, float f1, float f2, float f3, float f4) {
-        this.animate(beast, f, f1, f2, f3, f4, 1);
+    public void setAngles(EntityDreadScuttler entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         float speed_idle = 0.05F;
         float degree_idle = 0.5F;
         float speed_walk = 0.9F;
@@ -272,30 +272,30 @@ public class ModelDreadScuttler extends ModelDragonBase<EntityDreadScuttler> {
         AdvancedModelBox[] LEGL1 = new AdvancedModelBox[]{this.legTopR1_1, this.legMidR1_1, this.legBottomR1_1};
         AdvancedModelBox[] LEGL2 = new AdvancedModelBox[]{this.legTopR2_1, this.legMidR2_1, this.legBottomR2_1};
         AdvancedModelBox[] LEGL3 = new AdvancedModelBox[]{this.legTopR3_1, this.legMidR3_1, this.legBottomR3_1};
-        this.chainWave(GASTER, speed_idle, degree_idle * 0.25F, 0, f2, 1);
-        this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, f2, 1);
-        this.swing(this.palpTopR1, speed_idle * 2F, degree_idle * -0.5F, false, 1, 0.2F, f2, 1);
-        this.swing(this.palpTopL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
+        this.chainWave(GASTER, speed_idle, degree_idle * 0.25F, 0, animationProgress, 1);
+        this.chainWave(NECK, speed_idle, degree_idle * -0.15F, 2, animationProgress, 1);
+        this.swing(this.palpTopR1, speed_idle * 2F, degree_idle * -0.5F, false, 1, 0.2F, animationProgress, 1);
+        this.swing(this.palpTopL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, animationProgress, 1);
 
-        this.walk(this.palpTopR1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
-        this.walk(this.palpTopL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
+        this.walk(this.palpTopR1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, animationProgress, 1);
+        this.walk(this.palpTopL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, animationProgress, 1);
 
-        this.walk(this.palpMidR1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
-        this.walk(this.palpMidL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, f2, 1);
+        this.walk(this.palpMidR1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, animationProgress, 1);
+        this.walk(this.palpMidL1, speed_idle * 2F, degree_idle * -0.5F, true, 1, 0.2F, animationProgress, 1);
 
-        if (beast.getAnimation() == EntityDreadScuttler.ANIMATION_SPAWN)
-            if (beast.getAnimationTick() < 39) {
-                f = f2;
-                f1 = 1;
+        if (entity.getAnimation() == EntityDreadScuttler.ANIMATION_SPAWN)
+            if (entity.getAnimationTick() < 39) {
+                limbAngle = animationProgress;
+                limbDistance = 1;
             }
 
-        this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, f, f1);
-        this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, f, f1);
-        this.animateLeg(LEGR2, speed_walk, degree_walk, true, 0, 1, f, f1);
+        this.animateLeg(LEGR1, speed_walk, degree_walk, false, 0, 1, limbAngle, limbDistance);
+        this.animateLeg(LEGR3, speed_walk, degree_walk, false, 0, 1, limbAngle, limbDistance);
+        this.animateLeg(LEGR2, speed_walk, degree_walk, true, 0, 1, limbAngle, limbDistance);
 
-        this.animateLeg(LEGL1, speed_walk, degree_walk, false, 1, -1, f, f1);
-        this.animateLeg(LEGL3, speed_walk, degree_walk, false, 1, -1, f, f1);
-        this.animateLeg(LEGL2, speed_walk, degree_walk, true, 1, -1, f, f1);
+        this.animateLeg(LEGL1, speed_walk, degree_walk, false, 1, -1, limbAngle, limbDistance);
+        this.animateLeg(LEGL3, speed_walk, degree_walk, false, 1, -1, limbAngle, limbDistance);
+        this.animateLeg(LEGL2, speed_walk, degree_walk, true, 1, -1, limbAngle, limbDistance);
     }
 
     private void animateLeg(AdvancedModelBox[] models, float speed, float degree, boolean reverse, float offset, float weight, float f, float f1) {

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
-
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
     protected final Predicate<? super ItemEntity> targetEntitySelector;
     protected final int targetChance;
@@ -36,10 +35,8 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
 
     @Override
     public boolean canStart() {
-
-        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0) {
+        if (this.targetChance > 0 && this.mob.getRandom().nextInt(this.targetChance) != 0)
             return false;
-        }
 
         if ((!((EntityCockatrice) this.mob).canMove()) || this.mob.getHealth() >= this.mob.getMaxHealth()) {
             this.list = IafMath.emptyItemEntityList;
@@ -47,12 +44,10 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
         }
 
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
-            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class,
-                    this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
+            this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (this.list.isEmpty()) {
-            return false;
-        } else {
+        if (this.list.isEmpty()) return false;
+        else {
             this.list.sort(this.theNearestAttackableTargetSorter);
             this.targetEntity = this.list.get(0);
             return true;
@@ -65,17 +60,16 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
 
     @Override
     public void start() {
-        this.mob.getNavigation().startMovingTo(this.targetEntity.getX(), this.targetEntity.getY(),
-                this.targetEntity.getZ(), 1);
+        this.mob.getNavigation().startMovingTo(this.targetEntity.getX(), this.targetEntity.getY(), this.targetEntity.getZ(), 1);
         super.start();
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity == null || !this.targetEntity.isAlive()) {
+        if (this.targetEntity == null || !this.targetEntity.isAlive())
             this.stop();
-        } else if (this.mob.squaredDistanceTo(this.targetEntity) < 1) {
+        else if (this.mob.squaredDistanceTo(this.targetEntity) < 1) {
             EntityCockatrice cockatrice = (EntityCockatrice) this.mob;
             this.targetEntity.getStack().decrement(1);
             this.mob.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
@@ -89,5 +83,4 @@ public class CockatriceAITargetItems<T extends ItemEntity> extends TrackTargetGo
     public boolean shouldContinue() {
         return !this.mob.getNavigation().isIdle();
     }
-
 }

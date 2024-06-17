@@ -27,14 +27,13 @@ public class DeathWormAIGetInSand extends Goal {
 
     @Override
     public boolean canStart() {
-        if (this.creature.hasPassengers() || this.creature.isInSand() || this.creature.getTarget() != null && !this.creature.getTarget().isTouchingWater() || this.creature.targetItemsGoal.targetEntity != null) {
+        if (this.creature.hasPassengers() || this.creature.isInSand() || this.creature.getTarget() != null && !this.creature.getTarget().isTouchingWater() || this.creature.targetItemsGoal.targetEntity != null)
             return false;
-        } else {
+        else {
             Vec3d Vector3d = this.findPossibleShelter();
 
-            if (Vector3d == null) {
-                return false;
-            } else {
+            if (Vector3d == null) return false;
+            else {
                 this.shelterX = Vector3d.x;
                 this.shelterY = Vector3d.y;
                 this.shelterZ = Vector3d.z;
@@ -65,10 +64,8 @@ public class DeathWormAIGetInSand extends Goal {
 
         for (int i = 0; i < 10; ++i) {
             BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
-
-            if (this.world.getBlockState(blockpos1).isIn(BlockTags.SAND)) {
+            if (this.world.getBlockState(blockpos1).isIn(BlockTags.SAND))
                 return new Vec3d(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
-            }
         }
 
         return null;

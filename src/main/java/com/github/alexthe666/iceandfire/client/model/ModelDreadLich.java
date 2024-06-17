@@ -89,15 +89,15 @@ public class ModelDreadLich extends ModelDreadBase<EntityDreadLich> implements M
     }
 
     @Override
-    public void setAngles(EntityDreadLich entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        if (entityIn.getAnimation() == EntityDreadLich.ANIMATION_SUMMON) {
+    public void setAngles(EntityDreadLich entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+        if (entity.getAnimation() == EntityDreadLich.ANIMATION_SUMMON) {
             this.armRight.rotationPointZ = 0.0F;
             this.armRight.rotationPointX = -5.0F;
             this.armLeft.rotationPointZ = 0.0F;
             this.armLeft.rotationPointX = 5.0F;
-            this.armRight.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.25F;
-            this.armLeft.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.25F;
+            this.armRight.rotateAngleX = MathHelper.cos(animationProgress * 0.6662F) * 0.25F;
+            this.armLeft.rotateAngleX = MathHelper.cos(animationProgress * 0.6662F) * 0.25F;
             this.armRight.rotateAngleZ = 2.3561945F;
             this.armLeft.rotateAngleZ = -2.3561945F;
             this.armRight.rotateAngleY = 0.0F;

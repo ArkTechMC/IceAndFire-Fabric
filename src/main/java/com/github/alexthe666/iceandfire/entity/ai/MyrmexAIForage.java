@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MyrmexAIForage extends Goal {
-
     private static final int RADIUS = 16;
     private final EntityMyrmexWorker myrmex;
     private final BlockSorter targetSorter;
@@ -45,28 +44,22 @@ public class MyrmexAIForage extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || !this.myrmex.getNavigation().isIdle()
-                || this.myrmex.isInHive() || this.myrmex.shouldEnterHive()) {
+        if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || !this.myrmex.getNavigation().isIdle() || this.myrmex.isInHive() || this.myrmex.shouldEnterHive())
             return false;
-        }
-        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle()) {
+        if (!(this.myrmex.getNavigation() instanceof AdvancedPathNavigate) || this.myrmex.hasVehicle())
             return false;
-        }
-        if (this.myrmex.getWaitTicks() > 0) {
+        if (this.myrmex.getWaitTicks() > 0)
             return false;
-        }
 
         // Get nearby edible blocks
         List<BlockPos> edibleBlocks = this.getEdibleBlocks();
         // If there are no edible blocks nearby
-        if (edibleBlocks.isEmpty()) {
+        if (edibleBlocks.isEmpty())
             return this.myrmex.getRandom().nextInt(this.chance) == 0 && this.increaseRadiusAndWander();
-        }
         // Set closest block as target
         edibleBlocks.sort(this.targetSorter);
         this.targetBlock = edibleBlocks.get(0);
-        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
-                this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
+        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(), this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
         return this.myrmex.getRandom().nextInt(this.chance) == 0;
     }
 
@@ -86,8 +79,7 @@ public class MyrmexAIForage extends Goal {
         // If we haven't found an edible block as a target
         if (this.targetBlock != null && this.myrmex.keepSearching) {
             // If the myrmex is close enough to the target or at the end of the path
-            if (this.myrmex.isCloseEnoughToTarget(this.targetBlock, 12)
-                    || !this.myrmex.pathReachesTarget(this.path, this.targetBlock, 12)) {
+            if (this.myrmex.isCloseEnoughToTarget(this.targetBlock, 12) || !this.myrmex.pathReachesTarget(this.path, this.targetBlock, 12)) {
                 this.failedToFindPath = 0;
                 List<BlockPos> edibleBlocks = this.getEdibleBlocks();
                 // If we found an edible block nearby
@@ -95,13 +87,10 @@ public class MyrmexAIForage extends Goal {
                     this.myrmex.keepSearching = false;
                     edibleBlocks.sort(this.targetSorter);
                     this.targetBlock = edibleBlocks.get(0);
-                    this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
-                            this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
+                    this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(), this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
                 }
                 // If there are still no edible blocks nearby
-                else {
-                    this.increaseRadiusAndWander();
-                }
+                else this.increaseRadiusAndWander();
             }
             // if we have found an edible block
         } else if (!this.myrmex.keepSearching) {
@@ -113,8 +102,8 @@ public class MyrmexAIForage extends Goal {
                 if (distance < 6) {
                     block.getBlock();
                     // Routine to break block and add item to myrmex
-                    List<ItemStack> drops = Block.getDroppedStacks(block, (ServerWorld) this.myrmex.getWorld(), this.targetBlock,
-                            this.myrmex.getWorld().getBlockEntity(this.targetBlock)); // use the old method until it gets removed, for
+                    List<ItemStack> drops = Block.getDroppedStacks(block, (ServerWorld) this.myrmex.getWorld(), this.targetBlock, this.myrmex.getWorld().getBlockEntity(this.targetBlock));
+                    // use the old method until it gets removed, for
                     // backward compatibility
                     if (!drops.isEmpty()) {
                         this.myrmex.getWorld().breakBlock(this.targetBlock, false);
@@ -128,9 +117,8 @@ public class MyrmexAIForage extends Goal {
                                     this.targetBlock.getY() + this.myrmex.getRandom().nextDouble(),
                                     this.targetBlock.getZ() + this.myrmex.getRandom().nextDouble(), stack);
                             itemEntity.setToDefaultPickupDelay();
-                            if (!this.myrmex.getWorld().isClient) {
+                            if (!this.myrmex.getWorld().isClient)
                                 this.myrmex.getWorld().spawnEntity(itemEntity);
-                            }
                         }
                         this.targetBlock = null;
                         this.stop();
@@ -147,11 +135,8 @@ public class MyrmexAIForage extends Goal {
                         this.myrmex.keepSearching = false;
                         // This time choose a different random edible block
                         this.targetBlock = edibleBlocks.get(this.myrmex.getRandom().nextInt(edibleBlocks.size()));
-                        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
-                                this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
-                    } else {
-                        this.myrmex.keepSearching = true;
-                    }
+                        this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(), this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
+                    } else this.myrmex.keepSearching = true;
                 }
             }
         }
@@ -175,12 +160,11 @@ public class MyrmexAIForage extends Goal {
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos.stream(this.myrmex.getBlockPos().add(-RADIUS, -RADIUS / 2, -RADIUS),
                 this.myrmex.getBlockPos().add(RADIUS, RADIUS / 2, RADIUS)).map(BlockPos::toImmutable).forEach(pos -> {
-            if (!EventBus.post(new GenericGriefEvent(this.myrmex, pos.getX(), pos.getY(), pos.getZ()))) {
+            if (!EventBus.post(new GenericGriefEvent(this.myrmex, pos.getX(), pos.getY(), pos.getZ())))
                 if (EntityMyrmexBase.isEdibleBlock(this.myrmex.getWorld().getBlockState(pos))) {
                     allBlocks.add(pos);
                     this.myrmex.keepSearching = false;
                 }
-            }
         });
         return allBlocks;
     }
@@ -201,24 +185,20 @@ public class MyrmexAIForage extends Goal {
             // Keep track of how many times the myrmex has potentially not found a path to a
             // target
             this.failedToFindPath++;
-            if (this.failedToFindPath >= 10) {
+            if (this.failedToFindPath >= 10)
                 this.myrmex.setWaitTicks(800 + ThreadLocalRandom.current().nextInt(40));
-            }
         }
         Vec3d vec = NoPenaltyTargeting.find(this.myrmex, this.wanderRadius, 7);
-        if (vec != null) {
+        if (vec != null)
             this.targetBlock = BlockPos.ofFloored(vec);
-        }
         if (this.targetBlock != null) {
-            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(),
-                    this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
+            this.path = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToXYZ(this.targetBlock.getX(), this.targetBlock.getY(), this.targetBlock.getZ(), 1D);
             return true;
         }
         return false;
     }
 
     public class BlockSorter implements Comparator<BlockPos> {
-
         @Override
         public int compare(BlockPos pos1, BlockPos pos2) {
             double distance1 = MyrmexAIForage.this.getDistanceSq(pos1);
@@ -226,5 +206,4 @@ public class MyrmexAIForage extends Goal {
             return Double.compare(distance1, distance2);
         }
     }
-
 }

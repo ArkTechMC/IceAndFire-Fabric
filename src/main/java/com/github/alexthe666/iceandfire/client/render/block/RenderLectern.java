@@ -36,21 +36,11 @@ public class RenderLectern<T extends BlockEntityLectern> implements BlockEntityR
         f4 = (f4 - MathHelper.floor(f4)) * 1.6F - 0.3F;
         f5 = (f5 - MathHelper.floor(f5)) * 1.6F - 0.3F;
 
-        if (f4 < 0.0F) {
-            f4 = 0.0F;
-        }
+        if (f4 < 0.0F) f4 = 0.0F;
+        if (f5 < 0.0F) f5 = 0.0F;
+        if (f4 > 1.0F) f4 = 1.0F;
+        if (f5 > 1.0F) f5 = 1.0F;
 
-        if (f5 < 0.0F) {
-            f5 = 0.0F;
-        }
-
-        if (f4 > 1.0F) {
-            f4 = 1.0F;
-        }
-
-        if (f5 > 1.0F) {
-            f5 = 1.0F;
-        }
         float f6 = 1.29F;
 
         this.bookModel.setPageAngles(partialTicks, MathHelper.clamp(f4, 0.0F, 1.0F), MathHelper.clamp(f5, 0.0F, 1.0F), f6);
@@ -66,5 +56,4 @@ public class RenderLectern<T extends BlockEntityLectern> implements BlockEntityR
             case SOUTH -> 0;
         };
     }
-
 }

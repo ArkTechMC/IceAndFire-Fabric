@@ -12,7 +12,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class LayerPixieGlow extends FeatureRenderer<EntityPixie, ModelPixie> {
-
     public LayerPixieGlow(RenderPixie renderIn) {
         super(renderIn);
     }

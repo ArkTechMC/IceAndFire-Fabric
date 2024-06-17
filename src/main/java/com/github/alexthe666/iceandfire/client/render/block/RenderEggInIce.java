@@ -8,9 +8,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class RenderEggInIce<T extends BlockEntityEggInIce> implements BlockEntityRenderer<T> {
-
     public RenderEggInIce(BlockEntityRendererFactory.Context context) {
-
     }
 
     @Override

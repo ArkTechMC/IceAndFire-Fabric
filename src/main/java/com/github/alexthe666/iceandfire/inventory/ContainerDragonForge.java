@@ -24,7 +24,6 @@ public class ContainerDragonForge extends ScreenHandler {
         this(i, new SimpleInventory(3), playerInventory, new DragonForgePropertyDelegate());
     }
 
-
     public ContainerDragonForge(int id, Inventory furnaceInventory, PlayerInventory playerInventory, DragonForgePropertyDelegate propertyDelegate) {
         super(IafScreenHandlers.DRAGON_FORGE_CONTAINER, id);
         this.tileFurnace = furnaceInventory;

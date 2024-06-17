@@ -257,7 +257,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new MyrmexAIDefendHive(this));
-        this.targetSelector.add(2, new MyrmexAIFindMate<>(this));
+        this.targetSelector.add(2, new MyrmexAIFindMate(this));
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new MyrmexAIAttackPlayers(this));
         this.targetSelector.add(4, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, (Predicate<LivingEntity>) entity -> {

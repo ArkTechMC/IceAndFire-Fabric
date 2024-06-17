@@ -117,8 +117,8 @@ public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
     }
 
     @Override
-    public void setAngles(EntityHydra entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate(entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(EntityHydra entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         float speed_walk = 0.6F;
         float speed_idle = 0.05F;
         float degree_walk = 0.2F;
@@ -128,13 +128,13 @@ public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
         }
         float partialTicks = MinecraftClient.getInstance().getTickDelta();
         AdvancedModelBox[] ENTIRE_HEAD = new AdvancedModelBox[]{this.Neck1, this.Neck2, this.Neck3, this.Neck4};
-        this.chainFlap(ENTIRE_HEAD, speed_idle, degree_idle * 0.15F, -3 + this.headIndex % 4, f2, 1);
-        this.chainSwing(ENTIRE_HEAD, speed_idle, degree_idle * 0.05F, -3 + this.headIndex % 3, f2, 1);
-        this.chainWave(ENTIRE_HEAD, speed_idle * 1.5F, degree_idle * 0.05F, -2 + this.headIndex % 3, f2, 1);
-        this.faceTarget(f3, f4, 1, this.Head1);
-        this.walk(this.neckSpike1, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, -0.1F, f2, 1);
-        this.walk(this.neckSpike2, speed_idle * 1.5F, degree_idle * 0.4F, false, 3, -0.1F, f2, 1);
-        this.chainSwing(ENTIRE_HEAD, speed_walk, degree_walk * 0.75F, -3, f, f1);
+        this.chainFlap(ENTIRE_HEAD, speed_idle, degree_idle * 0.15F, -3 + this.headIndex % 4, animationProgress, 1);
+        this.chainSwing(ENTIRE_HEAD, speed_idle, degree_idle * 0.05F, -3 + this.headIndex % 3, animationProgress, 1);
+        this.chainWave(ENTIRE_HEAD, speed_idle * 1.5F, degree_idle * 0.05F, -2 + this.headIndex % 3, animationProgress, 1);
+        this.faceTarget(headYaw, headPitch, 1, this.Head1);
+        this.walk(this.neckSpike1, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, -0.1F, animationProgress, 1);
+        this.walk(this.neckSpike2, speed_idle * 1.5F, degree_idle * 0.4F, false, 3, -0.1F, animationProgress, 1);
+        this.chainSwing(ENTIRE_HEAD, speed_walk, degree_walk * 0.75F, -3, limbAngle, limbDistance);
         float speakProgress = entity.prevSpeakingProgress[this.headIndex] + partialTicks * (entity.speakingProgress[this.headIndex] - entity.prevSpeakingProgress[this.headIndex]);
         this.progressRotationInterp(this.LowerJaw1, MathHelper.sin((float) (speakProgress * Math.PI)) * 10F, (float) Math.toRadians(25), 0.0F, 0.0F, 10F);
         /*

@@ -26,9 +26,8 @@ public class CustomCollisionsNavigator extends MobNavigation {
         double d0 = posVec32.x - posVec31.x;
         double d1 = posVec32.z - posVec31.z;
         double d2 = d0 * d0 + d1 * d1;
-        if (d2 < 1.0E-8D) {
-            return false;
-        } else {
+        if (d2 < 1.0E-8D) return false;
+        else {
             double d3 = 1.0D / Math.sqrt(d2);
             d0 = d0 * d3;
             d1 = d1 * d3;
@@ -43,13 +42,8 @@ public class CustomCollisionsNavigator extends MobNavigation {
                 double d5 = 1.0D / Math.abs(d1);
                 double d6 = (double) i - posVec31.x;
                 double d7 = (double) j - posVec31.z;
-                if (d0 >= 0.0D) {
-                    ++d6;
-                }
-
-                if (d1 >= 0.0D) {
-                    ++d7;
-                }
+                if (d0 >= 0.0D) ++d6;
+                if (d1 >= 0.0D) ++d7;
 
                 d6 = d6 / d0;
                 d7 = d7 / d1;
@@ -70,25 +64,21 @@ public class CustomCollisionsNavigator extends MobNavigation {
                         j += l;
                         l1 = j1 - j;
                     }
-
-                    if (!this.isSafeToStandAt(i, MathHelper.floor(posVec31.y), j, sizeX, sizeY, sizeZ, posVec31, d0, d1)) {
+                    if (!this.isSafeToStandAt(i, MathHelper.floor(posVec31.y), j, sizeX, sizeY, sizeZ, posVec31, d0, d1))
                         return false;
-                    }
                 }
-
                 return true;
             }
         }
     }
 
-    private boolean isPositionClear(int x, int y, int z, int sizeX, int sizeY, int sizeZ, Vec3d p_179692_7_, double p_179692_8_, double p_179692_10_) {
+    private boolean isPositionClear(int x, int y, int z, int sizeX, int sizeY, int sizeZ, Vec3d vec3d, double p_179692_8_, double p_179692_10_) {
         for (BlockPos blockpos : BlockPos.iterate(new BlockPos(x, y, z), new BlockPos(x + sizeX - 1, y + sizeY - 1, z + sizeZ - 1))) {
-            double d0 = (double) blockpos.getX() + 0.5D - p_179692_7_.x;
-            double d1 = (double) blockpos.getZ() + 0.5D - p_179692_7_.z;
-            if (!(d0 * p_179692_8_ + d1 * p_179692_10_ < 0.0D) && !this.world.getBlockState(blockpos).canPathfindThrough(this.world, blockpos, NavigationType.LAND) || ((ICustomCollisions) this.entity).canPassThrough(blockpos, this.world.getBlockState(blockpos), null))
+            double d0 = (double) blockpos.getX() + 0.5D - vec3d.x;
+            double d1 = (double) blockpos.getZ() + 0.5D - vec3d.z;
+            if (d0 * p_179692_8_ + d1 * p_179692_10_ >= 0 && !this.world.getBlockState(blockpos).canPathfindThrough(this.world, blockpos, NavigationType.LAND) || ((ICustomCollisions) this.entity).canPassThrough(blockpos, this.world.getBlockState(blockpos), null))
                 return false;
         }
-
         return true;
     }
 
@@ -103,7 +93,7 @@ public class CustomCollisionsNavigator extends MobNavigation {
                 for (int l = j; l < j + sizeZ; ++l) {
                     double d0 = (double) k + 0.5D - vec31.x;
                     double d1 = (double) l + 0.5D - vec31.z;
-                    if (!(d0 * p_179683_8_ + d1 * p_179683_10_ < 0.0D)) {
+                    if (d0 * p_179683_8_ + d1 * p_179683_10_ >= 0.0D) {
                         PathNodeType pathnodetype = this.nodeMaker.getNodeType(this.world, k, y - 1, l, this.entity);
                         mutable.set(k, y - 1, l);
                         if (!this.canWalkOnPath(pathnodetype) || ((ICustomCollisions) this.entity).canPassThrough(mutable, this.world.getBlockState(mutable), null))
@@ -111,15 +101,13 @@ public class CustomCollisionsNavigator extends MobNavigation {
 
                         pathnodetype = this.nodeMaker.getNodeType(this.world, k, y, l, this.entity);
                         float f = this.entity.getPathfindingPenalty(pathnodetype);
-                        if (f < 0.0F || f >= 8.0F)
-                            return false;
+                        if (f < 0.0F || f >= 8.0F) return false;
 
                         if (pathnodetype == PathNodeType.DAMAGE_FIRE || pathnodetype == PathNodeType.DANGER_FIRE || pathnodetype == PathNodeType.DAMAGE_OTHER)
                             return false;
                     }
                 }
             }
-
             return true;
         }
     }

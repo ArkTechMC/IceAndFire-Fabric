@@ -17,18 +17,15 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
 
     @Override
     public boolean canStart() {
-        if (this.mob.hasPassengers() || this.mob.getTarget() != null) {
+        if (this.mob.hasPassengers() || this.mob.getTarget() != null)
             return false;
-        } else {
-            if (!this.ignoringChance) {
-                if (this.mob.getRandom().nextInt(this.chance) != 0) {
-                    return false;
-                }
-            }
-            Vec3d vector3d = this.getWanderTarget();
-            if (vector3d == null) {
+        else {
+            if (!this.ignoringChance && this.mob.getRandom().nextInt(this.chance) != 0)
                 return false;
-            } else {
+            Vec3d vector3d = this.getWanderTarget();
+            if (vector3d == null)
+                return false;
+            else {
                 this.targetX = vector3d.x;
                 this.targetY = vector3d.y;
                 this.targetZ = vector3d.z;
@@ -42,21 +39,18 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
     protected Vec3d getWanderTarget() {
         if (((EntitySeaSerpent) this.mob).jumpCooldown <= 0) {
             Vec3d vector3d = this.findSurfaceTarget(this.mob);
-            if (vector3d != null) {
+            if (vector3d != null)
                 return vector3d.add(0, 1, 0);
-            }
         } else {
             BlockPos blockpos = null;
             final Random random = ThreadLocalRandom.current();
             final int range = 16;
             for (int i = 0; i < 15; i++) {
                 BlockPos blockpos1 = this.mob.getBlockPos().add(random.nextInt(range) - range / 2, random.nextInt(range) - range / 2, random.nextInt(range) - range / 2);
-                while (this.mob.getWorld().isAir(blockpos1) && this.mob.getWorld().getFluidState(blockpos1).isEmpty() && blockpos1.getY() > 1) {
+                while (this.mob.getWorld().isAir(blockpos1) && this.mob.getWorld().getFluidState(blockpos1).isEmpty() && blockpos1.getY() > 1)
                     blockpos1 = blockpos1.down();
-                }
-                if (this.mob.getWorld().getFluidState(blockpos1).isIn(FluidTags.WATER)) {
+                if (this.mob.getWorld().getFluidState(blockpos1).isIn(FluidTags.WATER))
                     blockpos = blockpos1;
-                }
             }
             return blockpos == null ? null : new Vec3d(blockpos.getX() + 0.5D, blockpos.getY() + 0.5D, blockpos.getZ() + 0.5D);
         }
@@ -74,12 +68,10 @@ public class SeaSerpentAIRandomSwimming extends WanderAroundGoal {
 
     private Vec3d findSurfaceTarget(PathAwareEntity creature) {
         BlockPos upPos = creature.getBlockPos();
-        while (creature.getWorld().getFluidState(upPos).isIn(FluidTags.WATER)) {
+        while (creature.getWorld().getFluidState(upPos).isIn(FluidTags.WATER))
             upPos = upPos.up();
-        }
-        if (this.isAirAbove(upPos.down()) && this.canJumpTo(upPos.down())) {
+        if (this.isAirAbove(upPos.down()) && this.canJumpTo(upPos.down()))
             return new Vec3d(upPos.getX() + 0.5F, upPos.getY() + 3.5F, upPos.getZ() + 0.5F);
-        }
         return null;
     }
 }

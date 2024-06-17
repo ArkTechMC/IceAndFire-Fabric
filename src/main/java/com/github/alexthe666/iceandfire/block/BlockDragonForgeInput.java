@@ -27,9 +27,7 @@ public class BlockDragonForgeInput extends BlockWithEntity implements IDragonPro
     private final int dragonType;
 
     public BlockDragonForgeInput(int dragonType) {
-        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL)
-        );
-
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).dynamicBounds().strength(40, 500).sounds(BlockSoundGroup.METAL));
         this.dragonType = dragonType;
         this.setDefaultState(this.getStateManager().getDefaultState().with(ACTIVE, Boolean.FALSE));
     }

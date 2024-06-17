@@ -17,11 +17,9 @@ public enum TickRateModifierType {
     }
 
     public static TickRateModifierType fromId(int id) {
-        for (TickRateModifierType type : TickRateModifierType.values()) {
-            if (type.id == id) {
+        for (TickRateModifierType type : TickRateModifierType.values())
+            if (type.id == id)
                 return type;
-            }
-        }
         return TickRateModifierType.CELESTIAL;
     }
 

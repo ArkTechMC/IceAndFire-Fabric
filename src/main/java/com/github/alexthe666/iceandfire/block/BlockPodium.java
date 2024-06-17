@@ -17,7 +17,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class BlockPodium extends BlockWithEntity {
-
     protected static final VoxelShape AABB = Block.createCuboidShape(2, 0, 2, 14, 23, 14);
 
     public BlockPodium() {
@@ -68,5 +67,4 @@ public class BlockPodium extends BlockWithEntity {
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new BlockEntityPodium(pos, state);
     }
-
 }

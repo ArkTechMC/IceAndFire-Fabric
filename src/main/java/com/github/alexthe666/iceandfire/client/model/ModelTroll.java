@@ -345,11 +345,11 @@ public class ModelTroll extends ModelDragonBase<EntityTroll> {
     }
 
     @Override
-    public void setAngles(EntityTroll entity, float limbSwing, float limbSwingAmount, float ageInTicks, float f3, float f4) {
+    public void setAngles(EntityTroll entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
         this.resetToDefaultPose();
         this.log1.showModel = true;
 
-        this.animate(entity, limbSwing, limbSwingAmount, ageInTicks, f3, f4, 1);
+        this.animate(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
 
         this.progressRotation(this.head, entity.stoneProgress, (float) Math.toRadians(-31), 0.0F, 0.0F);
         this.progressRotation(this.jaw, entity.stoneProgress, (float) Math.toRadians(54), 0.0F, 0.0F);
@@ -362,27 +362,27 @@ public class ModelTroll extends ModelDragonBase<EntityTroll> {
         float speed_idle = 0.05F;
         float degree_walk = 0.75F;
         float degree_idle = 0.5F;
-        this.walk(this.rightleg, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbSwing, limbSwingAmount);
-        this.walk(this.leftleg, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbSwing, limbSwingAmount);
-        this.walk(this.rightleg2, speed_walk, degree_walk * -0.5F, true, 1, -0.3F, limbSwing, limbSwingAmount);
-        this.walk(this.leftleg2, speed_walk, degree_walk * -0.5F, false, 1, 0.3F, limbSwing, limbSwingAmount);
-        this.walk(this.leftarm, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbSwing, limbSwingAmount);
-        this.walk(this.leftarm2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, limbSwing, limbSwingAmount);
-        this.swing(this.body, speed_walk, degree_walk * -0.5F, false, 0, 0F, limbSwing, limbSwingAmount);
-        this.swing(this.upperBody, speed_walk, degree_walk * -0.25F, true, 0, 0F, limbSwing, limbSwingAmount);
-        this.walk(this.rightarm, speed_walk, degree_walk * -0.25F, false, 0, 0F, limbSwing, limbSwingAmount);
-        this.walk(this.rightarm2, speed_walk, degree_walk * -0.125F, false, 1, -0.3F, limbSwing, limbSwingAmount);
-        this.walk(this.body, speed_idle, degree_idle * -0.1F, true, 0F, -0.1F, ageInTicks, 1);
-        this.walk(this.rightleg, speed_idle, degree_idle * 0.1F, true, 0F, 0.1F, ageInTicks, 1);
-        this.walk(this.leftleg, speed_idle, degree_idle * 0.1F, true, 0F, 0.1F, ageInTicks, 1);
+        this.walk(this.rightleg, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.leftleg, speed_walk, degree_walk * -0.75F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.rightleg2, speed_walk, degree_walk * -0.5F, true, 1, -0.3F, limbAngle, limbDistance);
+        this.walk(this.leftleg2, speed_walk, degree_walk * -0.5F, false, 1, 0.3F, limbAngle, limbDistance);
+        this.walk(this.leftarm, speed_walk, degree_walk * -0.75F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.leftarm2, speed_walk, degree_walk * -0.5F, true, 1, 0.3F, limbAngle, limbDistance);
+        this.swing(this.body, speed_walk, degree_walk * -0.5F, false, 0, 0F, limbAngle, limbDistance);
+        this.swing(this.upperBody, speed_walk, degree_walk * -0.25F, true, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.rightarm, speed_walk, degree_walk * -0.25F, false, 0, 0F, limbAngle, limbDistance);
+        this.walk(this.rightarm2, speed_walk, degree_walk * -0.125F, false, 1, -0.3F, limbAngle, limbDistance);
+        this.walk(this.body, speed_idle, degree_idle * -0.1F, true, 0F, -0.1F, animationProgress, 1);
+        this.walk(this.rightleg, speed_idle, degree_idle * 0.1F, true, 0F, 0.1F, animationProgress, 1);
+        this.walk(this.leftleg, speed_idle, degree_idle * 0.1F, true, 0F, 0.1F, animationProgress, 1);
 
         //this.flap(this.leftarm, speed_idle, degree_idle * -0.1F, true, 0, 0F, f2, 1);
         //this.flap(this.rightarm, speed_idle, degree_idle * -0.1F, false, 0, 0F, f2, 1);
         //this.flap(this.leftarm2, speed_idle, degree_idle * -0.1F, true, 0, -0.1F, f2, 1);
         //this.flap(this.rightarm2, speed_idle, degree_idle * -0.1F, false, 0, -0.1F, f2, 1);
-        this.walk(this.jaw, speed_idle, degree_idle * -0.15F, true, 0F, -0.1F, ageInTicks, 1);
-        this.walk(this.mouth, speed_idle, degree_idle * -0.15F, false, 0F, -0.1F, ageInTicks, 1);
-        this.faceTarget(f3, f4, 1, this.head);
+        this.walk(this.jaw, speed_idle, degree_idle * -0.15F, true, 0F, -0.1F, animationProgress, 1);
+        this.walk(this.mouth, speed_idle, degree_idle * -0.15F, false, 0F, -0.1F, animationProgress, 1);
+        this.faceTarget(headYaw, headPitch, 1, this.head);
 
     }
 

@@ -11,7 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import java.util.EnumSet;
 
 public class GhostAICharge extends Goal {
-
     private final EntityGhost ghost;
     public boolean firstPhase = true;
     public Vec3d moveToPos = null;
@@ -48,20 +47,17 @@ public class GhostAICharge extends Goal {
     public void tick() {
         LivingEntity target = this.ghost.getTarget();
         if (target != null) {
-            if (this.ghost.getAnimation() == IAnimatedEntity.NO_ANIMATION && this.ghost.distanceTo(target) < 1.4D) {
+            if (this.ghost.getAnimation() == IAnimatedEntity.NO_ANIMATION && this.ghost.distanceTo(target) < 1.4D)
                 this.ghost.setAnimation(EntityGhost.ANIMATION_HIT);
-            }
             if (this.firstPhase) {
                 if (this.moveToPos == null) {
                     BlockPos moveToPos = DragonUtils.getBlockInTargetsViewGhost(this.ghost, target);
                     this.moveToPos = Vec3d.ofCenter(moveToPos);
                 } else {
-                    this.ghost.getNavigation().startMovingTo(this.moveToPos.x + 0.5D, this.moveToPos.y + 0.5D,
-                            this.moveToPos.z + 0.5D, 1F);
+                    this.ghost.getNavigation().startMovingTo(this.moveToPos.x + 0.5D, this.moveToPos.y + 0.5D, this.moveToPos.z + 0.5D, 1F);
                     if (this.ghost.squaredDistanceTo(this.moveToPos.add(0.5D, 0.5D, 0.5D)) < 9D) {
-                        if (this.ghost.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
+                        if (this.ghost.getAnimation() == IAnimatedEntity.NO_ANIMATION)
                             this.ghost.setAnimation(EntityGhost.ANIMATION_SCARE);
-                        }
                         this.firstPhase = false;
                         this.moveToPos = null;
                         this.offsetOf = target.getPos().subtract(this.ghost.getPos()).normalize();
@@ -71,9 +67,8 @@ public class GhostAICharge extends Goal {
                 Vec3d fin = target.getPos();
                 this.moveToPos = new Vec3d(fin.x, target.getY() + target.getStandingEyeHeight() / 2, fin.z);
                 this.ghost.getNavigation().startMovingTo(target, 1.2F);
-                if (this.ghost.squaredDistanceTo(this.moveToPos.add(0.5D, 0.5D, 0.5D)) < 3D) {
+                if (this.ghost.squaredDistanceTo(this.moveToPos.add(0.5D, 0.5D, 0.5D)) < 3D)
                     this.stop();
-                }
             }
         }
 

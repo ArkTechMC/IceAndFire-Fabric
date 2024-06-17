@@ -264,15 +264,15 @@ public class ModelMyrmexPupa extends ModelDragonBase {
     }
 
     @Override
-    public void setAngles(Entity entity, float f, float f1, float f2, float f3, float f4) {
-        this.animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, 1);
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.animate((IAnimatedEntity) entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch, 1);
         this.resetToDefaultPose();
         float speed_idle = 0.025F;
         float degree_idle = 0.25F;
         AdvancedModelBox[] PARTS = new AdvancedModelBox[]{this.Body1, this.Body2, this.Body3, this.Body4, this.Body5};
-        this.bob(this.Body2, speed_idle, degree_idle * 2.5F, true, f2, 1);
-        this.chainSwing(PARTS, speed_idle, degree_idle * 0.15F, 1, f2, 1);
-        this.chainFlap(PARTS, speed_idle, degree_idle * 0.15F, 1, f2, 1);
+        this.bob(this.Body2, speed_idle, degree_idle * 2.5F, true, animationProgress, 1);
+        this.chainSwing(PARTS, speed_idle, degree_idle * 0.15F, 1, animationProgress, 1);
+        this.chainFlap(PARTS, speed_idle, degree_idle * 0.15F, 1, animationProgress, 1);
     }
 
     @Override

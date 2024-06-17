@@ -486,7 +486,7 @@ public class ModelGorgonHeadActive extends AdvancedEntityModel<Entity> {
     }
 
     @Override
-    public void setAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setAngles(Entity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
     }
 
     @Override

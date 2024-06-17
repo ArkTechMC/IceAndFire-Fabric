@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import java.util.EnumSet;
 
 public class AquaticAIGetInWater extends Goal {
-
     private final MobEntity creature;
     private final double movementSpeed;
     private final World world;
@@ -34,16 +33,14 @@ public class AquaticAIGetInWater extends Goal {
 
     @Override
     public boolean canStart() {
-        if (this.creature.hasPassengers() || this.creature instanceof TameableEntity && ((TameableEntity) this.creature).isTamed()
-                || this.creature.isTouchingWater() || this.isAttackerInWater() || this.creature instanceof EntitySiren
-                && (((EntitySiren) this.creature).isSinging() || ((EntitySiren) this.creature).wantsToSing())) {
+        if (this.creature.hasPassengers() || this.creature instanceof TameableEntity tameable && tameable.isTamed()
+                || this.creature.isTouchingWater() || this.isAttackerInWater() || this.creature instanceof EntitySiren siren
+                && (siren.isSinging() || siren.wantsToSing()))
             return false;
-        } else {
+        else {
             Vec3d Vector3d = this.findPossibleShelter();
-
-            if (Vector3d == null) {
-                return false;
-            } else {
+            if (Vector3d == null) return false;
+            else {
                 this.shelterX = Vector3d.x;
                 this.shelterY = Vector3d.y;
                 this.shelterZ = Vector3d.z;
@@ -75,16 +72,11 @@ public class AquaticAIGetInWater extends Goal {
     protected Vec3d findPossibleShelter(int xz) {
         Random random = this.creature.getRandom();
         BlockPos blockpos = BlockPos.ofFloored(this.creature.getBlockX(), this.creature.getBoundingBox().minY, this.creature.getBlockZ());
-
         for (int i = 0; i < 10; ++i) {
-            BlockPos blockpos1 = blockpos.add(random.nextInt(xz * 2) - xz, random.nextInt(3 * 2) - 3,
-                    random.nextInt(xz * 2) - xz);
-
-            if (this.world.getBlockState(blockpos1).isOf(Blocks.WATER)) {
+            BlockPos blockpos1 = blockpos.add(random.nextInt(xz * 2) - xz, random.nextInt(3 * 2) - 3, random.nextInt(xz * 2) - xz);
+            if (this.world.getBlockState(blockpos1).isOf(Blocks.WATER))
                 return new Vec3d(blockpos1.getX(), blockpos1.getY(), blockpos1.getZ());
-            }
         }
-
         return null;
     }
 }

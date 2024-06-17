@@ -19,9 +19,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
 public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRenderer<T> {
-
     public RenderPodium(BlockEntityRendererFactory.Context context) {
-
     }
 
     protected static RenderLayer getEggTexture(EnumDragonEgg type) {
@@ -44,7 +42,6 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
     @Override
     public void render(T entity, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
         ModelDragonEgg model = new ModelDragonEgg();
-
         if (!entity.getStack(0).isEmpty()) {
             if (entity.getStack(0).getItem() instanceof ItemDragonEgg item) {
                 matrixStackIn.push();
@@ -68,7 +65,6 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
                 matrixStackIn.pop();
                 matrixStackIn.pop();
             } else if (!entity.getStack(0).isEmpty()) {
-                //if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new RenderPodiumItemEvent(this, podium, f, x, y, z))) {
                 matrixStackIn.push();
                 float f2 = ((float) entity.prevTicksExisted + (entity.ticksExisted - entity.prevTicksExisted) * partialTicks);
                 float f3 = MathHelper.sin(f2 / 10.0F) * 0.1F + 0.1F;
@@ -81,9 +77,7 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
                 MinecraftClient.getInstance().getItemRenderer().renderItem(entity.getStack(0), ModelTransformationMode.FIXED, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn, entity.getWorld(), 0);
                 matrixStackIn.pop();
                 matrixStackIn.pop();
-                //}
             }
         }
-
     }
 }

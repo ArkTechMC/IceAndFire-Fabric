@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.client.model.util;
 
 import com.github.alexthe666.citadel.client.model.TabulaModelHandler;
-import com.github.alexthe666.citadel.client.model.container.TabulaModelContainer;
+import com.github.alexthe666.citadel.client.model.tabula.TabulaModelContainer;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.FileInputStream;

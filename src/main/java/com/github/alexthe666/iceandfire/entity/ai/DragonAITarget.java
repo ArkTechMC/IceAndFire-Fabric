@@ -24,36 +24,28 @@ public class DragonAITarget<T extends LivingEntity> extends ActiveTargetGoal<T> 
 
     @Override
     public boolean canStart() {
-        if (this.dragon.getCommand() == 1 || this.dragon.getCommand() == 2 || this.dragon.isSleeping()) {
+        if (this.dragon.getCommand() == 1 || this.dragon.getCommand() == 2 || this.dragon.isSleeping())
             return false;
-        }
-        if (!this.dragon.isTamed() && this.dragon.lookingForRoostAIFlag) {
+        if (!this.dragon.isTamed() && this.dragon.lookingForRoostAIFlag)
             return false;
-        }
         if (this.targetEntity != null && !this.targetEntity.getClass().equals(this.dragon.getClass())) {
             if (!super.canStart())
                 return false;
 
             final float dragonSize = Math.max(this.dragon.getWidth(), this.dragon.getWidth() * this.dragon.getRenderSize());
             if (dragonSize >= this.targetEntity.getWidth()) {
-                if (this.targetEntity instanceof PlayerEntity && !this.dragon.isTamed()) {
-                    return true;
-                }
+                if (this.targetEntity instanceof PlayerEntity && !this.dragon.isTamed()) return true;
                 if (this.targetEntity instanceof EntityDragonBase d) {
-                    if (d.getOwner() != null && this.dragon.getOwner() != null && this.dragon.isOwner(d.getOwner())) {
+                    if (d.getOwner() != null && this.dragon.getOwner() != null && this.dragon.isOwner(d.getOwner()))
                         return false;
-                    }
                     return !d.isModelDead();
                 }
-                if (this.targetEntity instanceof PlayerEntity && this.dragon.isTamed()) {
-                    return false;
-                } else {
+                if (this.targetEntity instanceof PlayerEntity && this.dragon.isTamed()) return false;
+                else {
                     if (!this.dragon.isOwner(this.targetEntity) && FoodUtils.getFoodPoints(this.targetEntity) > 0 && this.dragon.canMove() && (this.dragon.getHunger() < 90 || !this.dragon.isTamed() && this.targetEntity instanceof PlayerEntity)) {
-                        if (this.dragon.isTamed()) {
+                        if (this.dragon.isTamed())
                             return DragonUtils.canTameDragonAttack(this.dragon, this.targetEntity);
-                        } else {
-                            return true;
-                        }
+                        else return true;
                     }
                 }
             }

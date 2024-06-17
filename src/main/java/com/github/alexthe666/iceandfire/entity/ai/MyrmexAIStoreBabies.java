@@ -20,13 +20,11 @@ public class MyrmexAIStoreBabies extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!this.myrmex.canMove() || !this.myrmex.holdingBaby() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigation().isIdle() || this.myrmex.canSeeSky()) {
+        if (!this.myrmex.canMove() || !this.myrmex.holdingBaby() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigation().isIdle() || this.myrmex.canSeeSky())
             return false;
-        }
         MyrmexHive village = this.myrmex.getHive();
-        if (village == null) {
-            return false;
-        } else {
+        if (village == null) return false;
+        else {
             this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRandom(), this.myrmex.getBlockPos())).up();
             return true;
         }
@@ -44,15 +42,13 @@ public class MyrmexAIStoreBabies extends Goal {
 
     @Override
     public void tick() {
-        if (this.nextRoom != null && this.myrmex.squaredDistanceTo(this.nextRoom.getX() + 0.5D, this.nextRoom.getY() + 0.5D, this.nextRoom.getZ() + 0.5D) < 4 && this.myrmex.holdingBaby()) {
-            if (!this.myrmex.getPassengerList().isEmpty()) {
+        if (this.nextRoom != null && this.myrmex.squaredDistanceTo(this.nextRoom.getX() + 0.5D, this.nextRoom.getY() + 0.5D, this.nextRoom.getZ() + 0.5D) < 4 && this.myrmex.holdingBaby())
+            if (!this.myrmex.getPassengerList().isEmpty())
                 for (Entity entity : this.myrmex.getPassengerList()) {
                     entity.stopRiding();
                     this.stop();
                     entity.copyPositionAndRotation(this.myrmex);
                 }
-            }
-        }
     }
 
     @Override
@@ -60,5 +56,4 @@ public class MyrmexAIStoreBabies extends Goal {
         this.nextRoom = BlockPos.ORIGIN;
         this.myrmex.getNavigation().stop();
     }
-
 }

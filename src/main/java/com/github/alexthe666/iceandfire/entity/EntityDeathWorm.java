@@ -70,7 +70,6 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     private static final TrackedData<Byte> CONTROL_STATE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Integer> WORM_AGE = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<BlockPos> HOME = DataTracker.registerData(EntityDeathWorm.class, TrackedDataHandlerRegistry.BLOCK_POS);
-    private final float prevScale = 0.0F;
     private final LookControl lookHelper;
     public ChainBuffer tail_buffer;
     public float jumpProgress;

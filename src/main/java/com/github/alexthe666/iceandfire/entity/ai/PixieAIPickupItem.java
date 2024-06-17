@@ -46,16 +46,14 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
 
     @Override
     public boolean canStart() {
-
         EntityPixie pixie = (EntityPixie) this.mob;
         if (pixie.isPixieSitting()) return false;
 
         if (this.mob.getWorld().getTime() % 4 == 0) // only update the list every 4 ticks
             this.list = this.mob.getWorld().getEntitiesByClass(ItemEntity.class, this.getTargetableArea(this.getFollowRange()), this.targetEntitySelector);
 
-        if (this.list.isEmpty()) {
-            return false;
-        } else {
+        if (this.list.isEmpty()) return false;
+        else {
             this.list.sort(this.theNearestAttackableTargetSorter);
             this.targetEntity = this.list.get(0);
             return true;
@@ -72,29 +70,27 @@ public class PixieAIPickupItem<T extends ItemEntity> extends TrackTargetGoal {
         this.mob.getMoveControl().moveTo(this.targetEntity.getX(), this.targetEntity.getY(), this.targetEntity.getZ(), 0.25D);
 
         LivingEntity attackTarget = this.mob.getTarget();
-        if (attackTarget == null) {
+        if (attackTarget == null)
             this.mob.getLookControl().lookAt(this.targetEntity.getX(), this.targetEntity.getY(), this.targetEntity.getZ(), 180.0F, 20.0F);
-        }
         super.start();
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.targetEntity == null || !this.targetEntity.isAlive()) {
+        if (this.targetEntity == null || !this.targetEntity.isAlive())
             this.stop();
-        } else if (this.mob.squaredDistanceTo(this.targetEntity) < 1) {
+        else if (this.mob.squaredDistanceTo(this.targetEntity) < 1) {
             EntityPixie pixie = (EntityPixie) this.mob;
             if (this.targetEntity.getStack() != null && this.targetEntity.getStack().getItem() != null)
                 if (this.targetEntity.getStack().isIn(IafItemTags.HEAL_PIXIE)) {
                     pixie.heal(5);
-                } else if (this.targetEntity.getStack().isIn(IafItemTags.TAME_PIXIE)) {
+                } else if (this.targetEntity.getStack().isIn(IafItemTags.TAME_PIXIE))
                     if (!pixie.isTamed() && this.targetEntity.getOwner() instanceof PlayerEntity player) {
                         pixie.setOwner(player);
                         pixie.setPixieSitting(true);
                         pixie.setOnGround(true);  //  Entity.onGround = true
                     }
-                }
 
             pixie.setStackInHand(Hand.MAIN_HAND, this.targetEntity.getStack());
             this.targetEntity.getStack().decrement(1);

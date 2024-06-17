@@ -20,9 +20,7 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
     protected double walkSpeedFactor = 1.0D;
     protected BlockPos originalDestination;
 
-    public AbstractAdvancedPathNavigate(
-            final MobEntity entityLiving,
-            final World worldIn) {
+    public AbstractAdvancedPathNavigate(final MobEntity entityLiving, final World worldIn) {
         super(entityLiving, worldIn);
         this.ourEntity = this.entity;
     }
@@ -153,8 +151,6 @@ public abstract class AbstractAdvancedPathNavigate extends MobNavigation {
      * Type of restriction.
      */
     public enum RestrictionType {
-        NONE,
-        XZ,
-        XYZ
+        NONE, XZ, XYZ
     }
 }

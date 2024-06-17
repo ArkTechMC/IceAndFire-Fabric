@@ -95,8 +95,7 @@ public class DragonAnimationsLibrary {
     public static void registerReference(IEnumDragonPoses pose, IEnumDragonModelTypes modelSource, IEnumDragonModelTypes modelDestination) {
         TabulaModel source = getModel(pose, modelSource);
         String destKey = toKey(pose, modelDestination);
-        if (source == null)
-            return;
+        if (source == null) return;
         if (models.containsKey(destKey))
             IceAndFire.LOGGER.info("Overriding existing model '{}' with reference to '{}", destKey, toKey(pose, modelSource));
         models.put(destKey, source);

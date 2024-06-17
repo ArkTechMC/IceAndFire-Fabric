@@ -38,24 +38,19 @@ public class ParticleHydraBreath extends SpriteBillboardParticle {
 
     @Override
     public void buildGeometry(VertexConsumer buffer, Camera renderInfo, float partialTicks) {
-        Vec3d inerp = renderInfo.getPos();
         float scaley = ((float) this.age + partialTicks) / (float) this.maxAge * 32.0F;
         scaley = MathHelper.clamp(scaley, 0.0F, 1.0F);
         this.scale = this.reddustParticleScale * scaley;
 
-        float width = this.scale * 0.09F;
-        if (this.age > this.getMaxAge()) {
-            this.markDead();
-        }
+        if (this.age > this.getMaxAge()) this.markDead();
 
         Vec3d Vector3d = renderInfo.getPos();
         float f = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.x) - Vector3d.getX());
         float f1 = (float) (MathHelper.lerp(partialTicks, this.prevPosY, this.y) - Vector3d.getY());
         float f2 = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.z) - Vector3d.getZ());
         Quaternionf quaternion;
-        if (this.angle == 0.0F) {
-            quaternion = renderInfo.getRotation();
-        } else {
+        if (this.angle == 0.0F) quaternion = renderInfo.getRotation();
+        else {
             quaternion = new Quaternionf(renderInfo.getRotation());
             float f3 = MathHelper.lerp(partialTicks, this.prevAngle, this.angle);
             quaternion.mul(RotationAxis.POSITIVE_Z.rotation(f3));
@@ -99,9 +94,7 @@ public class ParticleHydraBreath extends SpriteBillboardParticle {
         this.prevPosY = this.y;
         this.prevPosZ = this.z;
 
-        if (this.age++ >= this.maxAge) {
-            this.markDead();
-        }
+        if (this.age++ >= this.maxAge) this.markDead();
 
         this.move(this.velocityX, this.velocityY, this.velocityZ);
 

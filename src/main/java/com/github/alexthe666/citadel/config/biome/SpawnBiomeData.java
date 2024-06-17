@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SpawnBiomeData {
-
     private List<List<SpawnBiomeEntry>> biomes = new ArrayList<>();
 
     public SpawnBiomeData() {
@@ -29,9 +28,8 @@ public class SpawnBiomeData {
     }
 
     public SpawnBiomeData addBiomeEntry(BiomeEntryType type, boolean negate, String value, int pool) {
-        if (this.biomes.isEmpty() || this.biomes.size() < pool + 1) {
+        if (this.biomes.isEmpty() || this.biomes.size() < pool + 1)
             this.biomes.add(new ArrayList<>());
-        }
         this.biomes.get(pool).add(new SpawnBiomeEntry(type, negate, value));
         return this;
     }
@@ -39,20 +37,15 @@ public class SpawnBiomeData {
     public boolean matches(RegistryEntry<Biome> biomeHolder, Identifier registryName) {
         for (List<SpawnBiomeEntry> all : this.biomes) {
             boolean overall = true;
-            for (SpawnBiomeEntry cond : all) {
-                if (!cond.matches(biomeHolder, registryName)) {
+            for (SpawnBiomeEntry cond : all)
+                if (!cond.matches(biomeHolder, registryName))
                     overall = false;
-                }
-            }
-            if (overall) {
-                return true;
-            }
+            if (overall) return true;
         }
         return false;
     }
 
     public static class Deserializer implements JsonDeserializer<SpawnBiomeData>, JsonSerializer<SpawnBiomeData> {
-
         @Override
         public SpawnBiomeData deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             JsonObject jsonobject = json.getAsJsonObject();
@@ -85,14 +78,10 @@ public class SpawnBiomeData {
                 return false;
             } else {
                 if (this.type == BiomeEntryType.BIOME_TAG) {
-                    if (biomeHolder.isIn(TagKey.of(RegistryKeys.BIOME, new Identifier(this.value)))) {
+                    if (biomeHolder.isIn(TagKey.of(RegistryKeys.BIOME, new Identifier(this.value))))
                         return !this.negate;
-                    }
-                } else {
-                    if (registryName.toString().equals(this.value)) {
-                        return !this.negate;
-                    }
-                }
+                } else if (registryName.toString().equals(this.value))
+                    return !this.negate;
                 return this.negate;
             }
         }

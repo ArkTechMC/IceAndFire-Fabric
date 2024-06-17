@@ -314,6 +314,4 @@ public class IafItemTags extends ItemTagProvider {
     public String getName() {
         return "Ice and Fire Item Tags";
     }
-
-
 }

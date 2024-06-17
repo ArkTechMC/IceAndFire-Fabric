@@ -34,9 +34,8 @@ public class ChainBuffer {
      */
     public void calculateChainSwingBuffer(float maxAngle, int bufferTime, float angleDecrement, float divisor, LivingEntity entity) {
         this.prevYawVariation = this.yawVariation;
-        if (entity.bodyYaw != entity.prevBodyYaw && MathHelper.abs(entity.prevBodyYaw - entity.bodyYaw) < 0.1F && MathHelper.abs(this.yawVariation) < maxAngle) {
+        if (entity.bodyYaw != entity.prevBodyYaw && MathHelper.abs(entity.prevBodyYaw - entity.bodyYaw) < 0.1F && MathHelper.abs(this.yawVariation) < maxAngle)
             this.yawVariation += (entity.prevBodyYaw - entity.bodyYaw) / divisor;
-        }
         if (this.yawVariation > 0.7F * angleDecrement) {
             if (this.yawTimer > bufferTime) {
                 this.yawVariation -= angleDecrement;
@@ -44,9 +43,7 @@ public class ChainBuffer {
                     this.yawVariation = 0.0F;
                     this.yawTimer = 0;
                 }
-            } else {
-                this.yawTimer++;
-            }
+            } else this.yawTimer++;
         } else if (this.yawVariation < -0.7F * angleDecrement) {
             if (this.yawTimer > bufferTime) {
                 this.yawVariation += angleDecrement;
@@ -54,9 +51,7 @@ public class ChainBuffer {
                     this.yawVariation = 0.0F;
                     this.yawTimer = 0;
                 }
-            } else {
-                this.yawTimer++;
-            }
+            } else this.yawTimer++;
         }
     }
 
@@ -71,9 +66,8 @@ public class ChainBuffer {
      */
     public void calculateChainWaveBuffer(float maxAngle, int bufferTime, float angleDecrement, float divisor, LivingEntity entity) {
         this.prevPitchVariation = this.pitchVariation;
-        if (entity.getPitch() != entity.prevPitch && MathHelper.abs(this.pitchVariation) < maxAngle) {
+        if (entity.getPitch() != entity.prevPitch && MathHelper.abs(this.pitchVariation) < maxAngle)
             this.pitchVariation += (entity.prevPitch - entity.getPitch()) / divisor;
-        }
         if (this.pitchVariation > 0.7F * angleDecrement) {
             if (this.pitchTimer > bufferTime) {
                 this.pitchVariation -= angleDecrement;
@@ -81,9 +75,7 @@ public class ChainBuffer {
                     this.pitchVariation = 0.0F;
                     this.pitchTimer = 0;
                 }
-            } else {
-                this.pitchTimer++;
-            }
+            } else this.pitchTimer++;
         } else if (this.pitchVariation < -0.7F * angleDecrement) {
             if (this.pitchTimer > bufferTime) {
                 this.pitchVariation += angleDecrement;
@@ -91,9 +83,7 @@ public class ChainBuffer {
                     this.pitchVariation = 0.0F;
                     this.pitchTimer = 0;
                 }
-            } else {
-                this.pitchTimer++;
-            }
+            } else this.pitchTimer++;
         }
     }
 
@@ -128,9 +118,7 @@ public class ChainBuffer {
      */
     public void applyChainSwingBuffer(BasicModelPart... boxes) {
         float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
-        for (BasicModelPart box : boxes) {
-            box.rotateAngleY += rotateAmount;
-        }
+        for (BasicModelPart box : boxes) box.rotateAngleY += rotateAmount;
     }
 
     private float getPartialTicks() {
@@ -144,8 +132,6 @@ public class ChainBuffer {
      */
     public void applyChainWaveBuffer(BasicModelPart... boxes) {
         float rotateAmount = 0.01745329251F * MathHelper.lerp(this.getPartialTicks(), this.prevYawVariation, this.yawVariation) / boxes.length;
-        for (BasicModelPart box : boxes) {
-            box.rotateAngleX += rotateAmount;
-        }
+        for (BasicModelPart box : boxes) box.rotateAngleX += rotateAmount;
     }
 }

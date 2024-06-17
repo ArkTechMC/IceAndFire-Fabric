@@ -22,17 +22,11 @@ public class ChainData {
     private boolean triggerClientUpdate;
 
     public void tickChain(final LivingEntity entity) {
-        if (!this.isInitialized) {
+        if (!this.isInitialized)
             this.initialize(entity.getWorld());
-        }
-
-        if (this.chainedTo == null) {
-            return;
-        }
-
+        if (this.chainedTo == null) return;
         for (Entity chain : this.chainedTo) {
             double distance = chain.distanceTo(entity);
-
             if (distance > 7) {
                 double x = (chain.getX() - entity.getX()) / distance;
                 double y = (chain.getY() - entity.getY()) / distance;
@@ -47,10 +41,7 @@ public class ChainData {
     }
 
     public void clearChains() {
-        if (this.chainedTo == null) {
-            return;
-        }
-
+        if (this.chainedTo == null) return;
         this.chainedTo = null;
         this.triggerClientUpdate = true;
     }
@@ -58,53 +49,38 @@ public class ChainData {
     public void attachChain(final Entity chain) {
         if (this.chainedTo == null) {
             this.chainedTo = new ArrayList<>();
-        } else if (this.chainedTo.contains(chain)) {
-            return;
-        }
-
+        } else if (this.chainedTo.contains(chain)) return;
         this.chainedTo.add(chain);
         this.triggerClientUpdate = true;
     }
 
     public void removeChain(final Entity chain) {
-        if (this.chainedTo == null) {
-            return;
-        }
-
+        if (this.chainedTo == null) return;
         this.chainedTo.remove(chain);
         this.triggerClientUpdate = true;
-
-        if (this.chainedTo.isEmpty()) {
+        if (this.chainedTo.isEmpty())
             this.chainedTo = null;
-        }
     }
 
     public boolean isChainedTo(final Entity toCheck) {
-        if (this.chainedTo == null || this.chainedTo.isEmpty()) {
+        if (this.chainedTo == null || this.chainedTo.isEmpty())
             return false;
-        }
-
         return this.chainedTo.contains(toCheck);
     }
 
     public void serialize(final NbtCompound tag) {
         NbtCompound chainedData = new NbtCompound();
         NbtList uuids = new NbtList();
-
         if (this.chainedTo != null) {
             int[] ids = new int[this.chainedTo.size()];
-
             for (int i = 0; i < this.chainedTo.size(); i++) {
                 Entity entity = this.chainedTo.get(i);
-
                 ids[i] = entity.getId();
                 uuids.add(NbtHelper.fromUuid(entity.getUuid()));
             }
-
             chainedData.putIntArray("chainedToIds", ids);
             chainedData.put("chainedToUUIDs", uuids);
         }
-
         tag.put("chainedData", chainedData);
     }
 
@@ -112,28 +88,19 @@ public class ChainData {
         NbtCompound chainedData = tag.getCompound("chainedData");
         int[] loadedChainedToIds = chainedData.getIntArray("chainedToIds");
         NbtList uuids = chainedData.getList("chainedToUUIDs", NbtList.INT_ARRAY_TYPE);
-
         this.isInitialized = false;
-
         if (loadedChainedToIds.length > 0) {
             this.chainedToIds = new ArrayList<>();
-
-            for (int loadedChainedToId : loadedChainedToIds) {
+            for (int loadedChainedToId : loadedChainedToIds)
                 this.chainedToIds.add(loadedChainedToId);
-            }
-        } else {
+        } else
             this.chainedToIds = null;
-        }
-
         if (!uuids.isEmpty()) {
             this.chainedToUUIDs = new ArrayList<>();
-
-            for (NbtElement uuid : uuids) {
+            for (NbtElement uuid : uuids)
                 this.chainedToUUIDs.add(NbtHelper.toUuid(uuid));
-            }
-        } else {
+        } else
             this.chainedToUUIDs = null;
-        }
     }
 
     public boolean doesClientNeedUpdate() {
@@ -141,7 +108,6 @@ public class ChainData {
             this.triggerClientUpdate = false;
             return true;
         }
-
         return false;
     }
 
@@ -152,33 +118,18 @@ public class ChainData {
         if (this.chainedToUUIDs != null && level instanceof ServerWorld serverLevel) {
             for (UUID uuid : this.chainedToUUIDs) {
                 Entity entity = serverLevel.getEntity(uuid);
-
-                if (entity != null) {
+                if (entity != null)
                     entities.add(entity);
-                }
             }
-
             this.triggerClientUpdate = true;
-        } else if (this.chainedToIds != null) {
+        } else if (this.chainedToIds != null)
             for (int id : this.chainedToIds) {
-                if (id == -1) {
-                    continue;
-                }
-
+                if (id == -1) continue;
                 Entity entity = level.getEntityById(id);
-
-                if (entity != null) {
-                    entities.add(entity);
-                }
+                if (entity != null) entities.add(entity);
             }
-        }
 
-        if (!entities.isEmpty()) {
-            this.chainedTo = entities;
-        } else {
-            this.chainedTo = null;
-        }
-
+        this.chainedTo = !entities.isEmpty() ? entities : null;
         this.chainedToIds = null;
         this.chainedToUUIDs = null;
         this.isInitialized = true;

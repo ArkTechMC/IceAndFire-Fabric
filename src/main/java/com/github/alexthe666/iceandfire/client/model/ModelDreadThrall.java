@@ -72,16 +72,16 @@ public class ModelDreadThrall extends ModelDreadBase<EntityDreadThrall> {
     }
 
     @Override
-    public void animateModel(EntityDreadThrall LivingEntityIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
+    public void animateModel(EntityDreadThrall entity, float limbAngle, float limbDistance, float tickDelta) {
         this.rightArmPose = BipedEntityModel.ArmPose.EMPTY;
         this.leftArmPose = BipedEntityModel.ArmPose.EMPTY;
-        super.animateModel(LivingEntityIn, limbSwing, limbSwingAmount, partialTickTime);
+        super.animateModel(entity, limbAngle, limbDistance, tickDelta);
     }
 
     @Override
-    public void setAngles(EntityDreadThrall entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        this.flap(this.body, 0.5F, 0.15F, false, 1, 0F, limbSwing, limbSwingAmount);
+    public void setAngles(EntityDreadThrall entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
+        this.flap(this.body, 0.5F, 0.15F, false, 1, 0F, limbAngle, limbDistance);
     }
 
     @Override

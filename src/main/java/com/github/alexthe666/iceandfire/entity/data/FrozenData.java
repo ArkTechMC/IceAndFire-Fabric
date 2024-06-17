@@ -17,9 +17,7 @@ public class FrozenData {
     private boolean triggerClientUpdate;
 
     public void tickFrozen(final LivingEntity entity) {
-        if (!this.isFrozen) {
-            return;
-        }
+        if (!this.isFrozen) return;
 
         if (entity instanceof EntityIceDragon) {
             this.clearFrozen(entity);
@@ -39,23 +37,20 @@ public class FrozenData {
 
         if (this.frozenTicks > 0) {
             this.frozenTicks--;
-        } else {
+        } else
             this.clearFrozen(entity);
-        }
 
         if (this.isFrozen && !(entity instanceof PlayerEntity player && player.isCreative())) {
             entity.setVelocity(entity.getVelocity().multiply(0.25F, 1, 0.25F));
 
-            if (!(entity instanceof EnderDragonEntity) && !entity.isOnGround()) {
+            if (!(entity instanceof EnderDragonEntity) && !entity.isOnGround())
                 entity.setVelocity(entity.getVelocity().add(0, -0.2, 0));
-            }
         }
     }
 
     public void setFrozen(final LivingEntity target, int duration) {
-        if (!this.isFrozen) {
+        if (!this.isFrozen)
             target.playSound(SoundEvents.BLOCK_GLASS_PLACE, 1, 1);
-        }
 
         this.frozenTicks = duration;
         this.isFrozen = true;
@@ -65,8 +60,7 @@ public class FrozenData {
     private void clearFrozen(final LivingEntity entity) {
         for (int i = 0; i < 15; i++) {
             entity.getWorld().addParticle(
-                    new BlockStateParticleEffect(ParticleTypes.BLOCK,
-                            IafBlocks.DRAGON_ICE.getDefaultState()),
+                    new BlockStateParticleEffect(ParticleTypes.BLOCK, IafBlocks.DRAGON_ICE.getDefaultState()),
                     entity.getX() + ((entity.getRandom().nextDouble() - 0.5D) * entity.getWidth()),
                     entity.getY() + ((entity.getRandom().nextDouble()) * entity.getHeight()),
                     entity.getZ() + ((entity.getRandom().nextDouble() - 0.5D) * entity.getWidth()),

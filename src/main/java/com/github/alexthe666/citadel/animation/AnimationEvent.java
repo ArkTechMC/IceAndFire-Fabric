@@ -8,7 +8,7 @@ public class AnimationEvent<T extends Entity & IAnimatedEntity> extends Event {
     private final T entity;
     protected Animation animation;
 
-    AnimationEvent(T entity, Animation animation) {
+    private AnimationEvent(T entity, Animation animation) {
         this.entity = entity;
         this.animation = animation;
     }

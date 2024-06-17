@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.entity.EntitySiren;
 import net.minecraft.entity.ai.goal.WanderAroundGoal;
 
 public class SirenAIWander extends WanderAroundGoal {
-
     private final EntitySiren siren;
 
     public SirenAIWander(EntitySiren creatureIn, double speedIn) {
