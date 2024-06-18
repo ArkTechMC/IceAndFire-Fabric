@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 public class IafRecipeSerializers {
     public static final RecipeSerializer<?> DRAGONFORGE_SERIALIZER = register("dragonforge", new DragonForgeRecipe.Serializer());
 
-    public static RecipeSerializer<?> register(String name, RecipeSerializer<?> serializer) {
+    private static RecipeSerializer<?> register(String name, RecipeSerializer<?> serializer) {
         return Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(IceAndFire.MOD_ID, name), serializer);
     }
 

@@ -53,6 +53,4 @@ public class IafRenderLayers extends RenderLayer {
         MultiPhaseParameters rendertype$state = MultiPhaseParameters.builder().texture(textureState).program(RenderLayer.ENTITY_CUTOUT_PROGRAM).transparency(TRANSLUCENT_TRANSPARENCY).depthTest(EQUAL_DEPTH_TEST).cull(DISABLE_CULLING).lightmap(ENABLE_LIGHTMAP).overlay(ENABLE_OVERLAY_COLOR).build(false);
         return of("stone_entity_type_crack", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, false, true, rendertype$state);
     }
-
-
 }

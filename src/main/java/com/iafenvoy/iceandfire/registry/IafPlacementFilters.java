@@ -11,7 +11,7 @@ import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
 public class IafPlacementFilters {
     public static final PlacementModifierType<CustomBiomeFilter> CUSTOM_BIOME_FILTER = register("biome_extended", () -> CustomBiomeFilter.CODEC);
 
-    public static <T extends PlacementModifier> PlacementModifierType<T> register(String name, PlacementModifierType<T> type) {
+    private static <T extends PlacementModifier> PlacementModifierType<T> register(String name, PlacementModifierType<T> type) {
         return Registry.register(Registries.PLACEMENT_MODIFIER_TYPE, new Identifier(IceAndFire.MOD_ID, name), type);
     }
 

@@ -46,7 +46,7 @@ public class IafItemGroups {
             .build()
     );
 
-    public static ItemGroup register(String name, ItemGroup group) {
+    private static ItemGroup register(String name, ItemGroup group) {
         return Registry.register(Registries.ITEM_GROUP, new Identifier(IceAndFire.MOD_ID, name), group);
     }
 

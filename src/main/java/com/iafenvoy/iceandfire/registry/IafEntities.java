@@ -27,7 +27,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class IafEntities {
     public static final EntityType<EntityDragonPart> DRAGON_MULTIPART = register("dragon_multipart", build(EntityDragonPart::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
@@ -88,26 +87,14 @@ public class IafEntities {
     public static final EntityType<EntityHydraArrow> HYDRA_ARROW = register("hydra_arrow", build(EntityHydraArrow::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
     public static final EntityType<EntityGhost> GHOST = register("ghost", build(EntityGhost::new, SpawnGroup.MONSTER, true, 0.8F, 1.9F));
     public static final EntityType<EntityGhostSword> GHOST_SWORD = register("ghost_sword", build(EntityGhostSword::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
-    public static final HashMap<String, Boolean> LOADED_ENTITIES;
 
-    static {
-        LOADED_ENTITIES = new HashMap<>();
-        LOADED_ENTITIES.put("HIPPOGRYPH", false);
-        LOADED_ENTITIES.put("DREAD_LICH", false);
-        LOADED_ENTITIES.put("COCKATRICE", false);
-        LOADED_ENTITIES.put("AMPHITHERE", false);
-        LOADED_ENTITIES.put("TROLL_F", false);
-        LOADED_ENTITIES.put("TROLL_S", false);
-        LOADED_ENTITIES.put("TROLL_M", false);
-    }
-
-    public static <T extends Entity> EntityType<T> build(EntityType.EntityFactory<T> constructor, SpawnGroup category, boolean fireImmune, float sizeX, float sizeY) {
+    private static <T extends Entity> EntityType<T> build(EntityType.EntityFactory<T> constructor, SpawnGroup category, boolean fireImmune, float sizeX, float sizeY) {
         FabricEntityTypeBuilder<T> builder = FabricEntityTypeBuilder.create(category, constructor).dimensions(EntityDimensions.changing(sizeX, sizeY));
         if (fireImmune) builder.fireImmune();
         return builder.build();
     }
 
-    public static <T extends Entity> EntityType<T> build(EntityType.EntityFactory<T> constructor, SpawnGroup category, boolean fireImmune, float sizeX, float sizeY, int trackingRange) {
+    private static <T extends Entity> EntityType<T> build(EntityType.EntityFactory<T> constructor, SpawnGroup category, boolean fireImmune, float sizeX, float sizeY, int trackingRange) {
         FabricEntityTypeBuilder<T> builder = FabricEntityTypeBuilder.create(category, constructor).dimensions(EntityDimensions.changing(sizeX, sizeY)).trackRangeBlocks(trackingRange);
         if (fireImmune) builder.fireImmune();
         return builder.build();
@@ -171,33 +158,21 @@ public class IafEntities {
     }
 
     public static void addSpawners() {
-        if (IafConfig.getInstance().spawnHippogryphs) {
+        if (IafConfig.getInstance().spawnHippogryphs)
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphSpawnRate, 1, 1);
-            LOADED_ENTITIES.put("HIPPOGRYPH", true);
-        }
-        if (IafConfig.getInstance().spawnLiches) {
+        if (IafConfig.getInstance().spawnLiches)
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lichSpawnRate, 1, 1);
-            LOADED_ENTITIES.put("DREAD_LICH", true);
-        }
-        if (IafConfig.getInstance().spawnCockatrices) {
+        if (IafConfig.getInstance().spawnCockatrices)
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatriceSpawnRate, 1, 2);
-            LOADED_ENTITIES.put("COCKATRICE", true);
-        }
-        if (IafConfig.getInstance().spawnAmphitheres) {
+        if (IafConfig.getInstance().spawnAmphitheres)
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithereSpawnRate, 1, 3);
-            LOADED_ENTITIES.put("AMPHITHERE", true);
-        }
-        if (IafConfig.getInstance().spawnTrolls) {
+        if (IafConfig.getInstance().spawnTrolls)
             BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.forestTrollBiomes, context.getBiomeRegistryEntry()) ||
                     BiomeConfig.test(BiomeConfig.snowyTrollBiomes, context.getBiomeRegistryEntry()) ||
                     BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().trollSpawnRate, 1, 3);
-            LOADED_ENTITIES.put("TROLL_F", true);
-            LOADED_ENTITIES.put("TROLL_S", true);
-            LOADED_ENTITIES.put("TROLL_M", true);
-        }
     }
 
-    public static TabulaModel getOrNull(String modelPath, ITabulaModelAnimator<?> tabulaAnimator) {
+    private static TabulaModel getOrNull(String modelPath, ITabulaModelAnimator<?> tabulaAnimator) {
         try {
             return new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel(modelPath), tabulaAnimator);
         } catch (IOException e) {

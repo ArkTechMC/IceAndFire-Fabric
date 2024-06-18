@@ -6,6 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
+@SuppressWarnings("unused")
 public final class IafSounds {
     public static final SoundEvent BESTIARY_PAGE = createSoundEvent("bestiary_page");
     public static final SoundEvent EGG_HATCH = createSoundEvent("egg_hatch");

@@ -52,13 +52,4 @@ public class ServerTickRateTracker extends TickRateTracker {
     protected void sync() {
         IafServerNetworkHandler.sendToAll(new SyncClientTickRateMessage(this.toTag()));
     }
-
-    public int getServerTickLengthMs() {
-        int i = (int) StaticVariables.MSPT;
-        for (TickRateModifier modifier : this.tickRateModifierList)
-            if (modifier.getType() == TickRateModifierType.GLOBAL)
-                i *= (int) modifier.getTickRateMultiplier();
-        if (i <= 0) return 1;
-        return i;
-    }
 }

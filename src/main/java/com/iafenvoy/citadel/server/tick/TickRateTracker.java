@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class TickRateTracker {
-
     public final List<TickRateModifier> tickRateModifierList = new ArrayList<>();
     public final List<Entity> specialTickRateEntities = new ArrayList<>();
 

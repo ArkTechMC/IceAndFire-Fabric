@@ -6,6 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
+@SuppressWarnings("unused")
 public class IafBannerPatterns {
     public static final BannerPattern PATTERN_FIRE = register("fire", new BannerPattern("iaf_fire"));
     public static final BannerPattern PATTERN_ICE = register("ice", new BannerPattern("iaf_ice"));
@@ -27,7 +28,7 @@ public class IafBannerPatterns {
     public static final BannerPattern PATTERN_WEEZER = register("weezer", new BannerPattern("iaf_weezer"));
     public static final BannerPattern PATTERN_DREAD = register("dread", new BannerPattern("iaf_dread"));
 
-    public static BannerPattern register(String name, BannerPattern pattern) {
+    private static BannerPattern register(String name, BannerPattern pattern) {
         return Registry.register(Registries.BANNER_PATTERN, new Identifier(IceAndFire.MOD_ID, name), pattern);
     }
 

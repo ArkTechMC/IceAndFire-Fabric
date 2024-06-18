@@ -20,6 +20,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
+@SuppressWarnings("unused")
 public class IafBlocks {
     public static final BlockSoundGroup SOUND_TYPE_GOLD = new BlockSoundGroup(1.0F, 1.0F, IafSounds.GOLD_PILE_BREAK, IafSounds.GOLD_PILE_STEP, IafSounds.GOLD_PILE_BREAK, IafSounds.GOLD_PILE_STEP, IafSounds.GOLD_PILE_STEP);
     public static final Block LECTERN = register("lectern", new BlockLectern());
@@ -142,19 +143,19 @@ public class IafBlocks {
     public static final Block GHOST_CHEST = register("ghost_chest", new BlockGhostChest());
     public static final Block GRAVEYARD_SOIL = register("graveyard_soil", new BlockGraveyardSoil());
 
-    public static <T extends Block> T register(String name, T block) {
+    private static <T extends Block> T register(String name, T block) {
         IafItems.register(name, new BlockItem(block, new FabricItemSettings()), false);
         IafItemGroups.TAB_BLOCKS_LIST.add(block);
         return Registry.register(Registries.BLOCK, new Identifier(IceAndFire.MOD_ID, name), block);
     }
 
-    public static <T extends TorchBlock> T registerWallBlock(String name, T block) {
+    private static <T extends TorchBlock> T registerWallBlock(String name, T block) {
         IafItems.register(name, new VerticallyAttachableBlockItem(block, ((IWallBlock) block).wallBlock(), new Item.Settings(), Direction.DOWN), false);
         IafItemGroups.TAB_BLOCKS_LIST.add(block);
         return Registry.register(Registries.BLOCK, new Identifier(IceAndFire.MOD_ID, name), block);
     }
 
-    public static <T extends WallTorchBlock> T registerWallTorch(String name, T block) {
+    private static <T extends WallTorchBlock> T registerWallTorch(String name, T block) {
         return Registry.register(Registries.BLOCK, new Identifier(IceAndFire.MOD_ID, name), block);
     }
 

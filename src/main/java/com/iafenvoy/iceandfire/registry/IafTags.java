@@ -16,5 +16,4 @@ public class IafTags { // FIXME :: Clean up
     public static final Identifier COCKATRICE_TARGETS = new Identifier(IceAndFire.MOD_ID, "cockatrice_targets");
     public static final Identifier CYCLOPS_UNLIFTABLES = new Identifier(IceAndFire.MOD_ID, "cyclops_unliftables");
     public static final Identifier BLINDED = new Identifier(IceAndFire.MOD_ID, "blinded");
-
 }
