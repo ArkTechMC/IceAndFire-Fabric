@@ -27,6 +27,7 @@ import net.minecraft.util.Identifier;
 
 import static com.iafenvoy.iceandfire.item.tool.DragonSteelTier.createMaterialWithRepairItem;
 
+@SuppressWarnings("unused")
 public class IafItems {
     public static final CustomArmorMaterial SILVER_ARMOR_MATERIAL = new IafArmorMaterial("silver", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0);
     public static final CustomArmorMaterial COPPER_ARMOR_MATERIAL = new IafArmorMaterial("copper", 10, new int[]{1, 3, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
@@ -306,7 +307,6 @@ public class IafItems {
     public static final Item DRAGONSTEEL_LIGHTNING_LEGGINGS = register("dragonsteel_lightning_leggings", new ItemDragonsteelArmor(DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL, 2, ArmorItem.Type.LEGGINGS));
     public static final Item DRAGONSTEEL_LIGHTNING_BOOTS = register("dragonsteel_lightning_boots", new ItemDragonsteelArmor(DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL, 3, ArmorItem.Type.BOOTS));
 
-
     public static final Item WEEZER_BLUE_ALBUM = register("weezer_blue_album", new ItemGeneric(1, true));
     public static final Item DRAGON_DEBUG_STICK = register("dragon_debug_stick", new ItemGeneric(1, true), false);
     public static final Item DREAD_SWORD = register("dread_sword", new ItemModSword(DREAD_SWORD_TOOL_MATERIAL));
@@ -324,39 +324,32 @@ public class IafItems {
     public static final Item GHOST_INGOT = register("ghost_ingot", new ItemGeneric(1));
     public static final Item GHOST_SWORD = register("ghost_sword", new ItemGhostSword());
 
-    public static final BannerPatternItem PATTERN_FIRE = register("banner_pattern_fire", new BannerPatternItem(BannerPatternTags.FIRE_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_ICE = register("banner_pattern_ice", new BannerPatternItem(BannerPatternTags.ICE_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_LIGHTNING = register("banner_pattern_lightning", new BannerPatternItem(BannerPatternTags.LIGHTNING_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_FIRE_HEAD = register("banner_pattern_fire_head", new BannerPatternItem(BannerPatternTags.FIRE_HEAD_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_ICE_HEAD = register("banner_pattern_ice_head", new BannerPatternItem(BannerPatternTags.ICE_HEAD_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_LIGHTNING_HEAD = register("banner_pattern_lightning_head", new BannerPatternItem(BannerPatternTags.LIGHTNING_HEAD_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_AMPHITHERE = register("banner_pattern_amphithere", new BannerPatternItem(BannerPatternTags.AMPHITHERE_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_BIRD = register("banner_pattern_bird", new BannerPatternItem(BannerPatternTags.BIRD_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_EYE = register("banner_pattern_eye", new BannerPatternItem(BannerPatternTags.EYE_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_FAE = register("banner_pattern_fae", new BannerPatternItem(BannerPatternTags.FAE_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_FEATHER = register("banner_pattern_feather", new BannerPatternItem(BannerPatternTags.FEATHER_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_GORGON = register("banner_pattern_gorgon", new BannerPatternItem(BannerPatternTags.GORGON_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_HIPPOCAMPUS = register("banner_pattern_hippocampus", new BannerPatternItem(BannerPatternTags.HIPPOCAMPUS_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_HIPPOGRYPH_HEAD = register("banner_pattern_hippogryph_head", new BannerPatternItem(BannerPatternTags.HIPPOGRYPH_HEAD_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_MERMAID = register("banner_pattern_mermaid", new BannerPatternItem(BannerPatternTags.MERMAID_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_SEA_SERPENT = register("banner_pattern_sea_serpent", new BannerPatternItem(BannerPatternTags.SEA_SERPENT_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_TROLL = register("banner_pattern_troll", new BannerPatternItem(BannerPatternTags.TROLL_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_WEEZER = register("banner_pattern_weezer", new BannerPatternItem(BannerPatternTags.WEEZER_BANNER_PATTERN, unstackable()));
-    public static final BannerPatternItem PATTERN_DREAD = register("banner_pattern_dread", new BannerPatternItem(BannerPatternTags.DREAD_BANNER_PATTERN, unstackable()));
+    public static final BannerPatternItem PATTERN_FIRE = register("banner_pattern_fire", new BannerPatternItem(BannerPatternTags.FIRE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_ICE = register("banner_pattern_ice", new BannerPatternItem(BannerPatternTags.ICE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_LIGHTNING = register("banner_pattern_lightning", new BannerPatternItem(BannerPatternTags.LIGHTNING_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_FIRE_HEAD = register("banner_pattern_fire_head", new BannerPatternItem(BannerPatternTags.FIRE_HEAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_ICE_HEAD = register("banner_pattern_ice_head", new BannerPatternItem(BannerPatternTags.ICE_HEAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_LIGHTNING_HEAD = register("banner_pattern_lightning_head", new BannerPatternItem(BannerPatternTags.LIGHTNING_HEAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_AMPHITHERE = register("banner_pattern_amphithere", new BannerPatternItem(BannerPatternTags.AMPHITHERE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_BIRD = register("banner_pattern_bird", new BannerPatternItem(BannerPatternTags.BIRD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_EYE = register("banner_pattern_eye", new BannerPatternItem(BannerPatternTags.EYE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_FAE = register("banner_pattern_fae", new BannerPatternItem(BannerPatternTags.FAE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_FEATHER = register("banner_pattern_feather", new BannerPatternItem(BannerPatternTags.FEATHER_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_GORGON = register("banner_pattern_gorgon", new BannerPatternItem(BannerPatternTags.GORGON_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_HIPPOCAMPUS = register("banner_pattern_hippocampus", new BannerPatternItem(BannerPatternTags.HIPPOCAMPUS_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_HIPPOGRYPH_HEAD = register("banner_pattern_hippogryph_head", new BannerPatternItem(BannerPatternTags.HIPPOGRYPH_HEAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_MERMAID = register("banner_pattern_mermaid", new BannerPatternItem(BannerPatternTags.MERMAID_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_SEA_SERPENT = register("banner_pattern_sea_serpent", new BannerPatternItem(BannerPatternTags.SEA_SERPENT_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_TROLL = register("banner_pattern_troll", new BannerPatternItem(BannerPatternTags.TROLL_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_WEEZER = register("banner_pattern_weezer", new BannerPatternItem(BannerPatternTags.WEEZER_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+    public static final BannerPatternItem PATTERN_DREAD;
 
     static {
+        PATTERN_DREAD = register("banner_pattern_dread", new BannerPatternItem(BannerPatternTags.DREAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
         EnumDragonArmor.initArmors();
         EnumSeaSerpent.initArmors();
         EnumSkullType.initItems();
         EnumTroll.initArmors();
-    }
-
-    public static Item.Settings defaultBuilder() {
-        return new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/;
-    }
-
-    public static Item.Settings unstackable() {
-        return defaultBuilder().maxCount(1);
     }
 
     public static void init() {

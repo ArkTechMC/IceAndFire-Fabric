@@ -75,7 +75,6 @@ public class IafDamageTypes {
     }
 
     static class CustomIndirectEntityDamageSource extends DamageSource {
-
         public CustomIndirectEntityDamageSource(RegistryEntry<DamageType> damageTypeIn, Entity source, Entity indirectEntityIn) {
             super(damageTypeIn, source, indirectEntityIn);
         }
@@ -88,19 +87,6 @@ public class IafDamageTypes {
             String s1 = s + "." + index;
             String s2 = s + ".attacker_" + index;
             return livingentity != null ? Text.translatable(s2, entityLivingBaseIn.getDisplayName(), livingentity.getDisplayName()) : Text.translatable(s1, entityLivingBaseIn.getDisplayName());
-        }
-    }
-
-    public static class IafDamageTypeTagsProvider extends VanillaDamageTypeTagProvider {
-
-        public IafDamageTypeTagsProvider(DataOutput p_270719_, CompletableFuture<RegistryWrapper.WrapperLookup> p_270256_) {
-            super(p_270719_, p_270256_);
-        }
-
-        @Override
-        public void configure(RegistryWrapper.WrapperLookup pProvider) {
-            this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_ARMOR).add(GORGON_DMG_TYPE);
-            this.getOrCreateTagBuilder(DamageTypeTags.BYPASSES_EFFECTS).add(GORGON_DMG_TYPE);
         }
     }
 }

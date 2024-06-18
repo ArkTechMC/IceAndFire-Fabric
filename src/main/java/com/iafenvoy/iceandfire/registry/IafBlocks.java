@@ -142,7 +142,6 @@ public class IafBlocks {
     public static final Block GHOST_CHEST = register("ghost_chest", new BlockGhostChest());
     public static final Block GRAVEYARD_SOIL = register("graveyard_soil", new BlockGraveyardSoil());
 
-
     public static <T extends Block> T register(String name, T block) {
         IafItems.register(name, new BlockItem(block, new FabricItemSettings()), false);
         IafItemGroups.TAB_BLOCKS_LIST.add(block);
