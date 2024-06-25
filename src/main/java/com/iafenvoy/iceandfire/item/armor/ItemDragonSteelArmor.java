@@ -17,18 +17,17 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDragonItem {
+public class ItemDragonSteelArmor extends ArmorItem implements IProtectAgainstDragonItem {
 
     private static final UUID[] ARMOR_MODIFIERS = new UUID[]{UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"), UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"), UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"), UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150")};
     private final ArmorMaterial material;
     private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifierMultimap;
 
-    public ItemDragonsteelArmor(ArmorMaterial material, int renderIndex, Type slot) {
+    public ItemDragonSteelArmor(ArmorMaterial material, int renderIndex, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.material = material;
         this.attributeModifierMultimap = this.createAttributeMap();
     }
-
 
     //Workaround for armor attributes being registered before the config gets loaded
     private Multimap<EntityAttribute, EntityAttributeModifier> createAttributeMap() {
@@ -49,9 +48,8 @@ public class ItemDragonsteelArmor extends ArmorItem implements IProtectAgainstDr
                 && !this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).isEmpty()
                 && this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).toArray()[0] instanceof EntityAttributeModifier
                 && ((EntityAttributeModifier) this.attributeModifierMultimap.get(EntityAttributes.GENERIC_ARMOR).toArray()[0]).getValue() != this.getProtection()
-        ) {
+        )
             this.attributeModifierMultimap = this.createAttributeMap();
-        }
         return this.attributeModifierMultimap;
     }
 

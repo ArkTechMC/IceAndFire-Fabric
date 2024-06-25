@@ -31,7 +31,6 @@ public enum EnumHippogryphTypes {
         this.developer = developer;
         this.TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + ".png");
         this.TEXTURE_BLINK = new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/" + this.name().toLowerCase(Locale.ROOT) + "_blink.png");
-
     }
 
     public static EnumHippogryphTypes[] getWildTypes() {
@@ -44,35 +43,26 @@ public enum EnumHippogryphTypes {
 
     public static EnumHippogryphTypes getBiomeType(RegistryEntry<Biome> biome) {
         List<EnumHippogryphTypes> types = new ArrayList<>();
-        if (BiomeConfig.test(BiomeConfig.blackHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.blackHippogryphBiomes, biome))
             types.add(BLACK);
-        }
-        if (BiomeConfig.test(BiomeConfig.brownHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.brownHippogryphBiomes, biome))
             types.add(BROWN);
-        }
-        if (BiomeConfig.test(BiomeConfig.grayHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.grayHippogryphBiomes, biome))
             types.add(BROWN);
-        }
-        if (BiomeConfig.test(BiomeConfig.chestnutHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.chestnutHippogryphBiomes, biome))
             types.add(CHESTNUT);
-        }
-        if (BiomeConfig.test(BiomeConfig.creamyHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.creamyHippogryphBiomes, biome))
             types.add(CREAMY);
-        }
-        if (BiomeConfig.test(BiomeConfig.darkBrownHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.darkBrownHippogryphBiomes, biome))
             types.add(DARK_BROWN);
-        }
-        if (BiomeConfig.test(BiomeConfig.whiteHippogryphBiomes, biome)) {
+        if (BiomeConfig.test(BiomeConfig.whiteHippogryphBiomes, biome))
             types.add(WHITE);
-        }
-        if (types.isEmpty()) {
+        if (types.isEmpty())
             return getRandomType();
-        } else {
-            if (types.contains(GRAY) && types.contains(CHESTNUT)) {
+        else {
+            if (types.contains(GRAY) && types.contains(CHESTNUT))
                 return GRAY;
-            }
             return types.get(ThreadLocalRandom.current().nextInt(types.size()));
         }
-
     }
 }

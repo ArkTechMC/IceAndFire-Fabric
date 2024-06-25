@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.client.render.entity.layer;
+package com.iafenvoy.iceandfire.render.entity.layer;
 
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

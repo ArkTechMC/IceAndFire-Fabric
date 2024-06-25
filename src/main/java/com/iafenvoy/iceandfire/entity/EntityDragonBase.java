@@ -18,7 +18,7 @@ import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.*;
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
@@ -1888,7 +1888,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     public EntityDragonEgg createEgg(EntityDragonBase ageable) { // FIXME :: Unused parameter
         EntityDragonEgg dragon = new EntityDragonEgg(IafEntities.DRAGON_EGG, this.getWorld());
-        dragon.setEggType(EnumDragonEgg.byMetadata(new Random().nextInt(4) + this.getStartMetaForType()));
+        dragon.setEggType(EnumDragonColor.byMetadata(new Random().nextInt(4) + this.getStartMetaForType()));
         dragon.setPosition(MathHelper.floor(this.getX()) + 0.5, MathHelper.floor(this.getY()) + 1, MathHelper.floor(this.getZ()) + 0.5);
         return dragon;
     }

@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.render.entity.layer;
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.TabulaModel;
-import com.iafenvoy.iceandfire.client.render.TabulaModelAccessor;
+import com.iafenvoy.iceandfire.render.TabulaModelAccessor;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.entity.EntityLightningDragon;

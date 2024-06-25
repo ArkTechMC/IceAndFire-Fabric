@@ -762,15 +762,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public EnumSeaSerpent getEnum() {
-        return switch (this.getVariant()) {
-            default -> EnumSeaSerpent.BLUE;
-            case 1 -> EnumSeaSerpent.BRONZE;
-            case 2 -> EnumSeaSerpent.DEEPBLUE;
-            case 3 -> EnumSeaSerpent.GREEN;
-            case 4 -> EnumSeaSerpent.PURPLE;
-            case 5 -> EnumSeaSerpent.RED;
-            case 6 -> EnumSeaSerpent.TEAL;
-        };
+        return EnumSeaSerpent.values()[this.getVariant()];
     }
 
     @Override

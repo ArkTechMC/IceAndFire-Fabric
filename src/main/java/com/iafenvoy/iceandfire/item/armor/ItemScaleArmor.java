@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.item.armor;
 
 import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
@@ -15,9 +15,9 @@ import java.util.List;
 public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonItem {
 
     public final EnumDragonArmor armor_type;
-    public final EnumDragonEgg eggType;
+    public final EnumDragonColor eggType;
 
-    public ItemScaleArmor(EnumDragonEgg eggType, EnumDragonArmor armorType, CustomArmorMaterial material, Type slot) {
+    public ItemScaleArmor(EnumDragonColor eggType, EnumDragonArmor armorType, CustomArmorMaterial material, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.armor_type = armorType;
         this.eggType = eggType;

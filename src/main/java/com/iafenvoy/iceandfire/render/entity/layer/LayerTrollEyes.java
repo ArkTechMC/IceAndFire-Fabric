@@ -1,6 +1,6 @@
-package com.iafenvoy.iceandfire.client.render.entity.layer;
+package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.iceandfire.client.render.entity.RenderTroll;
+import com.iafenvoy.iceandfire.render.entity.RenderTroll;
 import com.iafenvoy.iceandfire.entity.EntityGorgon;
 import com.iafenvoy.iceandfire.entity.EntityTroll;
 import com.iafenvoy.iceandfire.render.model.ModelTroll;

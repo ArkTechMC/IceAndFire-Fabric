@@ -1,6 +1,6 @@
-package com.iafenvoy.iceandfire.client.render.entity.layer;
+package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.iceandfire.client.render.entity.RenderPixie;
+import com.iafenvoy.iceandfire.render.entity.RenderPixie;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
 import com.iafenvoy.iceandfire.render.model.ModelPixie;
 import net.minecraft.client.MinecraftClient;

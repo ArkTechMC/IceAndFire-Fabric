@@ -12,16 +12,17 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public enum EnumBestiaryPages {
-
     INTRODUCTION(2),
-    FIREDRAGON(4),
-    FIREDRAGONEGG(1),
-    ICEDRAGON(4),
-    ICEDRAGONEGG(1),
-    TAMEDDRAGONS(3),
+    FIRE_DRAGON(4),
+    FIRE_DRAGON_EGG(1),
+    ICE_DRAGON(4),
+    ICE_DRAGON_EGG(1),
+    LIGHTNING_DRAGON(5),
+    LIGHTNING_DRAGON_EGG(1),
+    TAMED_DRAGONS(3),
     MATERIALS(2),
     ALCHEMY(1),
-    DRAGONFORGE(3),
+    DRAGON_FORGE(3),
     HIPPOGRYPH(1),
     GORGON(1),
     PIXIE(1),
@@ -37,8 +38,6 @@ public enum EnumBestiaryPages {
     SEASERPENT(2),
     HYDRA(2),
     DREAD_MOBS(1),
-    LIGHTNINGDRAGON(5),
-    LIGHTNINGDRAGONEGG(1),
     GHOST(1);
 
     public static final ImmutableList<EnumBestiaryPages> ALL_PAGES = ImmutableList.copyOf(EnumBestiaryPages.values());

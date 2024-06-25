@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire;
 
+import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
@@ -51,6 +52,9 @@ public class IceAndFireClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, new TEISRItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.DREAD_PORTAL, new TEISRItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.GHOST_CHEST, new TEISRItemRenderer());
+
+        for(EnumSeaSerpent seaSerpent:EnumSeaSerpent.values())
+            ArmorRenderer.register(new SeaSerpentArmorRenderer(),seaSerpent.helmet, seaSerpent.chestplate, seaSerpent.leggings, seaSerpent.boots);
 
         IafClientNetworkHandler.register();
     }

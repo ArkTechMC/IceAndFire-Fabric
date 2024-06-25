@@ -8,7 +8,6 @@ import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonArmor;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonBanner;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonEyes;
-import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonRider;
 import com.iafenvoy.iceandfire.render.texture.ArrayLayeredTexture;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -30,7 +29,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
     public RenderDragonBase(EntityRendererFactory.Context context, AdvancedEntityModel model, int dragonType) {
         super(context, model, 0.15F);
         this.addFeature(new LayerDragonEyes(this));
-        this.addFeature(new LayerDragonRider(this, false));
+        this.addFeature(new com.iafenvoy.iceandfire.render.entity.layer.LayerDragonRider(this, false));
         this.addFeature(new LayerDragonBanner(this));
         this.addFeature(new LayerDragonArmor(this, dragonType));
         this.dragonType = dragonType;

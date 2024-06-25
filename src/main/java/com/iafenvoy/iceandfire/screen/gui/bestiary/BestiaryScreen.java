@@ -180,7 +180,7 @@ public class BestiaryScreen extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafBlocks.LECTERN), 151, 78, 2F);
                 }
             }
-            case TAMEDDRAGONS -> {
+            case TAMED_DRAGONS -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -258,10 +258,10 @@ public class BestiaryScreen extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 112, 70, 2.5F);
 
                     int j = 18;
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.helmet), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.chestplate), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.leggings), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.armor_red.boots), j + 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.helmet), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.chestplate), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.leggings), j += 16, 115, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.boots), j + 16, 115, 1.5F);
                 }
                 if (bookPages == 1) {
                     int j = 1;

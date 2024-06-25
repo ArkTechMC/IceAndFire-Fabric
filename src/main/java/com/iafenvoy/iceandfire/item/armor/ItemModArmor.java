@@ -38,18 +38,14 @@ public class ItemModArmor extends ArmorItem implements IArmorTextureProvider {
 
     @Override
     public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        if (this.material == IafItems.MYRMEX_DESERT_ARMOR_MATERIAL) {
+        if (this.material == IafItems.MYRMEX_DESERT_ARMOR_MATERIAL)
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/" + (slot == EquipmentSlot.LEGS ? "myrmex_desert_layer_2" : "myrmex_desert_layer_1") + ".png");
-        }
-        if (this.material == IafItems.MYRMEX_JUNGLE_ARMOR_MATERIAL) {
+        if (this.material == IafItems.MYRMEX_JUNGLE_ARMOR_MATERIAL)
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/" + (slot == EquipmentSlot.LEGS ? "myrmex_jungle_layer_2" : "myrmex_jungle_layer_1") + ".png");
-        }
-        if (this.material == IafItems.SHEEP_ARMOR_MATERIAL) {
+        if (this.material == IafItems.SHEEP_ARMOR_MATERIAL)
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/" + (slot == EquipmentSlot.LEGS ? "sheep_disguise_layer_2" : "sheep_disguise_layer_1") + ".png");
-        }
-        if (this.material == IafItems.EARPLUGS_ARMOR_MATERIAL) {
+        if (this.material == IafItems.EARPLUGS_ARMOR_MATERIAL)
             return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/earplugs_layer_1.png");
-        }
         return null;
     }
 
@@ -58,9 +54,8 @@ public class ItemModArmor extends ArmorItem implements IArmorTextureProvider {
         if (this == IafItems.EARPLUGS) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            if (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1) {
+            if (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1)
                 tooltip.add(Text.translatable("item.iceandfire.air_pods.desc").formatted(Formatting.GREEN));
-            }
         }
         super.appendTooltip(stack, worldIn, tooltip, flagIn);
     }

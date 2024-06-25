@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,9 +17,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemDragonEgg extends Item {
-    public final EnumDragonEgg type;
+    public final EnumDragonColor type;
 
-    public ItemDragonEgg(EnumDragonEgg type) {
+    public ItemDragonEgg(EnumDragonColor type) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
         this.type = type;
     }

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemDragonScales extends Item {
-    final EnumDragonEgg type;
+    final EnumDragonColor type;
 
-    public ItemDragonScales(EnumDragonEgg type) {
+    public ItemDragonScales(EnumDragonColor type) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.type = type;
     }

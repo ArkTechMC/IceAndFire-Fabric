@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.entity.block;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.block.BlockState;
@@ -19,7 +19,7 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockEntityEggInIce extends BlockEntity {
-    public EnumDragonEgg type;
+    public EnumDragonColor type;
     public int age;
     public int ticksExisted;
     public UUID ownerUUID;
@@ -61,7 +61,7 @@ public class BlockEntityEggInIce extends BlockEntity {
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        this.type = EnumDragonEgg.values()[tag.getByte("Color")];
+        this.type = EnumDragonColor.values()[tag.getByte("Color")];
         this.age = tag.getInt("Age");
         UUID s = null;
         if (tag.containsUuid("OwnerUUID"))

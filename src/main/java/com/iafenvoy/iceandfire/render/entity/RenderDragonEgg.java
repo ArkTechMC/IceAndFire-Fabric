@@ -38,7 +38,7 @@ public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, Model
             case SAPPHIRE -> EGG_SAPPHIRE;
             case SILVER -> EGG_SILVER;
             case ELECTRIC -> EGG_ELECTRIC;
-            case AMYTHEST -> EGG_AMYTHEST;
+            case AMETHYST -> EGG_AMYTHEST;
             case COPPER -> EGG_COPPER;
             case BLACK -> EGG_BLACK;
         };

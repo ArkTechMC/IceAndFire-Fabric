@@ -150,13 +150,12 @@ public enum EnumDragonTextures {
 
 
     public static Identifier getTextureFromDragon(EntityDragonBase dragon) {
-        if (dragon instanceof EntityIceDragon) {
+        if (dragon instanceof EntityIceDragon)
             return getIceDragonTextures(dragon);
-        } else if (dragon instanceof EntityLightningDragon) {
+        else if (dragon instanceof EntityLightningDragon)
             return getLightningDragonTextures(dragon);
-        } else {
+        else
             return getFireDragonTextures(dragon);
-        }
     }
 
 

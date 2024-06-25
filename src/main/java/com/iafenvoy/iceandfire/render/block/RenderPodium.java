@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.block;
 
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPodium;
-import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemMyrmexEgg;
 import com.iafenvoy.iceandfire.registry.IafItems;
@@ -22,7 +22,7 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
     public RenderPodium(BlockEntityRendererFactory.Context context) {
     }
 
-    protected static RenderLayer getEggTexture(EnumDragonEgg type) {
+    protected static RenderLayer getEggTexture(EnumDragonColor type) {
         return switch (type) {
             default -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_RED);
             case GREEN -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_GREEN);
@@ -33,7 +33,7 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
             case SAPPHIRE -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_SAPPHIRE);
             case SILVER -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_SILVER);
             case ELECTRIC -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_ELECTRIC);
-            case AMYTHEST -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_AMYTHEST);
+            case AMETHYST -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_AMYTHEST);
             case COPPER -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_COPPER);
             case BLACK -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_BLACK);
         };

@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.client.render.entity.layer;
+package com.iafenvoy.iceandfire.render.entity.layer;
 
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
