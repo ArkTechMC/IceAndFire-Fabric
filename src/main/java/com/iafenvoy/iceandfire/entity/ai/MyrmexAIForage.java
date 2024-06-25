@@ -2,11 +2,10 @@ package com.iafenvoy.iceandfire.entity.ai;
 
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
-import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
+import com.iafenvoy.iceandfire.registry.IafTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
@@ -97,7 +96,7 @@ public class MyrmexAIForage extends Goal {
             this.failedToFindPath = 0;
             BlockState block = this.myrmex.getWorld().getBlockState(this.targetBlock);
             // Test if the block is edible
-            if (EntityMyrmexBase.isEdibleBlock(block)) {
+            if (block.isIn(IafTags.MYRMEX_HARVESTABLES)) {
                 final double distance = this.getDistanceSq(this.targetBlock);
                 if (distance < 6) {
                     block.getBlock();
@@ -160,11 +159,13 @@ public class MyrmexAIForage extends Goal {
         List<BlockPos> allBlocks = new ArrayList<>();
         BlockPos.stream(this.myrmex.getBlockPos().add(-RADIUS, -RADIUS / 2, -RADIUS),
                 this.myrmex.getBlockPos().add(RADIUS, RADIUS / 2, RADIUS)).map(BlockPos::toImmutable).forEach(pos -> {
-            if (!EventBus.post(new GenericGriefEvent(this.myrmex, pos.getX(), pos.getY(), pos.getZ())))
-                if (EntityMyrmexBase.isEdibleBlock(this.myrmex.getWorld().getBlockState(pos))) {
+            if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this.myrmex, pos.getX(), pos.getY(), pos.getZ())) {
+                BlockState blockState = this.myrmex.getWorld().getBlockState(pos);
+                if (blockState.isIn(IafTags.MYRMEX_HARVESTABLES)) {
                     allBlocks.add(pos);
                     this.myrmex.keepSearching = false;
                 }
+            }
         });
         return allBlocks;
     }

@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.entity.util.dragon;
 
-import com.iafenvoy.iceandfire.api.event.DragonFireDamageWorldEvent;
 import com.iafenvoy.iceandfire.block.BlockCharedPath;
 import com.iafenvoy.iceandfire.block.BlockFallingReturningState;
 import com.iafenvoy.iceandfire.block.BlockReturningState;
@@ -10,7 +9,7 @@ import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.BlockLaunchExplosion;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafDamageTypes;
 import net.minecraft.block.Block;
@@ -30,7 +29,7 @@ import net.minecraft.world.explosion.Explosion;
 
 public class IafDragonDestructionManager {
     public static void destroyAreaBreath(final World level, final BlockPos center, final EntityDragonBase dragon) {
-        if (EventBus.post(new DragonFireDamageWorldEvent(dragon, center.getX(), center.getY(), center.getZ())))
+        if (IafEvents.ON_DRAGON_DAMAGE_BLOCK.invoker().onDamageBlock(dragon, center.getX(), center.getY(), center.getZ()))
             return;
 
         int statusDuration;
@@ -103,7 +102,8 @@ public class IafDragonDestructionManager {
 
     public static void destroyAreaCharge(final World level, final BlockPos center, final EntityDragonBase dragon) {
         if (dragon == null) return;
-        if (EventBus.post(new DragonFireDamageWorldEvent(dragon, center.getX(), center.getY(), center.getZ()))) return;
+        if (IafEvents.ON_DRAGON_DAMAGE_BLOCK.invoker().onDamageBlock(dragon, center.getX(), center.getY(), center.getZ()))
+            return;
 
         int x = 2;
         int y = 2;

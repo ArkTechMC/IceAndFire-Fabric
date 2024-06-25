@@ -3,13 +3,12 @@ package com.iafenvoy.iceandfire.entity;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.api.event.DragonFireEvent;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.message.ParticleSpawnMessage;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
@@ -458,7 +457,7 @@ public class EntityIceDragon extends EntityDragonBase {
 
     @Override
     public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
-        if (EventBus.post(new DragonFireEvent(this, burnX, burnY, burnZ))) return;
+        if (IafEvents.ON_DRAGON_FIRE_BLOCK.invoker().onFireBlock(this, burnX, burnY, burnZ)) return;
         if (syncType > 2 && syncType < 6) {
             if (this.getAnimation() != ANIMATION_FIRECHARGE) {
                 this.setAnimation(ANIMATION_FIRECHARGE);

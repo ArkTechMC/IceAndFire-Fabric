@@ -5,12 +5,11 @@ import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
 import com.iafenvoy.citadel.server.entity.collision.ICustomCollisions;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.message.MessageDeathWormHitbox;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.pathfinding.PathNavigateDeathWormLand;
@@ -229,7 +228,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
             this.playSound(this.getScaleFactor() > 3 ? IafSounds.DEATHWORM_GIANT_ATTACK : IafSounds.DEATHWORM_ATTACK, 1, 1);
         }
         if (this.getRandom().nextInt(3) == 0 && this.getScaleFactor() > 1 && this.getWorld().getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
-            if (!EventBus.post(new GenericGriefEvent(this, entityIn.getX(), entityIn.getY(), entityIn.getZ()))) {
+            if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, entityIn.getX(), entityIn.getY(), entityIn.getZ())) {
                 BlockLaunchExplosion explosion = new BlockLaunchExplosion(this.getWorld(), this, entityIn.getX(), entityIn.getY(), entityIn.getZ(), this.getScaleFactor());
                 explosion.collectBlocksAndDamageEntities();
                 explosion.affectWorld(true);
@@ -546,10 +545,8 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         }
         if (this.willExplode) {
             if (this.ticksTillExplosion == 0) {
-                boolean b = !EventBus.post(new GenericGriefEvent(this, this.getX(), this.getY(), this.getZ()));
-                if (b) {
+                if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, this.getX(), this.getY(), this.getZ()))
                     this.getWorld().createExplosion(this.thrower, this.getX(), this.getY(), this.getZ(), 2.5F * this.getScaleFactor(), false, World.ExplosionSourceType.MOB);
-                }
                 this.thrower = null;
             } else {
                 this.ticksTillExplosion--;

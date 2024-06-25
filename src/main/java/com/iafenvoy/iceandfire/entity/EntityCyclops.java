@@ -4,14 +4,12 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.CyclopsAIAttackMelee;
 import com.iafenvoy.iceandfire.entity.ai.CyclopsAITargetSheepPlayers;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.event.EventBus;
-import com.iafenvoy.iceandfire.event.ServerEvents;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.pathfinding.PathNavigateCyclops;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.IafTags;
@@ -36,9 +34,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -129,7 +125,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
                     return false;
                 }
             }
-            return !ServerEvents.isSheep(entity);
+            return !entity.getType().isIn(IafTags.SHEEP);
         }));
 
         this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, true, (Predicate<PlayerEntity>) entity -> entity != null && !(entity.isCreative() || entity.isSpectator())));
@@ -138,7 +134,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     protected void pushAway(Entity entityIn) {
-        if (!ServerEvents.isSheep(entityIn)) {
+        if (!entityIn.getType().isIn(IafTags.SHEEP)) {
             entityIn.pushAwayFrom(this);
         }
     }
@@ -153,7 +149,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             if (!entityIn.hasPassenger(this)
                     && entityIn.getWidth() < 1.95F
                     && !(entityIn instanceof EntityDragonBase)
-                    && !entityIn.getType().isIn((TagKey.of(RegistryKeys.ENTITY_TYPE, IafTags.CYCLOPS_UNLIFTABLES)))) {
+                    && !entityIn.getType().isIn(IafTags.CYCLOPS_UNLIFTABLES)) {
                 this.setAnimation(ANIMATION_EATPLAYER);
                 entityIn.stopRiding();
                 entityIn.startRiding(this, true);
@@ -324,7 +320,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
                         Block block = state.getBlock();
                         if (!state.isAir() && !state.getOutlineShape(this.getWorld(), pos).isEmpty() && !(block instanceof PlantBlock) && block != Blocks.BEDROCK && (state.getBlock() instanceof LeavesBlock || state.isIn(BlockTags.LOGS))) {
                             this.getVelocity().multiply(0.6D);
-                            if (EventBus.post(new GenericGriefEvent(this, a, b, c))) continue;
+                            if (IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, a, b, c)) continue;
                             if (block != Blocks.AIR)
                                 if (!this.getWorld().isClient)
                                     this.getWorld().breakBlock(pos, true);

@@ -82,7 +82,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
         this.dataTracker.startTracking(CRACK_AMOUNT, 0);
     }
 
-    public EntityType getTrappedEntityType() {
+    public EntityType<?> getTrappedEntityType() {
         String str = this.getTrappedEntityTypeString();
         return EntityType.get(str).orElse(EntityType.PIG);
     }

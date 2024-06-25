@@ -24,6 +24,7 @@ public class EntityEvents {
         boolean onJoinWorld(Entity entity, World world);
     }
 
+    @FunctionalInterface
     public interface Tracking {
         void onTrackingStart(Entity tracking, ServerPlayerEntity player);
     }

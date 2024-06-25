@@ -17,7 +17,6 @@ import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.registry.IafTags;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
 import net.minecraft.block.Block;
@@ -42,8 +41,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -113,10 +110,6 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
             return myrmex.isJungle() == ((EntityMyrmexEgg) entity).isJungle();
         }
         return false;
-    }
-
-    public static boolean isEdibleBlock(BlockState blockState) {
-        return blockState.isIn(TagKey.of(RegistryKeys.BLOCK, IafTags.MYRMEX_HARVESTABLES));
     }
 
     public static int getRandomCaste(World world, Random random, boolean royal) {

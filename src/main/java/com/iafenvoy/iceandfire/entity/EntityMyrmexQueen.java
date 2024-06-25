@@ -3,13 +3,12 @@ package com.iafenvoy.iceandfire.entity;
 import com.google.common.base.Predicate;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.entity.util.MyrmexTrades;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
 import net.minecraft.block.BlockState;
@@ -149,7 +148,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
             if (this.getAnimationTick() == 42) {
                 int down = Math.max(15, this.getBlockPos().getY() - 20 + this.getRandom().nextInt(10));
                 BlockPos genPos = new BlockPos(this.getBlockX(), down, this.getBlockZ());
-                if (!EventBus.post(new GenericGriefEvent(this, genPos.getX(), genPos.getY(), genPos.getZ()))) {
+                if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, genPos.getX(), genPos.getY(), genPos.getZ())) {
                     WorldGenMyrmexHive hiveGen = new WorldGenMyrmexHive(true, this.isJungle(), DefaultFeatureConfig.CODEC);
                     if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld) {
                         hiveGen.placeSmallGen((ServerWorld) this.getWorld(), this.getRandom(), genPos);

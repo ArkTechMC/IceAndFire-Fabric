@@ -10,7 +10,6 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathingStuckHandle
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.FoodUtils;
-import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
 import com.iafenvoy.iceandfire.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.client.model.IFChainBuffer;
 import com.iafenvoy.iceandfire.client.model.util.LegSolverQuadruped;
@@ -22,7 +21,7 @@ import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.*;
 import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.inventory.ContainerDragon;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
@@ -1410,9 +1409,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void breakBlock(final BlockPos position) {
-        if (EventBus.post(new GenericGriefEvent(this, position.getX(), position.getY(), position.getZ()))) {
+        if (IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, position.getX(), position.getY(), position.getZ()))
             return;
-        }
 
         final BlockState state = this.getWorld().getBlockState(position);
         final float hardness = IafConfig.getInstance().dragonGriefing == 1 || this.getDragonStage() <= 3 ? 2.0F : 5.0F;

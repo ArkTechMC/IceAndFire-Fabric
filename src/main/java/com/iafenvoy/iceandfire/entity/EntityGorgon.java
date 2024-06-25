@@ -8,11 +8,7 @@ import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.event.ServerEvents;
-import com.iafenvoy.iceandfire.registry.IafDamageTypes;
-import com.iafenvoy.iceandfire.registry.IafItems;
-import com.iafenvoy.iceandfire.registry.IafParticles;
-import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.registry.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -63,7 +59,10 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     }
 
     public static boolean isBlindfolded(LivingEntity attackTarget) {
-        return attackTarget != null && (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItems.BLINDFOLD || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || ServerEvents.isBlindMob(attackTarget));
+        if (attackTarget == null) return false;
+        if (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItems.BLINDFOLD || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS))
+            return true;
+        return attackTarget.getType().isIn(IafTags.BLINDED);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

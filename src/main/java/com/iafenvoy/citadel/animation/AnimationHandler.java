@@ -1,7 +1,6 @@
 package com.iafenvoy.citadel.animation;
 
 import com.iafenvoy.citadel.server.message.AnimationMessage;
-import com.iafenvoy.iceandfire.event.EventBus;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import org.apache.commons.lang3.ArrayUtils;
@@ -37,13 +36,12 @@ public enum AnimationHandler {
             entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
         else if (entity.getAnimation() != IAnimatedEntity.NO_ANIMATION) {
             if (entity.getAnimationTick() == 0) {
-                AnimationEvent<?> event = new AnimationEvent.Start<>(entity, entity.getAnimation());
-                if (!EventBus.post(event))
-                    this.sendAnimationMessage(entity, event.getAnimation());
+                if (!AnimationEvents.START.invoker().onStart(entity, entity.getAnimation()))
+                    this.sendAnimationMessage(entity, entity.getAnimation());
             }
             if (entity.getAnimationTick() < entity.getAnimation().getDuration()) {
                 entity.setAnimationTick(entity.getAnimationTick() + 1);
-                EventBus.post(new AnimationEvent.Tick<>(entity, entity.getAnimation(), entity.getAnimationTick()));
+                AnimationEvents.TICK.invoker().onTick(entity, entity.getAnimation(), entity.getAnimationTick());
             }
             if (entity.getAnimationTick() == entity.getAnimation().getDuration()) {
                 entity.setAnimationTick(0);

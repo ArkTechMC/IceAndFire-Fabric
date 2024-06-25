@@ -42,7 +42,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
@@ -65,11 +64,10 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class ServerEvents {
-
     public static final UUID ALEX_UUID = UUID.fromString("71363abe-fd03-49c9-940d-aae8b8209b7c");
     public static final String BOLT_DONT_DESTROY_LOOT = "iceandfire.bolt_skip_loot";
     // FIXME :: No check for shouldFear()?
-    private static final Predicate<LivingEntity> VILLAGER_FEAR = entity -> entity instanceof IVillagerFear;
+    private static final Predicate<LivingEntity> VILLAGER_FEAR = entity -> entity instanceof IVillagerFear fear && fear.shouldFear();
     private static final String[] VILLAGE_TYPES = new String[]{"plains", "desert", "snowy", "savanna", "taiga"};
 
     private static void signalChickenAlarm(LivingEntity chicken, LivingEntity attacker) {
@@ -112,69 +110,27 @@ public class ServerEvents {
         }
     }
 
-    private static boolean isInEntityTag(Identifier loc, EntityType<?> type) {
-        return type.isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, loc));
-    }
-
-    public static boolean isLivestock(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.FEAR_DRAGONS, entity.getType());
-    }
-
-    public static boolean isVillager(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.VILLAGERS, entity.getType());
-    }
-
-    public static boolean isSheep(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.SHEEP, entity.getType());
-    }
-
-    public static boolean isChicken(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.CHICKENS, entity.getType());
-    }
-
-    public static boolean isCockatriceTarget(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.COCKATRICE_TARGETS, entity.getType());
-    }
-
-    public static boolean doesScareCockatrice(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.SCARES_COCKATRICES, entity.getType());
-    }
-
-    public static boolean isBlindMob(Entity entity) {
-        return entity != null && isInEntityTag(IafTags.BLINDED, entity.getType());
-    }
-
     public static boolean isRidingOrBeingRiddenBy(final Entity first, final Entity entityIn) {
-        if (first == null || entityIn == null) {
-            return false;
-        }
-
-        for (final Entity entity : first.getPassengerList()) {
-            if (entity.equals(entityIn) || isRidingOrBeingRiddenBy(entity, entityIn)) {
+        if (first == null || entityIn == null) return false;
+        for (final Entity entity : first.getPassengerList())
+            if (entity.equals(entityIn) || isRidingOrBeingRiddenBy(entity, entityIn))
                 return true;
-            }
-        }
-
         return false;
     }
 
-    public static void onArrowCollide(final ProjectileImpactEvent event) {
-        if (event.getRayTraceResult() instanceof EntityHitResult result) {
-            Entity shotEntity = result.getEntity();
-
-            if (shotEntity instanceof EntityGhost) {
-                event.cancel();
-            } else if (event.getProjectile() instanceof PersistentProjectileEntity arrow && arrow.getOwner() != null) {
-                Entity shootingEntity = arrow.getOwner();
-
-                if (shootingEntity instanceof LivingEntity && isRidingOrBeingRiddenBy(shootingEntity, shotEntity)) {
-                    if (shotEntity instanceof TameableEntity tamable && tamable.isTamed() && shotEntity.isTeammate(shootingEntity)) {
-                        event.cancel();
-                    }
-                }
-            }
-        }
-    }
+//    public static void onArrowCollide(final ProjectileImpactEvent event) {
+//        if (event.getRayTraceResult() instanceof EntityHitResult result) {
+//            Entity shotEntity = result.getEntity();
+//
+//            if (shotEntity instanceof EntityGhost) event.cancel();
+//            else if (event.getProjectile() instanceof PersistentProjectileEntity arrow && arrow.getOwner() != null) {
+//                Entity shootingEntity = arrow.getOwner();
+//                if (shootingEntity instanceof LivingEntity && isRidingOrBeingRiddenBy(shootingEntity, shotEntity))
+//                    if (shotEntity instanceof TameableEntity tamable && tamable.isTamed() && shotEntity.isTeammate(shootingEntity))
+//                        event.cancel();
+//            }
+//        }
+//    }
 
     public static void addNewVillageBuilding(MinecraftServer server) {
         if (IafConfig.getInstance().villagerHouseWeight > 0) {
@@ -187,35 +143,35 @@ public class ServerEvents {
 
     }
 
-    public static void onPlayerAttackMob(AttackEntityEvent event) {
-        if (event.getTarget() instanceof EntityMutlipartPart && event.getEntity() instanceof PlayerEntity) {
-            event.cancel();
-            Entity parent = ((EntityMutlipartPart) event.getTarget()).getParent();
+    public static void onPlayerAttackMob(LivingEntity entity, Entity target) {
+        if (target instanceof EntityMutlipartPart mutlipartPart && entity instanceof PlayerEntity player) {
+            Entity parent = mutlipartPart.getParent();
             try {
                 //If the attacked entity is the parent itself parent will be null and also doesn't have to be attacked
                 if (parent != null)
-                    ((PlayerEntity) event.getEntity()).attack(parent);
+                    player.attack(parent);
             } catch (Exception e) {
                 IceAndFire.LOGGER.warn("Exception thrown while interacting with entity.", e);
             }
             int extraData = 0;
-            if (event.getTarget() instanceof EntityHydraHead && parent instanceof EntityHydra) {
-                extraData = ((EntityHydraHead) event.getTarget()).headIndex;
-                ((EntityHydra) parent).triggerHeadFlags(extraData);
+            if (mutlipartPart instanceof EntityHydraHead hydraHead && parent instanceof EntityHydra hydra) {
+                extraData = hydraHead.headIndex;
+                hydra.triggerHeadFlags(extraData);
             }
-            if (event.getTarget().getWorld().isClient && parent != null) {
+            if (mutlipartPart.getWorld().isClient && parent != null)
                 IafClientNetworkHandler.send(new MessagePlayerHitMultipart(parent.getId(), extraData));
-            }
+        }
+        if (entity instanceof LivingEntity) {
+            if (entity.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(entity, entity);
+            else if (DragonUtils.isVillager(entity)) signalAmphithereAlarm(entity, entity);
         }
     }
 
     public static void onEntityFall(LivingEntity entity, float fallDistance, float multiplier, DamageSource source) {
         if (entity instanceof PlayerEntity) {
             EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
-            if (data.miscData.hasDismounted) {
-                multiplier = 0;
+            if (data.miscData.hasDismounted)
                 data.miscData.setDismounted(false);
-            }
         }
     }
 
@@ -251,52 +207,9 @@ public class ServerEvents {
         return amount;
     }
 
-//    @SubscribeEvent(priority = EventPriority.LOWEST)
-//    public void makeItemDropsFireImmune(final LivingDropsEvent event) {
-//        boolean makeFireImmune = false;
-//
-//        if (event.getSource().getDirectEntity() instanceof LightningEntity bolt && bolt.getCommandTags().contains(BOLT_DONT_DESTROY_LOOT)) {
-//            makeFireImmune = true;
-//        } else if (event.getSource().getEntity() instanceof PlayerEntity player && player.getStackInHand(player.getActiveHand()).isIn(IafItemTags.MAKE_ITEM_DROPS_FIREIMMUNE)) {
-//            makeFireImmune = true;
-//        }
-//
-//        if (makeFireImmune) {
-//            Set<ItemEntity> fireImmuneDrops = event.getDrops().stream().map(itemEntity -> new ItemEntity(itemEntity.level(), itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(), itemEntity.getItem()) {
-//                @Override
-//                public boolean fireImmune() {
-//                    return true;
-//                }
-//            }).collect(Collectors.toSet());
-//
-//            event.getDrops().clear();
-//            event.getDrops().addAll(fireImmuneDrops);
-//        }
-//    }
-
-    public static void onLivingAttacked(final AttackEntityEvent event) {
-        if (event.getEntity() != null) {
-            LivingEntity attacker = event.getEntity();
-
-            if (attacker instanceof LivingEntity) {
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(attacker);
-                if (data.miscData.loveTicks > 0) {
-                    event.cancel();
-                }
-
-                if (isChicken(event.getEntity())) {
-                    signalChickenAlarm(event.getEntity(), attacker);
-                } else if (DragonUtils.isVillager(event.getEntity())) {
-                    signalAmphithereAlarm(event.getEntity(), attacker);
-                }
-            }
-        }
-
-    }
-
     public static void onLivingSetTarget(Entity tracking, ServerPlayerEntity player) {
         if (tracking instanceof LivingEntity target) {
-            if (isChicken(target)) {
+            if (target.getType().isIn(IafTags.CHICKENS)) {
                 signalChickenAlarm(target, player);
             } else if (DragonUtils.isVillager(target)) {
                 signalAmphithereAlarm(target, player);
@@ -305,7 +218,7 @@ public class ServerEvents {
     }
 
     public static ActionResult onPlayerAttack(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
-        if (isSheep(entity)) {
+        if (entity != null && entity.getType().isIn(IafTags.SHEEP)) {
             float dist = IafConfig.getInstance().cyclopesSheepSearchLength;
             final List<Entity> list = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty()) {
@@ -486,13 +399,13 @@ public class ServerEvents {
     public static boolean onEntityJoinWorld(Entity entity, World world) {
         if (entity instanceof MobEntity mob)
             try {
-                if (isSheep(mob) && mob instanceof AnimalEntity animal) {
+                if (mob.getType().isIn(IafTags.SHEEP) && mob instanceof AnimalEntity animal) {
                     animal.goalSelector.add(8, new EntitySheepAIFollowCyclops(animal, 1.2D));
                 }
-                if (isVillager(mob) && IafConfig.getInstance().villagersFearDragons) {
+                if (mob.getType().isIn(IafTags.VILLAGERS) && IafConfig.getInstance().villagersFearDragons) {
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 8.0F, 0.8D, 0.8D, VILLAGER_FEAR));
                 }
-                if (isLivestock(mob) && IafConfig.getInstance().animalsFearDragons) {
+                if (mob.getType().isIn(IafTags.FEAR_DRAGONS) && IafConfig.getInstance().animalsFearDragons) {
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 30, 1.0D, 0.5D, e -> e instanceof IAnimalFear fear && fear.shouldAnimalsFear(mob)));
                 }
             } catch (Exception e) {

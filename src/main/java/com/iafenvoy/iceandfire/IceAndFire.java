@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.entity.player.PlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,8 +46,6 @@ public class IceAndFire implements ModInitializer {
         IafItemGroups.init();
         IafParticles.init();
 
-        EventBus.register(ProjectileImpactEvent.class, ServerEvents::onArrowCollide);
-        EventBus.register(AttackEntityEvent.class, ServerEvents::onPlayerAttackMob);
         PlayerBlockBreakEvents.AFTER.register(ServerEvents::onBreakBlock);
         UseEntityCallback.EVENT.register(ServerEvents::onEntityInteract);
         UseItemCallback.EVENT.register(ServerEvents::onEntityUseItem);
@@ -56,9 +55,15 @@ public class IceAndFire implements ModInitializer {
         PlayerEvents.LOGGED_OUT.register(ServerEvents::onPlayerLeaveEvent);
         EntityEvents.ON_JOIN_WORLD.register(ServerEvents::onEntityJoinWorld);
         EntityEvents.START_TRACKING_TAIL.register(ServerEvents::onLivingSetTarget);
-        EventBus.register(AttackEntityEvent.class, ServerEvents::onLivingAttacked);
         LivingEntityEvents.DAMAGE.register(ServerEvents::onEntityDamage);
         LivingEntityEvents.FALL.register(ServerEvents::onEntityFall);
+        LivingEntityEvents.ATTACK.register(ServerEvents::onPlayerAttackMob);
+
+        EntityEvents.ON_JOIN_WORLD.register((entity, world) -> {
+            if (entity instanceof PlayerEntity)
+                System.out.println(entity.hashCode());
+            return true;
+        });
 
         IafServerNetworkHandler.register();
     }

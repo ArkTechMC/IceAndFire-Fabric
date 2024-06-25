@@ -9,6 +9,7 @@ import com.iafenvoy.iceandfire.tag.IafBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.NoPenaltyTargeting;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -16,10 +17,8 @@ import net.minecraft.entity.passive.GolemEntity;
 import net.minecraft.entity.passive.MerchantEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
@@ -269,8 +268,8 @@ public class DragonUtils {
         return false;
     }
 
-    public static boolean isDragonTargetable(Entity entity, Identifier tag) {
-        return entity.getType().isIn(TagKey.of(RegistryKeys.ENTITY_TYPE, tag));
+    public static boolean isDragonTargetable(Entity entity, TagKey<EntityType<?>> tag) {
+        return entity.getType().isIn(tag);
     }
 
     public static String getDimensionName(World world) {

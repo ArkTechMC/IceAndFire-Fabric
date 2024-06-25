@@ -11,8 +11,8 @@ import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.registry.IafTags;
 import com.iafenvoy.iceandfire.tag.IafItemTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -119,7 +119,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             if (entity instanceof PlayerEntity) {
                 return !((PlayerEntity) entity).isCreative() && !entity.isSpectator();
             } else {
-                return ServerEvents.doesScareCockatrice(entity) && !ServerEvents.isChicken(entity);
+                return entity.getType().isIn(IafTags.SCARES_COCKATRICES) && !entity.getType().isIn(IafTags.CHICKENS);
             }
         }));
         this.goalSelector.add(4, new CockatriceAIWander(this, 1.0D));
@@ -134,8 +134,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
             if (entity instanceof PlayerEntity) {
                 return !((PlayerEntity) entity).isCreative() && !entity.isSpectator();
             } else {
-                return ((entity instanceof Monster) && EntityCockatrice.this.isTamed() && !(entity instanceof CreeperEntity) && !(entity instanceof ZombifiedPiglinEntity) && !(entity instanceof EndermanEntity) ||
-                        ServerEvents.isCockatriceTarget(entity) && !ServerEvents.isChicken(entity));
+                return (entity instanceof Monster) && EntityCockatrice.this.isTamed() && !(entity instanceof CreeperEntity) && !(entity instanceof ZombifiedPiglinEntity) && !(entity instanceof EndermanEntity) || entity.getType().isIn(IafTags.COCKATRICE_TARGETS) && (!entity.getType().isIn(IafTags.CHICKENS));
             }
         }));
     }
@@ -169,7 +168,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public boolean isTeammate(Entity entityIn) {
-        if (ServerEvents.isChicken(entityIn)) {
+        if (entityIn.getType().isIn(IafTags.CHICKENS)) {
             return true;
         }
         if (this.isTamed()) {
@@ -190,8 +189,11 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public boolean damage(DamageSource source, float damage) {
-        if (source.getAttacker() != null && ServerEvents.doesScareCockatrice(source.getAttacker())) {
-            damage *= 5;
+        if (source.getAttacker() != null) {
+            Entity entity = source.getAttacker();
+            if (entity.getType().isIn(IafTags.SCARES_COCKATRICES)) {
+                damage *= 5;
+            }
         }
         if (source == this.getWorld().getDamageSources().inWall()) {
             return false;
@@ -200,7 +202,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     }
 
     private boolean canUseStareOn(Entity entity) {
-        return (!(entity instanceof IBlacklistedFromStatues) || ((IBlacklistedFromStatues) entity).canBeTurnedToStone()) && !ServerEvents.isCockatriceTarget(entity);
+        return (!(entity instanceof IBlacklistedFromStatues) || ((IBlacklistedFromStatues) entity).canBeTurnedToStone()) && !entity.getType().isIn(IafTags.COCKATRICE_TARGETS);
     }
 
     private void switchAI(boolean melee) {
@@ -660,7 +662,9 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     private boolean shouldMelee() {
         boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget().hasStatusEffect(StatusEffects.BLINDNESS);
         if (this.getTarget() != null) {
-            return this.distanceTo(this.getTarget()) < 4D || ServerEvents.isCockatriceTarget(this.getTarget()) || blindness || !this.canUseStareOn(this.getTarget());
+            if (this.distanceTo(this.getTarget()) < 4D) return true;
+            Entity entity = this.getTarget();
+            return entity.getType().isIn(IafTags.COCKATRICE_TARGETS) || blindness || !this.canUseStareOn(this.getTarget());
         }
         return false;
     }

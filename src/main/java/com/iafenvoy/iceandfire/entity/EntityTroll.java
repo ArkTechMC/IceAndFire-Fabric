@@ -4,14 +4,13 @@ import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.api.event.GenericGriefEvent;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.TrollAIFleeSun;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.IHumanoid;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
 import com.iafenvoy.iceandfire.enums.EnumTroll;
-import com.iafenvoy.iceandfire.event.EventBus;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.minecraft.block.BlockState;
@@ -374,7 +373,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
                 float weaponZ = (float) (this.getZ() + 1.9F * MathHelper.sin((float) ((this.bodyYaw + 90) * Math.PI / 180)));
                 float weaponY = (float) (this.getY() + (this.getStandingEyeHeight() / 2));
                 Explosion explosion = new Explosion(this.getWorld(), this, weaponX, weaponY, weaponZ, 1F + this.getRandom().nextFloat(), new ArrayList<>());
-                if (!EventBus.post(new GenericGriefEvent(this, weaponX, weaponY, weaponZ))) {
+                if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, weaponX, weaponY, weaponZ)) {
                     explosion.collectBlocksAndDamageEntities();
                     explosion.affectWorld(true);
                 }

@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 
@@ -20,6 +21,11 @@ public class LivingEntityEvents {
         return amount;
     });
 
+    public static final Event<AttackEntity> ATTACK = EventFactory.createArrayBacked(AttackEntity.class, callbacks -> (entity, target) -> {
+        for (AttackEntity callback : callbacks)
+            callback.onAttack(entity, target);
+    });
+
     @FunctionalInterface
     public interface Fall {
         void onFall(LivingEntity entity, float fallDistance, float multiplier, DamageSource source);
@@ -28,5 +34,10 @@ public class LivingEntityEvents {
     @FunctionalInterface
     public interface DamageCallback {
         float onLivingDamage(LivingEntity entity, DamageSource source, float amount);
+    }
+
+    @FunctionalInterface
+    public interface AttackEntity {
+        void onAttack(LivingEntity entity, Entity target);
     }
 }

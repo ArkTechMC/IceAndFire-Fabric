@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.entity.data;
 
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.registry.IafItems;
+import com.iafenvoy.iceandfire.registry.IafTags;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
@@ -12,7 +12,7 @@ public class ChickenData {
     public int timeUntilNextEgg = -1;
 
     public void tickChicken(final LivingEntity entity) {
-        if (!IafConfig.getInstance().chickensLayRottenEggs || entity.getWorld().isClient() || !ServerEvents.isChicken(entity) || entity.isBaby())
+        if (!IafConfig.getInstance().chickensLayRottenEggs || entity.getWorld().isClient() || !entity.getType().isIn(IafTags.CHICKENS) || entity.isBaby())
             return;
 
         if (this.timeUntilNextEgg == -1)
