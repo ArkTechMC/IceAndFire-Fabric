@@ -2,9 +2,7 @@ package com.iafenvoy.citadel.server.tick;
 
 import com.iafenvoy.citadel.server.message.SyncClientTickRateMessage;
 import com.iafenvoy.citadel.server.tick.modifier.TickRateModifier;
-import com.iafenvoy.citadel.server.tick.modifier.TickRateModifierType;
 import com.iafenvoy.citadel.server.world.CitadelServerData;
-import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;

@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.google.common.primitives.Ints;
-import com.iafenvoy.iceandfire.client.gui.bestiary.GuiBestiary;
 import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
+import com.iafenvoy.iceandfire.screen.gui.bestiary.BestiaryScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.util.InputUtil;
@@ -51,7 +51,7 @@ public class ItemBestiary extends Item {
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStackIn = playerIn.getStackInHand(handIn);
         if (worldIn.isClient)
-            MinecraftClient.getInstance().setScreen(new GuiBestiary(itemStackIn));
+            MinecraftClient.getInstance().setScreen(new BestiaryScreen(itemStackIn));
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
     }
 

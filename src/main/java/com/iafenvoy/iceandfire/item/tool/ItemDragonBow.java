@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.tag.IafItemTags;
+import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 

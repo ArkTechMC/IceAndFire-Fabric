@@ -22,7 +22,7 @@ public abstract class DreadSpawnerBaseLogic extends MobSpawnerLogic {
             double d2 = (double) pos.getZ() + world.random.nextDouble();
             world.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
             world.addParticle(IafParticles.DREAD_TORCH, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-            if (this.spawnDelay > 0)                 --this.spawnDelay;
+            if (this.spawnDelay > 0) --this.spawnDelay;
 
             this.oSpin = this.spin;
             this.spin = (this.spin + (double) (1000.0F / ((float) this.spawnDelay + 200.0F))) % 360.0D;

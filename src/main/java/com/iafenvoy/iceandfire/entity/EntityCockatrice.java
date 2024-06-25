@@ -13,7 +13,7 @@ import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.IafTags;
-import com.iafenvoy.iceandfire.tag.IafItemTags;
+import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;

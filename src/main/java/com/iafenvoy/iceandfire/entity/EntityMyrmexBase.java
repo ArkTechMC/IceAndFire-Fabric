@@ -9,12 +9,12 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.IPassabilityNaviga
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.block.BlockMyrmexConnectedResin;
-import com.iafenvoy.iceandfire.block.BlockMyrmexResin;
 import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
+import com.iafenvoy.iceandfire.item.block.BlockMyrmexConnectedResin;
+import com.iafenvoy.iceandfire.item.block.BlockMyrmexResin;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;

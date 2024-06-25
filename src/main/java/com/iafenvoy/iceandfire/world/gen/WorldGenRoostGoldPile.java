@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.block.BlockGoldPile;
+import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;

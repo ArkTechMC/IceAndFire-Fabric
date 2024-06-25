@@ -2,9 +2,9 @@ package com.iafenvoy.iceandfire.entity.ai;
 
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
-import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.registry.IafTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

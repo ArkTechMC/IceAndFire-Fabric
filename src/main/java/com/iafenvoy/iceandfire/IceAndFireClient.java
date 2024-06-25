@@ -1,12 +1,14 @@
 package com.iafenvoy.iceandfire;
 
-import com.iafenvoy.iceandfire.client.model.util.DragonAnimationsLibrary;
-import com.iafenvoy.iceandfire.client.model.util.EnumDragonModelTypes;
-import com.iafenvoy.iceandfire.client.model.util.EnumDragonPoses;
-import com.iafenvoy.iceandfire.client.model.util.EnumSeaSerpentAnimations;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
-import com.iafenvoy.iceandfire.render.*;
+import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
+import com.iafenvoy.iceandfire.render.TideTridentRenderer;
+import com.iafenvoy.iceandfire.render.armor.*;
+import com.iafenvoy.iceandfire.render.model.util.DragonAnimationsLibrary;
+import com.iafenvoy.iceandfire.render.model.util.EnumDragonModelTypes;
+import com.iafenvoy.iceandfire.render.model.util.EnumDragonPoses;
+import com.iafenvoy.iceandfire.render.model.util.EnumSeaSerpentAnimations;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

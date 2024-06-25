@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.network;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.message.*;
+import com.iafenvoy.iceandfire.network.message.*;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;

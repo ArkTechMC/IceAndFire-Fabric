@@ -4,7 +4,6 @@ import com.iafenvoy.citadel.config.biome.SpawnBiomeData;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.datagen.IafPlacedFeatures;
 import com.iafenvoy.iceandfire.world.IafWorldData;
 import com.iafenvoy.iceandfire.world.feature.*;
 import com.iafenvoy.iceandfire.world.gen.*;

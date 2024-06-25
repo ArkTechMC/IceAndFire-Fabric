@@ -5,7 +5,7 @@ import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
-import com.iafenvoy.iceandfire.tag.IafBlockTags;
+import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;

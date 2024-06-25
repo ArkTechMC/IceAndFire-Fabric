@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.iafenvoy.iceandfire.client.render.block.RenderDreadPortal;
+import com.iafenvoy.iceandfire.render.block.RenderDreadPortal;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.RenderLayer;

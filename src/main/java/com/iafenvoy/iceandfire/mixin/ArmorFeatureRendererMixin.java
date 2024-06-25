@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.mixin;
 
-import com.iafenvoy.iceandfire.interfaces.IArmorTextureProvider;
+import com.iafenvoy.iceandfire.render.IArmorTextureProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;

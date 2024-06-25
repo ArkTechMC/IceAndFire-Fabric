@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.client.gui.GuiMyrmexAddRoom;
-import com.iafenvoy.iceandfire.client.gui.GuiMyrmexStaff;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
-import com.iafenvoy.iceandfire.message.MessageGetMyrmexHive;
-import com.iafenvoy.iceandfire.message.MessageSetMyrmexHiveNull;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHive;
+import com.iafenvoy.iceandfire.network.message.MessageSetMyrmexHiveNull;
+import com.iafenvoy.iceandfire.screen.gui.MyrmexAddRoomScreen;
+import com.iafenvoy.iceandfire.screen.gui.MyrmexStaffScreen;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
@@ -57,7 +57,7 @@ public class ItemMyrmexStaff extends Item {
                     IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
                 }
             } else if (id != null && !id.equals(new UUID(0, 0)))
-                MinecraftClient.getInstance().setScreen(new GuiMyrmexStaff(itemStackIn));
+                MinecraftClient.getInstance().setScreen(new MyrmexStaffScreen(itemStackIn));
         }
         playerIn.swingHand(hand);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
@@ -81,7 +81,7 @@ public class ItemMyrmexStaff extends Item {
                     }
                 } else if (id != null && !id.equals(new UUID(0, 0)))
                     if (context.getWorld().isClient)
-                        MinecraftClient.getInstance().setScreen(new GuiMyrmexAddRoom(context.getPlayer().getStackInHand(context.getHand()), context.getBlockPos(), context.getPlayer().getHorizontalFacing()));
+                        MinecraftClient.getInstance().setScreen(new MyrmexAddRoomScreen(context.getPlayer().getStackInHand(context.getHand()), context.getBlockPos(), context.getPlayer().getHorizontalFacing()));
             }
             context.getPlayer().swingHand(context.getHand());
             return ActionResult.SUCCESS;

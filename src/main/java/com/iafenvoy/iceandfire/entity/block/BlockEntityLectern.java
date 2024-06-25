@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.entity.block;
 
 import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
-import com.iafenvoy.iceandfire.inventory.ContainerLectern;
 import com.iafenvoy.iceandfire.item.ItemBestiary;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
+import com.iafenvoy.iceandfire.screen.handler.LecternScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -245,6 +245,6 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
 
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new ContainerLectern(id, this, playerInventory, this.propertyDelegate);
+        return new LecternScreenHandler(id, this, playerInventory, this.propertyDelegate);
     }
 }

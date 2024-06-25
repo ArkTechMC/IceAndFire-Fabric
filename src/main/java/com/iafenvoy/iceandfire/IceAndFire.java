@@ -1,6 +1,9 @@
 package com.iafenvoy.iceandfire;
 
-import com.iafenvoy.iceandfire.event.*;
+import com.iafenvoy.iceandfire.event.EntityEvents;
+import com.iafenvoy.iceandfire.event.LivingEntityEvents;
+import com.iafenvoy.iceandfire.event.PlayerEvents;
+import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
 import net.fabricmc.api.ModInitializer;

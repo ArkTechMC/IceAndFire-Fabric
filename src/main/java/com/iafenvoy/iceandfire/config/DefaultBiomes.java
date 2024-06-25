@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.config;
 
 import com.iafenvoy.citadel.config.biome.BiomeEntryType;
 import com.iafenvoy.citadel.config.biome.SpawnBiomeData;
-import com.iafenvoy.iceandfire.tag.CommonTags;
+import com.iafenvoy.iceandfire.registry.tag.CommonTags;
 import net.minecraft.registry.tag.BiomeTags;
 
 public class DefaultBiomes {

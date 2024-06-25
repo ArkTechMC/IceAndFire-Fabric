@@ -10,9 +10,7 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathingStuckHandle
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.FoodUtils;
-import com.iafenvoy.iceandfire.block.util.IDragonProof;
-import com.iafenvoy.iceandfire.client.model.IFChainBuffer;
-import com.iafenvoy.iceandfire.client.model.util.LegSolverQuadruped;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
@@ -21,19 +19,21 @@ import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.*;
 import com.iafenvoy.iceandfire.enums.EnumDragonEgg;
-import com.iafenvoy.iceandfire.api.IafEvents;
-import com.iafenvoy.iceandfire.inventory.ContainerDragon;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
-import com.iafenvoy.iceandfire.message.MessageDragonSetBurnBlock;
-import com.iafenvoy.iceandfire.message.MessageStartRidingMob;
+import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageDragonSetBurnBlock;
+import com.iafenvoy.iceandfire.network.message.MessageStartRidingMob;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.tag.IafBlockTags;
-import com.iafenvoy.iceandfire.tag.IafItemTags;
+import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
+import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
+import com.iafenvoy.iceandfire.render.model.IFChainBuffer;
+import com.iafenvoy.iceandfire.render.model.util.LegSolverQuadruped;
+import com.iafenvoy.iceandfire.screen.handler.DragonScreenHandler;
 import com.iafenvoy.iceandfire.world.DragonPosWorldData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -528,7 +528,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new ContainerDragon(syncId, this.dragonInventory, player.getInventory(), new EntityPropertyDelegate(this.getId()));
+        return new DragonScreenHandler(syncId, this.dragonInventory, player.getInventory(), new EntityPropertyDelegate(this.getId()));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render;
 
-import com.iafenvoy.iceandfire.client.render.entity.RenderTideTridentItem;
+import com.iafenvoy.iceandfire.render.entity.RenderTideTridentItem;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;

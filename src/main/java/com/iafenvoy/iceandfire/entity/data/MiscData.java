@@ -62,7 +62,7 @@ public class MiscData {
     }
 
     public void removeScepterTarget(final LivingEntity target) {
-        if (this.targetedByScepter == null)             return;
+        if (this.targetedByScepter == null) return;
         this.targetedByScepter.remove(target);
         this.triggerClientUpdate = true;
     }
@@ -138,7 +138,7 @@ public class MiscData {
 
         if (this.targetedByScepterIds != null) {
             for (int id : this.targetedByScepterIds) {
-                if (id == -1)                     continue;
+                if (id == -1) continue;
                 Entity entity = level.getEntityById(id);
                 if (entity instanceof LivingEntity livingEntity)
                     entities.add(livingEntity);

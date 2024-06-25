@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.entity.block;
 
-import com.iafenvoy.iceandfire.inventory.ContainerPodium;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemMyrmexEgg;
-import com.iafenvoy.iceandfire.message.MessageUpdatePodium;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageUpdatePodium;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
+import com.iafenvoy.iceandfire.screen.handler.PodiumScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -184,6 +184,6 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
 
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new ContainerPodium(id, this, playerInventory, new ArrayPropertyDelegate(0));
+        return new PodiumScreenHandler(id, this, playerInventory, new ArrayPropertyDelegate(0));
     }
 }

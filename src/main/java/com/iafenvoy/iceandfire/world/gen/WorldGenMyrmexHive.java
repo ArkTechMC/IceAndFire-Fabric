@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.block.BlockMyrmexBiolight;
-import com.iafenvoy.iceandfire.block.BlockMyrmexConnectedResin;
-import com.iafenvoy.iceandfire.block.BlockMyrmexResin;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
+import com.iafenvoy.iceandfire.item.block.BlockMyrmexBiolight;
+import com.iafenvoy.iceandfire.item.block.BlockMyrmexConnectedResin;
+import com.iafenvoy.iceandfire.item.block.BlockMyrmexResin;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafFeatures;

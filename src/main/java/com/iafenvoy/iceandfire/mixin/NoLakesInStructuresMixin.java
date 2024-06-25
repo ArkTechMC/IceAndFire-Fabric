@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.mixin;
 
-import com.iafenvoy.iceandfire.datagen.IafStructures;
+import com.iafenvoy.iceandfire.registry.IafStructures;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.ChunkRegion;

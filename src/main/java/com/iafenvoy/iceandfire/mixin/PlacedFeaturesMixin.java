@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.mixin;
 
-import com.iafenvoy.iceandfire.datagen.IafPlacedFeatures;
+import com.iafenvoy.iceandfire.registry.IafPlacedFeatures;
 import net.minecraft.registry.Registerable;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.feature.PlacedFeatures;

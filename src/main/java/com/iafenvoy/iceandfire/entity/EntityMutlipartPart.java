@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.message.MessageMultipartInteract;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageMultipartInteract;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;

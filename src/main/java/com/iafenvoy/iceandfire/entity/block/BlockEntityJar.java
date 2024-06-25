@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.entity.block;
 
 import com.iafenvoy.iceandfire.entity.EntityPixie;
-import com.iafenvoy.iceandfire.message.MessageUpdatePixieHouse;
-import com.iafenvoy.iceandfire.message.MessageUpdatePixieJar;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageUpdatePixieHouse;
+import com.iafenvoy.iceandfire.network.message.MessageUpdatePixieJar;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafParticles;

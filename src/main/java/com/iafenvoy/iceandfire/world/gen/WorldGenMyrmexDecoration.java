@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.world.gen;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
+import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

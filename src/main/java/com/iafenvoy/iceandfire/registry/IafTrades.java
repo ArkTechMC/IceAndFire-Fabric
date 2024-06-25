@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.registry;
 
 import com.google.common.collect.ImmutableSet;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.datagen.IafProcessorLists;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.minecraft.entity.Entity;

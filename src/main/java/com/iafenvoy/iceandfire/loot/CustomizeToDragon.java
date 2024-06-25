@@ -9,7 +9,7 @@ import com.iafenvoy.iceandfire.item.ItemDragonSkull;
 import com.iafenvoy.iceandfire.item.food.ItemDragonFlesh;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafLoots;
-import com.iafenvoy.iceandfire.tag.IafItemTags;
+import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.context.LootContext;

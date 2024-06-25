@@ -36,22 +36,6 @@ public abstract class AbstractPathJob implements Callable<Path> {
      */
     public static Map<PlayerEntity, UUID> trackingMap = new HashMap<>();
     /**
-     * Start position to path from.
-     */
-    protected BlockPos start;
-    /**
-     * The pathing cache.
-     */
-    protected WorldView world;
-    /**
-     * The result of the path calculation.
-     */
-    protected PathResult result;
-    /**
-     * The entity this job belongs to.
-     */
-    protected WeakReference<LivingEntity> entity;
-    /**
      * Queue of all open nodes.
      */
     private final Queue<MNode> nodesOpen = new PriorityQueue<>(500);
@@ -67,6 +51,22 @@ public abstract class AbstractPathJob implements Callable<Path> {
      * Are xz restrictions hard or soft.
      */
     private final boolean hardXzRestriction;
+    /**
+     * Start position to path from.
+     */
+    protected BlockPos start;
+    /**
+     * The pathing cache.
+     */
+    protected WorldView world;
+    /**
+     * The result of the path calculation.
+     */
+    protected PathResult result;
+    /**
+     * The entity this job belongs to.
+     */
+    protected WeakReference<LivingEntity> entity;
     /**
      * Max range used to calculate the number of nodes we visit (square of maxrange).
      */

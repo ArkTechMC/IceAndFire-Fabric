@@ -1,15 +1,15 @@
 package com.iafenvoy.iceandfire.entity.util.dragon;
 
-import com.iafenvoy.iceandfire.block.BlockCharedPath;
-import com.iafenvoy.iceandfire.block.BlockFallingReturningState;
-import com.iafenvoy.iceandfire.block.BlockReturningState;
-import com.iafenvoy.iceandfire.block.util.IDragonProof;
+import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.BlockLaunchExplosion;
-import com.iafenvoy.iceandfire.api.IafEvents;
+import com.iafenvoy.iceandfire.item.block.BlockCharedPath;
+import com.iafenvoy.iceandfire.item.block.BlockFallingReturningState;
+import com.iafenvoy.iceandfire.item.block.BlockReturningState;
+import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafDamageTypes;
 import net.minecraft.block.Block;

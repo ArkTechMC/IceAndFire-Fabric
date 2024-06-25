@@ -1,16 +1,16 @@
 package com.iafenvoy.iceandfire.entity.block;
 
-import com.iafenvoy.iceandfire.block.BlockDragonForgeBricks;
-import com.iafenvoy.iceandfire.block.BlockDragonForgeCore;
 import com.iafenvoy.iceandfire.data.delegate.DragonForgePropertyDelegate;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
-import com.iafenvoy.iceandfire.inventory.ContainerDragonForge;
-import com.iafenvoy.iceandfire.message.MessageUpdateDragonforge;
+import com.iafenvoy.iceandfire.item.block.BlockDragonForgeBricks;
+import com.iafenvoy.iceandfire.item.block.BlockDragonForgeCore;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageUpdateDragonforge;
 import com.iafenvoy.iceandfire.recipe.DragonForgeRecipe;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafRecipes;
+import com.iafenvoy.iceandfire.screen.handler.DragonForgeScreenHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -390,12 +390,12 @@ public class BlockEntityDragonForge extends LockableContainerBlockEntity impleme
 
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new ContainerDragonForge(id, this, playerInventory, this.getPropertyDelegate());
+        return new DragonForgeScreenHandler(id, this, playerInventory, this.getPropertyDelegate());
     }
 
     @Override
     protected ScreenHandler createScreenHandler(int id, PlayerInventory player) {
-        return new ContainerDragonForge(id, this, player, this.getPropertyDelegate());
+        return new DragonForgeScreenHandler(id, this, player, this.getPropertyDelegate());
     }
 
     public DragonForgePropertyDelegate getPropertyDelegate() {

@@ -55,7 +55,7 @@ public class BlockLaunchExplosion extends Explosion {
             if (ItemEntity.canMerge(itemstack, stack)) {
                 ItemStack itemstack1 = ItemEntity.merge(itemstack, stack, 16);
                 dropPositionArray.set(j, Pair.of(itemstack1, pair.getSecond()));
-                if (stack.isEmpty())                     return;
+                if (stack.isEmpty()) return;
             }
         }
         dropPositionArray.add(Pair.of(stack, pos));

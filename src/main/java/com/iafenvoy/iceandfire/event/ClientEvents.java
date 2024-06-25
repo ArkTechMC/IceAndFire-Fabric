@@ -1,13 +1,13 @@
 package com.iafenvoy.iceandfire.event;
 
-import com.iafenvoy.iceandfire.client.particle.CockatriceBeamRender;
-import com.iafenvoy.iceandfire.client.render.block.RenderFrozenState;
-import com.iafenvoy.iceandfire.client.render.entity.RenderChain;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.util.ICustomMoveController;
-import com.iafenvoy.iceandfire.message.MessageDragonControl;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageDragonControl;
+import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
 import com.iafenvoy.iceandfire.registry.IafKeybindings;
+import com.iafenvoy.iceandfire.render.block.RenderFrozenState;
+import com.iafenvoy.iceandfire.render.entity.RenderChain;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

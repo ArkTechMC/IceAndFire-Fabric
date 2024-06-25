@@ -21,15 +21,15 @@ public abstract class MobEntityMixin extends Entity {
         super(type, world);
     }
 
+    @Unique
+    private static boolean isSkeleton(Entity entity) {
+        return WitherSkeletonEntity.class.isAssignableFrom(entity.getClass());
+    }
+
     @Inject(method = "dropLoot", at = @At("HEAD"))
     public void dropHandler(DamageSource damageSource, boolean causedByPlayer, CallbackInfo ci) {
         if (causedByPlayer && damageSource.getSource() instanceof PlayerEntity player)
             if (isSkeleton(this))
                 this.dropStack(new ItemStack(IafItems.WITHERBONE, this.random.nextInt(2)));
-    }
-
-    @Unique
-    private static boolean isSkeleton(Entity entity) {
-        return WitherSkeletonEntity.class.isAssignableFrom(entity.getClass());
     }
 }

@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.network;
 import com.iafenvoy.citadel.server.message.AnimationMessage;
 import com.iafenvoy.citadel.server.message.SyncClientTickRateMessage;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.message.*;
+import com.iafenvoy.iceandfire.network.message.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;

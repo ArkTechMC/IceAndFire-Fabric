@@ -123,6 +123,12 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                 .add(EntityAttributes.GENERIC_ARMOR, 3.0D);
     }
 
+    private static boolean canBreak(Block block) {
+        return block instanceof CropBlock || block instanceof SaplingBlock || block instanceof FlowerBlock
+                || block == Blocks.DEAD_BUSH || block == Blocks.LILY_PAD || block == Blocks.RED_MUSHROOM
+                || block == Blocks.BROWN_MUSHROOM || block == Blocks.NETHER_WART || block == Blocks.TALL_GRASS;
+    }
+
     @Override
     public SoundCategory getSoundCategory() {
         return SoundCategory.HOSTILE;
@@ -245,7 +251,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.lastScale = scale;
     }
 
-
     @Override
     public boolean tryAttack(Entity entityIn) {
         if (this.getAnimation() != ANIMATION_BITE) {
@@ -289,7 +294,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
             return this.prevTailPitch[index] + (this.tailPitch[index] - this.prevTailPitch[index]) * partialTicks;
         return 0;
     }
-
 
     private void spawnParticlesAroundEntity(Entity entity, int count) {
         for (int i = 0; i < count; i++) {
@@ -614,12 +618,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                                 if (!this.getWorld().isClient)
                                     this.getWorld().breakBlock(pos, true);
                     }
-    }
-
-    private static boolean canBreak(Block block) {
-        return block instanceof CropBlock || block instanceof SaplingBlock || block instanceof FlowerBlock
-                || block == Blocks.DEAD_BUSH || block == Blocks.LILY_PAD || block == Blocks.RED_MUSHROOM
-                || block == Blocks.BROWN_MUSHROOM || block == Blocks.NETHER_WART || block == Blocks.TALL_GRASS;
     }
 
     @Override

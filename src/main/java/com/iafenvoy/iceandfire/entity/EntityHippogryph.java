@@ -15,12 +15,12 @@ import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
 import com.iafenvoy.iceandfire.enums.EnumHippogryphTypes;
-import com.iafenvoy.iceandfire.inventory.ContainerHippogryph;
-import com.iafenvoy.iceandfire.message.MessageHippogryphArmor;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
+import com.iafenvoy.iceandfire.network.message.MessageHippogryphArmor;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.tag.IafItemTags;
+import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
+import com.iafenvoy.iceandfire.screen.handler.HippogryphScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
@@ -1111,6 +1111,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new ContainerHippogryph(syncId, this.hippogryphInventory, playerInventory, this, new EntityPropertyDelegate(this.getId()));
+        return new HippogryphScreenHandler(syncId, this.hippogryphInventory, playerInventory, this, new EntityPropertyDelegate(this.getId()));
     }
 }

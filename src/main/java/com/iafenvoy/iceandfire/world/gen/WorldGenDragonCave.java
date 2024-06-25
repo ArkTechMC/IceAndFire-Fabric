@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
+import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
-import com.iafenvoy.iceandfire.tag.IafBlockTags;
+import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
 import com.iafenvoy.iceandfire.util.ShapeBuilder;
 import com.iafenvoy.iceandfire.world.IafWorldData;
 import com.mojang.serialization.Codec;
