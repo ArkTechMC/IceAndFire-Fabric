@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 
 //TODO: All containers etc should be rewritten
 public class DragonForgeScreenHandler extends ScreenHandler {
-
     protected final World world;
     private final Inventory tileFurnace;
     private final DragonForgePropertyDelegate propertyDelegate;
@@ -25,7 +24,7 @@ public class DragonForgeScreenHandler extends ScreenHandler {
     }
 
     public DragonForgeScreenHandler(int id, Inventory furnaceInventory, PlayerInventory playerInventory, DragonForgePropertyDelegate propertyDelegate) {
-        super(IafScreenHandlers.DRAGON_FORGE_CONTAINER, id);
+        super(IafScreenHandlers.DRAGON_FORGE_SCREEN, id);
         this.tileFurnace = furnaceInventory;
         this.world = playerInventory.player.getWorld();
         this.propertyDelegate = propertyDelegate;
@@ -34,16 +33,11 @@ public class DragonForgeScreenHandler extends ScreenHandler {
         this.addSlot(new Slot(furnaceInventory, 0, 68, 34));
         this.addSlot(new Slot(furnaceInventory, 1, 86, 34));
         this.addSlot(new FurnaceOutputSlot(playerInventory.player, furnaceInventory, 2, 148, 35));
-
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 9; ++j)
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-
-        for (int k = 0; k < 9; ++k) {
+        for (int k = 0; k < 9; ++k)
             this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
-        }
     }
 
     @Override
@@ -61,9 +55,8 @@ public class DragonForgeScreenHandler extends ScreenHandler {
             itemstack = itemstack1.copy();
 
             if (index == 2) {
-                if (!this.insertItem(itemstack1, 3, 39, true)) {
+                if (!this.insertItem(itemstack1, 3, 39, true))
                     return ItemStack.EMPTY;
-                }
                 slot.onQuickTransfer(itemstack1, itemstack);
             } else if (index != 1 && index != 0) {
                 if (this.fireType == 0) {
@@ -71,25 +64,18 @@ public class DragonForgeScreenHandler extends ScreenHandler {
                         return ItemStack.EMPTY;
                     }
                 } else if (index < 30) {
-                    if (!this.insertItem(itemstack1, 30, 39, false)) {
+                    if (!this.insertItem(itemstack1, 30, 39, false))
                         return ItemStack.EMPTY;
-                    }
-                } else if (index < 39 && !this.insertItem(itemstack1, 3, 30, false)) {
+                } else if (index < 39 && !this.insertItem(itemstack1, 3, 30, false))
                     return ItemStack.EMPTY;
-                }
-            } else if (!this.insertItem(itemstack1, 3, 39, false)) {
+            } else if (!this.insertItem(itemstack1, 3, 39, false))
                 return ItemStack.EMPTY;
-            }
 
-            if (itemstack1.isEmpty()) {
-                slot.setStackNoCallbacks(ItemStack.EMPTY);
-            } else {
-                slot.markDirty();
-            }
+            if (itemstack1.isEmpty()) slot.setStackNoCallbacks(ItemStack.EMPTY);
+            else slot.markDirty();
 
-            if (itemstack1.getCount() == itemstack.getCount()) {
+            if (itemstack1.getCount() == itemstack.getCount())
                 return ItemStack.EMPTY;
-            }
 
             slot.onTakeItem(playerIn, itemstack1);
         }

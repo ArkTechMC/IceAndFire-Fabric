@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "#": {
-      "item": "iceandfire:dragonscales_amythest"
+      "item": "iceandfire:dragonscales_amethyst"
     }
   },
   "pattern": [
@@ -11,7 +11,7 @@
     "# #"
   ],
   "result": {
-    "item": "iceandfire:armor_amythest_boots"
+    "item": "iceandfire:armor_amethyst_boots"
   },
   "show_notification": true
 }

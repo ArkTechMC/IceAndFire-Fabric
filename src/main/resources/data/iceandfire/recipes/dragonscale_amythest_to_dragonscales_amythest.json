@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "iceandfire:dragonscale_amythest"
+      "item": "iceandfire:dragonscale_amethyst"
     }
   ],
   "result": {
     "count": 9,
-    "item": "iceandfire:dragonscales_amythest"
+    "item": "iceandfire:dragonscales_amethyst"
   }
 }

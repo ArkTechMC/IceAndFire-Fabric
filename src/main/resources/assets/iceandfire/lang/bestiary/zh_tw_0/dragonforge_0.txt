@@ -2,7 +2,7 @@
 一些強大的特性。
 當與石材結合使用時，它們變得堅不可摧，
 不受霜凍和火焰的傷害。
-<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 5 76 1>
+<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 5 76 1>
 
 
 

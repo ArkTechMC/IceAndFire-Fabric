@@ -20,23 +20,18 @@ public class PodiumScreenHandler extends ScreenHandler {
 
 
     public PodiumScreenHandler(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate vars) {
-        super(IafScreenHandlers.PODIUM_CONTAINER, id);
+        super(IafScreenHandlers.PODIUM_SCREEN, id);
         this.podium = furnaceInventory;
         furnaceInventory.onOpen(playerInventory.player);
         byte b0 = 51;
         int i;
 
         this.addSlot(new Slot(furnaceInventory, 0, 80, 20));
-
-        for (i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        for (i = 0; i < 3; ++i)
+            for (int j = 0; j < 9; ++j)
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, i * 18 + b0));
-            }
-        }
-
-        for (i = 0; i < 9; ++i) {
+        for (i = 0; i < 9; ++i)
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 58 + b0));
-        }
     }
 
     @Override
@@ -57,20 +52,15 @@ public class PodiumScreenHandler extends ScreenHandler {
             itemstack = itemstack1.copy();
 
             if (index < this.podium.size()) {
-                if (!this.insertItem(itemstack1, this.podium.size(), this.slots.size(), true)) {
+                if (!this.insertItem(itemstack1, this.podium.size(), this.slots.size(), true))
                     return ItemStack.EMPTY;
-                }
-            } else if (!this.insertItem(itemstack1, 0, this.podium.size(), false)) {
+            } else if (!this.insertItem(itemstack1, 0, this.podium.size(), false))
                 return ItemStack.EMPTY;
-            }
-
-            if (itemstack1.isEmpty()) {
+            if (itemstack1.isEmpty())
                 slot.setStackNoCallbacks(ItemStack.EMPTY);
-            } else {
+            else
                 slot.markDirty();
-            }
         }
-
         return itemstack;
     }
 

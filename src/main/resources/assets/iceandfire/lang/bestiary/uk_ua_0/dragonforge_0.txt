@@ -4,7 +4,7 @@
 поєднати їх з каменем, то мороз
 та полум'я драконів не зможе
 їх знищити.
-<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 5 76 1>
+<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 5 76 1>
 
 
 

@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.screen.gui;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityHippocampus;
-import com.iafenvoy.iceandfire.screen.handler.HippocampusContainerMenu;
+import com.iafenvoy.iceandfire.screen.handler.HippocampusScreenHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -13,12 +13,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class HippocampusScreen extends HandledScreen<HippocampusContainerMenu> {
+public class HippocampusScreen extends HandledScreen<HippocampusScreenHandler> {
     private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/hippogryph.png");
     private float mousePosX;
     private float mousePosY;
 
-    public HippocampusScreen(HippocampusContainerMenu dragonInv, PlayerInventory playerInv, Text name) {
+    public HippocampusScreen(HippocampusScreenHandler dragonInv, PlayerInventory playerInv, Text name) {
         super(dragonInv, playerInv, name);
     }
 

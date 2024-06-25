@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "iceandfire:dragonscales_amythest"
+      "item": "iceandfire:dragonscales_amethyst"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "iceandfire:dragonscale_amythest"
+    "item": "iceandfire:dragonscale_amethyst"
   },
   "show_notification": true
 }

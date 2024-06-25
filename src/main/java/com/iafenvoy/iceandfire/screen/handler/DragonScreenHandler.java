@@ -23,7 +23,7 @@ public class DragonScreenHandler extends ScreenHandler {
     }
 
     public DragonScreenHandler(int id, Inventory dragonInventory, PlayerInventory playerInventory, EntityPropertyDelegate propertyDelegate) {
-        super(IafScreenHandlers.DRAGON_CONTAINER, id);
+        super(IafScreenHandlers.DRAGON_SCREEN, id);
         this.dragonInventory = dragonInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(this.propertyDelegate);
@@ -86,17 +86,11 @@ public class DragonScreenHandler extends ScreenHandler {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 3;
             }
         });
-        int j;
-        int k;
-        for (j = 0; j < 3; ++j) {
-            for (k = 0; k < 9; ++k) {
+        for (int j = 0; j < 3; ++j)
+            for (int k = 0; k < 9; ++k)
                 this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 150 + j * 18 + i));
-            }
-        }
-
-        for (j = 0; j < 9; ++j) {
+        for (int j = 0; j < 9; ++j)
             this.addSlot(new Slot(playerInventory, j, 8 + j * 18, 208 + i));
-        }
     }
 
     @Override

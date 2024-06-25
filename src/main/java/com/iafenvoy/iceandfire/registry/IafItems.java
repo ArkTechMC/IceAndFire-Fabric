@@ -100,7 +100,7 @@ public class IafItems {
     public static final Item DRAGONEGG_SAPPHIRE = register("dragonegg_sapphire", new ItemDragonEgg(EnumDragonColor.SAPPHIRE));
     public static final Item DRAGONEGG_SILVER = register("dragonegg_silver", new ItemDragonEgg(EnumDragonColor.SILVER));
     public static final Item DRAGONEGG_ELECTRIC = register("dragonegg_electric", new ItemDragonEgg(EnumDragonColor.ELECTRIC));
-    public static final Item DRAGONEGG_AMYTHEST = register("dragonegg_amythest", new ItemDragonEgg(EnumDragonColor.AMETHYST));
+    public static final Item DRAGONEGG_amethyst = register("dragonegg_amethyst", new ItemDragonEgg(EnumDragonColor.AMETHYST));
     public static final Item DRAGONEGG_COPPER = register("dragonegg_copper", new ItemDragonEgg(EnumDragonColor.COPPER));
     public static final Item DRAGONEGG_BLACK = register("dragonegg_black", new ItemDragonEgg(EnumDragonColor.BLACK));
     public static final Item DRAGONSCALES_RED = register("dragonscales_red", new ItemDragonScales(EnumDragonColor.RED));
@@ -112,7 +112,7 @@ public class IafItems {
     public static final Item DRAGONSCALES_SAPPHIRE = register("dragonscales_sapphire", new ItemDragonScales(EnumDragonColor.SAPPHIRE));
     public static final Item DRAGONSCALES_SILVER = register("dragonscales_silver", new ItemDragonScales(EnumDragonColor.SILVER));
     public static final Item DRAGONSCALES_ELECTRIC = register("dragonscales_electric", new ItemDragonScales(EnumDragonColor.ELECTRIC));
-    public static final Item DRAGONSCALES_AMYTHEST = register("dragonscales_amythest", new ItemDragonScales(EnumDragonColor.AMETHYST));
+    public static final Item DRAGONSCALES_amethyst = register("dragonscales_amethyst", new ItemDragonScales(EnumDragonColor.AMETHYST));
     public static final Item DRAGONSCALES_COPPER = register("dragonscales_copper", new ItemDragonScales(EnumDragonColor.COPPER));
     public static final Item DRAGONSCALES_BLACK = register("dragonscales_black", new ItemDragonScales(EnumDragonColor.BLACK));
     public static final Item DRAGON_BONE = register("dragonbone", new Item(new FabricItemSettings()));

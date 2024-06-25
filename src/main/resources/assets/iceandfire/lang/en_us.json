@@ -68,7 +68,7 @@
   "block.iceandfire.dragonscale_sapphire": "Block of Dragon Scales",
   "block.iceandfire.dragonscale_silver": "Block of Dragon Scales",
   "block.iceandfire.dragonscale_electric": "Block of Dragon Scales",
-  "block.iceandfire.dragonscale_amythest": "Block of Dragon Scales",
+  "block.iceandfire.dragonscale_amethyst": "Block of Dragon Scales",
   "block.iceandfire.dragonscale_copper": "Block of Dragon Scales",
   "block.iceandfire.dragonscale_black": "Block of Dragon Scales",
   "block.iceandfire.dragon_bone_block": "Block of Dragon Bones",
@@ -132,7 +132,7 @@
   "item.iceandfire.bestiary": "Bestiary",
   "item.iceandfire.manuscript": "Manuscript",
   "item.iceandfire.sapphire_gem": "Sapphire",
-  "item.iceandfire.amythest_gem": "Amethyst",
+  "item.iceandfire.amethyst_gem": "Amethyst",
   "item.iceandfire.raw_silver": "Raw Silver",
   "item.iceandfire.silver_ingot": "Silver Ingot",
   "item.iceandfire.silver_nugget": "Silver Nugget",
@@ -609,7 +609,7 @@
   "dragon.silver": "Silver",
   "dragon.white": "White",
   "dragon.electric": "Electric Blue",
-  "dragon.amythest": "Amethyst",
+  "dragon.amethyst": "Amethyst",
   "dragon.copper": "Copper",
   "dragon.black": "Black",
   "dragon.fire": "Fire",
@@ -1346,5 +1346,8 @@
   "iceandfire.sound.subtitle.icedragon_death": "Ice Dragon dies",
   "iceandfire.sound.subtitle.dragonegg_hatch": "Dragon egg hatches",
   "iceandfire.sound.subtitle.dragonflute": "Dragon flute plays",
-  "bestiary_gui": "Bestiary"
+  "bestiary_gui": "Bestiary",
+
+  "iceandfire.book.name": "Bestiary",
+  "iceandfire.book.landing": "This is a landing text."
 }

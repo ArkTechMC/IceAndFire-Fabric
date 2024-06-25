@@ -18,7 +18,7 @@ public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, Model
     public static final Identifier EGG_SAPPHIRE = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/egg_sapphire.png");
     public static final Identifier EGG_SILVER = new Identifier(IceAndFire.MOD_ID, "textures/models/icedragon/egg_silver.png");
     public static final Identifier EGG_ELECTRIC = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/egg_electric.png");
-    public static final Identifier EGG_AMYTHEST = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/egg_amythest.png");
+    public static final Identifier EGG_amethyst = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/egg_amethyst.png");
     public static final Identifier EGG_BLACK = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/egg_black.png");
     public static final Identifier EGG_COPPER = new Identifier(IceAndFire.MOD_ID, "textures/models/lightningdragon/egg_copper.png");
 
@@ -38,7 +38,7 @@ public class RenderDragonEgg extends LivingEntityRenderer<EntityDragonEgg, Model
             case SAPPHIRE -> EGG_SAPPHIRE;
             case SILVER -> EGG_SILVER;
             case ELECTRIC -> EGG_ELECTRIC;
-            case AMETHYST -> EGG_AMYTHEST;
+            case AMETHYST -> EGG_amethyst;
             case COPPER -> EGG_COPPER;
             case BLACK -> EGG_BLACK;
         };

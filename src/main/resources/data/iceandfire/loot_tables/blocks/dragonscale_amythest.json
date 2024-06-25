@@ -2,12 +2,12 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "dragonscale_amythest",
+      "name": "dragonscale_amethyst",
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "iceandfire:dragonscale_amythest"
+          "name": "iceandfire:dragonscale_amethyst"
         }
       ],
       "conditions": [

@@ -39,7 +39,7 @@ public class IceAndFireEmiPlugin implements EmiPlugin {
 //        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_SAPPHIRE.get()));
 //        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_SILVER.get()));
 //        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_ELECTRIC.get()));
-//        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_AMYTHEST.get()));
+//        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_amethyst.get()));
 //        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_COPPER.get()));
 //        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGONEGG_BLACK.get()));
 //        this.addDescription(registry, new ItemStack(IafItemRegistry.DRAGON_SKULL_FIRE.get()));

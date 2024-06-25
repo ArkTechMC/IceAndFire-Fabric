@@ -1,0 +1,15 @@
+{
+  "name": "介绍",
+  "icon": "minecraft:writable_book",
+  "category": "iceandfire:introduction",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": {
+        "item": "iceandfire:manuscript"
+      },
+      "title": "介绍",
+      "text": "异兽手记的封皮后面粘着一张破破烂烂的便笺。上面写道：$(br)“谨以此记录着超自然工具设计和神奇生灵追寻指南的手稿，赠予愿探索神秘奇迹的有缘人。愿它助你一臂之力。”"
+    }
+  ]
+}

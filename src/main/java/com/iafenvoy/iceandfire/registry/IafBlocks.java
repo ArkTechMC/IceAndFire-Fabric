@@ -76,7 +76,7 @@ public class IafBlocks {
     public static final Block DRAGON_SCALE_SAPPHIRE = register("dragonscale_sapphire", new BlockDragonScales(EnumDragonColor.SAPPHIRE));
     public static final Block DRAGON_SCALE_SILVER = register("dragonscale_silver", new BlockDragonScales(EnumDragonColor.SILVER));
     public static final Block DRAGON_SCALE_ELECTRIC = register("dragonscale_electric", new BlockDragonScales(EnumDragonColor.ELECTRIC));
-    public static final Block DRAGON_SCALE_AMYTHEST = register("dragonscale_amythest", new BlockDragonScales(EnumDragonColor.AMETHYST));
+    public static final Block DRAGON_SCALE_amethyst = register("dragonscale_amethyst", new BlockDragonScales(EnumDragonColor.AMETHYST));
     public static final Block DRAGON_SCALE_COPPER = register("dragonscale_copper", new BlockDragonScales(EnumDragonColor.COPPER));
     public static final Block DRAGON_SCALE_BLACK = register("dragonscale_black", new BlockDragonScales(EnumDragonColor.BLACK));
 

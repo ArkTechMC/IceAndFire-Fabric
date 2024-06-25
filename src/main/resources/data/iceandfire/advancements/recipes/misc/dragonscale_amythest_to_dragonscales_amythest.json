@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_dragonscale_amythest": {
+    "has_dragonscale_amethyst": {
       "conditions": {
         "items": [
           {
             "items": [
-              "iceandfire:dragonscale_amythest"
+              "iceandfire:dragonscale_amethyst"
             ]
           }
         ]
@@ -15,20 +15,20 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "iceandfire:dragonscale_amythest_to_dragonscales_amythest"
+        "recipe": "iceandfire:dragonscale_amethyst_to_dragonscales_amethyst"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_dragonscale_amythest",
+      "has_dragonscale_amethyst",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "iceandfire:dragonscale_amythest_to_dragonscales_amythest"
+      "iceandfire:dragonscale_amethyst_to_dragonscales_amethyst"
     ]
   },
   "sends_telemetry_event": false

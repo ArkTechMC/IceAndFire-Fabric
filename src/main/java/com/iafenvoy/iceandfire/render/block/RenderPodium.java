@@ -33,7 +33,7 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
             case SAPPHIRE -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_SAPPHIRE);
             case SILVER -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_SILVER);
             case ELECTRIC -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_ELECTRIC);
-            case AMETHYST -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_AMYTHEST);
+            case AMETHYST -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_amethyst);
             case COPPER -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_COPPER);
             case BLACK -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_BLACK);
         };

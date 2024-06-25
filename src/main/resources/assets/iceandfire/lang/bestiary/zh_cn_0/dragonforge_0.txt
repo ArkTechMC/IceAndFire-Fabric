@@ -4,7 +4,7 @@
 块，就拥有着抵御龙霜和龙炎的能力。
 
 
-<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 5 76 1>
+<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 5 76 1>
 
 
 

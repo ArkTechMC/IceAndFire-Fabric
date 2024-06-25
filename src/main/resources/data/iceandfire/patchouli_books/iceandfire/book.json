@@ -1,0 +1,8 @@
+{
+  "name": "iceandfire.book.name",
+  "landing_text": "iceandfire.book.landing",
+  "version": 1,
+  "model": "iceandfire:bestiary",
+  "creative_tab": "iceandfire:items",
+  "use_resource_pack": true
+}

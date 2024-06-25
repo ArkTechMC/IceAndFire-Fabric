@@ -2,27 +2,33 @@ package com.iafenvoy.iceandfire.item;
 
 import com.google.common.primitives.Ints;
 import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
-import com.iafenvoy.iceandfire.screen.gui.bestiary.BestiaryScreen;
+import com.iafenvoy.iceandfire.registry.IafItems;
+import com.iafenvoy.iceandfire.screen.handler.BestiaryScreenHandler;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Set;
 
-public class ItemBestiary extends Item {
-
+public class ItemBestiary extends Item implements ExtendedScreenHandlerFactory {
     public ItemBestiary() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
     }
@@ -49,10 +55,8 @@ public class ItemBestiary extends Item {
 
     @Override
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemStackIn = playerIn.getStackInHand(handIn);
-        if (worldIn.isClient)
-            MinecraftClient.getInstance().setScreen(new BestiaryScreen(itemStackIn));
-        return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
+        playerIn.openHandledScreen(this);
+        return new TypedActionResult<>(ActionResult.PASS, playerIn.getStackInHand(handIn));
     }
 
     @Override
@@ -76,4 +80,23 @@ public class ItemBestiary extends Item {
         }
     }
 
+    @Override
+    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+        ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+        if (!stack.isOf(IafItems.BESTIARY)) stack = player.getStackInHand(Hand.OFF_HAND);
+        NbtCompound compound = new NbtCompound();
+        stack.writeNbt(compound);
+        buf.writeNbt(compound);
+    }
+
+    @Override
+    public Text getDisplayName() {
+        return Text.translatable("bestiary_gui");
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return new BestiaryScreenHandler(syncId, playerInventory);
+    }
 }

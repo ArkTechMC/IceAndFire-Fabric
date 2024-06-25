@@ -14,7 +14,7 @@ import com.iafenvoy.iceandfire.entity.util.ISyncMount;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
-import com.iafenvoy.iceandfire.screen.handler.HippocampusContainerMenu;
+import com.iafenvoy.iceandfire.screen.handler.HippocampusScreenHandler;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
@@ -629,7 +629,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new HippocampusContainerMenu(syncId, this.inventory, inv, this, new EntityPropertyDelegate(this.getId()));
+        return new HippocampusScreenHandler(syncId, this.inventory, inv, this, new EntityPropertyDelegate(this.getId()));
     }
 
     public void openInventory(PlayerEntity player) {

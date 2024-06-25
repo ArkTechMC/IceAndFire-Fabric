@@ -10,6 +10,7 @@ import com.iafenvoy.iceandfire.enums.EnumTroll;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.screen.handler.BestiaryScreenHandler;
 import com.iafenvoy.iceandfire.util.IdUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
@@ -17,10 +18,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -33,7 +35,7 @@ import org.apache.commons.io.IOUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class BestiaryScreen extends Screen {
+public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
     protected static final int X = 390;
     protected static final int Y = 245;
     private static final Identifier TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/bestiary.png");
@@ -52,12 +54,12 @@ public class BestiaryScreen extends Screen {
     protected boolean index;
     protected TextRenderer font = MinecraftClient.getInstance().textRenderer;
 
-    public BestiaryScreen(ItemStack book) {
-        super(Text.translatable("bestiary_gui"));
-        this.book = book;
-        if (!book.isEmpty() && book.getItem() != null && book.getItem() == IafItems.BESTIARY)
-            if (book.getNbt() != null) {
-                Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(book.getNbt().getIntArray("Pages")));
+    public BestiaryScreen(BestiaryScreenHandler container, PlayerInventory inv, Text name) {
+        super(container, inv, name);
+        this.book = container.getBook();
+        if (!this.book.isEmpty() && this.book.getItem() != null && this.book.getItem() == IafItems.BESTIARY)
+            if (this.book.getNbt() != null) {
+                Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(this.book.getNbt().getIntArray("Pages")));
                 this.allPageTypes.addAll(pages);
                 // Make sure the pages are sorted according to the enum
                 this.allPageTypes.sort(Comparator.comparingInt(Enum::ordinal));
@@ -153,6 +155,10 @@ public class BestiaryScreen extends Screen {
         RenderSystem.enableDepthTest();
     }
 
+    @Override
+    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
+    }
+
     public void drawPerPage(DrawContext ms, int bookPages) {
         this.imageFromTxt(ms);
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
@@ -180,7 +186,7 @@ public class BestiaryScreen extends Screen {
                     this.drawItemStack(ms, new ItemStack(IafBlocks.LECTERN), 151, 78, 2F);
                 }
             }
-            case TAMED_DRAGONS -> {
+            case TAMEDDRAGONS -> {
                 if (bookPages == 0) {
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);
@@ -903,5 +909,10 @@ public class BestiaryScreen extends Screen {
         ms.getMatrices().translate(0, 0, zScale * 10);
         ms.drawItem(stack, x, y);
         ms.getMatrices().pop();
+    }
+
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        //Remove texts.
     }
 }

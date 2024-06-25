@@ -4,7 +4,7 @@ tiene propiedades poderosas, como
 es sabido. Cuando se combinan con
 piedra, se vuelven indestructibles
 ante el aliento de los dragones.
-<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 minecraft:stonebrick 0 iceandfire:dragonscale_red 0 5 76 1>
+<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 minecraft:stone_bricks 0 iceandfire:dragonscale_red 0 5 76 1>
 
 
 

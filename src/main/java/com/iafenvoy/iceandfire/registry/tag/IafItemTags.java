@@ -149,7 +149,7 @@ public class IafItemTags extends ItemTagProvider {
 
         this.getOrCreateTagBuilder(STORAGE_BLOCKS_SCALES_DRAGON_LIGHTNING)
                 .add(IafBlocks.DRAGON_SCALE_ELECTRIC.asItem())
-                .add(IafBlocks.DRAGON_SCALE_AMYTHEST.asItem())
+                .add(IafBlocks.DRAGON_SCALE_amethyst.asItem())
                 .add(IafBlocks.DRAGON_SCALE_COPPER.asItem())
                 .add(IafBlocks.DRAGON_SCALE_BLACK.asItem());
         //
@@ -238,7 +238,7 @@ public class IafItemTags extends ItemTagProvider {
 
         this.getOrCreateTagBuilder(SCALES_DRAGON_LIGHTNING)
                 .add(IafItems.DRAGONSCALES_ELECTRIC)
-                .add(IafItems.DRAGONSCALES_AMYTHEST)
+                .add(IafItems.DRAGONSCALES_amethyst)
                 .add(IafItems.DRAGONSCALES_COPPER)
                 .add(IafItems.DRAGONSCALES_BLACK);
 

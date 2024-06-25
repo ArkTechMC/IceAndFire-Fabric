@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "iceandfire:dragonscales_amythest"
+              "iceandfire:dragonscales_amethyst"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "iceandfire:armor_amythest_chestplate"
+        "recipe": "iceandfire:armor_amethyst_chestplate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "iceandfire:armor_amythest_chestplate"
+      "iceandfire:armor_amethyst_chestplate"
     ]
   },
   "sends_telemetry_event": false

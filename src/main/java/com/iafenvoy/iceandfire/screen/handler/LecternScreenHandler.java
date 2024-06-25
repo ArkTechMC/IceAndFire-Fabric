@@ -28,9 +28,8 @@ public class LecternScreenHandler extends ScreenHandler {
         this(i, new SimpleInventory(2), playerInventory, new ArrayPropertyDelegate(3));
     }
 
-
     public LecternScreenHandler(int id, Inventory furnaceInventory, PlayerInventory playerInventory, PropertyDelegate propertyDelegate) {
-        super(IafScreenHandlers.IAF_LECTERN_CONTAINER, id);
+        super(IafScreenHandlers.IAF_LECTERN_SCREEN, id);
         this.tileFurnace = furnaceInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(propertyDelegate);
@@ -46,14 +45,11 @@ public class LecternScreenHandler extends ScreenHandler {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() == IafItems.MANUSCRIPT;
             }
         });
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 9; ++j) {
+        for (int i = 0; i < 3; ++i)
+            for (int j = 0; j < 9; ++j)
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
-            }
-        }
-        for (int k = 0; k < 9; ++k) {
+        for (int k = 0; k < 9; ++k)
             this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
-        }
     }
 
     private int getPageField(int i) {
@@ -84,26 +80,20 @@ public class LecternScreenHandler extends ScreenHandler {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index < this.tileFurnace.size()) {
-                if (!this.insertItem(itemstack1, this.tileFurnace.size(), this.slots.size(), true)) {
+                if (!this.insertItem(itemstack1, this.tileFurnace.size(), this.slots.size(), true))
                     return ItemStack.EMPTY;
-                }
             } else if (this.getSlot(0).canInsert(itemstack1) && !this.getSlot(0).hasStack()) {
-                if (!this.insertItem(itemstack1, 0, 1, false)) {
+                if (!this.insertItem(itemstack1, 0, 1, false))
                     return ItemStack.EMPTY;
-                }
-
             } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack()) {
-                if (!this.insertItem(itemstack1, 1, 2, false)) {
+                if (!this.insertItem(itemstack1, 1, 2, false))
                     return ItemStack.EMPTY;
-                }
-            } else if (this.tileFurnace.size() <= 5 || !this.insertItem(itemstack1, 5, this.tileFurnace.size(), false)) {
+            } else if (this.tileFurnace.size() <= 5 || !this.insertItem(itemstack1, 5, this.tileFurnace.size(), false))
                 return ItemStack.EMPTY;
-            }
-            if (itemstack1.isEmpty()) {
+            if (itemstack1.isEmpty())
                 slot.setStackNoCallbacks(ItemStack.EMPTY);
-            } else {
+            else
                 slot.markDirty();
-            }
         }
         return itemstack;
     }
@@ -136,9 +126,9 @@ public class LecternScreenHandler extends ScreenHandler {
         ItemStack bookStack = this.tileFurnace.getStack(0);
         ItemStack manuscriptStack = this.tileFurnace.getStack(1);
         int i = 3;
-        if ((manuscriptStack.isEmpty() || manuscriptStack.getCount() < i || manuscriptStack.getItem() != IafItems.MANUSCRIPT)) {
+        if ((manuscriptStack.isEmpty() || manuscriptStack.getCount() < i || manuscriptStack.getItem() != IafItems.MANUSCRIPT))
             return false;
-        } else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty() && bookStack.getItem() == IafItems.BESTIARY) {
+        else if (this.possiblePagesInt[id] > 0 && !bookStack.isEmpty() && bookStack.getItem() == IafItems.BESTIARY) {
             EnumBestiaryPages page = this.getPossiblePages()[MathHelper.clamp(id, 0, 2)];
             if (page != null) {
                 if (!playerIn.getWorld().isClient) {

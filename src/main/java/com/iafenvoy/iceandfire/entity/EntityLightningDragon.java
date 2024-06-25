@@ -113,7 +113,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     public String getVariantName(int variant) {
         return switch (variant) {
             default -> "electric_";
-            case 1 -> "amythest_";
+            case 1 -> "amethyst_";
             case 2 -> "copper_";
             case 3 -> "black_";
         };
@@ -133,7 +133,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     public Item getVariantScale(int variant) {
         return switch (variant) {
             default -> IafItems.DRAGONSCALES_ELECTRIC;
-            case 1 -> IafItems.DRAGONSCALES_AMYTHEST;
+            case 1 -> IafItems.DRAGONSCALES_amethyst;
             case 2 -> IafItems.DRAGONSCALES_COPPER;
             case 3 -> IafItems.DRAGONSCALES_BLACK;
         };
@@ -143,7 +143,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     public Item getVariantEgg(int variant) {
         return switch (variant) {
             default -> IafItems.DRAGONEGG_ELECTRIC;
-            case 1 -> IafItems.DRAGONEGG_AMYTHEST;
+            case 1 -> IafItems.DRAGONEGG_amethyst;
             case 2 -> IafItems.DRAGONEGG_COPPER;
             case 3 -> IafItems.DRAGONEGG_BLACK;
         };

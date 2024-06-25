@@ -14,17 +14,17 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 
-public class HippocampusContainerMenu extends ScreenHandler {
+public class HippocampusScreenHandler extends ScreenHandler {
     private final Inventory hippocampusInventory;
     private final EntityHippocampus hippocampus;
     private final EntityPropertyDelegate propertyDelegate;
 
-    public HippocampusContainerMenu(int i, PlayerInventory playerInventory) {
+    public HippocampusScreenHandler(int i, PlayerInventory playerInventory) {
         this(i, new SimpleInventory(18), playerInventory, null, new EntityPropertyDelegate());
     }
 
-    public HippocampusContainerMenu(int id, Inventory hippoInventory, PlayerInventory playerInventory, EntityHippocampus hippocampus, EntityPropertyDelegate propertyDelegate) {
-        super(IafScreenHandlers.HIPPOCAMPUS_CONTAINER, id);
+    public HippocampusScreenHandler(int id, Inventory hippoInventory, PlayerInventory playerInventory, EntityHippocampus hippocampus, EntityPropertyDelegate propertyDelegate) {
+        super(IafScreenHandlers.HIPPOCAMPUS_SCREEN, id);
         this.hippocampusInventory = hippoInventory;
         if (hippocampus != null)
             this.hippocampus = hippocampus;
@@ -65,7 +65,6 @@ public class HippocampusContainerMenu extends ScreenHandler {
 
         // Armor slot
         this.addSlot(new Slot(this.hippocampusInventory, 2, 8, 52) {
-
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EntityHippocampus.getIntFromArmor(stack) != 0;
@@ -85,24 +84,17 @@ public class HippocampusContainerMenu extends ScreenHandler {
 
         // Create the slots for the inventory
         assert this.hippocampus != null;
-        if (this.hippocampus.isChested()) {
-            for (int k = 0; k < 3; ++k) {
-                for (int l = 0; l < (hippocampus).getInventoryColumns(); ++l) {
+        if (this.hippocampus.isChested())
+            for (int k = 0; k < 3; ++k)
+                for (int l = 0; l < (hippocampus).getInventoryColumns(); ++l)
                     this.addSlot(new Slot(hippoInventory, 3 + l + k * (hippocampus).getInventoryColumns(), 80 + l * 18, 18 + k * 18));
-                }
-            }
-        }
 
-        for (int i1 = 0; i1 < 3; ++i1) {
-            for (int k1 = 0; k1 < 9; ++k1) {
+        for (int i1 = 0; i1 < 3; ++i1)
+            for (int k1 = 0; k1 < 9; ++k1)
                 this.addSlot(new Slot(player.getInventory(), k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 - 18));
-            }
-        }
 
-        for (int j1 = 0; j1 < 9; ++j1) {
+        for (int j1 = 0; j1 < 9; ++j1)
             this.addSlot(new Slot(player.getInventory(), j1, 8 + j1 * 18, 142));
-        }
-
     }
 
     @Override
@@ -114,45 +106,34 @@ public class HippocampusContainerMenu extends ScreenHandler {
             itemstack = itemstack1.copy();
             int containerSize = this.hippocampusInventory.size();
             if (index < containerSize) {
-                if (!this.insertItem(itemstack1, containerSize, this.slots.size(), true)) {
+                if (!this.insertItem(itemstack1, containerSize, this.slots.size(), true))
                     return ItemStack.EMPTY;
-                }
             } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack()) {
-                if (!this.insertItem(itemstack1, 1, 2, false)) {
+                if (!this.insertItem(itemstack1, 1, 2, false))
                     return ItemStack.EMPTY;
-                }
-
             } else if (this.getSlot(2).canInsert(itemstack1) && !this.getSlot(2).hasStack()) {
-                if (!this.insertItem(itemstack1, 2, 3, false)) {
+                if (!this.insertItem(itemstack1, 2, 3, false))
                     return ItemStack.EMPTY;
-                }
-
             } else if (this.getSlot(0).canInsert(itemstack1)) {
-                if (!this.insertItem(itemstack1, 0, 1, false)) {
+                if (!this.insertItem(itemstack1, 0, 1, false))
                     return ItemStack.EMPTY;
-                }
             } else if (containerSize <= 3 || !this.insertItem(itemstack1, 3, containerSize, false)) {
                 int j = containerSize + 27;
                 int k = j + 9;
                 if (index >= j && index < k) {
-                    if (!this.insertItem(itemstack1, containerSize, j, false)) {
+                    if (!this.insertItem(itemstack1, containerSize, j, false))
                         return ItemStack.EMPTY;
-                    }
                 } else if (index < j) {
-                    if (!this.insertItem(itemstack1, j, k, false)) {
+                    if (!this.insertItem(itemstack1, j, k, false))
                         return ItemStack.EMPTY;
-                    }
-                } else if (!this.insertItem(itemstack1, j, j, false)) {
+                } else if (!this.insertItem(itemstack1, j, j, false))
                     return ItemStack.EMPTY;
-                }
-
                 return ItemStack.EMPTY;
             }
-            if (itemstack1.isEmpty()) {
+            if (itemstack1.isEmpty())
                 slot.setStackNoCallbacks(ItemStack.EMPTY);
-            } else {
+            else
                 slot.markDirty();
-            }
         }
         return itemstack;
     }

@@ -42,7 +42,7 @@ public enum EnumDragonArmor {
         for (int i = 0; i < EnumDragonArmor.values().length; i++) {
             EnumDragonArmor value = EnumDragonArmor.values()[i];
             value.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "armor_dragon_scales" + (i + 1)), 36, new int[]{5, 7, 9, 5}, 15, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2);
-            String sub = value.name();
+            String sub = "armor_" + value.name().toLowerCase();
 
             value.helmet = IafItems.register(sub + "_helmet", new ItemScaleArmor(value.eggType, value, value.armorMaterial, ArmorItem.Type.HELMET));
             value.chestplate = IafItems.register(sub + "_chestplate", new ItemScaleArmor(value.eggType, value, value.armorMaterial, ArmorItem.Type.CHESTPLATE));
@@ -61,7 +61,7 @@ public enum EnumDragonArmor {
             case SAPPHIRE -> IafItems.DRAGONSCALES_SAPPHIRE;
             case SILVER -> IafItems.DRAGONSCALES_SILVER;
             case ELECTRIC -> IafItems.DRAGONSCALES_ELECTRIC;
-            case AMETHYST -> IafItems.DRAGONSCALES_AMYTHEST;
+            case AMETHYST -> IafItems.DRAGONSCALES_amethyst;
             case COPPER -> IafItems.DRAGONSCALES_COPPER;
             case BLACK -> IafItems.DRAGONSCALES_BLACK;
             default -> IafItems.DRAGONSCALES_RED;
