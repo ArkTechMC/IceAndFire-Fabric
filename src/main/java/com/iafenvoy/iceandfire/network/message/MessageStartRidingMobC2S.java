@@ -16,19 +16,18 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-public class MessageStartRidingMob implements S2CMessage, C2SMessage {
-
+public class MessageStartRidingMobC2S implements C2SMessage {
     public int dragonId;
     public boolean ride;
     public boolean baby;
 
-    public MessageStartRidingMob(int dragonId, boolean ride, boolean baby) {
+    public MessageStartRidingMobC2S(int dragonId, boolean ride, boolean baby) {
         this.dragonId = dragonId;
         this.ride = ride;
         this.baby = baby;
     }
 
-    public MessageStartRidingMob() {
+    public MessageStartRidingMobC2S() {
     }
 
     @Override
@@ -40,7 +39,6 @@ public class MessageStartRidingMob implements S2CMessage, C2SMessage {
                     if (this.ride) {
                         if (this.baby) tamable.startRiding(player, true);
                         else player.startRiding(tamable, true);
-
                     } else {
                         if (this.baby) tamable.stopRiding();
                         else player.stopRiding();
@@ -67,25 +65,5 @@ public class MessageStartRidingMob implements S2CMessage, C2SMessage {
         this.dragonId = buf.readInt();
         this.ride = buf.readBoolean();
         this.baby = buf.readBoolean();
-    }
-
-    @Override
-    public void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketSender responseSender) {
-        PlayerEntity player = client.player;
-        if (player != null) {
-            Entity entity = player.getWorld().getEntityById(this.dragonId);
-            if (entity instanceof ISyncMount && entity instanceof TameableEntity tamable) {
-                if (tamable.isOwner(player) && tamable.distanceTo(player) < 14) {
-                    if (this.ride) {
-                        if (this.baby) tamable.startRiding(player, true);
-                        else player.startRiding(tamable, true);
-
-                    } else {
-                        if (this.baby) tamable.stopRiding();
-                        else player.stopRiding();
-                    }
-                }
-            }
-        }
     }
 }

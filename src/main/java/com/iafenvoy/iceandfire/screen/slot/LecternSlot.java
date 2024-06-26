@@ -1,13 +1,12 @@
-package com.iafenvoy.iceandfire.screen;
+package com.iafenvoy.iceandfire.screen.slot;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
-public class SlotLectern extends Slot {
-
-    public SlotLectern(Inventory inv, int slotIndex, int xPosition, int yPosition) {
+public class LecternSlot extends Slot {
+    public LecternSlot(Inventory inv, int slotIndex, int xPosition, int yPosition) {
         super(inv, slotIndex, xPosition, yPosition);
     }
 

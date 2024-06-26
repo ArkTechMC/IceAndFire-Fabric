@@ -21,6 +21,8 @@ public class IafScreenHandlers {
     public static final ScreenHandlerType<PodiumScreenHandler> PODIUM_SCREEN = register("podium", new ScreenHandlerType<>(PodiumScreenHandler::new, FeatureFlags.VANILLA_FEATURES));
     public static final ScreenHandlerType<LecternScreenHandler> IAF_LECTERN_SCREEN = register("iaf_lectern", new ScreenHandlerType<>(LecternScreenHandler::new, FeatureFlags.VANILLA_FEATURES));
     public static final ScreenHandlerType<BestiaryScreenHandler> BESTIARY_SCREEN = register("bestiary", new ExtendedScreenHandlerType<>(BestiaryScreenHandler::new));
+    public static final ScreenHandlerType<MyrmexAddRoomScreenHandler> MYRMEX_ADD_ROOM_SCREEN = register("myrmex_add_room", new ExtendedScreenHandlerType<>(MyrmexAddRoomScreenHandler::new));
+    public static final ScreenHandlerType<MyrmexStaffScreenHandler> MYRMEX_STAFF_SCREEN = register("myrmex_staff", new ExtendedScreenHandlerType<>(MyrmexStaffScreenHandler::new));
 
     private static <C extends ScreenHandler> ScreenHandlerType<C> register(String name, ScreenHandlerType<C> type) {
         return Registry.register(Registries.SCREEN_HANDLER, new Identifier(IceAndFire.MOD_ID, name), type);
@@ -37,5 +39,7 @@ public class IafScreenHandlers {
         HandledScreens.register(IafScreenHandlers.HIPPOCAMPUS_SCREEN, HippocampusScreen::new);
         HandledScreens.register(IafScreenHandlers.DRAGON_FORGE_SCREEN, DragonForgeScreen::new);
         HandledScreens.register(IafScreenHandlers.BESTIARY_SCREEN, BestiaryScreen::new);
+        HandledScreens.register(IafScreenHandlers.MYRMEX_ADD_ROOM_SCREEN, MyrmexAddRoomScreen::new);
+        HandledScreens.register(IafScreenHandlers.MYRMEX_STAFF_SCREEN, MyrmexStaffScreen::new);
     }
 }

@@ -13,10 +13,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 public class MessageDragonControl implements C2SMessage {
-
     public int dragonId;
     public byte controlState;
-    public int armor_type;
     private double posX;
     private double posY;
     private double posZ;

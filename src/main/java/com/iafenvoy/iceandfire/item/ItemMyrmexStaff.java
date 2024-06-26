@@ -2,27 +2,32 @@ package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHive;
+import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHiveS2C;
 import com.iafenvoy.iceandfire.network.message.MessageSetMyrmexHiveNull;
-import com.iafenvoy.iceandfire.screen.gui.MyrmexAddRoomScreen;
-import com.iafenvoy.iceandfire.screen.gui.MyrmexStaffScreen;
+import com.iafenvoy.iceandfire.screen.handler.MyrmexAddRoomScreenHandler;
+import com.iafenvoy.iceandfire.screen.handler.MyrmexStaffScreenHandler;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
-import net.minecraft.client.MinecraftClient;
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
 public class ItemMyrmexStaff extends Item {
-
     public ItemMyrmexStaff(boolean jungle) {
         super(new Settings().maxCount(1));
     }
@@ -43,21 +48,34 @@ public class ItemMyrmexStaff extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand hand) {
         ItemStack itemStackIn = playerIn.getStackInHand(hand);
-        if (playerIn.isSneaking()) {
+        if (playerIn.isSneaking())
             return super.use(worldIn, playerIn, hand);
-        }
         if (itemStackIn.getNbt() != null && itemStackIn.getNbt().containsUuid("HiveUUID")) {
             UUID id = itemStackIn.getNbt().getUuid("HiveUUID");
             if (!worldIn.isClient) {
                 MyrmexHive hive = MyrmexWorldData.get(worldIn).getHiveFromUUID(id);
                 MyrmexWorldData.addHive(worldIn, new MyrmexHive());
-                if (hive != null) {
-                    IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHive(hive.toNBT()));
-                } else {
-                    IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
-                }
+                if (hive != null) IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHiveS2C(hive.toNBT()));
+                else IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
             } else if (id != null && !id.equals(new UUID(0, 0)))
-                MinecraftClient.getInstance().setScreen(new MyrmexStaffScreen(itemStackIn));
+                playerIn.openHandledScreen(new ExtendedScreenHandlerFactory() {
+                    @Override
+                    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+                        NbtCompound compound = new NbtCompound();
+                        itemStackIn.writeNbt(compound);
+                        buf.writeNbt(compound);
+                    }
+
+                    @Override
+                    public Text getDisplayName() {
+                        return Text.translatable("myrmex_staff_screen");
+                    }
+
+                    @Override
+                    public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                        return new MyrmexStaffScreenHandler(syncId, playerInventory);
+                    }
+                });
         }
         playerIn.swingHand(hand);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);
@@ -75,13 +93,33 @@ public class ItemMyrmexStaff extends Item {
                 if (!context.getWorld().isClient) {
                     MyrmexHive hive = MyrmexWorldData.get(context.getWorld()).getHiveFromUUID(id);
                     if (hive != null) {
-                        IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHive(hive.toNBT()));
+                        IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHiveS2C(hive.toNBT()));
                     } else {
                         IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
                     }
                 } else if (id != null && !id.equals(new UUID(0, 0)))
-                    if (context.getWorld().isClient)
-                        MinecraftClient.getInstance().setScreen(new MyrmexAddRoomScreen(context.getPlayer().getStackInHand(context.getHand()), context.getBlockPos(), context.getPlayer().getHorizontalFacing()));
+                    context.getPlayer().openHandledScreen(new ExtendedScreenHandlerFactory() {
+                        @Override
+                        public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+                            ItemStack stack = context.getPlayer().getStackInHand(context.getHand());
+                            NbtCompound compound = new NbtCompound();
+                            stack.writeNbt(compound);
+                            buf.writeNbt(compound);
+                            buf.writeLong(context.getBlockPos().asLong());
+                            buf.writeEnumConstant(player.getHorizontalFacing());
+
+                        }
+
+                        @Override
+                        public Text getDisplayName() {
+                            return Text.translatable("myrmex_add_room");
+                        }
+
+                        @Override
+                        public @NotNull ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+                            return new MyrmexAddRoomScreenHandler(syncId, playerInventory);
+                        }
+                    });
             }
             context.getPlayer().swingHand(context.getHand());
             return ActionResult.SUCCESS;

@@ -4,8 +4,6 @@ import com.iafenvoy.iceandfire.data.delegate.DragonForgePropertyDelegate;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.item.block.BlockDragonForgeBricks;
 import com.iafenvoy.iceandfire.item.block.BlockDragonForgeCore;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageUpdateDragonforge;
 import com.iafenvoy.iceandfire.recipe.DragonForgeRecipe;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
@@ -84,7 +82,7 @@ public class BlockEntityDragonForge extends LockableContainerBlockEntity impleme
                         flag1 = true;
                     }
                 } else if (entityDragonforge.getPropertyDelegate().cookTime > 0) {
-                    IafServerNetworkHandler.sendToAll(new MessageUpdateDragonforge(pos.asLong(), entityDragonforge.getPropertyDelegate().cookTime));
+                    entityDragonforge.lastDragonFlameTimer = 40;
                     entityDragonforge.getPropertyDelegate().cookTime = 0;
                 }
             } else if (!entityDragonforge.isBurning() && entityDragonforge.getPropertyDelegate().cookTime > 0)
@@ -324,7 +322,6 @@ public class BlockEntityDragonForge extends LockableContainerBlockEntity impleme
                     this.canAddFlameAgain = false;
                 }
             } else this.getPropertyDelegate().cookTime = 0;
-            IafServerNetworkHandler.sendToAll(new MessageUpdateDragonforge(this.pos.asLong(), this.getPropertyDelegate().cookTime));
         }
         this.lastDragonFlameTimer = 40;
     }

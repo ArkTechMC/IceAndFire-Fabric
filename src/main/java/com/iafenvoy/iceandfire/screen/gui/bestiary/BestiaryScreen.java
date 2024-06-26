@@ -242,10 +242,10 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
                 }
                 if (bookPages == 3) {
                     int j = 18;
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_0, 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_1, 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_2, 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_3, 1), j + 16, 60, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_HEAD, 1), j += 16, 60, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_NECK, 1), j += 16, 60, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_BODY, 1), j += 16, 60, 1.5F);
+                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_TAIL, 1), j + 16, 60, 1.5F);
 
                     ms.getMatrices().push();
                     ms.getMatrices().scale(1.5F, 1.5F, 1F);

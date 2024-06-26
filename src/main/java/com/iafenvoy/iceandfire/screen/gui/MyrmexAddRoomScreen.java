@@ -3,40 +3,36 @@ package com.iafenvoy.iceandfire.screen.gui;
 import com.iafenvoy.iceandfire.ClientProxy;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHive;
+import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHiveC2S;
+import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHiveS2C;
 import com.iafenvoy.iceandfire.registry.IafItems;
+import com.iafenvoy.iceandfire.screen.handler.MyrmexAddRoomScreenHandler;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 
-public class MyrmexAddRoomScreen extends Screen {
+public class MyrmexAddRoomScreen extends HandledScreen<MyrmexAddRoomScreenHandler> {
     private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_jungle.png");
     private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_desert.png");
     private final boolean jungle;
-    private final BlockPos interactPos;
-    private final Direction facing;
 
-    public MyrmexAddRoomScreen(ItemStack staff, BlockPos interactPos, Direction facing) {
-        super(Text.translatable("myrmex_add_room"));
-        this.jungle = staff.getItem() == IafItems.MYRMEX_JUNGLE_STAFF;
-        this.interactPos = interactPos;
-        this.facing = facing;
+    public MyrmexAddRoomScreen(MyrmexAddRoomScreenHandler container, PlayerInventory inv, Text name) {
+        super(container, inv, name);
+        this.jungle = container.getStaff().isOf(IafItems.MYRMEX_JUNGLE_STAFF);
         this.init();
     }
 
     public static void onGuiClosed() {
-        IafClientNetworkHandler.send(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
+        IafClientNetworkHandler.send(new MessageGetMyrmexHiveC2S(ClientProxy.getReferedClientHive().toNBT()));
     }
 
     @Override
@@ -48,28 +44,28 @@ public class MyrmexAddRoomScreen extends Screen {
         if (ClientProxy.getReferedClientHive() != null) {
             PlayerEntity player = MinecraftClient.getInstance().player;
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_food"), (widget) -> {
-                ClientProxy.getReferedClientHive().addRoomWithMessage(player, this.interactPos, WorldGenMyrmexHive.RoomType.FOOD);
+                ClientProxy.getReferedClientHive().addRoomWithMessage(player, this.handler.getInteractPos(), WorldGenMyrmexHive.RoomType.FOOD);
                 onGuiClosed();
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 35).size(150, 20).build());
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_nursery"), (widget) -> {
-                ClientProxy.getReferedClientHive().addRoomWithMessage(player, this.interactPos, WorldGenMyrmexHive.RoomType.NURSERY);
+                ClientProxy.getReferedClientHive().addRoomWithMessage(player, this.handler.getInteractPos(), WorldGenMyrmexHive.RoomType.NURSERY);
                 onGuiClosed();
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 60).size(150, 20).build());
 
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_enterance_surface"), (widget) -> {
-                ClientProxy.getReferedClientHive().addEnteranceWithMessage(player, false, this.interactPos, this.facing);
+                ClientProxy.getReferedClientHive().addEnteranceWithMessage(player, false, this.handler.getInteractPos(), this.handler.getFacing());
                 onGuiClosed();
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 85).size(150, 20).build());
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_enterance_bottom"), (widget) -> {
-                ClientProxy.getReferedClientHive().addEnteranceWithMessage(player, true, this.interactPos, this.facing);
+                ClientProxy.getReferedClientHive().addEnteranceWithMessage(player, true, this.handler.getInteractPos(), this.handler.getFacing());
                 onGuiClosed();
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 110).size(150, 20).build());
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_misc"), (widget) -> {
-                ClientProxy.getReferedClientHive().addRoomWithMessage(player, this.interactPos, WorldGenMyrmexHive.RoomType.EMPTY);
+                ClientProxy.getReferedClientHive().addRoomWithMessage(player, this.handler.getInteractPos(), WorldGenMyrmexHive.RoomType.EMPTY);
                 onGuiClosed();
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 135).size(150, 20).build());
@@ -103,8 +99,17 @@ public class MyrmexAddRoomScreen extends Screen {
                 textRenderer.draw(title, i + 40 - (float) title.length() / 2, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
             } else
                 textRenderer.draw(I18n.translate("myrmex.message.colony"), i + 80, j - 3, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-            textRenderer.draw(I18n.translate("myrmex.message.create_new_room", this.interactPos.getX(), this.interactPos.getY(), this.interactPos.getZ()), i + 30, j + 6, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+            textRenderer.draw(I18n.translate("myrmex.message.create_new_room", this.handler.getInteractPos().getX(), this.handler.getInteractPos().getY(), this.handler.getInteractPos().getZ()), i + 30, j + 6, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         }
+    }
+
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        //Remove texts.
+    }
+
+    @Override
+    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
     }
 
     @Override

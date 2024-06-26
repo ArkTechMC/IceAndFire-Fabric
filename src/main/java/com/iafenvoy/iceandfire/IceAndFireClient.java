@@ -23,12 +23,12 @@ public class IceAndFireClient implements ClientModInitializer {
         IafScreenHandlers.registerGui();
         EnumSeaSerpentAnimations.initializeSerpentModels();
         DragonAnimationsLibrary.register(EnumDragonPoses.values(), EnumDragonModelTypes.values());
-        IafEntities.registerRenderers();
+        IafRenderers.registerRenderers();
         IafBlockEntities.registerRenderers();
         IafBlocks.registerRenderLayers();
         IafItems.registerModelPredicates();
         IafKeybindings.init();
-        IafParticles.registerParticleRenderers();
+        IafRenderers.registerParticleRenderers();
 
         ArmorRenderer.register(new CopperArmorRenderer(), IafItems.COPPER_HELMET, IafItems.COPPER_CHESTPLATE, IafItems.COPPER_LEGGINGS, IafItems.COPPER_BOOTS);
         ArmorRenderer.register(new DeathWormArmorRenderer(), IafItems.DEATHWORM_WHITE_HELMET, IafItems.DEATHWORM_WHITE_CHESTPLATE, IafItems.DEATHWORM_WHITE_LEGGINGS, IafItems.DEATHWORM_WHITE_BOOTS);

@@ -6,7 +6,7 @@ import com.iafenvoy.iceandfire.item.ItemBestiary;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.screen.SlotLectern;
+import com.iafenvoy.iceandfire.screen.slot.LecternSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -33,7 +33,7 @@ public class LecternScreenHandler extends ScreenHandler {
         this.tileFurnace = furnaceInventory;
         this.propertyDelegate = propertyDelegate;
         this.addProperties(propertyDelegate);
-        this.addSlot(new SlotLectern(furnaceInventory, 0, 15, 47) {
+        this.addSlot(new LecternSlot(furnaceInventory, 0, 15, 47) {
             @Override
             public boolean canInsert(ItemStack stack) {
                 return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemBestiary;

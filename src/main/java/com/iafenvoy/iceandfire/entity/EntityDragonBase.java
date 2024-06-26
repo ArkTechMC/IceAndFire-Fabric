@@ -25,7 +25,8 @@ import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.network.message.MessageDragonSetBurnBlock;
-import com.iafenvoy.iceandfire.network.message.MessageStartRidingMob;
+import com.iafenvoy.iceandfire.network.message.MessageStartRidingMobC2S;
+import com.iafenvoy.iceandfire.network.message.MessageStartRidingMobS2C;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -1173,11 +1174,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             if (player.getPassengerList().size() >= 3)
                                 return ActionResult.FAIL;
                             this.startRiding(player, true);
-                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMob(this.getId(), true, true));
+                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMobS2C(this.getId(), true, true));
                         } else if (dragonStage > 2 && !player.hasVehicle()) {
                             player.setSneaking(false);
                             player.startRiding(this, true);
-                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMob(this.getId(), true, false));
+                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMobS2C(this.getId(), true, false));
                             this.setInSittingPose(false);
                         }
                         this.getNavigation().stop();
@@ -1814,7 +1815,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             if ((this.getControlState() == 1 << 4 || ((PlayerEntity) riding).isFallFlying()) && !riding.hasVehicle()) {
                 this.stopRiding();
                 if (this.getWorld().isClient) {
-                    IafClientNetworkHandler.send(new MessageStartRidingMob(this.getId(), false, true));
+                    IafClientNetworkHandler.send(new MessageStartRidingMobC2S(this.getId(), false, true));
                 }
 
             }

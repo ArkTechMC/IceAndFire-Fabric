@@ -15,6 +15,7 @@ import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
+//TODO: Split
 public class MessageDragonSyncFire implements C2SMessage, S2CMessage {
     public int dragonId;
     public double posX;

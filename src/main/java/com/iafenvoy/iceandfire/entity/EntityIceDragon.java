@@ -506,22 +506,19 @@ public class EntityIceDragon extends EntityDragonBase {
                     IafServerNetworkHandler.sendToAll(new ParticleSpawnMessage(IafParticles.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z));
                     this.getWorld().addParticle(IafParticles.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z);
                 }
-            } else {
-                if (!this.getWorld().isClient) {
-                    HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-                    Vec3d vec3 = result.getPos();
-                    BlockPos pos = BlockPos.ofFloored(vec3);
-                    IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), pos, this);
-                }
+            } else if (!this.getWorld().isClient) {
+                HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+                Vec3d vec3 = result.getPos();
+                BlockPos pos = BlockPos.ofFloored(vec3);
+                IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), pos, this);
             }
         }
         if (this.burnProgress >= 40D && this.canPositionBeSeen(burnX, burnY, burnZ)) {
             double spawnX = burnX + (this.random.nextFloat() * 3.0) - 1.5;
             double spawnY = burnY + (this.random.nextFloat() * 3.0) - 1.5;
             double spawnZ = burnZ + (this.random.nextFloat() * 3.0) - 1.5;
-            if (!this.getWorld().isClient) {
+            if (!this.getWorld().isClient)
                 IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), BlockPos.ofFloored(spawnX, spawnY, spawnZ), this);
-            }
         }
     }
 

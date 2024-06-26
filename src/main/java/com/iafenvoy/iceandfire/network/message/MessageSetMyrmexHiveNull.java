@@ -10,12 +10,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Identifier;
 
 public class MessageSetMyrmexHiveNull implements S2CMessage {
-
     public MessageSetMyrmexHiveNull() {
-    }
-
-
-    public static void write(MessageSetMyrmexHiveNull message, PacketByteBuf buf) {
     }
 
     @Override

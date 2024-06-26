@@ -2,14 +2,15 @@ package com.iafenvoy.iceandfire.screen.handler;
 
 import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
+import com.iafenvoy.iceandfire.enums.EnumDragonArmorPart;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;
+import com.iafenvoy.iceandfire.screen.slot.BannerSlot;
+import com.iafenvoy.iceandfire.screen.slot.DragonArmorSlot;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.BannerItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
@@ -30,62 +31,11 @@ public class DragonScreenHandler extends ScreenHandler {
         byte b0 = 3;
         dragonInventory.onOpen(playerInventory.player);
         int i = (b0 - 4) * 18;
-        this.addSlot(new Slot(dragonInventory, 0, 8, 54) {
-            @Override
-            public void markDirty() {
-                this.inventory.markDirty();
-            }
-
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && stack.getItem() instanceof BannerItem;
-            }
-        });
-        this.addSlot(new Slot(dragonInventory, 1, 8, 18) {
-            @Override
-            public void markDirty() {
-                this.inventory.markDirty();
-            }
-
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 0;
-            }
-        });
-        this.addSlot(new Slot(dragonInventory, 2, 8, 36) {
-            @Override
-            public void markDirty() {
-                this.inventory.markDirty();
-            }
-
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 1;
-            }
-
-        });
-        this.addSlot(new Slot(dragonInventory, 3, 153, 18) {
-            @Override
-            public void markDirty() {
-                this.inventory.markDirty();
-            }
-
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 2;
-            }
-        });
-        this.addSlot(new Slot(dragonInventory, 4, 153, 36) {
-            @Override
-            public void markDirty() {
-                this.inventory.markDirty();
-            }
-
-            @Override
-            public boolean canInsert(ItemStack stack) {
-                return super.canInsert(stack) && !stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor && ((ItemDragonArmor) stack.getItem()).dragonSlot == 3;
-            }
-        });
+        this.addSlot(new BannerSlot(dragonInventory, 0, 8, 54));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 1, 8, 18, EnumDragonArmorPart.HEAD));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 2, 8, 36, EnumDragonArmorPart.NECK));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 3, 153, 18, EnumDragonArmorPart.BODY));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 4, 153, 36, EnumDragonArmorPart.TAIL));
         for (int j = 0; j < 3; ++j)
             for (int k = 0; k < 9; ++k)
                 this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 150 + j * 18 + i));
@@ -107,41 +57,29 @@ public class DragonScreenHandler extends ScreenHandler {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index < this.dragonInventory.size()) {
-                if (!this.insertItem(itemstack1, this.dragonInventory.size(), this.slots.size(), true)) {
+                if (!this.insertItem(itemstack1, this.dragonInventory.size(), this.slots.size(), true))
                     return ItemStack.EMPTY;
-                }
-            } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack()) {
+            } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack())
                 if (!this.insertItem(itemstack1, 1, 2, false)) {
                     return ItemStack.EMPTY;
-                }
-
-            } else if (this.getSlot(2).canInsert(itemstack1) && !this.getSlot(2).hasStack()) {
+            } else if (this.getSlot(2).canInsert(itemstack1) && !this.getSlot(2).hasStack())
                 if (!this.insertItem(itemstack1, 2, 3, false)) {
                     return ItemStack.EMPTY;
-                }
-
-            } else if (this.getSlot(3).canInsert(itemstack1) && !this.getSlot(3).hasStack()) {
+            } else if (this.getSlot(3).canInsert(itemstack1) && !this.getSlot(3).hasStack())
                 if (!this.insertItem(itemstack1, 3, 4, false)) {
                     return ItemStack.EMPTY;
-                }
-
-            } else if (this.getSlot(4).canInsert(itemstack1) && !this.getSlot(4).hasStack()) {
+            } else if (this.getSlot(4).canInsert(itemstack1) && !this.getSlot(4).hasStack())
                 if (!this.insertItem(itemstack1, 4, 5, false)) {
                     return ItemStack.EMPTY;
-                }
-
             } else if (this.getSlot(0).canInsert(itemstack1)) {
-                if (!this.insertItem(itemstack1, 0, 1, false)) {
+                if (!this.insertItem(itemstack1, 0, 1, false))
                     return ItemStack.EMPTY;
-                }
-            } else if (this.dragonInventory.size() <= 5 || !this.insertItem(itemstack1, 5, this.dragonInventory.size(), false)) {
+            } else if (this.dragonInventory.size() <= 5 || !this.insertItem(itemstack1, 5, this.dragonInventory.size(), false))
                 return ItemStack.EMPTY;
-            }
-            if (itemstack1.isEmpty()) {
+            if (itemstack1.isEmpty())
                 slot.setStackNoCallbacks(ItemStack.EMPTY);
-            } else {
+            else
                 slot.markDirty();
-            }
         }
         return itemstack;
     }

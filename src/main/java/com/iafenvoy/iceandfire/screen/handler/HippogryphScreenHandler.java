@@ -71,7 +71,6 @@ public class HippogryphScreenHandler extends ScreenHandler {
             }
         });
         this.addSlot(new Slot(this.hippogryphInventory, 2, 8, 52) {
-
             @Override
             public boolean canInsert(ItemStack stack) {
                 return EntityHippogryph.getIntFromArmor(stack) != 0;

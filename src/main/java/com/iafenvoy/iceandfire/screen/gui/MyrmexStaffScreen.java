@@ -4,25 +4,27 @@ import com.google.common.collect.Lists;
 import com.iafenvoy.iceandfire.ClientProxy;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHive;
+import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHiveC2S;
+import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHiveS2C;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.screen.gui.bestiary.ChangePageButton;
+import com.iafenvoy.iceandfire.screen.handler.MyrmexStaffScreenHandler;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemStack;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
-public class MyrmexStaffScreen extends Screen {
+public class MyrmexStaffScreen extends HandledScreen<MyrmexStaffScreenHandler> {
     private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_jungle.png");
     private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_desert.png");
     private static final WorldGenMyrmexHive.RoomType[] ROOMS = {WorldGenMyrmexHive.RoomType.FOOD, WorldGenMyrmexHive.RoomType.NURSERY, WorldGenMyrmexHive.RoomType.EMPTY};
@@ -36,9 +38,9 @@ public class MyrmexStaffScreen extends Screen {
     int currentPage = 0;
     private int hiveCount;
 
-    public MyrmexStaffScreen(ItemStack staff) {
-        super(Text.translatable("myrmex_staff_screen"));
-        this.jungle = staff.getItem() == IafItems.MYRMEX_JUNGLE_STAFF;
+    public MyrmexStaffScreen(MyrmexStaffScreenHandler handler, PlayerInventory playerInventory, Text name) {
+        super(handler, playerInventory, name);
+        this.jungle = handler.getStaff().getItem() == IafItems.MYRMEX_JUNGLE_STAFF;
     }
 
     @Override
@@ -153,9 +155,13 @@ public class MyrmexStaffScreen extends Screen {
     }
 
     @Override
+    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
+    }
+
+    @Override
     public void removed() {
         if (ClientProxy.getReferedClientHive() != null)
-            IafClientNetworkHandler.send(new MessageGetMyrmexHive(ClientProxy.getReferedClientHive().toNBT()));
+            IafClientNetworkHandler.send(new MessageGetMyrmexHiveC2S(ClientProxy.getReferedClientHive().toNBT()));
     }
 
     private void drawRoomInfo(DrawContext ms, String type, BlockPos pos, int i, int j, int color) {
@@ -163,6 +169,11 @@ public class MyrmexStaffScreen extends Screen {
         assert this.client != null;
         this.client.textRenderer.draw(I18n.translate(translate, pos.getX(), pos.getY(), pos.getZ()), i, j + 36 + this.hiveCount * 22, color, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         this.hiveCount++;
+    }
+
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+        //Remove texts.
     }
 
     private record Room(BlockPos pos, String string) {

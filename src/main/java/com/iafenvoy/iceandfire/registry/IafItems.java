@@ -132,38 +132,38 @@ public class IafItems {
     public static final Item DRAGON_SKULL_FIRE = register(ItemDragonSkull.getName(0), new ItemDragonSkull(0));
     public static final Item DRAGON_SKULL_ICE = register(ItemDragonSkull.getName(1), new ItemDragonSkull(1));
     public static final Item DRAGON_SKULL_LIGHTNING = register(ItemDragonSkull.getName(2), new ItemDragonSkull(2));
-    public static final ItemDragonArmor DRAGONARMOR_IRON_0 = register("dragonarmor_iron_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.IRON, 0));
-    public static final ItemDragonArmor DRAGONARMOR_IRON_1 = register("dragonarmor_iron_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.IRON, 1));
-    public static final ItemDragonArmor DRAGONARMOR_IRON_2 = register("dragonarmor_iron_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.IRON, 2));
-    public static final ItemDragonArmor DRAGONARMOR_IRON_3 = register("dragonarmor_iron_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.IRON, 3));
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_0 = register("dragonarmor_copper_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.COPPER, 0));
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_1 = register("dragonarmor_copper_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.COPPER, 1));
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_2 = register("dragonarmor_copper_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.COPPER, 2));
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_3 = register("dragonarmor_copper_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.COPPER, 3));
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_0 = register("dragonarmor_gold_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.GOLD, 0));
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_1 = register("dragonarmor_gold_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.GOLD, 1));
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_2 = register("dragonarmor_gold_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.GOLD, 2));
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_3 = register("dragonarmor_gold_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.GOLD, 3));
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_0 = register("dragonarmor_diamond_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.DIAMOND, 0));
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_1 = register("dragonarmor_diamond_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.DIAMOND, 1));
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_2 = register("dragonarmor_diamond_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.DIAMOND, 2));
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_3 = register("dragonarmor_diamond_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.DIAMOND, 3));
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_0 = register("dragonarmor_silver_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.SILVER, 0));
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_1 = register("dragonarmor_silver_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.SILVER, 1));
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_2 = register("dragonarmor_silver_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.SILVER, 2));
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_3 = register("dragonarmor_silver_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.SILVER, 3));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_0 = register("dragonarmor_dragonsteel_fire_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.FIRE, 0));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_1 = register("dragonarmor_dragonsteel_fire_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.FIRE, 1));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_2 = register("dragonarmor_dragonsteel_fire_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.FIRE, 2));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_3 = register("dragonarmor_dragonsteel_fire_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.FIRE, 3));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_0 = register("dragonarmor_dragonsteel_ice_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.ICE, 0));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_1 = register("dragonarmor_dragonsteel_ice_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.ICE, 1));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_2 = register("dragonarmor_dragonsteel_ice_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.ICE, 2));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_3 = register("dragonarmor_dragonsteel_ice_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.ICE, 3));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_0 = register("dragonarmor_dragonsteel_lightning_" + ItemDragonArmor.getNameForSlot(0), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.LIGHTNING, 0));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_1 = register("dragonarmor_dragonsteel_lightning_" + ItemDragonArmor.getNameForSlot(1), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.LIGHTNING, 1));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_2 = register("dragonarmor_dragonsteel_lightning_" + ItemDragonArmor.getNameForSlot(2), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.LIGHTNING, 2));
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_3 = register("dragonarmor_dragonsteel_lightning_" + ItemDragonArmor.getNameForSlot(3), new ItemDragonArmor(ItemDragonArmor.DragonArmorType.LIGHTNING, 3));
+    public static final ItemDragonArmor DRAGONARMOR_IRON_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
     public static final Item DRAGON_MEAL = register("dragon_meal", new ItemGeneric());
     public static final Item SICKLY_DRAGON_MEAL = register("sickly_dragon_meal", new ItemGeneric(1));
     public static final Item CREATIVE_DRAGON_MEAL = register("creative_dragon_meal", new ItemGeneric(2));
@@ -388,6 +388,10 @@ public class IafItems {
         register("spawn_egg_dread_horse", new SpawnEggItem(IafEntities.DREAD_HORSE, 0XE0E6E6, 0XACACAC, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
         register("spawn_egg_hydra", new SpawnEggItem(IafEntities.HYDRA, 0X8B8B78, 0X2E372B, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
         register("spawn_egg_ghost", new SpawnEggItem(IafEntities.GHOST, 0XB9EDB8, 0X73B276, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
+    }
+
+    public static ItemDragonArmor buildDragonArmor(EnumDragonArmorPart type, EnumDragonArmorMaterial material) {
+        return register(String.format("dragonarmor_%s_%s", material.getName(), ItemDragonArmor.getNameForSlot(type)), new ItemDragonArmor(material, type));
     }
 
     public static <T extends Item> T register(String name, T item) {

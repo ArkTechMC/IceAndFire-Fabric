@@ -37,12 +37,11 @@ public class IafServerNetworkHandler implements ServerPlayNetworking.PlayChannel
         ServerPlayNetworking.registerGlobalReceiver(CHANNEL_NAME, INSTANCE);
 
         INSTANCE.registerMessage(MessageDragonControl::new);
-        INSTANCE.registerMessage(MessageGetMyrmexHive::new);
+        INSTANCE.registerMessage(MessageGetMyrmexHiveC2S::new);
         INSTANCE.registerMessage(MessageHippogryphArmor::new);
         INSTANCE.registerMessage(MessageMultipartInteract::new);
         INSTANCE.registerMessage(MessagePlayerHitMultipart::new);
-        INSTANCE.registerMessage(MessageStartRidingMob::new);
-        INSTANCE.registerMessage(MessageUpdateLectern::new);
+        INSTANCE.registerMessage(MessageStartRidingMobC2S::new);
     }
 
     @Override

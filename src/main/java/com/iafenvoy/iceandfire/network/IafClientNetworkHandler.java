@@ -38,11 +38,8 @@ public class IafClientNetworkHandler implements ClientPlayNetworking.PlayChannel
 //        INSTANCE.registerMessage(MessageGetMyrmexHive::new);
 //        INSTANCE.registerMessage(MessageSetMyrmexHiveNull::new);
         INSTANCE.registerMessage(MessageSirenSong::new);
-        INSTANCE.registerMessage(MessageStartRidingMob::new);
-        INSTANCE.registerMessage(MessageUpdateDragonforge::new);
-        INSTANCE.registerMessage(MessageUpdateLectern::new);
+        INSTANCE.registerMessage(MessageStartRidingMobS2C::new);
         INSTANCE.registerMessage(MessageUpdatePixieHouse::new);
-        INSTANCE.registerMessage(MessageUpdatePixieHouseModel::new);
         INSTANCE.registerMessage(MessageUpdatePixieJar::new);
         INSTANCE.registerMessage(MessageUpdatePodium::new);
 

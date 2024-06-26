@@ -15,7 +15,6 @@ import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.screen.ArrayPropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.collection.DefaultedList;
@@ -184,6 +183,6 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
 
     @Override
     public ScreenHandler createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        return new PodiumScreenHandler(id, this, playerInventory, new ArrayPropertyDelegate(0));
+        return new PodiumScreenHandler(id, this, playerInventory);
     }
 }
