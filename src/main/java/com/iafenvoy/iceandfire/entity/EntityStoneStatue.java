@@ -15,11 +15,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Arm;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromStatues {
-
     private static final TrackedData<String> TRAPPED_ENTITY_TYPE = DataTracker.registerData(EntityStoneStatue.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<NbtCompound> TRAPPED_ENTITY_DATA = DataTracker.registerData(EntityStoneStatue.class, TrackedDataHandlerRegistry.NBT_COMPOUND);
     private static final TrackedData<Float> TRAPPED_ENTITY_WIDTH = DataTracker.registerData(EntityStoneStatue.class, TrackedDataHandlerRegistry.FLOAT);
@@ -54,7 +56,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
         }
         assert statue != null;
         statue.setTrappedTag(entityTag);
-        statue.setTrappedEntityTypeString(Registries.ENTITY_TYPE.getKey(parent.getType()).toString());
+        statue.setTrappedEntityTypeString(Registries.ENTITY_TYPE.getId(parent.getType()).toString());
         statue.setTrappedEntityWidth(parent.getWidth());
         statue.setTrappedHeight(parent.getHeight());
         statue.setTrappedScale(parent.getScaleFactor());
