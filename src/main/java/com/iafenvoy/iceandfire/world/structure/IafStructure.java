@@ -1,8 +1,7 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.citadel.config.biome.SpawnBiomeData;
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +10,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
 import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Optional;
 import java.util.Set;
@@ -42,16 +40,12 @@ public class IafStructure extends Structure {
     }
 
 
-    protected boolean isBiomeValid(Context pContext, Pair<String, SpawnBiomeData> validBiomes, BlockPos blockPos) {
-        boolean validBiome = false;
+    protected boolean isBiomeValid(Context pContext, TagKey<Biome> biomeTagKey, BlockPos blockPos) {
         Set<RegistryEntry<Biome>> biomes = pContext.chunkGenerator().getBiomeSource().getBiomesInArea(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.maxDistanceFromCenter, pContext.noiseConfig().getMultiNoiseSampler());
-        for (RegistryEntry<Biome> biome : biomes) {
-            if (BiomeConfig.test(validBiomes, biome)) {
-                validBiome = true;
-                break;
-            }
-        }
-        return validBiome;
+        for (RegistryEntry<Biome> biome : biomes)
+            if (biome.isIn(biomeTagKey))
+                return true;
+        return false;
     }
 
     @Override

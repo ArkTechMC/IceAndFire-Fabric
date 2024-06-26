@@ -44,7 +44,7 @@ public class ArrayLayeredTexture extends AbstractTexture {
                 if (!RenderSystem.isOnRenderThreadOrInit())
                     RenderSystem.recordRenderCall(() -> this.loadImage(nativeimage));
                 else this.loadImage(nativeimage);
-            } catch (IOException exception) {
+            } catch (Exception exception) {
                 LOGGER.error("Couldn't load layered image", exception);
             }
         else LOGGER.error("Couldn't load layered image");

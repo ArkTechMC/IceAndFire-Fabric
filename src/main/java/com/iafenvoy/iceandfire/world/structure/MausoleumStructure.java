@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.registry.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
@@ -28,7 +27,6 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class MausoleumStructure extends IafStructure {
-
     public static final Codec<MausoleumStructure> ENTRY_CODEC = RecordCodecBuilder.<MausoleumStructure>mapCodec(instance ->
             instance.group(configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -49,7 +47,7 @@ public class MausoleumStructure extends IafStructure {
 
         return new MausoleumStructure(
                 new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.HAS_MAUSOLEUM),
+                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.MAUSOLEUM),
                         new HashMap<>(),
                         GenerationStep.Feature.SURFACE_STRUCTURES,
                         StructureTerrainAdaptation.BEARD_THIN
@@ -71,7 +69,7 @@ public class MausoleumStructure extends IafStructure {
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
 
-        if (!this.isBiomeValid(pContext, BiomeConfig.mausoleumBiomes, blockpos))
+        if (!this.isBiomeValid(pContext, IafBiomeTags.MAUSOLEUM, blockpos))
             return Optional.empty();
 
         return StructurePoolBasedGenerator.generate(

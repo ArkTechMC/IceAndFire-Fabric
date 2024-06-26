@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.registry.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
@@ -49,7 +48,7 @@ public class GorgonTempleStructure extends IafStructure {
 
         return new GorgonTempleStructure(
                 new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.HAS_GORGON_TEMPLE),
+                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.GORGON_TEMPLE),
                         new HashMap<>(),
                         GenerationStep.Feature.SURFACE_STRUCTURES,
                         StructureTerrainAdaptation.BEARD_THIN
@@ -70,7 +69,7 @@ public class GorgonTempleStructure extends IafStructure {
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
 
-        if (!this.isBiomeValid(pContext, BiomeConfig.gorgonTempleBiomes, blockpos))
+        if (!this.isBiomeValid(pContext, IafBiomeTags.GORGON_TEMPLE, blockpos))
             return Optional.empty();
 
         return StructurePoolBasedGenerator.generate(

@@ -116,7 +116,7 @@ public class TitleScreenRenderManager {
     public static void drawModName(DrawContext ms, int width, int height) {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
-        textRenderer.draw("Ice and Fire " + Formatting.YELLOW + IceAndFire.VERSION, 2, height - 30, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        textRenderer.draw("Ice and Fire Fabric-" + Formatting.YELLOW + IceAndFire.VERSION, 2, height - 30, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
         textRenderer.draw(Formatting.GOLD + "Report if you meet any crash.", 2, height - 20, 0xFFFFFFFF, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
     }
 

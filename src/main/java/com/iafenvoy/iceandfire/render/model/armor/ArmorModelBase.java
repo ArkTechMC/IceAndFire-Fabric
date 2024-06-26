@@ -1,9 +1,18 @@
 package com.iafenvoy.iceandfire.render.model.armor;
 
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.item.ItemRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.decoration.ArmorStandEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
 
 public class ArmorModelBase extends BipedEntityModel<LivingEntity> {
@@ -40,21 +49,36 @@ public class ArmorModelBase extends BipedEntityModel<LivingEntity> {
             super.setAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     }
 
-    //this.(?<name>.*).addChild\(this.(?<name2>.*)\);
-    //partdefinition.getChild("${name}").addOrReplaceChild("${name2},
+    public void render(EquipmentSlot slot, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Identifier texture) {
+        switch (slot) {
+            case HEAD -> this.renderHelmet(matrices, vertexConsumers, light, stack, texture);
+            case CHEST -> this.renderChestplate(matrices, vertexConsumers, light, stack, texture);
+            case LEGS -> this.renderLeggings(matrices, vertexConsumers, light, stack, texture);
+            case FEET -> this.renderBoots(matrices, vertexConsumers, light, stack, texture);
+        }
+    }
 
-    //this.(?<name>.*) = new AdvancedModelBox\(.*, (?<texX>[0-9]*), (?<texY>[0-9]*)\);
-    //.addOrReplaceChild("${name}", CubeListBuilder.create().texOffs(${texX}, ${texY})
+    public void renderHelmet(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Identifier texture) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
+        this.head.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+    }
 
-    //this.(?<name>.*).setPos\((?<x>.*), (?<y>.*), (?<z>.*)\);
-    //PartPose.offsetAndRotation(${x}, ${y}, ${z},
+    public void renderChestplate(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Identifier texture) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
+        this.body.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+        this.leftArm.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+        this.rightArm.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+    }
 
-    //this.(?<name>.*).addBox\((?<x>.*), (?<y>.*), (?<z>.*), (?<u>.*), (?<v>.*), (?<w>.*), 0.0F\);
-    //.addBox(${x}, ${y}, ${z}, ${u}, ${v}, ${w})
+    public void renderLeggings(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Identifier texture) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
+        this.leftLeg.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+        this.rightLeg.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+    }
 
-    //(?<main>.addOrReplaceChild\("(?<name>.*)", Cube.*)\n.*(?<part>PartPose.*)\n.*(?<box>addBox.*)\n.*this.setRotateAngle\(.*\k<name>.*, (?<aX>.*), (?<aY>.*), (?<aZ>.*)\);
-    //${main}.${box}, ${part}${aX}, ${aY}, ${aZ}));
-
-    //(?<main>.addOrReplaceChild\("(?<name>.*)", Cube.*)\n.*(?<part>PartPose.*)\n.*(?<box>addBox.*\));\n
-    //${main}.${box}, ${part});
+    public void renderBoots(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ItemStack stack, Identifier texture) {
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(texture), false, stack.hasGlint());
+        this.leftLeg.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+        this.rightLeg.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+    }
 }

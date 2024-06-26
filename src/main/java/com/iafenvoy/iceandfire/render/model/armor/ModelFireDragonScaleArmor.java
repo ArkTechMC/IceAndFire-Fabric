@@ -1,7 +1,9 @@
 package com.iafenvoy.iceandfire.render.model.armor;
 
 import net.minecraft.client.model.*;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 
 public class ModelFireDragonScaleArmor extends ArmorModelBase {
     private static final ModelPart INNER_MODEL = getModelData(Dilation.NONE.add(INNER_MODEL_OFFSET), 0.0F).getRoot().createPart(64, 64);
@@ -52,5 +54,10 @@ public class ModelFireDragonScaleArmor extends ArmorModelBase {
 
     public static ModelPart getBakedModel(boolean inner) {
         return inner ? INNER_MODEL : OUTER_MODEL;
+    }
+
+    @Override
+    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha) {
+        super.render(matrices, vertices, light, overlay, red, green, blue, alpha);
     }
 }

@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.registry.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
@@ -27,7 +26,6 @@ import java.util.HashMap;
 import java.util.Optional;
 
 public class GraveyardStructure extends IafStructure {
-
     public static final Codec<GraveyardStructure> ENTRY_CODEC = RecordCodecBuilder.<GraveyardStructure>mapCodec(instance ->
             instance.group(GraveyardStructure.configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
@@ -48,7 +46,7 @@ public class GraveyardStructure extends IafStructure {
 
         return new GraveyardStructure(
                 new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.HAS_GRAVEYARD),
+                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.GRAVEYARD),
                         new HashMap<>(),
                         //Arrays.stream(MobCategory.values()).collect(Collectors.toMap(category -> category, category -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.STRUCTURE, WeightedRandomList.create()))),
                         GenerationStep.Feature.SURFACE_STRUCTURES,
@@ -70,7 +68,7 @@ public class GraveyardStructure extends IafStructure {
 
         BlockPos blockpos = pContext.chunkPos().getCenterAtY(1);
 
-        if (!this.isBiomeValid(pContext, BiomeConfig.graveyardBiomes, blockpos))
+        if (!this.isBiomeValid(pContext, IafBiomeTags.GRAVEYARD, blockpos))
             return Optional.empty();
 
         return StructurePoolBasedGenerator.generate(

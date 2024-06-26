@@ -4,6 +4,7 @@ import com.iafenvoy.citadel.config.biome.SpawnBiomeData;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.iafenvoy.iceandfire.world.IafWorldData;
 import com.iafenvoy.iceandfire.world.feature.*;
 import com.iafenvoy.iceandfire.world.gen.*;
@@ -11,11 +12,13 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldProperties;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -69,17 +72,19 @@ public class IafFeatures {
     }
 
     public static void addFeatures() {
-        addFeatureToBiome(BiomeConfig.fireLilyBiomes.getRight(), IafPlacedFeatures.PLACED_FIRE_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
-        addFeatureToBiome(BiomeConfig.lightningLilyBiomes.getRight(), IafPlacedFeatures.PLACED_LIGHTNING_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
-        addFeatureToBiome(BiomeConfig.frostLilyBiomes.getRight(), IafPlacedFeatures.PLACED_FROST_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
-        addFeatureToBiome(BiomeConfig.oreGenBiomes.getRight(), IafPlacedFeatures.PLACED_SILVER_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
-        addFeatureToBiome(BiomeConfig.sapphireBiomes.getRight(), IafPlacedFeatures.PLACED_SAPPHIRE_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
-        addFeatureToBiome(BiomeConfig.fireDragonBiomes.getRight(), IafPlacedFeatures.PLACED_FIRE_DRAGON_ROOST);
-        addFeatureToBiome(BiomeConfig.lightningDragonBiomes.getRight(), IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_ROOST);
-        addFeatureToBiome(BiomeConfig.iceDragonBiomes.getRight(), IafPlacedFeatures.PLACED_ICE_DRAGON_ROOST);
-        addFeatureToBiome(BiomeConfig.fireDragonCaveBiomes.getRight(), IafPlacedFeatures.PLACED_FIRE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
-        addFeatureToBiome(BiomeConfig.lightningDragonCaveBiomes.getRight(), IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
-        addFeatureToBiome(BiomeConfig.iceDragonCaveBiomes.getRight(), IafPlacedFeatures.PLACED_ICE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
+        addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_FROST_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
+        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
+        addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_ICE_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_ICE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+
+        addFeatureToBiome(IafBiomeTags.SILVER_ORE, IafPlacedFeatures.PLACED_SILVER_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
+        addFeatureToBiome(IafBiomeTags.SAPPHIRE_ORE, IafPlacedFeatures.PLACED_SAPPHIRE_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
+
         addFeatureToBiome(BiomeConfig.cyclopsCaveBiomes.getRight(), IafPlacedFeatures.PLACED_CYCLOPS_CAVE);
         addFeatureToBiome(BiomeConfig.pixieBiomes.getRight(), IafPlacedFeatures.PLACED_PIXIE_VILLAGE);
         addFeatureToBiome(BiomeConfig.hydraBiomes.getRight(), IafPlacedFeatures.PLACED_HYDRA_CAVE);
@@ -94,6 +99,10 @@ public class IafFeatures {
         addFeatureToBiome(BiomeConfig.hippocampusBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_HIPPOCAMPUS);
         addFeatureToBiome(BiomeConfig.seaSerpentBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_SEA_SERPENT);
         addFeatureToBiome(BiomeConfig.stymphalianBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_STYMPHALIAN_BIRD);
+    }
+
+    private static void addFeatureToBiome(TagKey<Biome> biomeTag, RegistryKey<PlacedFeature> featureResource, GenerationStep.Feature step) {
+        BiomeModifications.addFeature(context -> context.hasTag(biomeTag), step, featureResource);
     }
 
     private static void addFeatureToBiome(SpawnBiomeData data, RegistryKey<PlacedFeature> feature) {

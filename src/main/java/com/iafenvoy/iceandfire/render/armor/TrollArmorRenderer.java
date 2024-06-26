@@ -3,31 +3,23 @@ package com.iafenvoy.iceandfire.render.armor;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.enums.EnumTroll;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
+import com.iafenvoy.iceandfire.render.model.armor.ArmorModelBase;
 import com.iafenvoy.iceandfire.render.model.armor.ModelTrollArmor;
-import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 import java.util.Locale;
 
-public class TrollArmorRenderer implements ArmorRenderer {
-    public BipedEntityModel<?> getHumanoidArmorModel(LivingEntity LivingEntity, ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<?> _default) {
+public class TrollArmorRenderer extends ArmorRendererImpl {
+    @Override
+    public ArmorModelBase getHumanoidArmorModel(ItemStack itemStack, EquipmentSlot armorSlot) {
         return new ModelTrollArmor(armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD);
     }
 
-    public Identifier getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+    @Override
+    public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         EnumTroll troll = ((ItemTrollArmor) stack.getItem()).troll;
         return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_troll_" + troll.name().toLowerCase(Locale.ROOT) + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
-    }
-
-    @Override
-    public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, BipedEntityModel<LivingEntity> contextModel) {
-
     }
 }

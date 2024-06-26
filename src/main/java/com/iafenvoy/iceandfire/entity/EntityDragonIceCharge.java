@@ -29,9 +29,8 @@ public class EntityDragonIceCharge extends EntityDragonCharge {
 
     @Override
     public void tick() {
-        if (this.getWorld().isClient)
-            for (int i = 0; i < 10; ++i)
-                this.getWorld().addParticle(IafParticles.DRAGON_FROST, this.getX() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), 0.0D, 0.0D, 0.0D);
+        for (int i = 0; i < 10; ++i)
+            this.getWorld().addParticle(IafParticles.DRAGON_FROST, this.getX() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getY() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), this.getZ() + this.random.nextDouble() * 1 * (this.random.nextBoolean() ? -1 : 1), 0.0D, 0.0D, 0.0D);
         super.tick();
     }
 

@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonItem {
-
     public final EnumDragonArmor armor_type;
     public final EnumDragonColor eggType;
 

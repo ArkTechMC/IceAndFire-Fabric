@@ -43,6 +43,7 @@ public class IceAndFire implements ModInitializer {
         IafBannerPatterns.init();
         IafPlacementFilters.init();
         IafStructureTypes.init();
+        IafStructures.init();
         IafScreenHandlers.init();
         IafRecipeSerializers.init();
         IafProcessors.init();
@@ -60,7 +61,6 @@ public class IceAndFire implements ModInitializer {
         EntityEvents.START_TRACKING_TAIL.register(ServerEvents::onLivingSetTarget);
         LivingEntityEvents.DAMAGE.register(ServerEvents::onEntityDamage);
         LivingEntityEvents.FALL.register(ServerEvents::onEntityFall);
-        LivingEntityEvents.ATTACK.register(ServerEvents::onPlayerAttackMob);
 
         IafServerNetworkHandler.register();
     }

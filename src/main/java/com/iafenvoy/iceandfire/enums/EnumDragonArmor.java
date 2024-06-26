@@ -25,7 +25,7 @@ public enum EnumDragonArmor {
     BLACK(15, EnumDragonColor.BLACK);
 
     public final int armorId;
-    public final EnumDragonColor eggType;
+    public final EnumDragonColor color;
     public CustomArmorMaterial material;
     public Item helmet;
     public Item chestplate;
@@ -33,9 +33,9 @@ public enum EnumDragonArmor {
     public Item boots;
     public CustomArmorMaterial armorMaterial;
 
-    EnumDragonArmor(int armorId, EnumDragonColor eggType) {
+    EnumDragonArmor(int armorId, EnumDragonColor color) {
         this.armorId = armorId;
-        this.eggType = eggType;
+        this.color = color;
     }
 
     public static void initArmors() {
@@ -44,10 +44,10 @@ public enum EnumDragonArmor {
             value.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "armor_dragon_scales" + (i + 1)), 36, new int[]{5, 7, 9, 5}, 15, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2);
             String sub = "armor_" + value.name().toLowerCase();
 
-            value.helmet = IafItems.register(sub + "_helmet", new ItemScaleArmor(value.eggType, value, value.armorMaterial, ArmorItem.Type.HELMET));
-            value.chestplate = IafItems.register(sub + "_chestplate", new ItemScaleArmor(value.eggType, value, value.armorMaterial, ArmorItem.Type.CHESTPLATE));
-            value.leggings = IafItems.register(sub + "_leggings", new ItemScaleArmor(value.eggType, value, value.armorMaterial, ArmorItem.Type.LEGGINGS));
-            value.boots = IafItems.register(sub + "_boots", new ItemScaleArmor(value.eggType, value, value.armorMaterial, ArmorItem.Type.BOOTS));
+            value.helmet = IafItems.register(sub + "_helmet", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.HELMET));
+            value.chestplate = IafItems.register(sub + "_chestplate", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.CHESTPLATE));
+            value.leggings = IafItems.register(sub + "_leggings", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.LEGGINGS));
+            value.boots = IafItems.register(sub + "_boots", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.BOOTS));
         }
     }
 

@@ -13,11 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin {
-    @Inject(method = "attack", at = @At("HEAD"))
-    private void onAttack(Entity target, CallbackInfo ci) {
-        LivingEntityEvents.ATTACK.invoker().onAttack((PlayerEntity) (Object) this, target);
-    }
-
     @ModifyVariable(method = "applyDamage", at = @At(value = "LOAD", ordinal = 5), index = 2, argsOnly = true)
     private float livingDamageEvent(float value, DamageSource pDamageSource) {
         return LivingEntityEvents.DAMAGE.invoker().onLivingDamage((LivingEntity) (Object) this, pDamageSource, value);

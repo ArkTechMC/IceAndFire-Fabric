@@ -134,34 +134,8 @@ public class ServerEvents {
         if (IafConfig.getInstance().villagerHouseWeight > 0) {
             Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
             Registry<StructureProcessorList> processorListRegistry = server.getRegistryManager().get(RegistryKeys.PROCESSOR_LIST);
-            for (String type : VILLAGE_TYPES) {
+            for (String type : VILLAGE_TYPES)
                 IafTrades.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.getInstance().villagerHouseWeight);
-            }
-        }
-
-    }
-
-    public static void onPlayerAttackMob(LivingEntity entity, Entity target) {
-        if (target instanceof EntityMutlipartPart mutlipartPart && entity instanceof PlayerEntity player) {
-            Entity parent = mutlipartPart.getParent();
-            try {
-                //If the attacked entity is the parent itself parent will be null and also doesn't have to be attacked
-                if (parent != null)
-                    player.attack(parent);
-            } catch (Exception e) {
-                IceAndFire.LOGGER.warn("Exception thrown while interacting with entity.", e);
-            }
-            int extraData = 0;
-            if (mutlipartPart instanceof EntityHydraHead hydraHead && parent instanceof EntityHydra hydra) {
-                extraData = hydraHead.headIndex;
-                hydra.triggerHeadFlags(extraData);
-            }
-            if (mutlipartPart.getWorld().isClient && parent != null)
-                IafClientNetworkHandler.send(new MessagePlayerHitMultipart(parent.getId(), extraData));
-        }
-        if (entity instanceof LivingEntity) {
-            if (entity.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(entity, entity);
-            else if (DragonUtils.isVillager(entity)) signalAmphithereAlarm(entity, entity);
         }
     }
 
@@ -219,20 +193,14 @@ public class ServerEvents {
         if (entity != null && entity.getType().isIn(IafTags.SHEEP)) {
             float dist = IafConfig.getInstance().cyclopesSheepSearchLength;
             final List<Entity> list = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(dist, dist, dist));
-            if (!list.isEmpty()) {
-                for (final Entity e : list) {
-                    if (e instanceof EntityCyclops cyclops) {
-                        if (!cyclops.isBlinded() && !player.isCreative()) {
+            if (!list.isEmpty())
+                for (final Entity e : list)
+                    if (e instanceof EntityCyclops cyclops)
+                        if (!cyclops.isBlinded() && !player.isCreative())
                             cyclops.setTarget(player);
-                        }
-                    }
-                }
-            }
         }
-
         if (entity instanceof EntityStoneStatue statue) {
             statue.setHealth(statue.getMaxHealth());
-
             if (player != null) {
                 ItemStack stack = player.getMainHandStack();
                 entity.playSound(SoundEvents.BLOCK_STONE_BREAK, 2, 0.5F + (float) (RandomHelper.nextDouble(-1, 1) * 0.2 + 0.5));
@@ -264,6 +232,27 @@ public class ServerEvents {
                     return ActionResult.PASS;
                 }
             }
+        }
+        if (entity instanceof EntityMutlipartPart mutlipartPart) {
+            Entity parent = mutlipartPart.getParent();
+            try {
+                //If the attacked entity is the parent itself parent will be null and also doesn't have to be attacked
+                if (parent != null)
+                    player.attack(parent);
+            } catch (Exception e) {
+                IceAndFire.LOGGER.warn("Exception thrown while interacting with entity.", e);
+            }
+            int extraData = 0;
+            if (mutlipartPart instanceof EntityHydraHead hydraHead && parent instanceof EntityHydra hydra) {
+                extraData = hydraHead.headIndex;
+                hydra.triggerHeadFlags(extraData);
+            }
+            if (mutlipartPart.getWorld().isClient && parent != null)
+                IafClientNetworkHandler.send(new MessagePlayerHitMultipart(parent.getId(), extraData));
+        }
+        if (entity instanceof LivingEntity livingEntity) {
+            if (entity.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(livingEntity, player);
+            else if (DragonUtils.isVillager(entity)) signalAmphithereAlarm(livingEntity, player);
         }
         return ActionResult.PASS;
     }

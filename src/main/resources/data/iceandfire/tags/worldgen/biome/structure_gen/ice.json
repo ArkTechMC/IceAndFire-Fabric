@@ -1,22 +1,20 @@
 {
   "replace": false,
   "values": [
+    "minecraft:taiga",
     "minecraft:frozen_ocean",
     "minecraft:frozen_river",
     "minecraft:snowy_plains",
     "minecraft:snowy_beach",
     "minecraft:snowy_taiga",
+    "minecraft:old_growth_pine_taiga",
     "minecraft:grove",
     "minecraft:snowy_slopes",
     "minecraft:jagged_peaks",
     "minecraft:frozen_peaks",
-    "minecraft:ice_spikes",
-    "minecraft:swamp",
-    "minecraft:jungle",
-    "minecraft:sparse_jungle",
-    "minecraft:beach",
-    "minecraft:bamboo_jungle",
-    "minecraft:lush_caves",
-    "minecraft:mangrove_swamp"
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean",
+    "minecraft:deep_frozen_ocean",
+    "minecraft:ice_spikes"
   ]
 }

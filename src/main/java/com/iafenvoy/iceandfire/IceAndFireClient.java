@@ -1,11 +1,16 @@
 package com.iafenvoy.iceandfire;
 
+import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
+import com.iafenvoy.iceandfire.enums.EnumTroll;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
 import com.iafenvoy.iceandfire.render.TideTridentRenderer;
+import com.iafenvoy.iceandfire.render.TrollWeaponRenderer;
 import com.iafenvoy.iceandfire.render.armor.*;
+import com.iafenvoy.iceandfire.render.item.DeathwormGauntletRenderer;
+import com.iafenvoy.iceandfire.render.item.GorgonHeadRenderer;
 import com.iafenvoy.iceandfire.render.model.util.DragonAnimationsLibrary;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonModelTypes;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonPoses;
@@ -38,6 +43,14 @@ public class IceAndFireClient implements ClientModInitializer {
         ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_ICE_HELMET, IafItems.DRAGONSTEEL_ICE_CHESTPLATE, IafItems.DRAGONSTEEL_ICE_LEGGINGS, IafItems.DRAGONSTEEL_ICE_BOOTS);
         ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_LIGHTNING_HELMET, IafItems.DRAGONSTEEL_LIGHTNING_CHESTPLATE, IafItems.DRAGONSTEEL_LIGHTNING_LEGGINGS, IafItems.DRAGONSTEEL_LIGHTNING_BOOTS);
         ArmorRenderer.register(new SilverArmorRenderer(), IafItems.SILVER_HELMET, IafItems.SILVER_CHESTPLATE, IafItems.SILVER_LEGGINGS, IafItems.SILVER_BOOTS);
+        for (EnumDragonArmor armor : EnumDragonArmor.values())
+            ArmorRenderer.register(new ScaleArmorRenderer(), armor.helmet, armor.chestplate, armor.leggings, armor.boots);
+        for (EnumSeaSerpent seaSerpent : EnumSeaSerpent.values())
+            ArmorRenderer.register(new SeaSerpentArmorRenderer(), seaSerpent.helmet, seaSerpent.chestplate, seaSerpent.leggings, seaSerpent.boots);
+        for (EnumTroll troll : EnumTroll.values())
+            ArmorRenderer.register(new TrollArmorRenderer(), troll.helmet, troll.chestplate, troll.leggings, troll.boots);
+        for (EnumTroll.Weapon weapon : EnumTroll.Weapon.values())
+            BuiltinItemRendererRegistry.INSTANCE.register(weapon.item, new TrollWeaponRenderer());
 
         BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_RED, new DeathwormGauntletRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_YELLOW, new DeathwormGauntletRenderer());
@@ -52,9 +65,6 @@ public class IceAndFireClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, new TEISRItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.DREAD_PORTAL, new TEISRItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.GHOST_CHEST, new TEISRItemRenderer());
-
-        for(EnumSeaSerpent seaSerpent:EnumSeaSerpent.values())
-            ArmorRenderer.register(new SeaSerpentArmorRenderer(),seaSerpent.helmet, seaSerpent.chestplate, seaSerpent.leggings, seaSerpent.boots);
 
         IafClientNetworkHandler.register();
     }

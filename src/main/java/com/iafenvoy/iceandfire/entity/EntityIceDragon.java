@@ -25,6 +25,7 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -504,7 +505,6 @@ public class EntityIceDragon extends EntityDragonBase {
                     Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
                     velocity = velocity.multiply(5 / velocity.length());
                     IafServerNetworkHandler.sendToAll(new ParticleSpawnMessage(IafParticles.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z));
-                    this.getWorld().addParticle(IafParticles.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z);
                 }
             } else if (!this.getWorld().isClient) {
                 HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));

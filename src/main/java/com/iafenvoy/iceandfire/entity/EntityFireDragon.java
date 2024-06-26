@@ -12,6 +12,7 @@ import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.network.message.MessageDragonSyncFire;
+import com.iafenvoy.iceandfire.network.message.ParticleSpawnMessage;
 import com.iafenvoy.iceandfire.registry.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -452,16 +453,16 @@ public class EntityFireDragon extends EntityDragonBase {
             double progressY = headPos.y + d3 * (i / (float) distance);
             double progressZ = headPos.z + d4 * (i / (float) distance);
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
-                if (this.getWorld().isClient && this.random.nextInt(particleCount) == 0) {
-                    this.getWorld().addParticle(IafParticles.DRAGON_FLAME, headPos.x, headPos.y, headPos.z, 0, 0, 0);
+                if (this.random.nextInt(particleCount) == 0) {
+                    Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
+                    velocity = velocity.multiply(5 / velocity.length());
+                    IafServerNetworkHandler.sendToAll(new ParticleSpawnMessage(IafParticles.DRAGON_FLAME, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z));
                 }
-            } else {
-                if (!this.getWorld().isClient) {
-                    HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-                    Vec3d vec3 = result.getPos();
-                    BlockPos pos = BlockPos.ofFloored(vec3);
-                    IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), pos, this);
-                }
+            } else if (!this.getWorld().isClient) {
+                HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
+                Vec3d vec3 = result.getPos();
+                BlockPos pos = BlockPos.ofFloored(vec3);
+                IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), pos, this);
             }
         }
         if (this.burnProgress >= 40D && this.canPositionBeSeen(burnX, burnY, burnZ)) {
