@@ -93,13 +93,9 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
         this.addDrawableChild(this.previousPage);
         this.nextPage = new ChangePageButton(centerX + 357, centerY + 215, true, 0, (p_214132_1_) -> {
             if (this.index ? this.indexPages < this.indexPagesTotal - 1 : this.pageType != null && this.bookPages < this.pageType.pages) {
-                if (this.index) {
-                    this.indexPages++;
-                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
-                } else {
-                    this.bookPages++;
-                    MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
-                }
+                if (this.index) this.indexPages++;
+                else this.bookPages++;
+                MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
             }
         });
         this.addDrawableChild(this.nextPage);

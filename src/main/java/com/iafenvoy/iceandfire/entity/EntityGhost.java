@@ -267,9 +267,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         if (itemstack != null && itemstack.getItem() == IafItems.MANUSCRIPT && !this.isHauntedShoppingList()) {
             this.setColor(-1);
             this.playSound(IafSounds.BESTIARY_PAGE, 1, 1);
-            if (!player.isCreative()) {
+            if (!player.isCreative())
                 itemstack.decrement(1);
-            }
             return ActionResult.SUCCESS;
         }
         return super.interactMob(player, hand);
@@ -289,10 +288,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         this.setColor(this.random.nextInt(3));
-        if (this.random.nextInt(200) == 0) {
+        if (this.random.nextInt(200) == 0)
             this.setColor(-1);
-        }
-
         return spawnDataIn;
     }
 

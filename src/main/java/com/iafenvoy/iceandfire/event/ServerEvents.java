@@ -254,14 +254,10 @@ public class ServerEvents {
                             tag.put("IAFStoneStatueNBT", writtenTag);
                             statue.writeCustomDataToNbt(tag);
 
-                            if (!statue.getWorld().isClient()) {
+                            if (!statue.getWorld().isClient())
                                 statue.dropStack(statuette, 1);
-                            }
-                        } else {
-                            if (!statue.getWorld().isClient) {
-                                statue.dropItem(Blocks.COBBLESTONE.asItem(), 2 + player.getRandom().nextInt(4));
-                            }
-                        }
+                        } else if (!statue.getWorld().isClient)
+                            statue.dropItem(Blocks.COBBLESTONE, 2 + player.getRandom().nextInt(4));
 
                         statue.remove(Entity.RemovalReason.KILLED);
                     }
@@ -274,9 +270,7 @@ public class ServerEvents {
 
     public static void onEntityDie(LivingEntity entity, DamageSource damageSource) {
         EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
-        if (entity.getWorld().isClient) {
-            return;
-        }
+        if (entity.getWorld().isClient) return;
 
         if (!data.chainData.getChainedTo().isEmpty()) {
             ItemEntity entityitem = new ItemEntity(entity.getWorld(),
@@ -299,9 +293,8 @@ public class ServerEvents {
                 DamageTracker combat = entity.getDamageTracker();
                 DamageRecord entry = combat.getBiggestFall();
                 boolean flag = entry != null && (entry.damageSource().isOf(DamageTypes.FALL) || entry.damageSource().isOf(DamageTypes.DROWN) || entry.damageSource().isOf(DamageTypes.LAVA));
-                if (entity.hasStatusEffect(StatusEffects.POISON)) {
+                if (entity.hasStatusEffect(StatusEffects.POISON))
                     flag = true;
-                }
                 if (flag) {
                     World world = entity.getWorld();
                     EntityGhost ghost = IafEntities.GHOST.create(world);
@@ -349,22 +342,17 @@ public class ServerEvents {
         if (player != null && (world.getBlockState(pos).getBlock() instanceof AbstractChestBlock) && !player.isCreative()) {
             float dist = IafConfig.getInstance().dragonGoldSearchLength;
             final List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
-            if (!list.isEmpty()) {
-                for (final Entity entity : list) {
-                    if (entity instanceof EntityDragonBase dragon) {
+            if (!list.isEmpty())
+                for (final Entity entity : list)
+                    if (entity instanceof EntityDragonBase dragon)
                         if (!dragon.isTamed() && !dragon.isModelDead() && !dragon.isOwner(player)) {
                             dragon.setInSittingPose(false);
                             dragon.setSitting(false);
                             dragon.setTarget(player);
                         }
-                    }
-                }
-            }
         }
-        if (world.getBlockState(pos).getBlock() instanceof WallBlock) {
+        if (world.getBlockState(pos).getBlock() instanceof WallBlock)
             ItemChain.attachToFence(player, world, pos);
-        }
-
         return ActionResult.PASS;
     }
 
@@ -374,38 +362,31 @@ public class ServerEvents {
             List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (list.isEmpty()) return;
 
-            for (Entity entity : list) {
-                if (entity instanceof EntityDragonBase dragon) {
+            for (Entity entity : list)
+                if (entity instanceof EntityDragonBase dragon)
                     if (!dragon.isTamed() && !dragon.isModelDead() && !dragon.isOwner(player) && !player.isCreative()) {
                         dragon.setInSittingPose(false);
                         dragon.setSitting(false);
                         dragon.setTarget(player);
                     }
-                }
-            }
         }
     }
 
     public static void onPlayerLeaveEvent(PlayerEntity player) {
-        if (player != null && !player.getPassengerList().isEmpty()) {
-            for (Entity entity : player.getPassengerList()) {
+        if (player != null && !player.getPassengerList().isEmpty())
+            for (Entity entity : player.getPassengerList())
                 entity.stopRiding();
-            }
-        }
     }
 
     public static boolean onEntityJoinWorld(Entity entity, World world) {
         if (entity instanceof MobEntity mob)
             try {
-                if (mob.getType().isIn(IafTags.SHEEP) && mob instanceof AnimalEntity animal) {
+                if (mob.getType().isIn(IafTags.SHEEP) && mob instanceof AnimalEntity animal)
                     animal.goalSelector.add(8, new EntitySheepAIFollowCyclops(animal, 1.2D));
-                }
-                if (mob.getType().isIn(IafTags.VILLAGERS) && IafConfig.getInstance().villagersFearDragons) {
+                if (mob.getType().isIn(IafTags.VILLAGERS) && IafConfig.getInstance().villagersFearDragons)
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 8.0F, 0.8D, 0.8D, VILLAGER_FEAR));
-                }
-                if (mob.getType().isIn(IafTags.FEAR_DRAGONS) && IafConfig.getInstance().animalsFearDragons) {
+                if (mob.getType().isIn(IafTags.FEAR_DRAGONS) && IafConfig.getInstance().animalsFearDragons)
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 30, 1.0D, 0.5D, e -> e instanceof IAnimalFear fear && fear.shouldAnimalsFear(mob)));
-                }
             } catch (Exception e) {
                 IceAndFire.LOGGER.warn("Tried to add unique behaviors to vanilla mobs and encountered an error");
             }

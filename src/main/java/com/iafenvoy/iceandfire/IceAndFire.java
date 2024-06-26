@@ -62,12 +62,6 @@ public class IceAndFire implements ModInitializer {
         LivingEntityEvents.FALL.register(ServerEvents::onEntityFall);
         LivingEntityEvents.ATTACK.register(ServerEvents::onPlayerAttackMob);
 
-        EntityEvents.ON_JOIN_WORLD.register((entity, world) -> {
-            if (entity instanceof PlayerEntity)
-                System.out.println(entity.hashCode());
-            return true;
-        });
-
         IafServerNetworkHandler.register();
     }
 }
