@@ -34,7 +34,7 @@ public class IafEntities {
     public static final EntityType<EntityPixie> PIXIE = register("pixie", build(EntityPixie::new, SpawnGroup.CREATURE, false, 0.4F, 0.8F));
     public static final EntityType<EntityCyclops> CYCLOPS = register("cyclops", build(EntityCyclops::new, SpawnGroup.CREATURE, false, 1.95F, 7.4F, 8));
     public static final EntityType<EntitySiren> SIREN = register("siren", build(EntitySiren::new, SpawnGroup.CREATURE, false, 1.6F, 0.9F));
-    public static final EntityType<EntityHippocampus> HIPPOCAMPUS = register("hippocampus", build(EntityHippocampus::new, SpawnGroup.CREATURE, false, 1.95F, 0.95F));
+    public static final EntityType<EntityHippocampus> HIPPOCAMPUS = register("hippocampus", build(EntityHippocampus::new, SpawnGroup.WATER_CREATURE, false, 1.95F, 0.95F));
     public static final EntityType<EntityDeathWorm> DEATH_WORM = register("deathworm", build(EntityDeathWorm::new, SpawnGroup.CREATURE, false, 0.8F, 0.8F, 128));
     public static final EntityType<EntityDeathWormEgg> DEATH_WORM_EGG = register("deathworm_egg", build(EntityDeathWormEgg::new, SpawnGroup.MISC, false, 0.5F, 0.5F));
     public static final EntityType<EntityCockatrice> COCKATRICE = register("cockatrice", build(EntityCockatrice::new, SpawnGroup.CREATURE, false, 1.1F, 1F));

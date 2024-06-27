@@ -329,14 +329,11 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
             List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(50, 12, 50), SIREN_PREY);
 
             for (LivingEntity entity : entities) {
-                if (isWearingEarplugs(entity)) {
+                if (isWearingEarplugs(entity))
                     continue;
-                }
-
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entities);
-                if (data.sirenData.isCharmed || data.sirenData.charmedBy == null) {
+                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
+                if (data.sirenData.isCharmed || data.sirenData.charmedBy == null)
                     data.sirenData.setCharmed(this);
-                }
             }
         }
     }

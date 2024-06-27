@@ -281,6 +281,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         System.arraycopy(this.prevTailYaw, 0, this.tailYaw, 1, this.tailYaw.length - 1);
         System.arraycopy(this.prevTailPitch, 0, this.tailPitch, 1, this.tailPitch.length - 1);
         AnimationHandler.INSTANCE.updateAnimations(this);
+        this.setAir(this.getMaxAir());
     }
 
     public float getPieceYaw(int index, float partialTicks) {
@@ -825,9 +826,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
         @Override
         public void tick() {
-            if (this.dolphin.isTouchingWater()) {
+            if (this.dolphin.isTouchingWater())
                 this.dolphin.setVelocity(this.dolphin.getVelocity().add(0.0D, 0.005D, 0.0D));
-            }
 
             if (this.state == State.MOVE_TO && !this.dolphin.getNavigation().isIdle()) {
                 double d0 = this.targetX - this.dolphin.getX();

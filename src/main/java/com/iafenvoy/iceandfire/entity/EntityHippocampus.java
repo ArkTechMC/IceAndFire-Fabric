@@ -67,7 +67,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class EntityHippocampus extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, ICustomMoveController, InventoryChangedListener, Saddleable {
-
     public static final int INV_SLOT_SADDLE = 0;
     public static final int INV_SLOT_CHEST = 1;
     public static final int INV_SLOT_ARMOR = 2;
@@ -96,22 +95,18 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
         this.moveControl = new HippoMoveControl(this);
         this.setStepHeight(1F);
-        if (worldIn.isClient) {
+        if (worldIn.isClient)
             this.tail_buffer = new ChainBuffer();
-        }
         this.createInventory();
     }
 
     public static int getIntFromArmor(ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() == Items.IRON_HORSE_ARMOR) {
+        if (!stack.isEmpty() && stack.getItem() == Items.IRON_HORSE_ARMOR)
             return 1;
-        }
-        if (!stack.isEmpty() && stack.getItem() == Items.GOLDEN_HORSE_ARMOR) {
+        if (!stack.isEmpty() && stack.getItem() == Items.GOLDEN_HORSE_ARMOR)
             return 2;
-        }
-        if (!stack.isEmpty() && stack.getItem() == Items.DIAMOND_HORSE_ARMOR) {
+        if (!stack.isEmpty() && stack.getItem() == Items.DIAMOND_HORSE_ARMOR)
             return 3;
-        }
         return 0;
     }
 
@@ -163,15 +158,12 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     public boolean isTeammate(Entity entityIn) {
         if (this.isTamed()) {
             LivingEntity livingentity = this.getOwner();
-            if (entityIn == livingentity) {
+            if (entityIn == livingentity)
                 return true;
-            }
-            if (entityIn instanceof TameableEntity) {
-                return ((TameableEntity) entityIn).isOwner(livingentity);
-            }
-            if (livingentity != null) {
+            if (entityIn instanceof TameableEntity tameable)
+                return tameable.isOwner(livingentity);
+            if (livingentity != null)
                 return livingentity.isTeammate(entityIn);
-            }
         }
 
         return super.isTeammate(entityIn);
@@ -190,18 +182,14 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Override
     public LivingEntity getControllingPassenger() {
         Entity entity = this.getFirstPassenger();
-        if (entity instanceof MobEntity) {
-            return (MobEntity) entity;
-        } else {
-            if (this.isSaddled()) {
-                entity = this.getFirstPassenger();
-                if (entity instanceof PlayerEntity) {
-                    return (PlayerEntity) entity;
-                }
-            }
-
-            return null;
+        if (entity instanceof MobEntity mob)
+            return mob;
+        if (this.isSaddled()) {
+            entity = this.getFirstPassenger();
+            if (entity instanceof PlayerEntity player)
+                return player;
         }
+        return null;
     }
 
     @Override
@@ -213,9 +201,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         if (j >= 0 && j < this.inventory.size()) {
             this.inventory.setStack(j, itemStackIn);
             return itemStackIn;
-        } else {
+        } else
             return ItemStack.EMPTY;
-        }
     }
 
     @Override
@@ -224,9 +211,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         if (this.inventory != null && !this.getWorld().isClient) {
             for (int i = 0; i < this.inventory.size(); ++i) {
                 ItemStack itemstack = this.inventory.getStack(i);
-                if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+                if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack))
                     this.dropStack(itemstack);
-                }
             }
         }
         if (this.isChested()) {
@@ -238,23 +224,20 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     }
 
     protected void dropChestItems() {
-        for (int i = 3; i < 18; i++) {
+        for (int i = 3; i < 18; i++)
             if (!this.inventory.getStack(i).isEmpty()) {
-                if (!this.getWorld().isClient) {
+                if (!this.getWorld().isClient)
                     this.dropStack(this.inventory.getStack(i), 1);
-                }
                 this.inventory.removeStack(i);
             }
-        }
     }
 
     private void updateControlState(int i, boolean newState) {
         byte prevState = this.dataTracker.get(CONTROL_STATE);
-        if (newState) {
+        if (newState)
             this.dataTracker.set(CONTROL_STATE, (byte) (prevState | (1 << i)));
-        } else {
+        else
             this.dataTracker.set(CONTROL_STATE, (byte) (prevState & ~(1 << i)));
-        }
     }
 
     @Override
@@ -317,27 +300,21 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
             Vec3d vec3 = this.getVelocity();
 
             if (this.isGoingUp()) {
-                if (!this.isTouchingWater() && this.isOnGround()) {
+                if (!this.isTouchingWater() && this.isOnGround())
                     this.jump();
-                } else if (this.isTouchingWater()) {
+                else if (this.isTouchingWater())
                     this.setVelocity(vec3.add(0, 0.04F, 0));
-                }
             }
-            if (this.isGoingDown() && this.isTouchingWater()) {
+            if (this.isGoingDown() && this.isTouchingWater())
                 this.setVelocity(vec3.add(0, -0.025F, 0));
-            }
         }
     }
 
     protected Vec3d getControlledMovementInput(PlayerEntity player, Vec3d travelVector) {
         float f = player.sidewaysSpeed * 0.5F;
         float f1 = player.forwardSpeed;
-        if (f1 <= 0.0F) {
-            f1 *= 0.25F;
-        }
-
+        if (f1 <= 0.0F) f1 *= 0.25F;
         return new Vec3d(f, 0.0D, f1);
-
     }
 
     protected Vec2f getRiddenRotation(LivingEntity entity) {
@@ -417,9 +394,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
 
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = simplecontainer.getStack(j);
-                if (!itemstack.isEmpty()) {
+                if (!itemstack.isEmpty())
                     this.inventory.setStack(j, itemstack.copy());
-                }
             }
         }
 
@@ -539,9 +515,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
             this.updateVelocity(0.1F, pTravelVector);
             this.move(MovementType.SELF, this.getVelocity());
             this.setVelocity(this.getVelocity().multiply(0.9D));
-        } else {
+        } else
             super.travel(pTravelVector);
-        }
     }
 
     @Override
@@ -551,9 +526,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
 
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == this.NO_ANIMATION)
             this.setAnimation(ANIMATION_SPEAK);
-        }
         super.playAmbientSound();
     }
 
@@ -573,9 +547,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
             this.setSitting(false);
             this.lovePlayer(player);
             this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-            if (!player.isCreative()) {
+            if (!player.isCreative())
                 itemstack.decrement(1);
-            }
             return ActionResult.SUCCESS;
         }
         // Food item
@@ -583,18 +556,15 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
             if (!this.getWorld().isClient) {
                 this.heal(5);
                 this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 3; i++)
                     this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemstack), this.getX() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), this.getY() + this.random.nextFloat() * this.getHeight(), this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), 0, 0, 0);
-                }
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     itemstack.decrement(1);
-                }
             }
             if (!this.isTamed() && this.getRandom().nextInt(3) == 0) {
                 this.setOwner(player);
-                for (int i = 0; i < 6; i++) {
+                for (int i = 0; i < 6; i++)
                     this.getWorld().addParticle(ParticleTypes.HEART, this.getX() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), this.getY() + this.random.nextFloat() * this.getHeight(), this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), 0, 0, 0);
-                }
             }
             return ActionResult.SUCCESS;
 
@@ -695,15 +665,19 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     public void onInventoryChanged(Inventory pInvBasic) {
         boolean flag = this.isSaddled();
         this.updateContainerEquipment();
-        if (this.age > 20 && !flag && this.isSaddled()) {
+        if (this.age > 20 && !flag && this.isSaddled())
             this.playSound(SoundEvents.ENTITY_HORSE_SADDLE, 0.5F, 1.0F);
-        }
-
     }
 
     @Override
     public EntityView method_48926() {
         return this.getWorld();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.setAir(this.getMaxAir());
     }
 
     /**
@@ -717,12 +691,10 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         }
 
         private void updateSpeed() {
-            if (this.hippo.isTouchingWater()) {
+            if (this.hippo.isTouchingWater())
                 this.hippo.setVelocity(this.hippo.getVelocity().add(0.0D, 0.005D, 0.0D));
-
-            } else if (this.hippo.isOnGround()) {
+            else if (this.hippo.isOnGround())
                 this.hippo.setMovementSpeed(Math.max(this.hippo.getMovementSpeed() / 4.0F, 0.06F));
-            }
         }
 
         @Override
@@ -733,27 +705,24 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
                 double d1 = this.targetY - this.hippo.getY();
                 double d2 = this.targetZ - this.hippo.getZ();
                 double distance = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-                if (distance < (double) 1.0E-5F) {
+                if (distance < (double) 1.0E-5F)
                     this.entity.setMovementSpeed(0.0F);
-                } else {
+                else {
                     d1 /= distance;
                     float minRotation = (float) (MathHelper.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F;
                     this.hippo.setYaw(this.wrapDegrees(this.hippo.getYaw(), minRotation, 90.0F));
                     this.hippo.bodyYaw = this.hippo.getYaw();
                     float maxSpeed = (float) (this.speed * this.hippo.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
                     maxSpeed *= 0.6F;
-                    if (this.hippo.isTouchingWater()) {
+                    if (this.hippo.isTouchingWater())
                         maxSpeed *= (float) IafConfig.getInstance().hippocampusSwimSpeedMod;
-                    } else {
+                    else
                         maxSpeed *= 0.2F;
-                    }
                     this.hippo.setMovementSpeed(MathHelper.lerp(0.125F, this.hippo.getMovementSpeed(), maxSpeed));
                     this.hippo.setVelocity(this.hippo.getVelocity().add(0.0D, (double) this.hippo.getMovementSpeed() * d1 * 0.1D, 0.0D));
                 }
-            } else {
+            } else
                 this.hippo.setMovementSpeed(0.0F);
-            }
         }
     }
-
 }
