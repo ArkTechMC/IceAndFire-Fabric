@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.network;
 
 import com.iafenvoy.citadel.server.message.AnimationMessage;
 import com.iafenvoy.citadel.server.message.SyncClientTickRateMessage;
-import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.network.message.*;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -16,7 +15,6 @@ import java.util.HashMap;
 import java.util.function.Supplier;
 
 public class IafClientNetworkHandler implements ClientPlayNetworking.PlayChannelHandler {
-    public static final Identifier CHANNEL_NAME = new Identifier(IceAndFire.MOD_ID, "client_handler");
     public static final IafClientNetworkHandler INSTANCE = new IafClientNetworkHandler();
     private final HashMap<Identifier, Supplier<S2CMessage>> types = new HashMap<>();
 
@@ -24,11 +22,11 @@ public class IafClientNetworkHandler implements ClientPlayNetworking.PlayChannel
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeString(message.getId().toString());
         message.encode(buf);
-        ClientPlayNetworking.send(IafServerNetworkHandler.CHANNEL_NAME, buf);
+        ClientPlayNetworking.send(IafServerNetworkHandler.SERVER_CHANNEL_NAME, buf);
     }
 
     public static void register() {
-        ClientPlayNetworking.registerGlobalReceiver(CHANNEL_NAME, INSTANCE);
+        ClientPlayNetworking.registerGlobalReceiver(IafServerNetworkHandler.CLIENT_CHANNEL_NAME, INSTANCE);
 
         INSTANCE.registerMessage(AnimationMessage::new);
         INSTANCE.registerMessage(SyncClientTickRateMessage::new);

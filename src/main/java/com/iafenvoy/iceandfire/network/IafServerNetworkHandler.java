@@ -16,7 +16,8 @@ import java.util.HashMap;
 import java.util.function.Supplier;
 
 public class IafServerNetworkHandler implements ServerPlayNetworking.PlayChannelHandler {
-    public static final Identifier CHANNEL_NAME = new Identifier(IceAndFire.MOD_ID, "server_handler");
+    public static final Identifier SERVER_CHANNEL_NAME = new Identifier(IceAndFire.MOD_ID, "server_handler");
+    public static final Identifier CLIENT_CHANNEL_NAME = new Identifier(IceAndFire.MOD_ID, "client_handler");
     public static final IafServerNetworkHandler INSTANCE = new IafServerNetworkHandler();
     private final HashMap<Identifier, Supplier<C2SMessage>> types = new HashMap<>();
 
@@ -25,7 +26,7 @@ public class IafServerNetworkHandler implements ServerPlayNetworking.PlayChannel
         buf.writeString(message.getId().toString());
         message.encode(buf);
         for (ServerPlayerEntity entity : target)
-            ServerPlayNetworking.send(entity, IafClientNetworkHandler.CHANNEL_NAME, buf);
+            ServerPlayNetworking.send(entity, CLIENT_CHANNEL_NAME, buf);
     }
 
     public static void sendToAll(S2CMessage message) {
@@ -34,7 +35,7 @@ public class IafServerNetworkHandler implements ServerPlayNetworking.PlayChannel
     }
 
     public static void register() {
-        ServerPlayNetworking.registerGlobalReceiver(CHANNEL_NAME, INSTANCE);
+        ServerPlayNetworking.registerGlobalReceiver(SERVER_CHANNEL_NAME, INSTANCE);
 
         INSTANCE.registerMessage(MessageDragonControl::new);
         INSTANCE.registerMessage(MessageGetMyrmexHiveC2S::new);
