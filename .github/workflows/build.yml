@@ -22,5 +22,5 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Build
-        working-directory: build
+        working-directory: /
         run: ./gradlew build
