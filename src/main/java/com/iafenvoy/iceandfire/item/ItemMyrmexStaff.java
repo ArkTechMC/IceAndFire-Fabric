@@ -92,11 +92,9 @@ public class ItemMyrmexStaff extends Item {
                 UUID id = tag.getUuid("HiveUUID");
                 if (!context.getWorld().isClient) {
                     MyrmexHive hive = MyrmexWorldData.get(context.getWorld()).getHiveFromUUID(id);
-                    if (hive != null) {
-                        IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHiveS2C(hive.toNBT()));
-                    } else {
-                        IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
-                    }
+                    if (hive != null) IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHiveS2C(hive.toNBT()));
+                    else IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
+
                 } else if (id != null && !id.equals(new UUID(0, 0)))
                     context.getPlayer().openHandledScreen(new ExtendedScreenHandlerFactory() {
                         @Override

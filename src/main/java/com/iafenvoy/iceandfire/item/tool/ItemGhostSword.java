@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemGhostSword extends SwordItem {
-
     public ItemGhostSword() {
         super(IafItems.GHOST_SWORD_TOOL_MATERIAL, 5, -1.0F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
     }

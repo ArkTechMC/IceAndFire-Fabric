@@ -97,24 +97,19 @@ public class ItemCockatriceScepter extends Item {
                     }
                 } else if (optional.isPresent()) {
                     double d3 = playerEyePosition.distanceTo(optional.get());
-
-                    if (d3 < d2 || d2 == 0.0D) {
+                    if (d3 < d2 || d2 == 0.0D)
                         if (nearbyEntity.getRootVehicle() == player.getRootVehicle()) {
-                            if (d2 == 0.0D) {
+                            if (d2 == 0.0D)
                                 pointedEntity = nearbyEntity;
-                            }
                         } else {
                             pointedEntity = nearbyEntity;
                             d2 = d3;
                         }
-                    }
                 }
 
             }
             if (pointedEntity instanceof LivingEntity target) {
-                if (!target.isAlive()) {
-                    return;
-                }
+                if (!target.isAlive()) return;
                 EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(player);
                 data.miscData.addScepterTarget(target);
             }
@@ -159,5 +154,4 @@ public class ItemCockatriceScepter extends Item {
             origin.getWorld().addParticle(ParticleTypes.ENTITY_EFFECT, origin.getX() + d0 * d4, origin.getY() + d1 * d4 + (double) origin.getStandingEyeHeight() * 0.5D, origin.getZ() + d2 * d4, 0.0D, 0.0D, 0.0D);
         }
     }
-
 }

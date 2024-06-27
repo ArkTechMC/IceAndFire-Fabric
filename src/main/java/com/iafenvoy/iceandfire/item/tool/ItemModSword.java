@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemModSword extends SwordItem implements DragonSteelOverrides<ItemModSword> {
-
     private Multimap<EntityAttribute, EntityAttributeModifier> dragonsteelModifiers;
 
     public ItemModSword(ToolMaterial toolmaterial) {
@@ -40,14 +39,12 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
         if (this.getMaterial().getAttackDamage() != IafConfig.getInstance().dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
-            ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> lvt_5_1_ = ImmutableMultimap.builder();
-            lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F, EntityAttributeModifier.Operation.ADDITION));
-            lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.4, EntityAttributeModifier.Operation.ADDITION));
-            this.dragonsteelModifiers = lvt_5_1_.build();
-            return this.dragonsteelModifiers;
-        } else {
-            return this.dragonsteelModifiers;
+            ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F, EntityAttributeModifier.Operation.ADDITION));
+            builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.4, EntityAttributeModifier.Operation.ADDITION));
+            this.dragonsteelModifiers = builder.build();
         }
+        return this.dragonsteelModifiers;
     }
 
     @Override

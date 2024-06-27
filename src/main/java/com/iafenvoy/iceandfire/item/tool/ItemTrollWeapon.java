@@ -37,13 +37,11 @@ public class ItemTrollWeapon extends SwordItem {
     }
 
     public boolean onEntitySwing(LivingEntity LivingEntity, ItemStack stack) {
-        if (LivingEntity instanceof PlayerEntity player) {
-            if (player.getAttackCooldownProgress(0) < 1 && player.handSwingProgress > 0) {
+        if (LivingEntity instanceof PlayerEntity player)
+            if (player.getAttackCooldownProgress(0) < 1 && player.handSwingProgress > 0)
                 return true;
-            } else {
+            else
                 player.handSwingTicks = -1;
-            }
-        }
         return false;
     }
 

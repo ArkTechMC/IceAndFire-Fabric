@@ -24,25 +24,23 @@ public class ItemCyclopsEye extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (stack.getNbt() == null) {
+        if (stack.getNbt() == null)
             stack.setNbt(new NbtCompound());
-        } else {
+        else {
             if (entity instanceof LivingEntity living) {
                 if (living.getMainHandStack() == stack || living.getOffHandStack() == stack) {
                     double range = 15;
                     boolean inflictedDamage = false;
-                    for (MobEntity LivingEntity : world.getNonSpectatingEntities(MobEntity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range))) {
+                    for (MobEntity LivingEntity : world.getNonSpectatingEntities(MobEntity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range)))
                         if (!LivingEntity.isPartOf(living) && !LivingEntity.isTeammate(living) && (LivingEntity.getTarget() == living || LivingEntity.getAttacker() == living || LivingEntity instanceof Monster)) {
                             LivingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 10, 1));
                             inflictedDamage = true;
                         }
-                    }
-                    if (inflictedDamage) {
+                    if (inflictedDamage)
                         stack.getNbt().putInt("HurtingTicks", stack.getNbt().getInt("HurtingTicks") + 1);
-                    }
                 }
                 if (stack.getNbt().getInt("HurtingTicks") > 120) {
-                    stack.damage(1, (LivingEntity) entity, (p_220017_1_) -> {
+                    stack.damage(1, (LivingEntity) entity, (livingEntity) -> {
                     });
                     stack.getNbt().putInt("HurtingTicks", 0);
                 }

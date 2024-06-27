@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemHippogryphSword extends SwordItem {
-
     public ItemHippogryphSword() {
         super(IafItems.HIPPOGRYPH_SWORD_TOOL_MATERIAL, 3, -2.4F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
     }
@@ -27,12 +26,11 @@ public class ItemHippogryphSword extends SwordItem {
         float f = (float) attacker.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue();
         float f3 = 1.0F + EnchantmentHelper.getSweepingMultiplier(attacker) * f;
         if (attacker instanceof PlayerEntity player) {
-            for (LivingEntity LivingEntity : attacker.getWorld().getNonSpectatingEntities(LivingEntity.class, targetEntity.getBoundingBox().expand(1.0D, 0.25D, 1.0D))) {
+            for (LivingEntity LivingEntity : attacker.getWorld().getNonSpectatingEntities(LivingEntity.class, targetEntity.getBoundingBox().expand(1.0D, 0.25D, 1.0D)))
                 if (LivingEntity != player && LivingEntity != targetEntity && !attacker.isTeammate(LivingEntity) && attacker.squaredDistanceTo(LivingEntity) < 9.0D) {
                     LivingEntity.takeKnockback(0.4F, MathHelper.sin(attacker.getYaw() * 0.017453292F), -MathHelper.cos(attacker.getYaw() * 0.017453292F));
                     LivingEntity.damage(attacker.getWorld().getDamageSources().playerAttack(player), f3);
                 }
-            }
             player.getWorld().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
             player.spawnSweepAttackParticles();
         }

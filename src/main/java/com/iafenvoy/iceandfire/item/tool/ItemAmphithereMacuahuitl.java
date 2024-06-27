@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemAmphithereMacuahuitl extends SwordItem {
-
     public ItemAmphithereMacuahuitl() {
         super(IafItems.AMPHITHERE_SWORD_TOOL_MATERIAL, 3, -2.4F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
     }
@@ -37,7 +36,6 @@ public class ItemAmphithereMacuahuitl extends SwordItem {
             double d0 = rand.nextGaussian() * 0.02D;
             double d1 = rand.nextGaussian() * 0.02D;
             double d2 = rand.nextGaussian() * 0.02D;
-            double d3 = 10.0D;
             targetEntity.getWorld().addParticle(ParticleTypes.CLOUD, targetEntity.getX() + (double) (rand.nextFloat() * targetEntity.getWidth() * 5.0F) - (double) targetEntity.getWidth() - d0 * 10.0D, targetEntity.getY() + (double) (rand.nextFloat() * targetEntity.getHeight()) - d1 * 10.0D, targetEntity.getZ() + (double) (rand.nextFloat() * targetEntity.getWidth() * 5.0F) - (double) targetEntity.getWidth() - d2 * 10.0D, d0, d1, d2);
         }
         return super.postHit(stack, targetEntity, attacker);

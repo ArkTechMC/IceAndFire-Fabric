@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemModPickaxe extends PickaxeItem implements DragonSteelOverrides<ItemModPickaxe> {
-
     private Multimap<EntityAttribute, EntityAttributeModifier> dragonsteelModifiers;
 
     public ItemModPickaxe(ToolMaterial toolmaterial) {
@@ -39,10 +38,8 @@ public class ItemModPickaxe extends PickaxeItem implements DragonSteelOverrides<
             builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F + 1F, EntityAttributeModifier.Operation.ADDITION));
             builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.8F, EntityAttributeModifier.Operation.ADDITION));
             this.dragonsteelModifiers = builder.build();
-            return this.dragonsteelModifiers;
-        } else {
-            return this.dragonsteelModifiers;
         }
+        return this.dragonsteelModifiers;
     }
 
     @Override

@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class ItemGorgonHead extends Item {
-
     public ItemGorgonHead() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(1));
     }
@@ -57,7 +56,6 @@ public class ItemGorgonHead extends Item {
                 boolean isImmune = livingEntity instanceof IBlacklistedFromStatues blacklisted && !blacklisted.canBeTurnedToStone() || entity12.getType().isIn(IafEntityTags.IMMUNE_TO_GORGON_STONE) || livingEntity.hasStatusEffect(StatusEffects.BLINDNESS);
                 return !isImmune && entity12.canHit() && !livingEntity.isDead() && (entity12 instanceof PlayerEntity || DragonUtils.isAlive(livingEntity));
             }
-
             return false;
         });
         double d2 = dist;
@@ -66,18 +64,12 @@ public class ItemGorgonHead extends Item {
             Optional<Vec3d> optional = axisalignedbb.raycast(Vector3d, Vector3d2);
 
             if (axisalignedbb.contains(Vector3d)) {
-                if (d2 >= 0.0D) {
-                    //pointedEntity = entity1;
-                    d2 = 0.0D;
-                }
+                if (d2 >= 0.0D) d2 = 0.0D;
             } else if (optional.isPresent()) {
                 double d3 = Vector3d.distanceTo(optional.get());
-
                 if (d3 < d2 || d2 == 0.0D) {
                     if (entity1.getRootVehicle() == entity.getRootVehicle()) {
-                        if (d2 == 0.0D) {
-                            pointedEntity = entity1;
-                        }
+                        if (d2 == 0.0D) pointedEntity = entity1;
                     } else {
                         pointedEntity = entity1;
                         d2 = d3;
@@ -89,9 +81,9 @@ public class ItemGorgonHead extends Item {
             if (pointedEntity instanceof LivingEntity livingEntity) {
                 boolean wasSuccesful = true;
 
-                if (pointedEntity instanceof PlayerEntity) {
+                if (pointedEntity instanceof PlayerEntity)
                     wasSuccesful = pointedEntity.damage(IafDamageTypes.causeGorgonDamage(pointedEntity), Integer.MAX_VALUE);
-                } else {
+                 else {
                     if (!worldIn.isClient)
                         pointedEntity.remove(Entity.RemovalReason.KILLED);
                 }
@@ -101,14 +93,12 @@ public class ItemGorgonHead extends Item {
                     EntityStoneStatue statue = EntityStoneStatue.buildStatueEntity(livingEntity);
                     statue.updatePositionAndAngles(pointedEntity.getX(), pointedEntity.getY(), pointedEntity.getZ(), pointedEntity.getYaw(), pointedEntity.getPitch());
                     statue.bodyYaw = pointedEntity.getYaw();
-                    if (!worldIn.isClient) {
+                    if (!worldIn.isClient)
                         worldIn.spawnEntity(statue);
-                    }
                 }
 
-                if (entity instanceof PlayerEntity player && !player.isCreative()) {
+                if (entity instanceof PlayerEntity player && !player.isCreative())
                     stack.decrement(1);
-                }
             }
         }
         assert stack.getNbt() != null;

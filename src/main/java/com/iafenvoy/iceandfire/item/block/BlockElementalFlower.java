@@ -38,7 +38,6 @@ public class BlockElementalFlower extends PlantBlock {
             return soil.isIn(BlockTags.DIRT) || soil.isOf(Blocks.GRASS);
         else
             return soil.isIn(BlockTags.ICE) || soil.isIn(BlockTags.SNOW) || soil.isIn(BlockTags.SNOW_LAYER_CAN_SURVIVE_ON);
-
     }
 
     public void updateTick(World world, BlockPos pos, BlockState state, Random rand) {

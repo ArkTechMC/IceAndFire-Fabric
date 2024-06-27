@@ -34,19 +34,15 @@ public class ItemGeneric extends Item {
 
     @Override
     public boolean hasGlint(ItemStack stack) {
-        if (this == IafItems.CREATIVE_DRAGON_MEAL) {
-            return true;
-        } else {
-            return super.hasGlint(stack);
-        }
+        if (this == IafItems.CREATIVE_DRAGON_MEAL) return true;
+        else return super.hasGlint(stack);
+
     }
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        if (this.description > 0) {
-            for (int i = 0; i < this.description; i++) {
+        if (this.description > 0)
+            for (int i = 0; i < this.description; i++)
                 tooltip.add(Text.translatable(this.getTranslationKey() + ".desc_" + i).formatted(Formatting.GRAY));
-            }
-        }
     }
 }

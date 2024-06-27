@@ -12,26 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class BlockGeneric extends Block {
-/*    public BlockGeneric(float hardness, float resistance, SoundType sound) {
-        super(
-            BlockBehaviour.Properties
-                .of()
-                .sound(sound)
-                .strength(hardness, resistance)
-                .requiresCorrectToolForDrops()
-        );
-    }
-
-    public BlockGeneric(float hardness, float resistance, SoundType sound, boolean slippery) {
-        super(
-            BlockBehaviour.Properties
-                .of()
-                .sound(sound)
-                .strength(hardness, resistance)
-                .friction(0.98F)
-        );
-    }*/
-
     public BlockGeneric(Settings props) {
         super(props);
     }

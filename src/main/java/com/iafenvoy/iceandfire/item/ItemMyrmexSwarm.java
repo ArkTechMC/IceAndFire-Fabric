@@ -38,9 +38,8 @@ public class ItemMyrmexSwarm extends Item {
             myrmex.setJungleVariant(this.jungle);
             myrmex.setSummonedBy(playerIn);
             myrmex.setFlying(true);
-            if (!worldIn.isClient) {
+            if (!worldIn.isClient)
                 worldIn.spawnEntity(myrmex);
-            }
         }
         playerIn.getItemCooldownManager().set(this, 1800);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);

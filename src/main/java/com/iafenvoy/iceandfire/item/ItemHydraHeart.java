@@ -14,27 +14,22 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemHydraHeart extends Item {
-
     public ItemHydraHeart() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
     }
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (entity instanceof PlayerEntity && itemSlot >= 0 && itemSlot <= 8) {
-            double healthPercentage = ((PlayerEntity) entity).getHealth() / Math.max(1, ((PlayerEntity) entity).getMaxHealth());
+        if (entity instanceof PlayerEntity player && itemSlot >= 0 && itemSlot <= 8) {
+            double healthPercentage = player.getHealth() / Math.max(1, player.getMaxHealth());
             if (healthPercentage < 1.0D) {
                 int level = 0;
-                if (healthPercentage < 0.25D) {
-                    level = 3;
-                } else if (healthPercentage < 0.5D) {
-                    level = 2;
-                } else if (healthPercentage < 0.75D) {
-                    level = 1;
-                }
+                if (healthPercentage < 0.25D) level = 3;
+                else if (healthPercentage < 0.5D) level = 2;
+                else if (healthPercentage < 0.75D) level = 1;
                 //Consider using EffectInstance.combine
-                if (!((PlayerEntity) entity).hasStatusEffect(StatusEffects.REGENERATION) || ((PlayerEntity) entity).getStatusEffect(StatusEffects.REGENERATION).getAmplifier() < level)
-                    ((PlayerEntity) entity).addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, level, true, false));
+                if (!player.hasStatusEffect(StatusEffects.REGENERATION) || player.getStatusEffect(StatusEffects.REGENERATION).getAmplifier() < level)
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, level, true, false));
             }
             //In hotbar
         }

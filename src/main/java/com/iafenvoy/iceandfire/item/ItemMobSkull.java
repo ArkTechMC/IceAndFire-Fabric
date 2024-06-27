@@ -29,20 +29,16 @@ public class ItemMobSkull extends Item {
         BlockPos offset = context.getBlockPos().offset(context.getSide(), 1);
         skull.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);
         float yaw = player.getYaw();
-        if (context.getSide() != Direction.UP) {
+        if (context.getSide() != Direction.UP)
             yaw = player.getHorizontalFacing().asRotation();
-        }
         skull.setYaw(yaw);
         skull.setSkullType(this.skull);
-        if (!context.getWorld().isClient) {
+        if (!context.getWorld().isClient)
             context.getWorld().spawnEntity(skull);
-        }
-        if (stack.hasCustomName()) {
+        if (stack.hasCustomName())
             skull.setCustomName(stack.getName());
-        }
-        if (!player.isCreative()) {
+        if (!player.isCreative())
             stack.decrement(1);
-        }
         return ActionResult.SUCCESS;
     }
 }

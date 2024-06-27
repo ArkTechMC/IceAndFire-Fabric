@@ -28,9 +28,8 @@ public class ItemModArmor extends ArmorItem implements IArmorTextureProvider {
         if (this == IafItems.EARPLUGS) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
-            if (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1) {
+            if (calendar.get(Calendar.MONTH) + 1 == 4 && calendar.get(Calendar.DATE) == 1)
                 return "item.iceandfire.air_pods";
-            }
         }
         return super.getTranslationKey(stack);
     }

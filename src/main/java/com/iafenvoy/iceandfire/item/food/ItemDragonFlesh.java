@@ -27,18 +27,17 @@ public class ItemDragonFlesh extends ItemGenericFood {
     @Override
     public void onFoodEaten(ItemStack stack, World worldIn, LivingEntity livingEntity) {
         if (!worldIn.isClient) {
-            if (this.dragonType == 0) {
+            if (this.dragonType == 0)
                 livingEntity.setOnFireFor(5);
-            } else if (this.dragonType == 1) {
+            else if (this.dragonType == 1)
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
-            } else {
+            else {
                 if (!livingEntity.getWorld().isClient) {
                     LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(livingEntity.getWorld());
                     assert lightningboltentity != null;
                     lightningboltentity.refreshPositionAfterTeleport(livingEntity.getPos());
-                    if (!livingEntity.getWorld().isClient) {
+                    if (!livingEntity.getWorld().isClient)
                         livingEntity.getWorld().spawnEntity(lightningboltentity);
-                    }
                 }
             }
         }

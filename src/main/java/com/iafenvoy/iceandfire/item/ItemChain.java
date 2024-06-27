@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ItemChain extends Item {
-
     private final boolean sticky;
 
     public ItemChain(boolean sticky) {
@@ -41,9 +40,8 @@ public class ItemChain extends Item {
             if (data.chainData.isChainedTo(player)) {
                 EntityChainTie entityleashknot = EntityChainTie.getKnotForPosition(worldIn, fence);
 
-                if (entityleashknot == null) {
+                if (entityleashknot == null)
                     entityleashknot = EntityChainTie.createTie(worldIn, fence);
-                }
 
                 data.chainData.removeChain(player);
                 data.chainData.attachChain(entityleashknot);
@@ -64,9 +62,8 @@ public class ItemChain extends Item {
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         EntityDataComponent targetData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
-        if (targetData.chainData.isChainedTo(playerIn)) {
+        if (targetData.chainData.isChainedTo(playerIn))
             return ActionResult.PASS;
-        }
 
         if (this.sticky) {
             double d0 = 60.0D;
@@ -99,16 +96,13 @@ public class ItemChain extends Item {
                 }
             }
 
-            if (!flag.get()) {
+            if (!flag.get())
                 targetData.chainData.attachChain(playerIn);
-            }
-        } else {
+        } else
             targetData.chainData.attachChain(playerIn);
-        }
 
-        if (!playerIn.isCreative()) {
+        if (!playerIn.isCreative())
             stack.decrement(1);
-        }
 
         return ActionResult.SUCCESS;
     }
@@ -120,9 +114,8 @@ public class ItemChain extends Item {
         if (!(block instanceof WallBlock)) {
             return ActionResult.PASS;
         } else {
-            if (!context.getWorld().isClient) {
+            if (!context.getWorld().isClient)
                 attachToFence(context.getPlayer(), context.getWorld(), context.getBlockPos());
-            }
             return ActionResult.SUCCESS;
         }
     }

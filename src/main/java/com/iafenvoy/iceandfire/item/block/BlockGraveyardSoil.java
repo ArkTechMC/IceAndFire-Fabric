@@ -16,11 +16,9 @@ import net.minecraft.world.Difficulty;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockGraveyardSoil extends Block {
-
     public BlockGraveyardSoil() {
         super(Settings.create().mapColor(MapColor.DIRT_BROWN).sounds(BlockSoundGroup.GRAVEL).strength(5, 1F).ticksRandomly());
     }
-
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {

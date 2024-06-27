@@ -31,13 +31,9 @@ public class ItemDragonSkull extends Item {
     }
 
     private static String getType(int type) {
-        if (type == 2) {
-            return "lightning";
-        } else if (type == 1) {
-            return "ice";
-        } else {
-            return "fire";
-        }
+        if (type == 2) return "lightning";
+        else if (type == 1) return "ice";
+        else return "fire";
     }
 
     @Override
@@ -58,9 +54,8 @@ public class ItemDragonSkull extends Item {
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         String iceorfire = "dragon." + getType(this.dragonType);
         tooltip.add(Text.translatable(iceorfire).formatted(Formatting.GRAY));
-        if (stack.getNbt() != null) {
+        if (stack.getNbt() != null)
             tooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(Text.literal(" " + stack.getNbt().getInt("Stage"))));
-        }
     }
 
     @Override
@@ -80,21 +75,16 @@ public class ItemDragonSkull extends Item {
             BlockPos offset = context.getBlockPos().offset(context.getSide(), 1);
             skull.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);
             float yaw = context.getPlayer().getYaw();
-            if (context.getSide() != Direction.UP) {
+            if (context.getSide() != Direction.UP)
                 yaw = context.getPlayer().getHorizontalFacing().asRotation();
-            }
             skull.setYaw(yaw);
-            if (stack.hasCustomName()) {
+            if (stack.hasCustomName())
                 skull.setCustomName(stack.getName());
-            }
-            if (!context.getWorld().isClient) {
+            if (!context.getWorld().isClient)
                 context.getWorld().spawnEntity(skull);
-            }
-            if (!context.getPlayer().isCreative()) {
+            if (!context.getPlayer().isCreative())
                 stack.decrement(1);
-            }
         }
         return ActionResult.SUCCESS;
-
     }
 }

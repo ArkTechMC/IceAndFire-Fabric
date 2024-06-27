@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class ItemSirenFlute extends Item {
-
     public ItemSirenFlute() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(200));
     }
@@ -70,13 +69,12 @@ public class ItemSirenFlute extends Item {
             }
         }
 
-        if (pointedEntity != null) {
+        if (pointedEntity != null)
             if (pointedEntity instanceof LivingEntity) {
                 EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(pointedEntity);
                 data.miscData.setLoveTicks(600);
                 itemStackIn.damage(2, player, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
             }
-        }
 
         player.playSound(IafSounds.SIREN_SONG, 1, 1);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);

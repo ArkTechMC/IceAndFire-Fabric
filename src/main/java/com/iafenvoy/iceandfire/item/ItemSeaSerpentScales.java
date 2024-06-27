@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemSeaSerpentScales extends ItemGeneric {
-
     private final Formatting color;
     private final String colorName;
 
@@ -18,7 +17,6 @@ public class ItemSeaSerpentScales extends ItemGeneric {
         this.color = color;
         this.colorName = colorName;
     }
-
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {

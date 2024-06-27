@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemModAxe extends AxeItem implements DragonSteelOverrides<ItemModAxe> {
-
     private final ToolMaterial tier;
     private Multimap<EntityAttribute, EntityAttributeModifier> dragonsteelModifiers;
 
@@ -37,14 +36,12 @@ public class ItemModAxe extends AxeItem implements DragonSteelOverrides<ItemModA
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
         if (this.tier.getAttackDamage() != IafConfig.getInstance().dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
-            ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> lvt_5_1_ = ImmutableMultimap.builder();
-            lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F + 5F, EntityAttributeModifier.Operation.ADDITION));
-            lvt_5_1_.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3.0F, EntityAttributeModifier.Operation.ADDITION));
-            this.dragonsteelModifiers = lvt_5_1_.build();
-            return this.dragonsteelModifiers;
-        } else {
-            return this.dragonsteelModifiers;
+            ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
+            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F + 5F, EntityAttributeModifier.Operation.ADDITION));
+            builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3.0F, EntityAttributeModifier.Operation.ADDITION));
+            this.dragonsteelModifiers = builder.build();
         }
+        return this.dragonsteelModifiers;
     }
 
     @Override

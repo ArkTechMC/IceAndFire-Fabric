@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemAmphithereArrow extends ArrowItem {
-
     public ItemAmphithereArrow() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
     }

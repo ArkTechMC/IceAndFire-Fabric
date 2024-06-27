@@ -49,9 +49,8 @@ public class ItemDeathwormGauntlet extends Item {
             if (entity instanceof PlayerEntity player) {
                 NbtCompound tag = stack.getOrCreateNbt();
 
-                if (tag.getInt("HolderID") != player.getId()) {
+                if (tag.getInt("HolderID") != player.getId())
                     tag.putInt("HolderID", player.getId());
-                }
 
                 if (player.getItemCooldownManager().getCooldownProgress(this, 0.0F) == 0) {
                     player.getItemCooldownManager().set(this, 10);
@@ -72,9 +71,8 @@ public class ItemDeathwormGauntlet extends Item {
 
         NbtCompound tag = stack.getOrCreateNbt();
 
-        if (tag.getInt("HolderID") != -1) {
+        if (tag.getInt("HolderID") != -1)
             tag.putInt("HolderID", -1);
-        }
     }
 
     @Override
@@ -86,17 +84,12 @@ public class ItemDeathwormGauntlet extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (!(entity instanceof LivingEntity)) {
-            return;
-        }
+        if (!(entity instanceof LivingEntity)) return;
         EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
         int tempLungeTicks = data.miscData.lungeTicks;
 
         if (this.deathwormReceded) {
-            if (tempLungeTicks > 0) {
-                tempLungeTicks = tempLungeTicks - 4;
-            }
-
+            if (tempLungeTicks > 0) tempLungeTicks = tempLungeTicks - 4;
             if (tempLungeTicks <= 0) {
                 tempLungeTicks = 0;
                 this.deathwormReceded = false;
@@ -104,10 +97,7 @@ public class ItemDeathwormGauntlet extends Item {
             }
         } else if (this.deathwormLaunched) {
             tempLungeTicks = 4 + tempLungeTicks;
-
-            if (tempLungeTicks > 20) {
-                this.deathwormReceded = true;
-            }
+            if (tempLungeTicks > 20) this.deathwormReceded = true;
         }
 
         if (data.miscData.lungeTicks == 20) {
@@ -117,9 +107,7 @@ public class ItemDeathwormGauntlet extends Item {
 
                 for (LivingEntity livingEntity : world.getEntitiesByClass(LivingEntity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), livingEntity -> true)) {
                     //Let's not pull/hit ourselves
-                    if (livingEntity == entity) {
-                        continue;
-                    }
+                    if (livingEntity == entity) continue;
 
                     Vec3d Vector3d1 = new Vec3d(livingEntity.getX() - player.getX(), livingEntity.getY() - player.getY(), livingEntity.getZ() - player.getZ());
                     double d0 = Vector3d1.length();

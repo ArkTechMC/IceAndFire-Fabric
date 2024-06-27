@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemPixieDust extends ItemGenericFood {
-
     public ItemPixieDust() {
         super(1, 0.3F, false, false, true);
     }

@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemCannoli extends ItemGenericFood {
-
     public ItemCannoli() {
         super(20, 2.0F, false, false, true);
     }

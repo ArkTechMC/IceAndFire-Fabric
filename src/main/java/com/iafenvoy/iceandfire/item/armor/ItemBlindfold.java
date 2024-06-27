@@ -13,8 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-public class ItemBlindfold extends ArmorItem implements IArmorTextureProvider {
-
+public class ItemBlindfold extends ArmorItem implements IArmorTextureProvider, IArmorFinder {
     public ItemBlindfold() {
         super(IafItems.BLINDFOLD_ARMOR_MATERIAL, Type.HELMET, new Settings());
     }
@@ -22,7 +21,7 @@ public class ItemBlindfold extends ArmorItem implements IArmorTextureProvider {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
-        if (entity instanceof PlayerEntity player && stack.isOf(this))
+        if (entity instanceof PlayerEntity player && this.isEquipped(player, stack))
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 50, 0, false, false));
     }
 

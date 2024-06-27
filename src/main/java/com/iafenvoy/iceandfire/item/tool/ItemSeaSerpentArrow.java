@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemSeaSerpentArrow extends ArrowItem {
-
     public ItemSeaSerpentArrow() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
     }

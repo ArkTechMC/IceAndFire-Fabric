@@ -18,7 +18,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
 
 public class BlockGhostChest extends ChestBlock {
-
     public BlockGhostChest() {
         super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().strength(2.5F).sounds(BlockSoundGroup.WOOD), () -> IafBlockEntities.GHOST_CHEST);
     }

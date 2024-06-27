@@ -30,16 +30,14 @@ public class ItemAlchemySword extends SwordItem {
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (this == IafItems.DRAGONBONE_SWORD_FIRE && IafConfig.getInstance().dragonWeaponFireAbility) {
-            if (target instanceof EntityIceDragon) {
+            if (target instanceof EntityIceDragon)
                 target.damage(attacker.getWorld().getDamageSources().inFire(), 13.5F);
-            }
             target.setOnFireFor(5);
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
         if (this == IafItems.DRAGONBONE_SWORD_ICE && IafConfig.getInstance().dragonWeaponIceAbility) {
-            if (target instanceof EntityFireDragon) {
+            if (target instanceof EntityFireDragon)
                 target.damage(attacker.getWorld().getDamageSources().drown(), 13.5F);
-            }
             EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
             data.frozenData.setFrozen(target, 200);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
@@ -48,11 +46,9 @@ public class ItemAlchemySword extends SwordItem {
         }
         if (this == IafItems.DRAGONBONE_SWORD_LIGHTNING && IafConfig.getInstance().dragonWeaponLightningAbility) {
             boolean flag = true;
-            if (attacker instanceof PlayerEntity) {
-                if (attacker.handSwingProgress > 0.2) {
+            if (attacker instanceof PlayerEntity)
+                if (attacker.handSwingProgress > 0.2)
                     flag = false;
-                }
-            }
             if (!attacker.getWorld().isClient && flag) {
                 LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(target.getWorld());
                 assert lightningboltentity != null;
@@ -63,9 +59,8 @@ public class ItemAlchemySword extends SwordItem {
                     target.getWorld().spawnEntity(lightningboltentity);
                 }
             }
-            if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
+            if (target instanceof EntityFireDragon || target instanceof EntityIceDragon)
                 target.damage(attacker.getWorld().getDamageSources().lightningBolt(), 9.5F);
-            }
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
         return super.postHit(stack, target, attacker);

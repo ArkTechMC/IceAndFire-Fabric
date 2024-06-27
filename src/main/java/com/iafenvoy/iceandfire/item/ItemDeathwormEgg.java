@@ -25,9 +25,7 @@ public class ItemDeathwormEgg extends Item {
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getStackInHand(handIn);
 
-        if (!playerIn.isCreative()) {
-            itemstack.decrement(1);
-        }
+        if (!playerIn.isCreative()) itemstack.decrement(1);
 
         worldIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS, 0.5F, 0.4F / (worldIn.random.nextFloat() * 0.4F + 0.8F));
 

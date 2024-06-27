@@ -36,21 +36,6 @@ public class ItemBestiary extends Item {
         stack.getOrCreateNbt().putIntArray("Pages", new int[]{0});
     }
 
-/*    @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        if (this.allowdedIn(group)) {
-            items.add(new ItemStack(this));
-            ItemStack stack = new ItemStack(IafItemRegistry.BESTIARY.get());
-            stack.setTag(new CompoundTag());
-            int[] pages = new int[EnumBestiaryPages.values().length];
-            for (int i = 0; i < EnumBestiaryPages.values().length; i++) {
-                pages[i] = i;
-            }
-            stack.getTag().putIntArray("Pages", pages);
-            items.add(stack);
-        }
-    }*/
-
     @Override
     public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         playerIn.openHandledScreen(new ExtendedScreenHandlerFactory() {
@@ -77,15 +62,13 @@ public class ItemBestiary extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (stack.getNbt() == null) {
-            stack.setNbt(new NbtCompound());
-            stack.getNbt().putIntArray("Pages", new int[]{EnumBestiaryPages.INTRODUCTION.ordinal()});
-        }
+        if (stack.getNbt() == null)
+            stack.getOrCreateNbt().putIntArray("Pages", new int[]{EnumBestiaryPages.INTRODUCTION.ordinal()});
     }
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        if (stack.getNbt() != null) {
+        if (stack.getNbt() != null)
             if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344)) {
                 tooltip.add(Text.translatable("bestiary.contains").formatted(Formatting.GRAY));
                 final Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(stack.getNbt().getIntArray("Pages")));
@@ -93,6 +76,5 @@ public class ItemBestiary extends Item {
                     tooltip.add(Text.literal(Formatting.WHITE + "-").append(Text.translatable("bestiary." + EnumBestiaryPages.values()[page.ordinal()].toString().toLowerCase())).formatted(Formatting.GRAY));
             } else
                 tooltip.add(Text.translatable("bestiary.hold_shift").formatted(Formatting.GRAY));
-        }
     }
 }

@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemStoneStatue extends Item {
-
     public ItemStoneStatue() {
         super(new Settings().maxCount(1));
     }
@@ -33,9 +32,9 @@ public class ItemStoneStatue extends Item {
             if (EntityType.get(id).orElse(null) != null) {
                 EntityType<?> type = EntityType.get(id).orElse(null);
                 MutableText untranslated;
-                if (isPlayer) {
+                if (isPlayer)
                     untranslated = Text.translatable("entity.minecraft.player");
-                } else {
+                else {
                     assert type != null;
                     untranslated = Text.translatable(type.getTranslationKey());
                 }
@@ -56,6 +55,7 @@ public class ItemStoneStatue extends Item {
         if (context.getSide() != Direction.UP) {
             return ActionResult.FAIL;
         } else {
+            assert context.getPlayer() != null;
             ItemStack stack = context.getPlayer().getStackInHand(context.getHand());
             if (stack.getNbt() != null) {
                 String id = stack.getNbt().getString("IAFStoneStatueEntityID");
@@ -78,9 +78,8 @@ public class ItemStoneStatue extends Item {
                 }
                 statue.setCrackAmount(0);
 
-                if (!context.getPlayer().isCreative()) {
+                if (!context.getPlayer().isCreative())
                     stack.decrement(1);
-                }
                 return ActionResult.SUCCESS;
             }
         }

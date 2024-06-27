@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemPixieWand extends Item {
-
     public ItemPixieWand() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1).maxDamage(500));
     }
@@ -37,9 +36,8 @@ public class ItemPixieWand extends Item {
             boolean flag1 = playerIn.isCreative() || this.isInfinite(itemstack, itemStackIn, playerIn);
             if (!flag1) {
                 itemstack.decrement(1);
-                if (itemstack.isEmpty()) {
+                if (itemstack.isEmpty())
                     playerIn.getInventory().removeOne(itemstack);
-                }
             }
             double d2 = playerIn.getRotationVector().x;
             double d3 = playerIn.getRotationVector().y;
@@ -51,9 +49,8 @@ public class ItemPixieWand extends Item {
             EntityPixieCharge charge = new EntityPixieCharge(IafEntities.PIXIE_CHARGE, worldIn, playerIn,
                     d2, d3, d4);
             charge.setPosition(playerIn.getX(), playerIn.getY() + 1, playerIn.getZ());
-            if (!worldIn.isClient) {
+            if (!worldIn.isClient)
                 worldIn.spawnEntity(charge);
-            }
             playerIn.playSound(IafSounds.PIXIE_WAND, 1F, 0.75F + 0.5F * playerIn.getRandom().nextFloat());
             itemstack.damage(1, playerIn, (player) -> player.sendToolBreakStatus(playerIn.getActiveHand()));
             playerIn.getItemCooldownManager().set(this, 5);
@@ -67,19 +64,16 @@ public class ItemPixieWand extends Item {
     }
 
     private ItemStack findAmmo(PlayerEntity player) {
-        if (this.isAmmo(player.getStackInHand(Hand.OFF_HAND))) {
+        if (this.isAmmo(player.getStackInHand(Hand.OFF_HAND)))
             return player.getStackInHand(Hand.OFF_HAND);
-        } else if (this.isAmmo(player.getStackInHand(Hand.MAIN_HAND))) {
+        else if (this.isAmmo(player.getStackInHand(Hand.MAIN_HAND)))
             return player.getStackInHand(Hand.MAIN_HAND);
-        } else {
+        else {
             for (int i = 0; i < player.getInventory().size(); ++i) {
                 ItemStack itemstack = player.getInventory().getStack(i);
-
-                if (this.isAmmo(itemstack)) {
+                if (this.isAmmo(itemstack))
                     return itemstack;
-                }
             }
-
             return ItemStack.EMPTY;
         }
     }

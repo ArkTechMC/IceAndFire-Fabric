@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class ItemTrollArmor extends ArmorItem {
-
     public final EnumTroll troll;
 
     public ItemTrollArmor(EnumTroll troll, CustomArmorMaterial material, Type slot) {

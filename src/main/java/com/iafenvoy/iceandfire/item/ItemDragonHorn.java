@@ -43,7 +43,6 @@ public class ItemDragonHorn extends Item {
                     return 3;
             }
         }
-
         return 0;
     }
 
@@ -85,12 +84,11 @@ public class ItemDragonHorn extends Item {
         if (stack.getNbt() != null && !stack.getNbt().getString("DragonHornEntityID").isEmpty()) {
             World world = context.getWorld();
             String id = stack.getNbt().getString("DragonHornEntityID");
-            EntityType type = EntityType.get(id).orElse(null);
+            EntityType<?> type = EntityType.get(id).orElse(null);
             if (type != null) {
                 Entity entity = type.create(world);
-                if (entity instanceof EntityDragonBase dragon) {
+                if (entity instanceof EntityDragonBase dragon)
                     dragon.readNbt(stack.getNbt().getCompound("EntityTag"));
-                }
                 //Still needed to allow for intercompatibility
                 if (stack.getNbt().contains("EntityUUID")) {
                     assert entity != null;
@@ -132,35 +130,21 @@ public class ItemDragonHorn extends Item {
                     tooltip.add((Text.literal(gender)).formatted(Formatting.GRAY));
                     int stagenumber = entityTag.getInt("AgeTicks") / 24000;
                     int stage1;
-                    if (stagenumber >= 100) {
-                        stage1 = 5;
-                    } else if (stagenumber >= 75) {
-                        stage1 = 4;
-                    } else if (stagenumber >= 50) {
-                        stage1 = 3;
-                    } else if (stagenumber >= 25) {
-                        stage1 = 2;
-                    } else {
-                        stage1 = 1;
-                    }
-                    String stage = (Text.translatable("dragon.stage")).getString() + " " + stage1 + " " + (Text.translatable("dragon.days.front")).getString() + stagenumber + " " + (Text.translatable("dragon.days.back")).getString();
-                    tooltip.add((Text.literal(stage)).formatted(Formatting.GRAY));
+                    if (stagenumber >= 100) stage1 = 5;
+                    else if (stagenumber >= 75) stage1 = 4;
+                    else if (stagenumber >= 50) stage1 = 3;
+                    else if (stagenumber >= 25) stage1 = 2;
+                    else stage1 = 1;
+                    tooltip.add(Text.translatable("dragon.stage").append(Text.literal(" " + stage1 + " ")).append(Text.translatable("dragon.days.front")).append(Text.literal(stagenumber + " ")).append(Text.translatable("dragon.days.back")).formatted(Formatting.GRAY));
                 }
             }
-
         }
     }
 
-    private Formatting getTextColorForEntityType(EntityType type) {
-        if (type == IafEntities.FIRE_DRAGON)
-            return Formatting.DARK_RED;
-
-        if (type == IafEntities.ICE_DRAGON)
-            return Formatting.BLUE;
-
-        if (type == IafEntities.LIGHTNING_DRAGON)
-            return Formatting.DARK_PURPLE;
-
+    private Formatting getTextColorForEntityType(EntityType<?> type) {
+        if (type == IafEntities.FIRE_DRAGON) return Formatting.DARK_RED;
+        if (type == IafEntities.ICE_DRAGON) return Formatting.BLUE;
+        if (type == IafEntities.LIGHTNING_DRAGON) return Formatting.DARK_PURPLE;
         return Formatting.GRAY;
     }
 }

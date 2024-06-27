@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemStymphalianArrow extends ArrowItem {
-
     public ItemStymphalianArrow() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
     }
@@ -28,5 +27,4 @@ public class ItemStymphalianArrow extends ArrowItem {
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         tooltip.add(Text.translatable("item.iceandfire.stymphalian_arrow.desc").formatted(Formatting.GRAY));
     }
-
 }
