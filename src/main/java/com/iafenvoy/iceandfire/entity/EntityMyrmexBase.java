@@ -9,7 +9,6 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.IPassabilityNaviga
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
@@ -17,6 +16,7 @@ import com.iafenvoy.iceandfire.item.block.BlockMyrmexConnectedResin;
 import com.iafenvoy.iceandfire.item.block.BlockMyrmexResin;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
 import net.minecraft.block.Block;
@@ -94,44 +94,30 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     private static boolean isJungleBiome(World world, BlockPos position) {
-        return BiomeConfig.test(BiomeConfig.jungleMyrmexBiomes, world.getBiome(position));
+        return world.getBiome(position).isIn(IafBiomeTags.MYRMEX_HIVE_JUNGLE);
     }
 
     public static boolean haveSameHive(EntityMyrmexBase myrmex, Entity entity) {
-        if (entity instanceof EntityMyrmexBase) {
-            if (myrmex.getHive() != null && ((EntityMyrmexBase) entity).getHive() != null) {
-                if (myrmex.isJungle() == ((EntityMyrmexBase) entity).isJungle()) {
-                    return myrmex.getHive().getCenter() == ((EntityMyrmexBase) entity).getHive().getCenter();
-                }
-            }
-
-        }
-        if (entity instanceof EntityMyrmexEgg) {
-            return myrmex.isJungle() == ((EntityMyrmexEgg) entity).isJungle();
-        }
+        if (entity instanceof EntityMyrmexBase myrmexBase)
+            if (myrmex.getHive() != null && myrmexBase.getHive() != null)
+                if (myrmex.isJungle() == myrmexBase.isJungle())
+                    return myrmex.getHive().getCenter() == myrmexBase.getHive().getCenter();
+        if (entity instanceof EntityMyrmexEgg egg)
+            return myrmex.isJungle() == egg.isJungle();
         return false;
     }
 
     public static int getRandomCaste(World world, Random random, boolean royal) {
         float rand = random.nextFloat();
         if (royal) {
-            if (rand > 0.9) {
-                return 2;//royal
-            } else if (rand > 0.75) {
-                return 3;//sentinel
-            } else if (rand > 0.5) {
-                return 1;//soldier
-            } else {
-                return 0;//worker
-            }
+            if (rand > 0.9) return 2;//royal
+            else if (rand > 0.75) return 3;//sentinel
+            else if (rand > 0.5) return 1;//soldier
+            else return 0;//worker
         } else {
-            if (rand > 0.8) {
-                return 3;//sentinel
-            } else if (rand > 0.6) {
-                return 1;//soldier
-            } else {
-                return 0;//worker
-            }
+            if (rand > 0.8) return 3;//sentinel
+            else if (rand > 0.6) return 1;//soldier
+            else return 0;//worker
         }
     }
 

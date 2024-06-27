@@ -1,14 +1,10 @@
 package com.iafenvoy.iceandfire.world.structure;
 
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.registry.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
@@ -16,14 +12,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.StructureTerrainAdaptation;
-import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
-import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 public class GorgonTempleStructure extends IafStructure {
@@ -42,26 +33,6 @@ public class GorgonTempleStructure extends IafStructure {
         super(config, startPool, startJigsawName, size, startHeight, projectStartToHeightmap, maxDistanceFromCenter);
     }
 
-    public static GorgonTempleStructure buildStructureConfig(Registerable<Structure> context) {
-        RegistryEntryLookup<StructurePool> templatePoolHolderGetter = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
-        RegistryEntry<StructurePool> graveyardHolder = templatePoolHolderGetter.getOrThrow(IafStructurePieces.GORGON_TEMPLE_START);
-
-        return new GorgonTempleStructure(
-                new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.GORGON_TEMPLE),
-                        new HashMap<>(),
-                        GenerationStep.Feature.SURFACE_STRUCTURES,
-                        StructureTerrainAdaptation.BEARD_THIN
-                ),
-                graveyardHolder,
-                Optional.empty(),
-                2,
-                ConstantHeightProvider.ZERO,
-                Optional.of(Heightmap.Type.WORLD_SURFACE_WG),
-                16
-        );
-    }
-
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
         if (!IafConfig.getInstance().generateGorgonTemple)
@@ -69,7 +40,7 @@ public class GorgonTempleStructure extends IafStructure {
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
 
-        if (!this.isBiomeValid(pContext, IafBiomeTags.GORGON_TEMPLE, blockpos))
+        if (!this.biomeIsIn(pContext, IafBiomeTags.GORGON_TEMPLE, blockpos))
             return Optional.empty();
 
         return StructurePoolBasedGenerator.generate(

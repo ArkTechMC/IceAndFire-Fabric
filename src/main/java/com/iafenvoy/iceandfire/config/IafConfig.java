@@ -1,7 +1,18 @@
 package com.iafenvoy.iceandfire.config;
 
+import com.iafenvoy.iceandfire.IceAndFire;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class IafConfig {
     private static IafConfig INSTANCE = null;
+    private static final int CURRENT_VERSION = 1;
+    private static final String configPath = "./config/iceandfire/common.json";
+    private static final String backupPath = "./config/iceandfire/backup/";
+    // Version key for identify
+    public int version = CURRENT_VERSION;
+
     public double dreadQueenMaxHealth = 750;
     //public boolean logCascadingWorldGen = false;
     public boolean generateDragonSkeletons = true;
@@ -9,8 +20,6 @@ public class IafConfig {
     public int generateDragonDenChance = 260;
     public int generateDragonRoostChance = 480;
     public int dragonDenGoldAmount = 4;
-    public boolean spawnGlaciers = true;
-    public int glacierSpawnChance = 4;
     public int oreToStoneRatioForDragonCaves = 45;
     public int dragonEggTime = 7200;
     public int dragonGriefing = 0;
@@ -129,7 +138,6 @@ public class IafConfig {
 
     public int dragonPathfindingThreads = 3;
     public int maxDragonPathingNodes = 5000;
-    public boolean pathfindingDebug = false;
     public boolean dragonWeaponFireAbility = true;
     public boolean dragonWeaponIceAbility = true;
     public boolean dragonWeaponLightningAbility = true;
@@ -137,8 +145,15 @@ public class IafConfig {
     public boolean allowAttributeOverriding = true;
 
     public static IafConfig getInstance() {
-        if (INSTANCE == null)
-            INSTANCE = ConfigLoader.load(IafConfig.class, "./config/iceandfire/iaf.json", new IafConfig());
+        if (INSTANCE == null) {
+            INSTANCE = ConfigLoader.load(IafConfig.class, configPath, new IafConfig());
+            if (INSTANCE.version != CURRENT_VERSION) {
+                IceAndFire.LOGGER.warn("Wrong common config version {} for mod Ice And Fire! Automatically transform to version {} and backup old one.", INSTANCE.version, CURRENT_VERSION);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                ConfigLoader.copy(configPath, backupPath + "common_" + sdf.format(new Date()) + ".json");
+                ConfigLoader.save(configPath, INSTANCE = new IafConfig());
+            }
+        }
         return INSTANCE;
     }
 }

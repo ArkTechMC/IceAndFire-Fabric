@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:jungle",
+    "minecraft:dark_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:jagged_peaks",
+    "minecraft:frozen_peaks",
+    "minecraft:stony_peaks",
+    "minecraft:savanna_plateau",
+    "minecraft:wooded_badlands",
+    "minecraft:meadow",
+    "minecraft:grove",
+    "minecraft:snowy_slopes"
+  ]
+}

@@ -2,10 +2,10 @@ package com.iafenvoy.iceandfire.enums;
 
 import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
 import com.iafenvoy.iceandfire.item.tool.ItemTrollWeapon;
 import com.iafenvoy.iceandfire.registry.IafItems;
+import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
@@ -50,11 +50,11 @@ public enum EnumTroll {
 
     public static EnumTroll getBiomeType(RegistryEntry<Biome> biome) {
         List<EnumTroll> types = new ArrayList<>();
-        if (BiomeConfig.test(BiomeConfig.snowyTrollBiomes, biome))
+        if (biome.isIn(IafBiomeTags.SNOWY_TROLL))
             types.add(EnumTroll.FROST);
-        if (BiomeConfig.test(BiomeConfig.forestTrollBiomes, biome))
+        if (biome.isIn(IafBiomeTags.FOREST_TROLL))
             types.add(EnumTroll.FOREST);
-        if (BiomeConfig.test(BiomeConfig.mountainTrollBiomes, biome))
+        if (biome.isIn(IafBiomeTags.MOUNTAIN_TROLL))
             types.add(EnumTroll.MOUNTAIN);
         if (types.isEmpty())
             return values()[ThreadLocalRandom.current().nextInt(values().length)];

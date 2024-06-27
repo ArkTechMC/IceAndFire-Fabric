@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.*;
+import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -144,16 +144,14 @@ public class IafEntities {
 
     public static void addSpawners() {
         if (IafConfig.getInstance().spawnHippogryphs)
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.hippogryphBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphSpawnRate, 1, 1);
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphSpawnRate, 1, 1);
         if (IafConfig.getInstance().spawnLiches)
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.mausoleumBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lichSpawnRate, 1, 1);
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lichSpawnRate, 1, 1);
         if (IafConfig.getInstance().spawnCockatrices)
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.cockatriceBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatriceSpawnRate, 1, 2);
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatriceSpawnRate, 1, 2);
         if (IafConfig.getInstance().spawnAmphitheres)
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.amphithereBiomes, context.getBiomeRegistryEntry()), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithereSpawnRate, 1, 3);
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithereSpawnRate, 1, 3);
         if (IafConfig.getInstance().spawnTrolls)
-            BiomeModifications.addSpawn(context -> BiomeConfig.test(BiomeConfig.forestTrollBiomes, context.getBiomeRegistryEntry()) ||
-                    BiomeConfig.test(BiomeConfig.snowyTrollBiomes, context.getBiomeRegistryEntry()) ||
-                    BiomeConfig.test(BiomeConfig.mountainTrollBiomes, context.getBiomeRegistryEntry()), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().trollSpawnRate, 1, 3);
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().trollSpawnRate, 1, 3);
     }
 }

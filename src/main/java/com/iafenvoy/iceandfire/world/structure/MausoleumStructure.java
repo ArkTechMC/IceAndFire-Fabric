@@ -1,14 +1,10 @@
 package com.iafenvoy.iceandfire.world.structure;
 
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.registry.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolBasedGenerator;
@@ -16,14 +12,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.StructureTerrainAdaptation;
-import net.minecraft.world.gen.heightprovider.ConstantHeightProvider;
 import net.minecraft.world.gen.heightprovider.HeightProvider;
-import net.minecraft.world.gen.structure.Structure;
 import net.minecraft.world.gen.structure.StructureType;
 
-import java.util.HashMap;
 import java.util.Optional;
 
 public class MausoleumStructure extends IafStructure {
@@ -41,26 +32,6 @@ public class MausoleumStructure extends IafStructure {
         super(config, startPool, startJigsawName, size, startHeight, projectStartToHeightmap, maxDistanceFromCenter);
     }
 
-    public static MausoleumStructure buildStructureConfig(Registerable<Structure> context) {
-        RegistryEntryLookup<StructurePool> templatePoolHolderGetter = context.getRegistryLookup(RegistryKeys.TEMPLATE_POOL);
-        RegistryEntry<StructurePool> graveyardHolder = templatePoolHolderGetter.getOrThrow(IafStructurePieces.MAUSOLEUM_START);
-
-        return new MausoleumStructure(
-                new Config(
-                        context.getRegistryLookup(RegistryKeys.BIOME).getOrThrow(IafBiomeTags.MAUSOLEUM),
-                        new HashMap<>(),
-                        GenerationStep.Feature.SURFACE_STRUCTURES,
-                        StructureTerrainAdaptation.BEARD_THIN
-                ),
-                graveyardHolder,
-                Optional.empty(),
-                1,
-                ConstantHeightProvider.ZERO,
-                Optional.of(Heightmap.Type.WORLD_SURFACE_WG),
-                16
-        );
-    }
-
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
         if (!IafConfig.getInstance().generateMausoleums)
@@ -69,7 +40,7 @@ public class MausoleumStructure extends IafStructure {
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
 
-        if (!this.isBiomeValid(pContext, IafBiomeTags.MAUSOLEUM, blockpos))
+        if (!this.biomeIsIn(pContext, IafBiomeTags.MAUSOLEUM, blockpos))
             return Optional.empty();
 
         return StructurePoolBasedGenerator.generate(

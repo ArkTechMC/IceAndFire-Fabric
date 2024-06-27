@@ -40,7 +40,7 @@ public class IafStructure extends Structure {
     }
 
 
-    protected boolean isBiomeValid(Context pContext, TagKey<Biome> biomeTagKey, BlockPos blockPos) {
+    protected boolean biomeIsIn(Context pContext, TagKey<Biome> biomeTagKey, BlockPos blockPos) {
         Set<RegistryEntry<Biome>> biomes = pContext.chunkGenerator().getBiomeSource().getBiomesInArea(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.maxDistanceFromCenter, pContext.noiseConfig().getMultiNoiseSampler());
         for (RegistryEntry<Biome> biome : biomes)
             if (biome.isIn(biomeTagKey))

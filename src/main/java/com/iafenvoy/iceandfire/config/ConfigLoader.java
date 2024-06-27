@@ -17,12 +17,24 @@ public class ConfigLoader {
             return GSON.fromJson(reader, clazz);
         } catch (FileNotFoundException e) {
             IceAndFire.LOGGER.error(e);
-            try {
-                FileUtils.write(new File(path), GSON.toJson(defaultValue), StandardCharsets.UTF_8);
-            } catch (IOException ex) {
-                IceAndFire.LOGGER.error(ex);
-            }
+            save(path, defaultValue);
             return defaultValue;
+        }
+    }
+
+    public static void copy(String src, String dest) {
+        try {
+            FileUtils.copyFile(new File(src), new File(dest));
+        } catch (IOException e) {
+            IceAndFire.LOGGER.error(e);
+        }
+    }
+
+    public static <T> void save(String path, T value) {
+        try {
+            FileUtils.write(new File(path), GSON.toJson(value), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            IceAndFire.LOGGER.error(e);
         }
     }
 }

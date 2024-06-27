@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#iceandfire:entity_gen/hippogryph_black",
+    "#iceandfire:entity_gen/hippogryph_brown",
+    "#iceandfire:entity_gen/hippogryph_chestnut",
+    "#iceandfire:entity_gen/hippogryph_creamy",
+    "#iceandfire:entity_gen/hippogryph_dark_brown",
+    "#iceandfire:entity_gen/hippogryph_gray",
+    "#iceandfire:entity_gen/hippogryph_white"
+  ]
+}

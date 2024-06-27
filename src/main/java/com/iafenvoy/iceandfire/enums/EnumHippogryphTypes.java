@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.enums;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.BiomeConfig;
+import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
@@ -43,19 +43,19 @@ public enum EnumHippogryphTypes {
 
     public static EnumHippogryphTypes getBiomeType(RegistryEntry<Biome> biome) {
         List<EnumHippogryphTypes> types = new ArrayList<>();
-        if (BiomeConfig.test(BiomeConfig.blackHippogryphBiomes, biome))
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_BLACK))
             types.add(BLACK);
-        if (BiomeConfig.test(BiomeConfig.brownHippogryphBiomes, biome))
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_BROWN))
             types.add(BROWN);
-        if (BiomeConfig.test(BiomeConfig.grayHippogryphBiomes, biome))
-            types.add(BROWN);
-        if (BiomeConfig.test(BiomeConfig.chestnutHippogryphBiomes, biome))
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_GRAY))
+            types.add(GRAY);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_CHESTNUT))
             types.add(CHESTNUT);
-        if (BiomeConfig.test(BiomeConfig.creamyHippogryphBiomes, biome))
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_CREAMY))
             types.add(CREAMY);
-        if (BiomeConfig.test(BiomeConfig.darkBrownHippogryphBiomes, biome))
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_DARK_BROWN))
             types.add(DARK_BROWN);
-        if (BiomeConfig.test(BiomeConfig.whiteHippogryphBiomes, biome))
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_WHITE))
             types.add(WHITE);
         if (types.isEmpty())
             return getRandomType();

@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.citadel.config.biome.SpawnBiomeData;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.BiomeConfig;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.iafenvoy.iceandfire.world.IafWorldData;
@@ -81,32 +80,29 @@ public class IafFeatures {
         addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_ICE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_F, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_I, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_L, GenerationStep.Feature.SURFACE_STRUCTURES);
 
         addFeatureToBiome(IafBiomeTags.SILVER_ORE, IafPlacedFeatures.PLACED_SILVER_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
         addFeatureToBiome(IafBiomeTags.SAPPHIRE_ORE, IafPlacedFeatures.PLACED_SAPPHIRE_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
 
-        addFeatureToBiome(BiomeConfig.cyclopsCaveBiomes.getRight(), IafPlacedFeatures.PLACED_CYCLOPS_CAVE);
-        addFeatureToBiome(BiomeConfig.pixieBiomes.getRight(), IafPlacedFeatures.PLACED_PIXIE_VILLAGE);
-        addFeatureToBiome(BiomeConfig.hydraBiomes.getRight(), IafPlacedFeatures.PLACED_HYDRA_CAVE);
-        addFeatureToBiome(BiomeConfig.desertMyrmexBiomes.getRight(), IafPlacedFeatures.PLACED_MYRMEX_HIVE_DESERT);
-        addFeatureToBiome(BiomeConfig.jungleMyrmexBiomes.getRight(), IafPlacedFeatures.PLACED_MYRMEX_HIVE_JUNGLE);
-        addFeatureToBiome(BiomeConfig.sirenBiomes.getRight(), IafPlacedFeatures.PLACED_SIREN_ISLAND);
-        addFeatureToBiome(BiomeConfig.deathwormBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_DEATH_WORM);
-        addFeatureToBiome(BiomeConfig.wanderingCyclopsBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_WANDERING_CYCLOPS);
-        addFeatureToBiome(BiomeConfig.lightningDragonSkeletonBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_L);
-        addFeatureToBiome(BiomeConfig.fireDragonSkeletonBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_F);
-        addFeatureToBiome(BiomeConfig.iceDragonSkeletonBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_I);
-        addFeatureToBiome(BiomeConfig.hippocampusBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_HIPPOCAMPUS);
-        addFeatureToBiome(BiomeConfig.seaSerpentBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_SEA_SERPENT);
-        addFeatureToBiome(BiomeConfig.stymphalianBiomes.getRight(), IafPlacedFeatures.PLACED_SPAWN_STYMPHALIAN_BIRD);
+        addFeatureToBiome(IafBiomeTags.CYCLOPS_CAVE, IafPlacedFeatures.PLACED_CYCLOPS_CAVE, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.PIXIE_VILLAGE, IafPlacedFeatures.PLACED_PIXIE_VILLAGE, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.HYDRA_CAVE, IafPlacedFeatures.PLACED_HYDRA_CAVE, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.MYRMEX_HIVE_DESERT, IafPlacedFeatures.PLACED_MYRMEX_HIVE_DESERT, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.MYRMEX_HIVE_JUNGLE, IafPlacedFeatures.PLACED_MYRMEX_HIVE_JUNGLE, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.SIREN_ISLAND, IafPlacedFeatures.PLACED_SIREN_ISLAND, GenerationStep.Feature.SURFACE_STRUCTURES);
+
+        addFeatureToBiome(IafBiomeTags.DEATHWORM, IafPlacedFeatures.PLACED_SPAWN_DEATH_WORM, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.WANDERING_CYCLOPS, IafPlacedFeatures.PLACED_SPAWN_WANDERING_CYCLOPS, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.HIPPOCAMPUS, IafPlacedFeatures.PLACED_SPAWN_HIPPOCAMPUS, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.SEA_SERPENT, IafPlacedFeatures.PLACED_SPAWN_SEA_SERPENT, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.STYMPHALIAN_BIRD, IafPlacedFeatures.PLACED_SPAWN_STYMPHALIAN_BIRD, GenerationStep.Feature.SURFACE_STRUCTURES);
     }
 
     private static void addFeatureToBiome(TagKey<Biome> biomeTag, RegistryKey<PlacedFeature> featureResource, GenerationStep.Feature step) {
         BiomeModifications.addFeature(context -> context.hasTag(biomeTag), step, featureResource);
-    }
-
-    private static void addFeatureToBiome(SpawnBiomeData data, RegistryKey<PlacedFeature> feature) {
-        addFeatureToBiome(data, feature, GenerationStep.Feature.SURFACE_STRUCTURES);
     }
 
     private static void addFeatureToBiome(SpawnBiomeData data, RegistryKey<PlacedFeature> featureResource, GenerationStep.Feature step) {
