@@ -2275,7 +2275,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             }
             // Shift key to dismount
             if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(this.getControllingPassenger());
+                EntityDataComponent data = EntityDataComponent.get(this.getControllingPassenger());
                 data.miscData.setDismounted(true);
                 this.getControllingPassenger().stopRiding();
             }
@@ -2322,7 +2322,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 }
             }
             if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(this.getControllingPassenger());
+                EntityDataComponent data = EntityDataComponent.get(this.getControllingPassenger());
                 data.miscData.setDismounted(true);
                 this.getControllingPassenger().stopRiding();
             }
@@ -2486,7 +2486,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     public boolean isChained() {
         AtomicBoolean isChained = new AtomicBoolean(false);
-        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(this);
+        EntityDataComponent data = EntityDataComponent.get(this);
         isChained.set(data.chainData.getChainedTo().isEmpty());
         return isChained.get();
     }

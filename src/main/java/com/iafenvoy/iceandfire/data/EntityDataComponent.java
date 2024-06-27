@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, CommonTickingComponent {
-    public static final ComponentKey<EntityDataComponent> ENTITY_DATA_COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);
+    protected static final ComponentKey<EntityDataComponent> ENTITY_DATA_COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);
 
     public final FrozenData frozenData = new FrozenData();
     public final ChainData chainData = new ChainData();
@@ -24,6 +24,10 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
 
     public EntityDataComponent(LivingEntity entity) {
         this.entity = entity;
+    }
+
+    public static EntityDataComponent get(LivingEntity entity) {
+        return ENTITY_DATA_COMPONENT.get(entity);
     }
 
     @Override

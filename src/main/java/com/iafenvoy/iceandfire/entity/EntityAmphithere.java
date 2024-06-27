@@ -627,7 +627,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
             this.setFlying(false);
         if (this.getUntamedRider() != null && this.getUntamedRider().isSneaking()) {
             if (this.getUntamedRider() instanceof LivingEntity rider) {
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(rider);
+                EntityDataComponent data = EntityDataComponent.get(rider);
                 data.miscData.setDismounted(true);
             }
             this.getUntamedRider().stopRiding();

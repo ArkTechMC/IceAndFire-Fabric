@@ -455,7 +455,6 @@ public class EntityFireDragon extends EntityDragonBase {
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
                 if (this.random.nextInt(particleCount) == 0) {
                     Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
-                    velocity = velocity.multiply(5 / velocity.length());
                     IafServerNetworkHandler.sendToAll(new ParticleSpawnMessage(IafParticles.DRAGON_FLAME, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z));
                 }
             } else if (!this.getWorld().isClient) {

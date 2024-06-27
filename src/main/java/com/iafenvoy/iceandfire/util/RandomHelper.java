@@ -18,4 +18,9 @@ public class RandomHelper {
     public static double nextDouble(Random random, double min, double max) {
         return min >= max ? min : random.nextDouble() * (max - min) + min;
     }
+
+    public static double randomize(double origin, double ratio) {
+        double range = Math.abs(origin * ratio);
+        return origin + nextDouble(-range, range);
+    }
 }

@@ -229,7 +229,7 @@ public class IafDragonDestructionManager {
         if (dragon.dragonType == DragonType.FIRE)
             target.setOnFireFor(statusDuration);
         else if (dragon.dragonType == DragonType.ICE) {
-            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+            EntityDataComponent data = EntityDataComponent.get(target);
             data.frozenData.setFrozen(target, statusDuration);
         } else if (dragon.dragonType == DragonType.LIGHTNING) {
             double x = dragon.getX() - target.getX();

@@ -69,12 +69,11 @@ public class ItemSirenFlute extends Item {
             }
         }
 
-        if (pointedEntity != null)
-            if (pointedEntity instanceof LivingEntity) {
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(pointedEntity);
-                data.miscData.setLoveTicks(600);
-                itemStackIn.damage(2, player, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
-            }
+        if (pointedEntity instanceof LivingEntity livingEntity) {
+            EntityDataComponent data = EntityDataComponent.get(livingEntity);
+            data.miscData.setLoveTicks(600);
+            itemStackIn.damage(2, player, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+        }
 
         player.playSound(IafSounds.SIREN_SONG, 1, 1);
         return new TypedActionResult<>(ActionResult.PASS, itemStackIn);

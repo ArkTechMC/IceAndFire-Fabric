@@ -14,7 +14,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class ParticleSerpentBubble extends SpriteBillboardParticle {
-    private static final Identifier BUBBLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/particles/sea_serpent_bubble.png");
+    private static final Identifier BUBBLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/particle/sea_serpent_bubble.png");
 
     public ParticleSerpentBubble(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ, float size) {
         super(world, x, y, z, motX, motY, motZ);

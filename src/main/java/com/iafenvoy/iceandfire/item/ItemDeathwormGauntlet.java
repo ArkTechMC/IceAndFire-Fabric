@@ -84,8 +84,8 @@ public class ItemDeathwormGauntlet extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        if (!(entity instanceof LivingEntity)) return;
-        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
+        if (!(entity instanceof LivingEntity living)) return;
+        EntityDataComponent data = EntityDataComponent.get(living);
         int tempLungeTicks = data.miscData.lungeTicks;
 
         if (this.deathwormReceded) {

@@ -99,8 +99,8 @@ public class IafRenderers {
 
     public static void registerParticleRenderers() {
         ParticleFactoryRegistry.getInstance().register(IafParticles.BLOOD, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleBlood(world, x, y, z));
-        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDragonFlame(world, x, y, z, velocityX, velocityY, velocityZ, 3));
-        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDragonFrost(world, x, y, z, velocityX, velocityY, velocityZ, 3));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME, ParticleDragonFlame::provider);
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST, ParticleDragonFrost::provider);
         ParticleFactoryRegistry.getInstance().register(IafParticles.DREAD_PORTAL, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDreadPortal(world, x, y, z, velocityX, velocityY, velocityZ, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.DREAD_TORCH, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDreadTorch(world, x, y, z, velocityX, velocityY, velocityZ, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.GHOST_APPEARANCE, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleGhostAppearance(world, x, y, z, 1));
@@ -108,6 +108,6 @@ public class IafRenderers {
         ParticleFactoryRegistry.getInstance().register(IafParticles.PIXIE_DUST, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticlePixieDust(world, x, y, z, 1, 1, 1, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.SERPENT_BUBBLE, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSerpentBubble(world, x, y, z, velocityX, velocityY, velocityZ, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.SIREN_APPEARANCE, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSirenAppearance(world, x, y, z, 1));
-        ParticleFactoryRegistry.getInstance().register(IafParticles.SIREN_MUSIC, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSirenMusic(world, x, y, z, velocityX, velocityY, velocityZ, 1));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.SIREN_MUSIC, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSirenMusic(world, x, y, z, velocityX, velocityY, velocityZ));
     }
 }

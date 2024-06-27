@@ -141,7 +141,7 @@ public class ServerEvents {
 
     public static void onEntityFall(LivingEntity entity, float fallDistance, float multiplier, DamageSource source) {
         if (entity instanceof PlayerEntity) {
-            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
+            EntityDataComponent data = EntityDataComponent.get(entity);
             if (data.miscData.hasDismounted)
                 data.miscData.setDismounted(false);
         }
@@ -258,7 +258,7 @@ public class ServerEvents {
     }
 
     public static void onEntityDie(LivingEntity entity, DamageSource damageSource) {
-        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
+        EntityDataComponent data = EntityDataComponent.get(entity);
         if (entity.getWorld().isClient) return;
 
         if (!data.chainData.getChainedTo().isEmpty()) {
@@ -315,7 +315,7 @@ public class ServerEvents {
     public static ActionResult onEntityInteract(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         // Handle chain removal
         if (entity instanceof LivingEntity target && !player.isSpectator()) {
-            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+            EntityDataComponent data = EntityDataComponent.get(target);
             if (data.chainData.isChainedTo(entity)) {
                 data.chainData.removeChain(entity);
                 if (!world.isClient)

@@ -14,10 +14,10 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class ParticleSirenMusic extends SpriteBillboardParticle {
-    private static final Identifier SIREN_MUSIC = new Identifier(IceAndFire.MOD_ID, "textures/particles/siren_music.png");
+    private static final Identifier SIREN_MUSIC = new Identifier(IceAndFire.MOD_ID, "textures/particle/siren_music.png");
     float colorScale;
 
-    public ParticleSirenMusic(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ, float size) {
+    public ParticleSirenMusic(ClientWorld world, double x, double y, double z, double motX, double motY, double motZ) {
         super(world, x, y, z, motX, motY, motZ);
         this.setPos(x, y, z);
         this.colorScale = (float) 1;

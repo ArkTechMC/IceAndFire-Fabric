@@ -36,7 +36,7 @@ public class ItemChain extends Item {
         int k = fence.getZ();
 
         for (LivingEntity livingEntity : worldIn.getNonSpectatingEntities(LivingEntity.class, new Box((double) i - d0, (double) j - d0, (double) k - d0, (double) i + d0, (double) j + d0, (double) k + d0))) {
-            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+            EntityDataComponent data = EntityDataComponent.get(livingEntity);
             if (data.chainData.isChainedTo(player)) {
                 EntityChainTie entityleashknot = EntityChainTie.getKnotForPosition(worldIn, fence);
 
@@ -61,7 +61,7 @@ public class ItemChain extends Item {
 
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
-        EntityDataComponent targetData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+        EntityDataComponent targetData = EntityDataComponent.get(target);
         if (targetData.chainData.isChainedTo(playerIn))
             return ActionResult.PASS;
 
@@ -76,7 +76,7 @@ public class ItemChain extends Item {
                 targetData.chainData.clearChains();
 
                 for (LivingEntity livingEntity : nearbyEntities) {
-                    EntityDataComponent nearbyData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+                    EntityDataComponent nearbyData = EntityDataComponent.get(livingEntity);
                     nearbyData.chainData.removeChain(target);
                 }
 
@@ -86,7 +86,7 @@ public class ItemChain extends Item {
             AtomicBoolean flag = new AtomicBoolean(false);
 
             for (LivingEntity livingEntity : nearbyEntities) {
-                EntityDataComponent nearbyData = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+                EntityDataComponent nearbyData = EntityDataComponent.get(livingEntity);
                 if (nearbyData.chainData.isChainedTo(playerIn)) {
                     targetData.chainData.removeChain(playerIn);
                     nearbyData.chainData.removeChain(playerIn);

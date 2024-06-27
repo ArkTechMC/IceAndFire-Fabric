@@ -14,8 +14,8 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class ParticleDreadPortal extends SpriteBillboardParticle {
-    private static final Identifier SNOWFLAKE = new Identifier(IceAndFire.MOD_ID, "textures/particles/snowflake_0.png");
-    private static final Identifier SNOWFLAKE_BIG = new Identifier(IceAndFire.MOD_ID, "textures/particles/snowflake_1.png");
+    private static final Identifier SNOWFLAKE = new Identifier(IceAndFire.MOD_ID, "textures/particle/snowflake_0.png");
+    private static final Identifier SNOWFLAKE_BIG = new Identifier(IceAndFire.MOD_ID, "textures/particle/snowflake_1.png");
 
     private final boolean big;
 

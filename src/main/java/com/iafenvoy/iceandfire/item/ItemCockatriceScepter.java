@@ -45,7 +45,7 @@ public class ItemCockatriceScepter extends Item {
             stack.damage(this.specialWeaponDmg, livingEntity, player -> player.sendToolBreakStatus(livingEntity.getActiveHand()));
             this.specialWeaponDmg = 0;
         }
-        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(livingEntity);
+        EntityDataComponent data = EntityDataComponent.get(livingEntity);
         data.miscData.getTargetedByScepter().clear();
     }
 
@@ -110,7 +110,7 @@ public class ItemCockatriceScepter extends Item {
             }
             if (pointedEntity instanceof LivingEntity target) {
                 if (!target.isAlive()) return;
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(player);
+                EntityDataComponent data = EntityDataComponent.get(player);
                 data.miscData.addScepterTarget(target);
             }
 
@@ -119,7 +119,7 @@ public class ItemCockatriceScepter extends Item {
     }
 
     private void attackTargets(final LivingEntity caster) {
-        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(caster);
+        EntityDataComponent data = EntityDataComponent.get(caster);
         List<LivingEntity> targets = new ArrayList<>(data.miscData.getTargetedByScepter());
         for (LivingEntity target : targets) {
             if (!EntityGorgon.isEntityLookingAt(caster, target, 0.2F) || !caster.isAlive() || !target.isAlive()) {

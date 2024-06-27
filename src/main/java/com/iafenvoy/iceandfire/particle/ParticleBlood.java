@@ -14,7 +14,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 public class ParticleBlood extends SpriteBillboardParticle {
-    private static final Identifier BLOOD = new Identifier(IceAndFire.MOD_ID, "textures/particles/blood.png");
+    private static final Identifier BLOOD = new Identifier(IceAndFire.MOD_ID, "textures/particle/blood.png");
 
     public ParticleBlood(ClientWorld world, double x, double y, double z) {
         super(world, x, y, z, 0, Math.random() * (double) 0.2F + 0.1, 0);

@@ -38,7 +38,7 @@ public class ItemAlchemySword extends SwordItem {
         if (this == IafItems.DRAGONBONE_SWORD_ICE && IafConfig.getInstance().dragonWeaponIceAbility) {
             if (target instanceof EntityFireDragon)
                 target.damage(attacker.getWorld().getDamageSources().drown(), 13.5F);
-            EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(target);
+            EntityDataComponent data = EntityDataComponent.get(target);
             data.frozenData.setFrozen(target, 200);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 100, 2));
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 100, 2));

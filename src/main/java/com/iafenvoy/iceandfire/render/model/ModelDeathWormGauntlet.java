@@ -112,9 +112,9 @@ public class ModelDeathWormGauntlet extends ModelDragonBase {
         assert MinecraftClient.getInstance().world != null;
         Entity holder = MinecraftClient.getInstance().world.getEntityById(tag.getInt("HolderID"));
 
-        if (!(holder instanceof LivingEntity)) return;
+        if (!(holder instanceof LivingEntity livingEntity)) return;
 
-        EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(holder);
+        EntityDataComponent data = EntityDataComponent.get(livingEntity);
         float lungeTicks = data.miscData.lungeTicks + partialTick;
         this.progressRotation(this.TopJaw, lungeTicks, (float) Math.toRadians(-30), 0, 0);
         this.progressRotation(this.BottomJaw, lungeTicks, (float) Math.toRadians(30), 0, 0);

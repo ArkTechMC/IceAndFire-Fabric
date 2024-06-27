@@ -196,12 +196,10 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
             this.singCooldown--;
             this.setSinging(false);
         }
-        if (!this.getWorld().isClient && attackTarget == null && !this.isAgressive()) {
+        if (!this.getWorld().isClient && attackTarget == null && !this.isAgressive())
             this.setSinging(true);
-        }
-        if (this.getAnimation() == ANIMATION_BITE && attackTarget != null && this.squaredDistanceTo(attackTarget) < 7D && this.getAnimationTick() == 5) {
+        if (this.getAnimation() == ANIMATION_BITE && attackTarget != null && this.squaredDistanceTo(attackTarget) < 7D && this.getAnimationTick() == 5)
             attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
-        }
         if (this.getAnimation() == ANIMATION_PULL && attackTarget != null && this.squaredDistanceTo(attackTarget) < 16D && this.getAnimationTick() == 5) {
             attackTarget.damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
             double attackmotionX = (Math.signum(this.getX() - attackTarget.getX()) * 0.5D - attackTarget.getVelocity().z) * 0.100000000372529 * 5;
@@ -327,11 +325,10 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     public void updateLure() {
         if (this.age % 20 == 0) {
             List<LivingEntity> entities = this.getWorld().getEntitiesByClass(LivingEntity.class, this.getBoundingBox().expand(50, 12, 50), SIREN_PREY);
-
             for (LivingEntity entity : entities) {
                 if (isWearingEarplugs(entity))
                     continue;
-                EntityDataComponent data = EntityDataComponent.ENTITY_DATA_COMPONENT.get(entity);
+                EntityDataComponent data = EntityDataComponent.get(entity);
                 if (data.sirenData.isCharmed || data.sirenData.charmedBy == null)
                     data.sirenData.setCharmed(this);
             }
