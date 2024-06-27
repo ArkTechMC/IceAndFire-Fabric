@@ -24,5 +24,4 @@ jobs:
           gradle-version: 8.6
 
       - name: Run build
-        working-directory: /
         run: gradle build
