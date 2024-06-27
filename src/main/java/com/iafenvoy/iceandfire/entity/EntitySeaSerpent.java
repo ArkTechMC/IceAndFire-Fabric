@@ -118,7 +118,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                 //ATTACK
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
                 //FALLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.getInstance().dragonTargetSearchLength))
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength))
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 3.0D);
     }
@@ -192,7 +192,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().seaSerpentBaseHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragonTargetSearchLength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength));
         this.updateAttributes();
     }
 
@@ -366,7 +366,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.25D, 0.15D * this.getSeaSerpentScale() * this.getAncientModifier()));
         this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafConfig.getInstance().seaSerpentAttackStrength * this.getSeaSerpentScale() * this.getAncientModifier()));
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafConfig.getInstance().seaSerpentBaseHealth * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragonTargetSearchLength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength));
         this.heal(30F * this.getSeaSerpentScale());
     }
 

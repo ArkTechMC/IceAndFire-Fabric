@@ -329,7 +329,7 @@ public class ServerEvents {
     public static ActionResult onPlayerRightClick(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         if (player != null && (world.getBlockState(pos).getBlock() instanceof AbstractChestBlock) && !player.isCreative()) {
-            float dist = IafConfig.getInstance().dragonGoldSearchLength;
+            float dist = IafConfig.getInstance().dragon.behaviour.goldSearchLength;
             final List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty())
                 for (final Entity entity : list)
@@ -347,7 +347,7 @@ public class ServerEvents {
 
     public static void onBreakBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlocks.GOLD_PILE) || state.isOf(IafBlocks.SILVER_PILE) || state.isOf(IafBlocks.COPPER_PILE))) {
-            final float dist = IafConfig.getInstance().dragonGoldSearchLength;
+            final float dist = IafConfig.getInstance().dragon.behaviour.goldSearchLength;
             List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (list.isEmpty()) return;
 

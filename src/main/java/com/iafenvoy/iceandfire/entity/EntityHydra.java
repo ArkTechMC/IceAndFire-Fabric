@@ -33,7 +33,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMultipartEntity, IVillagerFear, IAnimalFear, IHasCustomizableAttributes {
-
     public static final int HEADS = 9;
     public static final double HEAD_HEALTH_THRESHOLD = 20;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityHydra.class, TrackedDataHandlerRegistry.INTEGER);

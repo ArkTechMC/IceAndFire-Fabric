@@ -32,7 +32,7 @@ public class BlockEntityEggInIce extends BlockEntity {
 
     public static void tickEgg(World level, BlockPos pos, BlockState state, BlockEntityEggInIce entityEggInIce) {
         entityEggInIce.age++;
-        if (entityEggInIce.age >= IafConfig.getInstance().dragonEggTime && entityEggInIce.type != null && !entityEggInIce.spawned)
+        if (entityEggInIce.age >= IafConfig.getInstance().dragon.eggBornTime && entityEggInIce.type != null && !entityEggInIce.spawned)
             if (!level.isClient) {
                 EntityIceDragon dragon = new EntityIceDragon(level);
                 dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);

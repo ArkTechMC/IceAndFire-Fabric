@@ -36,9 +36,9 @@ public class DragonUtils {
         BlockPos ground = dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, escortPos);
         int distFromGround = escortPos.getY() - ground.getY();
         for (int i = 0; i < 10; i++) {
-            BlockPos pos = new BlockPos(escortPos.getX() + dragon.getRandom().nextInt(IafConfig.getInstance().dragonWanderFromHomeDistance) - IafConfig.getInstance().dragonWanderFromHomeDistance / 2,
+            BlockPos pos = new BlockPos(escortPos.getX() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance / 2,
                     (distFromGround > 16 ? escortPos.getY() : escortPos.getY() + 8 + dragon.getRandom().nextInt(16)),
-                    (escortPos.getZ() + dragon.getRandom().nextInt(IafConfig.getInstance().dragonWanderFromHomeDistance) - IafConfig.getInstance().dragonWanderFromHomeDistance / 2));
+                    (escortPos.getZ() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance / 2));
             if (dragon.getDistanceSquared(Vec3d.ofCenter(pos)) > 6 && !dragon.isTargetBlocked(Vec3d.ofCenter(pos)))
                 return pos;
         }
@@ -69,7 +69,7 @@ public class DragonUtils {
             int distFromGround = (int) dragon.getY() - ground.getY();
             for (int i = 0; i < 10; i++) {
                 BlockPos homePos = dragon.homePos.getPosition();
-                BlockPos pos = new BlockPos(homePos.getX() + dragon.getRandom().nextInt(IafConfig.getInstance().dragonWanderFromHomeDistance * 2) - IafConfig.getInstance().dragonWanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().maxDragonFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1), (homePos.getZ() + dragon.getRandom().nextInt(IafConfig.getInstance().dragonWanderFromHomeDistance * 2) - IafConfig.getInstance().dragonWanderFromHomeDistance));
+                BlockPos pos = new BlockPos(homePos.getX() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance * 2) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1), (homePos.getZ() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance * 2) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance));
                 if (dragon.getDistanceSquared(Vec3d.ofCenter(pos)) > 6 && !dragon.isTargetBlocked(Vec3d.ofCenter(pos)))
                     return pos;
             }
@@ -80,7 +80,7 @@ public class DragonUtils {
         BlockPos radialPos = BlockPos.ofFloored(dragon.getX() + extraX, 0, dragon.getZ() + extraZ);
         BlockPos ground = dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) dragon.getY() - ground.getY();
-        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().maxDragonFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
+        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
         BlockPos pos = dragon.doesWantToLand() ? ground : newPos;
         if (dragon.getDistanceSquared(Vec3d.ofCenter(newPos)) > 6 && !dragon.isTargetBlocked(Vec3d.ofCenter(newPos)))
             return pos;
@@ -96,7 +96,7 @@ public class DragonUtils {
         BlockPos radialPos = BlockPos.ofFloored(dragon.getX() + extraX, 0, dragon.getZ() + extraZ);
         BlockPos ground = dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) dragon.getY() - ground.getY();
-        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().maxDragonFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
+        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
         BlockPos pos = dragon.doesWantToLand() ? ground : newPos;
         BlockPos surface = dragon.getWorld().getFluidState(newPos.down(2)).isIn(FluidTags.WATER) ? newPos.down(dragon.getRandom().nextInt(10) + 1) : newPos;
         if (dragon.getDistanceSquared(Vec3d.ofCenter(surface)) > 6 && dragon.getWorld().getFluidState(surface).isIn(FluidTags.WATER))
@@ -149,7 +149,7 @@ public class DragonUtils {
             BlockPos ground = hippo.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, dragonPos);
             int distFromGround = (int) hippo.getY() - ground.getY();
             for (int i = 0; i < 10; i++) {
-                BlockPos pos = BlockPos.ofFloored(hippo.homePos.getX() + hippo.getRandom().nextInt(IafConfig.getInstance().dragonWanderFromHomeDistance) - IafConfig.getInstance().dragonWanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().maxDragonFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1), (hippo.homePos.getZ() + hippo.getRandom().nextInt(IafConfig.getInstance().dragonWanderFromHomeDistance * 2) - IafConfig.getInstance().dragonWanderFromHomeDistance));
+                BlockPos pos = BlockPos.ofFloored(hippo.homePos.getX() + hippo.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1), (hippo.homePos.getZ() + hippo.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance * 2) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance));
                 if (hippo.getDistanceSquared(Vec3d.ofCenter(pos)) > 6 && !hippo.isTargetBlocked(Vec3d.ofCenter(pos)))
                     return pos;
             }
@@ -157,7 +157,7 @@ public class DragonUtils {
         BlockPos radialPos = BlockPos.ofFloored(hippo.getX() + extraX, 0, hippo.getZ() + extraZ);
         BlockPos ground = hippo.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) hippo.getY() - ground.getY();
-        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().maxDragonFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1);
+        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1);
         if (!hippo.isTargetBlocked(Vec3d.ofCenter(newPos)) && hippo.getDistanceSquared(Vec3d.ofCenter(newPos)) > 6)
             return newPos;
         return null;
@@ -300,8 +300,8 @@ public class DragonUtils {
 
 
     public static boolean canGrief(EntityDragonBase dragon) {
-        if (dragon.isTamed() && !IafConfig.getInstance().tamedDragonGriefing) return false;
-        return IafConfig.getInstance().dragonGriefing < 2;
+        if (dragon.isTamed() && !IafConfig.getInstance().dragon.behaviour.tamedGriefing) return false;
+        return IafConfig.getInstance().dragon.behaviour.griefing < 2;
 
     }
 

@@ -861,7 +861,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
             this.setVelocity(this.getVelocity().add(0, up, 0));
         }
         if ((flying || hovering) && this.age % 20 == 0 && this.isOverAir()) {
-            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafConfig.getInstance().dragonFlapNoiseDistance / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
+            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafConfig.getInstance().dragon.behaviour.flapNoiseDistance / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
         }
         if (this.isOnGround() && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
             this.setFlying(false);

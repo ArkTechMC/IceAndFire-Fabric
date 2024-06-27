@@ -69,9 +69,10 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
             this.setVelocity(vector3d.add(this.powerX, this.powerY, this.powerZ).multiply(f));
             this.getWorld().addParticle(this.getParticleType(), this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
             this.setPosition(d0, d1, d2);
-        } else {
+        } else
             this.remove(RemovalReason.DISCARDED);
-        }
+        if (this.getWorld().getBlockState(this.getBlockPos()).isSolid())
+            this.remove(RemovalReason.DISCARDED);
     }
 
     @Override

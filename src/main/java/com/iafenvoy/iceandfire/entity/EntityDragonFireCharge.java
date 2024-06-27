@@ -57,7 +57,7 @@ public class EntityDragonFireCharge extends EntityDragonCharge {
 
     @Override
     public float getDamage() {
-        return (float) IafConfig.getInstance().dragonAttackDamageFire;
+        return (float) IafConfig.getInstance().dragon.behaviour.attackDamageFire;
     }
 
 }

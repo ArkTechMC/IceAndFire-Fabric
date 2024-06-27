@@ -37,13 +37,13 @@ public class IafDragonDestructionManager {
 
         if (dragon.dragonType == DragonType.FIRE) {
             statusDuration = 5 + dragon.getDragonStage() * 5;
-            damageScale = (float) IafConfig.getInstance().dragonAttackDamageFire;
+            damageScale = (float) IafConfig.getInstance().dragon.behaviour.attackDamageFire;
         } else if (dragon.dragonType == DragonType.ICE) {
             statusDuration = 50 * dragon.getDragonStage();
-            damageScale = (float) IafConfig.getInstance().dragonAttackDamageIce;
+            damageScale = (float) IafConfig.getInstance().dragon.behaviour.attackDamageIce;
         } else if (dragon.dragonType == DragonType.LIGHTNING) {
             statusDuration = 3;
-            damageScale = (float) IafConfig.getInstance().dragonAttackDamageLightning;
+            damageScale = (float) IafConfig.getInstance().dragon.behaviour.attackDamageLightning;
         } else return;
 
         double damageRadius = 3.5;

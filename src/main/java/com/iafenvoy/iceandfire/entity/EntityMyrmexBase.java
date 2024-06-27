@@ -884,7 +884,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     public int maxSearchNodes() {
-        return IafConfig.getInstance().maxDragonPathingNodes;
+        return IafConfig.getInstance().dragon.maxPathingNodes;
     }
 
     @Override

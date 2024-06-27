@@ -99,8 +99,8 @@ public class IafDragonFlightManager {
                 this.target = new Vec3d(viewBlock.getX() + 0.5, viewBlock.getY() + 0.5, viewBlock.getZ() + 0.5);
         }
         if (this.target != null) {
-            if (this.target.y > IafConfig.getInstance().maxDragonFlight)
-                this.target = new Vec3d(this.target.x, IafConfig.getInstance().maxDragonFlight, this.target.z);
+            if (this.target.y > IafConfig.getInstance().dragon.behaviour.maxFlight)
+                this.target = new Vec3d(this.target.x, IafConfig.getInstance().dragon.behaviour.maxFlight, this.target.z);
             if (this.target.y >= this.dragon.getY() && !this.dragon.isModelDead())
                 this.dragon.setVelocity(this.dragon.getVelocity().add(0, 0.1D, 0));
         }

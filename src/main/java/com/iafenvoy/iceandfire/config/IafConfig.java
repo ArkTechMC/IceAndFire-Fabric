@@ -13,37 +13,10 @@ public class IafConfig {
     // Version key for identify
     public int version = CURRENT_VERSION;
 
+    public DragonConfig dragon = new DragonConfig();
+
     public double dreadQueenMaxHealth = 750;
-    //public boolean logCascadingWorldGen = false;
-    public boolean generateDragonSkeletons = true;
-    public int generateDragonSkeletonChance = 300;
-    public int generateDragonDenChance = 260;
-    public int generateDragonRoostChance = 480;
-    public int dragonDenGoldAmount = 4;
-    public int oreToStoneRatioForDragonCaves = 45;
-    public int dragonEggTime = 7200;
-    public int dragonGriefing = 0;
-    public boolean tamedDragonGriefing = true;
-    public int dragonFlapNoiseDistance = 4;
-    public int dragonFluteDistance = 8;
-    public double dragonHealth = 500;
-    public int dragonAttackDamage = 17;
-    public double dragonAttackDamageFire = 2F;
-    public double dragonAttackDamageIce = 2.5F;
-    public double dragonAttackDamageLightning = 3.5F;
-    public int maxDragonFlight = 256;
-    public int dragonGoldSearchLength = 30;
-    public boolean canDragonsHealFromBiting;
-    public boolean canDragonsDespawn = true;
-    public boolean doDragonsSleep = true;
-    public boolean dragonDigWhenStuck = true;
-    public int dragonBreakBlockCooldown = 5;
-    public boolean dragonDropSkull = true;
-    public boolean dragonDropHeart = true;
-    public boolean dragonDropBlood = true;
-    public int dragonTargetSearchLength = 128;
-    public int dragonWanderFromHomeDistance = 40;
-    public int dragonHungerTickRate = 3000;
+
     public boolean spawnHippogryphs = true;
     public int hippogryphSpawnRate = 2;
     public boolean generateGorgonTemple = true;
@@ -136,13 +109,56 @@ public class IafConfig {
     public double ghostAttackStrength = 3;
     public boolean ghostsFromPlayerDeaths = true;
 
-    public int dragonPathfindingThreads = 3;
-    public int maxDragonPathingNodes = 5000;
     public boolean dragonWeaponFireAbility = true;
     public boolean dragonWeaponIceAbility = true;
     public boolean dragonWeaponLightningAbility = true;
     public int villagerHouseWeight = 5;
     public boolean allowAttributeOverriding = true;
+
+    public static class DragonConfig {
+        public Generate generate = new Generate();
+        public Behaviour behaviour = new Behaviour();
+        public Drop drop = new Drop();
+        public double maxHealth = 500;
+        public int eggBornTime = 7200;
+        public int maxPathingNodes = 5000;
+
+        public static class Generate {
+            public boolean skeletons = true;
+            public int skeletonChance = 300;
+            public int denChance = 260;
+            public int roostChance = 480;
+            public int denGoldAmount = 4;
+            public int oreRatio = 45;
+        }
+
+        public static class Behaviour {
+            public int griefing = 0;
+            public boolean tamedGriefing = true;
+            public int flapNoiseDistance = 4;
+            public int fluteDistance = 8;
+            public int attackDamage = 17;
+            public double attackDamageFire = 2F;
+            public double attackDamageIce = 2.5F;
+            public double attackDamageLightning = 3.5F;
+            public int maxFlight = 256;
+            public int goldSearchLength = 30;
+            public boolean canHealFromBiting = false;
+            public boolean canDespawn = true;
+            public boolean sleep = true;
+            public boolean digWhenStuck = true;
+            public int breakBlockCooldown = 5;
+            public int targetSearchLength = 128;
+            public int wanderFromHomeDistance = 40;
+            public int hungerTickRate = 3000;
+        }
+
+        public static class Drop {
+            public boolean skull = true;
+            public boolean heart = true;
+            public boolean blood = true;
+        }
+    }
 
     public static IafConfig getInstance() {
         if (INSTANCE == null) {
