@@ -25,3 +25,10 @@ jobs:
 
       - name: Run build
         run: gradle build
+
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows EXE
+          path: build/libs/*.jar
+          retention-days: 7
