@@ -141,7 +141,7 @@ public class MyrmexHive {
     }
 
     public void setWanderRadius(int wanderRadius) {
-        this.wanderRadius = Math.min(wanderRadius, IafConfig.getInstance().myrmexMaximumWanderRadius);
+        this.wanderRadius = Math.min(wanderRadius, IafConfig.getInstance().myrmex.maximumWanderRadius);
     }
 
     public boolean isBlockPosWithinSqVillageRadius(BlockPos pos) {
@@ -552,7 +552,7 @@ public class MyrmexHive {
 
     public boolean repopulate() {
         int roomCount = this.getAllRooms().size();
-        return this.numMyrmex < Math.min(IafConfig.getInstance().myrmexColonySize, roomCount * 9) && this.reproduces;
+        return this.numMyrmex < Math.min(IafConfig.getInstance().myrmex.colonySize, roomCount * 9) && this.reproduces;
     }
 
     public void addMyrmex(EntityMyrmexBase myrmex) {

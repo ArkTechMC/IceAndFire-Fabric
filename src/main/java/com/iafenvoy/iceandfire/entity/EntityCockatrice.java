@@ -89,7 +89,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().cockatriceMaxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().cockatrice.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
                 //ATTACK
@@ -102,7 +102,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().cockatriceMaxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().cockatrice.maxHealth);
     }
 
     @Override
@@ -633,7 +633,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         if (this.getTarget() == null) {
             return 0;
         }
-        float dist = IafConfig.getInstance().cockatriceChickenSearchLength;
+        float dist = IafConfig.getInstance().cockatrice.chickenSearchLength;
         List<EntityCockatrice> list = this.getWorld().getNonSpectatingEntities(EntityCockatrice.class, this.getBoundingBox().stretch(dist, dist, dist));
         int i = 0;
         for (EntityCockatrice cockatrice : list) {

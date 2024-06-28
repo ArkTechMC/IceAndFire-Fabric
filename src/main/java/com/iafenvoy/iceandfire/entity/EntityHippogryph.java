@@ -126,14 +126,14 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.getInstance().hippogryphFlightSpeedMod)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.getInstance().hippogryphs.fightSpeedMod)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.0D)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafConfig.getInstance().hippogryphFlightSpeedMod);
+        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafConfig.getInstance().hippogryphs.fightSpeedMod);
     }
 
     protected boolean isOverAir() {
@@ -572,7 +572,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     public double getFlightSpeedModifier() {
-        return IafConfig.getInstance().hippogryphFlightSpeedMod * 0.9F;
+        return IafConfig.getInstance().hippogryphs.fightSpeedMod * 0.9F;
     }
 
     @Override

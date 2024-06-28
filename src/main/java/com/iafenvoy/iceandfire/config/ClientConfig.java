@@ -13,9 +13,9 @@ public class ClientConfig {
     // Version key for identify
     public int version = CURRENT_VERSION;
 
-    public boolean customMainMenu = true;
+    public final boolean customMainMenu = true;
     //TODO
-    public boolean dragonAuto3rdPerson = false;
+    public final boolean dragonAuto3rdPerson = false;
 
     public static ClientConfig getInstance() {
         if (INSTANCE == null) {

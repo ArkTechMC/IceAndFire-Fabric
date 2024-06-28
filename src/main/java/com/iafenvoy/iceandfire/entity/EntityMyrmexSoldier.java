@@ -44,7 +44,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmexBaseAttackStrength * 2D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmex.baseAttackStrength * 2D)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
                 //ARMOR
@@ -122,7 +122,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmexBaseAttackStrength * 2D);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmex.baseAttackStrength * 2D);
     }
 
     @Override

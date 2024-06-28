@@ -1418,7 +1418,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         if (this.isBreakable(position, state, hardness, this)) {
             this.setVelocity(this.getVelocity().multiply(0.6F, 1, 0.6F));
             if (!this.getWorld().isClient()) {
-                this.getWorld().breakBlock(position, !state.isIn(IafBlockTags.DRAGON_BLOCK_BREAK_NO_DROPS) && this.random.nextFloat() <= IafConfig.getInstance().dragonBlockBreakingDropChance);
+                this.getWorld().breakBlock(position, !state.isIn(IafBlockTags.DRAGON_BLOCK_BREAK_NO_DROPS) && this.random.nextFloat() <= IafConfig.getInstance().dragon.behaviour.blockBreakingDropChance);
             }
         }
     }
@@ -2728,7 +2728,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override
     public double getFlightSpeedModifier() {
-        return IafConfig.getInstance().dragonFlightSpeedMod;
+        return IafConfig.getInstance().dragon.behaviour.dragonFlightSpeedMod;
     }
 
     public boolean isAllowedToTriggerFlight() {
@@ -2821,7 +2821,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override
     public void onRemoved() {
-        if (IafConfig.getInstance().chunkLoadSummonCrystal) {
+        if (IafConfig.getInstance().dragon.behaviour.chunkLoadSummonCrystal) {
             if (this.isBoundToCrystal()) {
                 DragonPosWorldData data = DragonPosWorldData.get(this.getWorld());
                 if (data != null) {

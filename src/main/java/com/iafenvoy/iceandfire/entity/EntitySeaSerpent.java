@@ -112,7 +112,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().seaSerpentBaseHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().seaSerpent.baseHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
@@ -191,7 +191,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().seaSerpentBaseHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().seaSerpent.baseHealth);
         this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength));
         this.updateAttributes();
     }
@@ -364,8 +364,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     private void updateAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.25D, 0.15D * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafConfig.getInstance().seaSerpentAttackStrength * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafConfig.getInstance().seaSerpentBaseHealth * this.getSeaSerpentScale() * this.getAncientModifier()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafConfig.getInstance().seaSerpent.attackStrength * this.getSeaSerpentScale() * this.getAncientModifier()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafConfig.getInstance().seaSerpent.baseHealth * this.getSeaSerpentScale() * this.getAncientModifier()));
         this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength));
         this.heal(30F * this.getSeaSerpentScale());
     }
@@ -606,7 +606,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public void breakBlock() {
-        if (IafConfig.getInstance().seaSerpentGriefing)
+        if (IafConfig.getInstance().seaSerpent.griefing)
             for (int a = (int) Math.round(this.getBoundingBox().minX) - 2; a <= (int) Math.round(this.getBoundingBox().maxX) + 2; a++)
                 for (int b = (int) Math.round(this.getBoundingBox().minY) - 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++)
                     for (int c = (int) Math.round(this.getBoundingBox().minZ) - 2; c <= (int) Math.round(this.getBoundingBox().maxZ) + 2; c++) {

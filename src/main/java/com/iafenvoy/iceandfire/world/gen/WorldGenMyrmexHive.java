@@ -69,7 +69,7 @@ public class WorldGenMyrmexHive extends Feature<DefaultFeatureConfig> implements
         Random rand = context.getRandom();
         BlockPos pos = context.getOrigin();
         if (!this.small) {
-            if (rand.nextInt(IafConfig.getInstance().myrmexColonyGenChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, pos) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, pos, this.getId())) {
+            if (rand.nextInt(IafConfig.getInstance().myrmex.colonyGenChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, pos) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, pos, this.getId())) {
                 return false;
             }
             if (MyrmexWorldData.get(worldIn.toServerWorld()) != null && MyrmexWorldData.get(worldIn.toServerWorld()).getNearestHive(pos, 200) != null) {

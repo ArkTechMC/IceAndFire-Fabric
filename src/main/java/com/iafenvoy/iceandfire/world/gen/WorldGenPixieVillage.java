@@ -31,11 +31,11 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
 
-        if (rand.nextInt(IafConfig.getInstance().spawnPixiesChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
+        if (rand.nextInt(IafConfig.getInstance().pixie.spawnChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
             return false;
         }
 
-        int maxRoads = IafConfig.getInstance().pixieVillageSize + rand.nextInt(5);
+        int maxRoads = IafConfig.getInstance().pixie.size + rand.nextInt(5);
         BlockPos buildPosition = position;
         int placedRoads = 0;
         while (placedRoads < maxRoads) {

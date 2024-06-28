@@ -37,8 +37,8 @@ public class SirenData {
         if (this.charmedBy == null) return;
 
         if (this.charmedBy.isActuallySinging()) {
-            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafConfig.getInstance().sirenMaxSingTime) {
-                this.charmedBy.singCooldown = IafConfig.getInstance().sirenTimeBetweenSongs;
+            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafConfig.getInstance().siren.maxSingTime) {
+                this.charmedBy.singCooldown = IafConfig.getInstance().siren.timeBetweenSongs;
                 this.clearCharm();
                 return;
             }
@@ -49,7 +49,7 @@ public class SirenData {
             }
 
             if (holder.distanceTo(this.charmedBy) < 5) {
-                this.charmedBy.singCooldown = IafConfig.getInstance().sirenTimeBetweenSongs;
+                this.charmedBy.singCooldown = IafConfig.getInstance().siren.timeBetweenSongs;
                 this.charmedBy.setSinging(false);
                 this.charmedBy.setTarget(holder);
                 this.charmedBy.setAttacking(true);

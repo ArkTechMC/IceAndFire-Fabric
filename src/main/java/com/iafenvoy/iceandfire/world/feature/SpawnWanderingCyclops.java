@@ -31,7 +31,7 @@ public class SpawnWanderingCyclops extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
         if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
-            if (rand.nextInt(IafConfig.getInstance().spawnWanderingCyclopsChance + 1) == 0 && rand.nextInt(12) == 0) {
+            if (rand.nextInt(IafConfig.getInstance().cyclops.spawnWanderingChance + 1) == 0 && rand.nextInt(12) == 0) {
                 EntityCyclops cyclops = IafEntities.CYCLOPS.create(worldIn.toServerWorld());
                 assert cyclops != null;
                 cyclops.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);

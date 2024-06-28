@@ -106,7 +106,7 @@ public class ItemSummoningCrystal extends Item {
                         BlockPos dragonChunkPos = null;
                         if (data != null)
                             dragonChunkPos = data.getDragonPos(id);
-                        if (IafConfig.getInstance().chunkLoadSummonCrystal) {
+                        if (IafConfig.getInstance().dragon.behaviour.chunkLoadSummonCrystal) {
                             try {
                                 boolean flag2 = false;
                                 if (!flag) {//server side but couldn't find dragon
@@ -155,7 +155,7 @@ public class ItemSummoningCrystal extends Item {
         entity.refreshPositionAndAngles(offsetPos.getX() + 0.5D, offsetPos.getY() + 0.5D, offsetPos.getZ() + 0.5D, yaw, 0);
         if (entity instanceof EntityDragonBase dragon)
             dragon.setCrystalBound(false);
-        if (IafConfig.getInstance().chunkLoadSummonCrystal) {
+        if (IafConfig.getInstance().dragon.behaviour.chunkLoadSummonCrystal) {
             DragonPosWorldData data = DragonPosWorldData.get(worldIn);
             if (data != null)
                 data.removeDragon(entity.getUuid());

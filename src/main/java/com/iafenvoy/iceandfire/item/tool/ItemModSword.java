@@ -26,7 +26,7 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return this.isDragonSteel(this.getMaterial()) ? IafConfig.getInstance().dragonsteelBaseDurability : this.getMaterial().getDurability();
+        return this.isDragonSteel(this.getMaterial()) ? IafConfig.getInstance().armors.dragonsteel.baseDurability : this.getMaterial().getDurability();
     }
 
     @Override
@@ -38,9 +38,9 @@ public class ItemModSword extends SwordItem implements DragonSteelOverrides<Item
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
-        if (this.getMaterial().getAttackDamage() != IafConfig.getInstance().dragonsteelBaseDamage || this.dragonsteelModifiers == null) {
+        if (this.getMaterial().getAttackDamage() != IafConfig.getInstance().armors.dragonsteel.baseDamage || this.dragonsteelModifiers == null) {
             ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().dragonsteelBaseDamage - 1F, EntityAttributeModifier.Operation.ADDITION));
+            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().armors.dragonsteel.baseDamage - 1F, EntityAttributeModifier.Operation.ADDITION));
             builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.4, EntityAttributeModifier.Operation.ADDITION));
             this.dragonsteelModifiers = builder.build();
         }

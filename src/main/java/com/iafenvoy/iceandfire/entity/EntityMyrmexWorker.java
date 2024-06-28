@@ -50,7 +50,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmexBaseAttackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmex.baseAttackStrength)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
                 //ARMOR
@@ -59,7 +59,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmexBaseAttackStrength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmex.baseAttackStrength);
     }
 
     @Override
@@ -189,7 +189,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public boolean shouldEnterHive() {
-        return this.holdingSomething() || (!this.getWorld().isDay() && !IafConfig.getInstance().myrmexHiveIgnoreDaytime);
+        return this.holdingSomething() || (!this.getWorld().isDay() && !IafConfig.getInstance().myrmex.hiveIgnoreDaytime);
     }
 
     @Override

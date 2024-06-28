@@ -173,7 +173,7 @@ public class DragonUtils {
         BlockPos radialPos = getStymphalianFearPos(bird, BlockPos.ofFloored(bird.getX() + extraX, 0, bird.getZ() + extraZ));
         BlockPos ground = bird.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) bird.getY() - ground.getY();
-        int flightHeight = Math.min(IafConfig.getInstance().stymphalianBirdFlightHeight, ground.getY() + bird.getRandom().nextInt(16));
+        int flightHeight = Math.min(IafConfig.getInstance().stymphalianBird.flightHeight, ground.getY() + bird.getRandom().nextInt(16));
         BlockPos newPos = radialPos.up(distFromGround > 16 ? flightHeight : (int) bird.getY() + bird.getRandom().nextInt(16) + 1);
         // FIXME :: Unused
 //        BlockPos pos = bird.doesWantToLand() ? ground : newPos;
@@ -184,7 +184,7 @@ public class DragonUtils {
 
     private static BlockPos getStymphalianFearPos(EntityStymphalianBird bird, BlockPos fallback) {
         if (bird.getVictor() != null && bird.getVictor() instanceof PathAwareEntity) {
-            Vec3d Vector3d = NoPenaltyTargeting.findFrom((PathAwareEntity) bird.getVictor(), 16, IafConfig.getInstance().stymphalianBirdFlightHeight, new Vec3d(bird.getVictor().getX(), bird.getVictor().getY(), bird.getVictor().getZ()));
+            Vec3d Vector3d = NoPenaltyTargeting.findFrom((PathAwareEntity) bird.getVictor(), 16, IafConfig.getInstance().stymphalianBird.flightHeight, new Vec3d(bird.getVictor().getX(), bird.getVictor().getY(), bird.getVictor().getZ()));
             if (Vector3d != null) {
                 BlockPos pos = BlockPos.ofFloored(Vector3d);
                 return new BlockPos(pos.getX(), 0, pos.getZ());

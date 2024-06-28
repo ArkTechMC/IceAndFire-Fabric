@@ -25,7 +25,7 @@ public class PixieAISteal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!IafConfig.getInstance().pixiesStealItems || !this.temptedEntity.getMainHandStack().isEmpty() || this.temptedEntity.stealCooldown > 0)
+        if (!IafConfig.getInstance().pixie.stealItems || !this.temptedEntity.getMainHandStack().isEmpty() || this.temptedEntity.stealCooldown > 0)
             return false;
         if (this.temptedEntity.getRandom().nextInt(200) == 0)
             return false;

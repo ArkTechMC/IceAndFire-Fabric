@@ -33,7 +33,7 @@ public class GraveyardStructure extends IafStructure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        if (!IafConfig.getInstance().generateGraveyards)
+        if (!IafConfig.getInstance().ghost.generateGraveyards)
             return Optional.empty();
 
         BlockPos blockpos = pContext.chunkPos().getCenterAtY(1);

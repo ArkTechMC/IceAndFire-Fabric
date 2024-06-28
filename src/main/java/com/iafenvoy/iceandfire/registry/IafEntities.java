@@ -143,15 +143,15 @@ public class IafEntities {
     }
 
     public static void addSpawners() {
-        if (IafConfig.getInstance().spawnHippogryphs)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphSpawnRate, 1, 1);
-        if (IafConfig.getInstance().spawnLiches)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lichSpawnRate, 1, 1);
-        if (IafConfig.getInstance().spawnCockatrices)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatriceSpawnRate, 1, 2);
-        if (IafConfig.getInstance().spawnAmphitheres)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithereSpawnRate, 1, 3);
-        if (IafConfig.getInstance().spawnTrolls)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().trollSpawnRate, 1, 3);
+        if (IafConfig.getInstance().hippogryphs.spawn)
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphs.spawnWeight, 1, 1);
+        if (IafConfig.getInstance().lich.spawn)
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lich.spawnWeight, 1, 1);
+        if (IafConfig.getInstance().cockatrice.spawn)
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatrice.spawnWeight, 1, 2);
+        if (IafConfig.getInstance().amphithere.spawn)
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithere.spawnWeight, 1, 3);
+        if (IafConfig.getInstance().troll.spawn)
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().troll.spawnWeight, 1, 3);
     }
 }

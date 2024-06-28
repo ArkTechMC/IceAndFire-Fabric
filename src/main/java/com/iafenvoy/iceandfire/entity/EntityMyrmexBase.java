@@ -224,7 +224,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         }
         if (this.getGrowthStage() < 2) {
             this.growthTicks++;
-            if (this.growthTicks == IafConfig.getInstance().myrmexLarvaTicks) {
+            if (this.growthTicks == IafConfig.getInstance().myrmex.larvaTicks) {
                 this.setGrowthStage(this.getGrowthStage() + 1);
                 this.growthTicks = 0;
             }

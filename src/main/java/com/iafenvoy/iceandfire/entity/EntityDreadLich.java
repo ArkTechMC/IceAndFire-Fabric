@@ -62,7 +62,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     public static boolean canLichSpawnOn(EntityType<? extends MobEntity> typeIn, ServerWorldAccess worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
         BlockPos blockpos = pos.down();
-        return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn) && randomIn.nextInt(IafConfig.getInstance().lichSpawnChance) == 0;
+        return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn) && randomIn.nextInt(IafConfig.getInstance().lich.spawnChance) == 0;
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

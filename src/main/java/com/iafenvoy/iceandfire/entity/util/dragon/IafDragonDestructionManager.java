@@ -171,7 +171,7 @@ public class IafDragonDestructionManager {
             }
         });
 
-        if (IafConfig.getInstance().explosiveDragonBreath)
+        if (IafConfig.getInstance().dragon.behaviour.explosiveBreath)
             causeExplosion(level, center, dragon, damageSource, dragon.getDragonStage());
     }
 

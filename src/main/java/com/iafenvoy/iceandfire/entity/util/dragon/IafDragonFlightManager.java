@@ -282,7 +282,7 @@ public class IafDragonFlightManager {
         }
 
         public double speedMod() {
-            return (this.dragon instanceof EntityAmphithere ? 0.6D : 1.25D) * IafConfig.getInstance().dragonFlightSpeedMod * this.dragon.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            return (this.dragon instanceof EntityAmphithere ? 0.6D : 1.25D) * IafConfig.getInstance().dragon.behaviour.dragonFlightSpeedMod * this.dragon.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         }
     }
 }

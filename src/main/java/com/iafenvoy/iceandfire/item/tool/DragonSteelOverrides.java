@@ -68,17 +68,17 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             if (target instanceof EntityDeathWorm)
                 target.damage(attacker.getWorld().getDamageSources().generic(), this.getAttackDamage(item) + 5.0F);
         }
-        if (this.isDragonSteelFire(item.getMaterial()) && IafConfig.getInstance().dragonWeaponFireAbility) {
+        if (this.isDragonSteelFire(item.getMaterial()) && IafConfig.getInstance().armors.dragon.fireAbility) {
             target.setOnFireFor(15);
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (this.isDragonSteelIce(item.getMaterial()) && IafConfig.getInstance().dragonWeaponIceAbility) {
+        if (this.isDragonSteelIce(item.getMaterial()) && IafConfig.getInstance().armors.dragon.iceAbility) {
             EntityDataComponent data = EntityDataComponent.get(target);
             data.frozenData.setFrozen(target, 300);
             target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
             target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
         }
-        if (this.isDragonSteelLightning(item.getMaterial()) && IafConfig.getInstance().dragonWeaponLightningAbility) {
+        if (this.isDragonSteelLightning(item.getMaterial()) && IafConfig.getInstance().armors.dragon.lightningAbility) {
             boolean flag = true;
             if (attacker instanceof PlayerEntity)
                 if (attacker.handSwingProgress > 0.2)
@@ -101,11 +101,11 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             tooltip.add(Text.translatable("silvertools.hurt").formatted(Formatting.GREEN));
         if (tier == IafItems.MYRMEX_CHITIN_TOOL_MATERIAL)
             tooltip.add(Text.translatable("myrmextools.hurt").formatted(Formatting.GREEN));
-        if (this.isDragonSteelFire(tier) && IafConfig.getInstance().dragonWeaponFireAbility)
+        if (this.isDragonSteelFire(tier) && IafConfig.getInstance().armors.dragon.fireAbility)
             tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
-        if (this.isDragonSteelIce(tier) && IafConfig.getInstance().dragonWeaponIceAbility)
+        if (this.isDragonSteelIce(tier) && IafConfig.getInstance().armors.dragon.iceAbility)
             tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
-        if (this.isDragonSteelLightning(tier) && IafConfig.getInstance().dragonWeaponLightningAbility)
+        if (this.isDragonSteelLightning(tier) && IafConfig.getInstance().armors.dragon.lightningAbility)
             tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
     }
 }
