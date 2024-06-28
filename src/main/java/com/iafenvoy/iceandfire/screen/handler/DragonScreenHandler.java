@@ -59,17 +59,17 @@ public class DragonScreenHandler extends ScreenHandler {
             if (index < this.dragonInventory.size()) {
                 if (!this.insertItem(itemstack1, this.dragonInventory.size(), this.slots.size(), true))
                     return ItemStack.EMPTY;
-            } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack())
-                if (!this.insertItem(itemstack1, 1, 2, false)) {
+            } else if (this.getSlot(1).canInsert(itemstack1) && !this.getSlot(1).hasStack()) {
+                if (!this.insertItem(itemstack1, 1, 2, false))
                     return ItemStack.EMPTY;
-            } else if (this.getSlot(2).canInsert(itemstack1) && !this.getSlot(2).hasStack())
-                if (!this.insertItem(itemstack1, 2, 3, false)) {
+            } else if (this.getSlot(2).canInsert(itemstack1) && !this.getSlot(2).hasStack()) {
+                if (!this.insertItem(itemstack1, 2, 3, false))
                     return ItemStack.EMPTY;
-            } else if (this.getSlot(3).canInsert(itemstack1) && !this.getSlot(3).hasStack())
-                if (!this.insertItem(itemstack1, 3, 4, false)) {
+            } else if (this.getSlot(3).canInsert(itemstack1) && !this.getSlot(3).hasStack()) {
+                if (!this.insertItem(itemstack1, 3, 4, false))
                     return ItemStack.EMPTY;
-            } else if (this.getSlot(4).canInsert(itemstack1) && !this.getSlot(4).hasStack())
-                if (!this.insertItem(itemstack1, 4, 5, false)) {
+            } else if (this.getSlot(4).canInsert(itemstack1) && !this.getSlot(4).hasStack()) {
+                if (!this.insertItem(itemstack1, 4, 5, false))
                     return ItemStack.EMPTY;
             } else if (this.getSlot(0).canInsert(itemstack1)) {
                 if (!this.insertItem(itemstack1, 0, 1, false))

@@ -1195,13 +1195,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         this.playSound(SoundEvents.ENTITY_GENERIC_EAT, this.getSoundVolume(), this.getSoundPitch());
                         this.spawnItemCrackParticles(stack.getItem());
                         this.eatFoodBonus(stack);
-                        if (!player.isCreative()) {
+                        if (!player.isCreative())
                             stack.decrement(1);
-                        }
                         return ActionResult.SUCCESS;
                     }
                     final Item stackItem = stack.getItem();
-                    if (stackItem == IafItems.DRAGON_MEAL) {
+                    if (stackItem == IafItems.DRAGON_MEAL && this.getAgeInDays() < 128) {
                         this.growDragon(1);
                         this.setHunger(this.getHunger() + 20);
                         this.heal(Math.min(this.getHealth(), (int) (this.getMaxHealth() / 2)));
@@ -1210,9 +1209,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         this.spawnItemCrackParticles(Items.BONE);
                         this.spawnItemCrackParticles(Items.BONE_MEAL);
                         this.eatFoodBonus(stack);
-                        if (!player.isCreative()) {
+                        if (!player.isCreative())
                             stack.decrement(1);
-                        }
                         return ActionResult.SUCCESS;
                     } else if (stackItem == IafItems.SICKLY_DRAGON_MEAL && !this.isAgingDisabled()) {
                         this.setHunger(this.getHunger() + 20);
@@ -1317,9 +1315,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void growDragon(final int ageInDays) {
-        if (this.isAgingDisabled()) {
+        if (this.isAgingDisabled())
             return;
-        }
         this.setAgeInDays(this.getAgeInDays() + ageInDays);
         //TODO: Probably brakes bounding boxes
         this.setBoundingBox(this.getBoundingBox());
@@ -2685,9 +2682,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             if (this.isBreathingFire()) {
                 if (this.isActuallyBreathingFire()) {
                     this.setYaw(this.bodyYaw);
-                    if (this.age % 5 == 0) {
+                    if (this.age % 5 == 0)
                         this.playSound(IafSounds.FIREDRAGON_BREATH, 4, 1);
-                    }
                     this.stimulateFire(this.getX() + distX * this.fireBreathTicks / 40, entity.getY(), this.getZ() + distZ * this.fireBreathTicks / 40, 1);
                 }
             } else {
