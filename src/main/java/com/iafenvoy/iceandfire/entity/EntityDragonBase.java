@@ -18,9 +18,9 @@ import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.*;
+import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
-import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
@@ -579,13 +579,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         };
     }
 
-    public int getArmorOrdinal(ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem) {
-            return armorItem.type.ordinal() + 1;
-        }
-        return 0;
-    }
-
     @Override
     public boolean isAiDisabled() {
         return this.isModelDead() || super.isAiDisabled();
@@ -862,12 +855,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     public void updateAttributes() {
         this.prevArmorResLoc = this.armorResLoc;
-        final int armorHead = this.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.HEAD));
-        final int armorNeck = this.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.CHEST));
-        final int armorLegs = this.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.LEGS));
-        final int armorFeet = this.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.FEET));
+        final int armorHead = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.HEAD));
+        final int armorNeck = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.CHEST));
+        final int armorLegs = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.LEGS));
+        final int armorFeet = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.FEET));
         this.armorResLoc = this.dragonType.getName() + "|" + armorHead + "|" + armorNeck + "|" + armorLegs + "|" + armorFeet;
-        IceAndFire.PROXY.updateDragonArmorRender(this.armorResLoc);
 
         double age = 125F;
         if (this.getAgeInDays() <= 125) age = this.getAgeInDays();
@@ -1033,7 +1025,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         double val = 1D;
         final EquipmentSlot[] slots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
         for (EquipmentSlot slot : slots) {
-            switch (this.getArmorOrdinal(this.getEquippedStack(slot))) {
+            switch (EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(slot))) {
                 case 1 -> val += 2D;
                 case 2, 4 -> val += 3D;
                 case 3 -> val += 5D;

@@ -27,7 +27,7 @@ public class LayerPixieGlow extends FeatureRenderer<EntityPixie, ModelPixie> {
             case 5 -> RenderPixie.TEXTURE_5;
         };
         RenderLayer eyes = RenderLayer.getEyes(texture);
-        VertexConsumer ivertexbuilder = bufferIn.getBuffer(eyes);
-        this.getContextModel().render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
+        VertexConsumer vertexConsumer = bufferIn.getBuffer(eyes);
+        this.getContextModel().render(matrixStackIn, vertexConsumer, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 }

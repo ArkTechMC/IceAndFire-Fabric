@@ -3,11 +3,13 @@ package com.iafenvoy.iceandfire.enums;
 import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.armor.IafArmorMaterial;
+import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.util.IdUtil;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
 
 public enum EnumDragonArmor {
@@ -66,5 +68,11 @@ public enum EnumDragonArmor {
             case BLACK -> IafItems.DRAGONSCALES_BLACK;
             default -> IafItems.DRAGONSCALES_RED;
         };
+    }
+
+    public static int getArmorOrdinal(ItemStack stack) {
+        if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem)
+            return armorItem.type.ordinal() + 1;
+        return 0;
     }
 }

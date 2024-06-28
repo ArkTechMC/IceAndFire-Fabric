@@ -25,12 +25,8 @@ public class ItemDragonArmor extends Item {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
         this.type = type;
         this.dragonSlot = dragonSlot;
-        if (type == EnumDragonArmorMaterial.DRAGONSTEEL_FIRE || type == EnumDragonArmorMaterial.DRAGONSTEEL_ICE || type == EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING)
-            this.baseName = Pattern.compile("[a-z]+_[a-z]+_[a-z]+");
-    }
-
-    public static String getNameForSlot(EnumDragonArmorPart slot) {
-        return slot.name().toLowerCase();
+        if (type == EnumDragonArmorMaterial.DRAGON_STEEL_FIRE || type == EnumDragonArmorMaterial.DRAGON_STEEL_ICE || type == EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING)
+            this.baseName = Pattern.compile("[a-z]+_[a-z]+_[a-z]+_[a-z]+");
     }
 
     @Override

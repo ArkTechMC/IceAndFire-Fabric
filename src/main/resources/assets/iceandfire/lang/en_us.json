@@ -187,9 +187,9 @@
   "item.iceandfire.dragonarmor_diamond": "Diamond Dragon Armor",
   "item.iceandfire.dragonarmor_silver": "Silver Dragon Armor",
   "item.iceandfire.dragonarmor_copper": "Copper Dragon Armor",
-  "item.iceandfire.dragonarmor_dragonsteel_fire": "Fire Dragonsteel Dragon Armor",
-  "item.iceandfire.dragonarmor_dragonsteel_ice": "Ice Dragonsteel Dragon Armor",
-  "item.iceandfire.dragonarmor_dragonsteel_lightning": "Lightning Dragonsteel Dragon Armor",
+  "item.iceandfire.dragonarmor_dragon_steel_fire": "Fire Dragon Steel Dragon Armor",
+  "item.iceandfire.dragonarmor_dragon_steel_ice": "Ice Dragon Steel Dragon Armor",
+  "item.iceandfire.dragonarmor_dragon_steel_lightning": "Lightning Dragon Steel Dragon Armor",
   "item.iceandfire.dragon_meal": "Dragon Meal",
   "item.iceandfire.fire_dragon_flesh": "Fire Dragon Flesh",
   "item.iceandfire.ice_dragon_flesh": "Ice Dragon Flesh",
@@ -1347,6 +1347,7 @@
   "iceandfire.sound.subtitle.dragonegg_hatch": "Dragon egg hatches",
   "iceandfire.sound.subtitle.dragonflute": "Dragon flute plays",
   "bestiary_gui": "Bestiary",
+  "item.iceandfire.dragonarmor_netherite": "Netherite Dragon Armor",
 
   "iceandfire.book.name": "Bestiary",
   "iceandfire.book.landing": "This is a landing text."

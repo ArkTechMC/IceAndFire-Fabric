@@ -184,9 +184,9 @@
   "item.iceandfire.dragonarmor_diamond": "钻石龙铠",
   "item.iceandfire.dragonarmor_silver": "白银龙铠",
   "item.iceandfire.dragonarmor_copper": "赤铜龙铠",
-  "item.iceandfire.dragonarmor_dragonsteel_fire": "炎钢龙铠",
-  "item.iceandfire.dragonarmor_dragonsteel_ice": "霜钢龙铠",
-  "item.iceandfire.dragonarmor_dragonsteel_lightning": "霆钢龙铠",
+  "item.iceandfire.dragonarmor_dragon_steel_fire": "炎钢龙铠",
+  "item.iceandfire.dragonarmor_dragon_steel_ice": "霜钢龙铠",
+  "item.iceandfire.dragonarmor_dragon_steel_lightning": "霆钢龙铠",
   "item.iceandfire.dragon_meal": "龙食",
   "item.iceandfire.fire_dragon_flesh": "火龙肉",
   "item.iceandfire.ice_dragon_flesh": "冰龙肉",
@@ -1341,6 +1341,7 @@
   "iceandfire.sound.subtitle.icedragon_death": "冰龙：死亡",
   "iceandfire.sound.subtitle.dragonegg_hatch": "龙蛋：孵化",
   "iceandfire.sound.subtitle.dragonflute": "龙歌长笛奏响",
+  "item.iceandfire.dragonarmor_netherite": "下界合金龙铠",
 
   "iceandfire.book.name": "异兽手记",
   "iceandfire.book.landing": "This is a landing text."

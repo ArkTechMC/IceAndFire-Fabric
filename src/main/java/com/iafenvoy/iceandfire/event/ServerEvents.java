@@ -77,12 +77,9 @@ public class ServerEvents {
             if (!(attacker instanceof EntityCockatrice)) {
                 if (!DragonUtils.hasSameOwner(cockatrice, attacker)) {
                     if (attacker instanceof PlayerEntity player) {
-                        if (!player.isCreative() && !cockatrice.isOwner(player)) {
+                        if (!player.isCreative() && !cockatrice.isOwner(player))
                             cockatrice.setTarget(player);
-                        }
-                    } else {
-                        cockatrice.setTarget(attacker);
-                    }
+                    } else cockatrice.setTarget(attacker);
                 }
             }
         }
@@ -97,12 +94,9 @@ public class ServerEvents {
             if (entity instanceof EntityAmphithere amphithere && !(attacker instanceof EntityAmphithere)) {
                 if (!DragonUtils.hasSameOwner(amphithere, attacker)) {
                     if (attacker instanceof PlayerEntity player) {
-                        if (!player.isCreative() && !amphithere.isOwner(player)) {
+                        if (!player.isCreative() && !amphithere.isOwner(player))
                             amphithere.setTarget(player);
-                        }
-                    } else {
-                        amphithere.setTarget(attacker);
-                    }
+                    } else amphithere.setTarget(attacker);
                 }
             }
         }
@@ -181,11 +175,8 @@ public class ServerEvents {
 
     public static void onLivingSetTarget(Entity tracking, ServerPlayerEntity player) {
         if (tracking instanceof LivingEntity target) {
-            if (target.getType().isIn(IafTags.CHICKENS)) {
-                signalChickenAlarm(target, player);
-            } else if (DragonUtils.isVillager(target)) {
-                signalAmphithereAlarm(target, player);
-            }
+            if (target.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(target, player);
+            else if (DragonUtils.isVillager(target)) signalAmphithereAlarm(target, player);
         }
     }
 
@@ -306,10 +297,6 @@ public class ServerEvents {
             return TypedActionResult.success(stack, true);
         }
         return TypedActionResult.pass(stack);
-/*        if (event.getEntity() instanceof EntityDragonBase && !event.getEntity().isAlive()) {
-            event.setResult(Event.Result.DENY);
-            ((EntityDragonBase) event.getEntityLiving()).mobInteract(event.getPlayer(), event.getHand());
-        }*/
     }
 
     public static ActionResult onEntityInteract(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {

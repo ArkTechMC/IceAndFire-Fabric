@@ -17,6 +17,5 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void updateDragonArmorRender(String clear) {
-        LayerDragonArmor.clearCache(clear);
     }
 }

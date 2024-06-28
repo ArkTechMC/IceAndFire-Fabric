@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 public class LayerGenericGlowing<T extends LivingEntity, M extends EntityModel<T>> extends FeatureRenderer<T, M> {
     private final Identifier texture;
 
-    public LayerGenericGlowing(LivingEntityRenderer renderIn, Identifier texture) {
+    public LayerGenericGlowing(LivingEntityRenderer<T, M> renderIn, Identifier texture) {
         super(renderIn);
         this.texture = texture;
     }

@@ -140,6 +140,10 @@ public class IafItems {
     public static final ItemDragonArmor DRAGONARMOR_COPPER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.COPPER);
     public static final ItemDragonArmor DRAGONARMOR_COPPER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.COPPER);
     public static final ItemDragonArmor DRAGONARMOR_COPPER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.SILVER);
     public static final ItemDragonArmor DRAGONARMOR_GOLD_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.GOLD);
     public static final ItemDragonArmor DRAGONARMOR_GOLD_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.GOLD);
     public static final ItemDragonArmor DRAGONARMOR_GOLD_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.GOLD);
@@ -148,22 +152,22 @@ public class IafItems {
     public static final ItemDragonArmor DRAGONARMOR_DIAMOND_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DIAMOND);
     public static final ItemDragonArmor DRAGONARMOR_DIAMOND_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DIAMOND);
     public static final ItemDragonArmor DRAGONARMOR_DIAMOND_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DIAMOND);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGONSTEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGONSTEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGONSTEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
     public static final Item DRAGON_MEAL = register("dragon_meal", new ItemGeneric());
     public static final Item SICKLY_DRAGON_MEAL = register("sickly_dragon_meal", new ItemGeneric(1));
     public static final Item CREATIVE_DRAGON_MEAL = register("creative_dragon_meal", new ItemGeneric(2));
@@ -391,7 +395,7 @@ public class IafItems {
     }
 
     public static ItemDragonArmor buildDragonArmor(EnumDragonArmorPart type, EnumDragonArmorMaterial material) {
-        return register(String.format("dragonarmor_%s_%s", material.getName(), ItemDragonArmor.getNameForSlot(type)), new ItemDragonArmor(material, type));
+        return register(String.format("dragonarmor_%s_%s", material.getName(), type.getName()), new ItemDragonArmor(material, type));
     }
 
     public static <T extends Item> T register(String name, T item) {

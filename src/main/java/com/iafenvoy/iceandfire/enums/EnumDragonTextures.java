@@ -5,7 +5,9 @@ import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityDragonSkull;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.entity.EntityLightningDragon;
+import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public enum EnumDragonTextures {
@@ -348,6 +350,23 @@ public enum EnumDragonTextures {
         };
     }
 
+    public static Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
+        String name = "";
+        if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem)
+            name = armorItem.type.getName();
+        return switch (slot) {
+            case MAINHAND, OFFHAND -> null;
+            case FEET ->
+                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_tail_" + name + ".png");
+            case LEGS ->
+                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_body_" + name + ".png");
+            case CHEST ->
+                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_neck_" + name + ".png");
+            case HEAD ->
+                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_head_" + name + ".png");
+        };
+    }
+
     public enum Armor {
         EMPTY(""),
         ARMORBODY1("armor_body_1"),
@@ -396,68 +415,6 @@ public enum EnumDragonTextures {
                 this.FIRETEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/empty.png");
                 this.ICETEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/empty.png");
                 this.LIGHTNINGTEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/models/firedragon/empty.png");
-            }
-        }
-
-        public static Armor getArmorForDragon(EntityDragonBase dragon, EquipmentSlot slot) {
-            int armor = dragon.getArmorOrdinal(dragon.getEquippedStack(slot));
-            switch (slot) {
-                case CHEST -> {
-                    //neck
-                    return switch (armor) {
-                        default -> EMPTY;
-                        case 1 -> ARMORNECK1;
-                        case 2 -> ARMORNECK2;
-                        case 3 -> ARMORNECK3;
-                        case 4 -> ARMORNECK4;
-                        case 5 -> ARMORNECK5;
-                        case 6 -> ARMORNECK6;
-                        case 7 -> ARMORNECK7;
-                        case 8 -> ARMORNECK8;
-                    };
-                }
-                case LEGS -> {
-                    //body
-                    return switch (armor) {
-                        default -> EMPTY;
-                        case 1 -> ARMORBODY1;
-                        case 2 -> ARMORBODY2;
-                        case 3 -> ARMORBODY3;
-                        case 4 -> ARMORBODY4;
-                        case 5 -> ARMORBODY5;
-                        case 6 -> ARMORBODY6;
-                        case 7 -> ARMORBODY7;
-                        case 8 -> ARMORBODY8;
-                    };
-                }
-                case FEET -> {
-                    //tail
-                    return switch (armor) {
-                        default -> EMPTY;
-                        case 1 -> ARMORTAIL1;
-                        case 2 -> ARMORTAIL2;
-                        case 3 -> ARMORTAIL3;
-                        case 4 -> ARMORTAIL4;
-                        case 5 -> ARMORTAIL5;
-                        case 6 -> ARMORTAIL6;
-                        case 7 -> ARMORTAIL7;
-                        case 8 -> ARMORTAIL8;
-                    };
-                }
-                default -> {
-                    //head
-                    return switch (armor) {
-                        default -> EMPTY;
-                        case 1 -> ARMORHEAD1;
-                        case 2 -> ARMORHEAD2;
-                        case 3 -> ARMORHEAD3;
-                        case 4 -> ARMORHEAD4;
-                        case 5 -> ARMORHEAD5;
-                        case 6 -> ARMORHEAD6;
-                        case 7 -> ARMORHEAD7;
-                        case 8 -> ARMORHEAD8;
-                    };
-                }
             }
         }
     }

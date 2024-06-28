@@ -83,7 +83,7 @@ public class SeaSerpentAIMeleeJump extends DiveJumpingGoal {
         }
 
         Vec3d vector3d = this.dolphin.getVelocity();
-        if (vector3d.y * vector3d.y < 0.1F && this.dolphin.getPitch() != 0.0F)
+        if (vector3d.y * vector3d.y < 0.1F && this.dolphin.getPitch() != 0.0F || vector3d.length() == 0)
             this.dolphin.setPitch(MathHelper.lerpAngleDegrees(this.dolphin.getPitch(), 0.0F, 0.2F));
         else {
             final double d0 = vector3d.horizontalLength();

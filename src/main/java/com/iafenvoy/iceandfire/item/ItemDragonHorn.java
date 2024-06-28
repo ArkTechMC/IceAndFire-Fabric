@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ItemDragonHorn extends Item {
     public ItemDragonHorn() {
-        super((new Settings())/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
     }
 
     public static int getDragonType(ItemStack stack) {
@@ -46,24 +46,22 @@ public class ItemDragonHorn extends Item {
         return 0;
     }
 
-
     @Override
     public void onCraft(ItemStack itemStack, World world, PlayerEntity player) {
         itemStack.setNbt(new NbtCompound());
     }
 
-
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         ItemStack trueStack = playerIn.getStackInHand(hand);
-        if (!playerIn.getWorld().isClient && hand == Hand.MAIN_HAND && target instanceof EntityDragonBase && ((EntityDragonBase) target).isOwner(playerIn) && (trueStack.getNbt() == null || trueStack.getNbt().getCompound("EntityTag").isEmpty())) {
+        if (!playerIn.getWorld().isClient && hand == Hand.MAIN_HAND && target instanceof EntityDragonBase dragon && dragon.isOwner(playerIn) && (trueStack.getNbt() == null || trueStack.getNbt().getCompound("EntityTag").isEmpty())) {
             NbtCompound newTag = new NbtCompound();
 
             NbtCompound entityTag = new NbtCompound();
             target.saveNbt(entityTag);
             newTag.put("EntityTag", entityTag);
 
-            newTag.putString("DragonHornEntityID", Registries.ENTITY_TYPE.getKey(target.getType()).toString());
+            newTag.putString("DragonHornEntityID", Registries.ENTITY_TYPE.getId(target.getType()).toString());
             trueStack.setNbt(newTag);
 
             playerIn.swingHand(hand);

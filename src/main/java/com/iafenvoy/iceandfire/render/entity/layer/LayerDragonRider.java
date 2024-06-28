@@ -45,20 +45,18 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
             float dragonScale = dragon.getRenderSize() / 3;
             for (Entity passenger : dragon.getPassengerList()) {
                 boolean prey = dragon.getControllingPassenger() == null || dragon.getControllingPassenger().getId() != passenger.getId();
-                if (this.excludeDreadQueenMob && passenger instanceof EntityDreadQueen)
-                    prey = false;
+                if (this.excludeDreadQueenMob && passenger instanceof EntityDreadQueen) prey = false;
                 float riderRot = passenger.prevYaw + (passenger.getYaw() - passenger.prevYaw) * partialTicks;
                 int animationTicks = 0;
                 if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY)
                     animationTicks = dragon.getAnimationTick();
-                if (animationTicks == 0 || animationTicks >= 15)
-                    this.translateToBody(matrixStackIn);
+                if (animationTicks == 0 || animationTicks >= 15) this.translateToBody(matrixStackIn);
                 if (prey) {
                     if (animationTicks == 0 || animationTicks >= 15 || dragon.isFlying()) {
                         this.translateToHead(matrixStackIn);
                         this.offsetPerDragonType(dragon.dragonType, matrixStackIn);
                         EntityRenderer<? super Entity> render = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(passenger);
-                        EntityModel modelBase = null;
+                        EntityModel<?> modelBase = null;
                         if (render instanceof MobEntityRenderer mobEntityRenderer)
                             modelBase = mobEntityRenderer.getModel();
                         if ((passenger.getHeight() > passenger.getWidth() || modelBase instanceof BipedEntityModel) && !(modelBase instanceof QuadrupedEntityModel) && !(modelBase instanceof HorseEntityModel)) {
@@ -70,10 +68,8 @@ public class LayerDragonRider extends FeatureRenderer<EntityDragonBase, Advanced
                             matrixStackIn.translate((horse ? -0.08F : -0.15F) * passenger.getWidth(), 0.1F * dragonScale - 0.15F * passenger.getWidth(), -0.1F * dragonScale - 0.1F * passenger.getWidth());
                             matrixStackIn.multiply(RotationAxis.NEGATIVE_X.rotationDegrees(90.0F));
                         }
-                    } else
-                        matrixStackIn.translate(0, 0.555F * dragonScale, -0.5F * dragonScale);
-                } else
-                    matrixStackIn.translate(0, -0.01F * dragonScale, -0.035F * dragonScale);
+                    } else matrixStackIn.translate(0, 0.555F * dragonScale, -0.5F * dragonScale);
+                } else matrixStackIn.translate(0, -0.01F * dragonScale, -0.035F * dragonScale);
                 matrixStackIn.push();
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(180.0F));
                 matrixStackIn.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(riderRot + 180));

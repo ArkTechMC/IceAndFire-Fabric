@@ -3,6 +3,7 @@ package com.iafenvoy.iceandfire.render.entity.layer;
 import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.TabulaModel;
+import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.render.TabulaModelAccessor;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
@@ -27,14 +28,14 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     private TabulaModel iceHead;
     private TabulaModel lightningHead;
 
-    public LayerDragonEyes(MobEntityRenderer renderIn) {
+    public LayerDragonEyes(MobEntityRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> renderIn) {
         super(renderIn);
         try {
             this.fireHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/firedragon/firedragon_ground"), null), Collections.singletonList("HeadFront"));
             this.iceHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/icedragon/icedragon_ground"), null), Collections.singletonList("HeadFront"));
             this.lightningHead = this.onlyKeepCubes(new TabulaModelAccessor(TabulaModelHandlerHelper.loadTabulaModel("assets/iceandfire/models/tabula/lightningdragon/lightningdragon_ground"), null), Collections.singletonList("HeadFront"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            IceAndFire.LOGGER.error(e);
         }
     }
 
