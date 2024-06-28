@@ -33,9 +33,6 @@ public abstract class TitleScreenMixin extends Screen {
     @Shadow
     private long backgroundFadeStart;
 
-    @Shadow
-    protected abstract void init();
-
     protected TitleScreenMixin(Text title) {
         super(title);
     }

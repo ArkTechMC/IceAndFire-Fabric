@@ -7,15 +7,15 @@ import java.util.Date;
 
 public class ClientConfig {
     private static ClientConfig INSTANCE = null;
-    private static final int CURRENT_VERSION = 1;
+    private static final int CURRENT_VERSION = 0;
     private static final String configPath = "./config/iceandfire/client.json";
     private static final String backupPath = "./config/iceandfire/backup/";
     // Version key for identify
     public int version = CURRENT_VERSION;
 
-    public final boolean customMainMenu = true;
+    public boolean customMainMenu = true;
     //TODO
-    public final boolean dragonAuto3rdPerson = false;
+    public boolean dragonAuto3rdPerson = false;
 
     public static ClientConfig getInstance() {
         if (INSTANCE == null) {
