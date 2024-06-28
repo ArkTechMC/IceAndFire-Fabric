@@ -374,22 +374,6 @@ public class EntityLightningDragon extends EntityDragonBase {
     @Override
     public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
         if (IafEvents.ON_DRAGON_FIRE_BLOCK.invoker().onFireBlock(this, burnX, burnY, burnZ)) return;
-        if (syncType == 1 && !this.getWorld().isClient) {
-            //sync with client
-            IafServerNetworkHandler.sendToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
-        }
-        if (syncType == 2 && this.getWorld().isClient) {
-            //sync with server
-            IafClientNetworkHandler.send(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 0));
-        }
-        if (syncType == 3 && !this.getWorld().isClient) {
-            //sync with client, fire bomb
-            IafServerNetworkHandler.sendToAll(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
-        }
-        if (syncType == 4 && this.getWorld().isClient) {
-            //sync with server, fire bomb
-            IafClientNetworkHandler.send(new MessageDragonSyncFire(this.getId(), burnX, burnY, burnZ, 5));
-        }
         if (syncType > 2 && syncType < 6) {
             if (this.getAnimation() != ANIMATION_FIRECHARGE) {
                 this.setAnimation(ANIMATION_FIRECHARGE);
