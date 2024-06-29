@@ -19,7 +19,7 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
 
     public EntityStymphalianFeather(EntityType<? extends PersistentProjectileEntity> t, World worldIn, LivingEntity shooter) {
         super(t, shooter, worldIn);
-        this.setDamage(IafConfig.getInstance().stymphalianBird.featherAttackStrength);
+        this.setDamage(IafConfig.getInstance().stymphalianBird.featherAttackDamage);
     }
 
     @Override

@@ -9,7 +9,7 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 @Config(name = IceAndFire.MOD_ID)
 public class IafConfig implements ConfigData {
     @ConfigEntry.Gui.Excluded
-    public static final int CURRENT_VERSION = 0;
+    public static final int CURRENT_VERSION = 1;
     @ConfigEntry.Gui.Excluded
     public static final String configPath = "./config/iceandfire/common.json";
     @ConfigEntry.Gui.Excluded
@@ -50,14 +50,14 @@ public class IafConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public Hydra hydra = new Hydra();
     @ConfigEntry.Gui.CollapsibleObject
+    public Hippocampus hippocampus = new Hippocampus();
+    @ConfigEntry.Gui.CollapsibleObject
     public GhostConfig ghost = new GhostConfig();
     @ConfigEntry.Gui.CollapsibleObject
     public Armors armors = new Armors();
     @ConfigEntry.Gui.CollapsibleObject
     public WorldGenConfig worldGen = new WorldGenConfig();
     public double dreadQueenMaxHealth = 750;
-    public int hippocampusSpawnChance = 40;
-    public double hippocampusSwimSpeedMod = 1F;
     public boolean allowAttributeOverriding = true;
 
     public static class ClientConfig implements ConfigData {
@@ -138,17 +138,17 @@ public class IafConfig implements ConfigData {
         public int spawnCaveChance = 170;
         public int sheepSearchLength = 17;
         public double maxHealth = 150;
-        public double attackStrength = 15;
-        public double biteStrength = 40;
+        public double attackDamage = 15;
+        public double biteDamage = 40;
         public boolean griefing = true;
     }
 
     public static class SirenConfig implements ConfigData {
+        public int spawnChance = 400;
         public double maxHealth = 50D;
         public boolean shader = true;
         public int maxSingTime = 12000;
         public int timeBetweenSongs = 2000;
-        public int spawnChance = 400;
     }
 
     public static class GorgonConfig implements ConfigData {
@@ -157,31 +157,31 @@ public class IafConfig implements ConfigData {
     }
 
     public static class DeathwormConfig implements ConfigData {
+        public int spawnChance = 30;
         public int targetSearchLength = 48;
         public double maxHealth = 10D;
-        public double attackStrength = 3D;
+        public double attackDamage = 3D;
         public boolean attackMonsters = true;
-        public int spawnChance = 30;
     }
 
     public static class CockatriceConfig implements ConfigData {
+        public boolean spawn = true;
+        public int spawnWeight = 4;
         public int chickenSearchLength = 32;
         public int eggChance = 30;
         public double maxHealth = 40.0D;
         public boolean chickensLayRottenEggs = true;
-        public boolean spawn = true;
-        public int spawnWeight = 4;
     }
 
     public static class StymphalianBirdConfig implements ConfigData {
+        public int spawnChance = 80;
         public int targetSearchLength = 48;
         public int featherDropChance = 25;
-        public double featherAttackStrength = 1F;
+        public double featherAttackDamage = 1F;
         public int flockLength = 40;
         public int flightHeight = 80;
         public boolean dataTagDrops = true;
         public boolean attackAnimals = false;
-        public int spawnChance = 80;
     }
 
     public static class TrollConfig implements ConfigData {
@@ -189,7 +189,7 @@ public class IafConfig implements ConfigData {
         public int spawnWeight = 60;
         public boolean dropWeapon = true;
         public double maxHealth = 50;
-        public double attackStrength = 10;
+        public double attackDamage = 10;
     }
 
     public static class MyrmexConfig implements ConfigData {
@@ -200,7 +200,7 @@ public class IafConfig implements ConfigData {
         public int colonySize = 80;
         public int maximumWanderRadius = 50;
         public boolean hiveIgnoreDaytime = false;
-        public double baseAttackStrength = 3.0D;
+        public double baseAttackDamage = 3.0D;
     }
 
     public static class AmphithereConfig implements ConfigData {
@@ -210,14 +210,14 @@ public class IafConfig implements ConfigData {
         public int tameTime = 400;
         public double flightSpeed = 1.75F;
         public double maxHealth = 50D;
-        public double attackStrength = 7D;
+        public double attackDamage = 7D;
     }
 
     public static class SeaSerpentConfig implements ConfigData {
         public int spawnChance = 250;
         public boolean griefing = true;
         public double baseHealth = 20D;
-        public double attackStrength = 4D;
+        public double attackDamage = 4D;
     }
 
     public static class LichConfig implements ConfigData {
@@ -231,10 +231,15 @@ public class IafConfig implements ConfigData {
         public int spawnChance = 120;
     }
 
+    public static class Hippocampus implements ConfigData {
+        public int spawnChance = 40;
+        public double swimSpeedMod = 1F;
+    }
+
     public static class GhostConfig implements ConfigData {
         public boolean generateGraveyards = true;
         public double maxHealth = 30;
-        public double attackStrength = 3;
+        public double attackDamage = 3;
         public boolean fromPlayerDeaths = true;
     }
 

@@ -104,7 +104,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().deathworm.attackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().deathworm.attackDamage)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafConfig.getInstance().deathworm.targetSearchLength)
                 //ARMOR
@@ -146,7 +146,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafConfig.getInstance().deathworm.maxHealth));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafConfig.getInstance().deathworm.attackStrength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafConfig.getInstance().deathworm.attackDamage));
         this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafConfig.getInstance().deathworm.targetSearchLength);
     }
 
@@ -484,7 +484,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     private void updateAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.2D, 0.15D * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafConfig.getInstance().deathworm.attackStrength * this.getScaleFactor()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafConfig.getInstance().deathworm.attackDamage * this.getScaleFactor()));
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafConfig.getInstance().deathworm.maxHealth * this.getScaleFactor()));
         this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafConfig.getInstance().deathworm.targetSearchLength);
         this.setHealth((float) this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getBaseValue());

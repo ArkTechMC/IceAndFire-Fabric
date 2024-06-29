@@ -154,7 +154,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().amphithere.attackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().amphithere.attackDamage)
                 .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.getInstance().amphithere.flightSpeed)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
@@ -513,7 +513,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().amphithere.maxHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().amphithere.attackStrength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().amphithere.attackDamage);
         this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafConfig.getInstance().amphithere.flightSpeed);
     }
 

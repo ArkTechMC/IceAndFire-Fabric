@@ -78,7 +78,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().troll.attackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().troll.attackDamage)
                 //KNOCKBACK RESIST
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 //ARMOR
@@ -88,7 +88,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().troll.maxHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().troll.attackStrength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().troll.attackDamage);
     }
 
     private void setAvoidSun(boolean day) {

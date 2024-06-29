@@ -50,11 +50,11 @@ public class IafConfigSerializer implements ConfigSerializer<IafConfig> {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
                     FileUtils.copyFile(configPath.toFile(), new File(IafConfig.backupPath + "common_" + sdf.format(new Date()) + ".json"));
                     ret = this.createDefault();
-                    FileUtils.write(configPath.toFile(), GSON.toJson(reader), StandardCharsets.UTF_8);
+                    FileUtils.write(configPath.toFile(), GSON.toJson(ret), StandardCharsets.UTF_8);
                 } else IceAndFire.LOGGER.info("{} config version match.", IceAndFire.MOD_NAME);
                 return ret;
             } catch (JsonParseException | IOException e) {
-                throw new ConfigSerializer.SerializationException(e);
+                throw new SerializationException(e);
             }
         } else return this.createDefault();
     }

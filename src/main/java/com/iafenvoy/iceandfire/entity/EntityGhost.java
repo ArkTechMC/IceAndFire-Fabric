@@ -74,7 +74,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().ghost.attackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().ghost.attackDamage)
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 1D);
     }
@@ -102,7 +102,7 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public void setConfigurableAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().ghost.maxHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().ghost.attackStrength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().ghost.attackDamage);
     }
 
     @Override

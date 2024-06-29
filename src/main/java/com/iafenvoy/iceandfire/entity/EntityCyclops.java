@@ -74,7 +74,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().cyclops.attackStrength)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().cyclops.attackDamage)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
                 //ARMOR
@@ -217,7 +217,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             double extraZ = radius * MathHelper.cos(angle);
             passenger.setPosition(this.getX() + extraX, this.getY() + raiseUp, this.getZ() + extraZ);
             if (this.getAnimationTick() == 32) {
-                passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafConfig.getInstance().cyclops.biteStrength);
+                passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafConfig.getInstance().cyclops.biteDamage);
                 passenger.stopRiding();
             }
         }
