@@ -14,7 +14,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnHippocampus extends Feature<DefaultFeatureConfig> {
-
     public SpawnHippocampus(Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }

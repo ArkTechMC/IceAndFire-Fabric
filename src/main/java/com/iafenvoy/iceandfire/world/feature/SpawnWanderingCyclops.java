@@ -17,7 +17,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnWanderingCyclops extends Feature<DefaultFeatureConfig> {
-
     public SpawnWanderingCyclops(Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }

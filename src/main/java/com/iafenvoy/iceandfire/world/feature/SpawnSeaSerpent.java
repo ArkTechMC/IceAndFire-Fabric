@@ -15,7 +15,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnSeaSerpent extends Feature<DefaultFeatureConfig> {
-
     public SpawnSeaSerpent(Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }

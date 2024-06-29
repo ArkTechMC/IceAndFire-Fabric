@@ -6,7 +6,7 @@
       "item": "minecraft:leather"
     },
     "S": {
-      "tag": "c:strings"
+      "item": "minecraft:string"
     }
   },
   "pattern": [

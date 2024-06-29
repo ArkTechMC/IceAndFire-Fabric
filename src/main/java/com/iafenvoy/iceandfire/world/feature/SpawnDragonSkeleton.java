@@ -13,7 +13,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
-
     protected final EntityType<? extends EntityDragonBase> dragonType;
 
     public SpawnDragonSkeleton(EntityType<? extends EntityDragonBase> dt, Codec<DefaultFeatureConfig> configFactoryIn) {
@@ -26,10 +25,8 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
         StructureWorldAccess worldIn = context.getWorld();
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
-
-        position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
-
-        if (IafConfig.getInstance().dragon.generate.skeletons) {
+        position = worldIn.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, position.add(8, 0, 8));
+        if (IafConfig.getInstance().dragon.generate.skeletons)
             if (rand.nextInt(IafConfig.getInstance().dragon.generate.skeletonChance + 1) == 0) {
                 EntityDragonBase dragon = this.dragonType.create(worldIn.toServerWorld());
                 assert dragon != null;
@@ -42,8 +39,6 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
                 dragon.setYaw(rand.nextInt(360));
                 worldIn.spawnEntity(dragon);
             }
-        }
-
         return true;
     }
 }

@@ -29,6 +29,9 @@
     ],
     "cardinal-components-entity": [
       "com.iafenvoy.iceandfire.data.ModComponentEntry"
+    ],
+    "modmenu": [
+      "com.iafenvoy.iceandfire.compat.ModMenu"
     ]
   },
   "custom": {

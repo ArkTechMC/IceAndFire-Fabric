@@ -77,15 +77,13 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     public EntitySiren(EntityType<EntitySiren> t, World worldIn) {
         super(t, worldIn);
         this.switchNavigator(true);
-        if (worldIn.isClient) {
-            this.tail_buffer = new ChainBuffer();
-        }
+        if (worldIn.isClient) this.tail_buffer = new ChainBuffer();
         this.setStepHeight(1F);
     }
 
     public static boolean isWearingEarplugs(LivingEntity entity) {
         ItemStack helmet = entity.getEquippedStack(EquipmentSlot.HEAD);
-        return helmet.getItem() == IafItems.EARPLUGS || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
+        return helmet.getItem() == IafItems.EARPLUGS || helmet != ItemStack.EMPTY && helmet.isOf(IafItems.EARPLUGS);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -100,13 +98,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     public static float updateRotation(float angle, float targetAngle, float maxIncrease) {
         float f = MathHelper.wrapDegrees(targetAngle - angle);
-        if (f > maxIncrease) {
-            f = maxIncrease;
-        }
-        if (f < -maxIncrease) {
-            f = -maxIncrease;
-        }
-        return angle + f;
+        return angle + MathHelper.clamp(f, -maxIncrease, maxIncrease);
     }
 
     @Override

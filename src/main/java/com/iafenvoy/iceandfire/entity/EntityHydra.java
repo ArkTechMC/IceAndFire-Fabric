@@ -129,9 +129,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                     this.getWorld().sendEntityStatus(this, (byte) (50 + index));
                     this.breathCooldown = 15;
                 }
-
             }
-
         }
         for (int i = 0; i < HEADS; i++) {
             boolean striking = this.isStriking[i];
@@ -148,9 +146,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             if (breathing) {
                 if (this.age % 7 == 0 && attackTarget != null && i < this.getHeadCount()) {
                     Vec3d Vector3d = this.getRotationVec(1.0F);
-                    if (this.random.nextFloat() < 0.2F) {
+                    if (this.random.nextFloat() < 0.2F)
                         this.playSound(IafSounds.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
-                    }
                     double headPosX = this.headBoxes[i].getX() + Vector3d.x;
                     double headPosY = this.headBoxes[i].getY() + 1.3F;
                     double headPosZ = this.headBoxes[i].getZ() + Vector3d.z;
@@ -159,9 +156,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                     double d4 = attackTarget.getZ() - headPosZ + this.random.nextGaussian() * 0.4D;
                     EntityHydraBreath entitylargefireball = new EntityHydraBreath(IafEntities.HYDRA_BREATH, this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
-                    if (!this.getWorld().isClient) {
+                    if (!this.getWorld().isClient)
                         this.getWorld().spawnEntity(entitylargefireball);
-                    }
                 }
                 if (this.isBreathing[i] && (attackTarget == null || !attackTarget.isAlive() || this.breathTicks[i] > 60) && !this.getWorld().isClient) {
                     this.isBreathing[i] = false;
@@ -170,35 +166,27 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
                     this.getWorld().sendEntityStatus(this, (byte) (60 + i));
                 }
                 this.breathTicks[i]++;
-            } else {
+            } else
                 this.breathTicks[i] = 0;
-            }
-            if (striking && this.strikingProgress[i] < 10.0F) {
+            if (striking && this.strikingProgress[i] < 10.0F)
                 this.strikingProgress[i] += 2.5F;
-            } else if (!striking && this.strikingProgress[i] > 0.0F) {
+            else if (!striking && this.strikingProgress[i] > 0.0F)
                 this.strikingProgress[i] -= 2.5F;
-            }
             this.prevSpeakingProgress[i] = this.speakingProgress[i];
-            if (this.speakingProgress[i] > 0.0F) {
+            if (this.speakingProgress[i] > 0.0F)
                 this.speakingProgress[i] -= 0.1F;
-            }
             this.prevBreathProgress[i] = this.breathProgress[i];
-            if (breathing && this.breathProgress[i] < 10.0F) {
+            if (breathing && this.breathProgress[i] < 10.0F)
                 this.breathProgress[i] += 1.0F;
-            } else if (!breathing && this.breathProgress[i] > 0.0F) {
+            else if (!breathing && this.breathProgress[i] > 0.0F)
                 this.breathProgress[i] -= 1.0F;
-            }
-
         }
-        if (this.strikeCooldown > 0) {
+        if (this.strikeCooldown > 0)
             this.strikeCooldown--;
-        }
-        if (this.breathCooldown > 0) {
+        if (this.breathCooldown > 0)
             this.breathCooldown--;
-        }
-        if (this.getHeadCount() == 1 && this.getSeveredHead() != -1) {
+        if (this.getHeadCount() == 1 && this.getSeveredHead() != -1)
             this.setSeveredHead(-1);
-        }
         if (this.getHeadCount() == 1 && !this.isOnFire()) {
             this.setHeadCount(2);
             this.setSeveredHead(1);
@@ -211,27 +199,23 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             if (this.regrowHeadCooldown >= 100) {
                 this.headDamageTracker[this.getSeveredHead()] = 0;
                 this.setSeveredHead(-1);
-                if (this.isOnFire()) {
+                if (this.isOnFire())
                     this.setHeadCount(this.getHeadCount() - 1);
-                } else {
+                else {
                     this.playSound(IafSounds.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
-                    if (!this.onlyRegrowOneHeadNotTwo) {
+                    if (!this.onlyRegrowOneHeadNotTwo)
                         this.setHeadCount(this.getHeadCount() + 1);
-                    }
                 }
                 this.onlyRegrowOneHeadNotTwo = false;
                 this.regrowHeadCooldown = 0;
             }
-        } else {
-            this.regrowHeadCooldown = 0;
-        }
+        } else this.regrowHeadCooldown = 0;
     }
 
     public void resetParts() {
         this.clearParts();
         this.headBoxes = new EntityHydraHead[HEADS * 2];
         for (int i = 0; i < this.getHeadCount(); i++) {
-            float maxAngle = 5;
             this.headBoxes[i] = new EntityHydraHead(this, 3.2F, ROTATE[this.getHeadCount() - 1][i] * 1.1F, 1.0F, 0.75F, 1.75F, 1, i, false);
             this.headBoxes[HEADS + i] = new EntityHydraHead(this, 2.1F, ROTATE[this.getHeadCount() - 1][i] * 1.1F, 1.0F, 0.75F, 0.75F, 1, i, true);
             this.headBoxes[i].copyPositionAndRotation(this);
@@ -245,9 +229,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     public void tick() {
         super.tick();
 
-        if (this.prevHeadCount != this.getHeadCount()) {
+        if (this.prevHeadCount != this.getHeadCount())
             this.resetParts();
-        }
 
         float partY = 1.0F - this.limbAnimator.getSpeed() * 0.5F;
 
@@ -259,30 +242,23 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             EntityUtil.updatePart(this.headBoxes[HEADS + 1], this);
         }
 
-        if (this.getHeadCount() > 1 && !this.isOnFire()) {
+        if (this.getHeadCount() > 1 && !this.isOnFire())
             if (this.getHealth() < this.getMaxHealth() && this.age % 30 == 0) {
                 int level = this.getHeadCount() - 1;
-                if (this.getSeveredHead() != -1) {
-                    level--;
-                }
-
+                if (this.getSeveredHead() != -1) level--;
                 this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 30, level, false, false));
             }
-        }
 
-        if (this.isOnFire()) {
+        if (this.isOnFire())
             this.removeStatusEffect(StatusEffects.REGENERATION);
-        }
 
         this.prevHeadCount = this.getHeadCount();
     }
 
     private void clearParts() {
-        for (Entity entity : this.headBoxes) {
-            if (entity != null) {
+        for (Entity entity : this.headBoxes)
+            if (entity != null)
                 entity.remove(RemovalReason.DISCARDED);
-            }
-        }
     }
 
     @Override
@@ -314,9 +290,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         compound.putInt("Variant", this.getVariant());
         compound.putInt("HeadCount", this.getHeadCount());
         compound.putInt("SeveredHead", this.getSeveredHead());
-        for (int i = 0; i < HEADS; i++) {
+        for (int i = 0; i < HEADS; i++)
             compound.putFloat("HeadDamage" + i, this.headDamageTracker[i]);
-        }
     }
 
     @Override
@@ -325,9 +300,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         this.setVariant(compound.getInt("Variant"));
         this.setHeadCount(compound.getInt("HeadCount"));
         this.setSeveredHead(compound.getInt("SeveredHead"));
-        for (int i = 0; i < HEADS; i++) {
+        for (int i = 0; i < HEADS; i++)
             this.headDamageTracker[i] = compound.getFloat("HeadDamage" + i);
-        }
         this.setConfigurableAttributes();
     }
 
@@ -341,9 +315,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (this.lastHitHead > this.getHeadCount()) {
+        if (this.lastHitHead > this.getHeadCount())
             this.lastHitHead = this.getHeadCount() - 1;
-        }
         int headIndex = this.lastHitHead;
         this.headDamageTracker[headIndex] += amount;
 
@@ -353,9 +326,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             this.setSeveredHead(headIndex);
             this.playSound(SoundEvents.ENTITY_GUARDIAN_FLOP, this.getSoundVolume(), this.getSoundPitch());
         }
-        if (this.getHealth() <= amount + 5 && this.getHeadCount() > 1 && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+        if (this.getHealth() <= amount + 5 && this.getHeadCount() > 1 && !source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY))
             amount = 0;
-        }
         return super.damage(source, amount);
     }
 

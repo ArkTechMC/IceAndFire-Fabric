@@ -1,17 +1,19 @@
 package com.iafenvoy.iceandfire;
 
+import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafConfigSerializer;
 import com.iafenvoy.iceandfire.event.EntityEvents;
 import com.iafenvoy.iceandfire.event.LivingEntityEvents;
 import com.iafenvoy.iceandfire.event.PlayerEvents;
 import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
 import com.iafenvoy.iceandfire.registry.*;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.*;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.entity.player.PlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +22,7 @@ import java.util.Optional;
 public class IceAndFire implements ModInitializer {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MOD_ID = "iceandfire";
+    public static final String MOD_NAME = "Ice And Fire";
     public static final CommonProxy PROXY = new CommonProxy();
     public static final String VERSION;
 
@@ -31,6 +34,8 @@ public class IceAndFire implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        AutoConfig.register(IafConfig.class, (config, aClass) -> new IafConfigSerializer());
+
         IafItems.init();
         IafBlocks.init();
         IafEntities.init();

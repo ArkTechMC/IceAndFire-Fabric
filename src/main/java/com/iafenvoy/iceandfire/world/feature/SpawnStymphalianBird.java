@@ -14,7 +14,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnStymphalianBird extends Feature<DefaultFeatureConfig> {
-
     public SpawnStymphalianBird(Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }

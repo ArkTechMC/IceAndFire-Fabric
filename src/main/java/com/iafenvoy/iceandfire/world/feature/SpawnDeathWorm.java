@@ -15,7 +15,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 public class SpawnDeathWorm extends Feature<DefaultFeatureConfig> {
-
     public SpawnDeathWorm(Codec<DefaultFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }
