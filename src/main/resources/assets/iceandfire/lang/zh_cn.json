@@ -1363,6 +1363,7 @@
   "text.autoconfig.iceandfire.option.dragon.behaviour.tamedGriefing": "驯服生物方块破坏",
   "text.autoconfig.iceandfire.option.dragon.behaviour.flapNoiseDistance": "翅膀挥动声音范围",
   "text.autoconfig.iceandfire.option.dragon.behaviour.fluteDistance": "龙骨长笛作用距离",
+  "text.autoconfig.iceandfire.option.dragon.behaviour.attackDamage": "基础攻击伤害",
   "text.autoconfig.iceandfire.option.dragon.behaviour.attackDamageFire": "火龙攻击伤害",
   "text.autoconfig.iceandfire.option.dragon.behaviour.attackDamageIce": "冰龙攻击伤害",
   "text.autoconfig.iceandfire.option.dragon.behaviour.attackDamageLightning": "电龙攻击伤害",
@@ -1501,5 +1502,8 @@
   "modmenu.nameTranslation.iceandfire": "冰火传说",
   "modmenu.descriptionTranslation.iceandfire": "冰火传说非官方移植\nMinecraft中的龙和其他神话生物",
   "modmenu.summaryTranslation.iceandfire": "冰火传说非官方移植",
-  "config.jade.plugin_iceandfire.dragon": "龙信息显示"
+  "config.jade.plugin_iceandfire.dragon": "龙信息显示",
+  "emi.category.iceandfire.fire_forge": "龙炎锻炉",
+  "emi.category.iceandfire.ice_forge": "龙霜锻炉",
+  "emi.category.iceandfire.lightning_forge": "龙霆锻炉"
 }

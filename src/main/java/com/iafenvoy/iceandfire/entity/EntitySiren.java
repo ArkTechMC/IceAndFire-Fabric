@@ -49,7 +49,6 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVillagerFear, IHasCustomizableAttributes {
-
     public static final int SEARCH_RANGE = 32;
     public static final Predicate<Entity> SIREN_PREY = p_apply_1_ -> (p_apply_1_ instanceof PlayerEntity && !((PlayerEntity) p_apply_1_).isCreative() && !p_apply_1_.isSpectator()) || p_apply_1_ instanceof MerchantEntity || p_apply_1_ instanceof IHearsSiren;
     public static final Animation ANIMATION_BITE = Animation.create(20);
