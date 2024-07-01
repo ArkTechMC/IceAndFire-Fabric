@@ -1,4 +1,4 @@
-package com.iafenvoy.citadel.server.message;
+package com.iafenvoy.iceandfire.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;

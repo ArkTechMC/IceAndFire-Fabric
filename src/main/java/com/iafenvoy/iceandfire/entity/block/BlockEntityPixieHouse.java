@@ -1,18 +1,20 @@
 package com.iafenvoy.iceandfire.entity.block;
 
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageUpdatePixieHouse;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafParticles;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.collection.DefaultedList;
@@ -111,7 +113,10 @@ public class BlockEntityPixieHouse extends BlockEntity {
         pixie.ticksUntilHouseAI = 500;
         pixie.setTamed(this.tamedPixie);
         pixie.setOwnerUuid(this.pixieOwnerUUID);
-        if (!this.world.isClient)
-            IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
+        if (!this.world.isClient) {
+            PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.pos);
+            buf.writeBoolean(false).writeInt(0);
+            IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+        }
     }
 }

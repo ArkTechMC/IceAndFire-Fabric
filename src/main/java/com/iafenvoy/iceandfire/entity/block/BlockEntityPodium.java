@@ -1,11 +1,13 @@
 package com.iafenvoy.iceandfire.entity.block;
 
+import com.iafenvoy.iceandfire.network.PacketBufferUtils;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemMyrmexEgg;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageUpdatePodium;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.screen.handler.PodiumScreenHandler;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +16,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
@@ -79,8 +82,11 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
             stack.setCount(this.getMaxCountPerStack());
         this.writeNbt(this.toInitialChunkDataNbt());
         assert this.world != null;
-        if (!this.world.isClient)
-            IafServerNetworkHandler.sendToAll(new MessageUpdatePodium(this.getPos().asLong(), this.stacks.get(0)));
+        if (!this.world.isClient) {
+            PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.getPos());
+            PacketBufferUtils.writeItemStack(buf, this.stacks.get(0));
+            IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PODIUM, buf);
+        }
     }
 
     @Override

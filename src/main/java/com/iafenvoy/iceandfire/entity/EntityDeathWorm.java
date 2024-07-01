@@ -5,6 +5,7 @@ import com.iafenvoy.citadel.animation.AnimationHandler;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
 import com.iafenvoy.citadel.server.entity.collision.ICustomCollisions;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
@@ -13,8 +14,8 @@ import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormSand;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageDeathWormHitbox;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.LookControl;
@@ -40,6 +41,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.BlockTags;
@@ -364,7 +366,9 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         this.clearSegments();
         if (!this.getWorld().isClient) {
             this.initSegments(scale * (this.getWormAge() / 5F));
-            IafServerNetworkHandler.sendToAll(new MessageDeathWormHitbox(this.getId(), scale * (this.getWormAge() / 5F)));
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(this.getId()).writeFloat(scale * (this.getWormAge() / 5F));
+            IafServerNetworkHandler.sendToAll(StaticVariables.DEATH_WORM_HITBOX, buf);
         }
     }
 

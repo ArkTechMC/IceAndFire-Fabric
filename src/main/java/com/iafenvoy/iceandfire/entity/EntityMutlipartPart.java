@@ -1,7 +1,8 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageMultipartInteract;
+import com.iafenvoy.iceandfire.StaticVariables;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -13,6 +14,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
@@ -243,7 +245,9 @@ public abstract class EntityMutlipartPart extends Entity {
     public ActionResult interact(PlayerEntity player, Hand hand) {
         Entity parent = this.getParent();
         if (this.getWorld().isClient && parent != null) {
-            IafClientNetworkHandler.send(new MessageMultipartInteract(parent.getId(), 0));
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(parent.getId()).writeFloat(0);
+            ClientPlayNetworking.send(StaticVariables.MULTIPART_INTERACT, buf);
         }
         return parent != null ? parent.interact(player, hand) : ActionResult.PASS;
     }
@@ -252,7 +256,9 @@ public abstract class EntityMutlipartPart extends Entity {
     public boolean damage(DamageSource source, float damage) {
         Entity parent = this.getParent();
         if (this.getWorld().isClient && source.getAttacker() instanceof PlayerEntity && parent != null) {
-            IafClientNetworkHandler.send(new MessageMultipartInteract(parent.getId(), damage * this.damageMultiplier));
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(parent.getId()).writeFloat(damage * this.damageMultiplier);
+            ClientPlayNetworking.send(StaticVariables.MULTIPART_INTERACT, buf);
         }
         return parent != null && parent.damage(source, damage * this.damageMultiplier);
     }

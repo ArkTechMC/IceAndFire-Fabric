@@ -1,12 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageGetMyrmexHiveS2C;
-import com.iafenvoy.iceandfire.network.message.MessageSetMyrmexHiveNull;
 import com.iafenvoy.iceandfire.screen.handler.MyrmexAddRoomScreenHandler;
 import com.iafenvoy.iceandfire.screen.handler.MyrmexStaffScreenHandler;
-import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -52,18 +47,14 @@ public class ItemMyrmexStaff extends Item {
             return super.use(worldIn, playerIn, hand);
         if (itemStackIn.getNbt() != null && itemStackIn.getNbt().containsUuid("HiveUUID")) {
             UUID id = itemStackIn.getNbt().getUuid("HiveUUID");
-            if (!worldIn.isClient) {
-                MyrmexHive hive = MyrmexWorldData.get(worldIn).getHiveFromUUID(id);
-                MyrmexWorldData.addHive(worldIn, new MyrmexHive());
-                if (hive != null) IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHiveS2C(hive.toNBT()));
-                else IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
-            } else if (id != null && !id.equals(new UUID(0, 0)))
+            if (id != null && !id.equals(new UUID(0, 0)))
                 playerIn.openHandledScreen(new ExtendedScreenHandlerFactory() {
                     @Override
                     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
                         NbtCompound compound = new NbtCompound();
                         itemStackIn.writeNbt(compound);
                         buf.writeNbt(compound);
+                        buf.writeUuid(id);
                     }
 
                     @Override
@@ -90,12 +81,7 @@ public class ItemMyrmexStaff extends Item {
             NbtCompound tag = context.getPlayer().getStackInHand(context.getHand()).getNbt();
             if (tag != null && tag.containsUuid("HiveUUID")) {
                 UUID id = tag.getUuid("HiveUUID");
-                if (!context.getWorld().isClient) {
-                    MyrmexHive hive = MyrmexWorldData.get(context.getWorld()).getHiveFromUUID(id);
-                    if (hive != null) IafServerNetworkHandler.sendToAll(new MessageGetMyrmexHiveS2C(hive.toNBT()));
-                    else IafServerNetworkHandler.sendToAll(new MessageSetMyrmexHiveNull());
-
-                } else if (id != null && !id.equals(new UUID(0, 0)))
+                if (id != null && !id.equals(new UUID(0, 0)))
                     context.getPlayer().openHandledScreen(new ExtendedScreenHandlerFactory() {
                         @Override
                         public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
@@ -105,7 +91,7 @@ public class ItemMyrmexStaff extends Item {
                             buf.writeNbt(compound);
                             buf.writeLong(context.getBlockPos().asLong());
                             buf.writeEnumConstant(player.getHorizontalFacing());
-
+                            buf.writeUuid(id);
                         }
 
                         @Override

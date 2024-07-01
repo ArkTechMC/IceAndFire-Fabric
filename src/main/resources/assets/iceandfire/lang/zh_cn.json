@@ -1346,7 +1346,7 @@
   "iceandfire.book.name": "异兽手记",
   "iceandfire.book.landing": "This is a landing text.",
 
-  "text.autoconfig.iceandfire.title": "冰火传说设置",
+  "text.autoconfig.iceandfire.title": "§km§b冰§6火§f传说设置§km",
   "text.autoconfig.iceandfire.option.client": "客户端",
   "text.autoconfig.iceandfire.option.client.customMainMenu": "重写主界面背景",
   "text.autoconfig.iceandfire.option.client.dragonAuto3rdPerson": "自动转换第三人称",

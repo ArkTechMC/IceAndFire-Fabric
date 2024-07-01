@@ -7,8 +7,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 
+import java.util.UUID;
+
 public class MyrmexStaffScreenHandler extends ScreenHandler {
     private ItemStack staff = ItemStack.EMPTY;
+    private UUID targetId;
 
     public MyrmexStaffScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(IafScreenHandlers.MYRMEX_STAFF_SCREEN, syncId);
@@ -17,6 +20,7 @@ public class MyrmexStaffScreenHandler extends ScreenHandler {
     public MyrmexStaffScreenHandler(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
         this(syncId, playerInventory);
         this.staff = ItemStack.fromNbt(buf.readNbt());
+        this.targetId = buf.readUuid();
     }
 
     @Override
@@ -30,6 +34,10 @@ public class MyrmexStaffScreenHandler extends ScreenHandler {
     }
 
     public ItemStack getStaff() {
-        return staff;
+        return this.staff;
+    }
+
+    public UUID getTargetId() {
+        return this.targetId;
     }
 }

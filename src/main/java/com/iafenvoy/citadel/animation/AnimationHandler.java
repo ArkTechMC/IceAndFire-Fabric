@@ -1,8 +1,10 @@
 package com.iafenvoy.citadel.animation;
 
-import com.iafenvoy.citadel.server.message.AnimationMessage;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
+import net.minecraft.network.PacketByteBuf;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
@@ -22,7 +24,9 @@ public enum AnimationHandler {
     public <T extends Entity & IAnimatedEntity> void sendAnimationMessage(T entity, Animation animation) {
         if (entity.getWorld().isClient) return;
         entity.setAnimation(animation);
-        IafServerNetworkHandler.sendToAll(new AnimationMessage(entity.getId(), ArrayUtils.indexOf(entity.getAnimations(), animation)));
+        PacketByteBuf buf = PacketByteBufs.create();
+        buf.writeInt(entity.getId()).writeInt(ArrayUtils.indexOf(entity.getAnimations(), animation));
+        IafServerNetworkHandler.sendToAll(StaticVariables.ANIMATION, buf);
     }
 
     /**

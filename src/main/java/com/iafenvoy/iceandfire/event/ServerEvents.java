@@ -1,6 +1,7 @@
 package com.iafenvoy.iceandfire.event;
 
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.*;
@@ -13,11 +14,11 @@ import com.iafenvoy.iceandfire.item.ItemChain;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonSteelArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
-import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessagePlayerHitMultipart;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.util.IdUtil;
 import com.iafenvoy.iceandfire.util.RandomHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -37,6 +38,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.DamageTypeTags;
@@ -238,8 +240,11 @@ public class ServerEvents {
                 extraData = hydraHead.headIndex;
                 hydra.triggerHeadFlags(extraData);
             }
-            if (mutlipartPart.getWorld().isClient && parent != null)
-                IafClientNetworkHandler.send(new MessagePlayerHitMultipart(parent.getId(), extraData));
+            if (mutlipartPart.getWorld().isClient && parent != null) {
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeInt(parent.getId()).writeInt(extraData);
+                ClientPlayNetworking.send(StaticVariables.PLAYER_HIT_MULTIPART, buf);
+            }
         }
         if (entity instanceof LivingEntity livingEntity) {
             if (entity.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(livingEntity, player);

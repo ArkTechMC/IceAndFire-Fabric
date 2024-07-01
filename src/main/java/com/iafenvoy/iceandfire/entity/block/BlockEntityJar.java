@@ -1,18 +1,19 @@
 package com.iafenvoy.iceandfire.entity.block;
 
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageUpdatePixieHouse;
-import com.iafenvoy.iceandfire.network.message.MessageUpdatePixieJar;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
@@ -61,13 +62,18 @@ public class BlockEntityJar extends BlockEntity {
         }
         if (entityJar.ticksExisted % 24000 == 0 && !entityJar.hasProduced && entityJar.hasPixie) {
             entityJar.hasProduced = true;
-            if (!level.isClient)
-                IafServerNetworkHandler.sendToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
+            if (!level.isClient) {
+                PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(pos);
+                buf.writeBoolean(entityJar.hasProduced);
+                IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_JAR, buf);
+            }
         }
         if (entityJar.hasPixie && entityJar.hasProduced != entityJar.prevHasProduced && entityJar.ticksExisted > 5) {
-            if (!level.isClient)
-                IafServerNetworkHandler.sendToAll(new MessageUpdatePixieJar(pos.asLong(), entityJar.hasProduced));
-            else
+            if (!level.isClient) {
+                PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(pos);
+                buf.writeBoolean(entityJar.hasProduced);
+                IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_JAR, buf);
+            } else
                 level.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSounds.PIXIE_HURT, SoundCategory.BLOCKS, 1, 1, false);
         }
         entityJar.prevRotationYaw = entityJar.rotationYaw;
@@ -122,7 +128,10 @@ public class BlockEntityJar extends BlockEntity {
         pixie.setTamed(this.tamedPixie);
         pixie.setOwnerUuid(this.pixieOwnerUUID);
 
-        if (!this.world.isClient)
-            IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.pos.asLong(), false, 0));
+        if (!this.world.isClient) {
+            PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.pos);
+            buf.writeBoolean(false).writeInt(0);
+            IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+        }
     }
 }

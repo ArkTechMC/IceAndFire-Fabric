@@ -1,21 +1,23 @@
 package com.iafenvoy.iceandfire.event;
 
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.util.ICustomMoveController;
-import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageDragonControl;
 import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
 import com.iafenvoy.iceandfire.registry.IafKeybindings;
 import com.iafenvoy.iceandfire.render.block.RenderFrozenState;
 import com.iafenvoy.iceandfire.render.entity.RenderChain;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketByteBuf;
 
 @Environment(EnvType.CLIENT)
 public class ClientEvents {
@@ -47,7 +49,10 @@ public class ClientEvents {
                 moveController.dismount(mc.options.sneakKey.isPressed());
                 byte controlState = moveController.getControlState();
                 if (controlState != previousState) {
-                    IafClientNetworkHandler.send(new MessageDragonControl(entity.getId(), controlState, entity.getX(), entity.getY(), entity.getZ()));
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeInt(entity.getId()).writeByte(controlState);
+                    buf.writeBlockPos(entity.getBlockPos());
+                    ClientPlayNetworking.send(StaticVariables.DRAGON_CONTROL, buf);
                 }
             }
         }
@@ -61,8 +66,12 @@ public class ClientEvents {
             moveController.dismount(mc.options.sneakKey.isPressed());
             moveController.strike(IafKeybindings.dragon_fireAttack.isPressed());
             byte controlState = moveController.getControlState();
-            if (controlState != previousState)
-                IafClientNetworkHandler.send(new MessageDragonControl(vehicle.getId(), controlState, vehicle.getX(), vehicle.getY(), vehicle.getZ()));
+            if (controlState != previousState) {
+                PacketByteBuf buf = PacketByteBufs.create();
+                buf.writeInt(vehicle.getId()).writeByte(controlState);
+                buf.writeBlockPos(vehicle.getBlockPos());
+                ClientPlayNetworking.send(StaticVariables.DRAGON_CONTROL, buf);
+            }
         }
     }
 

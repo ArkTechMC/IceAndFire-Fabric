@@ -15,8 +15,6 @@ import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
 import com.iafenvoy.iceandfire.enums.EnumHippogryphTypes;
-import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageHippogryphArmor;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
@@ -66,7 +64,6 @@ import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
 public class EntityHippogryph extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, IFlyingMount, ICustomMoveController, IHasCustomizableAttributes {
-
     private static final int FLIGHT_CHANCE_PER_TICK = 1200;
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> SADDLE = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -180,7 +177,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         this.dataTracker.startTracking(FLYING, Boolean.FALSE);
         this.dataTracker.startTracking(CONTROL_STATE, (byte) 0);
         this.dataTracker.startTracking(COMMAND, 0);
-
     }
 
     @Override
@@ -210,30 +206,18 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
             int i = Math.min(animalchest.size(), this.hippogryphInventory.size());
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = animalchest.getStack(j);
-                if (!itemstack.isEmpty()) {
+                if (!itemstack.isEmpty())
                     this.hippogryphInventory.setStack(j, itemstack.copy());
-                }
-            }
-
-            if (this.getWorld().isClient) {
-                ItemStack saddle = animalchest.getStack(0);
-                ItemStack chest = animalchest.getStack(1);
-                IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-                IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 1, chest != null && chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty() ? 1 : 0));
-                IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 2, getIntFromArmor(animalchest.getStack(2))));
             }
         }
     }
 
     @Override
     public LivingEntity getControllingPassenger() {
-        for (Entity passenger : this.getPassengerList()) {
-            if (passenger instanceof PlayerEntity player && this.getTarget() != passenger) {
-                if (this.isTamed() && this.getOwnerUuid() != null && this.getOwnerUuid().equals(player.getUuid())) {
+        for (Entity passenger : this.getPassengerList())
+            if (passenger instanceof PlayerEntity player && this.getTarget() != passenger)
+                if (this.isTamed() && this.getOwnerUuid() != null && this.getOwnerUuid().equals(player.getUuid()))
                     return player;
-                }
-            }
-        }
         return null;
     }
 
@@ -250,32 +234,27 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         if (this.isTamed() && this.isOwner(player)) {
             if (itemstack.getItem() == Items.RED_DYE && this.getEnumVariant() != EnumHippogryphTypes.ALEX && isDev) {
                 this.setEnumVariant(EnumHippogryphTypes.ALEX);
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     itemstack.decrement(1);
-                }
                 this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 20; i++)
                     this.getWorld().addParticle(ParticleTypes.CLOUD, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0, 0, 0);
-                }
                 return ActionResult.SUCCESS;
             }
             if (itemstack.getItem() == Items.LIGHT_GRAY_DYE && this.getEnumVariant() != EnumHippogryphTypes.RAPTOR && isDev) {
                 this.setEnumVariant(EnumHippogryphTypes.RAPTOR);
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     itemstack.decrement(1);
-                }
                 this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 20; i++)
                     this.getWorld().addParticle(ParticleTypes.CLOUD, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0, 0, 0);
-                }
                 return ActionResult.SUCCESS;
             }
             if (itemstack.isIn(IafItemTags.BREED_HIPPOGRYPH) && this.getBreedingAge() == 0 && !this.isInLove()) {
                 this.lovePlayer(player);
                 this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     itemstack.decrement(1);
-                }
                 return ActionResult.SUCCESS;
             }
             if (itemstack.getItem() == Items.STICK) {
@@ -291,37 +270,31 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
                     return ActionResult.SUCCESS;
                 } else {
                     this.setCommand(this.getCommand() + 1);
-                    if (this.getCommand() > 1) {
+                    if (this.getCommand() > 1)
                         this.setCommand(0);
-                    }
                     player.sendMessage(Text.translatable("hippogryph.command." + (this.getCommand() == 1 ? "sit" : "stand")), true);
-
                 }
                 return ActionResult.SUCCESS;
             }
             if (itemstack.getItem() == Items.GLISTERING_MELON_SLICE && this.getEnumVariant() != EnumHippogryphTypes.DODO) {
                 this.setEnumVariant(EnumHippogryphTypes.DODO);
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     itemstack.decrement(1);
-                }
                 this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
-                for (int i = 0; i < 20; i++) {
+                for (int i = 0; i < 20; i++)
                     this.getWorld().addParticle(ParticleTypes.ENCHANT, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0, 0, 0);
-                }
                 return ActionResult.SUCCESS;
             }
             if (itemstack.getItem().isFood() && itemstack.getItem().getFoodComponent() != null && itemstack.getItem().getFoodComponent().isMeat() && this.getHealth() < this.getMaxHealth()) {
                 this.heal(5);
                 this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < 3; i++)
                     this.getWorld().addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, itemstack), this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0, 0, 0);
-                }
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     itemstack.decrement(1);
-                }
                 return ActionResult.SUCCESS;
             }
-            if (itemstack.isEmpty()) {
+            if (itemstack.isEmpty())
                 if (player.isSneaking()) {
                     this.openGUI(player);
                     return ActionResult.SUCCESS;
@@ -329,7 +302,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
                     player.startRiding(this, true);
                     return ActionResult.SUCCESS;
                 }
-            }
         }
         return super.interactMob(player, hand);
     }
@@ -373,7 +345,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     public void strike(boolean strike) {
-
     }
 
     @Override
@@ -383,11 +354,8 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     private void setStateField(int i, boolean newState) {
         byte prevState = this.dataTracker.get(CONTROL_STATE);
-        if (newState) {
-            this.dataTracker.set(CONTROL_STATE, (byte) (prevState | (1 << i)));
-        } else {
-            this.dataTracker.set(CONTROL_STATE, (byte) (prevState & ~(1 << i)));
-        }
+        if (newState) this.dataTracker.set(CONTROL_STATE, (byte) (prevState | (1 << i)));
+        else this.dataTracker.set(CONTROL_STATE, (byte) (prevState & ~(1 << i)));
     }
 
     @Override
@@ -468,13 +436,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
                 this.initHippogryphInv();
                 this.hippogryphInventory.setStack(j, ItemStack.fromNbt(CompoundNBT));
                 //this.setArmorInSlot(j, this.getIntFromArmor(ItemStack.loadItemStackFromNBT(CompoundNBT)));
-                ItemStack saddle = this.hippogryphInventory.getStack(0);
-                ItemStack chest = this.hippogryphInventory.getStack(1);
-                if (this.getWorld().isClient) {
-                    IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-                    IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 1, chest != null && chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty() ? 1 : 0));
-                    IafClientNetworkHandler.send(new MessageHippogryphArmor(this.getId(), 2, getIntFromArmor(this.hippogryphInventory.getStack(2))));
-                }
             }
         }
         this.hasHomePosition = compound.getBoolean("HasHomePosition");
@@ -1016,12 +977,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
             this.setChested(chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty());
             this.setArmor(getIntFromArmor(this.hippogryphInventory.getStack(2)));
         }
-        /*if (this.world.isRemote) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 1, chest != null && chest.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !chest.isEmpty() ? 1 : 0));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 2, this.getIntFromArmor(this.hippogryphInventory.getStackInSlot(2))));
-        }*/
-
     }
 
     protected void switchNavigator(boolean onLand) {

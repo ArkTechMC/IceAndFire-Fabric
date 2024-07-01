@@ -14,8 +14,6 @@ import com.iafenvoy.iceandfire.entity.util.ChainBuffer;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.IHearsSiren;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageSirenSong;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -352,21 +350,14 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     }
 
     public boolean isSinging() {
-        if (this.getWorld().isClient) {
-            return this.isSinging = this.dataTracker.get(SINGING);
-        }
-        return this.isSinging;
+        return this.isSinging = this.dataTracker.get(SINGING);
     }
 
     public void setSinging(boolean singing) {
-        if (this.singCooldown > 0) {
+        if (this.singCooldown > 0)
             singing = false;
-        }
         this.dataTracker.set(SINGING, singing);
-        if (!this.getWorld().isClient) {
-            this.isSinging = singing;
-            IafServerNetworkHandler.sendToAll(new MessageSirenSong(this.getId(), singing));
-        }
+        this.isSinging = singing;
     }
 
     public boolean wantsToSing() {

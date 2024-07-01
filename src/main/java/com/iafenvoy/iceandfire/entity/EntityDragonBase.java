@@ -8,7 +8,7 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNaviga
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.IPassabilityNavigator;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathingStuckHandler;
 import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
-import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.FoodUtils;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
@@ -22,11 +22,7 @@ import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
-import com.iafenvoy.iceandfire.network.IafClientNetworkHandler;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageDragonSetBurnBlock;
-import com.iafenvoy.iceandfire.network.message.MessageStartRidingMobC2S;
-import com.iafenvoy.iceandfire.network.message.MessageStartRidingMobS2C;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -36,6 +32,8 @@ import com.iafenvoy.iceandfire.render.model.IFChainBuffer;
 import com.iafenvoy.iceandfire.render.model.util.LegSolverQuadruped;
 import com.iafenvoy.iceandfire.screen.handler.DragonScreenHandler;
 import com.iafenvoy.iceandfire.world.DragonPosWorldData;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -71,6 +69,7 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -438,7 +437,10 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 this.setBreathingFire(true);
             } else {
                 if (!this.getWorld().isClient) {
-                    IafServerNetworkHandler.sendToAll(new MessageDragonSetBurnBlock(this.getId(), true, this.burningTarget));
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeInt(this.getId()).writeBoolean(true);
+                    buf.writeBlockPos(this.burningTarget);
+                    IafServerNetworkHandler.sendToAll(StaticVariables.DRAGON_SET_BURN_BLOCK, buf);
                 }
                 this.burningTarget = null;
             }
@@ -1166,11 +1168,15 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             if (player.getPassengerList().size() >= 3)
                                 return ActionResult.FAIL;
                             this.startRiding(player, true);
-                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMobS2C(this.getId(), true, true));
+                            PacketByteBuf buf = PacketByteBufs.create();
+                            buf.writeInt(this.getId()).writeBoolean(true).writeBoolean(true);
+                            IafServerNetworkHandler.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
                         } else if (dragonStage > 2 && !player.hasVehicle()) {
                             player.setSneaking(false);
                             player.startRiding(this, true);
-                            IafServerNetworkHandler.sendToAll(new MessageStartRidingMobS2C(this.getId(), true, false));
+                            PacketByteBuf buf = PacketByteBufs.create();
+                            buf.writeInt(this.getId()).writeBoolean(true).writeBoolean(false);
+                            IafServerNetworkHandler.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
                             this.setInSittingPose(false);
                         }
                         this.getNavigation().stop();
@@ -1791,24 +1797,24 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void updateRiding(Entity riding) {
-        if (riding != null && riding.hasPassenger(this) && riding instanceof PlayerEntity) {
+        if (riding != null && riding.hasPassenger(this) && riding instanceof PlayerEntity player) {
             final int i = riding.getPassengerList().indexOf(this);
             final float radius = (i == 2 ? -0.2F : 0.5F) + (((PlayerEntity) riding).isFallFlying() ? 2 : 0);
             final float angle = (0.01745329251F * ((PlayerEntity) riding).bodyYaw) + (i == 1 ? 90 : i == 0 ? -90 : 0);
             final double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
             final double extraZ = radius * MathHelper.cos(angle);
             final double extraY = (riding.isSneaking() ? 1.2D : 1.4D) + (i == 2 ? 0.4D : 0D);
-            this.headYaw = ((PlayerEntity) riding).headYaw;
-            this.setYaw(((PlayerEntity) riding).headYaw);
+            this.headYaw = player.headYaw;
+            this.setYaw(this.headYaw);
             this.setPosition(riding.getX() + extraX, riding.getY() + extraY, riding.getZ() + extraZ);
             if ((this.getControlState() == 1 << 4 || ((PlayerEntity) riding).isFallFlying()) && !riding.hasVehicle()) {
                 this.stopRiding();
                 if (this.getWorld().isClient) {
-                    IafClientNetworkHandler.send(new MessageStartRidingMobC2S(this.getId(), false, true));
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeInt(this.getId()).writeBoolean(false).writeBoolean(true);
+                    ClientPlayNetworking.send(StaticVariables.START_RIDING_MOB_C2S, buf);
                 }
-
             }
-
         }
     }
 

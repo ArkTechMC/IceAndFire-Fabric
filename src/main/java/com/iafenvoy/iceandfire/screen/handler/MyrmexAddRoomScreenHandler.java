@@ -9,10 +9,13 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
+import java.util.UUID;
+
 public class MyrmexAddRoomScreenHandler extends ScreenHandler {
     private ItemStack staff = ItemStack.EMPTY;
     private BlockPos interactPos = BlockPos.ORIGIN;
     private Direction facing = Direction.UP;
+    private UUID targetId;
 
     public MyrmexAddRoomScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(IafScreenHandlers.MYRMEX_ADD_ROOM_SCREEN, syncId);
@@ -23,6 +26,7 @@ public class MyrmexAddRoomScreenHandler extends ScreenHandler {
         this.staff = ItemStack.fromNbt(buf.readNbt());
         this.interactPos = BlockPos.fromLong(buf.readLong());
         this.facing = buf.readEnumConstant(Direction.class);
+        this.targetId = buf.readUuid();
     }
 
     @Override
@@ -36,14 +40,18 @@ public class MyrmexAddRoomScreenHandler extends ScreenHandler {
     }
 
     public ItemStack getStaff() {
-        return staff;
+        return this.staff;
     }
 
     public BlockPos getInteractPos() {
-        return interactPos;
+        return this.interactPos;
     }
 
     public Direction getFacing() {
-        return facing;
+        return this.facing;
+    }
+
+    public UUID getTargetId() {
+        return this.targetId;
     }
 }

@@ -1352,7 +1352,7 @@
   "iceandfire.book.name": "Bestiary",
   "iceandfire.book.landing": "This is a landing text.",
 
-  "text.autoconfig.iceandfire.title": "Ice And Fire Config",
+  "text.autoconfig.iceandfire.title": "§km§bIce §fAnd §6Fire §fConfig§km",
   "text.autoconfig.iceandfire.option.client": "Client",
   "text.autoconfig.iceandfire.option.client.customMainMenu": "IAF Custom Main Menu",
   "text.autoconfig.iceandfire.option.client.dragonAuto3rdPerson": "Auto 3rd Person Perspective",

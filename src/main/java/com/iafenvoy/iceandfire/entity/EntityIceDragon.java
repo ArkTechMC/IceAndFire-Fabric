@@ -3,6 +3,7 @@ package com.iafenvoy.iceandfire.entity;
 import com.iafenvoy.citadel.animation.Animation;
 import com.iafenvoy.citadel.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
@@ -10,8 +11,8 @@ import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.ParticleSpawnMessage;
 import com.iafenvoy.iceandfire.registry.*;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -24,8 +25,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -503,7 +504,10 @@ public class EntityIceDragon extends EntityDragonBase {
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
                 if (this.random.nextInt(particleCount) == 0) {
                     Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
-                    IafServerNetworkHandler.sendToAll(new ParticleSpawnMessage(IafParticles.DRAGON_FROST, headPos.x, headPos.y, headPos.z, velocity.x, velocity.y, velocity.z));
+                    PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.DRAGON_FROST.asString());
+                    buf.writeDouble(headPos.x).writeDouble(headPos.y).writeDouble(headPos.z);
+                    buf.writeDouble(velocity.x).writeDouble(velocity.y).writeDouble(velocity.z);
+                    IafServerNetworkHandler.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
                 }
             } else if (!this.getWorld().isClient) {
                 HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));

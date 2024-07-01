@@ -1,14 +1,15 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
+import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPixieHouse;
 import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
-import com.iafenvoy.iceandfire.network.message.MessageUpdatePixieHouse;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -32,6 +33,7 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.ActionResult;
@@ -330,7 +332,9 @@ public class EntityPixie extends TameableEntity {
                     house.pixieItems.set(0, this.getStackInHand(Hand.MAIN_HAND));
                     house.tamedPixie = this.isTamed();
                     house.pixieOwnerUUID = this.getOwnerUuid();
-                    IafServerNetworkHandler.sendToAll(new MessageUpdatePixieHouse(this.housePos.asLong(), true, this.getColor()));
+                    PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.housePos);
+                    buf.writeBoolean(true).writeInt(this.getColor());
+                    IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
