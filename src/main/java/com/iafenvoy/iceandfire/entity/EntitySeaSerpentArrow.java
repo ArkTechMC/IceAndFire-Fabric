@@ -34,7 +34,6 @@ public class EntitySeaSerpentArrow extends PersistentProjectileEntity {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
             double d2 = this.random.nextGaussian() * 0.02D;
-            double d3 = 10.0D;
             double xRatio = this.getVelocity().x * this.getHeight();
             double zRatio = this.getVelocity().z * this.getHeight();
             this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX() + xRatio + this.random.nextFloat() * this.getWidth() * 1.0F - this.getWidth() - d0 * 10.0D, this.getY() + this.random.nextFloat() * this.getHeight() - d1 * 10.0D, this.getZ() + zRatio + this.random.nextFloat() * this.getWidth() * 1.0F - this.getWidth() - d2 * 10.0D, d0, d1, d2);

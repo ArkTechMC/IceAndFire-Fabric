@@ -70,7 +70,6 @@ public class ItemDeathwormGauntlet extends Item {
         }
 
         NbtCompound tag = stack.getOrCreateNbt();
-
         if (tag.getInt("HolderID") != -1)
             tag.putInt("HolderID", -1);
     }
@@ -100,7 +99,8 @@ public class ItemDeathwormGauntlet extends Item {
             if (tempLungeTicks > 20) this.deathwormReceded = true;
         }
 
-        if (data.miscData.lungeTicks == 20) {
+        if (data.miscData.lungeTicks >= 20) {
+            tempLungeTicks = 0;
             if (entity instanceof PlayerEntity player) {
                 Vec3d Vector3d = player.getRotationVec(1.0F).normalize();
                 double range = 5;

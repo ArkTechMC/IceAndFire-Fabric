@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.iafenvoy.citadel.client.model.AdvancedModelBox;
 import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.entity.EntityDeathWorm;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -122,27 +123,6 @@ public class ModelDeathWormGauntlet extends ModelDragonBase {
         this.progressPosition(this.JawExtender2, lungeTicks, 0, 0, -10);
         this.progressPosition(this.JawExtender3, lungeTicks, 0, 0, -10);
         this.progressPosition(this.JawExtender4, lungeTicks, 0, 0, -10);
-
-        /*animator.setAnimation(EntityDeathWorm.ANIMATION_BITE);
-        animator.startKeyframe(3);
-        this.rotate(animator, TopJaw, -20, 0, 0);
-        this.rotate(animator, BottomJaw, 20, 0, 0);
-        animator.move(JawExtender, 0, 0, -8);
-        animator.move(JawExtender2, 0, 0, -8);
-        animator.endKeyframe();
-        animator.startKeyframe(3);
-        this.rotate(animator, TopJaw, -40, 0, 0);
-        this.rotate(animator, BottomJaw, 40, 0, 0);
-        animator.move(JawExtender, 0, 0, -10);
-        animator.move(JawExtender2, 0, 0, -10);
-        animator.endKeyframe();
-        animator.startKeyframe(2);
-        this.rotate(animator, TopJaw, 5, 0, 0);
-        this.rotate(animator, BottomJaw, -5, 0, 0);
-        animator.move(JawExtender, 0, 0, -7);
-        animator.move(JawExtender2, 0, 0, -7);
-        animator.endKeyframe();
-        animator.resetKeyframe(2);*/
     }
 
     @Override
