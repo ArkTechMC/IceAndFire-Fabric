@@ -12,6 +12,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,7 +40,7 @@ public class ItemDragonArmor extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        String words = "dragon.armor_" + this.dragonSlot.name().toLowerCase();
+        String words = "dragon.armor_" + this.dragonSlot.name().toLowerCase(Locale.ROOT);
         tooltip.add(Text.translatable(words).formatted(Formatting.GRAY));
     }
 }

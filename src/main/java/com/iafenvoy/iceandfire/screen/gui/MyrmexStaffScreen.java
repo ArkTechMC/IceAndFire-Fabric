@@ -68,7 +68,7 @@ public class MyrmexStaffScreen extends HandledScreen<MyrmexStaffScreenHandler> {
         for (int rooms = 0; rooms < this.allRoomPos.size(); rooms++) {
             int yIndex = rooms % ROOMS_PER_PAGE;
             BlockPos pos = this.allRoomPos.get(rooms).pos;
-            //IndexPageButton button = new IndexPageButton(2 + i, centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), StatCollector.translateToLocal("bestiary." + EnumBestiaryPages.values()[allPageTypes.get(i).ordinal()].toString().toLowerCase()));
+            //IndexPageButton button = new IndexPageButton(2 + i, centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), StatCollector.translateToLocal("bestiary." + EnumBestiaryPages.values()[allPageTypes.get(i).ordinal()].toString().toLowerCase(Locale.ROOT)));
             MyrmexDeleteButton button = new MyrmexDeleteButton(i + x_translate, j + y_translate + (yIndex) * 22, pos, Text.translatable("myrmex.message.delete"), (p_214132_1_) -> {
                 if (this.ticksSinceDeleted <= 0) {
                     hive.removeRoom(pos);

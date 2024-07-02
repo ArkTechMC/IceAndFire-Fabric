@@ -43,22 +43,14 @@ public enum EnumHippogryphTypes {
 
     public static EnumHippogryphTypes getBiomeType(RegistryEntry<Biome> biome) {
         List<EnumHippogryphTypes> types = new ArrayList<>();
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_BLACK))
-            types.add(BLACK);
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_BROWN))
-            types.add(BROWN);
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_GRAY))
-            types.add(GRAY);
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_CHESTNUT))
-            types.add(CHESTNUT);
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_CREAMY))
-            types.add(CREAMY);
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_DARK_BROWN))
-            types.add(DARK_BROWN);
-        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_WHITE))
-            types.add(WHITE);
-        if (types.isEmpty())
-            return getRandomType();
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_BLACK)) types.add(BLACK);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_BROWN)) types.add(BROWN);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_GRAY)) types.add(GRAY);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_CHESTNUT)) types.add(CHESTNUT);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_CREAMY)) types.add(CREAMY);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_DARK_BROWN)) types.add(DARK_BROWN);
+        if (biome.isIn(IafBiomeTags.HIPPOGRYPH_WHITE)) types.add(WHITE);
+        if (types.isEmpty()) return getRandomType();
         else {
             if (types.contains(GRAY) && types.contains(CHESTNUT))
                 return GRAY;

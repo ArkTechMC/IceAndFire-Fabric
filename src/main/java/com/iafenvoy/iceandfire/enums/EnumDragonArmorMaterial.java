@@ -1,23 +1,19 @@
 package com.iafenvoy.iceandfire.enums;
 
+import java.util.Locale;
+
 public enum EnumDragonArmorMaterial {
-    IRON("iron"),
-    COPPER("copper"),
-    SILVER("silver"),
-    GOLD("gold"),
-    DIAMOND("diamond"),
-    NETHERITE("netherite"),
-    DRAGON_STEEL_FIRE("dragon_steel_fire"),
-    DRAGON_STEEL_ICE("dragon_steel_ice"),
-    DRAGON_STEEL_LIGHTNING("dragon_steel_lightning");
-
-    private final String id;
-
-    EnumDragonArmorMaterial(String id) {
-        this.id = id;
-    }
+    IRON,
+    COPPER,
+    SILVER,
+    GOLD,
+    DIAMOND,
+    NETHERITE,
+    DRAGON_STEEL_FIRE,
+    DRAGON_STEEL_ICE,
+    DRAGON_STEEL_LIGHTNING;
 
     public String getId() {
-        return this.id.toLowerCase();
+        return this.name().toLowerCase(Locale.ROOT);
     }
 }

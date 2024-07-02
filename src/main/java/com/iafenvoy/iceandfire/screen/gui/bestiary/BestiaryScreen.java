@@ -104,7 +104,7 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
                 int xIndex = i % -2;
                 int yIndex = i % 10;
                 int id = 2 + i;
-                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase()), widget -> {
+                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase(Locale.ROOT)), widget -> {
                     if (this.indexButtons.get(id - 2) != null && this.allPageTypes.get(id - 2) != null) {
                         MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
                         this.index = false;

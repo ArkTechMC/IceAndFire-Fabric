@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ItemDragonEgg extends Item {
     public final EnumDragonColor type;
@@ -36,7 +37,7 @@ public class ItemDragonEgg extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase()).formatted(this.type.color));
+        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase(Locale.ROOT)).formatted(this.type.color));
     }
 
     @Override

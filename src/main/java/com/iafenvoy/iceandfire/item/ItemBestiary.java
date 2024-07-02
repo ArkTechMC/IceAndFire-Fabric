@@ -24,6 +24,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class ItemBestiary extends Item {
@@ -73,7 +74,7 @@ public class ItemBestiary extends Item {
                 tooltip.add(Text.translatable("bestiary.contains").formatted(Formatting.GRAY));
                 final Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(stack.getNbt().getIntArray("Pages")));
                 for (EnumBestiaryPages page : pages)
-                    tooltip.add(Text.literal(Formatting.WHITE + "-").append(Text.translatable("bestiary." + EnumBestiaryPages.values()[page.ordinal()].toString().toLowerCase())).formatted(Formatting.GRAY));
+                    tooltip.add(Text.literal(Formatting.WHITE + "-").append(Text.translatable("bestiary." + EnumBestiaryPages.values()[page.ordinal()].toString().toLowerCase(Locale.ROOT))).formatted(Formatting.GRAY));
             } else
                 tooltip.add(Text.translatable("bestiary.hold_shift").formatted(Formatting.GRAY));
     }

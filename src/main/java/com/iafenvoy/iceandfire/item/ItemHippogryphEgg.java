@@ -20,6 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemHippogryphEgg extends Item {
@@ -79,7 +80,7 @@ public class ItemHippogryphEgg extends Item {
         if (tag != null)
             eggOrdinal = tag.getInt("EggOrdinal");
 
-        String type = EnumHippogryphTypes.values()[MathHelper.clamp(eggOrdinal, 0, EnumHippogryphTypes.values().length - 1)].name().toLowerCase();
+        String type = EnumHippogryphTypes.values()[MathHelper.clamp(eggOrdinal, 0, EnumHippogryphTypes.values().length - 1)].name().toLowerCase(Locale.ROOT);
         tooltip.add(Text.translatable("entity.iceandfire.hippogryph." + type).formatted(Formatting.GRAY));
     }
 }

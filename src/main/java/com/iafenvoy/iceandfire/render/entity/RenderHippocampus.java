@@ -16,6 +16,8 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
+import java.util.Locale;
+
 
 public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, ModelHippocampus> {
     private static final Identifier VARIANT_0 = new Identifier(IceAndFire.MOD_ID, "textures/models/hippocampus/hippocampus_0.png");
@@ -98,7 +100,7 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
 
         @Override
         public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityHippocampus hippo, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-            if (hippo.hasCustomName() && hippo.getCustomName().toString().toLowerCase().contains("rainbow")) {
+            if (hippo.hasCustomName() && hippo.getCustomName().toString().toLowerCase(Locale.ROOT).contains("rainbow")) {
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(hippo.isBlinking() ? this.TEXTURE_BLINK : this.TEXTURE);
                 int i = hippo.age / 25 + hippo.getId();
                 int j = DyeColor.values().length;

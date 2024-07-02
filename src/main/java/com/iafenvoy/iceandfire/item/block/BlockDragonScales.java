@@ -12,6 +12,7 @@ import net.minecraft.text.Text;
 import net.minecraft.world.BlockView;
 
 import java.util.List;
+import java.util.Locale;
 
 public class BlockDragonScales extends Block implements IDragonProof {
     final EnumDragonColor type;
@@ -23,6 +24,6 @@ public class BlockDragonScales extends Block implements IDragonProof {
 
     @Override
     public void appendTooltip(ItemStack stack, BlockView world, List<Text> tooltip, TooltipContext context) {
-        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase()).formatted(this.type.color));
+        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase(Locale.ROOT)).formatted(this.type.color));
     }
 }

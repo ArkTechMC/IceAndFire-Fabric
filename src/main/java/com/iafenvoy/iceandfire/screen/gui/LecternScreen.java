@@ -20,6 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Matrix4f;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class LecternScreen extends HandledScreen<LecternScreenHandler> {
@@ -144,7 +145,7 @@ public class LecternScreen extends HandledScreen<LecternScreenHandler> {
                 float textScale = 1.0F;
                 EnumBestiaryPages enchantment = this.handler.getPossiblePages()[i1];
                 if (enchantment != null) {
-                    s1 = I18n.translate("bestiary." + enchantment.toString().toLowerCase());//EnchantmentNameParts.getInstance().generateNewRandomName(this.fontRenderer, l1);
+                    s1 = I18n.translate("bestiary." + enchantment.toString().toLowerCase(Locale.ROOT));//EnchantmentNameParts.getInstance().generateNewRandomName(this.fontRenderer, l1);
                     if (fontrenderer.getWidth(s1) > 80)
                         textScale = 1.0F - (fontrenderer.getWidth(s1) - 80) * 0.01F;
                 }

@@ -1,15 +1,11 @@
 package com.iafenvoy.iceandfire.enums;
 
+import java.util.Locale;
+
 public enum EnumDragonArmorPart {
-    HEAD("head"), NECK("neck"), BODY("body"), TAIL("tail");
-
-    private final String id;
-
-    EnumDragonArmorPart(String id) {
-        this.id = id;
-    }
+    HEAD, NECK, BODY, TAIL;
 
     public String getId() {
-        return this.id.toLowerCase();
+        return this.name().toLowerCase(Locale.ROOT);
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonItem {
     public final EnumDragonArmor armor_type;
@@ -34,7 +35,7 @@ public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonIt
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + this.eggType.toString().toLowerCase()).formatted(this.eggType.color));
+        tooltip.add(Text.translatable("dragon." + this.eggType.toString().toLowerCase(Locale.ROOT)).formatted(this.eggType.color));
         tooltip.add(Text.translatable("item.dragonscales_armor.desc").formatted(Formatting.GRAY));
     }
 }

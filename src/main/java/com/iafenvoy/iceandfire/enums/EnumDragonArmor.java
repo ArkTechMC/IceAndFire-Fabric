@@ -12,6 +12,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
 
+import java.util.Locale;
+
 public enum EnumDragonArmor {
     RED(12, EnumDragonColor.RED),
     BRONZE(13, EnumDragonColor.BRONZE),
@@ -44,7 +46,7 @@ public enum EnumDragonArmor {
         for (int i = 0; i < EnumDragonArmor.values().length; i++) {
             EnumDragonArmor value = EnumDragonArmor.values()[i];
             value.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "armor_dragon_scales" + (i + 1)), 36, new int[]{5, 7, 9, 5}, 15, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2);
-            String sub = "armor_" + value.name().toLowerCase();
+            String sub = "armor_" + value.name().toLowerCase(Locale.ROOT);
 
             value.helmet = IafItems.register(sub + "_helmet", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.HELMET));
             value.chestplate = IafItems.register(sub + "_chestplate", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.CHESTPLATE));
