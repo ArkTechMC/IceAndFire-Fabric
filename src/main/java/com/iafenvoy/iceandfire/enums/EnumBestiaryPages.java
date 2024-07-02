@@ -41,9 +41,7 @@ public enum EnumBestiaryPages {
     GHOST(1);
 
     public static final ImmutableList<EnumBestiaryPages> ALL_PAGES = ImmutableList.copyOf(EnumBestiaryPages.values());
-    public static final ImmutableList<Integer> ALL_INDEXES = ImmutableList
-            .copyOf(IntStream.range(0, EnumBestiaryPages.values().length).iterator());
-
+    public static final ImmutableList<Integer> ALL_INDEXES = ImmutableList.copyOf(IntStream.range(0, EnumBestiaryPages.values().length).iterator());
     public final int pages;
 
     EnumBestiaryPages(int pages) {
@@ -65,16 +63,6 @@ public enum EnumBestiaryPages {
 
     public static EnumBestiaryPages getRand() {
         return EnumBestiaryPages.values()[ThreadLocalRandom.current().nextInt(EnumBestiaryPages.values().length)];
-
-    }
-
-    public static void addRandomPage(ItemStack book) {
-        if (book.getItem() instanceof ItemBestiary) {
-            List<EnumBestiaryPages> list = EnumBestiaryPages.possiblePages(book);
-            if (!list.isEmpty()) {
-                addPage(list.get(ThreadLocalRandom.current().nextInt(list.size())), book);
-            }
-        }
     }
 
     public static List<EnumBestiaryPages> possiblePages(ItemStack book) {

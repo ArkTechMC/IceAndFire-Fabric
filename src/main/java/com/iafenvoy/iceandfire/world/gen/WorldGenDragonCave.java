@@ -56,12 +56,10 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         StructureWorldAccess worldIn = context.getWorld();
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
-        if (rand.nextInt(IafConfig.getInstance().dragon.generate.denChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId(), this.getFeatureType())) {
+        if (rand.nextInt(IafConfig.getInstance().dragon.generate.denChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId(), this.getFeatureType()))
             return false;
-        }
         this.isMale = rand.nextBoolean();
         ChunkPos chunkPos = worldIn.getChunk(position).getPos();
-
 
         int j = 40;
         // Update the position, so it doesn't go above the ocean floor

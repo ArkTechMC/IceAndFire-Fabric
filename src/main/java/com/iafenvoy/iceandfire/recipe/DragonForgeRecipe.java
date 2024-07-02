@@ -13,7 +13,6 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
-
 public class DragonForgeRecipe implements Recipe<BlockEntityDragonForge> {
     private final Ingredient input;
     private final Ingredient blood;

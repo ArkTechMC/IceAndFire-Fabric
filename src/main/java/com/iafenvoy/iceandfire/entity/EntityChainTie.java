@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EntityChainTie extends AbstractDecorationEntity {
-
     public EntityChainTie(EntityType<? extends AbstractDecorationEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -44,12 +43,9 @@ public class EntityChainTie extends AbstractDecorationEntity {
         int j = pos.getY();
         int k = pos.getZ();
 
-        for (EntityChainTie entityleashknot : worldIn.getNonSpectatingEntities(EntityChainTie.class,
-                new Box(i - 1.0D, j - 1.0D, k - 1.0D, i + 1.0D, j + 1.0D, k + 1.0D))) {
-            if (entityleashknot != null && entityleashknot.getDecorationBlockPos() != null && entityleashknot.getDecorationBlockPos().equals(pos)) {
+        for (EntityChainTie entityleashknot : worldIn.getNonSpectatingEntities(EntityChainTie.class, new Box(i - 1.0D, j - 1.0D, k - 1.0D, i + 1.0D, j + 1.0D, k + 1.0D)))
+            if (entityleashknot != null && entityleashknot.getDecorationBlockPos() != null && entityleashknot.getDecorationBlockPos().equals(pos))
                 return entityleashknot;
-            }
-        }
         return null;
     }
 
@@ -60,19 +56,16 @@ public class EntityChainTie extends AbstractDecorationEntity {
 
     @Override
     protected void updateAttachmentPosition() {
-        this.setPos(this.attachmentPos.getX() + 0.5D, this.attachmentPos.getY() + 0.5D,
-                this.attachmentPos.getZ() + 0.5D);
+        this.setPos(this.attachmentPos.getX() + 0.5D, this.attachmentPos.getY() + 0.5D, this.attachmentPos.getZ() + 0.5D);
         double xSize = 0.3D;
         double ySize = 0.875D;
-        this.setBoundingBox(new Box(this.getX() - xSize, this.getY() - 0.5, this.getZ() - xSize,
-                this.getX() + xSize, this.getY() + ySize - 0.5, this.getZ() + xSize));
+        this.setBoundingBox(new Box(this.getX() - xSize, this.getY() - 0.5, this.getZ() - xSize, this.getX() + xSize, this.getY() + ySize - 0.5, this.getZ() + xSize));
     }
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity) {
+        if (source.getAttacker() != null && source.getAttacker() instanceof PlayerEntity)
             return super.damage(source, amount);
-        }
         return false;
     }
 
@@ -134,9 +127,9 @@ public class EntityChainTie extends AbstractDecorationEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        if (this.getWorld().isClient) {
+        if (this.getWorld().isClient)
             return ActionResult.SUCCESS;
-        } else {
+        else {
             AtomicBoolean flag = new AtomicBoolean(false);
             double radius = 30D;
             List<LivingEntity> list = this.getWorld().getNonSpectatingEntities(LivingEntity.class, new Box(this.getX() - radius, this.getY() - radius, this.getZ() - radius, this.getX() + radius, this.getY() + radius, this.getZ() + radius));

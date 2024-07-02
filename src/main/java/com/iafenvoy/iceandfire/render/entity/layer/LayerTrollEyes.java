@@ -12,7 +12,6 @@ import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class LayerTrollEyes extends FeatureRenderer<EntityTroll, ModelTroll> {
-
     public LayerTrollEyes(RenderTroll renderer) {
         super(renderer);
     }

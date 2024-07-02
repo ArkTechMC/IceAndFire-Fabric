@@ -1,7 +1,6 @@
 package com.iafenvoy.iceandfire;
 
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.config.IafConfigSerializer;
 import com.iafenvoy.iceandfire.event.EntityEvents;
 import com.iafenvoy.iceandfire.event.LivingEntityEvents;
 import com.iafenvoy.iceandfire.event.PlayerEvents;
@@ -9,6 +8,7 @@ import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.player.*;
@@ -33,7 +33,7 @@ public class IceAndFire implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        AutoConfig.register(IafConfig.class, (config, aClass) -> new IafConfigSerializer());
+        AutoConfig.register(IafConfig.class, GsonConfigSerializer::new);
 
         IafItems.init();
         IafBlocks.init();

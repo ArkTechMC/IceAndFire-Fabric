@@ -66,7 +66,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
                 else if (this.dragonType == 2)
                     tex.add(EnumDragonTextures.getDragonEnum(entity).LIGHTNING_MALE_OVERLAY.toString());
             } else
-                tex.add(EnumDragonTextures.Armor.EMPTY.FIRETEXTURE.toString());
+                tex.add(new Identifier(IceAndFire.MOD_ID, "textures/models/empty.png").toString());
             ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
             MinecraftClient.getInstance().getTextureManager().registerTexture(resourcelocation, layeredBase);
             this.LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);

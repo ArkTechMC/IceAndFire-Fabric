@@ -5,11 +5,17 @@ import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Config(name = IceAndFire.MOD_ID)
 public class IafConfig implements ConfigData {
     @ConfigEntry.Gui.Excluded
-    public static final int CURRENT_VERSION = 1;
+    public static final int CURRENT_VERSION = 0;
     @ConfigEntry.Gui.Excluded
     public static final String configPath = "./config/iceandfire/common.json";
     @ConfigEntry.Gui.Excluded
@@ -270,6 +276,19 @@ public class IafConfig implements ConfigData {
         public double dangerousSeparationLimit = 300;
         public boolean generateMausoleums = true;
         public int villagerHouseWeight = 5;
+    }
+
+    @Override
+    public void validatePostLoad() throws ValidationException {
+        if (this.version != CURRENT_VERSION) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                FileUtils.copyFile(new File(configPath), new File(IafConfig.backupPath + "iceandfire_" + sdf.format(new Date()) + ".json"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            throw new ValidationException(String.format("Wrong config version %d for mod %s! Automatically use version %d and backup old one.", this.version, IceAndFire.MOD_NAME, CURRENT_VERSION));
+        } else IceAndFire.LOGGER.info("{} config version match.", IceAndFire.MOD_NAME);
     }
 
     public static IafConfig getInstance() {

@@ -153,11 +153,9 @@ public class MyrmexWorldData extends PersistentState {
     }
 
     public MyrmexHive getHiveFromUUID(UUID id) {
-        for (MyrmexHive hive : this.hiveList) {
-            if (hive.hiveUUID != null && hive.hiveUUID.equals(id)) {
+        for (MyrmexHive hive : this.hiveList)
+            if (hive.hiveUUID != null && hive.hiveUUID.equals(id))
                 return hive;
-            }
-        }
         return null;
     }
 }

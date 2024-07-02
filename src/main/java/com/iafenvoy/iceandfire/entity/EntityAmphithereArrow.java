@@ -11,7 +11,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityAmphithereArrow extends PersistentProjectileEntity {
-
     public EntityAmphithereArrow(EntityType<? extends PersistentProjectileEntity> type, World worldIn) {
         super(type, worldIn);
         this.setDamage(2.5F);
@@ -32,9 +31,8 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        if ((this.age == 1 || this.age % 70 == 0) && !this.inGround && !this.isOnGround()) {
+        if ((this.age == 1 || this.age % 70 == 0) && !this.inGround && !this.isOnGround())
             this.playSound(IafSounds.AMPHITHERE_GUST, 1, 1);
-        }
         if (this.getWorld().isClient && !this.inGround) {
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
@@ -43,7 +41,6 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
             double xRatio = this.getVelocity().x * this.getWidth();
             double zRatio = this.getVelocity().z * this.getWidth();
             this.getWorld().addParticle(ParticleTypes.CLOUD, this.getX() + xRatio + this.random.nextFloat() * this.getWidth() * 1.0F - this.getWidth() - d0 * 10.0D, this.getY() + this.random.nextFloat() * this.getHeight() - d1 * 10.0D, this.getZ() + zRatio + this.random.nextFloat() * this.getWidth() * 1.0F - this.getWidth() - d2 * 10.0D, d0, d1, d2);
-
         }
     }
 
@@ -60,7 +57,7 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
 
     public void spawnExplosionParticle() {
         if (this.getWorld().isClient) {
-            for (int height = 0; height < 1 + this.random.nextInt(2); height++) {
+            for (int height = 0; height < 1 + this.random.nextInt(2); height++)
                 for (int i = 0; i < 20; ++i) {
                     double d0 = this.random.nextGaussian() * 0.02D;
                     double d1 = this.random.nextGaussian() * 0.02D;
@@ -70,19 +67,14 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
                     double zRatio = this.getVelocity().z * this.getWidth();
                     this.getWorld().addParticle(ParticleTypes.CLOUD, this.getX() + xRatio + this.random.nextFloat() * this.getWidth() * 1.0F - this.getWidth() - d0 * d3, this.getY() + this.random.nextFloat() * this.getHeight() - d1 * d3, this.getZ() + zRatio + this.random.nextFloat() * this.getWidth() * 1.0F - this.getWidth() - d2 * d3, d0, d1, d2);
                 }
-            }
-        } else {
+        } else
             this.getWorld().sendEntityStatus(this, (byte) 20);
-        }
     }
 
     @Override
     public void handleStatus(byte id) {
-        if (id == 20) {
-            this.spawnExplosionParticle();
-        } else {
-            super.handleStatus(id);
-        }
+        if (id == 20) this.spawnExplosionParticle();
+        else super.handleStatus(id);
     }
 
     @Override
