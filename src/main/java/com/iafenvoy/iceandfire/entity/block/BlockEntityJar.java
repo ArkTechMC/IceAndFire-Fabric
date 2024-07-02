@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity.block;
 
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafParticles;
@@ -65,14 +65,14 @@ public class BlockEntityJar extends BlockEntity {
             if (!level.isClient) {
                 PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(pos);
                 buf.writeBoolean(entityJar.hasProduced);
-                IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_JAR, buf);
+                ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_JAR, buf);
             }
         }
         if (entityJar.hasPixie && entityJar.hasProduced != entityJar.prevHasProduced && entityJar.ticksExisted > 5) {
             if (!level.isClient) {
                 PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(pos);
                 buf.writeBoolean(entityJar.hasProduced);
-                IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_JAR, buf);
+                ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_JAR, buf);
             } else
                 level.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSounds.PIXIE_HURT, SoundCategory.BLOCKS, 1, 1, false);
         }
@@ -131,7 +131,7 @@ public class BlockEntityJar extends BlockEntity {
         if (!this.world.isClient) {
             PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.pos);
             buf.writeBoolean(false).writeInt(0);
-            IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+            ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
         }
     }
 }

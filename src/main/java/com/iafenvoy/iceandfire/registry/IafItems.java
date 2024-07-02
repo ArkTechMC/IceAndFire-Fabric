@@ -395,7 +395,7 @@ public class IafItems {
     }
 
     public static ItemDragonArmor buildDragonArmor(EnumDragonArmorPart type, EnumDragonArmorMaterial material) {
-        return register(String.format("dragonarmor_%s_%s", material.getName(), type.getName()), new ItemDragonArmor(material, type));
+        return register(String.format("dragonarmor_%s_%s", material.getId(), type.getId()), new ItemDragonArmor(material, type));
     }
 
     public static <T extends Item> T register(String name, T item) {

@@ -3,7 +3,7 @@ package com.iafenvoy.citadel.server.tick;
 import com.iafenvoy.citadel.server.tick.modifier.TickRateModifier;
 import com.iafenvoy.citadel.server.world.CitadelServerData;
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
@@ -49,6 +49,6 @@ public class ServerTickRateTracker extends TickRateTracker {
 
     @Override
     protected void sync() {
-        IafServerNetworkHandler.sendToAll(StaticVariables.SYNC_CLIENT_TICK, PacketByteBufs.create().writeNbt(this.toTag()));
+        ServerNetworkHelper.sendToAll(StaticVariables.SYNC_CLIENT_TICK, PacketByteBufs.create().writeNbt(this.toTag()));
     }
 }

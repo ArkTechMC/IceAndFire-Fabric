@@ -62,9 +62,8 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         super.tick();
         this.noClip = true;
         float sqrt = MathHelper.sqrt((float) (this.getVelocity().x * this.getVelocity().x + this.getVelocity().z * this.getVelocity().z));
-        if ((sqrt < 0.1F) && this.age > 200) {
+        if (sqrt < 0.1F && this.age > 200)
             this.remove(RemovalReason.DISCARDED);
-        }
         double d0 = 0;
         double d1 = 0.0D;
         double d2 = 0.01D;
@@ -72,9 +71,8 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         double y = this.getY() + this.random.nextFloat() * this.getHeight() - this.getHeight();
         double z = this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth();
         float f = (this.getWidth() + this.getHeight() + this.getWidth()) * 0.333F + 0.5F;
-        if (this.particleDistSq(x, y, z) < f * f) {
+        if (this.particleDistSq(x, y, z) < f * f)
             this.getWorld().addParticle(ParticleTypes.SNEEZE, x, y + 0.5D, z, d0, d1, d2);
-        }
         Vec3d vector3d = this.getVelocity();
         double f3 = vector3d.horizontalLength();
         this.setYaw((float) (MathHelper.atan2(vector3d.x, vector3d.z) * (180F / (float) Math.PI)));
@@ -84,15 +82,12 @@ public class EntityGhostSword extends PersistentProjectileEntity {
         Vec3d vector3d2 = this.getPos();
         Vec3d vector3d3 = vector3d2.add(vector3d);
         HitResult raytraceresult = this.getWorld().raycast(new RaycastContext(vector3d2, vector3d3, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
-        if (raytraceresult.getType() != HitResult.Type.MISS) {
+        if (raytraceresult.getType() != HitResult.Type.MISS)
             vector3d3 = raytraceresult.getPos();
-        }
         while (!this.isRemoved()) {
             EntityHitResult entityraytraceresult = this.getEntityCollision(vector3d2, vector3d3);
-            if (entityraytraceresult != null) {
+            if (entityraytraceresult != null)
                 raytraceresult = entityraytraceresult;
-            }
-
             if (raytraceresult != null && raytraceresult.getType() == HitResult.Type.ENTITY) {
                 assert raytraceresult instanceof EntityHitResult;
                 Entity entity = ((EntityHitResult) raytraceresult).getEntity();
@@ -104,17 +99,12 @@ public class EntityGhostSword extends PersistentProjectileEntity {
             }
 
             if (raytraceresult != null && raytraceresult.getType() != HitResult.Type.MISS) {
-                if (raytraceresult.getType() != HitResult.Type.BLOCK) {
+                if (raytraceresult.getType() != HitResult.Type.BLOCK)
                     this.onCollision(raytraceresult);
-
-                }
                 this.velocityDirty = true;
             }
-
-            if (entityraytraceresult == null || this.getPierceLevel() <= 0) {
+            if (entityraytraceresult == null || this.getPierceLevel() <= 0)
                 break;
-            }
-
             raytraceresult = null;
         }
     }

@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity.block;
 
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafEntities;
@@ -116,7 +116,7 @@ public class BlockEntityPixieHouse extends BlockEntity {
         if (!this.world.isClient) {
             PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.pos);
             buf.writeBoolean(false).writeInt(0);
-            IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+            ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
         }
     }
 }

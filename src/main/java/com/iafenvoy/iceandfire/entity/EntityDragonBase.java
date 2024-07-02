@@ -22,7 +22,7 @@ import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -440,7 +440,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     PacketByteBuf buf = PacketByteBufs.create();
                     buf.writeInt(this.getId()).writeBoolean(true);
                     buf.writeBlockPos(this.burningTarget);
-                    IafServerNetworkHandler.sendToAll(StaticVariables.DRAGON_SET_BURN_BLOCK, buf);
+                    ServerNetworkHelper.sendToAll(StaticVariables.DRAGON_SET_BURN_BLOCK, buf);
                 }
                 this.burningTarget = null;
             }
@@ -1170,13 +1170,13 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             this.startRiding(player, true);
                             PacketByteBuf buf = PacketByteBufs.create();
                             buf.writeInt(this.getId()).writeBoolean(true).writeBoolean(true);
-                            IafServerNetworkHandler.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
+                            ServerNetworkHelper.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
                         } else if (dragonStage > 2 && !player.hasVehicle()) {
                             player.setSneaking(false);
                             player.startRiding(this, true);
                             PacketByteBuf buf = PacketByteBufs.create();
                             buf.writeInt(this.getId()).writeBoolean(true).writeBoolean(false);
-                            IafServerNetworkHandler.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
+                            ServerNetworkHelper.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
                             this.setInSittingPose(false);
                         }
                         this.getNavigation().stop();

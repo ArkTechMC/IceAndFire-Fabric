@@ -247,6 +247,7 @@ public class IafConfig implements ConfigData {
         @ConfigEntry.Gui.CollapsibleObject
         public Dragon dragon = new Dragon();
         @ConfigEntry.Gui.CollapsibleObject
+        @ConfigEntry.Gui.RequiresRestart
         public DragonSteel dragonsteel = new DragonSteel();
 
         public static class Dragon implements ConfigData {

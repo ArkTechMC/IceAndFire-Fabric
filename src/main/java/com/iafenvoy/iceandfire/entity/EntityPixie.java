@@ -4,7 +4,7 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPixieHouse;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -334,7 +334,7 @@ public class EntityPixie extends TameableEntity {
                     house.pixieOwnerUUID = this.getOwnerUuid();
                     PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.housePos);
                     buf.writeBoolean(true).writeInt(this.getColor());
-                    IafServerNetworkHandler.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+                    ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }

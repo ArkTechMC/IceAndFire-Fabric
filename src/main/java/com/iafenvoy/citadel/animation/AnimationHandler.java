@@ -1,7 +1,7 @@
 package com.iafenvoy.citadel.animation;
 
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
@@ -26,7 +26,7 @@ public enum AnimationHandler {
         entity.setAnimation(animation);
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(entity.getId()).writeInt(ArrayUtils.indexOf(entity.getAnimations(), animation));
-        IafServerNetworkHandler.sendToAll(StaticVariables.ANIMATION, buf);
+        ServerNetworkHelper.sendToAll(StaticVariables.ANIMATION, buf);
     }
 
     /**

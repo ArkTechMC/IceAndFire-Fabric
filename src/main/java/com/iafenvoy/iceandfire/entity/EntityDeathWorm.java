@@ -13,7 +13,7 @@ import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormLand;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormSand;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
@@ -368,7 +368,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
             this.initSegments(scale * (this.getWormAge() / 5F));
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeInt(this.getId()).writeFloat(scale * (this.getWormAge() / 5F));
-            IafServerNetworkHandler.sendToAll(StaticVariables.DEATH_WORM_HITBOX, buf);
+            ServerNetworkHelper.sendToAll(StaticVariables.DEATH_WORM_HITBOX, buf);
         }
     }
 

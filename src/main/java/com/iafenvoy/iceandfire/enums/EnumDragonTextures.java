@@ -353,7 +353,7 @@ public enum EnumDragonTextures {
     public static Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         String name = "";
         if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem)
-            name = armorItem.type.getName();
+            name = armorItem.type.getId();
         return switch (slot) {
             case MAINHAND, OFFHAND -> null;
             case FEET ->

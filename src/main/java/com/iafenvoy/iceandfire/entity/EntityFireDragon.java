@@ -10,7 +10,7 @@ import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
-import com.iafenvoy.iceandfire.network.IafServerNetworkHandler;
+import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
@@ -442,7 +442,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.DRAGON_FLAME.asString());
                     buf.writeDouble(headPos.x).writeDouble(headPos.y).writeDouble(headPos.z);
                     buf.writeDouble(velocity.x).writeDouble(velocity.y).writeDouble(velocity.z);
-                    IafServerNetworkHandler.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
+                    ServerNetworkHelper.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
                 }
             } else if (!this.getWorld().isClient) {
                 HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));
