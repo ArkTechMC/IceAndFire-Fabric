@@ -1505,5 +1505,17 @@
   "config.jade.plugin_iceandfire.dragon": "龙信息显示",
   "emi.category.iceandfire.fire_forge": "龙炎锻炉",
   "emi.category.iceandfire.ice_forge": "龙霜锻炉",
-  "emi.category.iceandfire.lightning_forge": "龙霆锻炉"
+  "emi.category.iceandfire.lightning_forge": "龙霆锻炉",
+  "item.iceandfire.dragon_seeker":"寻龙杖",
+  "item.iceandfire.dragon_seeker.credit":"移植自Syrikal的Mod：Ice and Fire: Dragonseeker",
+  "item.iceandfire.dragon_seeker.tooltip":"寻找150格以内最近的龙",
+  "item.iceandfire.epic_dragon_seeker":"史诗级寻龙杖",
+  "item.iceandfire.epic_dragon_seeker.tooltip":"寻找200格以内活着的龙",
+  "item.iceandfire.legendary_dragon_seeker":"传说级寻龙杖",
+  "item.iceandfire.legendary_dragon_seeker.tooltip":"寻找300格以内活着的野生龙",
+  "item.iceandfire.godly_dragon_seeker":"神话级寻龙杖",
+  "item.iceandfire.godly_dragon_seeker.tooltip":"直接获取500格以内龙的坐标（创造模式专用）",
+  "item.iceandfire.dragon_seeker.not_found":"寻龙杖无法找到任何龙",
+  "item.iceandfire.dragon_seeker.found":"寻龙杖发现了一条龙",
+  "item.iceandfire.dragon_seeker.found_location":"最近的龙位于"
 }

@@ -35,10 +35,8 @@ public class IafWorldData extends PersistentState {
             PersistentStateManager storage = overworld.getPersistentStateManager();
             IafWorldData data = storage.getOrCreate(IafWorldData::new, IafWorldData::new, IDENTIFIER);
             data.markDirty();
-
             return data;
         }
-
         return null;
     }
 

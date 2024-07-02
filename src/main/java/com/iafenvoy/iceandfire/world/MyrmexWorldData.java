@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class MyrmexWorldData extends PersistentState {
-
     private static final String IDENTIFIER = "iceandfire_myrmex";
     private final List<BlockPos> villagerPositionsList = Lists.newArrayList();
     private final List<MyrmexHive> hiveList = Lists.newArrayList();

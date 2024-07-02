@@ -1511,5 +1511,17 @@
   "config.jade.plugin_iceandfire.dragon": "Dragon Info",
   "emi.category.iceandfire.fire_forge": "Fire Dragon Forge",
   "emi.category.iceandfire.ice_forge": "Ice Dragon Forge",
-  "emi.category.iceandfire.lightning_forge": "Lightning Dragon Forge"
+  "emi.category.iceandfire.lightning_forge": "Lightning Dragon Forge",
+  "item.iceandfire.dragon_seeker":"Dragon Seeker",
+  "item.iceandfire.dragon_seeker.credit":"Ported from mod Ice and Fire: Dragonseeker by Syrikal",
+  "item.iceandfire.dragon_seeker.tooltip":"Track the nearest dragon in 150 blocks",
+  "item.iceandfire.epic_dragon_seeker":"Epic Dragon Seeker",
+  "item.iceandfire.epic_dragon_seeker.tooltip":"Track the nearest living dragon in 200 blocks",
+  "item.iceandfire.legendary_dragon_seeker":"Legendary Dragon Seeker",
+  "item.iceandfire.legendary_dragon_seeker.tooltip":"Track the nearest wild living dragon in 300 blocks",
+  "item.iceandfire.godly_dragon_seeker":"Godly Dragon Seeker",
+  "item.iceandfire.godly_dragon_seeker.tooltip":"Get the location of the nearest wild living dragon in 500 blocks (Creative Mode Only)",
+  "item.iceandfire.dragon_seeker.not_found":"Cannot find dragon",
+  "item.iceandfire.dragon_seeker.found":"Find dragon",
+  "item.iceandfire.dragon_seeker.found_location":"The nearest dragon is at "
 }

@@ -2602,15 +2602,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             return true;
         if (this.isTamed()) {
             LivingEntity livingentity = this.getOwner();
-            if (entityIn == livingentity) {
+            if (entityIn == livingentity)
                 return true;
-            }
-            if (entityIn instanceof TameableEntity) {
-                return ((TameableEntity) entityIn).isOwner(livingentity);
-            }
-            if (livingentity != null) {
+            if (entityIn instanceof TameableEntity entity)
+                return entity.isOwner(livingentity);
+            if (livingentity != null)
                 return livingentity.isTeammate(entityIn);
-            }
         }
 
         return super.isTeammate(entityIn);

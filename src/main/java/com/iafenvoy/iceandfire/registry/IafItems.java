@@ -327,6 +327,10 @@ public class IafItems {
     public static final Item ECTOPLASM = register("ectoplasm", new ItemGeneric());
     public static final Item GHOST_INGOT = register("ghost_ingot", new ItemGeneric(1));
     public static final Item GHOST_SWORD = register("ghost_sword", new ItemGhostSword());
+    public static final Item DRAGON_SEEKER = register("dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.NORMAL));
+    public static final Item EPIC_DRAGON_SEEKER = register("epic_dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.EPIC));
+    public static final Item LEGENDARY_DRAGON_SEEKER = register("legendary_dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.LEGENDARY));
+    public static final Item GODLY_DRAGON_SEEKER = register("godly_dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.GODLY));
 
     public static final BannerPatternItem PATTERN_FIRE = register("banner_pattern_fire", new BannerPatternItem(BannerPatternTags.FIRE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_ICE = register("banner_pattern_ice", new BannerPatternItem(BannerPatternTags.ICE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
