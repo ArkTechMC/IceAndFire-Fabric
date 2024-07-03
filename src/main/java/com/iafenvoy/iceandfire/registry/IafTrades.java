@@ -1,15 +1,20 @@
 package com.iafenvoy.iceandfire.registry;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.structure.pool.SinglePoolElement;
 import net.minecraft.structure.pool.StructurePool;
@@ -20,21 +25,33 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.poi.PointOfInterestTypes;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public class IafTrades {
-    public static final PointOfInterestType SCRIBE_POI = new PointOfInterestType(ImmutableSet.copyOf(IafBlocks.LECTERN.getStateManager().getStates()), 1, 1);
-    public static final VillagerProfession SCRIBE = new VillagerProfession("scribe", (entry) -> entry.value().equals(SCRIBE_POI), (entry) -> entry.value().equals(SCRIBE_POI), ImmutableSet.of(), ImmutableSet.of(), SoundEvents.ENTITY_VILLAGER_WORK_LIBRARIAN);
+    public static final VillagerProfession SCRIBE = register("scribe", IafBlocks.LECTERN, 1, 1, SoundEvents.ENTITY_VILLAGER_WORK_LIBRARIAN);
 
     public static void init() {
-        Registry.register(Registries.POINT_OF_INTEREST_TYPE, new Identifier(IceAndFire.MOD_ID, "scribe"), SCRIBE_POI);
-        Registry.register(Registries.VILLAGER_PROFESSION, new Identifier(IceAndFire.MOD_ID, "scribe"), SCRIBE);
         addScribeTrades();
     }
 
+    private static VillagerProfession register(String name, Block workstation, int ticketCount, int searchDistance, SoundEvent soundEvent) {
+        Identifier id = new Identifier(IceAndFire.MOD_ID, name);
+        ImmutableList<BlockState> states = workstation.getStateManager().getStates();
+        PointOfInterestType type = Registry.register(Registries.POINT_OF_INTEREST_TYPE, id, new PointOfInterestType(ImmutableSet.copyOf(states), ticketCount, searchDistance));
+        RegistryEntry<PointOfInterestType> entry = Registries.POINT_OF_INTEREST_TYPE.getEntry(type);
+        for (BlockState state : states) PointOfInterestTypes.POI_STATES_TO_TYPE.put(state, entry);
+        Optional<RegistryKey<PointOfInterestType>> optional = entry.getKey();
+        if (optional.isEmpty()) return null;
+        RegistryKey<PointOfInterestType> key = optional.get();
+        return Registry.register(Registries.VILLAGER_PROFESSION, id, new VillagerProfession(name, e -> e.matchesKey(key), e -> e.matchesKey(key), ImmutableSet.of(), ImmutableSet.of(), soundEvent));
+    }
+
     public static void addScribeTrades() {
+        assert SCRIBE != null;
         final float emeraldForItemsMultiplier = 0.05F; //Values taken from VillagerTrades.java
         final float itemForEmeraldMultiplier = 0.05F;
         final float rareItemForEmeraldMultiplier = 0.2F;

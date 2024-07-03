@@ -29,3 +29,4 @@ accessible method net/minecraft/client/render/model/json/Transformation$Deserial
 accessible class net/minecraft/client/render/model/json/ModelTransformation$Deserializer
 accessible method net/minecraft/client/render/model/json/ModelTransformation$Deserializer <init> ()V
 accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;
+accessible field net/minecraft/world/poi/PointOfInterestTypes POI_STATES_TO_TYPE Ljava/util/Map;
