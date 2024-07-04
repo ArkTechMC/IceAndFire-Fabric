@@ -130,16 +130,16 @@ public class IafBlocks {
     public static final BlockDreadBase DREAD_STONE_BRICKS_MOSSY = register("dread_stone_bricks_mossy", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final BlockDreadBase DREAD_STONE_TILE = register("dread_stone_tile", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final Block DREAD_STONE_FACE = register("dread_stone_face", new BlockDreadStoneFace());
-    public static final TorchBlock DREAD_TORCH = registerWallBlock("dread_torch", new BlockDreadTorch());
     public static final BlockDreadTorchWall DREAD_TORCH_WALL = registerWallTorch("dread_torch_wall", new BlockDreadTorchWall());
+    public static final TorchBlock DREAD_TORCH = registerWallBlock("dread_torch", new BlockDreadTorch());
     public static final Block DREAD_STONE_BRICKS_SLAB = register("dread_stone_slab", new SlabBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(10F, 10000F)));
     public static final Block DREADWOOD_LOG = register("dreadwood_log", new BlockDreadWoodLog());
     public static final BlockDreadBase DREADWOOD_PLANKS = register("dreadwood_planks", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.WOOD, MapColor.OAK_TAN, Instrument.BASS, true));
     public static final Block DREADWOOD_PLANKS_LOCK = register("dreadwood_planks_lock", new BlockDreadWoodLock());
     public static final Block DREAD_PORTAL = register("dread_portal", new BlockDreadPortal());
     public static final Block DREAD_SPAWNER = register("dread_spawner", new BlockDreadSpawner());
-    public static final TorchBlock BURNT_TORCH = registerWallBlock("burnt_torch", new BlockBurntTorch());
     public static final BlockBurntTorchWall BURNT_TORCH_WALL = registerWallTorch("burnt_torch_wall", new BlockBurntTorchWall());
+    public static final TorchBlock BURNT_TORCH = registerWallBlock("burnt_torch", new BlockBurntTorch());
     public static final Block GHOST_CHEST = register("ghost_chest", new BlockGhostChest());
     public static final Block GRAVEYARD_SOIL = register("graveyard_soil", new BlockGraveyardSoil());
 

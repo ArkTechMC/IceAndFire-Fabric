@@ -16,8 +16,7 @@ public class EntityAmphithereArrow extends PersistentProjectileEntity {
         this.setDamage(2.5F);
     }
 
-    public EntityAmphithereArrow(EntityType<? extends PersistentProjectileEntity> type, World worldIn, double x, double y,
-                                 double z) {
+    public EntityAmphithereArrow(EntityType<? extends PersistentProjectileEntity> type, World worldIn, double x, double y, double z) {
         this(type, worldIn);
         this.setPosition(x, y, z);
         this.setDamage(2.5F);

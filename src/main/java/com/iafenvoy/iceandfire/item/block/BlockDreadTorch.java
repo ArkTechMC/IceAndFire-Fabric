@@ -16,7 +16,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BlockDreadTorch extends TorchBlock implements IDreadBlock, IWallBlock {
-
     public BlockDreadTorch() {
         super(Settings.create().mapColor(MapColor.OAK_TAN).instrument(Instrument.BASS).burnable().luminance((state) -> 5).sounds(BlockSoundGroup.STONE).nonOpaque().dynamicBounds().noCollision(), DustParticleEffect.DEFAULT);
     }
