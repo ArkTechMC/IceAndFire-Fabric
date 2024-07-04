@@ -126,15 +126,6 @@ public class ServerEvents {
 //        }
 //    }
 
-    public static void addNewVillageBuilding(MinecraftServer server) {
-        if (IafConfig.getInstance().worldGen.villagerHouseWeight > 0) {
-            Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
-            Registry<StructureProcessorList> processorListRegistry = server.getRegistryManager().get(RegistryKeys.PROCESSOR_LIST);
-            for (String type : VILLAGE_TYPES)
-                IafTrades.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.getInstance().worldGen.villagerHouseWeight);
-        }
-    }
-
     public static void onEntityFall(LivingEntity entity, float fallDistance, float multiplier, DamageSource source) {
         if (entity instanceof PlayerEntity) {
             EntityDataComponent data = EntityDataComponent.get(entity);
