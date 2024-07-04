@@ -13,4 +13,10 @@ public class MinecraftServerMixin {
     private void onServerCreate(CallbackInfo ci) {
         StaticVariables.server = (MinecraftServer) (Object) this;
     }
+
+    @Inject(method = "prepareStartRegion", at = @At("HEAD"))
+    private void beforeLoadingWorld(CallbackInfo ci) {
+        //TODO
+//        ServerEvents.addNewVillageBuilding((MinecraftServer) (Object) this);
+    }
 }
