@@ -68,7 +68,6 @@ public class ServerEvents {
     public static final String BOLT_DONT_DESTROY_LOOT = "iceandfire.bolt_skip_loot";
     // FIXME :: No check for shouldFear()?
     private static final Predicate<LivingEntity> VILLAGER_FEAR = entity -> entity instanceof IVillagerFear fear && fear.shouldFear();
-    private static final String[] VILLAGE_TYPES = new String[]{"plains", "desert", "snowy", "savanna", "taiga"};
 
     private static void signalChickenAlarm(LivingEntity chicken, LivingEntity attacker) {
         final float d0 = IafConfig.getInstance().cockatrice.chickenSearchLength;
@@ -125,15 +124,6 @@ public class ServerEvents {
 //            }
 //        }
 //    }
-
-    public static void addNewVillageBuilding(MinecraftServer server) {
-        if (IafConfig.getInstance().worldGen.villagerHouseWeight > 0) {
-            Registry<StructurePool> templatePoolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
-            Registry<StructureProcessorList> processorListRegistry = server.getRegistryManager().get(RegistryKeys.PROCESSOR_LIST);
-            for (String type : VILLAGE_TYPES)
-                IafTrades.addBuildingToPool(templatePoolRegistry, processorListRegistry, new Identifier("village/" + type + "/houses"), IdUtil.build(IceAndFire.MOD_ID, "village/" + type + "_scriber_1"), IafConfig.getInstance().worldGen.villagerHouseWeight);
-        }
-    }
 
     public static void onEntityFall(LivingEntity entity, float fallDistance, float multiplier, DamageSource source) {
         if (entity instanceof PlayerEntity) {
