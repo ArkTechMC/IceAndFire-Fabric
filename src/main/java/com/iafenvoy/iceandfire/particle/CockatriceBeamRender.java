@@ -16,7 +16,6 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class CockatriceBeamRender {
-
     public static final RenderLayer TEXTURE_BEAM = RenderLayer.getEntityCutoutNoCull(new Identifier(IceAndFire.MOD_ID, "textures/models/cockatrice/beam.png"));
 
     private static void vertex(VertexConsumer consumer, Matrix4f matrix4f, Matrix3f matrix3f, float x, float y, float z, int red, int green, int blue, float u, float v) {

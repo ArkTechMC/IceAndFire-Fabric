@@ -77,6 +77,7 @@ public class ClientEvents {
 
     public static void onPostRenderLiving(LivingEntity entity, float partialRenderTick, MatrixStack matrixStack, VertexConsumerProvider buffers, int light) {
         EntityDataComponent data = EntityDataComponent.get(entity);
+        data.miscData.checkScepterTarget();
         for (LivingEntity target : data.miscData.getTargetedByScepter())
             CockatriceBeamRender.render(entity, target, matrixStack, buffers, partialRenderTick);
         if (data.frozenData.isFrozen)

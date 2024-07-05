@@ -122,7 +122,7 @@ public class ItemCockatriceScepter extends Item {
         EntityDataComponent data = EntityDataComponent.get(caster);
         List<LivingEntity> targets = new ArrayList<>(data.miscData.getTargetedByScepter());
         for (LivingEntity target : targets) {
-            if (!EntityGorgon.isEntityLookingAt(caster, target, 0.2F) || !caster.isAlive() || !target.isAlive()) {
+            if (!EntityGorgon.isEntityLookingAt(caster, target, 0.2F) || caster.isRemoved() || target.isRemoved()) {
                 data.miscData.removeScepterTarget(target);
                 continue;
             }

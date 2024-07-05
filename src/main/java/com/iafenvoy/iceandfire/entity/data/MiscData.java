@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.entity.data;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
@@ -65,6 +66,11 @@ public class MiscData {
         if (this.targetedByScepter == null) return;
         this.targetedByScepter.remove(target);
         this.triggerClientUpdate = true;
+    }
+
+    public void checkScepterTarget() {
+        if (this.targetedByScepter == null) return;
+        this.targetedByScepter.removeIf(living -> living.isRemoved() || living.getStatusEffect(StatusEffects.WITHER) == null || living.getStatusEffect(StatusEffects.WITHER).getDuration() <= 0);
     }
 
     public void setLoveTicks(int loveTicks) {
