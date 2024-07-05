@@ -1517,5 +1517,8 @@
   "item.iceandfire.godly_dragon_seeker.tooltip":"直接获取500格以内龙的坐标（创造模式专用）",
   "item.iceandfire.dragon_seeker.not_found":"寻龙杖无法找到任何龙",
   "item.iceandfire.dragon_seeker.found":"寻龙杖发现了一条龙",
-  "item.iceandfire.dragon_seeker.found_location":"最近的龙位于"
+  "item.iceandfire.dragon_seeker.found_location":"最近的龙位于",
+  "text.iceandfire.not_enable":"请先在配置文件中启用此功能！",
+  "text.autoconfig.iceandfire.option.tools": "工具",
+  "text.autoconfig.iceandfire.option.tools.enableDragonSeeker": "启用寻龙杖"
 }

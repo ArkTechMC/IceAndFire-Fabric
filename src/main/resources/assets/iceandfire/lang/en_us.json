@@ -1523,5 +1523,8 @@
   "item.iceandfire.godly_dragon_seeker.tooltip":"Get the location of the nearest wild living dragon in 500 blocks (Creative Mode Only)",
   "item.iceandfire.dragon_seeker.not_found":"Cannot find dragon",
   "item.iceandfire.dragon_seeker.found":"Find dragon",
-  "item.iceandfire.dragon_seeker.found_location":"The nearest dragon is at "
+  "item.iceandfire.dragon_seeker.found_location":"The nearest dragon is at ",
+  "text.iceandfire.not_enable":"Enable this feature in config first!",
+  "text.autoconfig.iceandfire.option.tools": "Tools",
+  "text.autoconfig.iceandfire.option.tools.enableDragonSeeker": "Enable Dragon Seeker"
 }

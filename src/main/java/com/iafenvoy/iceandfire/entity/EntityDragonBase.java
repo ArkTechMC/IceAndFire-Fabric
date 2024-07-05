@@ -1132,9 +1132,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 this.spawnItemCrackParticles(Items.BONE);
                 this.spawnItemCrackParticles(Items.BONE_MEAL);
                 this.eatFoodBonus(stack);
-                if (!player.isCreative()) {
+                if (!player.isCreative())
                     stack.decrement(1);
-                }
                 return ActionResult.SUCCESS;
             }
             if (this.isBreedingItem(stack) && this.shouldDropLoot()) {

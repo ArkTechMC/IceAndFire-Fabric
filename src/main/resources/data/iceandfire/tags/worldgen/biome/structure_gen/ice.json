@@ -15,6 +15,10 @@
     "minecraft:cold_ocean",
     "minecraft:deep_cold_ocean",
     "minecraft:deep_frozen_ocean",
-    "minecraft:ice_spikes"
+    "minecraft:ice_spikes",
+    {
+      "required": false,
+      "id": "#c:climate_cold"
+    }
   ]
 }

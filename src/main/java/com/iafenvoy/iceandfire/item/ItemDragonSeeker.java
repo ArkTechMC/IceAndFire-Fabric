@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.item;
 
+import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -33,6 +34,10 @@ public class ItemDragonSeeker extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (world.isClient) return super.use(world, user, hand);
+        if (!IafConfig.getInstance().tools.enableDragonSeeker) {
+            user.sendMessage(Text.translatable("text.iceandfire.not_enable"), false);
+            return super.use(world, user, hand);
+        }
         ItemStack stack = user.getStackInHand(hand);
         EntityDragonBase dragon = world.getClosestEntity(EntityDragonBase.class, TargetPredicate.createAttackable().setPredicate(entity -> {
             if (!(entity instanceof EntityDragonBase d)) return false;

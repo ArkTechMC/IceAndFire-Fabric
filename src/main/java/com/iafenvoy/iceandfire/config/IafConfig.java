@@ -63,6 +63,8 @@ public class IafConfig implements ConfigData {
     public Armors armors = new Armors();
     @ConfigEntry.Gui.CollapsibleObject
     public WorldGenConfig worldGen = new WorldGenConfig();
+    @ConfigEntry.Gui.CollapsibleObject
+    public Tools tools = new Tools();
     public double dreadQueenMaxHealth = 750;
     public boolean allowAttributeOverriding = true;
 
@@ -276,6 +278,10 @@ public class IafConfig implements ConfigData {
         public double dangerousSeparationLimit = 300;
         public boolean generateMausoleums = true;
         public int villagerHouseWeight = 5;
+    }
+
+    public static class Tools implements ConfigData {
+        public boolean enableDragonSeeker = true;
     }
 
     @Override
