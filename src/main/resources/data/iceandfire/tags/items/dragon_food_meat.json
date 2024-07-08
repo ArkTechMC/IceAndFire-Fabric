@@ -7,38 +7,6 @@
     "minecraft:mutton",
     "minecraft:cooked_mutton",
     "minecraft:porkchop",
-    "minecraft:cooked_porkchop",
-    {
-      "id": "#forge:raw_mutton",
-      "required": false
-    },
-    {
-      "id": "#forge:raw_pork",
-      "required": false
-    },
-    {
-      "id": "#forge:raw_chicken",
-      "required": false
-    },
-    {
-      "id": "#forge:raw_beef",
-      "required": false
-    },
-    {
-      "id": "#forge:cooked_mutton",
-      "required": false
-    },
-    {
-      "id": "#forge:cooked_pork",
-      "required": false
-    },
-    {
-      "id": "#forge:cooked_chicken",
-      "required": false
-    },
-    {
-      "id": "#forge:cooked_beef",
-      "required": false
-    }
+    "minecraft:cooked_porkchop"
   ]
 }
