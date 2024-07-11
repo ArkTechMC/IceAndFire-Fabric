@@ -11,7 +11,11 @@ import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
-import com.iafenvoy.iceandfire.registry.*;
+import com.iafenvoy.iceandfire.registry.IafEntities;
+import com.iafenvoy.iceandfire.registry.IafItems;
+import com.iafenvoy.iceandfire.registry.IafParticles;
+import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -73,7 +77,7 @@ public class EntityFireDragon extends EntityDragonBase {
         if (entity instanceof EntityDragonBase && !this.isTamed()) {
             return entity.getType() != this.getType() && this.getWidth() >= entity.getWidth() && !((EntityDragonBase) entity).isMobDead();
         }
-        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafTags.FIRE_DRAGON_TARGETS) || !this.isTamed() && DragonUtils.isVillager(entity);
+        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafEntityTags.FIRE_DRAGON_TARGETS) || !this.isTamed() && DragonUtils.isVillager(entity);
     }
 
     @Override
@@ -266,11 +270,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     this.setVelocity(this.getVelocity().multiply(1.0f, 0.3f, 1.0f));
                 }
 
-                Vec3d travelVector = new Vec3d(
-                        rider.sidewaysSpeed,
-                        vertical,
-                        rider.forwardSpeed
-                );
+                Vec3d travelVector = new Vec3d(rider.sidewaysSpeed, vertical, rider.forwardSpeed);
                 if (this.isLogicalSideForUpdatingMovement()) {
                     this.setMovementSpeed(speed);
 
@@ -278,15 +278,13 @@ public class EntityFireDragon extends EntityDragonBase {
                     this.move(MovementType.SELF, this.getVelocity());
 
                     Vec3d currentMotion = this.getVelocity();
-                    if (this.horizontalCollision) {
+                    if (this.horizontalCollision)
                         currentMotion = new Vec3d(currentMotion.x, 0.2D, currentMotion.z);
-                    }
                     this.setVelocity(currentMotion.multiply(0.7D));
 
                     this.updateLimbs(false);
-                } else {
+                } else
                     this.setVelocity(Vec3d.ZERO);
-                }
                 this.tryCheckBlockCollision();
             } else {
                 super.travel(pTravelVector);
@@ -455,9 +453,8 @@ public class EntityFireDragon extends EntityDragonBase {
             double spawnX = burnX + (this.random.nextFloat() * 3.0) - 1.5;
             double spawnY = burnY + (this.random.nextFloat() * 3.0) - 1.5;
             double spawnZ = burnZ + (this.random.nextFloat() * 3.0) - 1.5;
-            if (!this.getWorld().isClient) {
+            if (!this.getWorld().isClient)
                 IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), BlockPos.ofFloored(spawnX, spawnY, spawnZ), this);
-            }
         }
     }
 
@@ -497,21 +494,21 @@ public class EntityFireDragon extends EntityDragonBase {
             double d2 = this.random.nextGaussian() * 0.02D;
             double d0 = this.random.nextGaussian() * 0.02D;
             double d1 = this.random.nextGaussian() * 0.02D;
-            if (this.getWorld().isClient) {
+            if (this.getWorld().isClient)
                 this.getWorld().addParticle(ParticleTypes.FLAME, this.getX() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), this.getY() + this.random.nextFloat() * this.getHeight(), this.getZ() + this.random.nextFloat() * this.getWidth() * 2.0F - this.getWidth(), d2, d0, d1);
-            }
         }
     }
 
     @Override
     public void spawnBabyParticles() {
-        for (int i = 0; i < 5; i++) {
-            float radiusAdd = i * 0.15F;
-            float headPosX = (float) (this.getX() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.cos((float) ((this.getYaw() + 90) * Math.PI / 180)));
-            float headPosZ = (float) (this.getY() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.sin((float) ((this.getYaw() + 90) * Math.PI / 180)));
-            float headPosY = (float) (this.getZ() + 0.5 * this.getRenderSize() * 0.3F);
-            this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, headPosX, headPosY, headPosZ, 0, 0, 0);
-        }
+        if (this.getWorld().isClient)
+            for (int i = 0; i < 5; i++) {
+                float radiusAdd = i * 0.15F;
+                float headPosX = (float) (this.getX() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.cos((float) ((this.getYaw() + 90) * Math.PI / 180)));
+                float headPosZ = (float) (this.getY() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.sin((float) ((this.getYaw() + 90) * Math.PI / 180)));
+                float headPosY = (float) (this.getZ() + 0.5 * this.getRenderSize() * 0.3F);
+                this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, headPosX, headPosY, headPosZ, 0, 0, 0);
+            }
     }
 
     @Override

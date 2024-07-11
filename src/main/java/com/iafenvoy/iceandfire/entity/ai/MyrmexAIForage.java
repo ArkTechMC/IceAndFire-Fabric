@@ -5,7 +5,7 @@ import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
-import com.iafenvoy.iceandfire.registry.IafTags;
+import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.ItemEntity;
@@ -96,7 +96,7 @@ public class MyrmexAIForage extends Goal {
             this.failedToFindPath = 0;
             BlockState block = this.myrmex.getWorld().getBlockState(this.targetBlock);
             // Test if the block is edible
-            if (block.isIn(IafTags.MYRMEX_HARVESTABLES)) {
+            if (block.isIn(IafBlockTags.MYRMEX_HARVESTABLES)) {
                 final double distance = this.getDistanceSq(this.targetBlock);
                 if (distance < 6) {
                     block.getBlock();
@@ -161,7 +161,7 @@ public class MyrmexAIForage extends Goal {
                 this.myrmex.getBlockPos().add(RADIUS, RADIUS / 2, RADIUS)).map(BlockPos::toImmutable).forEach(pos -> {
             if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this.myrmex, pos.getX(), pos.getY(), pos.getZ())) {
                 BlockState blockState = this.myrmex.getWorld().getBlockState(pos);
-                if (blockState.isIn(IafTags.MYRMEX_HARVESTABLES)) {
+                if (blockState.isIn(IafBlockTags.MYRMEX_HARVESTABLES)) {
                     allBlocks.add(pos);
                     this.myrmex.keepSearching = false;
                 }

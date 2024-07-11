@@ -207,14 +207,11 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
             attackTarget.setPitch(updateRotation(attackTarget.getPitch(), f1, 30F));
             attackTarget.setYaw(updateRotation(attackTarget.getYaw(), f, 30F));
         }
-        if (this.getWorld().isClient) {
+        if (this.getWorld().isClient)
             this.tail_buffer.calculateChainSwingBuffer(40, 10, 2.5F, this);
-        }
-        if (this.isAgressive()) {
-            this.ticksAgressive++;
-        } else {
-            this.ticksAgressive = 0;
-        }
+        if (this.isAgressive()) this.ticksAgressive++;
+        else this.ticksAgressive = 0;
+
         if (this.ticksAgressive > 300 && this.isAgressive() && attackTarget == null && !this.getWorld().isClient) {
             this.setAttacking(false);
             this.ticksAgressive = 0;
@@ -241,7 +238,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         if ((!this.isTouchingWater() || pathOnHighGround) && !this.isLandNavigator) {
             this.switchNavigator(true);
         }
-        if (target instanceof PlayerEntity && ((PlayerEntity) target).isCreative()) {
+        if (target instanceof PlayerEntity player && player.isCreative()) {
             this.setTarget(null);
             this.setAttacking(false);
         }
@@ -302,11 +299,10 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     public void triggerOtherSirens(LivingEntity aggressor) {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(12, 12, 12));
         for (Entity entity : entities) {
-            if (entity instanceof EntitySiren) {
-                ((EntitySiren) entity).setTarget(aggressor);
-                ((EntitySiren) entity).setAttacking(true);
-                ((EntitySiren) entity).setSinging(false);
-
+            if (entity instanceof EntitySiren siren) {
+                siren.setTarget(aggressor);
+                siren.setAttacking(true);
+                siren.setSinging(false);
             }
         }
     }
@@ -333,7 +329,6 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         tag.putBoolean("Singing", this.isSinging());
         tag.putBoolean("Swimming", this.isSwimming());
         tag.putBoolean("Passive", this.isCharmed());
-
     }
 
     @Override

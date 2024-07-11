@@ -17,9 +17,9 @@ public class IafConfig implements ConfigData {
     @ConfigEntry.Gui.Excluded
     public static final int CURRENT_VERSION = 0;
     @ConfigEntry.Gui.Excluded
-    public static final String configPath = "./config/iceandfire/common.json";
+    public static final String configPath = "./config/iceandfire.json";
     @ConfigEntry.Gui.Excluded
-    public static final String backupPath = "./config/iceandfire/backup/";
+    public static final String backupPath = "./config/iceandfire/";
     // Version key for identify
     @ConfigEntry.Gui.Excluded
     public int version = CURRENT_VERSION;
