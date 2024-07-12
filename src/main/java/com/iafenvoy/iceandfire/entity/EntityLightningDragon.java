@@ -12,10 +12,9 @@ import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.registry.IafTags;
+import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.pathing.PathNodeType;
@@ -68,11 +67,6 @@ public class EntityLightningDragon extends EntityDragonBase {
         ANIMATION_EPIC_ROAR = Animation.create(60);
     }
 
-    // FIXME :: Unused -> Change logic
-    public void onStruckByLightning(LightningEntity lightningBolt) {
-        this.heal(15F);
-    }
-
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
@@ -89,10 +83,9 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     protected boolean shouldTarget(Entity entity) {
-        if (entity instanceof EntityDragonBase && !this.isTamed()) {
+        if (entity instanceof EntityDragonBase && !this.isTamed())
             return entity.getType() != this.getType() && this.getWidth() >= entity.getWidth() && !((EntityDragonBase) entity).isMobDead();
-        }
-        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafTags.LIGHTNING_DRAGON_TARGETS) || !this.isTamed() && DragonUtils.isVillager(entity);
+        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafEntityTags.LIGHTNING_DRAGON_TARGETS) || !this.isTamed() && DragonUtils.isVillager(entity);
     }
 
     @Override
@@ -213,12 +206,10 @@ public class EntityLightningDragon extends EntityDragonBase {
         super.tickMovement();
         LivingEntity attackTarget = this.getTarget();
         if (!this.getWorld().isClient && attackTarget != null) {
-            if (this.getBoundingBox().expand(2.5F + this.getRenderSize() * 0.33F, 2.5F + this.getRenderSize() * 0.33F, 2.5F + this.getRenderSize() * 0.33F).intersects(attackTarget.getBoundingBox())) {
+            if (this.getBoundingBox().expand(2.5F + this.getRenderSize() * 0.33F, 2.5F + this.getRenderSize() * 0.33F, 2.5F + this.getRenderSize() * 0.33F).intersects(attackTarget.getBoundingBox()))
                 this.tryAttack(attackTarget);
-            }
-            if (this.groundAttack == IafDragonAttacks.Ground.FIRE && (this.usingGroundAttack || this.isOnGround())) {
+            if (this.groundAttack == IafDragonAttacks.Ground.FIRE && (this.usingGroundAttack || this.isOnGround()))
                 this.shootFireAtMob(attackTarget);
-            }
             if (this.airAttack == IafDragonAttacks.Air.TACKLE && !this.usingGroundAttack && this.squaredDistanceTo(attackTarget) < 100) {
                 double difX = attackTarget.getX() - this.getX();
                 double difY = attackTarget.getY() + attackTarget.getHeight() - this.getY();
@@ -233,9 +224,8 @@ public class EntityLightningDragon extends EntityDragonBase {
                 }
             }
         }
-        if (!this.isBreathingFire()) {
+        if (!this.isBreathingFire())
             this.setHasLightningTarget(false);
-        }
     }
 
 
@@ -244,22 +234,20 @@ public class EntityLightningDragon extends EntityDragonBase {
         if (this.isBreathingFire()) {
             if (this.isActuallyBreathingFire()) {
                 this.setYaw(this.bodyYaw);
-                if (this.fireBreathTicks % 7 == 0) {
+                if (this.fireBreathTicks % 7 == 0)
                     this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-                }
                 this.stimulateFire(burningTarget.getX() + 0.5F, burningTarget.getY() + 0.5F, burningTarget.getZ() + 0.5F, 1);
             }
-        } else {
+        } else
             this.setBreathingFire(true);
-        }
     }
 
     @Override
     public void riderShootFire(Entity controller) {
         if (this.getRandom().nextInt(5) == 0 && !this.isBaby()) {
-            if (this.getAnimation() != ANIMATION_FIRECHARGE) {
+            if (this.getAnimation() != ANIMATION_FIRECHARGE)
                 this.setAnimation(ANIMATION_FIRECHARGE);
-            } else if (this.getAnimationTick() == 20) {
+            else if (this.getAnimationTick() == 20) {
                 this.setYaw(this.bodyYaw);
                 Vec3d headVec = this.getHeadPosition();
                 this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH_CRACKLE, 4, 1);
@@ -270,28 +258,23 @@ public class EntityLightningDragon extends EntityDragonBase {
                 d2 = d2 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                 d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
-                EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(
-                        IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
+                EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
                 entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
-                if (!this.getWorld().isClient) {
+                if (!this.getWorld().isClient)
                     this.getWorld().spawnEntity(entitylargefireball);
-                }
             }
         } else {
             if (this.isBreathingFire()) {
                 if (this.isActuallyBreathingFire()) {
                     this.setYaw(this.bodyYaw);
-                    if (this.fireBreathTicks % 7 == 0) {
+                    if (this.fireBreathTicks % 7 == 0)
                         this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-                    }
                     HitResult mop = this.rayTraceRider(controller, 10 * this.getDragonStage(), 1.0F);
-                    if (mop != null) {
+                    if (mop != null)
                         this.stimulateFire(mop.getPos().x, mop.getPos().y, mop.getPos().z, 1);
-                    }
                 }
-            } else {
+            } else
                 this.setBreathingFire(true);
-            }
         }
     }
 
@@ -312,19 +295,18 @@ public class EntityLightningDragon extends EntityDragonBase {
 
     @Override
     public Identifier getDeadLootTable() {
-        if (this.getDeathStage() >= (this.getAgeInDays() / 5) / 2) {
+        if (this.getDeathStage() >= (this.getAgeInDays() / 5) / 2)
             return SKELETON_LOOT;
-        } else {
+        else
             return this.isMale() ? MALE_LOOT : FEMALE_LOOT;
-        }
     }
 
     private void shootFireAtMob(LivingEntity entity) {
         if (this.usingGroundAttack && this.groundAttack == IafDragonAttacks.Ground.FIRE || !this.usingGroundAttack && (this.airAttack == IafDragonAttacks.Air.SCORCH_STREAM || this.airAttack == IafDragonAttacks.Air.HOVER_BLAST)) {
             if (this.usingGroundAttack && this.getRandom().nextInt(5) == 0 || !this.usingGroundAttack && this.airAttack == IafDragonAttacks.Air.HOVER_BLAST) {
-                if (this.getAnimation() != ANIMATION_FIRECHARGE) {
+                if (this.getAnimation() != ANIMATION_FIRECHARGE)
                     this.setAnimation(ANIMATION_FIRECHARGE);
-                } else if (this.getAnimationTick() == 20) {
+                else if (this.getAnimationTick() == 20) {
                     this.setYaw(this.bodyYaw);
                     Vec3d headVec = this.getHeadPosition();
                     double d2 = entity.getX() - headVec.x;
@@ -335,34 +317,26 @@ public class EntityLightningDragon extends EntityDragonBase {
                     d3 = d3 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     d4 = d4 + this.random.nextGaussian() * 0.007499999832361937D * inaccuracy;
                     this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-                    EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(
-                            IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
-                    float size = this.isBaby() ? 0.4F : this.shouldDropLoot() ? 1.3F : 0.8F;
+                    EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
                     entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
-                    if (!this.getWorld().isClient) {
-                        this.getWorld().spawnEntity(entitylargefireball);
-                    }
-                    if (!entity.isAlive()) {
-                        this.setBreathingFire(false);
-                    }
+                    if (!this.getWorld().isClient) this.getWorld().spawnEntity(entitylargefireball);
+                    if (!entity.isAlive()) this.setBreathingFire(false);
                     this.randomizeAttacks();
                 }
             } else {
                 if (this.isBreathingFire()) {
                     if (this.isActuallyBreathingFire()) {
                         this.setYaw(this.bodyYaw);
-                        if (this.age % 5 == 0) {
+                        if (this.age % 5 == 0)
                             this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-                        }
                         this.stimulateFire(entity.getX(), entity.getY(), entity.getZ(), 1);
                         if (!entity.isAlive()) {
                             this.setBreathingFire(false);
                             this.randomizeAttacks();
                         }
                     }
-                } else {
+                } else
                     this.setBreathingFire(true);
-                }
             }
         }
         this.lookAtEntity(entity, 360, 360);
@@ -372,9 +346,9 @@ public class EntityLightningDragon extends EntityDragonBase {
     public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
         if (IafEvents.ON_DRAGON_FIRE_BLOCK.invoker().onFireBlock(this, burnX, burnY, burnZ)) return;
         if (syncType > 2 && syncType < 6) {
-            if (this.getAnimation() != ANIMATION_FIRECHARGE) {
+            if (this.getAnimation() != ANIMATION_FIRECHARGE)
                 this.setAnimation(ANIMATION_FIRECHARGE);
-            } else if (this.getAnimationTick() == 20) {
+            else if (this.getAnimationTick() == 20) {
                 this.setYaw(this.bodyYaw);
                 Vec3d headVec = this.getHeadPosition();
                 double d2 = burnX - headVec.x;
@@ -387,11 +361,9 @@ public class EntityLightningDragon extends EntityDragonBase {
                 this.playSound(IafSounds.LIGHTNINGDRAGON_BREATH_CRACKLE, 4, 1);
                 EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(
                         IafEntities.LIGHTNING_DRAGON_CHARGE, this.getWorld(), this, d2, d3, d4);
-                float size = this.isBaby() ? 0.4F : this.shouldDropLoot() ? 1.3F : 0.8F;
                 entitylargefireball.setPosition(headVec.x, headVec.y, headVec.z);
-                if (!this.getWorld().isClient) {
+                if (!this.getWorld().isClient)
                     this.getWorld().spawnEntity(entitylargefireball);
-                }
             }
             return;
         }
@@ -432,9 +404,8 @@ public class EntityLightningDragon extends EntityDragonBase {
             double spawnZ = burnZ + (this.random.nextFloat() * 3.0) - 1.5;
             this.setHasLightningTarget(true);
             this.setLightningTargetVec((float) spawnX, (float) spawnY, (float) spawnZ);
-            if (!this.getWorld().isClient) {
+            if (!this.getWorld().isClient)
                 IafDragonDestructionManager.destroyAreaBreath(this.getWorld(), BlockPos.ofFloored(spawnX, spawnY, spawnZ), this);
-            }
         }
     }
 

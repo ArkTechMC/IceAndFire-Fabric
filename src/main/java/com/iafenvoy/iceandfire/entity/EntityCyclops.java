@@ -12,7 +12,7 @@ import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateCyclops;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.IafSounds;
-import com.iafenvoy.iceandfire.registry.IafTags;
+import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -125,7 +125,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
                     return false;
                 }
             }
-            return !entity.getType().isIn(IafTags.SHEEP);
+            return !entity.getType().isIn(IafEntityTags.SHEEP);
         }));
 
         this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, true, (Predicate<PlayerEntity>) entity -> entity != null && !(entity.isCreative() || entity.isSpectator())));
@@ -134,7 +134,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     protected void pushAway(Entity entityIn) {
-        if (!entityIn.getType().isIn(IafTags.SHEEP)) {
+        if (!entityIn.getType().isIn(IafEntityTags.SHEEP)) {
             entityIn.pushAwayFrom(this);
         }
     }
@@ -149,7 +149,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             if (!entityIn.hasPassenger(this)
                     && entityIn.getWidth() < 1.95F
                     && !(entityIn instanceof EntityDragonBase)
-                    && !entityIn.getType().isIn(IafTags.CYCLOPS_UNLIFTABLES)) {
+                    && !entityIn.getType().isIn(IafEntityTags.CYCLOPS_UNLIFTABLES)) {
                 this.setAnimation(ANIMATION_EATPLAYER);
                 entityIn.stopRiding();
                 entityIn.startRiding(this, true);

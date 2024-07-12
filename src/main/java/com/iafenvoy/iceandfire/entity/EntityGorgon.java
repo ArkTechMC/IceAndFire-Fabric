@@ -9,6 +9,7 @@ import com.iafenvoy.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.*;
+import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -62,7 +63,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         if (attackTarget == null) return false;
         if (attackTarget.getEquippedStack(EquipmentSlot.HEAD).getItem() == IafItems.BLINDFOLD || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS))
             return true;
-        return attackTarget.getType().isIn(IafTags.BLINDED);
+        return attackTarget.getType().isIn(IafEntityTags.BLINDED);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

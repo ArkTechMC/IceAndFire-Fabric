@@ -65,7 +65,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimatedEntity, Merchant, ICustomSizeNavigator, IPassabilityNavigator, IHasCustomizableAttributes {
-
     public static final Animation ANIMATION_PUPA_WIGGLE = Animation.create(20);
     private static final TrackedData<Byte> CLIMBING = DataTracker.registerData(EntityMyrmexBase.class, TrackedDataHandlerRegistry.BYTE);
     private static final TrackedData<Integer> GROWTH_STAGE = DataTracker.registerData(EntityMyrmexBase.class, TrackedDataHandlerRegistry.INTEGER);

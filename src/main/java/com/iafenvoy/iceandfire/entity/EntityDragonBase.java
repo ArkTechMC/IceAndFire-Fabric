@@ -208,8 +208,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
      */
     public int navigatorType;
     public SimpleInventory dragonInventory;
-    public String prevArmorResLoc = "0|0|0|0";
-    public String armorResLoc = "0|0|0|0";
     public boolean lookingForRoostAIFlag = false;
     public int flyHovering;
     public boolean hasHadHornUse = false;
@@ -322,14 +320,9 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new DragonAITargetItems<>(this, 60, false, false, true));
         this.targetSelector.add(5, new DragonAITargetNonTamed<>(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> {
-            if (entity instanceof PlayerEntity player) {
-                return !player.isCreative();
-            }
-
-            if (this.getRandom().nextInt(100) > this.getHunger()) {
+            if (entity instanceof PlayerEntity player) return !player.isCreative();
+            if (this.getRandom().nextInt(100) > this.getHunger())
                 return entity.getType() != this.getType() && DragonUtils.canHostilesTarget(entity) && DragonUtils.isAlive(entity) && this.shouldTarget(entity);
-            }
-
             return false;
         }));
         this.targetSelector.add(6, new DragonAITarget<>(this, LivingEntity.class, true, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity) && entity.getType() != this.getType() && this.shouldTarget(entity) && DragonUtils.isAlive(entity)));
@@ -808,9 +801,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = tempInventory.getStack(j);
-                if (!itemstack.isEmpty()) {
+                if (!itemstack.isEmpty())
                     this.dragonInventory.setStack(j, itemstack.copy());
-                }
             }
         }
 
@@ -819,9 +811,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     protected void updateContainerEquipment() {
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient)
             this.updateAttributes();
-        }
     }
 
     public boolean hasInventoryChanged(Inventory pInventory) {
@@ -830,20 +821,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override // TODO :: This only returns player - is that correct?
     public LivingEntity getControllingPassenger() {
-        for (Entity passenger : this.getPassengerList()) {
-            if (passenger instanceof PlayerEntity player && this.getTarget() != passenger) {
-                if (this.isTamed() && this.getOwnerUuid() != null && this.getOwnerUuid().equals(player.getUuid())) {
+        for (Entity passenger : this.getPassengerList())
+            if (passenger instanceof PlayerEntity player && this.getTarget() != passenger)
+                if (this.isTamed() && this.getOwnerUuid() != null && this.getOwnerUuid().equals(player.getUuid()))
                     return player;
-                }
-            }
-        }
-
         return null;
-    }
-
-    // FIXME :: Unused
-    public boolean isRidingPlayer(PlayerEntity player) {
-        return this.getRidingPlayer() != null && player != null && this.getRidingPlayer().getUuid().equals(player.getUuid());
     }
 
     @Override
@@ -856,13 +838,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void updateAttributes() {
-        this.prevArmorResLoc = this.armorResLoc;
-        final int armorHead = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.HEAD));
-        final int armorNeck = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.CHEST));
-        final int armorLegs = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.LEGS));
-        final int armorFeet = EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(EquipmentSlot.FEET));
-        this.armorResLoc = this.dragonType.getName() + "|" + armorHead + "|" + armorNeck + "|" + armorLegs + "|" + armorFeet;
-
         double age = 125F;
         if (this.getAgeInDays() <= 125) age = this.getAgeInDays();
         final double healthStep = (this.maximumHealth - this.minimumHealth) / 125F;
@@ -1220,9 +1195,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         this.spawnItemCrackParticles(Items.POISONOUS_POTATO);
                         this.setAgingDisabled(true);
                         this.eatFoodBonus(stack);
-                        if (!player.isCreative()) {
+                        if (!player.isCreative())
                             stack.decrement(1);
-                        }
                         return ActionResult.SUCCESS;
                     } else if (stackItem == IafItems.DRAGON_STAFF) {
                         if (player.isSneaking()) {

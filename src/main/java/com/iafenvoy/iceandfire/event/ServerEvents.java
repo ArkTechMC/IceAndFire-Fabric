@@ -15,7 +15,7 @@ import com.iafenvoy.iceandfire.item.armor.ItemDragonSteelArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
 import com.iafenvoy.iceandfire.registry.*;
-import com.iafenvoy.iceandfire.util.IdUtil;
+import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import com.iafenvoy.iceandfire.util.RandomHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -39,17 +39,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -168,13 +162,13 @@ public class ServerEvents {
 
     public static void onLivingSetTarget(Entity tracking, ServerPlayerEntity player) {
         if (tracking instanceof LivingEntity target) {
-            if (target.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(target, player);
+            if (target.getType().isIn(IafEntityTags.CHICKENS)) signalChickenAlarm(target, player);
             else if (DragonUtils.isVillager(target)) signalAmphithereAlarm(target, player);
         }
     }
 
     public static ActionResult onPlayerAttack(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
-        if (entity != null && entity.getType().isIn(IafTags.SHEEP)) {
+        if (entity != null && entity.getType().isIn(IafEntityTags.SHEEP)) {
             float dist = IafConfig.getInstance().cyclops.sheepSearchLength;
             final List<Entity> list = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty())
@@ -238,7 +232,7 @@ public class ServerEvents {
             }
         }
         if (entity instanceof LivingEntity livingEntity) {
-            if (entity.getType().isIn(IafTags.CHICKENS)) signalChickenAlarm(livingEntity, player);
+            if (entity.getType().isIn(IafEntityTags.CHICKENS)) signalChickenAlarm(livingEntity, player);
             else if (DragonUtils.isVillager(entity)) signalAmphithereAlarm(livingEntity, player);
         }
         return ActionResult.PASS;
@@ -353,11 +347,11 @@ public class ServerEvents {
     public static boolean onEntityJoinWorld(Entity entity, World world) {
         if (entity instanceof MobEntity mob)
             try {
-                if (mob.getType().isIn(IafTags.SHEEP) && mob instanceof AnimalEntity animal)
+                if (mob.getType().isIn(IafEntityTags.SHEEP) && mob instanceof AnimalEntity animal)
                     animal.goalSelector.add(8, new EntitySheepAIFollowCyclops(animal, 1.2D));
-                if (mob.getType().isIn(IafTags.VILLAGERS) && IafConfig.getInstance().dragon.villagersFear)
+                if (mob.getType().isIn(IafEntityTags.VILLAGERS) && IafConfig.getInstance().dragon.villagersFear)
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 8.0F, 0.8D, 0.8D, VILLAGER_FEAR));
-                if (mob.getType().isIn(IafTags.FEAR_DRAGONS) && IafConfig.getInstance().dragon.animalsFear)
+                if (mob.getType().isIn(IafEntityTags.FEAR_DRAGONS) && IafConfig.getInstance().dragon.animalsFear)
                     mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 30, 1.0D, 0.5D, e -> e instanceof IAnimalFear fear && fear.shouldAnimalsFear(mob)));
             } catch (Exception e) {
                 IceAndFire.LOGGER.warn("Tried to add unique behaviors to vanilla mobs and encountered an error");

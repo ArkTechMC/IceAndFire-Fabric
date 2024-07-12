@@ -12,6 +12,7 @@ import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
 import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
+import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -66,7 +67,7 @@ public class EntityIceDragon extends EntityDragonBase {
         if (entity instanceof EntityDragonBase && !this.isTamed()) {
             return entity.getType() != this.getType() && this.getWidth() >= entity.getWidth() && !((EntityDragonBase) entity).isMobDead();
         }
-        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafTags.ICE_DRAGON_TARGETS) || entity instanceof WaterCreatureEntity || !this.isTamed() && DragonUtils.isVillager(entity);
+        return entity instanceof PlayerEntity || DragonUtils.isDragonTargetable(entity, IafEntityTags.ICE_DRAGON_TARGETS) || entity instanceof WaterCreatureEntity || !this.isTamed() && DragonUtils.isVillager(entity);
     }
 
     @Override
