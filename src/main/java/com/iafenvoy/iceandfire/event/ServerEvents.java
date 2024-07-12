@@ -14,7 +14,10 @@ import com.iafenvoy.iceandfire.item.ItemChain;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonSteelArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
-import com.iafenvoy.iceandfire.registry.*;
+import com.iafenvoy.iceandfire.registry.IafBlocks;
+import com.iafenvoy.iceandfire.registry.IafDamageTypes;
+import com.iafenvoy.iceandfire.registry.IafEntities;
+import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import com.iafenvoy.iceandfire.util.RandomHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -282,9 +285,9 @@ public class ServerEvents {
 
     public static TypedActionResult<ItemStack> onEntityUseItem(PlayerEntity player, World world, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (player.getX() > 87 && player.getVehicle() != null && player.getVehicle() instanceof EntityDragonBase) {
-            ((EntityDragonBase) player.getVehicle()).interactMob(player, hand);
-            return TypedActionResult.success(stack, true);
+        if (player.getX() > 87 && player.getVehicle() != null && player.getVehicle() instanceof EntityDragonBase dragon) {
+            if (dragon.interactMob(player, hand) == ActionResult.SUCCESS)
+                return TypedActionResult.success(stack, true);
         }
         return TypedActionResult.pass(stack);
     }
