@@ -21,7 +21,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class ClientNetworkHelper {
-    public static void registerReceivers(){
+    public static void registerReceivers() {
         ClientPlayNetworking.registerGlobalReceiver(StaticVariables.DEATH_WORM_HITBOX, (client, handler, buf, responseSender) -> {
             PlayerEntity player = client.player;
             if (player != null) {
@@ -42,7 +42,10 @@ public class ClientNetworkHelper {
         });
         ClientPlayNetworking.registerGlobalReceiver(StaticVariables.PARTICLE_SPAWN, (client, handler, buf, responseSender) -> {
             assert client.world != null;
-            client.world.addParticle((DefaultParticleType) Registries.PARTICLE_TYPE.get(new Identifier(buf.readString())), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble(), buf.readDouble());
+            Identifier particleId = new Identifier(buf.readString());
+            final double x = buf.readDouble(), y = buf.readDouble(), z = buf.readDouble();
+            final double velocityX = buf.readDouble(), velocityY = buf.readDouble(), velocityZ = buf.readDouble();
+            client.execute(() -> client.world.addParticle((DefaultParticleType) Registries.PARTICLE_TYPE.get(particleId), x, y, z, velocityX, velocityY, velocityZ));
         });
         ClientPlayNetworking.registerGlobalReceiver(StaticVariables.START_RIDING_MOB_S2C, (client, handler, buf, responseSender) -> {
             int dragonId = buf.readInt();
