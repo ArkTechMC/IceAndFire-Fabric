@@ -402,8 +402,7 @@ public class EntityLightningDragon extends EntityDragonBase {
         double d2 = burnX - headPos.x;
         double d3 = burnY - headPos.y;
         double d4 = burnZ - headPos.z;
-        float particleScale = MathHelper.clamp(this.getRenderSize() * 0.08F, 0.55F, 3F);
-        double distance = Math.max(2.5F * this.squaredDistanceTo(burnX, burnY, burnZ), 0);
+        double distance = Math.max(2.5F * Math.sqrt(this.squaredDistanceTo(burnX, burnY, burnZ)), 0);
         double conqueredDistance = this.burnProgress / 40D * distance;
         int increment = (int) Math.ceil(conqueredDistance / 100);
         for (int i = 0; i < conqueredDistance; i += increment) {

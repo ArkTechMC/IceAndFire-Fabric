@@ -2678,7 +2678,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     this.setYaw(this.bodyYaw);
                     if (this.age % 5 == 0)
                         this.playSound(IafSounds.FIREDRAGON_BREATH, 4, 1);
-                    this.stimulateFire(this.getX() + distX * this.fireBreathTicks / 40, entity.getY(), this.getZ() + distZ * this.fireBreathTicks / 40, 1);
+                    int breathTicks = MathHelper.clamp(this.fireBreathTicks, 0, 40);
+                    this.stimulateFire(this.getX() + distX * breathTicks / 40, entity.getY(), this.getZ() + distZ * breathTicks / 40, 1);
                 }
             } else {
                 this.setBreathingFire(true);
