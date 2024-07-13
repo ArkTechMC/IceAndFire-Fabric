@@ -1,13 +1,13 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.collect.Sets;
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.AnimationHandler;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.IPassabilityNavigator;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.IPassabilityNavigator;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathResult;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;

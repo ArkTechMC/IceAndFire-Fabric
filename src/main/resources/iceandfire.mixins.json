@@ -5,20 +5,14 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "ConfiguredFeaturesMixin",
-    "EntityTrackerEntryMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
     "MobEntityMixin",
     "NoLakesInStructuresMixin",
     "PlacedFeaturesMixin",
-    "PlayerEntityMixin",
-    "PlayerManagerMixin",
-    "ServerEntityManagerMixin",
     "WorldGenRegionMixin"
   ],
   "client": [
-    "ArmorFeatureRendererMixin",
-    "ClientWorldMixin",
     "LivingEntityRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.enums;
 
-import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
 import com.iafenvoy.iceandfire.item.tool.ItemTrollWeapon;

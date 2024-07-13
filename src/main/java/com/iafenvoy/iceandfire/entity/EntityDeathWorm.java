@@ -1,9 +1,10 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.AnimationHandler;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.citadel.server.entity.collision.ICustomCollisions;
+import com.iafenvoy.uranus.ServerHelper;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.server.entity.collision.ICustomCollisions;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
@@ -368,7 +369,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
             this.initSegments(scale * (this.getWormAge() / 5F));
             PacketByteBuf buf = PacketByteBufs.create();
             buf.writeInt(this.getId()).writeFloat(scale * (this.getWormAge() / 5F));
-            ServerNetworkHelper.sendToAll(StaticVariables.DEATH_WORM_HITBOX, buf);
+            ServerHelper.sendToAll(StaticVariables.DEATH_WORM_HITBOX, buf);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.util.IFlapable;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;

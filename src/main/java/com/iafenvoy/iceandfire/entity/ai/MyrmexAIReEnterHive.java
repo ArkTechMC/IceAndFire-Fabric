@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathResult;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathResult;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;

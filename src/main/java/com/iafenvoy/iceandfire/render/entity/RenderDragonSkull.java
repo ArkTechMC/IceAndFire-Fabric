@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.citadel.client.model.TabulaModel;
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.TabulaModel;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.EntityDragonSkull;
 import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
 import net.minecraft.client.render.OverlayTexture;

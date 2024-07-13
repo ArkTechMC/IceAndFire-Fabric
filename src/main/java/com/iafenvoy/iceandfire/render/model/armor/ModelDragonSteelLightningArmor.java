@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.render.model.armor;
 
+import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 

@@ -40,7 +40,6 @@
     ]
   },
   "mixins": [
-    "citadel.mixins.json",
     "iceandfire.mixins.json"
   ],
   "accessWidener": "iceandfire.accesswidener",
@@ -48,6 +47,7 @@
     "fabricloader": "*",
     "fabric": "*",
     "minecraft": "1.20.1",
-    "cloth-config": "11.*"
+    "cloth-config": "11.*",
+    "uranus": "*"
   }
 }

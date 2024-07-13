@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.ModelAnimator;
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
-import com.iafenvoy.iceandfire.render.model.util.HideableModelRenderer;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.ModelAnimator;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.util.HideableModelRenderer;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;

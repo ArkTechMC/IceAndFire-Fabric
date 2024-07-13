@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityLightningDragon;
 import com.iafenvoy.iceandfire.particle.LightningBoltData;

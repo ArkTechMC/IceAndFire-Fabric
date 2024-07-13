@@ -9,6 +9,7 @@ import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
+import com.iafenvoy.uranus.ServerHelper;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -334,7 +335,7 @@ public class EntityPixie extends TameableEntity {
                     house.pixieOwnerUUID = this.getOwnerUuid();
                     PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.housePos);
                     buf.writeBoolean(true).writeInt(this.getColor());
-                    ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+                    ServerHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityCockatrice;
 import com.iafenvoy.iceandfire.entity.EntityGorgon;

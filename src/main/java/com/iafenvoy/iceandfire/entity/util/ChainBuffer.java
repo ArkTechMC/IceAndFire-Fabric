@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.util;
 
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;

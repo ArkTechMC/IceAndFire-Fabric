@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import net.minecraft.entity.Entity;
 
 public abstract class ModelDragonBase<T extends Entity> extends AdvancedEntityModel<T> implements ICustomStatueModel {

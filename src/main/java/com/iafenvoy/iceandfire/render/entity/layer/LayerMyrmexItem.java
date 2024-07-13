@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.render.entity.RenderMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;

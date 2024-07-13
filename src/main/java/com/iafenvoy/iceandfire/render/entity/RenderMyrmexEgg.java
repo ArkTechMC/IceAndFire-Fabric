@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexEgg;
 import com.iafenvoy.iceandfire.render.model.ModelDragonEgg;

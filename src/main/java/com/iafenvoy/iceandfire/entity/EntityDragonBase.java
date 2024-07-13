@@ -1,19 +1,10 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.AnimationHandler;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.IPassabilityNavigator;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.PathingStuckHandler;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.api.FoodUtils;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
-import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
@@ -22,7 +13,6 @@ import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
-import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -32,6 +22,16 @@ import com.iafenvoy.iceandfire.render.model.IFChainBuffer;
 import com.iafenvoy.iceandfire.render.model.util.LegSolverQuadruped;
 import com.iafenvoy.iceandfire.screen.handler.DragonScreenHandler;
 import com.iafenvoy.iceandfire.world.DragonPosWorldData;
+import com.iafenvoy.uranus.ServerHelper;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.data.EntityPropertyDelegate;
+import com.iafenvoy.uranus.object.FoodUtils;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.IPassabilityNavigator;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathingStuckHandler;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
@@ -433,7 +433,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     PacketByteBuf buf = PacketByteBufs.create();
                     buf.writeInt(this.getId()).writeBoolean(true);
                     buf.writeBlockPos(this.burningTarget);
-                    ServerNetworkHelper.sendToAll(StaticVariables.DRAGON_SET_BURN_BLOCK, buf);
+                    ServerHelper.sendToAll(StaticVariables.DRAGON_SET_BURN_BLOCK, buf);
                 }
                 this.burningTarget = null;
             }
@@ -1144,13 +1144,13 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             this.startRiding(player, true);
                             PacketByteBuf buf = PacketByteBufs.create();
                             buf.writeInt(this.getId()).writeBoolean(true).writeBoolean(true);
-                            ServerNetworkHelper.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
+                            ServerHelper.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
                         } else if (dragonStage > 2 && !player.hasVehicle()) {
                             player.setSneaking(false);
                             player.startRiding(this, true);
                             PacketByteBuf buf = PacketByteBufs.create();
                             buf.writeInt(this.getId()).writeBoolean(true).writeBoolean(false);
-                            ServerNetworkHelper.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
+                            ServerHelper.sendToAll(StaticVariables.START_RIDING_MOB_S2C, buf);
                             this.setInSittingPose(false);
                         }
                         this.getNavigation().stop();

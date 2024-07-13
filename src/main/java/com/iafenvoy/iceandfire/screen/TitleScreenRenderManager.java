@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.util.RandomHelper;
+import com.iafenvoy.uranus.util.RandomHelper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

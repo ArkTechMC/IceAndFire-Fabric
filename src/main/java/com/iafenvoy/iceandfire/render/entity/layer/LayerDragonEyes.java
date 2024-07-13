@@ -1,15 +1,15 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.TabulaModel;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.render.TabulaModelAccessor;
+import com.iafenvoy.uranus.client.model.util.TabulaModelHandlerHelper;
+import com.iafenvoy.uranus.client.render.TabulaModelAccessor;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.entity.EntityLightningDragon;
 import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
-import com.iafenvoy.iceandfire.render.model.util.TabulaModelHandlerHelper;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;

@@ -1,7 +1,8 @@
 package com.iafenvoy.iceandfire.render.model.util;
 
-import com.iafenvoy.citadel.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.uranus.client.model.TabulaModel;
+import com.iafenvoy.uranus.client.model.util.TabulaModelHandlerHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -36,8 +37,7 @@ public enum EnumSeaSerpentAnimations {
                 try {
                     animation.seaserpent_model = new TabulaModel(TabulaModelHandlerHelper.loadTabulaModel("/assets/iceandfire/models/tabula/seaserpent/seaserpent_" + animation.fileSuffix));
                 } catch (Exception e) {
-                    IceAndFire.LOGGER.warn("sea serpent model at: seaserpent{}.tbl doesn't exist!", animation.fileSuffix);
-                    e.printStackTrace();
+                    IceAndFire.LOGGER.warn("sea serpent model at: seaserpent{}.tbl doesn't exist!", animation.fileSuffix, e);
                 }
     }
 }

@@ -4,7 +4,7 @@ import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDreadLich;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerGenericGlowing;
 import com.iafenvoy.iceandfire.render.model.ModelDreadLich;
-import com.iafenvoy.iceandfire.render.model.util.HideableLayer;
+import com.iafenvoy.uranus.client.model.util.HideableLayer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;

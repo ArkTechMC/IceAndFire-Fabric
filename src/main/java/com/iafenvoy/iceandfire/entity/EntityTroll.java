@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.AnimationHandler;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafConfig;

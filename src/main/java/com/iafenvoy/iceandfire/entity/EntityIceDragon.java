@@ -1,7 +1,8 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.ServerHelper;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
@@ -508,7 +509,7 @@ public class EntityIceDragon extends EntityDragonBase {
                     PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.DRAGON_FROST.asString());
                     buf.writeDouble(headPos.x).writeDouble(headPos.y).writeDouble(headPos.z);
                     buf.writeDouble(velocity.x).writeDouble(velocity.y).writeDouble(velocity.z);
-                    ServerNetworkHelper.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
+                    ServerHelper.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
                 }
             } else if (!this.getWorld().isClient) {
                 HitResult result = this.getWorld().raycast(new RaycastContext(new Vec3d(this.getX(), this.getY() + this.getStandingEyeHeight(), this.getZ()), new Vec3d(progressX, progressY, progressZ), RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this));

@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.item.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.iafenvoy.iceandfire.render.IArmorTextureProvider;
+import com.iafenvoy.uranus.client.render.armor.IArmorTextureProvider;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;

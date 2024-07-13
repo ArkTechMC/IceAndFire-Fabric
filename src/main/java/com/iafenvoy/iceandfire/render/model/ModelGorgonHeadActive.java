@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import net.minecraft.entity.Entity;
 
 public class ModelGorgonHeadActive extends AdvancedEntityModel<Entity> {

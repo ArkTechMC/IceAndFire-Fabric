@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import net.minecraft.client.util.math.MatrixStack;
 

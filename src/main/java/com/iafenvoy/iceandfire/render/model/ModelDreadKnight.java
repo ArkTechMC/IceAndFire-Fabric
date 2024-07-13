@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.client.model.ModelAnimator;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.client.model.ModelAnimator;
 import com.iafenvoy.iceandfire.entity.EntityDreadKnight;
-import com.iafenvoy.iceandfire.render.model.util.HideableModelRenderer;
+import com.iafenvoy.uranus.client.model.util.HideableModelRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.item.ItemStack;

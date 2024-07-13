@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.registry;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.loot.CustomizeToDragon;
 import com.iafenvoy.iceandfire.loot.CustomizeToSeaSerpent;
-import com.iafenvoy.iceandfire.util.IdUtil;
+import com.iafenvoy.uranus.util.IdUtil;
 import net.minecraft.loot.function.LootFunction;
 import net.minecraft.loot.function.LootFunctionType;
 import net.minecraft.registry.Registries;

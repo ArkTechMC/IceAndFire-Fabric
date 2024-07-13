@@ -19,7 +19,7 @@ import com.iafenvoy.iceandfire.registry.IafDamageTypes;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
-import com.iafenvoy.iceandfire.util.RandomHelper;
+import com.iafenvoy.uranus.util.RandomHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.AbstractChestBlock;

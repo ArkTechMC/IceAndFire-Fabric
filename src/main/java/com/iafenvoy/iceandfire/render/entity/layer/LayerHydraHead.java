@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.render.entity.RenderHydra;
 import com.iafenvoy.iceandfire.entity.EntityHydra;

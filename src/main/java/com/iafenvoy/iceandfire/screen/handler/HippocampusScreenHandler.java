@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.screen.handler;
 
-import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.entity.EntityHippocampus;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;
+import com.iafenvoy.uranus.data.EntityPropertyDelegate;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;

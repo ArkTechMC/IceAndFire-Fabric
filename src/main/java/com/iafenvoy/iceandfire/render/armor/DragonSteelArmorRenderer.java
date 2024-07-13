@@ -2,10 +2,11 @@ package com.iafenvoy.iceandfire.render.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.iafenvoy.iceandfire.render.model.armor.ArmorModelBase;
 import com.iafenvoy.iceandfire.render.model.armor.ModelDragonSteelFireArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelDragonSteelIceArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelDragonSteelLightningArmor;
+import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
+import com.iafenvoy.uranus.client.render.armor.ArmorRendererImpl;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;

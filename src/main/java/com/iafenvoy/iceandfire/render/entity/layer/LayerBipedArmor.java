@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.render.model.ModelBipedBase;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

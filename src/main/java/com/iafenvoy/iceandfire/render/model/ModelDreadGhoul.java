@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.ModelAnimator;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.ModelAnimator;
 import com.iafenvoy.iceandfire.entity.EntityDreadGhoul;
-import com.iafenvoy.iceandfire.render.model.util.HideableModelRenderer;
+import com.iafenvoy.uranus.client.model.util.HideableModelRenderer;
 
 public class ModelDreadGhoul extends ModelBipedBase<EntityDreadGhoul> {
 

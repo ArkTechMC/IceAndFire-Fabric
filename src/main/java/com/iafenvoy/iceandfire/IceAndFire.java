@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire;
 
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.event.EntityEvents;
-import com.iafenvoy.iceandfire.event.LivingEntityEvents;
-import com.iafenvoy.iceandfire.event.PlayerEvents;
 import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
+import com.iafenvoy.uranus.event.EntityEvents;
+import com.iafenvoy.uranus.event.LivingEntityEvents;
+import com.iafenvoy.uranus.event.PlayerEvents;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;

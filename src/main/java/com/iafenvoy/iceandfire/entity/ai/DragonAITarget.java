@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
-import com.iafenvoy.iceandfire.api.FoodUtils;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
+import com.iafenvoy.uranus.object.FoodUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.EntityAttributeInstance;

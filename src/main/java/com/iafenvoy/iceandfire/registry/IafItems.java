@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
-import com.iafenvoy.citadel.server.item.CustomToolMaterial;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.server.item.CustomToolMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.enums.*;

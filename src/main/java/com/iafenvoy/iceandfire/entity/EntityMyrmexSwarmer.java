@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;

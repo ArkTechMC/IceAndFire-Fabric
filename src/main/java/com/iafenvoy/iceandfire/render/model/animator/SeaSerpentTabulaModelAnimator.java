@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.model.animator;
 
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.ITabulaModelAnimator;
-import com.iafenvoy.citadel.client.model.TabulaModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.ITabulaModelAnimator;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.entity.EntitySeaSerpent;
 import com.iafenvoy.iceandfire.render.model.util.EnumSeaSerpentAnimations;
 import net.minecraft.client.MinecraftClient;

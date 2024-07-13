@@ -1,14 +1,14 @@
 package com.iafenvoy.iceandfire.render.entity;
 
 import com.google.common.collect.Maps;
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonArmor;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonBanner;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonEyes;
-import com.iafenvoy.iceandfire.render.texture.ArrayLayeredTexture;
+import com.iafenvoy.uranus.client.render.ArrayLayeredTexture;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

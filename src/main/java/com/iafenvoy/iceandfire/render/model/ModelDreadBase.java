@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.entity.LivingEntity;
 
 abstract class ModelDreadBase<T extends LivingEntity & IAnimatedEntity> extends ModelBipedBase<T> {

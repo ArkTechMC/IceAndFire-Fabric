@@ -6,7 +6,7 @@ import com.iafenvoy.iceandfire.render.entity.layer.IHasArmorVariantResource;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerBipedArmorMultiple;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerGenericGlowing;
 import com.iafenvoy.iceandfire.render.model.ModelDreadThrall;
-import com.iafenvoy.iceandfire.render.model.util.HideableLayer;
+import com.iafenvoy.uranus.client.model.util.HideableLayer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.feature.HeldItemFeatureRenderer;

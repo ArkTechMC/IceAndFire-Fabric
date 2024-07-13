@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.iafenvoy.citadel.client.model.ITabulaModelAnimator;
-import com.iafenvoy.citadel.client.model.TabulaModel;
+import com.iafenvoy.uranus.client.model.ITabulaModelAnimator;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.particle.*;
 import com.iafenvoy.iceandfire.render.entity.*;
@@ -10,7 +10,7 @@ import com.iafenvoy.iceandfire.render.model.animator.FireDragonTabulaModelAnimat
 import com.iafenvoy.iceandfire.render.model.animator.IceDragonTabulaModelAnimator;
 import com.iafenvoy.iceandfire.render.model.animator.LightningTabulaDragonAnimator;
 import com.iafenvoy.iceandfire.render.model.animator.SeaSerpentTabulaModelAnimator;
-import com.iafenvoy.iceandfire.render.model.util.TabulaModelHandlerHelper;
+import com.iafenvoy.uranus.client.model.util.TabulaModelHandlerHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;

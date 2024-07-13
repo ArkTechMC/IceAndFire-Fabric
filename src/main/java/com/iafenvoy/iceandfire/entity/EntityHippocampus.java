@@ -1,10 +1,9 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.AnimationHandler;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIFindWaterTarget;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.iafenvoy.iceandfire.entity.ai.HippocampusAIWander;
@@ -15,6 +14,7 @@ import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
 import com.iafenvoy.iceandfire.screen.handler.HippocampusScreenHandler;
+import com.iafenvoy.uranus.data.EntityPropertyDelegate;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;

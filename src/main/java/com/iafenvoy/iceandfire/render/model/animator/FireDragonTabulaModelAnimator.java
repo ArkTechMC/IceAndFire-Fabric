@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.model.animator;
 
-import com.iafenvoy.citadel.client.model.TabulaModel;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.entity.EntityFireDragon;
 import com.iafenvoy.iceandfire.render.model.util.DragonAnimationsLibrary;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonModelTypes;

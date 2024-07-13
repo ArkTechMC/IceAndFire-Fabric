@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.screen.handler;
 
-import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.enums.EnumDragonArmorPart;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;
 import com.iafenvoy.iceandfire.screen.slot.BannerSlot;
 import com.iafenvoy.iceandfire.screen.slot.DragonArmorSlot;
+import com.iafenvoy.uranus.data.EntityPropertyDelegate;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

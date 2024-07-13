@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.basic.BasicModelPart;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityJar;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPixieHouse;

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.util.ToolMaterialUtil;
+import com.iafenvoy.uranus.object.ToolMaterialUtil;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ToolMaterial;
 

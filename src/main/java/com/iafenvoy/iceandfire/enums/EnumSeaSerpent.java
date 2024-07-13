@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.enums;
 
-import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.ItemSeaSerpentScales;
 import com.iafenvoy.iceandfire.item.armor.IafArmorMaterial;
@@ -8,7 +8,7 @@ import com.iafenvoy.iceandfire.item.armor.ItemSeaSerpentArmor;
 import com.iafenvoy.iceandfire.item.block.BlockSeaSerpentScales;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.iafenvoy.iceandfire.util.IdUtil;
+import com.iafenvoy.uranus.util.IdUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;

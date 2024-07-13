@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.armor;
 
-import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.sound.SoundEvent;
 

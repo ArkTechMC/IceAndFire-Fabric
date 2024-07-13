@@ -18,12 +18,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class ServerNetworkHelper {
-    public static void sendToAll(Identifier id, PacketByteBuf buf) {
-        if (StaticVariables.server != null)
-            for (ServerPlayerEntity player : StaticVariables.server.getPlayerManager().getPlayerList())
-                ServerPlayNetworking.send(player, id, buf);
-    }
-
     public static void registerReceivers() {
         ServerPlayNetworking.registerGlobalReceiver(StaticVariables.MYRMEX_SYNC, (server, player, handler, buf, responseSender) -> {
             MyrmexHive serverHive = MyrmexHive.fromNBT(buf.readNbt());

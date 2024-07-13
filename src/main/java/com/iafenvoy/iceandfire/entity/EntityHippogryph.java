@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.citadel.animation.Animation;
-import com.iafenvoy.citadel.animation.AnimationHandler;
-import com.iafenvoy.citadel.animation.IAnimatedEntity;
-import com.iafenvoy.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.data.EntityPropertyDelegate;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.iceandfire.config.IafConfig;
-import com.iafenvoy.iceandfire.data.delegate.EntityPropertyDelegate;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAIMate;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAITarget;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAITargetItems;

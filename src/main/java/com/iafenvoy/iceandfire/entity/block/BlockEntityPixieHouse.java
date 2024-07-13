@@ -7,6 +7,7 @@ import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafParticles;
+import com.iafenvoy.uranus.ServerHelper;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -116,7 +117,7 @@ public class BlockEntityPixieHouse extends BlockEntity {
         if (!this.world.isClient) {
             PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.pos);
             buf.writeBoolean(false).writeInt(0);
-            ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
+            ServerHelper.sendToAll(StaticVariables.UPDATE_PIXIE_HOUSE, buf);
         }
     }
 }

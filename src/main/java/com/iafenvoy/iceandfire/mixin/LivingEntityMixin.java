@@ -1,7 +1,6 @@
 package com.iafenvoy.iceandfire.mixin;
 
 import com.iafenvoy.iceandfire.event.ClientEvents;
-import com.iafenvoy.iceandfire.event.LivingEntityEvents;
 import com.iafenvoy.iceandfire.item.tool.ItemGhostSword;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -36,10 +35,5 @@ public abstract class LivingEntityMixin {
         LivingEntity self = (LivingEntity) (Object) this;
         if (item instanceof ItemGhostSword && self instanceof PlayerEntity player)
             ItemGhostSword.spawnGhostSwordEntity(stack, player);
-    }
-
-    @Inject(method = "handleFallDamage", at = @At("HEAD"))
-    public void onEntityFall(float fallDistance, float multiplier, DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntityEvents.FALL.invoker().onFall((LivingEntity) (Object) this, fallDistance, multiplier, source);
     }
 }

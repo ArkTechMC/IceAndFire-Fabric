@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.citadel.client.model.AdvancedEntityModel;
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;

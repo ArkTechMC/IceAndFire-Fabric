@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.iafenvoy.citadel.config.biome.SpawnBiomeData;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
@@ -103,9 +102,5 @@ public class IafFeatures {
 
     private static void addFeatureToBiome(TagKey<Biome> biomeTag, RegistryKey<PlacedFeature> featureResource, GenerationStep.Feature step) {
         BiomeModifications.addFeature(context -> context.hasTag(biomeTag), step, featureResource);
-    }
-
-    private static void addFeatureToBiome(SpawnBiomeData data, RegistryKey<PlacedFeature> featureResource, GenerationStep.Feature step) {
-        BiomeModifications.addFeature(context -> data.matches(context.getBiomeRegistryEntry(), context.getBiomeKey().getValue()), step, featureResource);
     }
 }

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.recipe;
 
 import com.google.gson.JsonObject;
-import com.iafenvoy.citadel.client.model.tabula.JsonUtils;
+import com.iafenvoy.uranus.client.model.tabula.JsonUtils;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForge;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafRecipeSerializers;

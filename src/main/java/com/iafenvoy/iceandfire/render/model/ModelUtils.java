@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
-import com.iafenvoy.citadel.client.model.ModelAnimator;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.ModelAnimator;
 
 public class ModelUtils {
     private static void setRotateAngle(AdvancedModelBox model, float x, float y, float z) {

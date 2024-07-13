@@ -1,12 +1,13 @@
 package com.iafenvoy.iceandfire.entity.block;
 
-import com.iafenvoy.iceandfire.network.PacketBufferUtils;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemMyrmexEgg;
 import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.screen.handler.PodiumScreenHandler;
+import com.iafenvoy.uranus.ServerHelper;
+import com.iafenvoy.uranus.network.PacketBufferUtils;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LockableContainerBlockEntity;
@@ -85,7 +86,7 @@ public class BlockEntityPodium extends LockableContainerBlockEntity implements S
         if (!this.world.isClient) {
             PacketByteBuf buf = PacketByteBufs.create().writeBlockPos(this.getPos());
             PacketBufferUtils.writeItemStack(buf, this.stacks.get(0));
-            ServerNetworkHelper.sendToAll(StaticVariables.UPDATE_PODIUM, buf);
+            ServerHelper.sendToAll(StaticVariables.UPDATE_PODIUM, buf);
         }
     }
 

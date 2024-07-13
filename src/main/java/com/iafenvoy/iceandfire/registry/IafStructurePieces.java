@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.registry;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.util.IdUtil;
+import com.iafenvoy.uranus.util.IdUtil;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;

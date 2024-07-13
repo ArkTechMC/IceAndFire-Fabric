@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.enums;
 
-import com.iafenvoy.citadel.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.armor.IafArmorMaterial;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.iafenvoy.iceandfire.util.IdUtil;
+import com.iafenvoy.uranus.util.IdUtil;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

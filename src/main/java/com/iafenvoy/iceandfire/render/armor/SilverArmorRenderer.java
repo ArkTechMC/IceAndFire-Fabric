@@ -1,8 +1,9 @@
 package com.iafenvoy.iceandfire.render.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.render.model.armor.ArmorModelBase;
 import com.iafenvoy.iceandfire.render.model.armor.ModelSilverArmor;
+import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
+import com.iafenvoy.uranus.client.render.armor.ArmorRendererImpl;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.model.util;
 
-import com.iafenvoy.citadel.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import net.minecraft.util.math.MathHelper;
 
