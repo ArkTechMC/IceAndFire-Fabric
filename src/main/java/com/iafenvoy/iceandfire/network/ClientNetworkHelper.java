@@ -101,20 +101,5 @@ public class ClientNetworkHelper {
                 if (player.getWorld().getBlockEntity(blockPos) instanceof BlockEntityPodium podium)
                     podium.setStack(0, heldStack);
         });
-        ClientPlayNetworking.registerGlobalReceiver(StaticVariables.ANIMATION, (client, handler, buf, responseSender) -> {
-            int entityID = buf.readInt();
-            int index = buf.readInt();
-            if (client.world != null) {
-                IAnimatedEntity entity = (IAnimatedEntity) client.world.getEntityById(entityID);
-                if (entity != null) {
-                    if (index == -1) entity.setAnimation(IAnimatedEntity.NO_ANIMATION);
-                    else entity.setAnimation(entity.getAnimations()[index]);
-                    entity.setAnimationTick(0);
-                }
-            }
-        });
-        ClientPlayNetworking.registerGlobalReceiver(StaticVariables.SYNC_CLIENT_TICK, (client, handler, buf, responseSender) -> {
-            ClientTickRateTracker.getForClient(client).syncFromServer(buf.readNbt());
-        });
     }
 }
