@@ -611,6 +611,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         return (this.dataTracker.get(CONTROL_STATE) >> 1 & 1) == 1;
     }
 
+    @Override
     public boolean isAttacking() {
         return (this.dataTracker.get(CONTROL_STATE) >> 2 & 1) == 1;
     }

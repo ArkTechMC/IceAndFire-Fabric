@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
+import com.iafenvoy.iceandfire.entity.EntityGhost;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.ModelAnimator;
-import com.iafenvoy.iceandfire.entity.EntityGhost;
 import com.iafenvoy.uranus.client.model.util.HideableModelRenderer;
 
 public class ModelGhost extends ModelBipedBase<EntityGhost> {

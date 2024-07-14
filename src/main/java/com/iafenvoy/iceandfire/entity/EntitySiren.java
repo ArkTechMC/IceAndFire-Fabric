@@ -1,9 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.AnimationHandler;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetInWater;
@@ -17,6 +14,9 @@ import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -519,8 +519,8 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
                 float f2 = 0;
                 if (distance < (double) Math.max(1.0F, this.siren.getWidth())) {
                     float f = this.siren.getYaw() * 0.017453292F;
-                    f1 -= (float) (MathHelper.sin(f) * 0.35F);
-                    f2 += (float) (MathHelper.cos(f) * 0.35F);
+                    f1 -= MathHelper.sin(f) * 0.35F;
+                    f2 += MathHelper.cos(f) * 0.35F;
                 }
                 this.siren.setVelocity(this.siren.getVelocity().add(f1, this.siren.getMovementSpeed() * distanceY * 0.1D, f2));
             } else if (this.state == State.JUMPING) {

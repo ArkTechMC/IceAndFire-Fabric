@@ -4,10 +4,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
 public class StaticVariables {
-    public static MinecraftServer server = null;
     public static final Identifier MYRMEX_SYNC = new Identifier(IceAndFire.MOD_ID, "myrmex_sync");
     public static final Identifier DEATH_WORM_HITBOX = new Identifier(IceAndFire.MOD_ID, "myrmex_sync");
-
     public static final Identifier DRAGON_CONTROL = new Identifier(IceAndFire.MOD_ID, "dragon_control");
     public static final Identifier DRAGON_SET_BURN_BLOCK = new Identifier(IceAndFire.MOD_ID, "dragon_set_burn_block");
     public static final Identifier HIPPPOGRYPH_ARMOR = new Identifier(IceAndFire.MOD_ID, "hippogryph_armor");
@@ -20,4 +18,5 @@ public class StaticVariables {
     public static final Identifier UPDATE_PIXIE_JAR = new Identifier(IceAndFire.MOD_ID, "update_pixie_jar");
     public static final Identifier UPDATE_PODIUM = new Identifier(IceAndFire.MOD_ID, "update_podium");
     public static final Identifier PARTICLE_SPAWN = new Identifier(IceAndFire.MOD_ID, "particle_spawn");
+    public static MinecraftServer server = null;
 }

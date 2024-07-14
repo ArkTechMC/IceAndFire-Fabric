@@ -1,7 +1,6 @@
 package com.iafenvoy.iceandfire.item.block;
 
 import com.iafenvoy.iceandfire.item.block.util.IDreadBlock;
-import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.MapColor;

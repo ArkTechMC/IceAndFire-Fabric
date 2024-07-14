@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
-import com.iafenvoy.uranus.client.model.AdvancedModelBox;
-import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityDreadQueen;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;

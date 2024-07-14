@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
+import com.iafenvoy.iceandfire.entity.EntityChainTie;
 import com.iafenvoy.uranus.client.model.basic.BasicEntityModel;
 import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
-import com.iafenvoy.iceandfire.entity.EntityChainTie;
 
 public class ModelChainTie extends BasicEntityModel<EntityChainTie> {
     public final BasicModelPart knotRenderer;

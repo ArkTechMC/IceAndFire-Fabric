@@ -1,8 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.AnimationHandler;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.StymphalianBirdAIAirTarget;
 import com.iafenvoy.iceandfire.entity.ai.StymphalianBirdAIFlee;
@@ -12,6 +9,9 @@ import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
 import com.iafenvoy.iceandfire.entity.util.StymphalianBirdFlock;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;

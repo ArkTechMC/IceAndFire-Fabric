@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
+import com.iafenvoy.iceandfire.entity.EntityGorgon;
+import com.iafenvoy.iceandfire.entity.EntityHydra;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.ModelAnimator;
 import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
-import com.iafenvoy.iceandfire.entity.EntityGorgon;
-import com.iafenvoy.iceandfire.entity.EntityHydra;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
@@ -30,7 +30,7 @@ public class ModelHydraHead extends ModelDragonBase<EntityHydra> {
     public final AdvancedModelBox TeethR1;
     public final AdvancedModelBox TeethTL1;
     private final ModelAnimator animator;
-    private int headIndex;
+    private final int headIndex;
 
     public ModelHydraHead(int headIndex) {
         this.headIndex = headIndex;

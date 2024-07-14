@@ -85,7 +85,6 @@ public class IafEntities {
         return builder.build();
     }
 
-
     private static <T extends Entity> EntityType<T> register(String entityName, EntityType<T> builder) {
         return Registry.register(Registries.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, entityName), builder);
     }

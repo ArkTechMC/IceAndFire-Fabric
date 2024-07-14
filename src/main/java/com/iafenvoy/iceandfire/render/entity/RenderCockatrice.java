@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityCockatrice;
 import com.iafenvoy.iceandfire.entity.EntityGorgon;
 import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
 import com.iafenvoy.iceandfire.render.model.ModelCockatrice;
 import com.iafenvoy.iceandfire.render.model.ModelCockatriceChick;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;

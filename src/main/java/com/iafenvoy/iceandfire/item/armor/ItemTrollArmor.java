@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item.armor;
 
-import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
 import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;

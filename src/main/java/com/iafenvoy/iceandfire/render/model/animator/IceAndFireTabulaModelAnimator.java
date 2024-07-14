@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.model.animator;
 
+import com.iafenvoy.iceandfire.util.IafMath;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.ModelAnimator;
 import com.iafenvoy.uranus.client.model.TabulaModel;
-import com.iafenvoy.iceandfire.util.IafMath;
 import net.minecraft.util.math.MathHelper;
 
 public class IceAndFireTabulaModelAnimator {

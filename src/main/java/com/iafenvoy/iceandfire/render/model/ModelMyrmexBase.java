@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.model;
 
-import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import net.minecraft.client.util.math.MatrixStack;
 
 public abstract class ModelMyrmexBase<T extends EntityMyrmexBase> extends ModelDragonBase<T> {

@@ -1,10 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.uranus.ServerHelper;
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.AnimationHandler;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
-import com.iafenvoy.uranus.server.entity.collision.ICustomCollisions;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
@@ -14,8 +9,12 @@ import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormLand;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormSand;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.uranus.ServerHelper;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.server.entity.collision.ICustomCollisions;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;

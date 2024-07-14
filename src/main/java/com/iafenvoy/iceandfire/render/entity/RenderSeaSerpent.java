@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntitySeaSerpent;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerSeaSerpentAncient;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;

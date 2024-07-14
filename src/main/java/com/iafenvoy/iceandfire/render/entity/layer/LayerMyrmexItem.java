@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
-import com.iafenvoy.iceandfire.render.entity.RenderMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
+import com.iafenvoy.iceandfire.render.entity.RenderMyrmexBase;
 import com.iafenvoy.iceandfire.render.model.ModelMyrmexBase;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;

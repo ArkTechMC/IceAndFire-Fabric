@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.pathfinding;
 
-import com.iafenvoy.uranus.server.entity.collision.CustomCollisionsNavigator;
 import com.iafenvoy.iceandfire.entity.EntityCyclops;
+import com.iafenvoy.uranus.server.entity.collision.CustomCollisionsNavigator;
 import net.minecraft.entity.ai.pathing.LandPathNodeMaker;
 import net.minecraft.entity.ai.pathing.PathNodeNavigator;
 import net.minecraft.world.World;

@@ -1,7 +1,5 @@
 package com.iafenvoy.iceandfire.network;
 
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
-import com.iafenvoy.uranus.client.tick.ClientTickRateTracker;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.entity.EntityDeathWorm;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;

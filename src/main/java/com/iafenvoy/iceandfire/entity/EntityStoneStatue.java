@@ -15,10 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Arm;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromStatues {

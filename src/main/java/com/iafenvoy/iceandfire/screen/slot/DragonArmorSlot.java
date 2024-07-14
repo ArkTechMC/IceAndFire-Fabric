@@ -9,7 +9,7 @@ import net.minecraft.screen.slot.Slot;
 public class DragonArmorSlot extends Slot {
     private final EnumDragonArmorPart expectedArmor;
 
-    public DragonArmorSlot(Inventory inventory, int index, int x, int y,  EnumDragonArmorPart expectedArmor) {
+    public DragonArmorSlot(Inventory inventory, int index, int x, int y, EnumDragonArmorPart expectedArmor) {
         super(inventory, index, x, y);
         this.expectedArmor = expectedArmor;
     }

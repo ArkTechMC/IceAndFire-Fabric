@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.render.model.ModelBipedBase;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;

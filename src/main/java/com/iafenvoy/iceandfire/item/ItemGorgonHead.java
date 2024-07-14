@@ -83,7 +83,7 @@ public class ItemGorgonHead extends Item {
 
                 if (pointedEntity instanceof PlayerEntity)
                     wasSuccesful = pointedEntity.damage(IafDamageTypes.causeGorgonDamage(pointedEntity), Integer.MAX_VALUE);
-                 else {
+                else {
                     if (!worldIn.isClient)
                         pointedEntity.remove(Entity.RemovalReason.KILLED);
                 }

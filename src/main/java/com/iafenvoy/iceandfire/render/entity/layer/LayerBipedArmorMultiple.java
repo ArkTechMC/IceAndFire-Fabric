@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.entity.util.IHasArmorVariant;
 import com.iafenvoy.iceandfire.render.model.ModelBipedBase;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.mob.MobEntity;

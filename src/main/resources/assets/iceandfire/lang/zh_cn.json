@@ -1520,5 +1520,12 @@
   "item.iceandfire.dragon_seeker.found_location":"最近的龙位于",
   "text.iceandfire.not_enable":"请先在配置文件中启用此功能！",
   "text.autoconfig.iceandfire.option.tools": "工具",
-  "text.autoconfig.iceandfire.option.tools.enableDragonSeeker": "启用寻龙杖"
+  "text.autoconfig.iceandfire.option.tools.enableDragonSeeker": "启用寻龙杖",
+
+  "item.iceandfire.cooked_rice_with_fire_dragon_meat": "火龙肉炒饭",
+  "item.iceandfire.cooked_rice_with_ice_dragon_meat": "冰龙肉炒饭",
+  "item.iceandfire.cooked_rice_with_lightning_dragon_meat": "电龙肉炒饭",
+  "item.iceandfire.ghost_cream": "幽灵冰淇淋",
+  "item.iceandfire.pixie_dust_milky_tea": "精灵尘奶茶",
+  "item.iceandfire.tooltip.require.delight": "此物品需要农夫乐事进行合成"
 }

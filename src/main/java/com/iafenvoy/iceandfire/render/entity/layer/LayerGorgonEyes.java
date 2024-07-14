@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.render.entity.RenderGorgon;
 import com.iafenvoy.iceandfire.entity.EntityGorgon;
+import com.iafenvoy.iceandfire.render.entity.RenderGorgon;
 import com.iafenvoy.iceandfire.render.model.ModelGorgon;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

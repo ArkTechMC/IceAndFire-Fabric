@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
-import com.iafenvoy.iceandfire.render.entity.RenderPixie;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
+import com.iafenvoy.iceandfire.render.entity.RenderPixie;
 import com.iafenvoy.iceandfire.render.model.ModelPixie;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;

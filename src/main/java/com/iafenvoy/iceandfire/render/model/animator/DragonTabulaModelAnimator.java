@@ -1,11 +1,11 @@
 package com.iafenvoy.iceandfire.render.model.animator;
 
-import com.iafenvoy.uranus.client.model.AdvancedModelBox;
-import com.iafenvoy.uranus.client.model.ITabulaModelAnimator;
-import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonPoses;
 import com.iafenvoy.iceandfire.render.model.util.LegArticulator;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.ITabulaModelAnimator;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.MathHelper;
 

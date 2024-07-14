@@ -1,12 +1,12 @@
 package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
-import com.iafenvoy.uranus.client.model.AdvancedModelBox;
-import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityEggInIce;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
+import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.registry.tag.BlockTags;
 

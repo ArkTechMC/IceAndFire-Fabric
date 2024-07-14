@@ -1,8 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.AnimationHandler;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIFindWaterTarget;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetInWater;
@@ -14,6 +11,9 @@ import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
 import com.iafenvoy.iceandfire.screen.handler.HippocampusScreenHandler;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.data.EntityPropertyDelegate;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -310,6 +310,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         }
     }
 
+    @Override
     protected Vec3d getControlledMovementInput(PlayerEntity player, Vec3d travelVector) {
         float f = player.sidewaysSpeed * 0.5F;
         float f1 = player.forwardSpeed;
@@ -321,6 +322,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
         return new Vec2f(entity.getPitch() * 0.5F, entity.getYaw());
     }
 
+    @Override
     protected float getSaddledSpeed(PlayerEntity player) {
         float speed = (float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.6F;
         if (this.isTouchingWater())
@@ -444,6 +446,7 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
             this.dropChestItems();
     }
 
+    @Override
     public int getArmor() {
         return this.dataTracker.get(ARMOR);
     }

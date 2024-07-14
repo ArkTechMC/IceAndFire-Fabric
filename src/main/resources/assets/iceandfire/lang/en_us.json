@@ -1526,5 +1526,12 @@
   "item.iceandfire.dragon_seeker.found_location":"The nearest dragon is at ",
   "text.iceandfire.not_enable":"Enable this feature in config first!",
   "text.autoconfig.iceandfire.option.tools": "Tools",
-  "text.autoconfig.iceandfire.option.tools.enableDragonSeeker": "Enable Dragon Seeker"
+  "text.autoconfig.iceandfire.option.tools.enableDragonSeeker": "Enable Dragon Seeker",
+
+  "item.iceandfire.cooked_rice_with_fire_dragon_meat": "Fried Rice with Fire Dragon Flesh",
+  "item.iceandfire.cooked_rice_with_ice_dragon_meat": "Fried Rice with Ice Dragon Flesh",
+  "item.iceandfire.cooked_rice_with_lightning_dragon_meat": "Fried Rice with Lightning Dragon Flesh",
+  "item.iceandfire.ghost_cream": "Ghost Cream",
+  "item.iceandfire.pixie_dust_milky_tea": "Pixie Dust Milky Tea",
+  "item.iceandfire.tooltip.require.delight": "This item require Farmer's Delight to craft"
 }

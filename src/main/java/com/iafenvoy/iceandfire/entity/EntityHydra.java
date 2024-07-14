@@ -1,13 +1,13 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -68,7 +68,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     private int prevHeadCount = -1;
     private int regrowHeadCooldown = 0;
     private boolean onlyRegrowOneHeadNotTwo = false;
-    private float headDamageThreshold;
+    private final float headDamageThreshold;
 
     public EntityHydra(EntityType<EntityHydra> type, World worldIn) {
         super(type, worldIn);

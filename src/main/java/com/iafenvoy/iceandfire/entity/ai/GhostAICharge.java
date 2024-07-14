@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.entity.EntityGhost;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;

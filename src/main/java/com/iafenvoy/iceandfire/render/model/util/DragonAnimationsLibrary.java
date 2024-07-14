@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.model.util;
 
-import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.uranus.client.model.util.TabulaModelHandlerHelper;
 
 import java.io.IOException;

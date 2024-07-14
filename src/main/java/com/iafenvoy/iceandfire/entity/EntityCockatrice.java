@@ -1,9 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.AnimationHandler;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
@@ -14,6 +11,9 @@ import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafEntityTags;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -117,7 +117,8 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         this.goalSelector.add(3, new SitGoal(this));
         this.goalSelector.add(3, new FleeEntityGoal<>(this, LivingEntity.class, 14.0F, 1.0D, 1.0D, (Predicate<LivingEntity>) entity -> {
             if (entity instanceof PlayerEntity player) return !player.isCreative() && !entity.isSpectator();
-            else return entity.getType().isIn(IafEntityTags.SCARES_COCKATRICES) && !entity.getType().isIn(IafEntityTags.CHICKENS);
+            else
+                return entity.getType().isIn(IafEntityTags.SCARES_COCKATRICES) && !entity.getType().isIn(IafEntityTags.CHICKENS);
         }));
         this.goalSelector.add(4, new CockatriceAIWander(this, 1.0D));
         this.goalSelector.add(5, new CockatriceAIAggroLook(this));

@@ -1,19 +1,10 @@
 package com.iafenvoy.iceandfire.registry.tag;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.registry.IafBlocks;
-import com.iafenvoy.iceandfire.registry.IafItems;
-import net.minecraft.block.Block;
-import net.minecraft.data.DataOutput;
-import net.minecraft.data.server.tag.ItemTagProvider;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
-
-import java.util.concurrent.CompletableFuture;
 
 public class IafItemTags {
     public static final TagKey<Item> DRAGON_ARROWS = createKey("dragon_arrows");

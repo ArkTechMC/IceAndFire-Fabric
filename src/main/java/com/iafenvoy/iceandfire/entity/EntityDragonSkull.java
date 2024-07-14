@@ -88,10 +88,12 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
         this.getDataTracker().startTracking(DRAGON_DIRECTION, 0F);
     }
 
+    @Override
     public float getYaw() {
         return this.getDataTracker().get(DRAGON_DIRECTION);
     }
 
+    @Override
     public void setYaw(float var1) {
         this.getDataTracker().set(DRAGON_DIRECTION, var1);
     }

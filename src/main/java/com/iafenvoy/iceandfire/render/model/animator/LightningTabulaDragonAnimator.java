@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.render.model.animator;
 
-import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.iceandfire.entity.EntityLightningDragon;
 import com.iafenvoy.iceandfire.render.model.util.DragonAnimationsLibrary;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonModelTypes;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonPoses;
+import com.iafenvoy.uranus.client.model.TabulaModel;
 
 public class LightningTabulaDragonAnimator extends DragonTabulaModelAnimator<EntityLightningDragon> {
     public LightningTabulaDragonAnimator() {

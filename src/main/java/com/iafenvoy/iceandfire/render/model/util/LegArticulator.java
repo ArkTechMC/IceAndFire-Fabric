@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.model.util;
 
-import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
+import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import net.minecraft.util.math.MathHelper;
 
 public final class LegArticulator {

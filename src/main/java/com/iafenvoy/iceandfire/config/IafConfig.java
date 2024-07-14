@@ -68,6 +68,23 @@ public class IafConfig implements ConfigData {
     public double dreadQueenMaxHealth = 750;
     public boolean allowAttributeOverriding = true;
 
+    public static IafConfig getInstance() {
+        return AutoConfig.getConfigHolder(IafConfig.class).getConfig();
+    }
+
+    @Override
+    public void validatePostLoad() throws ValidationException {
+        if (this.version != CURRENT_VERSION) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+                FileUtils.copyFile(new File(configPath), new File(IafConfig.backupPath + "iceandfire_" + sdf.format(new Date()) + ".json"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            throw new ValidationException(String.format("Wrong config version %d for mod %s! Automatically use version %d and backup old one.", this.version, IceAndFire.MOD_NAME, CURRENT_VERSION));
+        } else IceAndFire.LOGGER.info("{} config version match.", IceAndFire.MOD_NAME);
+    }
+
     public static class ClientConfig implements ConfigData {
         public boolean customMainMenu = true;
         //TODO
@@ -282,22 +299,5 @@ public class IafConfig implements ConfigData {
 
     public static class Tools implements ConfigData {
         public boolean enableDragonSeeker = true;
-    }
-
-    @Override
-    public void validatePostLoad() throws ValidationException {
-        if (this.version != CURRENT_VERSION) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-                FileUtils.copyFile(new File(configPath), new File(IafConfig.backupPath + "iceandfire_" + sdf.format(new Date()) + ".json"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            throw new ValidationException(String.format("Wrong config version %d for mod %s! Automatically use version %d and backup old one.", this.version, IceAndFire.MOD_NAME, CURRENT_VERSION));
-        } else IceAndFire.LOGGER.info("{} config version match.", IceAndFire.MOD_NAME);
-    }
-
-    public static IafConfig getInstance() {
-        return AutoConfig.getConfigHolder(IafConfig.class).getConfig();
     }
 }

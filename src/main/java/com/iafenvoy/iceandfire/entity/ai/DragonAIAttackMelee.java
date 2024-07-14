@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;

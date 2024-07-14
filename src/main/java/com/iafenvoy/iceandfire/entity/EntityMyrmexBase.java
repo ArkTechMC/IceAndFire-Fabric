@@ -1,13 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.collect.Sets;
-import com.iafenvoy.uranus.animation.Animation;
-import com.iafenvoy.uranus.animation.AnimationHandler;
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.IPassabilityNavigator;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathResult;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
@@ -19,6 +12,13 @@ import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
 import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.uranus.animation.Animation;
+import com.iafenvoy.uranus.animation.AnimationHandler;
+import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.IPassabilityNavigator;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathResult;
+import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
@@ -308,6 +308,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         return true;
     }
 
+    @Override
     public Vec3d getPos() {
         return this.getBlockPos().toCenterPos();
     }

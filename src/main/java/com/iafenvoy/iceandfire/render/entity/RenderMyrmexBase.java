@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerMyrmexItem;
 import com.iafenvoy.iceandfire.render.model.ModelMyrmexPupa;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;

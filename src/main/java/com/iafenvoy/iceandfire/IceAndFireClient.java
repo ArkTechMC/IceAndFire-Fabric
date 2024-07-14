@@ -1,7 +1,5 @@
 package com.iafenvoy.iceandfire;
 
-import com.iafenvoy.uranus.animation.IAnimatedEntity;
-import com.iafenvoy.uranus.client.tick.ClientTickRateTracker;
 import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
 import com.iafenvoy.iceandfire.enums.EnumTroll;

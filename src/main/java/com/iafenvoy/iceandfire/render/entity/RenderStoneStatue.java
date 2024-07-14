@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityHydra;
 import com.iafenvoy.iceandfire.entity.EntityStoneStatue;
@@ -10,6 +9,7 @@ import com.iafenvoy.iceandfire.render.entity.layer.LayerHydraHead;
 import com.iafenvoy.iceandfire.render.model.ICustomStatueModel;
 import com.iafenvoy.iceandfire.render.model.ModelHydraBody;
 import com.iafenvoy.iceandfire.render.model.ModelStonePlayer;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;

@@ -74,10 +74,12 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
         this.getDataTracker().startTracking(SKULL_ENUM, 0);
     }
 
+    @Override
     public float getYaw() {
         return this.getDataTracker().get(SKULL_DIRECTION);
     }
 
+    @Override
     public void setYaw(float var1) {
         this.getDataTracker().set(SKULL_DIRECTION, var1);
     }

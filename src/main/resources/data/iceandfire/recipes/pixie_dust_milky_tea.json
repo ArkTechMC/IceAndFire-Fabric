@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cooking",
+  "recipe_book_tab": "drinks",
+  "ingredients": [
+    {
+      "item": "iceandfire:pixie_dust"
+    },
+    {
+      "item": "iceandfire:pixie_dust"
+    },
+    {
+      "item": "iceandfire:pixie_dust"
+    },
+    {
+      "tag": "c:milks"
+    }
+  ],
+  "result": {
+    "item": "iceandfire:pixie_dust_milky_tea"
+  },
+  "container": {
+    "item": "minecraft:glass_bottle"
+  },
+  "cookingtime": 200
+}

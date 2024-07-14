@@ -356,14 +356,10 @@ public enum EnumDragonTextures {
             name = armorItem.type.getId();
         return switch (slot) {
             case MAINHAND, OFFHAND -> null;
-            case FEET ->
-                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_tail_" + name + ".png");
-            case LEGS ->
-                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_body_" + name + ".png");
-            case CHEST ->
-                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_neck_" + name + ".png");
-            case HEAD ->
-                    Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_head_" + name + ".png");
+            case FEET -> Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_tail_" + name + ".png");
+            case LEGS -> Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_body_" + name + ".png");
+            case CHEST -> Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_neck_" + name + ".png");
+            case HEAD -> Identifier.of(IceAndFire.MOD_ID, "textures/models/dragon_armor/armor_head_" + name + ".png");
         };
     }
 }

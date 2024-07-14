@@ -79,7 +79,7 @@ public class WorldGenMyrmexDecoration {
                         worldIn.setBlockState(pos, leaf, 4);
                     }
                 }
-                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2 + 0), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + 0));
+                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2));
             }
         }
     }
@@ -155,7 +155,7 @@ public class WorldGenMyrmexDecoration {
                         worldIn.setBlockState(pos, blob.getDefaultState(), 4);
                     }
                 }
-                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2 + 0), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2 + 0));
+                blockpos = blockpos.add(-(i1 + 1) + rand.nextInt(2), -rand.nextInt(2), -(i1 + 1) + rand.nextInt(2));
             }
 
         }

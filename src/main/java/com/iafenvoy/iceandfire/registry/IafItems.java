@@ -1,8 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
-import com.iafenvoy.uranus.server.item.CustomToolMaterial;
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.compat.delight.DelightFoodItem;
 import com.iafenvoy.iceandfire.config.IafConfig;
 import com.iafenvoy.iceandfire.enums.*;
 import com.iafenvoy.iceandfire.item.*;
@@ -15,9 +14,13 @@ import com.iafenvoy.iceandfire.item.tool.*;
 import com.iafenvoy.iceandfire.registry.tag.BannerPatternTags;
 import com.iafenvoy.iceandfire.registry.tag.CommonTags;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
+import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.server.item.CustomToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.registry.Registries;
@@ -350,10 +353,15 @@ public class IafItems {
     public static final BannerPatternItem PATTERN_SEA_SERPENT = register("banner_pattern_sea_serpent", new BannerPatternItem(BannerPatternTags.SEA_SERPENT_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_TROLL = register("banner_pattern_troll", new BannerPatternItem(BannerPatternTags.TROLL_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_WEEZER = register("banner_pattern_weezer", new BannerPatternItem(BannerPatternTags.WEEZER_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
-    public static final BannerPatternItem PATTERN_DREAD;
+    public static final BannerPatternItem PATTERN_DREAD = register("banner_pattern_dread", new BannerPatternItem(BannerPatternTags.DREAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+
+    public static final DelightFoodItem COOKED_RICE_WITH_FIRE_DRAGON_MEAT = register("cooked_rice_with_fire_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60 * 2), 1).build())));
+    public static final DelightFoodItem COOKED_RICE_WITH_ICE_DRAGON_MEAT = register("cooked_rice_with_ice_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 60 * 2, 2), 1).build())));
+    public static final DelightFoodItem COOKED_RICE_WITH_LIGHTNING_DRAGON_MEAT = register("cooked_rice_with_lightning_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 60 * 2, 2), 1).build())));
+    public static final DelightFoodItem GHOST_CREAM = register("ghost_cream", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().snack().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 20 * 20), 1).build())));
+    public static final DelightFoodItem PIXIE_DUST_MILKY_TEA = register("pixie_dust_milky_tea", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().snack().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 20 * 60 * 2), 1).build())));
 
     static {
-        PATTERN_DREAD = register("banner_pattern_dread", new BannerPatternItem(BannerPatternTags.DREAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
         EnumDragonArmor.initArmors();
         EnumSeaSerpent.initArmors();
         EnumSkullType.initItems();

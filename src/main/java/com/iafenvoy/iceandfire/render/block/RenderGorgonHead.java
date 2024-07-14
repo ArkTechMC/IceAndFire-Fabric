@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.render.block;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.render.model.ModelGorgonHead;
 import com.iafenvoy.iceandfire.render.model.ModelGorgonHeadActive;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

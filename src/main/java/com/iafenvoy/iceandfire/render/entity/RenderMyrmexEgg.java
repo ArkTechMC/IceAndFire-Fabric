@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.render.entity;
 
-import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexEgg;
 import com.iafenvoy.iceandfire.render.model.ModelDragonEgg;
+import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.util.Identifier;
