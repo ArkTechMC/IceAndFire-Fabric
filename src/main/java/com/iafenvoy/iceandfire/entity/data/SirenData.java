@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 import java.util.UUID;
 
-public class SirenData {
+public class SirenData extends NeedUpdateData {
     public EntitySiren charmedBy;
     public int charmTime;
     public boolean isCharmed;
@@ -25,7 +25,6 @@ public class SirenData {
     private UUID charmedByUUID;
     private int charmedById;
     private boolean isInitialized;
-    private boolean triggerClientUpdate;
 
     public void tickCharmed(final LivingEntity holder) {
         if (!(holder instanceof PlayerEntity || holder instanceof MerchantEntity || holder instanceof IHearsSiren))
@@ -98,14 +97,14 @@ public class SirenData {
 
         this.charmedBy = siren;
         this.isCharmed = true;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void clearCharm() {
         this.charmTime = 0;
         this.isCharmed = false;
         this.charmedBy = null;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void serialize(final NbtCompound tag) {
@@ -136,15 +135,6 @@ public class SirenData {
         this.isInitialized = false;
     }
 
-    public boolean doesClientNeedUpdate() {
-        if (this.triggerClientUpdate) {
-            this.triggerClientUpdate = false;
-            return true;
-        }
-
-        return false;
-    }
-
     private float updateRotation(float angle, float targetAngle) {
         float f = MathHelper.wrapDegrees(targetAngle - angle);
         if (f > 30) f = 30f;
@@ -160,7 +150,7 @@ public class SirenData {
             Entity entity = serverLevel.getEntity(this.charmedByUUID);
 
             if (entity instanceof EntitySiren siren) {
-                this.triggerClientUpdate = true;
+                this.triggerUpdate();
                 this.charmedByUUID = null;
                 this.charmedBy = siren;
             }

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.*;
 
-public class ChainData {
+public class ChainData extends NeedUpdateData{
     public List<Entity> chainedTo;
 
     // These lists are only for the sync (and therefor are cleared once it happened)
@@ -19,7 +19,6 @@ public class ChainData {
     private List<UUID> chainedToUUIDs;
 
     private boolean isInitialized;
-    private boolean triggerClientUpdate;
 
     public void tickChain(final LivingEntity entity) {
         if (!this.isInitialized)
@@ -43,7 +42,7 @@ public class ChainData {
     public void clearChains() {
         if (this.chainedTo == null) return;
         this.chainedTo = null;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void attachChain(final Entity chain) {
@@ -51,13 +50,13 @@ public class ChainData {
             this.chainedTo = new ArrayList<>();
         } else if (this.chainedTo.contains(chain)) return;
         this.chainedTo.add(chain);
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void removeChain(final Entity chain) {
         if (this.chainedTo == null) return;
         this.chainedTo.remove(chain);
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
         if (this.chainedTo.isEmpty())
             this.chainedTo = null;
     }
@@ -103,14 +102,6 @@ public class ChainData {
             this.chainedToUUIDs = null;
     }
 
-    public boolean doesClientNeedUpdate() {
-        if (this.triggerClientUpdate) {
-            this.triggerClientUpdate = false;
-            return true;
-        }
-        return false;
-    }
-
     private void initialize(final World level) {
         List<Entity> entities = new ArrayList<>();
 
@@ -121,7 +112,7 @@ public class ChainData {
                 if (entity != null)
                     entities.add(entity);
             }
-            this.triggerClientUpdate = true;
+            this.triggerUpdate();
         } else if (this.chainedToIds != null)
             for (int id : this.chainedToIds) {
                 if (id == -1) continue;

@@ -10,11 +10,9 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 
-public class FrozenData {
+public class FrozenData extends NeedUpdateData {
     public int frozenTicks;
     public boolean isFrozen;
-
-    private boolean triggerClientUpdate;
 
     public void tickFrozen(final LivingEntity entity) {
         if (!this.isFrozen) return;
@@ -54,7 +52,7 @@ public class FrozenData {
 
         this.frozenTicks = duration;
         this.isFrozen = true;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     private void clearFrozen(final LivingEntity entity) {
@@ -71,7 +69,7 @@ public class FrozenData {
 
         this.isFrozen = false;
         this.frozenTicks = 0;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void serialize(final NbtCompound tag) {
@@ -86,14 +84,5 @@ public class FrozenData {
         NbtCompound frozenData = tag.getCompound("frozenData");
         this.frozenTicks = frozenData.getInt("frozenTicks");
         this.isFrozen = frozenData.getBoolean("isFrozen");
-    }
-
-    public boolean doesClientNeedUpdate() {
-        if (this.triggerClientUpdate) {
-            this.triggerClientUpdate = false;
-            return true;
-        }
-
-        return false;
     }
 }

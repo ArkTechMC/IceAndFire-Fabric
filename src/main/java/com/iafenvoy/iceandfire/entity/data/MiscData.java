@@ -13,7 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class MiscData {
+public class MiscData extends NeedUpdateData {
     public int loveTicks;
     public int lungeTicks;
     public boolean hasDismounted;
@@ -23,7 +23,6 @@ public class MiscData {
     private List<Integer> targetedByScepterIds;
 
     private boolean isInitialized;
-    private boolean triggerClientUpdate;
 
     public void tickMisc(final LivingEntity entity) {
         if (!this.isInitialized)
@@ -33,7 +32,7 @@ public class MiscData {
             this.loveTicks--;
 
             if (this.loveTicks == 0) {
-                this.triggerClientUpdate = true;
+                this.triggerUpdate();
                 return;
             }
 
@@ -59,13 +58,13 @@ public class MiscData {
             return;
 
         this.targetedByScepter.add(target);
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void removeScepterTarget(final LivingEntity target) {
         if (this.targetedByScepter == null) return;
         this.targetedByScepter.remove(target);
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void checkScepterTarget() {
@@ -75,17 +74,17 @@ public class MiscData {
 
     public void setLoveTicks(int loveTicks) {
         this.loveTicks = loveTicks;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void setLungeTicks(int lungeTicks) {
         this.lungeTicks = lungeTicks;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void setDismounted(boolean hasDismounted) {
         this.hasDismounted = hasDismounted;
-        this.triggerClientUpdate = true;
+        this.triggerUpdate();
     }
 
     public void serialize(final NbtCompound tag) {
@@ -118,14 +117,6 @@ public class MiscData {
             for (int loadedChainedToId : loadedChainedToIds)
                 this.targetedByScepterIds.add(loadedChainedToId);
         }
-    }
-
-    public boolean doesClientNeedUpdate() {
-        if (this.triggerClientUpdate) {
-            this.triggerClientUpdate = false;
-            return true;
-        }
-        return false;
     }
 
     private void createLoveParticles(final LivingEntity entity) {

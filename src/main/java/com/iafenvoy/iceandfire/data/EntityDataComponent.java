@@ -55,5 +55,8 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
         this.sirenData.tickCharmed(this.entity);
         this.chickenData.tickChicken(this.entity);
         this.miscData.tickMisc(this.entity);
+        boolean needUpdate = this.frozenData.doesClientNeedUpdate() || this.chainData.doesClientNeedUpdate() || this.sirenData.doesClientNeedUpdate() || this.miscData.doesClientNeedUpdate();
+        if (needUpdate)
+            ENTITY_DATA_COMPONENT.sync(this.entity);
     }
 }
