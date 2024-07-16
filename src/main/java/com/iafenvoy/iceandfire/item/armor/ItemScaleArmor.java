@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.item.armor;
 
 import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
 import com.iafenvoy.iceandfire.enums.EnumDragonColor;
-import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.object.item.CustomArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;

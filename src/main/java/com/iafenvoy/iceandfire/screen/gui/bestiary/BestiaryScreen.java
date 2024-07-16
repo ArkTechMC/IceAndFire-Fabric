@@ -11,7 +11,7 @@ import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.screen.handler.BestiaryScreenHandler;
-import com.iafenvoy.uranus.util.IdUtil;
+import com.iafenvoy.uranus.object.IdUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;

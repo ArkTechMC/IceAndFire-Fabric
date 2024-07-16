@@ -1,8 +1,6 @@
 package com.iafenvoy.iceandfire.compat.jade;
 
-import com.iafenvoy.iceandfire.entity.EntityFireDragon;
-import com.iafenvoy.iceandfire.entity.EntityIceDragon;
-import com.iafenvoy.iceandfire.entity.EntityLightningDragon;
+import com.iafenvoy.iceandfire.entity.*;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaPlugin;
 import snownee.jade.api.WailaPlugin;
@@ -14,5 +12,6 @@ public class IceAndFireJadePlugin implements IWailaPlugin {
         registration.registerEntityComponent(DragonComponentProvider.INSTANCE, EntityFireDragon.class);
         registration.registerEntityComponent(DragonComponentProvider.INSTANCE, EntityIceDragon.class);
         registration.registerEntityComponent(DragonComponentProvider.INSTANCE, EntityLightningDragon.class);
+        registration.registerEntityComponent(MultipartComponentProvider.INSTANCE, EntityMutlipartPart.class);
     }
 }

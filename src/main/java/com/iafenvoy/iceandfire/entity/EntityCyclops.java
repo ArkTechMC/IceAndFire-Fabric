@@ -243,6 +243,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
         if (this.eyeEntity == null) {
             this.eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.6F, 1);
             this.eyeEntity.copyPositionAndRotation(this);
+            this.getWorld().spawnEntity(this.eyeEntity);
         }
         if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.getTarget() instanceof PlayerEntity) {
             this.setTarget(null);
@@ -296,6 +297,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
         if (this.eyeEntity == null) {
             this.eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.5F, 1);
             this.eyeEntity.copyPositionAndRotation(this);
+            this.getWorld().spawnEntity(this.eyeEntity);
         }
 
         EntityUtil.updatePart(this.eyeEntity, this);

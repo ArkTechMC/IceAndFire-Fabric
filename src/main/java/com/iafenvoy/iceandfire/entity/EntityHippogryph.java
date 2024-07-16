@@ -18,7 +18,7 @@ import com.iafenvoy.uranus.animation.Animation;
 import com.iafenvoy.uranus.animation.AnimationHandler;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.data.EntityPropertyDelegate;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;

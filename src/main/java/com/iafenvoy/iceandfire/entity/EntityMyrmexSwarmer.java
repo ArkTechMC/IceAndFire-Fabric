@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.iceandfire.entity.ai.*;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

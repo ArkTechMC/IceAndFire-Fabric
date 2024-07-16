@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.particle;
 
+import com.iafenvoy.uranus.object.VecUtil;
 import com.iafenvoy.uranus.util.RandomHelper;
-import com.iafenvoy.uranus.util.VecUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;

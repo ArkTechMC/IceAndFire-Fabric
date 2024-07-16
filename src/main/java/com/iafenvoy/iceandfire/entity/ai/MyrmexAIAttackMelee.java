@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathResult;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.PathResult;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;

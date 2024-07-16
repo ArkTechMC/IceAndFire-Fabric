@@ -208,6 +208,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
                 this.segments[i] = new EntitySlowPart(parentToSet, -0.4F * scale, 180, 0, 0.45F * scale, 0.4F * scale, 1);
             }
             this.segments[i].copyPositionAndRotation(this);
+            this.getWorld().spawnEntity(this.segments[i]);
         }
     }
 

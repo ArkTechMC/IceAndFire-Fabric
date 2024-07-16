@@ -5,7 +5,7 @@ import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
 import com.iafenvoy.iceandfire.item.tool.ItemTrollWeapon;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
-import com.iafenvoy.uranus.server.item.CustomArmorMaterial;
+import com.iafenvoy.uranus.object.item.CustomArmorMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;

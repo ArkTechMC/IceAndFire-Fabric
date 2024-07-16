@@ -14,7 +14,7 @@ import com.iafenvoy.uranus.ServerHelper;
 import com.iafenvoy.uranus.animation.Animation;
 import com.iafenvoy.uranus.animation.AnimationHandler;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
-import com.iafenvoy.uranus.server.entity.collision.ICustomCollisions;
+import com.iafenvoy.uranus.object.entity.collision.ICustomCollisions;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -199,6 +199,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
             this.segments[i] = new EntitySlowPart(this, (-0.8F - (i * 0.8F)) * scale, 0, 0, 0.7F * scale, 0.7F * scale, 1);
             this.segments[i].copyPositionAndRotation(this);
             this.segments[i].setParent(this);
+            this.getWorld().spawnEntity(this.segments[i]);
         }
     }
 

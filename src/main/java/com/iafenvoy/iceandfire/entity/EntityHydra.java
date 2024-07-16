@@ -222,6 +222,8 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             this.headBoxes[HEADS + i].copyPositionAndRotation(this);
             this.headBoxes[i].setParent(this);
             this.headBoxes[HEADS + i].setParent(this);
+            this.getWorld().spawnEntity(this.headBoxes[i]);
+            this.getWorld().spawnEntity(this.headBoxes[HEADS + i]);
         }
     }
 

@@ -48,6 +48,6 @@
     "fabric": "*",
     "minecraft": "1.20.1",
     "cloth-config": "11.*",
-    "uranus": "*"
+    "uranus": ">=1.5"
   }
 }

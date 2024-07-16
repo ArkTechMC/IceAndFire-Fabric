@@ -1509,6 +1509,7 @@
   "modmenu.descriptionTranslation.iceandfire": "The unofficial Fabric version of Ice And Fire.\nDragons and other mythological creatures in minecraft.",
   "modmenu.summaryTranslation.iceandfire": "The unofficial Fabric version of Ice And Fire.",
   "config.jade.plugin_iceandfire.dragon": "Dragon Info",
+  "config.jade.plugin_iceandfire.multipart": "Multipart Integration",
   "emi.category.iceandfire.fire_forge": "Fire Dragon Forge",
   "emi.category.iceandfire.ice_forge": "Ice Dragon Forge",
   "emi.category.iceandfire.lightning_forge": "Lightning Dragon Forge",

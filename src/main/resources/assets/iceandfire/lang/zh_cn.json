@@ -1503,6 +1503,7 @@
   "modmenu.descriptionTranslation.iceandfire": "冰火传说非官方移植\nMinecraft中的龙和其他神话生物",
   "modmenu.summaryTranslation.iceandfire": "冰火传说非官方移植",
   "config.jade.plugin_iceandfire.dragon": "龙信息显示",
+  "config.jade.plugin_iceandfire.multipart": "多实体生物兼容",
   "emi.category.iceandfire.fire_forge": "龙炎锻炉",
   "emi.category.iceandfire.ice_forge": "龙霜锻炉",
   "emi.category.iceandfire.lightning_forge": "龙霆锻炉",

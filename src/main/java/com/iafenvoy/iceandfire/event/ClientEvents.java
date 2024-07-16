@@ -82,7 +82,7 @@ public class ClientEvents {
             CockatriceBeamRender.render(entity, target, matrixStack, buffers, partialRenderTick);
         if (data.frozenData.isFrozen)
             RenderFrozenState.render(entity, matrixStack, buffers, light, data.frozenData.frozenTicks);
-        RenderChain.render(entity, partialRenderTick, matrixStack, buffers, light, data.chainData.getChainedTo());
+        RenderChain.render(entity, matrixStack, buffers, light, data.chainData.getChainedTo());
     }
 
 //    @SubscribeEvent

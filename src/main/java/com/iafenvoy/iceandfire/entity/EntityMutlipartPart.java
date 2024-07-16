@@ -27,7 +27,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class EntityMutlipartPart extends Entity {
-
     private static final TrackedData<Optional<UUID>> PARENT_UUID = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     private static final TrackedData<Float> SCALE_WIDTH = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Float> SCALE_HEIGHT = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.FLOAT);
@@ -237,7 +236,6 @@ public abstract class EntityMutlipartPart extends Entity {
         Entity parent = this.getParent();
         if (parent != null) {
             entities.stream().filter(entity -> entity != parent && !sharesRider(parent, entity) && !(entity instanceof EntityMutlipartPart) && entity.isPushable()).forEach(entity -> entity.pushAwayFrom(parent));
-
         }
     }
 

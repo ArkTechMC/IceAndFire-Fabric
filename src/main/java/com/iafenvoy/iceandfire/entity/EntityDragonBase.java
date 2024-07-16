@@ -27,11 +27,11 @@ import com.iafenvoy.uranus.animation.Animation;
 import com.iafenvoy.uranus.animation.AnimationHandler;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.data.EntityPropertyDelegate;
-import com.iafenvoy.uranus.object.FoodUtils;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.IPassabilityNavigator;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.PathingStuckHandler;
-import com.iafenvoy.uranus.server.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.AdvancedPathNavigate;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.IPassabilityNavigator;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.PathingStuckHandler;
+import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.pathjobs.ICustomSizeNavigator;
+import com.iafenvoy.uranus.object.item.FoodUtils;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
@@ -336,33 +336,43 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.headPart = new EntityDragonPart(this, 1.55F * scale, 0, 0.6F * scale, 0.5F * scale, 0.35F * scale, 1.5F);
         this.headPart.copyPositionAndRotation(this);
         this.headPart.setParent(this);
+        this.getWorld().spawnEntity(this.headPart);
         this.neckPart = new EntityDragonPart(this, 0.85F * scale, 0, 0.7F * scale, 0.5F * scale, 0.2F * scale, 1);
         this.neckPart.copyPositionAndRotation(this);
         this.neckPart.setParent(this);
+        this.getWorld().spawnEntity(this.neckPart);
         this.rightWingUpperPart = new EntityDragonPart(this, scale, 90, 0.5F * scale, 0.85F * scale, 0.3F * scale, 0.5F);
         this.rightWingUpperPart.copyPositionAndRotation(this);
         this.rightWingUpperPart.setParent(this);
+        this.getWorld().spawnEntity(this.rightWingUpperPart);
         this.rightWingLowerPart = new EntityDragonPart(this, 1.4F * scale, 100, 0.3F * scale, 0.85F * scale, 0.2F * scale, 0.5F);
         this.rightWingLowerPart.copyPositionAndRotation(this);
         this.rightWingLowerPart.setParent(this);
+        this.getWorld().spawnEntity(this.rightWingLowerPart);
         this.leftWingUpperPart = new EntityDragonPart(this, scale, -90, 0.5F * scale, 0.85F * scale, 0.3F * scale, 0.5F);
         this.leftWingUpperPart.copyPositionAndRotation(this);
         this.leftWingUpperPart.setParent(this);
+        this.getWorld().spawnEntity(this.leftWingUpperPart);
         this.leftWingLowerPart = new EntityDragonPart(this, 1.4F * scale, -100, 0.3F * scale, 0.85F * scale, 0.2F * scale, 0.5F);
         this.leftWingLowerPart.copyPositionAndRotation(this);
         this.leftWingLowerPart.setParent(this);
+        this.getWorld().spawnEntity(this.leftWingLowerPart);
         this.tail1Part = new EntityDragonPart(this, -0.75F * scale, 0, 0.6F * scale, 0.35F * scale, 0.35F * scale, 1);
         this.tail1Part.copyPositionAndRotation(this);
         this.tail1Part.setParent(this);
+        this.getWorld().spawnEntity(this.tail1Part);
         this.tail2Part = new EntityDragonPart(this, -1.15F * scale, 0, 0.45F * scale, 0.35F * scale, 0.35F * scale, 1);
         this.tail2Part.copyPositionAndRotation(this);
         this.tail2Part.setParent(this);
+        this.getWorld().spawnEntity(this.tail2Part);
         this.tail3Part = new EntityDragonPart(this, -1.5F * scale, 0, 0.35F * scale, 0.35F * scale, 0.35F * scale, 1);
         this.tail3Part.copyPositionAndRotation(this);
         this.tail3Part.setParent(this);
+        this.getWorld().spawnEntity(this.tail3Part);
         this.tail4Part = new EntityDragonPart(this, -1.95F * scale, 0, 0.25F * scale, 0.45F * scale, 0.3F * scale, 1.5F);
         this.tail4Part.copyPositionAndRotation(this);
         this.tail4Part.setParent(this);
+        this.getWorld().spawnEntity(this.tail4Part);
     }
 
     public void removeParts() {
@@ -875,7 +885,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public int getAgeInDays() {
-        return this.dataTracker.get(AGE_TICKS) / 24000;
+        return MathHelper.clamp(this.dataTracker.get(AGE_TICKS) / 24000, 0, 128);
     }
 
     public void setAgeInDays(int age) {
