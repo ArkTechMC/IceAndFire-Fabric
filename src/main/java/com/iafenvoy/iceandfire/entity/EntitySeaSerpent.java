@@ -200,13 +200,10 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.clearParts();
         this.segments = new EntityMutlipartPart[9];
         for (int i = 0; i < this.segments.length; i++) {
-            if (i > 3) {
-                Entity parentToSet = i == 4 ? this : this.segments[i - 1];
-                this.segments[i] = new EntitySlowPart(parentToSet, 0.5F * scale, 180, 0, 0.5F * scale, 0.5F * scale, 1);
-            } else {
-                Entity parentToSet = i == 0 ? this : this.segments[i - 1];
-                this.segments[i] = new EntitySlowPart(parentToSet, -0.4F * scale, 180, 0, 0.45F * scale, 0.4F * scale, 1);
-            }
+            if (i > 3)
+                this.segments[i] = new EntitySlowPart(this, 0.5F * (i - 3) * scale, 180, 0, 0.5F * scale, 0.5F * scale, 1);
+            else
+                this.segments[i] = new EntitySlowPart(this, -0.4F * (i + 1) * scale, 180, 0, 0.45F * scale, 0.4F * scale, 1);
             this.segments[i].copyPositionAndRotation(this);
             this.getWorld().spawnEntity(this.segments[i]);
         }
