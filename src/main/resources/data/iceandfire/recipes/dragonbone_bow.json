@@ -6,7 +6,7 @@
       "item": "iceandfire:dragonbone"
     },
     "S": {
-      "tag": "c:strings"
+      "item": "minecraft:string"
     },
     "W": {
       "tag": "c:bones/wither"
