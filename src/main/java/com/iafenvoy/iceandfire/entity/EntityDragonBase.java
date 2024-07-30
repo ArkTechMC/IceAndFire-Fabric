@@ -260,7 +260,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.ignoreCameraFrustum = true;
         this.switchNavigator(0);
         this.randomizeAttacks();
-        this.resetParts(1);
+        this.lastScale = 8;//Ensure scale will be updated so that multipart can generate correctly
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -331,48 +331,66 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     protected abstract boolean shouldTarget(Entity entity);
 
-    public void resetParts(float scale) {
-        this.removeParts();
-        this.headPart = new EntityDragonPart(this, 1.55F * scale, 0, 0.6F * scale, 0.5F * scale, 0.35F * scale, 1.5F);
-        this.headPart.copyPositionAndRotation(this);
-        this.headPart.setParent(this);
-        this.getWorld().spawnEntity(this.headPart);
-        this.neckPart = new EntityDragonPart(this, 0.85F * scale, 0, 0.7F * scale, 0.5F * scale, 0.2F * scale, 1);
-        this.neckPart.copyPositionAndRotation(this);
-        this.neckPart.setParent(this);
-        this.getWorld().spawnEntity(this.neckPart);
-        this.rightWingUpperPart = new EntityDragonPart(this, scale, 90, 0.5F * scale, 0.85F * scale, 0.3F * scale, 0.5F);
-        this.rightWingUpperPart.copyPositionAndRotation(this);
-        this.rightWingUpperPart.setParent(this);
-        this.getWorld().spawnEntity(this.rightWingUpperPart);
-        this.rightWingLowerPart = new EntityDragonPart(this, 1.4F * scale, 100, 0.3F * scale, 0.85F * scale, 0.2F * scale, 0.5F);
-        this.rightWingLowerPart.copyPositionAndRotation(this);
-        this.rightWingLowerPart.setParent(this);
-        this.getWorld().spawnEntity(this.rightWingLowerPart);
-        this.leftWingUpperPart = new EntityDragonPart(this, scale, -90, 0.5F * scale, 0.85F * scale, 0.3F * scale, 0.5F);
-        this.leftWingUpperPart.copyPositionAndRotation(this);
-        this.leftWingUpperPart.setParent(this);
-        this.getWorld().spawnEntity(this.leftWingUpperPart);
-        this.leftWingLowerPart = new EntityDragonPart(this, 1.4F * scale, -100, 0.3F * scale, 0.85F * scale, 0.2F * scale, 0.5F);
-        this.leftWingLowerPart.copyPositionAndRotation(this);
-        this.leftWingLowerPart.setParent(this);
-        this.getWorld().spawnEntity(this.leftWingLowerPart);
-        this.tail1Part = new EntityDragonPart(this, -0.75F * scale, 0, 0.6F * scale, 0.35F * scale, 0.35F * scale, 1);
-        this.tail1Part.copyPositionAndRotation(this);
-        this.tail1Part.setParent(this);
-        this.getWorld().spawnEntity(this.tail1Part);
-        this.tail2Part = new EntityDragonPart(this, -1.15F * scale, 0, 0.45F * scale, 0.35F * scale, 0.35F * scale, 1);
-        this.tail2Part.copyPositionAndRotation(this);
-        this.tail2Part.setParent(this);
-        this.getWorld().spawnEntity(this.tail2Part);
-        this.tail3Part = new EntityDragonPart(this, -1.5F * scale, 0, 0.35F * scale, 0.35F * scale, 0.35F * scale, 1);
-        this.tail3Part.copyPositionAndRotation(this);
-        this.tail3Part.setParent(this);
-        this.getWorld().spawnEntity(this.tail3Part);
-        this.tail4Part = new EntityDragonPart(this, -1.95F * scale, 0, 0.25F * scale, 0.45F * scale, 0.3F * scale, 1.5F);
-        this.tail4Part.copyPositionAndRotation(this);
-        this.tail4Part.setParent(this);
-        this.getWorld().spawnEntity(this.tail4Part);
+    public void updateScale(float scale) {
+        if (this.headPart == null) {
+            this.headPart = new EntityDragonPart(this, 1.55F, 0, 0.6F, 0.5F, 0.35F, 1.5F);
+            this.getWorld().spawnEntity(this.headPart);
+        }
+        this.headPart.updateScale(scale);
+
+        if (this.neckPart == null) {
+            this.neckPart = new EntityDragonPart(this, 0.85F, 0, 0.7F, 0.5F, 0.2F, 1);
+            this.getWorld().spawnEntity(this.neckPart);
+        }
+        this.neckPart.updateScale(scale);
+
+        if (this.rightWingUpperPart == null) {
+            this.rightWingUpperPart = new EntityDragonPart(this, 1, 90, 0.5F, 0.85F, 0.3F, 0.5F);
+            this.getWorld().spawnEntity(this.rightWingUpperPart);
+        }
+        this.rightWingUpperPart.updateScale(scale);
+
+        if (this.rightWingLowerPart == null) {
+            this.rightWingLowerPart = new EntityDragonPart(this, 1.4F, 100, 0.3F, 0.85F, 0.2F, 0.5F);
+            this.getWorld().spawnEntity(this.rightWingLowerPart);
+        }
+        this.rightWingLowerPart.updateScale(scale);
+
+        if (this.leftWingUpperPart == null) {
+            this.leftWingUpperPart = new EntityDragonPart(this, 1, -90, 0.5F, 0.85F, 0.3F, 0.5F);
+            this.getWorld().spawnEntity(this.leftWingUpperPart);
+        }
+        this.leftWingUpperPart.updateScale(scale);
+
+        if (this.leftWingLowerPart == null) {
+            this.leftWingLowerPart = new EntityDragonPart(this, 1.4F, -100, 0.3F, 0.85F, 0.2F, 0.5F);
+            this.getWorld().spawnEntity(this.leftWingLowerPart);
+        }
+        this.leftWingLowerPart.updateScale(scale);
+
+        if (this.tail1Part == null) {
+            this.tail1Part = new EntityDragonPart(this, -0.75F, 0, 0.6F, 0.35F, 0.35F, 1);
+            this.getWorld().spawnEntity(this.tail1Part);
+        }
+        this.tail1Part.updateScale(scale);
+
+        if (this.tail2Part == null) {
+            this.tail2Part = new EntityDragonPart(this, -1.15F, 0, 0.45F, 0.35F, 0.35F, 1);
+            this.getWorld().spawnEntity(this.tail2Part);
+        }
+        this.tail2Part.updateScale(scale);
+
+        if (this.tail3Part == null) {
+            this.tail3Part = new EntityDragonPart(this, -1.5F, 0, 0.35F, 0.35F, 0.35F, 1);
+            this.getWorld().spawnEntity(this.tail3Part);
+        }
+        this.tail3Part.updateScale(scale);
+
+        if (this.tail4Part == null) {
+            this.tail4Part = new EntityDragonPart(this, -1.95F, 0, 0.25F, 0.45F, 0.3F, 1.5F);
+            this.getWorld().spawnEntity(this.tail4Part);
+        }
+        this.tail4Part.updateScale(scale);
     }
 
     public void removeParts() {
@@ -419,6 +437,17 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void updateParts() {
+        this.headPart.copyPositionAndRotation(this);
+        this.neckPart.copyPositionAndRotation(this);
+        this.rightWingUpperPart.copyPositionAndRotation(this);
+        this.rightWingLowerPart.copyPositionAndRotation(this);
+        this.leftWingUpperPart.copyPositionAndRotation(this);
+        this.leftWingLowerPart.copyPositionAndRotation(this);
+        this.tail1Part.copyPositionAndRotation(this);
+        this.tail2Part.copyPositionAndRotation(this);
+        this.tail3Part.copyPositionAndRotation(this);
+        this.tail4Part.copyPositionAndRotation(this);
+
         EntityUtil.updatePart(this.headPart, this);
         EntityUtil.updatePart(this.neckPart, this);
         EntityUtil.updatePart(this.rightWingUpperPart, this);
@@ -1634,7 +1663,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 //            this.setPosition(prevX, prevY, prevZ);
 //        }
         if (scale != this.lastScale) {
-            this.resetParts(this.getRenderSize() / 3);
+            this.updateScale(this.getRenderSize() / 3);
         }
         this.lastScale = scale;
     }
@@ -1689,6 +1718,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             this.resetStuck();
         }
     }
+
+
 
     private void resetStuck() {
         this.ticksStill = 0;

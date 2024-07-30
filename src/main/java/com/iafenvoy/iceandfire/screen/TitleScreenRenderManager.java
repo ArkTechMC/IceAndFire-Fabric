@@ -117,8 +117,8 @@ public class TitleScreenRenderManager {
         int textColor = 0x00FFFFFF | alphaFormatted;
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableBlend();
-        textRenderer.draw("Ice and Fire Fabric-" + Formatting.YELLOW + IceAndFire.VERSION, 2, height - 30, textColor, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
-        textRenderer.draw(Formatting.GOLD + "Report if you meet any crash.", 2, height - 20, textColor, false, ms.getMatrices().peek().getPositionMatrix(), ms.getVertexConsumers(), TextRenderer.TextLayerType.NORMAL, 0, 15728880);
+        ms.drawText(textRenderer, "Ice and Fire Fabric-" + Formatting.YELLOW + IceAndFire.VERSION, 2, height - 30, textColor, false);
+        ms.drawText(textRenderer, Formatting.GOLD + "Report if you meet any crash.", 2, height - 20, textColor, false);
     }
 
     private static class Picture {

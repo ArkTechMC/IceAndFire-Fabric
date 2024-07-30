@@ -42,8 +42,7 @@ public abstract class EntityMutlipartPart extends Entity {
         this.multipartSize = t.getDimensions();
     }
 
-    public EntityMutlipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX,
-                               float sizeY, float damageMultiplier) {
+    public EntityMutlipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
         super(t, parent.getWorld());
         this.setParent(parent);
         this.setScaleX(sizeX);
@@ -117,7 +116,7 @@ public abstract class EntityMutlipartPart extends Entity {
         return this.dataTracker.get(SCALE_WIDTH);
     }
 
-    private void setScaleX(float scale) {
+    protected void setScaleX(float scale) {
         this.dataTracker.set(SCALE_WIDTH, scale);
     }
 
@@ -125,7 +124,7 @@ public abstract class EntityMutlipartPart extends Entity {
         return this.dataTracker.get(SCALE_HEIGHT);
     }
 
-    private void setScaleY(float scale) {
+    protected void setScaleY(float scale) {
         this.dataTracker.set(SCALE_HEIGHT, scale);
     }
 
@@ -268,5 +267,11 @@ public abstract class EntityMutlipartPart extends Entity {
 
     public boolean shouldContinuePersisting() {
         return this.getWorld() != null || this.isRemoved();
+    }
+
+    @Override
+    public void copyPositionAndRotation(Entity entity) {
+        super.copyPositionAndRotation(entity);
+        this.setVelocity(entity.getVelocity());
     }
 }

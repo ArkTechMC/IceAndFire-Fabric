@@ -9,9 +9,9 @@ import net.minecraft.particle.DefaultParticleType;
 import org.jetbrains.annotations.NotNull;
 
 public class ParticleDragonFrost extends SpriteBillboardParticle {
-    protected ParticleDragonFrost(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, SpriteProvider provider) {
+    protected ParticleDragonFrost(ClientWorld worldIn, double xCoordIn, double yCoordIn, double zCoordIn, double xSpeedIn, double ySpeedIn, double zSpeedIn, SpriteProvider provider, int size) {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn);
-        this.scale *= this.random.nextBoolean() ? 2 : 1;
+        this.scale *= (float) RandomHelper.nextDouble(size, size * 2);
         this.maxAge = 30;
         this.gravityStrength = 0.0F;
         this.collidesWithWorld = false;
@@ -19,8 +19,8 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
         this.setVelocity(RandomHelper.randomize(xSpeedIn, 0.5), RandomHelper.randomize(ySpeedIn, 0.5), RandomHelper.randomize(zSpeedIn, 0.5));
     }
 
-    public static Provider provider(SpriteProvider spriteSet) {
-        return new Provider(spriteSet);
+    public static Provider provider(SpriteProvider spriteSet, int size) {
+        return new Provider(spriteSet, size);
     }
 
     @Override
@@ -46,10 +46,10 @@ public class ParticleDragonFrost extends SpriteBillboardParticle {
     }
 
 
-    public record Provider(SpriteProvider spriteSet) implements ParticleFactory<DefaultParticleType> {
+    public record Provider(SpriteProvider spriteSet, int size) implements ParticleFactory<DefaultParticleType> {
         @Override
         public Particle createParticle(DefaultParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            return new ParticleDragonFrost(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
+            return new ParticleDragonFrost(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet, this.size);
         }
     }
 }

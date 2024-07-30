@@ -437,7 +437,7 @@ public class EntityFireDragon extends EntityDragonBase {
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
                 if (this.random.nextInt(particleCount) == 0) {
                     Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
-                    PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.DRAGON_FLAME.asString());
+                    PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.ALL_DRAGON_FLAME.get(this.getDragonStage()).asString());
                     buf.writeDouble(headPos.x).writeDouble(headPos.y).writeDouble(headPos.z);
                     buf.writeDouble(velocity.x).writeDouble(velocity.y).writeDouble(velocity.z);
                     ServerHelper.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
@@ -507,7 +507,7 @@ public class EntityFireDragon extends EntityDragonBase {
                 float headPosX = (float) (this.getX() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.cos((float) ((this.getYaw() + 90) * Math.PI / 180)));
                 float headPosZ = (float) (this.getY() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.sin((float) ((this.getYaw() + 90) * Math.PI / 180)));
                 float headPosY = (float) (this.getZ() + 0.5 * this.getRenderSize() * 0.3F);
-                this.getWorld().addParticle(ParticleTypes.LARGE_SMOKE, headPosX, headPosY, headPosZ, 0, 0, 0);
+                this.getWorld().addParticle(IafParticles.ALL_DRAGON_FLAME.get(this.getDragonStage()), headPosX, headPosY, headPosZ, 0, 0, 0);
             }
     }
 

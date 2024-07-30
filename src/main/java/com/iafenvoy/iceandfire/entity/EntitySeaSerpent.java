@@ -78,7 +78,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public int jumpCooldown = 0;
     private int animationTick;
     private Animation currentAnimation;
-    private EntityMutlipartPart[] segments = new EntityMutlipartPart[9];
+    private EntitySlowPart[] segments = new EntitySlowPart[9];
     private float lastScale;
     private boolean isLandNavigator;
     private boolean changedSwimBehavior = false;
@@ -89,7 +89,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         super(t, worldIn);
         this.switchNavigator(false);
         this.ignoreCameraFrustum = true;
-        this.resetParts(1.0F);
+        this.lastScale = 0;
         this.setPathfindingPenalty(PathNodeType.WATER, 0.0F);
     }
 
@@ -181,7 +181,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         Vec3d vector3d = new Vec3d(this.getX(), this.getEyeY(), this.getZ());
         Vec3d bector3d1 = new Vec3d(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D);
         return this.getWorld().raycast(new RaycastContext(vector3d, bector3d1, RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, this)).getType() == HitResult.Type.MISS;
-
     }
 
     @Override
@@ -196,36 +195,36 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.updateAttributes();
     }
 
-    public void resetParts(float scale) {
-        this.clearParts();
-        this.segments = new EntityMutlipartPart[9];
+    public void updateScale(float scale) {
+        this.segments = new EntitySlowPart[9];
         for (int i = 0; i < this.segments.length; i++) {
-            if (i > 3)
-                this.segments[i] = new EntitySlowPart(this, 0.5F * (i - 3) * scale, 180, 0, 0.5F * scale, 0.5F * scale, 1);
-            else
-                this.segments[i] = new EntitySlowPart(this, -0.4F * (i + 1) * scale, 180, 0, 0.45F * scale, 0.4F * scale, 1);
-            this.segments[i].copyPositionAndRotation(this);
-            this.getWorld().spawnEntity(this.segments[i]);
+            if (this.segments[i] == null) {
+                if (i > 3)
+                    this.segments[i] = new EntitySlowPart(this, 0.5F * (i - 3), 180, 0, 0.5F, 0.5F, 1);
+                else
+                    this.segments[i] = new EntitySlowPart(this, -0.4F * (i + 1), 180, 0, 0.45F, 0.4F, 1);
+                this.getWorld().spawnEntity(this.segments[i]);
+            }
+            this.segments[i].updateScale(scale);
         }
     }
 
     public void onUpdateParts() {
         for (EntityMutlipartPart entity : this.segments) {
+            entity.copyPositionAndRotation(this);
             EntityUtil.updatePart(entity, this);
         }
     }
 
-    private void clearParts() {
-        for (EntityMutlipartPart entity : this.segments) {
-            if (entity != null) {
+    private void removeParts() {
+        for (EntityMutlipartPart entity : this.segments)
+            if (entity != null)
                 entity.remove(RemovalReason.DISCARDED);
-            }
-        }
     }
 
     @Override
     public void remove(RemovalReason reason) {
-        this.clearParts();
+        this.removeParts();
         super.remove(reason);
     }
 
@@ -243,9 +242,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public void calculateDimensions() {
         super.calculateDimensions();
         float scale = this.getSeaSerpentScale();
-        if (scale != this.lastScale) {
-            this.resetParts(this.getSeaSerpentScale());
-        }
+        if (scale != this.lastScale)
+            this.updateScale(this.getSeaSerpentScale());
         this.lastScale = scale;
     }
 

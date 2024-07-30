@@ -508,7 +508,7 @@ public class EntityIceDragon extends EntityDragonBase {
             if (this.canPositionBeSeen(progressX, progressY, progressZ)) {
                 if (this.random.nextInt(particleCount) == 0) {
                     Vec3d velocity = new Vec3d(progressX, progressY, progressZ).subtract(headPos);
-                    PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.DRAGON_FROST.asString());
+                    PacketByteBuf buf = PacketByteBufs.create().writeString(IafParticles.ALL_DRAGON_FROST.get(this.getDragonStage()).asString());
                     buf.writeDouble(headPos.x).writeDouble(headPos.y).writeDouble(headPos.z);
                     buf.writeDouble(velocity.x).writeDouble(velocity.y).writeDouble(velocity.z);
                     ServerHelper.sendToAll(StaticVariables.PARTICLE_SPAWN, buf);
@@ -610,7 +610,7 @@ public class EntityIceDragon extends EntityDragonBase {
                 float headPosX = (float) (this.getX() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.cos((float) ((this.getYaw() + 90) * Math.PI / 180)));
                 float headPosZ = (float) (this.getZ() + 1.8F * this.getRenderSize() * (0.3F + radiusAdd) * MathHelper.sin((float) ((this.getYaw() + 90) * Math.PI / 180)));
                 float headPosY = (float) (this.getY() + 0.5 * this.getRenderSize() * 0.3F);
-                this.getWorld().addParticle(IafParticles.DRAGON_FROST, headPosX, headPosY, headPosZ, 0, 0, 0);
+                this.getWorld().addParticle(IafParticles.ALL_DRAGON_FROST.get(this.getDragonStage()), headPosX, headPosY, headPosZ, 0, 0, 0);
             }
         }
     }

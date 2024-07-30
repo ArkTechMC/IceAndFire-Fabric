@@ -98,9 +98,20 @@ public class IafRenderers {
     }
 
     public static void registerParticleRenderers() {
+        //Fire
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME_1, spirit -> ParticleDragonFlame.provider(spirit, 1));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME_2, spirit -> ParticleDragonFlame.provider(spirit, 2));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME_3, spirit -> ParticleDragonFlame.provider(spirit, 3));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME_4, spirit -> ParticleDragonFlame.provider(spirit, 4));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME_5, spirit -> ParticleDragonFlame.provider(spirit, 5));
+        //Ice
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST_1, spirit -> ParticleDragonFrost.provider(spirit, 1));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST_2, spirit -> ParticleDragonFrost.provider(spirit, 2));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST_3, spirit -> ParticleDragonFrost.provider(spirit, 3));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST_4, spirit -> ParticleDragonFrost.provider(spirit, 4));
+        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST_5, spirit -> ParticleDragonFrost.provider(spirit, 5));
+        //Others
         ParticleFactoryRegistry.getInstance().register(IafParticles.BLOOD, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleBlood(world, x, y, z));
-        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FLAME, ParticleDragonFlame::provider);
-        ParticleFactoryRegistry.getInstance().register(IafParticles.DRAGON_FROST, ParticleDragonFrost::provider);
         ParticleFactoryRegistry.getInstance().register(IafParticles.DREAD_PORTAL, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDreadPortal(world, x, y, z, velocityX, velocityY, velocityZ, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.DREAD_TORCH, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleDreadTorch(world, x, y, z, velocityX, velocityY, velocityZ, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.GHOST_APPEARANCE, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleGhostAppearance(world, x, y, z, 1));
