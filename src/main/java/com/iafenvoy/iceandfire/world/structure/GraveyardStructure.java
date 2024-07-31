@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
@@ -33,7 +33,7 @@ public class GraveyardStructure extends IafStructure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        if (!IafConfig.getInstance().ghost.generateGraveyards)
+        if (!IafCommonConfig.INSTANCE.ghost.generateGraveyards)
             return Optional.empty();
 
         BlockPos blockpos = pContext.chunkPos().getCenterAtY(1);

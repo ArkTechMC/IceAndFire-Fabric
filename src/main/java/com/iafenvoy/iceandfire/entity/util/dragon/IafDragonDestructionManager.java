@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.util.dragon;
 
 import com.iafenvoy.iceandfire.api.IafEvents;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
@@ -37,13 +37,13 @@ public class IafDragonDestructionManager {
 
         if (dragon.dragonType == DragonType.FIRE) {
             statusDuration = 5 + dragon.getDragonStage() * 5;
-            damageScale = (float) IafConfig.getInstance().dragon.behaviour.attackDamageFire;
+            damageScale = (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageFire;
         } else if (dragon.dragonType == DragonType.ICE) {
             statusDuration = 50 * dragon.getDragonStage();
-            damageScale = (float) IafConfig.getInstance().dragon.behaviour.attackDamageIce;
+            damageScale = (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageIce;
         } else if (dragon.dragonType == DragonType.LIGHTNING) {
             statusDuration = 3;
-            damageScale = (float) IafConfig.getInstance().dragon.behaviour.attackDamageLightning;
+            damageScale = (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageLightning;
         } else return;
 
         double damageRadius = 3.5;
@@ -171,7 +171,7 @@ public class IafDragonDestructionManager {
             }
         });
 
-        if (IafConfig.getInstance().dragon.behaviour.explosiveBreath)
+        if (IafCommonConfig.INSTANCE.dragon.behaviour.explosiveBreath)
             causeExplosion(level, center, dragon, damageSource, dragon.getDragonStage());
     }
 

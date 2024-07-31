@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,15 +19,17 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
 
     public EntityStymphalianFeather(EntityType<? extends PersistentProjectileEntity> t, World worldIn, LivingEntity shooter) {
         super(t, shooter, worldIn);
-        this.setDamage(IafConfig.getInstance().stymphalianBird.featherAttackDamage);
+        this.setDamage(IafCommonConfig.INSTANCE.stymphalianBird.featherAttackDamage);
     }
 
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        if (IafConfig.getInstance().stymphalianBird.featherDropChance > 0) {
-            if (this.getWorld().isClient && this.random.nextInt(IafConfig.getInstance().stymphalianBird.featherDropChance) == 0) {
-                this.dropStack(this.asItemStack(), 0.1F);
+        if (IafCommonConfig.INSTANCE.stymphalianBird.featherDropChance > 0) {
+            if (this.getWorld().isClient) {
+                if (this.random.nextInt(IafCommonConfig.INSTANCE.stymphalianBird.featherDropChance) == 0) {
+                    this.dropStack(this.asItemStack(), 0.1F);
+                }
             }
         }
 

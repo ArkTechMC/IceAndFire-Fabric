@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.minecraft.entity.Entity;
@@ -28,7 +28,7 @@ public class ItemDragonFlute extends Item {
         ItemStack itemStackIn = player.getStackInHand(hand);
         player.getItemCooldownManager().set(this, 60);
 
-        float chunksize = 16 * IafConfig.getInstance().dragon.behaviour.fluteDistance;
+        float chunksize = 16 * IafCommonConfig.INSTANCE.dragon.behaviour.fluteDistance;
         List<Entity> list = worldIn.getOtherEntities(player, (new Box(player.getX(), player.getY(), player.getZ(), player.getX() + 1.0D, player.getY() + 1.0D, player.getZ() + 1.0D)).expand(chunksize, 256, chunksize));
         list.sort(new Sorter(player));
         List<IDragonFlute> dragons = new ArrayList<>();

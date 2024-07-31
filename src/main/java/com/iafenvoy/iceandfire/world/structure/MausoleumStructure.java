@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
@@ -34,7 +34,7 @@ public class MausoleumStructure extends IafStructure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        if (!IafConfig.getInstance().worldGen.generateMausoleums)
+        if (!IafCommonConfig.INSTANCE.worldGen.generateMausoleums)
             return Optional.empty();
 
         ChunkPos pos = pContext.chunkPos();

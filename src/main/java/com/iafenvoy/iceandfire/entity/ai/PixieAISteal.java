@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityPixie;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import net.minecraft.entity.ai.goal.Goal;
@@ -25,7 +25,7 @@ public class PixieAISteal extends Goal {
 
     @Override
     public boolean canStart() {
-        if (!IafConfig.getInstance().pixie.stealItems || !this.temptedEntity.getMainHandStack().isEmpty() || this.temptedEntity.stealCooldown > 0)
+        if (!IafCommonConfig.INSTANCE.pixie.stealItems || !this.temptedEntity.getMainHandStack().isEmpty() || this.temptedEntity.stealCooldown > 0)
             return false;
         if (this.temptedEntity.getRandom().nextInt(200) == 0)
             return false;

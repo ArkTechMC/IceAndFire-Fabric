@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.MyrmexTrades;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
@@ -50,7 +50,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().myrmex.baseAttackDamage)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
                 //ARMOR
@@ -59,7 +59,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().myrmex.baseAttackDamage);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.myrmex.baseAttackDamage);
     }
 
     @Override
@@ -189,7 +189,9 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public boolean shouldEnterHive() {
-        return this.holdingSomething() || (!this.getWorld().isDay() && !IafConfig.getInstance().myrmex.hiveIgnoreDaytime);
+        if (this.holdingSomething()) return true;
+        if (this.getWorld().isDay()) return false;
+        return !IafCommonConfig.INSTANCE.myrmex.hiveIgnoreDaytime;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item.tool;
 
 import com.google.common.collect.Multimap;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDeathWorm;
 import com.iafenvoy.iceandfire.event.ServerEvents;
@@ -68,31 +68,37 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             if (target instanceof EntityDeathWorm)
                 target.damage(attacker.getWorld().getDamageSources().generic(), this.getAttackDamage(item) + 5.0F);
         }
-        if (this.isDragonSteelFire(item.getMaterial()) && IafConfig.getInstance().armors.dragon.fireAbility) {
-            target.setOnFireFor(15);
-            target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
-        }
-        if (this.isDragonSteelIce(item.getMaterial()) && IafConfig.getInstance().armors.dragon.iceAbility) {
-            EntityDataComponent data = EntityDataComponent.get(target);
-            data.frozenData.setFrozen(target, 300);
-            target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
-            target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
-        }
-        if (this.isDragonSteelLightning(item.getMaterial()) && IafConfig.getInstance().armors.dragon.lightningAbility) {
-            boolean flag = true;
-            if (attacker instanceof PlayerEntity)
-                if (attacker.handSwingProgress > 0.2)
-                    flag = false;
-            if (!attacker.getWorld().isClient && flag) {
-                LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(target.getWorld());
-                assert lightningboltentity != null;
-                lightningboltentity.getCommandTags().add(ServerEvents.BOLT_DONT_DESTROY_LOOT);
-                lightningboltentity.getCommandTags().add(attacker.getUuidAsString());
-                lightningboltentity.refreshPositionAfterTeleport(target.getPos());
-                if (!target.getWorld().isClient)
-                    target.getWorld().spawnEntity(lightningboltentity);
+        if (this.isDragonSteelFire(item.getMaterial())) {
+            if (IafCommonConfig.INSTANCE.armors.dragon.fireAbility) {
+                target.setOnFireFor(15);
+                target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
             }
-            target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
+        }
+        if (this.isDragonSteelIce(item.getMaterial())) {
+            if (IafCommonConfig.INSTANCE.armors.dragon.iceAbility) {
+                EntityDataComponent data = EntityDataComponent.get(target);
+                data.frozenData.setFrozen(target, 300);
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
+                target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
+            }
+        }
+        if (this.isDragonSteelLightning(item.getMaterial())) {
+            if (IafCommonConfig.INSTANCE.armors.dragon.lightningAbility) {
+                boolean flag = true;
+                if (attacker instanceof PlayerEntity)
+                    if (attacker.handSwingProgress > 0.2)
+                        flag = false;
+                if (!attacker.getWorld().isClient && flag) {
+                    LightningEntity lightningboltentity = EntityType.LIGHTNING_BOLT.create(target.getWorld());
+                    assert lightningboltentity != null;
+                    lightningboltentity.getCommandTags().add(ServerEvents.BOLT_DONT_DESTROY_LOOT);
+                    lightningboltentity.getCommandTags().add(attacker.getUuidAsString());
+                    lightningboltentity.refreshPositionAfterTeleport(target.getPos());
+                    if (!target.getWorld().isClient)
+                        target.getWorld().spawnEntity(lightningboltentity);
+                }
+                target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
+            }
         }
     }
 
@@ -101,11 +107,15 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             tooltip.add(Text.translatable("silvertools.hurt").formatted(Formatting.GREEN));
         if (tier == IafItems.MYRMEX_CHITIN_TOOL_MATERIAL)
             tooltip.add(Text.translatable("myrmextools.hurt").formatted(Formatting.GREEN));
-        if (this.isDragonSteelFire(tier) && IafConfig.getInstance().armors.dragon.fireAbility)
-            tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
-        if (this.isDragonSteelIce(tier) && IafConfig.getInstance().armors.dragon.iceAbility)
-            tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
-        if (this.isDragonSteelLightning(tier) && IafConfig.getInstance().armors.dragon.lightningAbility)
-            tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
+        if (this.isDragonSteelFire(tier)) {
+            if (IafCommonConfig.INSTANCE.armors.dragon.fireAbility) tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
+        }
+        if (this.isDragonSteelIce(tier)) {
+            if (IafCommonConfig.INSTANCE.armors.dragon.iceAbility) tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
+        }
+        if (this.isDragonSteelLightning(tier)) {
+            if (IafCommonConfig.INSTANCE.armors.dragon.lightningAbility)
+                tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
+        }
     }
 }

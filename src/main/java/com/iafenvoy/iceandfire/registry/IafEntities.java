@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -142,15 +142,20 @@ public class IafEntities {
     }
 
     public static void addSpawners() {
-        if (IafConfig.getInstance().hippogryphs.spawn)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafConfig.getInstance().hippogryphs.spawnWeight, 1, 1);
-        if (IafConfig.getInstance().lich.spawn)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafConfig.getInstance().lich.spawnWeight, 1, 1);
-        if (IafConfig.getInstance().cockatrice.spawn)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafConfig.getInstance().cockatrice.spawnWeight, 1, 2);
-        if (IafConfig.getInstance().amphithere.spawn)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafConfig.getInstance().amphithere.spawnWeight, 1, 3);
-        if (IafConfig.getInstance().troll.spawn)
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafConfig.getInstance().troll.spawnWeight, 1, 3);
+        if (IafCommonConfig.INSTANCE.hippogryphs.spawn) {
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafCommonConfig.INSTANCE.hippogryphs.spawnWeight, 1, 1);
+        }
+        if (IafCommonConfig.INSTANCE.lich.spawn) {
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafCommonConfig.INSTANCE.lich.spawnWeight, 1, 1);
+        }
+        if (IafCommonConfig.INSTANCE.cockatrice.spawn) {
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafCommonConfig.INSTANCE.cockatrice.spawnWeight, 1, 2);
+        }
+        if (IafCommonConfig.INSTANCE.amphithere.spawn) {
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafCommonConfig.INSTANCE.amphithere.spawnWeight, 1, 3);
+        }
+        if (IafCommonConfig.INSTANCE.troll.spawn) {
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafCommonConfig.INSTANCE.troll.spawnWeight, 1, 3);
+        }
     }
 }

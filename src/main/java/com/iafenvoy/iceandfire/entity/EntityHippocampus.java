@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIFindWaterTarget;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.iafenvoy.iceandfire.entity.ai.HippocampusAIWander;
@@ -325,8 +325,9 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Override
     protected float getSaddledSpeed(PlayerEntity player) {
         float speed = (float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.6F;
-        if (this.isTouchingWater())
-            speed *= (float) IafConfig.getInstance().hippocampus.swimSpeedMod;
+        if (this.isTouchingWater()) {
+            speed *= (float) IafCommonConfig.INSTANCE.hippocampus.swimSpeedMod;
+        }
         else
             speed *= 0.2F;
         return speed;
@@ -717,8 +718,9 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
                     this.hippo.bodyYaw = this.hippo.getYaw();
                     float maxSpeed = (float) (this.speed * this.hippo.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
                     maxSpeed *= 0.6F;
-                    if (this.hippo.isTouchingWater())
-                        maxSpeed *= (float) IafConfig.getInstance().hippocampus.swimSpeedMod;
+                    if (this.hippo.isTouchingWater()) {
+                        maxSpeed *= (float) IafCommonConfig.INSTANCE.hippocampus.swimSpeedMod;
+                    }
                     else
                         maxSpeed *= 0.2F;
                     this.hippo.setMovementSpeed(MathHelper.lerp(0.125F, this.hippo.getMovementSpeed(), maxSpeed));

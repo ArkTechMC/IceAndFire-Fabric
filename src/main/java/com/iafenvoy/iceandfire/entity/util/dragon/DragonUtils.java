@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.util.dragon;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
@@ -36,9 +36,9 @@ public class DragonUtils {
         BlockPos ground = dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, escortPos);
         int distFromGround = escortPos.getY() - ground.getY();
         for (int i = 0; i < 10; i++) {
-            BlockPos pos = new BlockPos(escortPos.getX() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance / 2,
+            BlockPos pos = new BlockPos(escortPos.getX() + dragon.getRandom().nextInt(IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance) - IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance / 2,
                     (distFromGround > 16 ? escortPos.getY() : escortPos.getY() + 8 + dragon.getRandom().nextInt(16)),
-                    (escortPos.getZ() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance / 2));
+                    (escortPos.getZ() + dragon.getRandom().nextInt(IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance) - IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance / 2));
             if (dragon.getDistanceSquared(Vec3d.ofCenter(pos)) > 6 && !dragon.isTargetBlocked(Vec3d.ofCenter(pos)))
                 return pos;
         }
@@ -69,7 +69,7 @@ public class DragonUtils {
             int distFromGround = (int) dragon.getY() - ground.getY();
             for (int i = 0; i < 10; i++) {
                 BlockPos homePos = dragon.homePos.getPosition();
-                BlockPos pos = new BlockPos(homePos.getX() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance * 2) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1), (homePos.getZ() + dragon.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance * 2) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance));
+                BlockPos pos = new BlockPos(homePos.getX() + dragon.getRandom().nextInt(IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance * 2) - IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1), (homePos.getZ() + dragon.getRandom().nextInt(IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance * 2) - IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance));
                 if (dragon.getDistanceSquared(Vec3d.ofCenter(pos)) > 6 && !dragon.isTargetBlocked(Vec3d.ofCenter(pos)))
                     return pos;
             }
@@ -80,7 +80,7 @@ public class DragonUtils {
         BlockPos radialPos = BlockPos.ofFloored(dragon.getX() + extraX, 0, dragon.getZ() + extraZ);
         BlockPos ground = dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) dragon.getY() - ground.getY();
-        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
+        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
         BlockPos pos = dragon.doesWantToLand() ? ground : newPos;
         if (dragon.getDistanceSquared(Vec3d.ofCenter(newPos)) > 6 && !dragon.isTargetBlocked(Vec3d.ofCenter(newPos)))
             return pos;
@@ -96,7 +96,7 @@ public class DragonUtils {
         BlockPos radialPos = BlockPos.ofFloored(dragon.getX() + extraX, 0, dragon.getZ() + extraZ);
         BlockPos ground = dragon.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) dragon.getY() - ground.getY();
-        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
+        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight, dragon.getY() + dragon.getRandom().nextInt(16) - 8) : (int) dragon.getY() + dragon.getRandom().nextInt(16) + 1);
         BlockPos pos = dragon.doesWantToLand() ? ground : newPos;
         BlockPos surface = dragon.getWorld().getFluidState(newPos.down(2)).isIn(FluidTags.WATER) ? newPos.down(dragon.getRandom().nextInt(10) + 1) : newPos;
         if (dragon.getDistanceSquared(Vec3d.ofCenter(surface)) > 6 && dragon.getWorld().getFluidState(surface).isIn(FluidTags.WATER))
@@ -149,7 +149,7 @@ public class DragonUtils {
             BlockPos ground = hippo.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, dragonPos);
             int distFromGround = (int) hippo.getY() - ground.getY();
             for (int i = 0; i < 10; i++) {
-                BlockPos pos = BlockPos.ofFloored(hippo.homePos.getX() + hippo.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1), (hippo.homePos.getZ() + hippo.getRandom().nextInt(IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance * 2) - IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance));
+                BlockPos pos = BlockPos.ofFloored(hippo.homePos.getX() + hippo.getRandom().nextInt(IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance) - IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1), (hippo.homePos.getZ() + hippo.getRandom().nextInt(IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance * 2) - IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance));
                 if (hippo.getDistanceSquared(Vec3d.ofCenter(pos)) > 6 && !hippo.isTargetBlocked(Vec3d.ofCenter(pos)))
                     return pos;
             }
@@ -157,7 +157,7 @@ public class DragonUtils {
         BlockPos radialPos = BlockPos.ofFloored(hippo.getX() + extraX, 0, hippo.getZ() + extraZ);
         BlockPos ground = hippo.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) hippo.getY() - ground.getY();
-        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafConfig.getInstance().dragon.behaviour.maxFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1);
+        BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight, hippo.getY() + hippo.getRandom().nextInt(16) - 8) : (int) hippo.getY() + hippo.getRandom().nextInt(16) + 1);
         if (!hippo.isTargetBlocked(Vec3d.ofCenter(newPos)) && hippo.getDistanceSquared(Vec3d.ofCenter(newPos)) > 6)
             return newPos;
         return null;
@@ -173,7 +173,7 @@ public class DragonUtils {
         BlockPos radialPos = getStymphalianFearPos(bird, BlockPos.ofFloored(bird.getX() + extraX, 0, bird.getZ() + extraZ));
         BlockPos ground = bird.getWorld().getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, radialPos);
         int distFromGround = (int) bird.getY() - ground.getY();
-        int flightHeight = Math.min(IafConfig.getInstance().stymphalianBird.flightHeight, ground.getY() + bird.getRandom().nextInt(16));
+        int flightHeight = Math.min(IafCommonConfig.INSTANCE.stymphalianBird.flightHeight, ground.getY() + bird.getRandom().nextInt(16));
         BlockPos newPos = radialPos.up(distFromGround > 16 ? flightHeight : (int) bird.getY() + bird.getRandom().nextInt(16) + 1);
         // FIXME :: Unused
 //        BlockPos pos = bird.doesWantToLand() ? ground : newPos;
@@ -184,7 +184,7 @@ public class DragonUtils {
 
     private static BlockPos getStymphalianFearPos(EntityStymphalianBird bird, BlockPos fallback) {
         if (bird.getVictor() != null && bird.getVictor() instanceof PathAwareEntity) {
-            Vec3d Vector3d = NoPenaltyTargeting.findFrom((PathAwareEntity) bird.getVictor(), 16, IafConfig.getInstance().stymphalianBird.flightHeight, new Vec3d(bird.getVictor().getX(), bird.getVictor().getY(), bird.getVictor().getZ()));
+            Vec3d Vector3d = NoPenaltyTargeting.findFrom((PathAwareEntity) bird.getVictor(), 16, IafCommonConfig.INSTANCE.stymphalianBird.flightHeight, new Vec3d(bird.getVictor().getX(), bird.getVictor().getY(), bird.getVictor().getZ()));
             if (Vector3d != null) {
                 BlockPos pos = BlockPos.ofFloored(Vector3d);
                 return new BlockPos(pos.getX(), 0, pos.getZ());
@@ -300,8 +300,10 @@ public class DragonUtils {
 
 
     public static boolean canGrief(EntityDragonBase dragon) {
-        if (dragon.isTamed() && !IafConfig.getInstance().dragon.behaviour.tamedGriefing) return false;
-        return IafConfig.getInstance().dragon.behaviour.griefing < 2;
+        if (dragon.isTamed()) {
+            if (!IafCommonConfig.INSTANCE.dragon.behaviour.tamedGriefing) return false;
+        }
+        return IafCommonConfig.INSTANCE.dragon.behaviour.griefing < 2;
 
     }
 

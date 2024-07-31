@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.iafenvoy.iceandfire.entity.ai.DreadLichAIStrife;
 import com.iafenvoy.iceandfire.entity.util.IAnimalFear;
@@ -62,7 +62,9 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     public static boolean canLichSpawnOn(EntityType<? extends MobEntity> typeIn, ServerWorldAccess worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
         BlockPos blockpos = pos.down();
-        return reason == SpawnReason.SPAWNER || worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn) && randomIn.nextInt(IafConfig.getInstance().lich.spawnChance) == 0;
+        if (reason == SpawnReason.SPAWNER) return true;
+        if (!worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn)) return false;
+        return randomIn.nextInt(IafCommonConfig.INSTANCE.lich.spawnChance) == 0;
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

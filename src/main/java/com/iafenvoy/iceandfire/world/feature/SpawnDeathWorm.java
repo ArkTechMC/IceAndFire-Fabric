@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.feature;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityDeathWorm;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
@@ -27,7 +27,7 @@ public class SpawnDeathWorm extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
         if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
-            if (rand.nextInt(IafConfig.getInstance().deathworm.spawnChance + 1) == 0) {
+            if (rand.nextInt(IafCommonConfig.INSTANCE.deathworm.spawnChance + 1) == 0) {
                 EntityDeathWorm deathWorm = IafEntities.DEATH_WORM.create(worldIn.toServerWorld());
                 assert deathWorm != null;
                 deathWorm.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
@@ -56,7 +56,7 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         StructureWorldAccess worldIn = context.getWorld();
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
-        if (rand.nextInt(IafConfig.getInstance().dragon.generate.denChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId(), this.getFeatureType()))
+        if (rand.nextInt(IafCommonConfig.INSTANCE.dragon.generate.denChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId(), this.getFeatureType()))
             return false;
         this.isMale = rand.nextBoolean();
         ChunkPos chunkPos = worldIn.getChunk(position).getPos();
@@ -119,7 +119,7 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         List<Block> dragonTypeOres = this.getBlockList(this.dragonTypeOreTag);
         positions.forEach(blockPos -> {
             if (!(worldIn.getBlockState(blockPos).getBlock() instanceof BlockWithEntity) && worldIn.getBlockState(blockPos).getHardness(worldIn, blockPos) >= 0) {
-                boolean doOres = rand.nextInt(IafConfig.getInstance().dragon.generate.oreRatio + 1) == 0;
+                boolean doOres = rand.nextInt(IafCommonConfig.INSTANCE.dragon.generate.oreRatio + 1) == 0;
                 if (doOres) {
                     Block toPlace = null;
                     if (rand.nextBoolean())
@@ -175,7 +175,7 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         if (!(world.getBlockState(pos).getBlock() instanceof BlockWithEntity)) {
             int chance = rand.nextInt(99) + 1;
             if (chance < 60) {
-                int goldRand = Math.max(1, IafConfig.getInstance().dragon.generate.denGoldAmount) * (this.isMale ? 1 : 2);
+                int goldRand = Math.max(1, IafCommonConfig.INSTANCE.dragon.generate.denGoldAmount) * (this.isMale ? 1 : 2);
                 boolean generateGold = rand.nextInt(goldRand) == 0;
                 world.setBlockState(pos, generateGold ? this.TREASURE_PILE.with(BlockGoldPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
             } else if (chance == 61) {

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
@@ -72,7 +72,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().gorgon.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.gorgon.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
                 //ATTACK
@@ -83,7 +83,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().gorgon.maxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.gorgon.maxHealth);
     }
 
     public boolean isTargetBlocked(Vec3d target) {

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.world.gen;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityCyclops;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
@@ -64,7 +64,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafConfig.getInstance().cyclops.spawnCaveChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.cyclops.spawnCaveChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
 

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.ai;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityGorgon;
 import com.iafenvoy.iceandfire.entity.EntityStymphalianBird;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +16,13 @@ public class StymphalianBirdAITarget extends ActiveTargetGoal<LivingEntity> {
     private final EntityStymphalianBird bird;
 
     public StymphalianBirdAITarget(EntityStymphalianBird entityIn, Class<LivingEntity> classTarget, boolean checkSight) {
-        super(entityIn, classTarget, 0, checkSight, false, (Predicate<LivingEntity>) entity -> !EntityGorgon.isStoneMob(entity) && (entity instanceof PlayerEntity && !((PlayerEntity) entity).isCreative() || entity instanceof MerchantEntity || entity instanceof GolemEntity || entity instanceof AnimalEntity && IafConfig.getInstance().stymphalianBird.attackAnimals));
+        super(entityIn, classTarget, 0, checkSight, false, (Predicate<LivingEntity>) entity -> {
+            if (EntityGorgon.isStoneMob(entity)) return false;
+            if (entity instanceof PlayerEntity && !((PlayerEntity) entity).isCreative() || entity instanceof MerchantEntity || entity instanceof GolemEntity)
+                return true;
+            if (!(entity instanceof AnimalEntity)) return false;
+            return IafCommonConfig.INSTANCE.stymphalianBird.attackAnimals;
+        });
         this.bird = entityIn;
     }
 

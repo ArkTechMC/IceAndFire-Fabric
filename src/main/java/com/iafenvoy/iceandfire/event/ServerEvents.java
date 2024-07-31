@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.event;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
@@ -68,7 +68,7 @@ public class ServerEvents {
     private static final String[] VILLAGE_TYPES = new String[]{"plains", "desert", "snowy", "savanna", "taiga"};
 
     private static void signalChickenAlarm(LivingEntity chicken, LivingEntity attacker) {
-        final float d0 = IafConfig.getInstance().cockatrice.chickenSearchLength;
+        final float d0 = IafCommonConfig.INSTANCE.cockatrice.chickenSearchLength;
         final List<EntityCockatrice> list = chicken.getWorld().getNonSpectatingEntities(EntityCockatrice.class, (new Box(chicken.getX(), chicken.getY(), chicken.getZ(), chicken.getX() + 1.0D, chicken.getY() + 1.0D, chicken.getZ() + 1.0D)).expand(d0, 10.0D, d0));
         if (list.isEmpty()) return;
 
@@ -85,7 +85,7 @@ public class ServerEvents {
     }
 
     private static void signalAmphithereAlarm(LivingEntity villager, LivingEntity attacker) {
-        final float d0 = IafConfig.getInstance().amphithere.villagerSearchLength;
+        final float d0 = IafCommonConfig.INSTANCE.amphithere.villagerSearchLength;
         final List<EntityAmphithere> list = villager.getWorld().getNonSpectatingEntities(EntityAmphithere.class, (new Box(villager.getX() - 1.0D, villager.getY() - 1.0D, villager.getZ() - 1.0D, villager.getX() + 1.0D, villager.getY() + 1.0D, villager.getZ() + 1.0D)).expand(d0, d0, d0));
         if (list.isEmpty()) return;
 
@@ -172,7 +172,7 @@ public class ServerEvents {
 
     public static ActionResult onPlayerAttack(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         if (entity != null && entity.getType().isIn(IafEntityTags.SHEEP)) {
-            float dist = IafConfig.getInstance().cyclops.sheepSearchLength;
+            float dist = IafCommonConfig.INSTANCE.cyclops.sheepSearchLength;
             final List<Entity> list = entity.getWorld().getOtherEntities(entity, entity.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty())
                 for (final Entity e : list)
@@ -260,24 +260,26 @@ public class ServerEvents {
         if (entity.getUuid().equals(ServerEvents.ALEX_UUID))
             entity.dropStack(new ItemStack(IafItems.WEEZER_BLUE_ALBUM), 1);
 
-        if (entity instanceof PlayerEntity && IafConfig.getInstance().ghost.fromPlayerDeaths) {
-            Entity attacker = entity.getAttacker();
-            if (attacker instanceof PlayerEntity && entity.getRandom().nextInt(3) == 0) {
-                DamageTracker combat = entity.getDamageTracker();
-                DamageRecord entry = combat.getBiggestFall();
-                boolean flag = entry != null && (entry.damageSource().isOf(DamageTypes.FALL) || entry.damageSource().isOf(DamageTypes.DROWN) || entry.damageSource().isOf(DamageTypes.LAVA));
-                if (entity.hasStatusEffect(StatusEffects.POISON))
-                    flag = true;
-                if (flag) {
-                    World world = entity.getWorld();
-                    EntityGhost ghost = IafEntities.GHOST.create(world);
-                    assert ghost != null;
-                    ghost.copyPositionAndRotation(entity);
-                    if (!world.isClient) {
-                        ghost.initialize((ServerWorldAccess) world, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, null, null);
-                        world.spawnEntity(ghost);
+        if (entity instanceof PlayerEntity) {
+            if (IafCommonConfig.INSTANCE.ghost.fromPlayerDeaths) {
+                Entity attacker = entity.getAttacker();
+                if (attacker instanceof PlayerEntity && entity.getRandom().nextInt(3) == 0) {
+                    DamageTracker combat = entity.getDamageTracker();
+                    DamageRecord entry = combat.getBiggestFall();
+                    boolean flag = entry != null && (entry.damageSource().isOf(DamageTypes.FALL) || entry.damageSource().isOf(DamageTypes.DROWN) || entry.damageSource().isOf(DamageTypes.LAVA));
+                    if (entity.hasStatusEffect(StatusEffects.POISON))
+                        flag = true;
+                    if (flag) {
+                        World world = entity.getWorld();
+                        EntityGhost ghost = IafEntities.GHOST.create(world);
+                        assert ghost != null;
+                        ghost.copyPositionAndRotation(entity);
+                        if (!world.isClient) {
+                            ghost.initialize((ServerWorldAccess) world, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, null, null);
+                            world.spawnEntity(ghost);
+                        }
+                        ghost.setDaytimeMode(true);
                     }
-                    ghost.setDaytimeMode(true);
                 }
             }
         }
@@ -309,7 +311,7 @@ public class ServerEvents {
     public static ActionResult onPlayerRightClick(PlayerEntity player, World world, Hand hand, BlockHitResult hitResult) {
         BlockPos pos = hitResult.getBlockPos();
         if (player != null && (world.getBlockState(pos).getBlock() instanceof AbstractChestBlock) && !player.isCreative()) {
-            float dist = IafConfig.getInstance().dragon.behaviour.goldSearchLength;
+            float dist = IafCommonConfig.INSTANCE.dragon.behaviour.goldSearchLength;
             final List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (!list.isEmpty())
                 for (final Entity entity : list)
@@ -327,7 +329,7 @@ public class ServerEvents {
 
     public static void onBreakBlock(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity) {
         if (player != null && (state.getBlock() instanceof AbstractChestBlock || state.isOf(IafBlocks.GOLD_PILE) || state.isOf(IafBlocks.SILVER_PILE) || state.isOf(IafBlocks.COPPER_PILE))) {
-            final float dist = IafConfig.getInstance().dragon.behaviour.goldSearchLength;
+            final float dist = IafCommonConfig.INSTANCE.dragon.behaviour.goldSearchLength;
             List<Entity> list = world.getOtherEntities(player, player.getBoundingBox().expand(dist, dist, dist));
             if (list.isEmpty()) return;
 
@@ -352,10 +354,14 @@ public class ServerEvents {
             try {
                 if (mob.getType().isIn(IafEntityTags.SHEEP) && mob instanceof AnimalEntity animal)
                     animal.goalSelector.add(8, new EntitySheepAIFollowCyclops(animal, 1.2D));
-                if (mob.getType().isIn(IafEntityTags.VILLAGERS) && IafConfig.getInstance().dragon.villagersFear)
-                    mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 8.0F, 0.8D, 0.8D, VILLAGER_FEAR));
-                if (mob.getType().isIn(IafEntityTags.FEAR_DRAGONS) && IafConfig.getInstance().dragon.animalsFear)
-                    mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 30, 1.0D, 0.5D, e -> e instanceof IAnimalFear fear && fear.shouldAnimalsFear(mob)));
+                if (mob.getType().isIn(IafEntityTags.VILLAGERS)) {
+                    if (IafCommonConfig.INSTANCE.dragon.villagersFear)
+                        mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 8.0F, 0.8D, 0.8D, VILLAGER_FEAR));
+                }
+                if (mob.getType().isIn(IafEntityTags.FEAR_DRAGONS)) {
+                    if (IafCommonConfig.INSTANCE.dragon.animalsFear)
+                        mob.goalSelector.add(1, new VillagerAIFearUntamed((PathAwareEntity) mob, LivingEntity.class, 30, 1.0D, 0.5D, e -> e instanceof IAnimalFear fear && fear.shouldAnimalsFear(mob)));
+                }
             } catch (Exception e) {
                 IceAndFire.LOGGER.warn("Tried to add unique behaviors to vanilla mobs and encountered an error");
             }

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.mixin;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafClientConfig;
 import com.iafenvoy.iceandfire.screen.TitleScreenRenderManager;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.DrawContext;
@@ -39,7 +39,7 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
-        if (!IafConfig.getInstance().client.customMainMenu) return;
+        if (!IafClientConfig.INSTANCE.customMainMenu.getBooleanValue()) return;
         SplashTextRenderer renderer = TitleScreenRenderManager.getSplash();
         if (renderer != null)
             this.splashText = renderer;
@@ -47,13 +47,13 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(method = "tick", at = @At("RETURN"))
     private void onTick(CallbackInfo ci) {
-        if (!IafConfig.getInstance().client.customMainMenu) return;
+        if (!IafClientConfig.INSTANCE.customMainMenu.getBooleanValue()) return;
         TitleScreenRenderManager.tick();
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"))
     private void onRenderBackground(RotatingCubeMapRenderer instance, float delta, float alpha, @Local(ordinal = 0, argsOnly = true) DrawContext context) {
-        if (!IafConfig.getInstance().client.customMainMenu) {
+        if (!IafClientConfig.INSTANCE.customMainMenu.getBooleanValue()) {
             instance.render(delta, alpha);
             return;
         }

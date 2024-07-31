@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.entity;
 import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
@@ -272,14 +272,14 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 //ATTACK
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1)
                 //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength))
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafCommonConfig.INSTANCE.dragon.behaviour.targetSearchLength))
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 4);
     }
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafCommonConfig.INSTANCE.dragon.behaviour.targetSearchLength));
     }
 
     @Override
@@ -289,7 +289,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override
     public float getPositionTargetRange() {
-        return IafConfig.getInstance().dragon.behaviour.wanderFromHomeDistance;
+        return IafCommonConfig.INSTANCE.dragon.behaviour.wanderFromHomeDistance;
     }
 
     public String getHomeDimensionName() {
@@ -537,7 +537,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override
     public void checkDespawn() {
-        if (IafConfig.getInstance().dragon.behaviour.canDespawn) {
+        if (IafCommonConfig.INSTANCE.dragon.behaviour.canDespawn) {
             super.checkDespawn();
         }
     }
@@ -894,7 +894,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).removeModifier(ARMOR_MODIFIER_UUID);
             this.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).addPersistentModifier(new EntityAttributeModifier(ARMOR_MODIFIER_UUID, "Dragon armor bonus", this.calculateArmorModifier(), EntityAttributeModifier.Operation.ADDITION));
         }
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafConfig.getInstance().dragon.behaviour.targetSearchLength));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafCommonConfig.INSTANCE.dragon.behaviour.targetSearchLength));
     }
 
     public int getHunger() {
@@ -1080,41 +1080,45 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             return ActionResult.SUCCESS;
         }
         if (this.isModelDead() && this.getDeathStage() < lastDeathStage && player.canModifyBlocks()) {
-            if (!this.getWorld().isClient && !stack.isEmpty() && stack.getItem() != null && stack.getItem() == Items.GLASS_BOTTLE && this.getDeathStage() < lastDeathStage / 2 && IafConfig.getInstance().dragon.drop.blood) {
+            if (!this.getWorld().isClient && !stack.isEmpty() && stack.getItem() != null && stack.getItem() == Items.GLASS_BOTTLE && this.getDeathStage() < lastDeathStage / 2 && IafCommonConfig.INSTANCE.dragon.drop.blood) {
                 if (!player.isCreative()) {
                     stack.decrement(1);
                 }
                 this.setDeathStage(this.getDeathStage() + 1);
                 player.getInventory().insertStack(new ItemStack(this.getBloodItem(), 1));
                 return ActionResult.SUCCESS;
-            } else if (!this.getWorld().isClient && stack.isEmpty() && IafConfig.getInstance().dragon.drop.skull) {
-                if (this.getDeathStage() >= lastDeathStage - 1) {
-                    ItemStack skull = this.getSkull().copy();
-                    skull.setNbt(new NbtCompound());
-                    assert skull.getNbt() != null;
-                    skull.getNbt().putInt("Stage", this.getDragonStage());
-                    skull.getNbt().putInt("DragonType", 0);
-                    skull.getNbt().putInt("DragonAge", this.getAgeInDays());
-                    this.setDeathStage(this.getDeathStage() + 1);
-                    if (!this.getWorld().isClient) {
-                        this.dropStack(skull, 1);
-                    }
-                    this.remove(RemovalReason.DISCARDED);
-                } else if (this.getDeathStage() == (lastDeathStage / 2) - 1 && IafConfig.getInstance().dragon.drop.heart) {
-                    ItemStack heart = new ItemStack(this.getHeartItem(), 1);
-                    ItemStack egg = new ItemStack(this.getVariantEgg(this.random.nextInt(4)), 1);
-                    if (!this.getWorld().isClient) {
-                        this.dropStack(heart, 1);
-                        if (!this.isMale() && this.getDragonStage() > 3) {
-                            this.dropStack(egg, 1);
+            } else {
+                if (!this.getWorld().isClient && stack.isEmpty()) {
+                    if (IafCommonConfig.INSTANCE.dragon.drop.skull) {
+                        if (this.getDeathStage() >= lastDeathStage - 1) {
+                            ItemStack skull = this.getSkull().copy();
+                            skull.setNbt(new NbtCompound());
+                            assert skull.getNbt() != null;
+                            skull.getNbt().putInt("Stage", this.getDragonStage());
+                            skull.getNbt().putInt("DragonType", 0);
+                            skull.getNbt().putInt("DragonAge", this.getAgeInDays());
+                            this.setDeathStage(this.getDeathStage() + 1);
+                            if (!this.getWorld().isClient) {
+                                this.dropStack(skull, 1);
+                            }
+                            this.remove(RemovalReason.DISCARDED);
+                        } else if (this.getDeathStage() == (lastDeathStage / 2) - 1 && IafCommonConfig.INSTANCE.dragon.drop.heart) {
+                            ItemStack heart = new ItemStack(this.getHeartItem(), 1);
+                            ItemStack egg = new ItemStack(this.getVariantEgg(this.random.nextInt(4)), 1);
+                            if (!this.getWorld().isClient) {
+                                this.dropStack(heart, 1);
+                                if (!this.isMale() && this.getDragonStage() > 3) {
+                                    this.dropStack(egg, 1);
+                                }
+                            }
+                            this.setDeathStage(this.getDeathStage() + 1);
+                        } else {
+                            this.setDeathStage(this.getDeathStage() + 1);
+                            ItemStack drop = this.getRandomDrop();
+                            if (!drop.isEmpty() && !this.getWorld().isClient) {
+                                this.dropStack(drop, 1);
+                            }
                         }
-                    }
-                    this.setDeathStage(this.getDeathStage() + 1);
-                } else {
-                    this.setDeathStage(this.getDeathStage() + 1);
-                    ItemStack drop = this.getRandomDrop();
-                    if (!drop.isEmpty() && !this.getWorld().isClient) {
-                        this.dropStack(drop, 1);
                     }
                 }
             }
@@ -1403,7 +1407,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         if (this.getY() > this.getWorld().getTopY()) {
             return true;
         }
-        return this.getY() > IafConfig.getInstance().dragon.behaviour.maxFlight;
+        return this.getY() > IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight;
     }
 
     private int calculateDownY() {
@@ -1422,11 +1426,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             return;
 
         final BlockState state = this.getWorld().getBlockState(position);
-        final float hardness = IafConfig.getInstance().dragon.behaviour.griefing == 1 || this.getDragonStage() <= 3 ? 2.0F : 5.0F;
+        final float hardness = IafCommonConfig.INSTANCE.dragon.behaviour.griefing == 1 || this.getDragonStage() <= 3 ? 2.0F : 5.0F;
         if (this.isBreakable(position, state, hardness, this)) {
             this.setVelocity(this.getVelocity().multiply(0.6F, 1, 0.6F));
             if (!this.getWorld().isClient()) {
-                this.getWorld().breakBlock(position, !state.isIn(IafBlockTags.DRAGON_BLOCK_BREAK_NO_DROPS) && this.random.nextFloat() <= IafConfig.getInstance().dragon.behaviour.blockBreakingDropChance);
+                this.getWorld().breakBlock(position, !state.isIn(IafBlockTags.DRAGON_BLOCK_BREAK_NO_DROPS) && this.random.nextFloat() <= IafCommonConfig.INSTANCE.dragon.behaviour.blockBreakingDropChance);
             }
         }
     }
@@ -1434,9 +1438,9 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public void breakBlocks(boolean force) {
         boolean doBreak = force;
 
-        if (this.blockBreakCounter > 0 || IafConfig.getInstance().dragon.behaviour.breakBlockCooldown == 0) {
+        if (this.blockBreakCounter > 0 || IafCommonConfig.INSTANCE.dragon.behaviour.breakBlockCooldown == 0) {
             --this.blockBreakCounter;
-            if (this.blockBreakCounter == 0 || IafConfig.getInstance().dragon.behaviour.breakBlockCooldown == 0)
+            if (this.blockBreakCounter == 0 || IafCommonConfig.INSTANCE.dragon.behaviour.breakBlockCooldown == 0)
                 doBreak = true;
         }
 
@@ -1550,8 +1554,10 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             float damage = baseDamage * 2;
             boolean didDamage = prey.damage(this.getWorld().getDamageSources().mobAttack(this), damage);
 
-            if (didDamage && IafConfig.getInstance().dragon.behaviour.canHealFromBiting) {
-                this.heal(damage * 0.5f);
+            if (didDamage) {
+                if (IafCommonConfig.INSTANCE.dragon.behaviour.canHealFromBiting) {
+                    this.heal(damage * 0.5f);
+                }
             }
 
             if (!(prey instanceof PlayerEntity)) {
@@ -1713,9 +1719,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.getWorld().getProfiler().pop();
         this.getWorld().getProfiler().pop();
 
-        if (!this.getWorld().isClient() && IafConfig.getInstance().dragon.behaviour.digWhenStuck && this.isStuck()) {
-            this.breakBlocks(true);
-            this.resetStuck();
+        if (!this.getWorld().isClient()) {
+            if (IafCommonConfig.INSTANCE.dragon.behaviour.digWhenStuck && this.isStuck()) {
+                this.breakBlocks(true);
+                this.resetStuck();
+            }
         }
     }
 
@@ -2278,8 +2286,10 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     int damage = (int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue();
                     boolean didDamage = this.logic.attackTarget(target, rider, damage);
 
-                    if (didDamage && IafConfig.getInstance().dragon.behaviour.canHealFromBiting) {
-                        this.heal(damage * 0.1f);
+                    if (didDamage) {
+                        if (IafCommonConfig.INSTANCE.dragon.behaviour.canHealFromBiting) {
+                            this.heal(damage * 0.1f);
+                        }
                     }
                 }
             }
@@ -2735,7 +2745,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override
     public double getFlightSpeedModifier() {
-        return IafConfig.getInstance().dragon.behaviour.dragonFlightSpeedMod;
+        return IafCommonConfig.INSTANCE.dragon.behaviour.dragonFlightSpeedMod;
     }
 
     public boolean isAllowedToTriggerFlight() {
@@ -2828,7 +2838,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     @Override
     public void onRemoved() {
-        if (IafConfig.getInstance().dragon.behaviour.chunkLoadSummonCrystal) {
+        if (IafCommonConfig.INSTANCE.dragon.behaviour.chunkLoadSummonCrystal) {
             if (this.isBoundToCrystal()) {
                 DragonPosWorldData data = DragonPosWorldData.get(this.getWorld());
                 if (data != null) {

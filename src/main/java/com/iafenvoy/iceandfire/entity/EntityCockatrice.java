@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
@@ -89,7 +89,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().cockatrice.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.cockatrice.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
                 //ATTACK
@@ -102,7 +102,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().cockatrice.maxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.cockatrice.maxHealth);
     }
 
     @Override
@@ -562,7 +562,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     private int getFriendsCount(LivingEntity attackTarget) {
         if (this.getTarget() == null) return 0;
-        float dist = IafConfig.getInstance().cockatrice.chickenSearchLength;
+        float dist = IafCommonConfig.INSTANCE.cockatrice.chickenSearchLength;
         List<EntityCockatrice> list = this.getWorld().getNonSpectatingEntities(EntityCockatrice.class, this.getBoundingBox().stretch(dist, dist, dist));
         int i = 0;
         for (EntityCockatrice cockatrice : list)

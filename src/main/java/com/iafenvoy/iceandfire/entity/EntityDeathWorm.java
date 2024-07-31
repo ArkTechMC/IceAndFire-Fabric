@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.entity;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormLand;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateDeathWormSand;
@@ -102,13 +102,13 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().deathworm.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.deathworm.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().deathworm.attackDamage)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.deathworm.attackDamage)
                 //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafConfig.getInstance().deathworm.targetSearchLength)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafCommonConfig.INSTANCE.deathworm.targetSearchLength)
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 3);
     }
@@ -138,7 +138,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
                     return true;
                 }
 
-                return IafConfig.getInstance().deathworm.attackMonsters;
+                return IafCommonConfig.INSTANCE.deathworm.attackMonsters;
             }
 
             return false;
@@ -147,9 +147,9 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafConfig.getInstance().deathworm.maxHealth));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafConfig.getInstance().deathworm.attackDamage));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafConfig.getInstance().deathworm.targetSearchLength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafCommonConfig.INSTANCE.deathworm.maxHealth));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafCommonConfig.INSTANCE.deathworm.attackDamage));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.deathworm.targetSearchLength);
     }
 
     @Override
@@ -489,9 +489,9 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     private void updateAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.2D, 0.15D * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafConfig.getInstance().deathworm.attackDamage * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafConfig.getInstance().deathworm.maxHealth * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafConfig.getInstance().deathworm.targetSearchLength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafCommonConfig.INSTANCE.deathworm.attackDamage * this.getScaleFactor()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafCommonConfig.INSTANCE.deathworm.maxHealth * this.getScaleFactor()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.deathworm.targetSearchLength);
         this.setHealth((float) this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getBaseValue());
     }
 

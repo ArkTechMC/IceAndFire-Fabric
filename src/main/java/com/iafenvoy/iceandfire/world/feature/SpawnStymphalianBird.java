@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.feature;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityStymphalianBird;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
@@ -26,17 +26,19 @@ public class SpawnStymphalianBird extends Feature<DefaultFeatureConfig> {
 
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
-        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position) && rand.nextInt(IafConfig.getInstance().stymphalianBird.spawnChance + 1) == 0)
-            for (int i = 0; i < 4 + rand.nextInt(4); i++) {
-                BlockPos pos = position.add(rand.nextInt(10) - 5, 0, rand.nextInt(10) - 5);
-                pos = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);
-                if (worldIn.getBlockState(pos.down()).isOpaque()) {
-                    EntityStymphalianBird bird = IafEntities.STYMPHALIAN_BIRD.create(worldIn.toServerWorld());
-                    assert bird != null;
-                    bird.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, 0, 0);
-                    worldIn.spawnEntity(bird);
+        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
+            if (rand.nextInt(IafCommonConfig.INSTANCE.stymphalianBird.spawnChance + 1) == 0)
+                for (int i = 0; i < 4 + rand.nextInt(4); i++) {
+                    BlockPos pos = position.add(rand.nextInt(10) - 5, 0, rand.nextInt(10) - 5);
+                    pos = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, pos);
+                    if (worldIn.getBlockState(pos.down()).isOpaque()) {
+                        EntityStymphalianBird bird = IafEntities.STYMPHALIAN_BIRD.create(worldIn.toServerWorld());
+                        assert bird != null;
+                        bird.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY() + 1.5F, pos.getZ() + 0.5F, 0, 0);
+                        worldIn.spawnEntity(bird);
+                    }
                 }
-            }
+        }
         return true;
     }
 }

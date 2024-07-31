@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.event.ServerEvents;
 import com.iafenvoy.iceandfire.network.ServerNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
@@ -33,7 +33,7 @@ public class IceAndFire implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        AutoConfig.register(IafConfig.class, GsonConfigSerializer::new);
+        AutoConfig.register(IafCommonConfig.class, GsonConfigSerializer::new);
 
         IafItems.init();
         IafBlocks.init();

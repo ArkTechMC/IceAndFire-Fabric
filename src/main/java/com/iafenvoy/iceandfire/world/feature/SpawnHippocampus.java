@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.feature;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityHippocampus;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.mojang.serialization.Codec;
@@ -27,7 +27,7 @@ public class SpawnHippocampus extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
         BlockPos oceanPos = worldIn.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, position.add(8, 0, 8));
 
-        if (rand.nextInt(IafConfig.getInstance().hippocampus.spawnChance + 1) == 0) {
+        if (rand.nextInt(IafCommonConfig.INSTANCE.hippocampus.spawnChance + 1) == 0) {
             for (int i = 0; i < rand.nextInt(5); i++) {
                 BlockPos pos = oceanPos.add(rand.nextInt(10) - 5, rand.nextInt(30), rand.nextInt(10) - 5);
                 if (worldIn.getFluidState(pos).getFluid() == Fluids.WATER) {

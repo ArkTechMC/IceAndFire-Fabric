@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.collect.ImmutableList;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
@@ -113,7 +113,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         if (!this.canSeeSky()) {
             this.setMyrmexAge(this.getMyrmexAge() + 1);
         }
-        if (this.getMyrmexAge() > IafConfig.getInstance().myrmex.eggTicks) {
+        if (this.getMyrmexAge() > IafCommonConfig.INSTANCE.myrmex.eggTicks) {
             this.remove(RemovalReason.DISCARDED);
             EntityMyrmexBase myrmex = switch (this.getMyrmexCaste()) {
                 default -> new EntityMyrmexWorker(IafEntities.MYRMEX_WORKER, this.getWorld());

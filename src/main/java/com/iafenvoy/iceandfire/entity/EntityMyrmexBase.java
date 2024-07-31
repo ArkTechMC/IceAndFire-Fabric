@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.collect.Sets;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.item.block.BlockMyrmexConnectedResin;
@@ -223,7 +223,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         }
         if (this.getGrowthStage() < 2) {
             this.growthTicks++;
-            if (this.growthTicks == IafConfig.getInstance().myrmex.larvaTicks) {
+            if (this.growthTicks == IafCommonConfig.INSTANCE.myrmex.larvaTicks) {
                 this.setGrowthStage(this.getGrowthStage() + 1);
                 this.growthTicks = 0;
             }
@@ -884,7 +884,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     public int maxSearchNodes() {
-        return IafConfig.getInstance().dragon.maxPathingNodes;
+        return IafCommonConfig.INSTANCE.dragon.maxPathingNodes;
     }
 
     @Override

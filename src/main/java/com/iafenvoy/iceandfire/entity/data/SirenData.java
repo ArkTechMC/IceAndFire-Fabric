@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.data;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntitySiren;
 import com.iafenvoy.iceandfire.entity.util.IHearsSiren;
 import net.minecraft.entity.Entity;
@@ -36,8 +36,8 @@ public class SirenData extends NeedUpdateData {
         if (this.charmedBy == null) return;
 
         if (this.charmedBy.isActuallySinging()) {
-            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafConfig.getInstance().siren.maxSingTime) {
-                this.charmedBy.singCooldown = IafConfig.getInstance().siren.timeBetweenSongs;
+            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafCommonConfig.INSTANCE.siren.maxSingTime) {
+                this.charmedBy.singCooldown = IafCommonConfig.INSTANCE.siren.timeBetweenSongs;
                 this.clearCharm();
                 return;
             }
@@ -48,7 +48,7 @@ public class SirenData extends NeedUpdateData {
             }
 
             if (holder.distanceTo(this.charmedBy) < 5) {
-                this.charmedBy.singCooldown = IafConfig.getInstance().siren.timeBetweenSongs;
+                this.charmedBy.singCooldown = IafCommonConfig.INSTANCE.siren.timeBetweenSongs;
                 this.charmedBy.setSinging(false);
                 this.charmedBy.setTarget(holder);
                 this.charmedBy.setAttacking(true);

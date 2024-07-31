@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.api.IafEvents;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.CyclopsAIAttackMelee;
 import com.iafenvoy.iceandfire.entity.ai.CyclopsAITargetSheepPlayers;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateCyclops;
@@ -70,11 +70,11 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().cyclops.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.cyclops.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().cyclops.attackDamage)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.cyclops.attackDamage)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
                 //ARMOR
@@ -83,7 +83,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().cyclops.maxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.cyclops.maxHealth);
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(0.35D);
     }
 
@@ -217,7 +217,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             double extraZ = radius * MathHelper.cos(angle);
             passenger.setPosition(this.getX() + extraX, this.getY() + raiseUp, this.getZ() + extraZ);
             if (this.getAnimationTick() == 32) {
-                passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafConfig.getInstance().cyclops.biteDamage);
+                passenger.damage(this.getWorld().getDamageSources().mobAttack(this), (float) IafCommonConfig.INSTANCE.cyclops.biteDamage);
                 passenger.stopRiding();
             }
         }
@@ -313,7 +313,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
     }
 
     public void breakBlock() {
-        if (IafConfig.getInstance().cyclops.griefing)
+        if (IafCommonConfig.INSTANCE.cyclops.griefing)
             for (int a = (int) Math.round(this.getBoundingBox().minX) - 1; a <= (int) Math.round(this.getBoundingBox().maxX) + 1; a++)
                 for (int b = (int) Math.round(this.getBoundingBox().minY) + 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++)
                     for (int c = (int) Math.round(this.getBoundingBox().minZ) - 1; c <= (int) Math.round(this.getBoundingBox().maxZ) + 1; c++) {

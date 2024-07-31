@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.item.tool;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -33,9 +33,9 @@ public class ItemModShovel extends ShovelItem implements DragonSteelOverrides<It
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
-        if (this.getMaterial().getAttackDamage() != IafConfig.getInstance().armors.dragonsteel.baseDamage || this.dragonsteelModifiers == null) {
+        if (this.getMaterial().getAttackDamage() != IafCommonConfig.INSTANCE.armors.dragonsteel.baseDamage || this.dragonsteelModifiers == null) {
             ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafConfig.getInstance().armors.dragonsteel.baseDamage - 1F + 1.5F, EntityAttributeModifier.Operation.ADDITION));
+            builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", IafCommonConfig.INSTANCE.armors.dragonsteel.baseDamage - 1F + 1.5F, EntityAttributeModifier.Operation.ADDITION));
             builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3.0, EntityAttributeModifier.Operation.ADDITION));
             this.dragonsteelModifiers = builder.build();
         }
@@ -44,7 +44,11 @@ public class ItemModShovel extends ShovelItem implements DragonSteelOverrides<It
 
     @Override
     public int getMaxUseTime(ItemStack stack) {
-        return this.isDragonSteel(this.getMaterial()) ? IafConfig.getInstance().armors.dragonsteel.baseDurability : this.getMaterial().getDurability();
+        if (this.isDragonSteel(this.getMaterial())) {
+            return IafCommonConfig.INSTANCE.armors.dragonsteel.baseDurability;
+        } else {
+            return this.getMaterial().getDurability();
+        }
     }
 
 

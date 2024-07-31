@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.world.gen;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntitySiren;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.util.WorldUtil;
@@ -25,7 +25,7 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafConfig.getInstance().siren.spawnChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), false)) {
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.siren.spawnChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), false)) {
             return false;
         }
 

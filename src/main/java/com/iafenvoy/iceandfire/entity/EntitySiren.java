@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetOutOfWater;
@@ -86,7 +86,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().siren.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.siren.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
                 //ATTACK
@@ -413,7 +413,7 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().siren.maxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.siren.maxHealth);
     }
 
     @Override

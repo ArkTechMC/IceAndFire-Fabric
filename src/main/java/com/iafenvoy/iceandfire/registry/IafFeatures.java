@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.iafenvoy.iceandfire.world.IafWorldData;
 import com.iafenvoy.iceandfire.world.feature.*;
@@ -57,7 +57,7 @@ public class IafFeatures {
     public static boolean isFarEnoughFromSpawn(final WorldAccess level, final BlockPos position) {
         WorldProperties spawnPoint = level.getLevelProperties();
         BlockPos spawnRelative = new BlockPos(spawnPoint.getSpawnX(), position.getY(), spawnPoint.getSpawnY());
-        return !spawnRelative.isWithinDistance(position, IafConfig.getInstance().worldGen.dangerousDistanceLimit);
+        return !spawnRelative.isWithinDistance(position, IafCommonConfig.INSTANCE.worldGen.dangerousDistanceLimit);
     }
 
     public static boolean isFarEnoughFromDangerousGen(final ServerWorldAccess level, final BlockPos position, final String id) {

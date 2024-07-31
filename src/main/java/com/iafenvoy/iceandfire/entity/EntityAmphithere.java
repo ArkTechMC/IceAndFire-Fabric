@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.config.IafConfig;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateFlyingCreature;
@@ -150,12 +150,12 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafConfig.getInstance().amphithere.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.amphithere.maxHealth)
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafConfig.getInstance().amphithere.attackDamage)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafConfig.getInstance().amphithere.flightSpeed)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.amphithere.attackDamage)
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafCommonConfig.INSTANCE.amphithere.flightSpeed)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
@@ -362,11 +362,13 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
             this.ridingTime++;
         if (this.getUntamedRider() == null)
             this.ridingTime = 0;
-        if (!this.isTamed() && this.ridingTime > IafConfig.getInstance().amphithere.tameTime && this.getUntamedRider() != null && this.getUntamedRider() instanceof PlayerEntity) {
-            this.getWorld().sendEntityStatus(this, (byte) 45);
-            this.setOwner((PlayerEntity) this.getUntamedRider());
-            if (this.getTarget() == this.getUntamedRider())
-                this.setTarget(null);
+        if (!this.isTamed()) {
+            if (this.ridingTime > IafCommonConfig.INSTANCE.amphithere.tameTime && this.getUntamedRider() != null && this.getUntamedRider() instanceof PlayerEntity) {
+                this.getWorld().sendEntityStatus(this, (byte) 45);
+                this.setOwner((PlayerEntity) this.getUntamedRider());
+                if (this.getTarget() == this.getUntamedRider())
+                    this.setTarget(null);
+            }
         }
         if (this.isStill())
             this.ticksStill++;
@@ -512,9 +514,9 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafConfig.getInstance().amphithere.maxHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafConfig.getInstance().amphithere.attackDamage);
-        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafConfig.getInstance().amphithere.flightSpeed);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.amphithere.maxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.amphithere.attackDamage);
+        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafCommonConfig.INSTANCE.amphithere.flightSpeed);
     }
 
     @Override
