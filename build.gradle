@@ -61,7 +61,7 @@ dependencies {
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"))
 
     // Jupiter
-    modImplementation "curse.maven:jupiter-1072905:5586140"
+    modImplementation "curse.maven:jupiter-1072905:5587116"
 
     // Optional dependencies
     // ModMenu

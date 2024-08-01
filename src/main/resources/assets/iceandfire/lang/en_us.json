@@ -1493,10 +1493,10 @@
   "iceandfire.armors.dragonsteel.baseDurability": "Base Durability",
   "iceandfire.armors.dragonsteel.baseDurabilityEquipment": "Base Durability Equipment",
   "iceandfire.category.worldgen": "World Gen",
-  "iceandfire.worldGen.dangerousDistanceLimit": "Dangerous Distance Limit",
-  "iceandfire.worldGen.dangerousSeparationLimit": "Dangerous Separation Limit",
-  "iceandfire.worldGen.generateMausoleums": "Generate Mausoleums",
-  "iceandfire.worldGen.villagerHouseWeight": "Villager House Weight",
+  "iceandfire.worldgen.dangerousDistanceLimit": "Dangerous Distance Limit",
+  "iceandfire.worldgen.dangerousSeparationLimit": "Dangerous Separation Limit",
+  "iceandfire.worldgen.generateMausoleums": "Generate Mausoleums",
+  "iceandfire.worldgen.villagerHouseWeight": "Villager House Weight",
   "iceandfire.misc.dreadQueenMaxHealth": "Dread Queen Max Health",
   "iceandfire.category.hippocampus": "Hippocampus",
   "iceandfire.hippocampus.spawnChance": "Hippocampus Spawn Chance",
@@ -1534,5 +1534,12 @@
   "item.iceandfire.cooked_rice_with_lightning_dragon_meat": "Fried Rice with Lightning Dragon Flesh",
   "item.iceandfire.ghost_cream": "Ghost Cream",
   "item.iceandfire.pixie_dust_milky_tea": "Pixie Dust Milky Tea",
-  "item.iceandfire.tooltip.require.delight": "This item require Farmer's Delight to craft"
+  "item.iceandfire.tooltip.require.delight": "This item require Farmer's Delight to craft",
+
+  "iceandfire.dragon.movedWronglyFix.comment": "Unused",
+  "iceandfire.siren.shader.comment": "Unused",
+  "iceandfire.bird.dataTagDrops.comment": "Unused",
+  "iceandfire.worldgen.villagerHouseWeight.comment": "Unused",
+  "iceandfire.misc.allowAttributeOverriding.comment": "Unused",
+  "iceandfire.dragonAuto3rdPerson.comment": "Unused"
 }

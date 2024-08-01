@@ -1487,10 +1487,10 @@
   "iceandfire.armors.dragonsteel.baseDurability": "基础工具耐久",
   "iceandfire.armors.dragonsteel.baseDurabilityEquipment": "基础装备耐久",
   "iceandfire.category.worldgen": "世界生成",
-  "iceandfire.worldGen.dangerousDistanceLimit": "危险结构不生成范围",
-  "iceandfire.worldGen.dangerousSeparationLimit": "危险结构间隔距离",
-  "iceandfire.worldGen.generateMausoleums": "生成悚陵",
-  "iceandfire.worldGen.villagerHouseWeight": "村民房子生成权重",
+  "iceandfire.worldgen.dangerousDistanceLimit": "危险结构不生成范围",
+  "iceandfire.worldgen.dangerousSeparationLimit": "危险结构间隔距离",
+  "iceandfire.worldgen.generateMausoleums": "生成悚陵",
+  "iceandfire.worldgen.villagerHouseWeight": "村民房子生成权重",
   "iceandfire.category.misc": "杂项",
   "iceandfire.misc.dreadQueenMaxHealth": "恐蚁女皇最大生命值",
   "iceandfire.category.hippocampus": "海马",
@@ -1531,5 +1531,12 @@
   "item.iceandfire.raw_silver": "粗银",
   "bestiary_gui": "异兽手记",
   "screen.iceandfire.common.title": "冰火传说通用设置",
-  "screen.iceandfire.client.title": "冰火传说客户端设置"
+  "screen.iceandfire.client.title": "冰火传说客户端设置",
+
+  "iceandfire.dragon.movedWronglyFix.comment": "未使用",
+  "iceandfire.siren.shader.comment": "未使用",
+  "iceandfire.bird.dataTagDrops.comment": "未使用",
+  "iceandfire.worldgen.villagerHouseWeight.comment": "未使用",
+  "iceandfire.misc.allowAttributeOverriding.comment": "未使用",
+  "iceandfire.dragonAuto3rdPerson.comment": "未使用"
 }

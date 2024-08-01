@@ -95,7 +95,7 @@ public class IafCommonConfig extends AutoInitConfigContainer {
         public ConfigInteger maxFlight = new ConfigInteger("iceandfire.dragon.maxFlight", 256, 0, 384);
         public ConfigInteger goldSearchLength = new ConfigInteger("iceandfire.dragon.goldSearchLength", 30, 0, 100);
         public ConfigBoolean canHealFromBiting = new ConfigBoolean("iceandfire.dragon.canHealFromBiting", false);
-        public ConfigBoolean canDespawn = new ConfigBoolean("iceandfire.dragon.despawn", true);
+        public ConfigBoolean canDespawn = new ConfigBoolean("iceandfire.dragon.canDespawn", true);
         public ConfigBoolean sleep = new ConfigBoolean("iceandfire.dragon.sleep", true);
         public ConfigBoolean digWhenStuck = new ConfigBoolean("iceandfire.dragon.digWhenStuck", true);
         public ConfigInteger breakBlockCooldown = new ConfigInteger("iceandfire.dragon.breakBlockCooldown", 0, 5, Integer.MAX_VALUE);
