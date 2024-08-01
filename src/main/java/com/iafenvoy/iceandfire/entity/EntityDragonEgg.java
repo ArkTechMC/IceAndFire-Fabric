@@ -162,7 +162,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
             }
         }
 
-        if (this.getDragonAge() > IafCommonConfig.INSTANCE.dragon.eggBornTime) {
+        if (this.getDragonAge() > IafCommonConfig.INSTANCE.dragon.eggBornTime.getIntegerValue()) {
             this.getWorld().setBlockState(this.getBlockPos(), Blocks.AIR.getDefaultState());
             EntityDragonBase dragon = dragonType.getEntity().create(this.getWorld());
 

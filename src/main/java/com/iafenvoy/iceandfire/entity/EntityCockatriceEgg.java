@@ -24,8 +24,7 @@ public class EntityCockatriceEgg extends ThrownItemEntity {
         super(type, throwerIn, worldIn);
     }
 
-    public EntityCockatriceEgg(EntityType<? extends ThrownItemEntity> type, double x, double y, double z,
-                               World worldIn) {
+    public EntityCockatriceEgg(EntityType<? extends ThrownItemEntity> type, double x, double y, double z, World worldIn) {
         super(type, x, y, z, worldIn);
     }
 

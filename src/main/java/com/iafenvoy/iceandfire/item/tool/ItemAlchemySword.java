@@ -30,7 +30,7 @@ public class ItemAlchemySword extends SwordItem {
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (this == IafItems.DRAGONBONE_SWORD_FIRE) {
-            if (IafCommonConfig.INSTANCE.armors.dragon.fireAbility) {
+            if (IafCommonConfig.INSTANCE.armors.dragonFireAbility.getBooleanValue()) {
                 if (target instanceof EntityIceDragon)
                     target.damage(attacker.getWorld().getDamageSources().inFire(), 13.5F);
                 target.setOnFireFor(5);
@@ -38,7 +38,7 @@ public class ItemAlchemySword extends SwordItem {
             }
         }
         if (this == IafItems.DRAGONBONE_SWORD_ICE) {
-            if (IafCommonConfig.INSTANCE.armors.dragon.iceAbility) {
+            if (IafCommonConfig.INSTANCE.armors.dragonIceAbility.getBooleanValue()) {
                 if (target instanceof EntityFireDragon)
                     target.damage(attacker.getWorld().getDamageSources().drown(), 13.5F);
                 EntityDataComponent data = EntityDataComponent.get(target);
@@ -49,7 +49,7 @@ public class ItemAlchemySword extends SwordItem {
             }
         }
         if (this == IafItems.DRAGONBONE_SWORD_LIGHTNING) {
-            if (IafCommonConfig.INSTANCE.armors.dragon.lightningAbility) {
+            if (IafCommonConfig.INSTANCE.armors.dragonLightningAbility.getBooleanValue()) {
                 boolean flag = true;
                 if (attacker instanceof PlayerEntity)
                     if (attacker.handSwingProgress > 0.2)
@@ -77,17 +77,17 @@ public class ItemAlchemySword extends SwordItem {
         tooltip.add(Text.translatable("item.iceandfire.legendary_weapon.desc").formatted(Formatting.GRAY));
         if (this == IafItems.DRAGONBONE_SWORD_FIRE) {
             tooltip.add(Text.translatable("dragon_sword_fire.hurt1").formatted(Formatting.GREEN));
-            if (IafCommonConfig.INSTANCE.armors.dragon.fireAbility)
+            if (IafCommonConfig.INSTANCE.armors.dragonFireAbility.getBooleanValue())
                 tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
         }
         if (this == IafItems.DRAGONBONE_SWORD_ICE) {
             tooltip.add(Text.translatable("dragon_sword_ice.hurt1").formatted(Formatting.GREEN));
-            if (IafCommonConfig.INSTANCE.armors.dragon.iceAbility)
+            if (IafCommonConfig.INSTANCE.armors.dragonIceAbility.getBooleanValue())
                 tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
         }
         if (this == IafItems.DRAGONBONE_SWORD_LIGHTNING) {
             tooltip.add(Text.translatable("dragon_sword_lightning.hurt1").formatted(Formatting.GREEN));
-            if (IafCommonConfig.INSTANCE.armors.dragon.lightningAbility)
+            if (IafCommonConfig.INSTANCE.armors.dragonLightningAbility.getBooleanValue())
                 tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
         }
     }

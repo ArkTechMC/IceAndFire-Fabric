@@ -113,7 +113,7 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         if (!this.canSeeSky()) {
             this.setMyrmexAge(this.getMyrmexAge() + 1);
         }
-        if (this.getMyrmexAge() > IafCommonConfig.INSTANCE.myrmex.eggTicks) {
+        if (this.getMyrmexAge() > IafCommonConfig.INSTANCE.myrmex.eggTicks.getIntegerValue()) {
             this.remove(RemovalReason.DISCARDED);
             EntityMyrmexBase myrmex = switch (this.getMyrmexCaste()) {
                 default -> new EntityMyrmexWorker(IafEntities.MYRMEX_WORKER, this.getWorld());

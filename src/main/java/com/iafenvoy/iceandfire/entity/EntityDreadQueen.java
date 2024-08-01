@@ -26,9 +26,8 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
-
     public static final Animation ANIMATION_SPAWN = Animation.create(40);
-    private final ServerBossBar bossInfo = (new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS));
+    private final ServerBossBar bossInfo = new ServerBossBar(this.getDisplayName(), BossBar.Color.BLUE, BossBar.Style.PROGRESS);
     private int animationTick;
     private Animation currentAnimation;
 
@@ -39,7 +38,7 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.dreadQueenMaxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.misc.dreadQueenMaxHealth.getDoubleValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK

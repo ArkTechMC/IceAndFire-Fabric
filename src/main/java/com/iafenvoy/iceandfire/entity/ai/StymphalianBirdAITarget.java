@@ -21,7 +21,7 @@ public class StymphalianBirdAITarget extends ActiveTargetGoal<LivingEntity> {
             if (entity instanceof PlayerEntity && !((PlayerEntity) entity).isCreative() || entity instanceof MerchantEntity || entity instanceof GolemEntity)
                 return true;
             if (!(entity instanceof AnimalEntity)) return false;
-            return IafCommonConfig.INSTANCE.stymphalianBird.attackAnimals;
+            return IafCommonConfig.INSTANCE.stymphalianBird.attackAnimals.getBooleanValue();
         });
         this.bird = entityIn;
     }

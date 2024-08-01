@@ -325,11 +325,9 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
     @Override
     protected float getSaddledSpeed(PlayerEntity player) {
         float speed = (float) this.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED) * 0.6F;
-        if (this.isTouchingWater()) {
-            speed *= (float) IafCommonConfig.INSTANCE.hippocampus.swimSpeedMod;
-        }
-        else
-            speed *= 0.2F;
+        if (this.isTouchingWater())
+            speed *= (float) IafCommonConfig.INSTANCE.hippocampus.swimSpeedMod.getDoubleValue();
+        else speed *= 0.2F;
         return speed;
     }
 
@@ -719,9 +717,8 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
                     float maxSpeed = (float) (this.speed * this.hippo.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED));
                     maxSpeed *= 0.6F;
                     if (this.hippo.isTouchingWater()) {
-                        maxSpeed *= (float) IafCommonConfig.INSTANCE.hippocampus.swimSpeedMod;
-                    }
-                    else
+                        maxSpeed *= (float) IafCommonConfig.INSTANCE.hippocampus.swimSpeedMod.getDoubleValue();
+                    } else
                         maxSpeed *= 0.2F;
                     this.hippo.setMovementSpeed(MathHelper.lerp(0.125F, this.hippo.getMovementSpeed(), maxSpeed));
                     this.hippo.setVelocity(this.hippo.getVelocity().add(0.0D, (double) this.hippo.getMovementSpeed() * d1 * 0.1D, 0.0D));

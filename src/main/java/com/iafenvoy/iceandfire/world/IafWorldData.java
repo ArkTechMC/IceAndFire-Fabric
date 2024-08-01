@@ -55,7 +55,7 @@ public class IafWorldData extends PersistentState {
                 toRemove = entry;
             }
 
-            canGenerate = position.getSquaredDistance(entry.getSecond()) > IafCommonConfig.INSTANCE.worldGen.dangerousSeparationLimit * IafCommonConfig.INSTANCE.worldGen.dangerousSeparationLimit;
+            canGenerate = Math.sqrt(position.getSquaredDistance(entry.getSecond())) > IafCommonConfig.INSTANCE.worldGen.dangerousSeparationLimit.getDoubleValue();
         }
 
         if (toRemove != null) {

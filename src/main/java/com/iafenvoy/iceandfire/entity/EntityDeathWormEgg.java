@@ -22,8 +22,7 @@ public class EntityDeathWormEgg extends ThrownItemEntity {
         super(type, worldIn);
     }
 
-    public EntityDeathWormEgg(EntityType<? extends ThrownItemEntity> type, LivingEntity throwerIn, World worldIn,
-                              boolean giant) {
+    public EntityDeathWormEgg(EntityType<? extends ThrownItemEntity> type, LivingEntity throwerIn, World worldIn, boolean giant) {
         super(type, throwerIn, worldIn);
         this.giant = giant;
     }

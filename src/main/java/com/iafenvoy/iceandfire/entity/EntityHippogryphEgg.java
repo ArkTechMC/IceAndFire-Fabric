@@ -24,15 +24,13 @@ public class EntityHippogryphEgg extends EggEntity {
         super(type, world);
     }
 
-    public EntityHippogryphEgg(EntityType<? extends EggEntity> type, World worldIn, double x, double y, double z,
-                               ItemStack stack) {
+    public EntityHippogryphEgg(EntityType<? extends EggEntity> type, World worldIn, double x, double y, double z, ItemStack stack) {
         this(type, worldIn);
         this.setPosition(x, y, z);
         this.itemstack = stack;
     }
 
-    public EntityHippogryphEgg(EntityType<? extends EggEntity> type, World worldIn, LivingEntity throwerIn,
-                               ItemStack stack) {
+    public EntityHippogryphEgg(EntityType<? extends EggEntity> type, World worldIn, LivingEntity throwerIn, ItemStack stack) {
         this(type, worldIn);
         this.setPosition(throwerIn.getX(), throwerIn.getEyeY() - 0.1F, throwerIn.getZ());
         this.itemstack = stack;

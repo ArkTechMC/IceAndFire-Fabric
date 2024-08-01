@@ -223,12 +223,12 @@ public class WorldUtil {
         return yBlock > getDimensionMinHeight(dimensionType) && yBlock < getDimensionMaxHeight(dimensionType);
     }
 
-    public static boolean canGenerate(int configChance, final StructureWorldAccess level, final Random random, final BlockPos origin, final String id, boolean checkFluid) {
+    public static boolean canGenerate(double configChance, final StructureWorldAccess level, final Random random, final BlockPos origin, final String id, boolean checkFluid) {
         return canGenerate(configChance, level, random, origin, id, IafWorldData.FeatureType.SURFACE, checkFluid);
     }
 
-    public static boolean canGenerate(int configChance, final StructureWorldAccess level, final Random random, final BlockPos origin, final String id, final IafWorldData.FeatureType type, boolean checkFluid) {
-        boolean canGenerate = random.nextInt(configChance) == 0 && IafFeatures.isFarEnoughFromSpawn(level, origin) && IafFeatures.isFarEnoughFromDangerousGen(level, origin, id, type);
+    public static boolean canGenerate(double configChance, final StructureWorldAccess level, final Random random, final BlockPos origin, final String id, final IafWorldData.FeatureType type, boolean checkFluid) {
+        boolean canGenerate = random.nextDouble() < configChance && IafFeatures.isFarEnoughFromSpawn(level, origin) && IafFeatures.isFarEnoughFromDangerousGen(level, origin, id, type);
         if (canGenerate && checkFluid)
             if (!level.getFluidState(origin.down()).isEmpty())
                 return false;

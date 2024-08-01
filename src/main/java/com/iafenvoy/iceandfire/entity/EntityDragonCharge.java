@@ -17,14 +17,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public abstract class EntityDragonCharge extends AbstractFireballEntity implements IDragonProjectile {
-
-
     public EntityDragonCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public EntityDragonCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn, double posX,
-                              double posY, double posZ, double accelX, double accelY, double accelZ) {
+    public EntityDragonCharge(EntityType<? extends AbstractFireballEntity> type, World worldIn, double posX, double posY, double posZ, double accelX, double accelY, double accelZ) {
         super(type, posX, posY, posZ, accelX, accelY, accelZ, worldIn);
         double d0 = Math.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
         this.powerX = accelX / d0 * 0.07D;

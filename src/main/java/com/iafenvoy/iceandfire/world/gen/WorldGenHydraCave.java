@@ -44,7 +44,7 @@ public class WorldGenHydraCave extends Feature<DefaultFeatureConfig> implements 
         BlockPos position = context.getOrigin();
         ChunkGenerator generator = context.getGenerator();
 
-        if (rand.nextInt(IafCommonConfig.INSTANCE.hydra.spawnChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
+        if (rand.nextDouble() < IafCommonConfig.INSTANCE.hydra.spawnChance.getDoubleValue() || !IafFeatures.isFarEnoughFromSpawn(worldIn, position) || !IafFeatures.isFarEnoughFromDangerousGen(worldIn, position, this.getId())) {
             return false;
         }
 

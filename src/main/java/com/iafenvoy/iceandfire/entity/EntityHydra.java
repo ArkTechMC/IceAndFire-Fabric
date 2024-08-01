@@ -73,13 +73,13 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     public EntityHydra(EntityType<EntityHydra> type, World worldIn) {
         super(type, worldIn);
         this.resetParts();
-        this.headDamageThreshold = Math.max(5, (float) IafCommonConfig.INSTANCE.hydra.maxHealth * 0.08F);
+        this.headDamageThreshold = Math.max(5, (float) IafCommonConfig.INSTANCE.hydra.maxHealth.getDoubleValue() * 0.08F);
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.hydra.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.hydra.maxHealth.getDoubleValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
@@ -90,7 +90,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.hydra.maxHealth);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.hydra.maxHealth.getDoubleValue());
     }
 
     @Override

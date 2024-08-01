@@ -48,19 +48,19 @@ public class IafItems {
     public static final CustomArmorMaterial DRAGONSTEEL_FIRE_ARMOR_MATERIAL;
 
     static {
-        DRAGONSTEEL_FIRE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_fire", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonsteel.baseDurabilityEquipment), new int[]{IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 6, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 3, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmorToughness);
+        DRAGONSTEEL_FIRE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_fire", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
     }
 
     public static final CustomArmorMaterial DRAGONSTEEL_ICE_ARMOR_MATERIAL;
 
     static {
-        DRAGONSTEEL_ICE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_ice", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonsteel.baseDurabilityEquipment), new int[]{IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 6, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 3, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmorToughness);
+        DRAGONSTEEL_ICE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_ice", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
     }
 
     public static final CustomArmorMaterial DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL;
 
     static {
-        DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_lightning", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonsteel.baseDurabilityEquipment), new int[]{IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 6, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 3, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmorToughness);
+        DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_lightning", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
     }
 
     public static final CustomToolMaterial SILVER_TOOL_MATERIAL = new CustomToolMaterial("silver", 2, 460, 1.0F, 11.0F, 18);

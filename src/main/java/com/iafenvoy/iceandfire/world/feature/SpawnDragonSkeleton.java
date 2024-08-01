@@ -26,8 +26,8 @@ public class SpawnDragonSkeleton extends Feature<DefaultFeatureConfig> {
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
         position = worldIn.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, position.add(8, 0, 8));
-        if (IafCommonConfig.INSTANCE.dragon.generate.skeletons) {
-            if (rand.nextInt(IafCommonConfig.INSTANCE.dragon.generate.skeletonChance + 1) == 0) {
+        if (IafCommonConfig.INSTANCE.dragon.generateSkeletons.getBooleanValue()) {
+            if (rand.nextDouble() < IafCommonConfig.INSTANCE.dragon.generateSkeletonChance.getDoubleValue()) {
                 EntityDragonBase dragon = this.dragonType.create(worldIn.toServerWorld());
                 assert dragon != null;
                 dragon.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);

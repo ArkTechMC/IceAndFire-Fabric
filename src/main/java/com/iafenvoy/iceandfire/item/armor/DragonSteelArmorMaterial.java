@@ -11,17 +11,17 @@ public class DragonSteelArmorMaterial extends IafArmorMaterial {
 
     @Override
     public int getProtection(ArmorItem.Type slotIn) {
-        int[] damageReduction = new int[]{IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 6, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 3, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor, IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmor - 5};
+        int[] damageReduction = new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5};
         return damageReduction[slotIn.getEquipmentSlot().getEntitySlotId()];
     }
 
     @Override
     public float getToughness() {
-        return IafCommonConfig.INSTANCE.armors.dragonsteel.baseArmorToughness;
+        return IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue();
     }
 
     @Override
     public int getDurability(ArmorItem.Type slotIn) {
-        return (int) (MAX_DAMAGE_ARRAY[slotIn.getEquipmentSlot().getEntitySlotId()] * 0.02D * IafCommonConfig.INSTANCE.armors.dragonsteel.baseDurabilityEquipment);
+        return (int) (MAX_DAMAGE_ARRAY[slotIn.getEquipmentSlot().getEntitySlotId()] * 0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue());
     }
 }

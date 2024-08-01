@@ -43,7 +43,7 @@ public class EntityDragonIceCharge extends EntityDragonCharge {
 
     @Override
     public float getDamage() {
-        return (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageIce;
+        return (float) IafCommonConfig.INSTANCE.dragon.attackDamageIce.getDoubleValue();
     }
 
     @Override

@@ -36,8 +36,8 @@ public class SirenData extends NeedUpdateData {
         if (this.charmedBy == null) return;
 
         if (this.charmedBy.isActuallySinging()) {
-            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafCommonConfig.INSTANCE.siren.maxSingTime) {
-                this.charmedBy.singCooldown = IafCommonConfig.INSTANCE.siren.timeBetweenSongs;
+            if (EntitySiren.isWearingEarplugs(holder) || this.charmTime > IafCommonConfig.INSTANCE.siren.maxSingTime.getIntegerValue()) {
+                this.charmedBy.singCooldown = IafCommonConfig.INSTANCE.siren.timeBetweenSongs.getIntegerValue();
                 this.clearCharm();
                 return;
             }
@@ -48,7 +48,7 @@ public class SirenData extends NeedUpdateData {
             }
 
             if (holder.distanceTo(this.charmedBy) < 5) {
-                this.charmedBy.singCooldown = IafCommonConfig.INSTANCE.siren.timeBetweenSongs;
+                this.charmedBy.singCooldown = IafCommonConfig.INSTANCE.siren.timeBetweenSongs.getIntegerValue();
                 this.charmedBy.setSinging(false);
                 this.charmedBy.setTarget(holder);
                 this.charmedBy.setAttacking(true);

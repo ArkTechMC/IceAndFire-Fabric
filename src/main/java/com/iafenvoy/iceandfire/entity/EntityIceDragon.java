@@ -54,7 +54,7 @@ public class EntityIceDragon extends EntityDragonBase {
     }
 
     public EntityIceDragon(EntityType<?> t, World worldIn) {
-        super(t, worldIn, DragonType.ICE, 1, 1 + IafCommonConfig.INSTANCE.dragon.behaviour.attackDamage, IafCommonConfig.INSTANCE.dragon.maxHealth * 0.04, IafCommonConfig.INSTANCE.dragon.maxHealth, 0.15F, 0.4F);
+        super(t, worldIn, DragonType.ICE, 1, 1 + IafCommonConfig.INSTANCE.dragon.attackDamage.getIntegerValue(), IafCommonConfig.INSTANCE.dragon.maxHealth.getDoubleValue() * 0.04, IafCommonConfig.INSTANCE.dragon.maxHealth.getDoubleValue(), 0.15F, 0.4F);
         ANIMATION_SPEAK = Animation.create(20);
         ANIMATION_BITE = Animation.create(35);
         ANIMATION_SHAKEPREY = Animation.create(65);

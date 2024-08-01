@@ -64,7 +64,7 @@ public class WorldGenCyclopsCave extends Feature<DefaultFeatureConfig> implement
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.cyclops.spawnCaveChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.cyclops.spawnCaveChance.getDoubleValue(), context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
 

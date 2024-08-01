@@ -102,13 +102,13 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.deathworm.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.deathworm.maxHealth.getDoubleValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.deathworm.attackDamage)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.deathworm.attackDamage.getDoubleValue())
                 //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafCommonConfig.INSTANCE.deathworm.targetSearchLength)
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, IafCommonConfig.INSTANCE.deathworm.targetSearchLength.getIntegerValue())
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 3);
     }
@@ -138,7 +138,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
                     return true;
                 }
 
-                return IafCommonConfig.INSTANCE.deathworm.attackMonsters;
+                return IafCommonConfig.INSTANCE.deathworm.attackMonsters.getBooleanValue();
             }
 
             return false;
@@ -147,9 +147,9 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafCommonConfig.INSTANCE.deathworm.maxHealth));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafCommonConfig.INSTANCE.deathworm.attackDamage));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.deathworm.targetSearchLength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafCommonConfig.INSTANCE.deathworm.maxHealth.getDoubleValue()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafCommonConfig.INSTANCE.deathworm.attackDamage.getDoubleValue()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.deathworm.targetSearchLength.getIntegerValue());
     }
 
     @Override
@@ -489,9 +489,9 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
 
     private void updateAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.2D, 0.15D * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafCommonConfig.INSTANCE.deathworm.attackDamage * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafCommonConfig.INSTANCE.deathworm.maxHealth * this.getScaleFactor()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.deathworm.targetSearchLength);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(1, IafCommonConfig.INSTANCE.deathworm.attackDamage.getDoubleValue() * this.getScaleFactor()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(6, IafCommonConfig.INSTANCE.deathworm.maxHealth.getDoubleValue() * this.getScaleFactor()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.deathworm.targetSearchLength.getIntegerValue());
         this.setHealth((float) this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getBaseValue());
     }
 

@@ -35,7 +35,7 @@ public class GorgonTempleStructure extends IafStructure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        if (!IafCommonConfig.INSTANCE.gorgon.generateTemple)
+        if (!IafCommonConfig.INSTANCE.gorgon.generateTemple.getBooleanValue())
             return Optional.empty();
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);

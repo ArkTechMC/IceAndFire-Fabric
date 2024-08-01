@@ -74,11 +74,11 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.troll.maxHealth)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.troll.maxHealth.getDoubleValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.troll.attackDamage)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.troll.attackDamage.getDoubleValue())
                 //KNOCKBACK RESIST
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 //ARMOR
@@ -87,8 +87,8 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.troll.maxHealth);
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.troll.attackDamage);
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.troll.maxHealth.getDoubleValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.troll.attackDamage.getDoubleValue());
     }
 
     private void setAvoidSun(boolean day) {
@@ -230,7 +230,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     protected void updatePostDeath() {
         super.updatePostDeath();
         if (this.deathTime == 20 && !this.getWorld().isClient) {
-            if (IafCommonConfig.INSTANCE.troll.dropWeapon) {
+            if (IafCommonConfig.INSTANCE.troll.dropWeapon.getBooleanValue()) {
                 if (this.getRandom().nextInt(3) == 0) {
                     ItemStack weaponStack = new ItemStack(this.getWeaponType().item, 1);
                     weaponStack.damage(this.getRandom().nextInt(250), this.getRandom(), null);

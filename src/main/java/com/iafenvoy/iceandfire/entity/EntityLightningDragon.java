@@ -54,7 +54,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     }
 
     public EntityLightningDragon(EntityType<?> t, World worldIn) {
-        super(t, worldIn, DragonType.LIGHTNING, 1, 1 + IafCommonConfig.INSTANCE.dragon.behaviour.attackDamage, IafCommonConfig.INSTANCE.dragon.maxHealth * 0.04, IafCommonConfig.INSTANCE.dragon.maxHealth, 0.15F, 0.4F);
+        super(t, worldIn, DragonType.LIGHTNING, 1, 1 + IafCommonConfig.INSTANCE.dragon.attackDamage.getIntegerValue(), IafCommonConfig.INSTANCE.dragon.maxHealth.getDoubleValue() * 0.04, IafCommonConfig.INSTANCE.dragon.maxHealth.getDoubleValue(), 0.15F, 0.4F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         ANIMATION_SPEAK = Animation.create(20);

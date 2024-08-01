@@ -99,8 +99,8 @@ public class IafDragonFlightManager {
                 this.target = new Vec3d(viewBlock.getX() + 0.5, viewBlock.getY() + 0.5, viewBlock.getZ() + 0.5);
         }
         if (this.target != null) {
-            if (this.target.y > IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight) {
-                this.target = new Vec3d(this.target.x, IafCommonConfig.INSTANCE.dragon.behaviour.maxFlight, this.target.z);
+            if (this.target.y > IafCommonConfig.INSTANCE.dragon.maxFlight.getIntegerValue()) {
+                this.target = new Vec3d(this.target.x, IafCommonConfig.INSTANCE.dragon.maxFlight.getIntegerValue(), this.target.z);
             }
             if (this.target.y >= this.dragon.getY() && !this.dragon.isModelDead())
                 this.dragon.setVelocity(this.dragon.getVelocity().add(0, 0.1D, 0));
@@ -283,7 +283,7 @@ public class IafDragonFlightManager {
         }
 
         public double speedMod() {
-            return (this.dragon instanceof EntityAmphithere ? 0.6D : 1.25D) * IafCommonConfig.INSTANCE.dragon.behaviour.dragonFlightSpeedMod * this.dragon.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
+            return (this.dragon instanceof EntityAmphithere ? 0.6D : 1.25D) * IafCommonConfig.INSTANCE.dragon.dragonFlightSpeedMod.getFloatValue() * this.dragon.getAttributeValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
         }
     }
 }

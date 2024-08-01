@@ -46,7 +46,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.dragon.generate.roostChance, context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.dragon.generateRoostChance.getDoubleValue(), context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
             return false;
         }
 

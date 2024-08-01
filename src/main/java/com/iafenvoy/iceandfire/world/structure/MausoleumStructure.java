@@ -34,7 +34,7 @@ public class MausoleumStructure extends IafStructure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        if (!IafCommonConfig.INSTANCE.worldGen.generateMausoleums)
+        if (!IafCommonConfig.INSTANCE.worldGen.generateMausoleums.getBooleanValue())
             return Optional.empty();
 
         ChunkPos pos = pContext.chunkPos();

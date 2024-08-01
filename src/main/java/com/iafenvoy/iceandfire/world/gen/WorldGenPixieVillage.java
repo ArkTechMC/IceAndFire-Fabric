@@ -31,11 +31,11 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
 
-        if (rand.nextInt(IafCommonConfig.INSTANCE.pixie.spawnChance) != 0 || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
+        if (rand.nextDouble() < IafCommonConfig.INSTANCE.pixie.spawnChance.getDoubleValue() || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
             return false;
         }
 
-        int maxRoads = IafCommonConfig.INSTANCE.pixie.size + rand.nextInt(5);
+        int maxRoads = IafCommonConfig.INSTANCE.pixie.size.getIntegerValue() + rand.nextInt(5);
         BlockPos buildPosition = position;
         int placedRoads = 0;
         while (placedRoads < maxRoads) {
@@ -51,9 +51,8 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
                 }
                 if (rand.nextInt(8) == 0) {
                     Direction houseDir = rand.nextBoolean() ? buildingDirection.rotateYClockwise() : buildingDirection.rotateYCounterclockwise();
-                    BlockState houseState = IafBlocks.PIXIE_HOUSE_OAK.getDefaultState();
                     int houseColor = rand.nextInt(5);
-                    houseState = switch (houseColor) {
+                    BlockState  houseState = switch (houseColor) {
                         case 0 ->
                                 IafBlocks.PIXIE_HOUSE_MUSHROOM_RED.getDefaultState().with(BlockPixieHouse.FACING, houseDir.getOpposite());
                         case 1 ->
@@ -66,7 +65,7 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
                                 IafBlocks.PIXIE_HOUSE_SPRUCE.getDefaultState().with(BlockPixieHouse.FACING, houseDir.getOpposite());
                         case 5 ->
                                 IafBlocks.PIXIE_HOUSE_DARK_OAK.getDefaultState().with(BlockPixieHouse.FACING, houseDir.getOpposite());
-                        default -> houseState;
+                        default -> IafBlocks.PIXIE_HOUSE_OAK.getDefaultState();
                     };
                     EntityPixie pixie = IafEntities.PIXIE.create(worldIn.toServerWorld());
                     assert pixie != null;

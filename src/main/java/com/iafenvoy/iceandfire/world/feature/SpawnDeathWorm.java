@@ -27,7 +27,7 @@ public class SpawnDeathWorm extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
 
         if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
-            if (rand.nextInt(IafCommonConfig.INSTANCE.deathworm.spawnChance + 1) == 0) {
+            if (rand.nextDouble() < IafCommonConfig.INSTANCE.deathworm.spawnChance.getDoubleValue()) {
                 EntityDeathWorm deathWorm = IafEntities.DEATH_WORM.create(worldIn.toServerWorld());
                 assert deathWorm != null;
                 deathWorm.setPosition(position.getX() + 0.5F, position.getY() + 1, position.getZ() + 0.5F);

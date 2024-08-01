@@ -37,13 +37,13 @@ public class IafDragonDestructionManager {
 
         if (dragon.dragonType == DragonType.FIRE) {
             statusDuration = 5 + dragon.getDragonStage() * 5;
-            damageScale = (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageFire;
+            damageScale =  IafCommonConfig.INSTANCE.dragon.attackDamageFire.getFloatValue();
         } else if (dragon.dragonType == DragonType.ICE) {
             statusDuration = 50 * dragon.getDragonStage();
-            damageScale = (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageIce;
+            damageScale =  IafCommonConfig.INSTANCE.dragon.attackDamageIce.getFloatValue();
         } else if (dragon.dragonType == DragonType.LIGHTNING) {
             statusDuration = 3;
-            damageScale = (float) IafCommonConfig.INSTANCE.dragon.behaviour.attackDamageLightning;
+            damageScale =  IafCommonConfig.INSTANCE.dragon.attackDamageLightning.getFloatValue();
         } else return;
 
         double damageRadius = 3.5;
@@ -171,7 +171,7 @@ public class IafDragonDestructionManager {
             }
         });
 
-        if (IafCommonConfig.INSTANCE.dragon.behaviour.explosiveBreath)
+        if (IafCommonConfig.INSTANCE.dragon.explosiveBreath.getBooleanValue())
             causeExplosion(level, center, dragon, damageSource, dragon.getDragonStage());
     }
 
