@@ -17,10 +17,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class IafWorldData extends PersistentState {
     private static final String IDENTIFIER = IceAndFire.MOD_ID + "_general";
-    private static final Map<FeatureType, List<Pair<String, BlockPos>>> LAST_GENERATED = new HashMap<>();
+    private static final Map<FeatureType, CopyOnWriteArrayList<Pair<String, BlockPos>>> LAST_GENERATED = new HashMap<>();
 
     public IafWorldData() { /* Nothing to do */ }
 
@@ -45,7 +46,7 @@ public class IafWorldData extends PersistentState {
     }
 
     public boolean check(final FeatureType type, final BlockPos position, final String id) {
-        List<Pair<String, BlockPos>> entries = LAST_GENERATED.computeIfAbsent(type, key -> new ArrayList<>());
+        CopyOnWriteArrayList<Pair<String, BlockPos>> entries = LAST_GENERATED.computeIfAbsent(type, key -> new CopyOnWriteArrayList<>());
 
         boolean canGenerate = true;
         Pair<String, BlockPos> toRemove = null;
@@ -77,7 +78,7 @@ public class IafWorldData extends PersistentState {
                 NbtCompound entry = list.getCompound(i);
                 String id = entry.getString("id");
                 BlockPos position = NbtHelper.toBlockPos(entry.getCompound("position"));
-                LAST_GENERATED.computeIfAbsent(type, key -> new ArrayList<>()).add(Pair.of(id, position));
+                LAST_GENERATED.computeIfAbsent(type, key -> new CopyOnWriteArrayList<>()).add(Pair.of(id, position));
             }
         }
 

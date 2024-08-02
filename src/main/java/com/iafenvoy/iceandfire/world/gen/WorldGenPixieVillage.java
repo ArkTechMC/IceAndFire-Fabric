@@ -31,7 +31,7 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
         Random rand = context.getRandom();
         BlockPos position = context.getOrigin();
 
-        if (rand.nextDouble() < IafCommonConfig.INSTANCE.pixie.spawnChance.getDoubleValue() || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
+        if (rand.nextDouble() >= IafCommonConfig.INSTANCE.pixie.spawnChance.getDoubleValue() || !IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
             return false;
         }
 
