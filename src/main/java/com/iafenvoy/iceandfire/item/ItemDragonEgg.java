@@ -14,15 +14,19 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ItemDragonEgg extends Item {
+    public static final Map<EnumDragonColor, Item> EGGS = new HashMap<>();
     public final EnumDragonColor type;
 
     public ItemDragonEgg(EnumDragonColor type) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
         this.type = type;
+        EGGS.put(type, this);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class ItemDragonEgg extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        tooltip.add(Text.translatable("dragon." + this.type.toString().toLowerCase(Locale.ROOT)).formatted(this.type.color));
+        tooltip.add(Text.translatable("dragon." + this.type.id().toLowerCase(Locale.ROOT)).formatted(this.type.color()));
     }
 
     @Override

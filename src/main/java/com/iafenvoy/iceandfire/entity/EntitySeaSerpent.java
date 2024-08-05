@@ -585,14 +585,11 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public boolean isTouchingMob(Entity entity) {
-        if (this.getBoundingBox().stretch(1, 1, 1).intersects(entity.getBoundingBox())) {
+        if (this.getBoundingBox().stretch(1, 1, 1).intersects(entity.getBoundingBox()))
             return true;
-        }
-        for (Entity segment : this.segments) {
-            if (segment.getBoundingBox().stretch(1, 1, 1).intersects(entity.getBoundingBox())) {
+        for (Entity segment : this.segments)
+            if (segment != null && segment.getBoundingBox().stretch(1, 1, 1).intersects(entity.getBoundingBox()))
                 return true;
-            }
-        }
         return false;
     }
 

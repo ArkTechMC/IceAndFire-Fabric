@@ -54,9 +54,9 @@ public class ModelDragonEgg<T extends LivingEntity> extends AdvancedEntityModel<
         this.Egg4.setPos(0.0F, -0.9F, 0.0F);
         if (entity instanceof EntityDragonEgg egg) {
             boolean isLocationValid = false;
-            if (egg.getEggType().dragonType == DragonType.FIRE)
+            if (egg.getEggType().dragonType() == DragonType.FIRE)
                 isLocationValid = egg.getWorld().getBlockState(egg.getBlockPos()).isIn(BlockTags.FIRE);
-            else if (egg.getEggType().dragonType == DragonType.LIGHTNING)
+            else if (egg.getEggType().dragonType() == DragonType.LIGHTNING)
                 isLocationValid = egg.getWorld().hasRain(egg.getBlockPos());
             if (isLocationValid) {
                 this.walk(this.Egg1, 0.3F, 0.3F, true, 1, 0, animationProgress, 1);

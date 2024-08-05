@@ -36,7 +36,7 @@ public class BlockEntityEggInIce extends BlockEntity {
             if (!level.isClient) {
                 EntityIceDragon dragon = new EntityIceDragon(level);
                 dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-                dragon.setVariant(entityEggInIce.type.ordinal() - 4);
+                dragon.setVariant(entityEggInIce.type.id());
                 dragon.setGender(ThreadLocalRandom.current().nextBoolean());
                 dragon.setTamed(true);
                 dragon.setHunger(50);
@@ -51,7 +51,7 @@ public class BlockEntityEggInIce extends BlockEntity {
 
     @Override
     public void writeNbt(NbtCompound tag) {
-        if (this.type != null) tag.putByte("Color", (byte) this.type.ordinal());
+        if (this.type != null) tag.putString("Color", this.type.id());
         else tag.putByte("Color", (byte) 0);
         tag.putInt("Age", this.age);
         if (this.ownerUUID == null) tag.putString("OwnerUUID", "");
@@ -61,7 +61,7 @@ public class BlockEntityEggInIce extends BlockEntity {
     @Override
     public void readNbt(NbtCompound tag) {
         super.readNbt(tag);
-        this.type = EnumDragonColor.values()[tag.getByte("Color")];
+        this.type = EnumDragonColor.getById(tag.getString("Color"));
         this.age = tag.getInt("Age");
         UUID s = null;
         if (tag.containsUuid("OwnerUUID"))

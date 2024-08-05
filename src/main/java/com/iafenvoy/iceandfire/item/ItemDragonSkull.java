@@ -1,6 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonSkull;
+import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -19,21 +20,11 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemDragonSkull extends Item {
-    private final int dragonType;
+    private final DragonType dragonType;
 
-    public ItemDragonSkull(int dragonType) {
+    public ItemDragonSkull(DragonType dragonType) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
         this.dragonType = dragonType;
-    }
-
-    public static String getName(int type) {
-        return "dragon_skull_%s".formatted(getType(type));
-    }
-
-    private static String getType(int type) {
-        if (type == 2) return "lightning";
-        else if (type == 1) return "ice";
-        else return "fire";
     }
 
     @Override
@@ -52,7 +43,7 @@ public class ItemDragonSkull extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        String iceorfire = "dragon." + getType(this.dragonType);
+        String iceorfire = "dragon." + this.dragonType.getName();
         tooltip.add(Text.translatable(iceorfire).formatted(Formatting.GRAY));
         if (stack.getNbt() != null)
             tooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(Text.literal(" " + stack.getNbt().getInt("Stage"))));
@@ -69,7 +60,7 @@ public class ItemDragonSkull extends Item {
          */
         if (stack.getNbt() != null) {
             EntityDragonSkull skull = new EntityDragonSkull(IafEntities.DRAGON_SKULL, context.getWorld());
-            skull.setDragonType(this.dragonType);
+            skull.setDragonType(this.dragonType.getName());
             skull.setStage(stack.getNbt().getInt("Stage"));
             skull.setDragonAge(stack.getNbt().getInt("DragonAge"));
             BlockPos offset = context.getBlockPos().offset(context.getSide(), 1);

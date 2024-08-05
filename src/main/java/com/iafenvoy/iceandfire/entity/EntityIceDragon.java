@@ -95,26 +95,6 @@ public class EntityIceDragon extends EntityDragonBase {
     }
 
     @Override
-    public Item getVariantScale(int variant) {
-        return switch (variant) {
-            default -> IafItems.DRAGONSCALES_BLUE;
-            case 1 -> IafItems.DRAGONSCALES_WHITE;
-            case 2 -> IafItems.DRAGONSCALES_SAPPHIRE;
-            case 3 -> IafItems.DRAGONSCALES_SILVER;
-        };
-    }
-
-    @Override
-    public Item getVariantEgg(int variant) {
-        return switch (variant) {
-            default -> IafItems.DRAGONEGG_BLUE;
-            case 1 -> IafItems.DRAGONEGG_WHITE;
-            case 2 -> IafItems.DRAGONEGG_SAPPHIRE;
-            case 3 -> IafItems.DRAGONEGG_SILVER;
-        };
-    }
-
-    @Override
     public boolean isPushedByFluids() {
         return false;
     }
@@ -634,11 +614,6 @@ public class EntityIceDragon extends EntityDragonBase {
     @Override
     public boolean useFlyingPathFinder() {
         return (this.isFlying() || this.isTouchingWater()) && this.getControllingPassenger() == null;
-    }
-
-    @Override
-    public Item getSummoningCrystal() {
-        return IafItems.SUMMONING_CRYSTAL_ICE;
     }
 
     @Override

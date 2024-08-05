@@ -8,8 +8,8 @@ import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
-import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.uranus.object.BlockUtil;
 import net.minecraft.block.BlockState;
@@ -24,6 +24,7 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.ServerConfigHandler;
@@ -37,9 +38,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromStatues, IDeadMob {
-
     protected static final TrackedData<Optional<UUID>> OWNER_UNIQUE_ID = DataTracker.registerData(EntityDragonEgg.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
-    private static final TrackedData<Integer> DRAGON_TYPE = DataTracker.registerData(EntityDragonEgg.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<String> DRAGON_TYPE = DataTracker.registerData(EntityDragonEgg.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> DRAGON_AGE = DataTracker.registerData(EntityDragonEgg.class, TrackedDataHandlerRegistry.INTEGER);
 
     public EntityDragonEgg(EntityType<EntityDragonEgg> type, World worldIn) {
@@ -57,7 +57,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
-        tag.putInt("Color", (byte) this.getEggType().ordinal());
+        tag.putString("Color", this.getEggType().id());
         tag.putInt("DragonAge", this.getDragonAge());
         try {
             if (this.getOwnerId() == null) {
@@ -73,7 +73,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
-        this.setEggType(EnumDragonColor.values()[tag.getInt("Color")]);
+        this.setEggType(EnumDragonColor.getById(tag.getString("Color")));
         this.setDragonAge(tag.getInt("DragonAge"));
         String s;
 
@@ -92,7 +92,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.getDataTracker().startTracking(DRAGON_TYPE, 0);
+        this.getDataTracker().startTracking(DRAGON_TYPE, EnumDragonColor.RED.toString());
         this.getDataTracker().startTracking(DRAGON_AGE, 0);
         this.getDataTracker().startTracking(OWNER_UNIQUE_ID, Optional.empty());
     }
@@ -106,11 +106,11 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     public EnumDragonColor getEggType() {
-        return EnumDragonColor.values()[this.getDataTracker().get(DRAGON_TYPE)];
+        return EnumDragonColor.getById(this.getDataTracker().get(DRAGON_TYPE));
     }
 
     public void setEggType(EnumDragonColor newtype) {
-        this.getDataTracker().set(DRAGON_TYPE, newtype.ordinal());
+        this.getDataTracker().set(DRAGON_TYPE, newtype.id());
     }
 
     @Override
@@ -136,7 +136,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     public void updateEggCondition() {
-        DragonType dragonType = this.getEggType().dragonType;
+        DragonType dragonType = this.getEggType().dragonType();
 
         if (dragonType == DragonType.FIRE) {
             if (BlockUtil.isBurning(this.getWorld().getBlockState(this.getBlockPos()))) {
@@ -171,14 +171,8 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
                 dragon.setCustomName(this.getCustomName());
             }
 
-            if (dragonType == DragonType.LIGHTNING) {
-                assert dragon != null;
-                dragon.setVariant(this.getEggType().ordinal() - 8);
-            } else {
-                assert dragon != null;
-                dragon.setVariant(this.getEggType().ordinal());
-            }
-
+            assert dragon != null;
+            dragon.setVariant(this.getEggType().id());
             dragon.setGender(this.getRandom().nextBoolean());
             dragon.setPosition(this.getBlockPos().getX() + 0.5, this.getBlockPos().getY() + 1, this.getBlockPos().getZ() + 0.5);
             dragon.setHunger(50);
@@ -236,7 +230,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
 
     @Override
     public boolean damage(DamageSource var1, float var2) {
-        if (var1.isIn(DamageTypeTags.IS_FIRE) && this.getEggType().dragonType == DragonType.FIRE)
+        if (var1.isIn(DamageTypeTags.IS_FIRE) && this.getEggType().dragonType() == DragonType.FIRE)
             return false;
         if (!this.getWorld().isClient && !var1.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY) && !this.isRemoved()) {
             this.dropItem(this.getItem().getItem(), 1);
@@ -246,20 +240,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     private ItemStack getItem() {
-        return switch (this.getEggType().ordinal()) {
-            default -> new ItemStack(IafItems.DRAGONEGG_RED);
-            case 1 -> new ItemStack(IafItems.DRAGONEGG_GREEN);
-            case 2 -> new ItemStack(IafItems.DRAGONEGG_BRONZE);
-            case 3 -> new ItemStack(IafItems.DRAGONEGG_GRAY);
-            case 4 -> new ItemStack(IafItems.DRAGONEGG_BLUE);
-            case 5 -> new ItemStack(IafItems.DRAGONEGG_WHITE);
-            case 6 -> new ItemStack(IafItems.DRAGONEGG_SAPPHIRE);
-            case 7 -> new ItemStack(IafItems.DRAGONEGG_SILVER);
-            case 8 -> new ItemStack(IafItems.DRAGONEGG_ELECTRIC);
-            case 9 -> new ItemStack(IafItems.DRAGONEGG_amethyst);
-            case 10 -> new ItemStack(IafItems.DRAGONEGG_COPPER);
-            case 11 -> new ItemStack(IafItems.DRAGONEGG_BLACK);
-        };
+        return new ItemStack(ItemDragonEgg.EGGS.getOrDefault(this.getEggType(), Items.AIR));
     }
 
     @Override

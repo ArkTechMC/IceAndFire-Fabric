@@ -3,6 +3,8 @@ package com.iafenvoy.iceandfire.world.gen;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
+import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.util.WorldUtil;
 import com.iafenvoy.iceandfire.world.IafWorldData;
@@ -15,13 +17,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-import java.util.Random;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig> implements TypedFeature {
@@ -46,20 +49,21 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.dragon.generateRoostChance.getDoubleValue(), context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), true)) {
+        Random random = context.getRandom();
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.dragon.generateRoostChance.getDoubleValue(), context.getWorld(), random, context.getOrigin(), this.getId(), true)) {
             return false;
         }
 
-        boolean isMale = new Random().nextBoolean();
+        boolean isMale = random.nextBoolean();
         int radius = 12 + context.getRandom().nextInt(8);
 
-        this.spawnDragon(context, radius, isMale);
+        this.spawnDragon(context, random, radius, isMale);
         this.generateSurface(context, radius);
         this.generateShell(context, radius);
         radius -= 2;
         this.hollowOut(context, radius);
         radius += 15;
-        this.generateDecoration(context, radius, isMale);
+        this.generateDecoration(context, random, radius, isMale);
 
         return true;
     }
@@ -98,7 +102,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         return this.transform(block.getDefaultState());
     }
 
-    private void generateDecoration(final FeatureContext<DefaultFeatureConfig> context, int radius, boolean isMale) {
+    private void generateDecoration(final FeatureContext<DefaultFeatureConfig> context, final Random random, int radius, boolean isMale) {
         int height = (radius / 5);
         double circularArea = this.getCircularArea(radius, height);
 
@@ -132,7 +136,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
                 if (distance < 0.3D && context.getRandom().nextInt(isMale ? 500 : 700) == 0) {
                     // TODO :: Using non-world-generation since that one does not seem to keep track of blcks we remove / place ourselves (maybe due to Block.UPDATE_CLIENTS usage?)
                     BlockPos surfacePosition = context.getWorld().getTopPosition(Heightmap.Type.WORLD_SURFACE, position);
-                    boolean wasPlaced = context.getWorld().setBlockState(surfacePosition, Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, HORIZONTALS[new Random().nextInt(3)]), Block.NOTIFY_LISTENERS);
+                    boolean wasPlaced = context.getWorld().setBlockState(surfacePosition, Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, HORIZONTALS[random.nextInt(3)]), Block.NOTIFY_LISTENERS);
 
                     if (wasPlaced) {
                         BlockEntity blockEntity = context.getWorld().getBlockEntity(surfacePosition);
@@ -194,7 +198,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         });
     }
 
-    private void generateTreasurePile(final StructureWorldAccess level, final net.minecraft.util.math.random.Random random, final BlockPos origin) {
+    private void generateTreasurePile(final StructureWorldAccess level, final Random random, final BlockPos origin) {
         int layers = random.nextInt(3);
 
         for (int i = 0; i < layers; i++) {
@@ -226,14 +230,15 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         }
     }
 
-    private void spawnDragon(final FeatureContext<DefaultFeatureConfig> context, int ageOffset, boolean isMale) {
+    private void spawnDragon(final FeatureContext<DefaultFeatureConfig> context, final Random random, int ageOffset, boolean isMale) {
         EntityDragonBase dragon = this.getDragonType().create(context.getWorld().toServerWorld());
         assert dragon != null;
         dragon.setGender(isMale);
         dragon.growDragon(40 + ageOffset);
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
-        dragon.setVariant(new Random().nextInt(4));
+        List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(DragonType.getTypeByEntityType(this.getDragonType()));
+        dragon.setVariant(colors.get(random.nextInt(colors.size())).id());
         dragon.updatePositionAndAngles(context.getOrigin().getX() + 0.5, context.getWorld().getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, context.getOrigin()).getY() + 1.5, context.getOrigin().getZ() + 0.5, context.getRandom().nextFloat() * 360, 0);
         dragon.homePos = new HomePosition(context.getOrigin(), context.getWorld().toServerWorld());
         dragon.hasHomePosition = true;

@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.render.entity;
 import com.google.common.collect.Maps;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonArmor;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonBanner;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonEyes;
@@ -52,21 +52,15 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
 
     @Override
     public Identifier getTexture(EntityDragonBase entity) {
-        String baseTexture = entity.getVariantName(entity.getVariant()) + entity.getDragonStage() + entity.isModelDead() + entity.isMale() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
+        String baseTexture = entity.getVariant() + entity.getDragonStage() + entity.isModelDead() + entity.isMale() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
         Identifier resourcelocation = this.LAYERED_TEXTURE_CACHE.get(baseTexture);
         if (resourcelocation == null) {
             resourcelocation = new Identifier(IceAndFire.MOD_ID, "dragon_texture_" + baseTexture);
             List<String> tex = new ArrayList<>();
-            tex.add(EnumDragonTextures.getTextureFromDragon(entity).toString());
-            if (entity.isMale() && !entity.isSkeletal()) {
-                if (this.dragonType == 0)
-                    tex.add(EnumDragonTextures.getDragonEnum(entity).FIRE_MALE_OVERLAY.toString());
-                else if (this.dragonType == 1)
-                    tex.add(EnumDragonTextures.getDragonEnum(entity).ICE_MALE_OVERLAY.toString());
-                else if (this.dragonType == 2)
-                    tex.add(EnumDragonTextures.getDragonEnum(entity).LIGHTNING_MALE_OVERLAY.toString());
-            } else
-                tex.add(new Identifier(IceAndFire.MOD_ID, "textures/models/empty.png").toString());
+            EnumDragonColor color = EnumDragonColor.getById(entity.getVariant());
+            tex.add(color.getTextureByEntity(entity).toString());
+            if (entity.isMale() && !entity.isSkeletal()) tex.add(color.getMaleOverlay().toString());
+            else tex.add(new Identifier(IceAndFire.MOD_ID, "textures/models/empty.png").toString());
             ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
             MinecraftClient.getInstance().getTextureManager().registerTexture(resourcelocation, layeredBase);
             this.LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);

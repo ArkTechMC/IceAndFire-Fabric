@@ -3,6 +3,7 @@ package com.iafenvoy.iceandfire.registry;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.compat.delight.DelightFoodItem;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.enums.*;
 import com.iafenvoy.iceandfire.item.*;
 import com.iafenvoy.iceandfire.item.armor.*;
@@ -118,7 +119,7 @@ public class IafItems {
     public static final Item DRAGONEGG_SAPPHIRE = register("dragonegg_sapphire", new ItemDragonEgg(EnumDragonColor.SAPPHIRE));
     public static final Item DRAGONEGG_SILVER = register("dragonegg_silver", new ItemDragonEgg(EnumDragonColor.SILVER));
     public static final Item DRAGONEGG_ELECTRIC = register("dragonegg_electric", new ItemDragonEgg(EnumDragonColor.ELECTRIC));
-    public static final Item DRAGONEGG_amethyst = register("dragonegg_amethyst", new ItemDragonEgg(EnumDragonColor.AMETHYST));
+    public static final Item DRAGONEGG_AMETHYST = register("dragonegg_amethyst", new ItemDragonEgg(EnumDragonColor.AMETHYST));
     public static final Item DRAGONEGG_COPPER = register("dragonegg_copper", new ItemDragonEgg(EnumDragonColor.COPPER));
     public static final Item DRAGONEGG_BLACK = register("dragonegg_black", new ItemDragonEgg(EnumDragonColor.BLACK));
     public static final Item DRAGONSCALES_RED = register("dragonscales_red", new ItemDragonScales(EnumDragonColor.RED));
@@ -130,7 +131,7 @@ public class IafItems {
     public static final Item DRAGONSCALES_SAPPHIRE = register("dragonscales_sapphire", new ItemDragonScales(EnumDragonColor.SAPPHIRE));
     public static final Item DRAGONSCALES_SILVER = register("dragonscales_silver", new ItemDragonScales(EnumDragonColor.SILVER));
     public static final Item DRAGONSCALES_ELECTRIC = register("dragonscales_electric", new ItemDragonScales(EnumDragonColor.ELECTRIC));
-    public static final Item DRAGONSCALES_amethyst = register("dragonscales_amethyst", new ItemDragonScales(EnumDragonColor.AMETHYST));
+    public static final Item DRAGONSCALES_AMETHYST = register("dragonscales_amethyst", new ItemDragonScales(EnumDragonColor.AMETHYST));
     public static final Item DRAGONSCALES_COPPER = register("dragonscales_copper", new ItemDragonScales(EnumDragonColor.COPPER));
     public static final Item DRAGONSCALES_BLACK = register("dragonscales_black", new ItemDragonScales(EnumDragonColor.BLACK));
     public static final Item DRAGON_BONE = register("dragonbone", new Item(new FabricItemSettings()));
@@ -147,9 +148,9 @@ public class IafItems {
     public static final Item DRAGONBONE_SWORD_LIGHTNING = register("dragonbone_sword_lightning", new ItemAlchemySword(LIGHTNING_DRAGONBONE_TOOL_MATERIAL));
     public static final Item DRAGONBONE_ARROW = register("dragonbone_arrow", new ItemDragonArrow());
     public static final Item DRAGON_BOW = register("dragonbone_bow", new ItemDragonBow());
-    public static final Item DRAGON_SKULL_FIRE = register(ItemDragonSkull.getName(0), new ItemDragonSkull(0));
-    public static final Item DRAGON_SKULL_ICE = register(ItemDragonSkull.getName(1), new ItemDragonSkull(1));
-    public static final Item DRAGON_SKULL_LIGHTNING = register(ItemDragonSkull.getName(2), new ItemDragonSkull(2));
+    public static final Item DRAGON_SKULL_FIRE = register("dragon_skull_fire", new ItemDragonSkull(DragonType.FIRE));
+    public static final Item DRAGON_SKULL_ICE = register("dragon_skull_ice", new ItemDragonSkull(DragonType.ICE));
+    public static final Item DRAGON_SKULL_LIGHTNING = register("dragon_skull_lightning", new ItemDragonSkull(DragonType.LIGHTNING));
     public static final ItemDragonArmor DRAGONARMOR_IRON_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.IRON);
     public static final ItemDragonArmor DRAGONARMOR_IRON_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.IRON);
     public static final ItemDragonArmor DRAGONARMOR_IRON_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.IRON);
@@ -442,8 +443,8 @@ public class IafItems {
         IafItems.FIRE_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
         IafItems.ICE_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
         IafItems.LIGHTNING_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
-        for (EnumDragonArmor armor : EnumDragonArmor.values())
-            armor.armorMaterial.setRepairMaterial(Ingredient.ofItems(EnumDragonArmor.getScaleItem(armor)));
+        for (EnumDragonArmor armor : EnumDragonArmor.ARMORS)
+            armor.armorMaterial.setRepairMaterial(Ingredient.ofItems(armor.getScaleItem()));
         IafItems.DRAGONSTEEL_FIRE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_FIRE_INGOT));
         IafItems.DRAGONSTEEL_ICE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_ICE_INGOT));
         IafItems.DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_LIGHTNING_INGOT));

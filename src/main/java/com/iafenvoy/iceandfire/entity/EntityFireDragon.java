@@ -91,36 +91,6 @@ public class EntityFireDragon extends EntityDragonBase {
     }
 
     @Override
-    public Item getVariantScale(int variant) {
-        return switch (variant) {
-            default -> IafItems.DRAGONSCALES_RED;
-            case 1 -> IafItems.DRAGONSCALES_GREEN;
-            case 2 -> IafItems.DRAGONSCALES_BRONZE;
-            case 3 -> IafItems.DRAGONSCALES_GRAY;
-        };
-    }
-
-    @Override
-    public Item getVariantEgg(int variant) {
-        return switch (variant) {
-            default -> IafItems.DRAGONEGG_RED;
-            case 1 -> IafItems.DRAGONEGG_GREEN;
-            case 2 -> IafItems.DRAGONEGG_BRONZE;
-            case 3 -> IafItems.DRAGONEGG_GRAY;
-        };
-    }
-
-    @Override
-    public Item getSummoningCrystal() {
-        return IafItems.SUMMONING_CRYSTAL_FIRE;
-    }
-
-/*    @Override
-    public boolean canBeControlledByRider() {
-        return true;
-    }*/
-
-    @Override
     public boolean tryAttack(Entity entityIn) {
         this.getLookControl().lookAt(entityIn, 30.0F, 30.0F);
         if (!this.isPlayingAttackAnimation()) {

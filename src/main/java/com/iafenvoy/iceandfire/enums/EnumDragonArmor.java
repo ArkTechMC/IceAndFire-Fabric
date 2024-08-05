@@ -12,24 +12,28 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Supplier;
 
-public enum EnumDragonArmor {
-    RED(12, EnumDragonColor.RED),
-    BRONZE(13, EnumDragonColor.BRONZE),
-    GREEN(14, EnumDragonColor.GREEN),
-    GRAY(15, EnumDragonColor.GRAY),
-    BLUE(12, EnumDragonColor.BLUE),
-    WHITE(13, EnumDragonColor.WHITE),
-    SAPPHIRE(14, EnumDragonColor.SAPPHIRE),
-    SILVER(15, EnumDragonColor.SILVER),
-    ELECTRIC(12, EnumDragonColor.ELECTRIC),
-    AMETHYST(13, EnumDragonColor.AMETHYST),
-    COPPER(14, EnumDragonColor.COPPER),
-    BLACK(15, EnumDragonColor.BLACK);
+public class EnumDragonArmor {
+    public static final List<EnumDragonArmor> ARMORS = new ArrayList<>();
+    public static final EnumDragonArmor RED = new EnumDragonArmor(EnumDragonColor.RED, () -> IafItems.DRAGONSCALES_RED);
+    public static final EnumDragonArmor BRONZE = new EnumDragonArmor(EnumDragonColor.BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
+    public static final EnumDragonArmor GREEN = new EnumDragonArmor(EnumDragonColor.GREEN, () -> IafItems.DRAGONSCALES_GREEN);
+    public static final EnumDragonArmor GRAY = new EnumDragonArmor(EnumDragonColor.GRAY, () -> IafItems.DRAGONSCALES_GRAY);
+    public static final EnumDragonArmor BLUE = new EnumDragonArmor(EnumDragonColor.BLUE, () -> IafItems.DRAGONSCALES_BLUE);
+    public static final EnumDragonArmor WHITE = new EnumDragonArmor(EnumDragonColor.WHITE, () -> IafItems.DRAGONSCALES_WHITE);
+    public static final EnumDragonArmor SAPPHIRE = new EnumDragonArmor(EnumDragonColor.SAPPHIRE, () -> IafItems.DRAGONSCALES_SAPPHIRE);
+    public static final EnumDragonArmor SILVER = new EnumDragonArmor(EnumDragonColor.SILVER, () -> IafItems.DRAGONSCALES_SILVER);
+    public static final EnumDragonArmor ELECTRIC = new EnumDragonArmor(EnumDragonColor.ELECTRIC, () -> IafItems.DRAGONSCALES_ELECTRIC);
+    public static final EnumDragonArmor AMETHYST = new EnumDragonArmor(EnumDragonColor.AMETHYST, () -> IafItems.DRAGONSCALES_AMETHYST);
+    public static final EnumDragonArmor COPPER = new EnumDragonArmor(EnumDragonColor.COPPER, () -> IafItems.DRAGONSCALES_COPPER);
+    public static final EnumDragonArmor BLACK = new EnumDragonArmor(EnumDragonColor.BLACK, () -> IafItems.DRAGONSCALES_BLACK);
 
-    public final int armorId;
-    public final EnumDragonColor color;
+    private final EnumDragonColor color;
+    private final Supplier<Item> repairItem;
     public CustomArmorMaterial material;
     public Item helmet;
     public Item chestplate;
@@ -37,16 +41,17 @@ public enum EnumDragonArmor {
     public Item boots;
     public CustomArmorMaterial armorMaterial;
 
-    EnumDragonArmor(int armorId, EnumDragonColor color) {
-        this.armorId = armorId;
+    public EnumDragonArmor(EnumDragonColor color, Supplier<Item> repairItem) {
         this.color = color;
+        this.repairItem = repairItem;
+        ARMORS.add(this);
     }
 
     public static void initArmors() {
-        for (int i = 0; i < EnumDragonArmor.values().length; i++) {
-            EnumDragonArmor value = EnumDragonArmor.values()[i];
+        for (int i = 0; i < ARMORS.size(); i++) {
+            EnumDragonArmor value = ARMORS.get(i);
             value.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "armor_dragon_scales" + (i + 1)), 36, new int[]{5, 7, 9, 5}, 15, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2);
-            String sub = "armor_" + value.name().toLowerCase(Locale.ROOT);
+            String sub = "armor_" + value.color.id().toLowerCase(Locale.ROOT);
 
             value.helmet = IafItems.register(sub + "_helmet", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.HELMET));
             value.chestplate = IafItems.register(sub + "_chestplate", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.CHESTPLATE));
@@ -55,26 +60,17 @@ public enum EnumDragonArmor {
         }
     }
 
-    public static Item getScaleItem(EnumDragonArmor armor) {
-        return switch (armor) {
-            case BRONZE -> IafItems.DRAGONSCALES_BRONZE;
-            case GREEN -> IafItems.DRAGONSCALES_GREEN;
-            case GRAY -> IafItems.DRAGONSCALES_GRAY;
-            case BLUE -> IafItems.DRAGONSCALES_BLUE;
-            case WHITE -> IafItems.DRAGONSCALES_WHITE;
-            case SAPPHIRE -> IafItems.DRAGONSCALES_SAPPHIRE;
-            case SILVER -> IafItems.DRAGONSCALES_SILVER;
-            case ELECTRIC -> IafItems.DRAGONSCALES_ELECTRIC;
-            case AMETHYST -> IafItems.DRAGONSCALES_amethyst;
-            case COPPER -> IafItems.DRAGONSCALES_COPPER;
-            case BLACK -> IafItems.DRAGONSCALES_BLACK;
-            default -> IafItems.DRAGONSCALES_RED;
-        };
+    public Item getScaleItem() {
+        return this.repairItem.get();
+    }
+
+    public EnumDragonColor getColor() {
+        return this.color;
     }
 
     public static int getArmorOrdinal(ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem)
-            return armorItem.type.ordinal() + 1;
+            return EnumDragonArmorMaterial.MATERIALS.indexOf(armorItem.type) + 1;
         return 0;
     }
 }

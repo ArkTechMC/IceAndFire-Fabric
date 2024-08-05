@@ -15,6 +15,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
@@ -23,20 +24,7 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
     }
 
     protected static RenderLayer getEggTexture(EnumDragonColor type) {
-        return switch (type) {
-            default -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_RED);
-            case GREEN -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_GREEN);
-            case BRONZE -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_BRONZE);
-            case GRAY -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_GREY);
-            case BLUE -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_BLUE);
-            case WHITE -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_WHITE);
-            case SAPPHIRE -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_SAPPHIRE);
-            case SILVER -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_SILVER);
-            case ELECTRIC -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_ELECTRIC);
-            case AMETHYST -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_amethyst);
-            case COPPER -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_COPPER);
-            case BLACK -> RenderLayer.getEntityCutout(RenderDragonEgg.EGG_BLACK);
-        };
+        return RenderLayer.getEntityCutout(type.getEggTexture());
     }
 
     @Override

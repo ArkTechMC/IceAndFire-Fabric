@@ -111,7 +111,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     private static final TrackedData<Integer> HUNGER = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> AGE_TICKS = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> GENDER = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<String> VARIANT = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Boolean> SLEEPING = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> FIREBREATHING = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> HOVERING = DataTracker.registerData(EntityDragonBase.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -624,7 +624,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.dataTracker.startTracking(HUNGER, 0);
         this.dataTracker.startTracking(AGE_TICKS, 0);
         this.dataTracker.startTracking(GENDER, false);
-        this.dataTracker.startTracking(VARIANT, 0);
+        this.dataTracker.startTracking(VARIANT, EnumDragonColor.RED.id());
         this.dataTracker.startTracking(SLEEPING, false);
         this.dataTracker.startTracking(FIREBREATHING, false);
         this.dataTracker.startTracking(HOVERING, false);
@@ -738,7 +738,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         compound.putInt("Hunger", this.getHunger());
         compound.putInt("AgeTicks", this.getAgeInTicks());
         compound.putBoolean("Gender", this.isMale());
-        compound.putInt("Variant", this.getVariant());
+        compound.putString("Variant", this.getVariant());
         compound.putBoolean("Sleeping", this.isSleeping());
         compound.putBoolean("TamedDragon", this.isTamed());
         compound.putBoolean("FireBreathing", this.isBreathingFire());
@@ -781,7 +781,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.setHunger(compound.getInt("Hunger"));
         this.setAgeInTicks(compound.getInt("AgeTicks"));
         this.setGender(compound.getBoolean("Gender"));
-        this.setVariant(compound.getInt("Variant"));
+        this.setVariant(compound.getString("Variant"));
         this.setInSittingPose(compound.getBoolean("Sleeping"));
         this.setTamed(compound.getBoolean("TamedDragon"));
         this.setBreathingFire(compound.getBoolean("FireBreathing"));
@@ -905,11 +905,11 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.dataTracker.set(HUNGER, MathHelper.clamp(hunger, 0, 100));
     }
 
-    public int getVariant() {
+    public String getVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
-    public void setVariant(int variant) {
+    public void setVariant(String variant) {
         this.dataTracker.set(VARIANT, variant);
     }
 
@@ -1104,7 +1104,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             this.remove(RemovalReason.DISCARDED);
                         } else if (this.getDeathStage() == (lastDeathStage / 2) - 1 && IafCommonConfig.INSTANCE.dragon.lootHeart.getBooleanValue()) {
                             ItemStack heart = new ItemStack(this.getHeartItem(), 1);
-                            ItemStack egg = new ItemStack(this.getVariantEgg(this.random.nextInt(4)), 1);
+                            List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
+                            ItemStack egg = new ItemStack(colors.get(this.random.nextInt(colors.size())).getEggItem(), 1);
                             if (!this.getWorld().isClient) {
                                 this.dropStack(heart, 1);
                                 if (!this.isMale() && this.getDragonStage() > 3) {
@@ -1162,7 +1163,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 return ActionResult.SUCCESS;
             }
             if (this.isOwner(player)) {
-                if (stack.getItem() == this.getSummoningCrystal() && !ItemSummoningCrystal.hasDragon(stack)) {
+                if (stack.getItem() == this.dragonType.getCrystalItem() && !ItemSummoningCrystal.hasDragon(stack)) {
                     this.setCrystalBound(true);
                     NbtCompound compound = stack.getOrCreateNbt();
                     NbtCompound dragonTag = new NbtCompound();
@@ -1582,17 +1583,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     public int getDragonStage() {
         final int age = this.getAgeInDays();
-        if (age >= 100) {
-            return 5;
-        } else if (age >= 75) {
-            return 4;
-        } else if (age >= 50) {
-            return 3;
-        } else if (age >= 25) {
-            return 2;
-        } else {
-            return 1;
-        }
+        if (age >= 100) return 5;
+        else if (age >= 75) return 4;
+        else if (age >= 50) return 3;
+        else if (age >= 25) return 2;
+        else return 1;
+
     }
 
     public boolean isTeen() {
@@ -1615,7 +1611,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.setGender(this.getRandom().nextBoolean());
         final int age = this.getRandom().nextInt(80) + 1;
         this.growDragon(age);
-        this.setVariant(new Random().nextInt(4));
+        List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
+        this.setVariant(colors.get(new Random().nextInt(colors.size())).id());
         this.setInSittingPose(false);
         final double healthStep = (this.maximumHealth - this.minimumHealth) / 125;
         this.heal((Math.round(this.minimumHealth + (healthStep * age))));
@@ -1962,12 +1959,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         final float f2 = (float) (this.getZ() - Vector3d.z);
         return f * f + f1 * f1 + f2 * f2;
     }
-
-    public abstract Item getVariantScale(int variant);
-
-    public abstract Item getVariantEgg(int variant);
-
-    public abstract Item getSummoningCrystal();
 
     @Override
     public boolean isImmobile() {

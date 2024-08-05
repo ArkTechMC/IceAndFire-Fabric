@@ -119,26 +119,6 @@ public class EntityLightningDragon extends EntityDragonBase {
         return super.isInvulnerableTo(i);
     }
 
-    @Override
-    public Item getVariantScale(int variant) {
-        return switch (variant) {
-            default -> IafItems.DRAGONSCALES_ELECTRIC;
-            case 1 -> IafItems.DRAGONSCALES_amethyst;
-            case 2 -> IafItems.DRAGONSCALES_COPPER;
-            case 3 -> IafItems.DRAGONSCALES_BLACK;
-        };
-    }
-
-    @Override
-    public Item getVariantEgg(int variant) {
-        return switch (variant) {
-            default -> IafItems.DRAGONEGG_ELECTRIC;
-            case 1 -> IafItems.DRAGONEGG_amethyst;
-            case 2 -> IafItems.DRAGONEGG_COPPER;
-            case 3 -> IafItems.DRAGONEGG_BLACK;
-        };
-    }
-
     public void setHasLightningTarget(boolean lightning_target) {
         this.dataTracker.set(HAS_LIGHTNING_TARGET, lightning_target);
     }
@@ -164,16 +144,6 @@ public class EntityLightningDragon extends EntityDragonBase {
     public float getLightningTargetZ() {
         return this.dataTracker.get(LIGHTNING_TARGET_Z);
     }
-
-    @Override
-    public Item getSummoningCrystal() {
-        return IafItems.SUMMONING_CRYSTAL_LIGHTNING;
-    }
-
-/*    @Override
-    public boolean canBeControlledByRider() {
-        return true;
-    }*/
 
     @Override
     public boolean tryAttack(Entity entityIn) {

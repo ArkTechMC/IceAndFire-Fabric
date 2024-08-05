@@ -4,7 +4,7 @@ import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.entity.EntityLightningDragon;
-import com.iafenvoy.iceandfire.enums.EnumDragonTextures;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.TabulaModel;
@@ -42,7 +42,7 @@ public class LayerDragonEyes extends FeatureRenderer<EntityDragonBase, AdvancedE
     @Override
     public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityDragonBase dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (dragon.shouldRenderEyes()) {
-            RenderLayer eyes = RenderLayer.getEyes(EnumDragonTextures.getEyeTextureFromDragon(dragon));
+            RenderLayer eyes = RenderLayer.getEyes(EnumDragonColor.getById(dragon.getVariant()).getEyesTexture(dragon.getDragonStage()));
             VertexConsumer ivertexbuilder = bufferIn.getBuffer(eyes);
             if (dragon instanceof EntityLightningDragon && this.lightningHead != null) {
                 this.copyPositions(this.lightningHead, (TabulaModel) this.getContextModel());

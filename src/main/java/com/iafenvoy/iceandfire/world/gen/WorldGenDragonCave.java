@@ -3,6 +3,8 @@ package com.iafenvoy.iceandfire.world.gen;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
+import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.registry.IafFeatures;
 import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
@@ -195,7 +197,8 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         dragon.growDragon(dragonAge);
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
-        dragon.setVariant(random.nextInt(4));
+        List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(DragonType.getTypeByEntityType(this.getDragonType()));
+        dragon.setVariant(colors.get(random.nextInt(colors.size())).id());
         dragon.updatePositionAndAngles(position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5, random.nextFloat() * 360, 0);
         dragon.setInSittingPose(true);
         dragon.homePos = new HomePosition(position, worldGen.toServerWorld());

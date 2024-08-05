@@ -13,14 +13,12 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
-import java.util.Locale;
-
 public class ScaleArmorRenderer extends ArmorRendererImpl {
     @Override
     public ArmorModelBase getHumanoidArmorModel(ItemStack itemStack, EquipmentSlot armorSlot) {
         boolean inner = armorSlot == EquipmentSlot.LEGS || armorSlot == EquipmentSlot.HEAD;
         if (itemStack.getItem() instanceof ItemScaleArmor scaleArmor) {
-            DragonType dragonType = scaleArmor.armor_type.color.dragonType;
+            DragonType dragonType = scaleArmor.armor_type.getColor().dragonType();
             if (DragonType.FIRE == dragonType) return new ModelFireDragonScaleArmor(inner);
             if (DragonType.ICE == dragonType) return new ModelIceDragonScaleArmor(inner);
             if (DragonType.LIGHTNING == dragonType) return new ModelLightningDragonScaleArmor(inner);
@@ -31,6 +29,6 @@ public class ScaleArmorRenderer extends ArmorRendererImpl {
     @Override
     public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         EnumDragonArmor armor_type = ((ItemScaleArmor) stack.getItem()).armor_type;
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_" + armor_type.name().toLowerCase(Locale.ROOT) + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_" + armor_type.getColor().id() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 }

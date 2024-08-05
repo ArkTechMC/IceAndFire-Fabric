@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
+import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -26,7 +27,7 @@ import net.minecraft.world.World;
 
 public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromStatues, IDeadMob {
 
-    private static final TrackedData<Integer> DRAGON_TYPE = DataTracker.registerData(EntityDragonSkull.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<String> DRAGON_TYPE = DataTracker.registerData(EntityDragonSkull.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Integer> DRAGON_AGE = DataTracker.registerData(EntityDragonSkull.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> DRAGON_STAGE = DataTracker.registerData(EntityDragonSkull.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Float> DRAGON_DIRECTION = DataTracker.registerData(EntityDragonSkull.class, TrackedDataHandlerRegistry.FLOAT);
@@ -82,7 +83,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.getDataTracker().startTracking(DRAGON_TYPE, 0);
+        this.getDataTracker().startTracking(DRAGON_TYPE, DragonType.FIRE.getName());
         this.getDataTracker().startTracking(DRAGON_AGE, 0);
         this.getDataTracker().startTracking(DRAGON_STAGE, 0);
         this.getDataTracker().startTracking(DRAGON_DIRECTION, 0F);
@@ -98,11 +99,11 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
         this.getDataTracker().set(DRAGON_DIRECTION, var1);
     }
 
-    public int getDragonType() {
+    public String getDragonType() {
         return this.getDataTracker().get(DRAGON_TYPE);
     }
 
-    public void setDragonType(int var1) {
+    public void setDragonType(String var1) {
         this.getDataTracker().set(DRAGON_TYPE, var1);
     }
 
@@ -148,11 +149,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
     }
 
     public Item getDragonSkullItem() {
-        return switch (this.getDragonType()) {
-            case 1 -> IafItems.DRAGON_SKULL_ICE;
-            case 2 -> IafItems.DRAGON_SKULL_LIGHTNING;
-            default -> IafItems.DRAGON_SKULL_FIRE;
-        };
+        return DragonType.getTypeById(this.getDragonType()).getSkullItem();
     }
 
     @Override
@@ -170,7 +167,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
 
     @Override
     public void readCustomDataFromNbt(NbtCompound compound) {
-        this.setDragonType(compound.getInt("Type"));
+        this.setDragonType(compound.getString("Type"));
         this.setStage(compound.getInt("Stage"));
         this.setDragonAge(compound.getInt("DragonAge"));
         this.setYaw(compound.getFloat("DragonYaw"));
@@ -179,7 +176,7 @@ public class EntityDragonSkull extends AnimalEntity implements IBlacklistedFromS
 
     @Override
     public void writeCustomDataToNbt(NbtCompound compound) {
-        compound.putInt("Type", this.getDragonType());
+        compound.putString("Type", this.getDragonType());
         compound.putInt("Stage", this.getStage());
         compound.putInt("DragonAge", this.getDragonAge());
         compound.putFloat("DragonYaw", this.getYaw());
