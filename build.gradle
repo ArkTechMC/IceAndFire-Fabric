@@ -54,7 +54,7 @@ dependencies {
     modImplementation(include("com.iafenvoy:fabric-trade-api:0.1.2"))
 
     // Uranus
-    modImplementation "curse.maven:uranus-1010827:5537571"
+    modImplementation "curse.maven:uranus-1010827:5600816"
 
     // CCA
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"))

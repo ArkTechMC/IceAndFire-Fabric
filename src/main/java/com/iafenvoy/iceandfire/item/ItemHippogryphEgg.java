@@ -24,7 +24,6 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemHippogryphEgg extends Item {
-
     public ItemHippogryphEgg() {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
     }
@@ -33,7 +32,7 @@ public class ItemHippogryphEgg extends Item {
         EnumHippogryphTypes eggType = ThreadLocalRandom.current().nextBoolean() ? parent1 : parent2;
         ItemStack stack = new ItemStack(IafItems.HIPPOGRYPH_EGG);
         NbtCompound tag = new NbtCompound();
-        tag.putInt("EggOrdinal", eggType.ordinal());
+        tag.putString("EggType", eggType.getName());
         stack.setNbt(tag);
         return stack;
     }
@@ -76,11 +75,9 @@ public class ItemHippogryphEgg extends Item {
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
         NbtCompound tag = stack.getNbt();
-        int eggOrdinal = 0;
+        String eggOrdinal = "";
         if (tag != null)
-            eggOrdinal = tag.getInt("EggOrdinal");
-
-        String type = EnumHippogryphTypes.values()[MathHelper.clamp(eggOrdinal, 0, EnumHippogryphTypes.values().length - 1)].name().toLowerCase(Locale.ROOT);
-        tooltip.add(Text.translatable("entity.iceandfire.hippogryph." + type).formatted(Formatting.GRAY));
+            eggOrdinal = tag.getString("EggType");
+        tooltip.add(Text.translatable("entity.iceandfire.hippogryph." + eggOrdinal).formatted(Formatting.GRAY));
     }
 }

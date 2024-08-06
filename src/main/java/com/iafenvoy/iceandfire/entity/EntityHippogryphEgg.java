@@ -58,11 +58,10 @@ public class EntityHippogryphEgg extends EggEntity {
             hippogryph.setBreedingAge(-24000);
             hippogryph.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
             if (this.itemstack != null) {
-                int variant = 0;
                 NbtCompound tag = this.itemstack.getNbt();
-                if (tag != null) {
-                    variant = tag.getInt("EggOrdinal");
-                }
+                String variant = "";
+                if (tag != null)
+                    variant = tag.getString("EggType");
                 hippogryph.setVariant(variant);
             }
 

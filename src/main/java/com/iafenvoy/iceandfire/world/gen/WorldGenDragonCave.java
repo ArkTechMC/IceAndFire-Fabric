@@ -198,7 +198,7 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
         List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(DragonType.getTypeByEntityType(this.getDragonType()));
-        dragon.setVariant(colors.get(random.nextInt(colors.size())).id());
+        dragon.setVariant(colors.get(random.nextInt(colors.size())).name());
         dragon.updatePositionAndAngles(position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5, random.nextFloat() * 360, 0);
         dragon.setInSittingPose(true);
         dragon.homePos = new HomePosition(position, worldGen.toServerWorld());

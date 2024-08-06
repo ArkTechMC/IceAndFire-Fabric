@@ -15,6 +15,6 @@ public class ItemDragonBow extends BowItem {
 
     @Override
     public Predicate<ItemStack> getProjectiles() {
-        return DRAGON_ARROWS;
+        return DRAGON_ARROWS.or(BOW_PROJECTILES);
     }
 }

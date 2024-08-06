@@ -57,7 +57,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
-        tag.putString("Color", this.getEggType().id());
+        tag.putString("Color", this.getEggType().name());
         tag.putInt("DragonAge", this.getDragonAge());
         try {
             if (this.getOwnerId() == null) {
@@ -110,7 +110,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     }
 
     public void setEggType(EnumDragonColor newtype) {
-        this.getDataTracker().set(DRAGON_TYPE, newtype.id());
+        this.getDataTracker().set(DRAGON_TYPE, newtype.name());
     }
 
     @Override
@@ -172,7 +172,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
             }
 
             assert dragon != null;
-            dragon.setVariant(this.getEggType().id());
+            dragon.setVariant(this.getEggType().name());
             dragon.setGender(this.getRandom().nextBoolean());
             dragon.setPosition(this.getBlockPos().getX() + 0.5, this.getBlockPos().getY() + 1, this.getBlockPos().getZ() + 0.5);
             dragon.setHunger(50);

@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.enums;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.ItemSeaSerpentScales;
 import com.iafenvoy.iceandfire.item.armor.IafArmorMaterial;
@@ -15,16 +16,19 @@ import net.minecraft.item.Item;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Formatting;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public enum EnumSeaSerpent {
-    BLUE(Formatting.BLUE),
-    BRONZE(Formatting.GOLD),
-    DEEPBLUE(Formatting.DARK_BLUE),
-    GREEN(Formatting.DARK_GREEN),
-    PURPLE(Formatting.DARK_PURPLE),
-    RED(Formatting.DARK_RED),
-    TEAL(Formatting.AQUA);
+public class EnumSeaSerpent {
+    private static final List<EnumSeaSerpent> TYPES = new ArrayList<>();
+    public static final EnumSeaSerpent BLUE = new EnumSeaSerpent("blue", Formatting.BLUE);
+    public static final EnumSeaSerpent BRONZE = new EnumSeaSerpent("bronze", Formatting.GOLD);
+    public static final EnumSeaSerpent DEEPBLUE = new EnumSeaSerpent("deepblue", Formatting.DARK_BLUE);
+    public static final EnumSeaSerpent GREEN = new EnumSeaSerpent("green", Formatting.DARK_GREEN);
+    public static final EnumSeaSerpent PURPLE = new EnumSeaSerpent("purple", Formatting.DARK_PURPLE);
+    public static final EnumSeaSerpent RED = new EnumSeaSerpent("red", Formatting.DARK_RED);
+    public static final EnumSeaSerpent TEAL = new EnumSeaSerpent("teal", Formatting.AQUA);
 
     public final String resourceName;
     public final Formatting color;
@@ -36,9 +40,14 @@ public enum EnumSeaSerpent {
     public Item boots;
     public Block scaleBlock;
 
-    EnumSeaSerpent(Formatting color) {
-        this.resourceName = this.name().toLowerCase(Locale.ROOT);
+    public EnumSeaSerpent(String resourceName, Formatting color) {
+        this.resourceName = resourceName.toLowerCase(Locale.ROOT);
         this.color = color;
+        TYPES.add(this);
+    }
+
+    public static List<EnumSeaSerpent> values() {
+        return ImmutableList.copyOf(TYPES);
     }
 
     public static void initArmors() {

@@ -756,7 +756,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public EnumSeaSerpent getEnum() {
-        return EnumSeaSerpent.values()[this.getVariant()];
+        return EnumSeaSerpent.values().get(this.getVariant());
     }
 
     @Override

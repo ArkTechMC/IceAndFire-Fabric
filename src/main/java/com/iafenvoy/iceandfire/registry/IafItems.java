@@ -443,7 +443,7 @@ public class IafItems {
         IafItems.FIRE_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
         IafItems.ICE_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
         IafItems.LIGHTNING_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
-        for (EnumDragonArmor armor : EnumDragonArmor.ARMORS)
+        for (EnumDragonArmor armor : EnumDragonArmor.values())
             armor.armorMaterial.setRepairMaterial(Ingredient.ofItems(armor.getScaleItem()));
         IafItems.DRAGONSTEEL_FIRE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_FIRE_INGOT));
         IafItems.DRAGONSTEEL_ICE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_ICE_INGOT));

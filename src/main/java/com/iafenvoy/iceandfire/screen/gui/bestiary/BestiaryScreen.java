@@ -26,6 +26,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.Registries;
 import net.minecraft.resource.Resource;
 import net.minecraft.text.Text;
@@ -34,6 +35,9 @@ import org.apache.commons.io.IOUtils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.iafenvoy.iceandfire.enums.EnumBestiaryPages.*;
 
 public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
     protected static final int X = 390;
@@ -59,10 +63,10 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
         this.book = container.getBook();
         if (!this.book.isEmpty() && this.book.getItem() != null && this.book.getItem() == IafItems.BESTIARY)
             if (this.book.getNbt() != null) {
-                Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(this.book.getNbt().getIntArray("Pages")));
+                Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(this.book.getNbt().getList("Pages", NbtElement.STRING_TYPE).stream().map(NbtElement::asString).collect(Collectors.toList()));
                 this.allPageTypes.addAll(pages);
                 // Make sure the pages are sorted according to the enum
-                this.allPageTypes.sort(Comparator.comparingInt(Enum::ordinal));
+                this.allPageTypes.sort(Comparator.comparingInt(EnumBestiaryPages::getId));
                 this.indexPagesTotal = (int) Math.ceil(pages.size() / 10D);
             }
         this.index = true;
@@ -92,7 +96,7 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
         });
         this.addDrawableChild(this.previousPage);
         this.nextPage = new ChangePageButton(centerX + 357, centerY + 215, true, 0, (p_214132_1_) -> {
-            if (this.index ? this.indexPages < this.indexPagesTotal - 1 : this.pageType != null && this.bookPages < this.pageType.pages) {
+            if (this.index ? this.indexPages < this.indexPagesTotal - 1 : this.pageType != null && this.bookPages < this.pageType.getPagesCount()) {
                 if (this.index) this.indexPages++;
                 else this.bookPages++;
                 MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
@@ -104,7 +108,7 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
                 int xIndex = i % -2;
                 int yIndex = i % 10;
                 int id = 2 + i;
-                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + EnumBestiaryPages.values()[this.allPageTypes.get(i).ordinal()].toString().toLowerCase(Locale.ROOT)), widget -> {
+                IndexPageButton button = new IndexPageButton(centerX + 15 + (xIndex * 200), centerY + 10 + (yIndex * 20) - (xIndex == 1 ? 20 : 0), Text.translatable("bestiary." + this.allPageTypes.get(i).getName().toLowerCase(Locale.ROOT)), widget -> {
                     if (this.indexButtons.get(id - 2) != null && this.allPageTypes.get(id - 2) != null) {
                         MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(IafSounds.BESTIARY_PAGE, 1.0F));
                         this.index = false;
@@ -159,584 +163,564 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
         this.imageFromTxt(ms);
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         assert player != null;
-        switch (this.pageType) {
-            case INTRODUCTION -> {
-                if (bookPages == 1) {
-                    this.drawItemStack(ms, new ItemStack(IafBlocks.SAPPHIRE_ORE), 30, 20, 2.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SAPPHIRE_GEM), 40, 60, 2F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    boolean drawGold = player.age % 20 < 10;
-                    this.drawItemStack(ms, new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItems.SILVER_NUGGET), 144, 34, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItems.SILVER_NUGGET), 161, 34, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(drawGold ? IafBlocks.GOLD_PILE : IafBlocks.SILVER_PILE), 151, 7, 2F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 90, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Blocks.OAK_PLANKS), 161, 124, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.OAK_PLANKS), 161, 107, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.MANUSCRIPT), 161, 91, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafBlocks.LECTERN), 151, 78, 2F);
-                }
+        if (this.pageType.equals(INTRODUCTION)) {
+            if (bookPages == 1) {
+                this.drawItemStack(ms, new ItemStack(IafBlocks.SAPPHIRE_ORE), 30, 20, 2.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SAPPHIRE_GEM), 40, 60, 2F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                boolean drawGold = player.age % 20 < 10;
+                this.drawItemStack(ms, new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItems.SILVER_NUGGET), 144, 34, 1.5F);
+                this.drawItemStack(ms, new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItems.SILVER_NUGGET), 161, 34, 1.5F);
+                this.drawItemStack(ms, new ItemStack(drawGold ? IafBlocks.GOLD_PILE : IafBlocks.SILVER_PILE), 151, 7, 2F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 90, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Blocks.OAK_PLANKS), 161, 124, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Blocks.OAK_PLANKS), 161, 107, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.MANUSCRIPT), 161, 91, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafBlocks.LECTERN), 151, 78, 2F);
             }
-            case TAMEDDRAGONS -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 90, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Items.BONE), 145, 124, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 145, 107, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.BONE), 145, 91, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 161, 124, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.BONE), 161, 107, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 161, 91, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.BONE), 177, 124, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 177, 107, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.BONE), 177, 91, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_MEAL), 151, 78, 2F);
-                }
-                if (bookPages == 1) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_SKULL_FIRE), 161, 17, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 161, 32, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_STAFF), 151, 10, 2F);
-                }
-                if (bookPages == 2) {
-                    ms.getMatrices().push();
-                    this.drawItemStack(ms, new ItemStack(IafBlocks.FIRE_LILY), 5, 14, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(IafBlocks.FROST_LILY), 30, 14, 3.75F);
-                    ms.getMatrices().pop();
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    boolean drawFire = player.age % 40 < 20;
-                    this.drawItemStack(ms, new ItemStack(drawFire ? IafBlocks.FIRE_LILY : IafBlocks.FROST_LILY), 161, 17, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.BOWL), 161, 32, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(drawFire ? Items.BLAZE_ROD : Items.PRISMARINE_CRYSTALS), 177, 17, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(drawFire ? IafItems.FIRE_STEW : IafItems.FROST_STEW), 151, 10, 2F);
-
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 65, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 144, 97, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 180, 110, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 180, 92, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 198, 92, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 198, 74, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_HORN), 151, 60, 2F);
-
-                }
-                if (bookPages == 3) {
-                    int j = 18;
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_HEAD, 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_NECK, 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_BODY, 1), j += 16, 60, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_TAIL, 1), j + 16, 60, 1.5F);
-
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 10, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 160, 12, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 180, 31, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(Items.IRON_INGOT), 199, 50, 1.35f);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_FLUTE), 151, 18, 2F);
-                }
+        } else if (this.pageType.equals(TAMEDDRAGONS)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 90, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Items.BONE), 145, 124, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 145, 107, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.BONE), 145, 91, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 161, 124, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.BONE), 161, 107, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 161, 91, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.BONE), 177, 124, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.PORKCHOP), 177, 107, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.BONE), 177, 91, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_MEAL), 151, 78, 2F);
             }
-            case MATERIALS -> {
-                if (bookPages == 0) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONSCALES_RED), 18, 16, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 70, 10, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 112, 70, 2.5F);
-
-                    int j = 18;
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.helmet), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.chestplate), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.leggings), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.boots), j + 16, 115, 1.5F);
-                }
-                if (bookPages == 1) {
-                    int j = 1;
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SWORD), j += 16, 14, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_PICKAXE), j += 16, 14, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_AXE), j += 16, 14, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SHOVEL), j += 16, 14, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_HOE), j += 16, 14, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BOW), j + 16, 14, 1.5F);
-
-                    this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_FLESH), 18, 24, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_HEART), 70, 14, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_SKULL_FIRE), 70, 39, 3.75F);
-                }
-                if (bookPages == 2)
-                    this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_BLOOD), 18, 24, 3.75F);
+            if (bookPages == 1) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_SKULL_FIRE), 161, 17, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 161, 32, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_STAFF), 151, 10, 2F);
             }
-            case ALCHEMY -> {
-                if (bookPages == 0) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_BLOOD), 10, 24, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.ICE_DRAGON_BLOOD), 26, 24, 3.75F);
-                    boolean drawFire = player.age % 40 < 20;
-                    this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SWORD), 161, 17, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(drawFire ? IafItems.FIRE_DRAGON_BLOOD : IafItems.ICE_DRAGON_BLOOD), 161, 32, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(drawFire ? IafItems.DRAGONBONE_SWORD_FIRE : IafItems.DRAGONBONE_SWORD_ICE), 151, 10, 2F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                }
+            if (bookPages == 2) {
+                ms.getMatrices().push();
+                this.drawItemStack(ms, new ItemStack(IafBlocks.FIRE_LILY), 5, 14, 3.75F);
+                this.drawItemStack(ms, new ItemStack(IafBlocks.FROST_LILY), 30, 14, 3.75F);
+                ms.getMatrices().pop();
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                boolean drawFire = player.age % 40 < 20;
+                this.drawItemStack(ms, new ItemStack(drawFire ? IafBlocks.FIRE_LILY : IafBlocks.FROST_LILY), 161, 17, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.BOWL), 161, 32, 1.5F);
+                this.drawItemStack(ms, new ItemStack(drawFire ? Items.BLAZE_ROD : Items.PRISMARINE_CRYSTALS), 177, 17, 1.5F);
+                this.drawItemStack(ms, new ItemStack(drawFire ? IafItems.FIRE_STEW : IafItems.FROST_STEW), 151, 10, 2F);
+
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 65, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 144, 97, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 180, 110, 1.35f);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 180, 92, 1.35f);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 198, 92, 1.35f);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 198, 74, 1.35f);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_HORN), 151, 60, 2F);
+
             }
-            case HIPPOGRYPH -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(0.8F, 0.8F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 29, 150, 303, 151, 61, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 91, 150, 364, 151, 61, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 151, 150, 425, 151, 61, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 29, 190, 303, 187, 61, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 91, 190, 364, 187, 61, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 151, 190, 425, 187, 61, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 90, 230, 425, 223, 61, 35, 512F);
-                    ms.getMatrices().pop();
+            if (bookPages == 3) {
+                int j = 18;
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_HEAD, 1), j += 16, 60, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_NECK, 1), j += 16, 60, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_BODY, 1), j += 16, 60, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONARMOR_IRON_TAIL, 1), j + 16, 60, 1.5F);
 
-                    // TODO :: Loop through tag (IafItemTags.TAME_HIPPOGRYPH)
-                    this.drawItemStack(ms, new ItemStack(Items.RABBIT_FOOT), 70, 20, 3.75F);
-                }
-                if (bookPages == 1) {
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 16, 24, 3.75F);
-
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 10, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Items.FEATHER), 160, 31, 1.35F);
-                    int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
-                    this.drawItemStack(ms, new ItemStack(drawType == 0 ? Items.IRON_HORSE_ARMOR : drawType == 1 ? Items.GOLDEN_HORSE_ARMOR : Items.DIAMOND_HORSE_ARMOR), 180, 31, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.FEATHER), 199, 31, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(drawType == 0 ? IafItems.IRON_HIPPOGRYPH_ARMOR : drawType == 1 ? IafItems.GOLD_HIPPOGRYPH_ARMOR : IafItems.DIAMOND_HIPPOGRYPH_ARMOR), 151, 18, 2F);
-                    // TODO :: Loop through tag (IafItemTags.BREED_HIPPOGRYPH)
-                    this.drawItemStack(ms, new ItemStack(Items.RABBIT_STEW), 70, 23, 3.75F);
-                }
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 10, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 160, 12, 1.35f);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 180, 31, 1.35f);
+                this.drawItemStack(ms, new ItemStack(Items.IRON_INGOT), 199, 50, 1.35f);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_FLUTE), 151, 18, 2F);
             }
-            case GORGON -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 10, 89, 473, 117, 19, 34, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 50, 78, 399, 106, 28, 45, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 100, 89, 455, 117, 18, 34, 512F);
-                    ms.getMatrices().pop();
+        } else if (this.pageType.equals(MATERIALS)) {
+            if (bookPages == 0) {
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONSCALES_RED), 18, 16, 3.75F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BONE), 70, 10, 3.75F);
+                this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 112, 70, 2.5F);
 
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 70, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-
-                    this.drawItemStack(ms, new ItemStack(Items.STRING), 160, 97, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.LEATHER), 180, 97, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.STRING), 199, 97, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.BLINDFOLD), 171, 65, 2F);
-                }
-                if (bookPages == 1) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.GORGON_HEAD), 16, 12, 3.75F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.7F, 1.7F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 37, 95, 473, 117, 19, 34, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 60, 95, 455, 117, 18, 34, 512F);
-                    ms.getMatrices().pop();
-                }
+                int j = 18;
+                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.helmet), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.chestplate), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.leggings), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.boots), j + 16, 115, 1.5F);
             }
-            case PIXIE -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    this.drawImage(ms, DRAWINGS_0, 20, 60, 371, 258, 47, 35, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 42, 95, 416, 258, 45, 35, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 67, 60, 462, 258, 47, 35, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 88, 95, 370, 293, 47, 35, 512F);
-                    this.drawImage(ms, DRAWINGS_0, 110, 60, 416, 293, 47, 35, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(IafItems.PIXIE_DUST), 70, 10, 3.75F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(0.9F, 0.9F, 1F);
-                    ms.getMatrices().translate(20, 24, 0);
-                    ms.getMatrices().push();
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 150, 100, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 160, 113, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 199, 113, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.OAK_PLANKS), 180, 113, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 160, 131, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 199, 131, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 180, 150, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 160, 150, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 199, 150, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafBlocks.JAR_EMPTY), 171, 85, 2F);
-                    ms.getMatrices().pop();
-                    ms.getMatrices().pop();
+            if (bookPages == 1) {
+                int j = 1;
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SWORD), j += 16, 14, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_PICKAXE), j += 16, 14, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_AXE), j += 16, 14, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SHOVEL), j += 16, 14, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_HOE), j += 16, 14, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_BOW), j + 16, 14, 1.5F);
 
-                }
-                if (bookPages == 1) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.AMBROSIA), 14, 22, 3.75F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 100, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-
-                    this.drawItemStack(ms, new ItemStack(IafItems.PIXIE_DUST), 180, 131, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.BOWL), 180, 150, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.AMBROSIA), 171, 85, 2F);
-                }
+                this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_FLESH), 18, 24, 3.75F);
+                this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_HEART), 70, 14, 3.75F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGON_SKULL_FIRE), 70, 39, 3.75F);
             }
-            case CYCLOPS -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
-                    this.drawImage(ms, DRAWINGS_0, 185, 8, 399, 328, 24, 63, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
-                    this.drawImage(ms, DRAWINGS_0, 50, 35, 423, 328, 24, 63, 512F);
-                    //drawImage(ms, DRAWINGS_0, 68, 60, 447, 328, 24, 63, 512F);
-                    ms.getMatrices().pop();
-
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 50, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-
-                    this.drawItemStack(ms, new ItemStack(Items.LEATHER_HELMET), 180, 76, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 76, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 76, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 57, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 180, 57, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 57, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_HELMET), 165, 45, 2F);
-
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 144, 95, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Items.LEATHER_CHESTPLATE), 180, 126, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 126, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 126, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 107, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 107, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 145, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 180, 145, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 145, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_CHESTPLATE), 165, 95, 2F);
-                }
-                if (bookPages == 2) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
-                    this.drawImage(ms, DRAWINGS_0, 185, 30, 447, 328, 24, 63, 512F);
-                    ms.getMatrices().pop();
-
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 13, 24, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Items.LEATHER_LEGGINGS), 34, 46, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 46, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 46, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 27, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 34, 27, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 27, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 65, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 65, 1.35F);
-
-                    this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_LEGGINGS), 64, 27, 2F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 13, 84, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Items.LEATHER_BOOTS), 34, 94, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 113, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 113, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 94, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 94, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_BOOTS), 64, 73, 2F);
-                }
+            if (bookPages == 2)
+                this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_BLOOD), 18, 24, 3.75F);
+        } else if (this.pageType.equals(ALCHEMY)) {
+            if (bookPages == 0) {
+                this.drawItemStack(ms, new ItemStack(IafItems.FIRE_DRAGON_BLOOD), 10, 24, 3.75F);
+                this.drawItemStack(ms, new ItemStack(IafItems.ICE_DRAGON_BLOOD), 26, 24, 3.75F);
+                boolean drawFire = player.age % 40 < 20;
+                this.drawItemStack(ms, new ItemStack(IafItems.DRAGONBONE_SWORD), 161, 17, 1.5F);
+                this.drawItemStack(ms, new ItemStack(drawFire ? IafItems.FIRE_DRAGON_BLOOD : IafItems.ICE_DRAGON_BLOOD), 161, 32, 1.5F);
+                this.drawItemStack(ms, new ItemStack(drawFire ? IafItems.DRAGONBONE_SWORD_FIRE : IafItems.DRAGONBONE_SWORD_ICE), 151, 10, 2F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 0, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
             }
-            case SIREN -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.25F, 1.25F, 1.25F);
-                    this.drawImage(ms, DRAWINGS_1, 190, 25, 0, 0, 25, 42, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 220, 15, 25, 0, 25, 42, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 255, 25, 50, 0, 25, 42, 512F);
+        } else if (this.pageType.equals(HIPPOGRYPH)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(0.8F, 0.8F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 29, 150, 303, 151, 61, 36, 512F);
+                this.drawImage(ms, DRAWINGS_0, 91, 150, 364, 151, 61, 36, 512F);
+                this.drawImage(ms, DRAWINGS_0, 151, 150, 425, 151, 61, 36, 512F);
+                this.drawImage(ms, DRAWINGS_0, 29, 190, 303, 187, 61, 36, 512F);
+                this.drawImage(ms, DRAWINGS_0, 91, 190, 364, 187, 61, 36, 512F);
+                this.drawImage(ms, DRAWINGS_0, 151, 190, 425, 187, 61, 36, 512F);
+                this.drawImage(ms, DRAWINGS_0, 90, 230, 425, 223, 61, 35, 512F);
+                ms.getMatrices().pop();
 
-                    this.drawImage(ms, DRAWINGS_1, 190, 135, 0, 42, 26, 28, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 220, 125, 26, 42, 26, 28, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 255, 135, 52, 42, 26, 28, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.EARPLUGS), 18, 40, 3.75F);
+                // TODO :: Loop through tag (IafItemTags.TAME_HIPPOGRYPH)
+                this.drawItemStack(ms, new ItemStack(Items.RABBIT_FOOT), 70, 20, 3.75F);
+            }
+            if (bookPages == 1) {
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 16, 24, 3.75F);
 
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 160, 0, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 10, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Items.FEATHER), 160, 31, 1.35F);
+                int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
+                this.drawItemStack(ms, new ItemStack(drawType == 0 ? Items.IRON_HORSE_ARMOR : drawType == 1 ? Items.GOLDEN_HORSE_ARMOR : Items.DIAMOND_HORSE_ARMOR), 180, 31, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.FEATHER), 199, 31, 1.35F);
+                this.drawItemStack(ms, new ItemStack(drawType == 0 ? IafItems.IRON_HIPPOGRYPH_ARMOR : drawType == 1 ? IafItems.GOLD_HIPPOGRYPH_ARMOR : IafItems.DIAMOND_HIPPOGRYPH_ARMOR), 151, 18, 2F);
+                // TODO :: Loop through tag (IafItemTags.BREED_HIPPOGRYPH)
+                this.drawItemStack(ms, new ItemStack(Items.RABBIT_STEW), 70, 23, 3.75F);
+            }
+        } else if (this.pageType.equals(GORGON)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 10, 89, 473, 117, 19, 34, 512F);
+                this.drawImage(ms, DRAWINGS_0, 50, 78, 399, 106, 28, 45, 512F);
+                this.drawImage(ms, DRAWINGS_0, 100, 89, 455, 117, 18, 34, 512F);
+                ms.getMatrices().pop();
+
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 70, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+
+                this.drawItemStack(ms, new ItemStack(Items.STRING), 160, 97, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.LEATHER), 180, 97, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.STRING), 199, 97, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.BLINDFOLD), 171, 65, 2F);
+            }
+            if (bookPages == 1) {
+                this.drawItemStack(ms, new ItemStack(IafItems.GORGON_HEAD), 16, 12, 3.75F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.7F, 1.7F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 37, 95, 473, 117, 19, 34, 512F);
+                this.drawImage(ms, DRAWINGS_0, 60, 95, 455, 117, 18, 34, 512F);
+                ms.getMatrices().pop();
+            }
+        } else if (this.pageType.equals(PIXIE)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                this.drawImage(ms, DRAWINGS_0, 20, 60, 371, 258, 47, 35, 512F);
+                this.drawImage(ms, DRAWINGS_0, 42, 95, 416, 258, 45, 35, 512F);
+                this.drawImage(ms, DRAWINGS_0, 67, 60, 462, 258, 47, 35, 512F);
+                this.drawImage(ms, DRAWINGS_0, 88, 95, 370, 293, 47, 35, 512F);
+                this.drawImage(ms, DRAWINGS_0, 110, 60, 416, 293, 47, 35, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(IafItems.PIXIE_DUST), 70, 10, 3.75F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(0.9F, 0.9F, 1F);
+                ms.getMatrices().translate(20, 24, 0);
+                ms.getMatrices().push();
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 150, 100, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 160, 113, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 199, 113, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.OAK_PLANKS), 180, 113, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 160, 131, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 199, 131, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 180, 150, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 160, 150, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.GLASS), 199, 150, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafBlocks.JAR_EMPTY), 171, 85, 2F);
+                ms.getMatrices().pop();
+                ms.getMatrices().pop();
+
+            }
+            if (bookPages == 1) {
+                this.drawItemStack(ms, new ItemStack(IafItems.AMBROSIA), 14, 22, 3.75F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 100, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+
+                this.drawItemStack(ms, new ItemStack(IafItems.PIXIE_DUST), 180, 131, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.BOWL), 180, 150, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.AMBROSIA), 171, 85, 2F);
+            }
+        } else if (this.pageType.equals(CYCLOPS)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
+                this.drawImage(ms, DRAWINGS_0, 185, 8, 399, 328, 24, 63, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 1) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
+                this.drawImage(ms, DRAWINGS_0, 50, 35, 423, 328, 24, 63, 512F);
+                //drawImage(ms, DRAWINGS_0, 68, 60, 447, 328, 24, 63, 512F);
+                ms.getMatrices().pop();
+
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 50, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+
+                this.drawItemStack(ms, new ItemStack(Items.LEATHER_HELMET), 180, 76, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 76, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 76, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 57, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 180, 57, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 57, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_HELMET), 165, 45, 2F);
+
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 144, 95, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Items.LEATHER_CHESTPLATE), 180, 126, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 126, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 126, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 107, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 107, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 160, 145, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 180, 145, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 199, 145, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_CHESTPLATE), 165, 95, 2F);
+            }
+            if (bookPages == 2) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1.5F);
+                this.drawImage(ms, DRAWINGS_0, 185, 30, 447, 328, 24, 63, 512F);
+                ms.getMatrices().pop();
+
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 13, 24, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Items.LEATHER_LEGGINGS), 34, 46, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 46, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 46, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 27, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 34, 27, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 27, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 65, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 65, 1.35F);
+
+                this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_LEGGINGS), 64, 27, 2F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 13, 84, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Items.LEATHER_BOOTS), 34, 94, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 113, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 113, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 14, 94, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.WHITE_WOOL), 53, 94, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SHEEP_BOOTS), 64, 73, 2F);
+            }
+        } else if (this.pageType.equals(SIREN)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.25F, 1.25F, 1.25F);
+                this.drawImage(ms, DRAWINGS_1, 190, 25, 0, 0, 25, 42, 512F);
+                this.drawImage(ms, DRAWINGS_1, 220, 15, 25, 0, 25, 42, 512F);
+                this.drawImage(ms, DRAWINGS_1, 255, 25, 50, 0, 25, 42, 512F);
+
+                this.drawImage(ms, DRAWINGS_1, 190, 135, 0, 42, 26, 28, 512F);
+                this.drawImage(ms, DRAWINGS_1, 220, 125, 26, 42, 26, 28, 512F);
+                this.drawImage(ms, DRAWINGS_1, 255, 135, 52, 42, 26, 28, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 1) {
+                this.drawItemStack(ms, new ItemStack(IafItems.EARPLUGS), 18, 40, 3.75F);
+
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 160, 0, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
 
 
-                    this.drawItemStack(ms, new ItemStack(Blocks.OAK_BUTTON), 180, 20, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Blocks.OAK_BUTTON), 215, 20, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.EARPLUGS), 170, 10, 2F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SHINY_SCALES), 123, 75, 2.25F);
-                }
+                this.drawItemStack(ms, new ItemStack(Blocks.OAK_BUTTON), 180, 20, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Blocks.OAK_BUTTON), 215, 20, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.EARPLUGS), 170, 10, 2F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SHINY_SCALES), 123, 75, 2.25F);
             }
-            case HIPPOCAMPUS -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    this.drawImage(ms, DRAWINGS_1, 210, 25, 0, 70, 57, 49, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 265, 25, 57, 70, 57, 49, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 320, 25, 0, 119, 57, 49, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 210, 80, 57, 119, 57, 49, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 265, 80, 0, 168, 57, 49, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 320, 80, 57, 168, 57, 49, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    // TODO :: Loop through tag
-                    this.drawItemStack(ms, new ItemStack(Items.KELP), 37, 33, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(Items.PRISMARINE_CRYSTALS), 37, 73, 2.25F);
-                }
-                if (bookPages == 2) {
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 35, 25, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SHINY_SCALES), 35, 75, 2.25F);
-                }
+        } else if (this.pageType.equals(HIPPOCAMPUS)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                this.drawImage(ms, DRAWINGS_1, 210, 25, 0, 70, 57, 49, 512F);
+                this.drawImage(ms, DRAWINGS_1, 265, 25, 57, 70, 57, 49, 512F);
+                this.drawImage(ms, DRAWINGS_1, 320, 25, 0, 119, 57, 49, 512F);
+                this.drawImage(ms, DRAWINGS_1, 210, 80, 57, 119, 57, 49, 512F);
+                this.drawImage(ms, DRAWINGS_1, 265, 80, 0, 168, 57, 49, 512F);
+                this.drawImage(ms, DRAWINGS_1, 320, 80, 57, 168, 57, 49, 512F);
+                ms.getMatrices().pop();
             }
-            case DEATHWORM -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    this.drawImage(ms, DRAWINGS_1, 230, 25, 0, 217, 133, 16, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 230, 50, 0, 233, 133, 16, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 230, 75, 0, 249, 133, 16, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    ms.getMatrices().push();
-                    this.drawImage(ms, DRAWINGS_1, 25, 95, 0, 265, 148, 44, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 250, 5, 0, 309, 81, 162, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 2) {
-                    int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
-                    Item chitin = switch (drawType) {
-                        case 2 -> IafItems.DEATH_WORM_CHITIN_RED;
-                        case 1 -> IafItems.DEATH_WORM_CHITIN_WHITE;
-                        default -> IafItems.DEATH_WORM_CHITIN_YELLOW;
-                    };
-                    this.drawItemStack(ms, new ItemStack(chitin, 1), 17, 30, 3.75F);
-                    this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_HELMET : drawType == 1 ? IafItems.DEATHWORM_WHITE_HELMET : IafItems.DEATHWORM_YELLOW_HELMET), 92, 8, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_CHESTPLATE : drawType == 1 ? IafItems.DEATHWORM_WHITE_CHESTPLATE : IafItems.DEATHWORM_YELLOW_CHESTPLATE), 112, 8, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_LEGGINGS : drawType == 1 ? IafItems.DEATHWORM_WHITE_LEGGINGS : IafItems.DEATHWORM_YELLOW_LEGGINGS), 132, 8, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_BOOTS : drawType == 1 ? IafItems.DEATHWORM_WHITE_BOOTS : IafItems.DEATHWORM_YELLOW_BOOTS), 152, 8, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.DEATHWORM_EGG), 125, 42, 2.25F);
-                }
-                if (bookPages == 3) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.DEATHWORM_EGG_GIGANTIC, 1), 125, 4, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(Items.FISHING_ROD), 115, 55, 2.25F);
-                    this.drawItemStack(ms, new ItemStack(Items.FISHING_ROD), 135, 55, 2.25F);
-                }
+            if (bookPages == 1) {
+                // TODO :: Loop through tag
+                this.drawItemStack(ms, new ItemStack(Items.KELP), 37, 33, 2.25F);
+                this.drawItemStack(ms, new ItemStack(Items.PRISMARINE_CRYSTALS), 37, 73, 2.25F);
             }
-            case COCKATRICE -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_1, 155, 10, 114, 0, 88, 36, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 155, 45, 114, 36, 88, 36, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 18, 10, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
+            if (bookPages == 2) {
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 35, 25, 2.25F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SHINY_SCALES), 35, 75, 2.25F);
+            }
+        } else if (this.pageType.equals(DEATHWORM)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                this.drawImage(ms, DRAWINGS_1, 230, 25, 0, 217, 133, 16, 512F);
+                this.drawImage(ms, DRAWINGS_1, 230, 50, 0, 233, 133, 16, 512F);
+                this.drawImage(ms, DRAWINGS_1, 230, 75, 0, 249, 133, 16, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 1) {
+                ms.getMatrices().push();
+                this.drawImage(ms, DRAWINGS_1, 25, 95, 0, 265, 148, 44, 512F);
+                this.drawImage(ms, DRAWINGS_1, 250, 5, 0, 309, 81, 162, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 2) {
+                int drawType = player.age % 60 > 40 ? 2 : player.age % 60 > 20 ? 1 : 0;
+                Item chitin = switch (drawType) {
+                    case 2 -> IafItems.DEATH_WORM_CHITIN_RED;
+                    case 1 -> IafItems.DEATH_WORM_CHITIN_WHITE;
+                    default -> IafItems.DEATH_WORM_CHITIN_YELLOW;
+                };
+                this.drawItemStack(ms, new ItemStack(chitin, 1), 17, 30, 3.75F);
+                this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_HELMET : drawType == 1 ? IafItems.DEATHWORM_WHITE_HELMET : IafItems.DEATHWORM_YELLOW_HELMET), 92, 8, 2.25F);
+                this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_CHESTPLATE : drawType == 1 ? IafItems.DEATHWORM_WHITE_CHESTPLATE : IafItems.DEATHWORM_YELLOW_CHESTPLATE), 112, 8, 2.25F);
+                this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_LEGGINGS : drawType == 1 ? IafItems.DEATHWORM_WHITE_LEGGINGS : IafItems.DEATHWORM_YELLOW_LEGGINGS), 132, 8, 2.25F);
+                this.drawItemStack(ms, new ItemStack(drawType == 2 ? IafItems.DEATHWORM_RED_BOOTS : drawType == 1 ? IafItems.DEATHWORM_WHITE_BOOTS : IafItems.DEATHWORM_YELLOW_BOOTS), 152, 8, 2.25F);
+                this.drawItemStack(ms, new ItemStack(IafItems.DEATHWORM_EGG), 125, 42, 2.25F);
+            }
+            if (bookPages == 3) {
+                this.drawItemStack(ms, new ItemStack(IafItems.DEATHWORM_EGG_GIGANTIC, 1), 125, 4, 2.25F);
+                this.drawItemStack(ms, new ItemStack(Items.FISHING_ROD), 115, 55, 2.25F);
+                this.drawItemStack(ms, new ItemStack(Items.FISHING_ROD), 135, 55, 2.25F);
+            }
+        } else if (this.pageType.equals(COCKATRICE)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_1, 155, 10, 114, 0, 88, 36, 512F);
+                this.drawImage(ms, DRAWINGS_1, 155, 45, 114, 36, 88, 36, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 1) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 18, 10, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
 
-                    this.drawItemStack(ms, new ItemStack(Items.STRING), 20, 30, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.LEATHER), 40, 30, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.STRING), 59, 30, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.BLINDFOLD), 60, 18, 2F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 30, 58, 2.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.ROTTEN_EGG), 109, 18, 2.5F);
-                }
+                this.drawItemStack(ms, new ItemStack(Items.STRING), 20, 30, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.LEATHER), 40, 30, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.STRING), 59, 30, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.BLINDFOLD), 60, 18, 2F);
+                this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 30, 58, 2.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.ROTTEN_EGG), 109, 18, 2.5F);
             }
-            case STYMPHALIANBIRD -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_1, 34, 46, 114, 72, 59, 37, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 155, 35, 114, 109, 67, 35, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_BIRD_FEATHER), 109, 60, 2.5F);
-                }
-                if (bookPages == 1) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 18, 10, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
+        } else if (this.pageType.equals(STYMPHALIANBIRD)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_1, 34, 46, 114, 72, 59, 37, 512F);
+                this.drawImage(ms, DRAWINGS_1, 155, 35, 114, 109, 67, 35, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_BIRD_FEATHER), 109, 60, 2.5F);
+            }
+            if (bookPages == 1) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 18, 10, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
 
-                    this.drawItemStack(ms, new ItemStack(Items.FLINT), 40, 13, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 40, 30, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_BIRD_FEATHER), 40, 49, 1.35F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_ARROW), 60, 18, 2F);
-                }
+                this.drawItemStack(ms, new ItemStack(Items.FLINT), 40, 13, 1.35F);
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 40, 30, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_BIRD_FEATHER), 40, 49, 1.35F);
+                this.drawItemStack(ms, new ItemStack(IafItems.STYMPHALIAN_ARROW), 60, 18, 2F);
             }
-            case TROLL -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_1, 15, 60, 156, 211, 25, 58, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 50, 55, 181, 211, 25, 58, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 85, 60, 206, 211, 25, 58, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 155, 22, 114, 145, 24, 66, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 190, 19, 188, 142, 47, 69, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    int i = (player.age % (EnumTroll.Weapon.values().length * 20)) / 20;
-                    this.drawItemStack(ms, new ItemStack(EnumTroll.Weapon.values()[i].item), 30, 7, 2.5F);
-                    int j = (player.age % (EnumTroll.values().length * 20)) / 20;
-                    this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leather), 100, 30, 2.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.TROLL_TUSK), 120, 30, 2.5F);
-                }
-                if (bookPages == 2) {
-                    int j = (player.age % (EnumTroll.values().length * 20)) / 20;
-                    this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].helmet), 27, 15, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].chestplate), 47, 15, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leggings), 67, 15, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].boots), 87, 15, 1.5F);
-                }
+        } else if (this.pageType.equals(TROLL)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_1, 15, 60, 156, 211, 25, 58, 512F);
+                this.drawImage(ms, DRAWINGS_1, 50, 55, 181, 211, 25, 58, 512F);
+                this.drawImage(ms, DRAWINGS_1, 85, 60, 206, 211, 25, 58, 512F);
+                this.drawImage(ms, DRAWINGS_1, 155, 22, 114, 145, 24, 66, 512F);
+                this.drawImage(ms, DRAWINGS_1, 190, 19, 188, 142, 47, 69, 512F);
+                ms.getMatrices().pop();
             }
-            case MYRMEX -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.51F, 1.51F, 1F);
-                    this.drawImage(ms, DRAWINGS_1, 137, 10, 202, 16, 57, 21, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 195, 10, 278, 16, 57, 21, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.51F, 1.51F, 1F);
-                    this.drawImage(ms, DRAWINGS_1, 7, 17, 202, 37, 59, 21, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 65, 17, 278, 37, 59, 21, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 7, 77, 202, 58, 59, 21, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 65, 77, 278, 58, 59, 21, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 145, 20, 278, 103, 43, 45, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 195, 20, 321, 103, 43, 45, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 2) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.51F, 1.51F, 1F);
-                    this.drawImage(ms, DRAWINGS_1, 25, 13, 202, 79, 76, 24, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 25, 40, 278, 79, 76, 24, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_CHITIN), 125, 43, 2F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_CHITIN), 155, 43, 2F);
-                    int i = 133;
-                    boolean jungle = player.age % 60 > 30;
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_SHOVEL : IafItems.MYRMEX_DESERT_SHOVEL), i += 16, 100, 1.51F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_PICKAXE : IafItems.MYRMEX_DESERT_PICKAXE), i += 16, 100, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_AXE : IafItems.MYRMEX_DESERT_AXE), i += 16, 100, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_SWORD : IafItems.MYRMEX_DESERT_SWORD), i += 16, 100, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_SWORD_VENOM : IafItems.MYRMEX_DESERT_SWORD_VENOM), i += 16, 100, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_HOE : IafItems.MYRMEX_DESERT_HOE), i + 16, 100, 1.5F);
-                    int j = 148;
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_HELMET : IafItems.MYRMEX_DESERT_HELMET), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_CHESTPLATE : IafItems.MYRMEX_DESERT_CHESTPLATE), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_LEGGINGS : IafItems.MYRMEX_DESERT_LEGGINGS), j += 16, 115, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_BOOTS : IafItems.MYRMEX_DESERT_BOOTS), j + 16, 115, 1.5F);
-                }
-                if (bookPages == 3) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_STINGER), 35, 22, 2.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_RESIN), 25, 64, 2F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN), 55, 64, 2F);
-                }
-                if (bookPages == 4) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_STAFF), 25, 73, 2F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_STAFF), 55, 73, 2F);
+            if (bookPages == 1) {
+                int i = (player.age % (EnumTroll.Weapon.values().length * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(EnumTroll.Weapon.values()[i].item), 30, 7, 2.5F);
+                int j = (player.age % (EnumTroll.values().length * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leather), 100, 30, 2.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.TROLL_TUSK), 120, 30, 2.5F);
+            }
+            if (bookPages == 2) {
+                int j = (player.age % (EnumTroll.values().length * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].helmet), 27, 15, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].chestplate), 47, 15, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leggings), 67, 15, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].boots), 87, 15, 1.5F);
+            }
+        } else if (this.pageType.equals(MYRMEX)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.51F, 1.51F, 1F);
+                this.drawImage(ms, DRAWINGS_1, 137, 10, 202, 16, 57, 21, 512F);
+                this.drawImage(ms, DRAWINGS_1, 195, 10, 278, 16, 57, 21, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 1) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.51F, 1.51F, 1F);
+                this.drawImage(ms, DRAWINGS_1, 7, 17, 202, 37, 59, 21, 512F);
+                this.drawImage(ms, DRAWINGS_1, 65, 17, 278, 37, 59, 21, 512F);
+                this.drawImage(ms, DRAWINGS_1, 7, 77, 202, 58, 59, 21, 512F);
+                this.drawImage(ms, DRAWINGS_1, 65, 77, 278, 58, 59, 21, 512F);
+                this.drawImage(ms, DRAWINGS_1, 145, 20, 278, 103, 43, 45, 512F);
+                this.drawImage(ms, DRAWINGS_1, 195, 20, 321, 103, 43, 45, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 2) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.51F, 1.51F, 1F);
+                this.drawImage(ms, DRAWINGS_1, 25, 13, 202, 79, 76, 24, 512F);
+                this.drawImage(ms, DRAWINGS_1, 25, 40, 278, 79, 76, 24, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_CHITIN), 125, 43, 2F);
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_CHITIN), 155, 43, 2F);
+                int i = 133;
+                boolean jungle = player.age % 60 > 30;
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_SHOVEL : IafItems.MYRMEX_DESERT_SHOVEL), i += 16, 100, 1.51F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_PICKAXE : IafItems.MYRMEX_DESERT_PICKAXE), i += 16, 100, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_AXE : IafItems.MYRMEX_DESERT_AXE), i += 16, 100, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_SWORD : IafItems.MYRMEX_DESERT_SWORD), i += 16, 100, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_SWORD_VENOM : IafItems.MYRMEX_DESERT_SWORD_VENOM), i += 16, 100, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_HOE : IafItems.MYRMEX_DESERT_HOE), i + 16, 100, 1.5F);
+                int j = 148;
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_HELMET : IafItems.MYRMEX_DESERT_HELMET), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_CHESTPLATE : IafItems.MYRMEX_DESERT_CHESTPLATE), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_LEGGINGS : IafItems.MYRMEX_DESERT_LEGGINGS), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(jungle ? IafItems.MYRMEX_JUNGLE_BOOTS : IafItems.MYRMEX_DESERT_BOOTS), j + 16, 115, 1.5F);
+            }
+            if (bookPages == 3) {
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_STINGER), 35, 22, 2.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_RESIN), 25, 64, 2F);
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_RESIN), 55, 64, 2F);
+            }
+            if (bookPages == 4) {
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_STAFF), 25, 73, 2F);
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_STAFF), 55, 73, 2F);
 
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_EGG), 125, 90, 2F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_EGG), 155, 90, 2F);
-                }
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_DESERT_EGG), 125, 90, 2F);
+                this.drawItemStack(ms, new ItemStack(IafItems.MYRMEX_JUNGLE_EGG), 155, 90, 2F);
             }
-            case AMPHITHERE -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(0.75F, 0.75F, 0.75F);
-                    this.drawImage(ms, DRAWINGS_1, 70, 97, 257, 163, 136, 93, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 270, 50, 148, 267, 120, 51, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 380, 50, 148, 318, 120, 51, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 270, 100, 148, 369, 120, 51, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 380, 100, 148, 420, 120, 51, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 330, 150, 268, 267, 120, 51, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 2) {
-                    this.drawItemStack(ms, new ItemStack(IafItems.AMPHITHERE_FEATHER), 30, 20, 2.5F);
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 19, 71, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    this.drawItemStack(ms, new ItemStack(Items.FLINT), 36, 73, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 36, 89, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.AMPHITHERE_FEATHER), 36, 106, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.AMPHITHERE_ARROW), 60, 65, 2F);
-                }
+        } else if (this.pageType.equals(AMPHITHERE)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(0.75F, 0.75F, 0.75F);
+                this.drawImage(ms, DRAWINGS_1, 70, 97, 257, 163, 136, 93, 512F);
+                this.drawImage(ms, DRAWINGS_1, 270, 50, 148, 267, 120, 51, 512F);
+                this.drawImage(ms, DRAWINGS_1, 380, 50, 148, 318, 120, 51, 512F);
+                this.drawImage(ms, DRAWINGS_1, 270, 100, 148, 369, 120, 51, 512F);
+                this.drawImage(ms, DRAWINGS_1, 380, 100, 148, 420, 120, 51, 512F);
+                this.drawImage(ms, DRAWINGS_1, 330, 150, 268, 267, 120, 51, 512F);
+                ms.getMatrices().pop();
             }
-            case SEASERPENT -> {
-                if (bookPages == 0) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(0.75F, 0.75F, 0.75F);
-                    this.drawImage(ms, DRAWINGS_1, 290, 5, 422, 0, 90, 64, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 380, 5, 422, 64, 90, 64, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 290, 70, 422, 128, 90, 64, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 380, 70, 422, 192, 90, 64, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 290, 140, 422, 256, 90, 64, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 380, 140, 422, 320, 90, 64, 512F);
-                    this.drawImage(ms, DRAWINGS_1, 345, 210, 422, 384, 90, 64, 512F);
-                    ms.getMatrices().pop();
-                }
-                if (bookPages == 1) {
-                    this.drawImage(ms, DRAWINGS_1, 60, 90, 337, 0, 70, 83, 512F);
-                    int j = (player.age % (EnumSeaSerpent.values().length * 20)) / 20;
-                    this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].scale), 130, 40, 2.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SERPENT_FANG), 90, 40, 2.5F);
-                }
-                if (bookPages == 2) {
-                    ms.getMatrices().push();
-                    ms.getMatrices().scale(1.5F, 1.5F, 1F);
-                    this.drawImage(ms, DRAWINGS_0, 19, 31, 389, 1, 50, 50, 512F);
-                    ms.getMatrices().pop();
-                    int j = (player.age % (EnumSeaSerpent.values().length * 20)) / 20;
-                    this.drawItemStack(ms, new ItemStack(IafItems.SERPENT_FANG), 36, 32, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(Items.STICK), 36, 48, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].scale), 36, 66, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].helmet), 34, 125, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].chestplate), 50, 125, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].leggings), 66, 125, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values()[j].boots), 82, 125, 1.5F);
-                    this.drawItemStack(ms, new ItemStack(IafItems.SEA_SERPENT_ARROW), 60, 33, 2F);
-                }
+            if (bookPages == 2) {
+                this.drawItemStack(ms, new ItemStack(IafItems.AMPHITHERE_FEATHER), 30, 20, 2.5F);
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 19, 71, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                this.drawItemStack(ms, new ItemStack(Items.FLINT), 36, 73, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 36, 89, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.AMPHITHERE_FEATHER), 36, 106, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.AMPHITHERE_ARROW), 60, 65, 2F);
             }
-            default -> {
+        } else if (this.pageType.equals(SEASERPENT)) {
+            if (bookPages == 0) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(0.75F, 0.75F, 0.75F);
+                this.drawImage(ms, DRAWINGS_1, 290, 5, 422, 0, 90, 64, 512F);
+                this.drawImage(ms, DRAWINGS_1, 380, 5, 422, 64, 90, 64, 512F);
+                this.drawImage(ms, DRAWINGS_1, 290, 70, 422, 128, 90, 64, 512F);
+                this.drawImage(ms, DRAWINGS_1, 380, 70, 422, 192, 90, 64, 512F);
+                this.drawImage(ms, DRAWINGS_1, 290, 140, 422, 256, 90, 64, 512F);
+                this.drawImage(ms, DRAWINGS_1, 380, 140, 422, 320, 90, 64, 512F);
+                this.drawImage(ms, DRAWINGS_1, 345, 210, 422, 384, 90, 64, 512F);
+                ms.getMatrices().pop();
+            }
+            if (bookPages == 1) {
+                this.drawImage(ms, DRAWINGS_1, 60, 90, 337, 0, 70, 83, 512F);
+                int j = (player.age % (EnumSeaSerpent.values().size() * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).scale), 130, 40, 2.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SERPENT_FANG), 90, 40, 2.5F);
+            }
+            if (bookPages == 2) {
+                ms.getMatrices().push();
+                ms.getMatrices().scale(1.5F, 1.5F, 1F);
+                this.drawImage(ms, DRAWINGS_0, 19, 31, 389, 1, 50, 50, 512F);
+                ms.getMatrices().pop();
+                int j = (player.age % (EnumSeaSerpent.values().size() * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(IafItems.SERPENT_FANG), 36, 32, 1.5F);
+                this.drawItemStack(ms, new ItemStack(Items.STICK), 36, 48, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).scale), 36, 66, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).helmet), 34, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).chestplate), 50, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).leggings), 66, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).boots), 82, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(IafItems.SEA_SERPENT_ARROW), 60, 33, 2F);
             }
         }
         this.writeFromTxt(ms);

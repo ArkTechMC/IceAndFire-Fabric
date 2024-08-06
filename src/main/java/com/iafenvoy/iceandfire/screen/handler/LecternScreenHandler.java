@@ -19,6 +19,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.List;
+
 public class LecternScreenHandler extends ScreenHandler {
     private final Inventory tileFurnace;
     private final int[] possiblePagesInt = new int[3];
@@ -103,19 +105,14 @@ public class LecternScreenHandler extends ScreenHandler {
         this.possiblePagesInt[1] = this.getPageField(1);
         this.possiblePagesInt[2] = this.getPageField(2);
         EnumBestiaryPages[] pages = new EnumBestiaryPages[3];
+        List<EnumBestiaryPages> allPages = EnumBestiaryPages.values();
         if (this.tileFurnace.getStack(0).getItem() == IafItems.BESTIARY) {
-            if (this.possiblePagesInt[0] < 0)
-                pages[0] = null;
-            else
-                pages[0] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, this.possiblePagesInt[0])];
-            if (this.possiblePagesInt[1] < 0)
-                pages[1] = null;
-            else
-                pages[1] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, this.possiblePagesInt[1])];
-            if (this.possiblePagesInt[2] < 0)
-                pages[2] = null;
-            else
-                pages[2] = EnumBestiaryPages.values()[Math.min(EnumBestiaryPages.values().length, this.possiblePagesInt[2])];
+            if (this.possiblePagesInt[0] < 0) pages[0] = null;
+            else pages[0] = allPages.get(Math.min(allPages.size(), this.possiblePagesInt[0]));
+            if (this.possiblePagesInt[1] < 0) pages[1] = null;
+            else pages[1] = allPages.get(Math.min(allPages.size(), this.possiblePagesInt[1]));
+            if (this.possiblePagesInt[2] < 0) pages[2] = null;
+            else pages[2] = allPages.get(Math.min(allPages.size(), this.possiblePagesInt[2]));
         }
         return pages;
     }
@@ -135,7 +132,7 @@ public class LecternScreenHandler extends ScreenHandler {
                     manuscriptStack.decrement(i);
                     if (manuscriptStack.isEmpty())
                         this.tileFurnace.setStack(1, ItemStack.EMPTY);
-                    EnumBestiaryPages.addPage(EnumBestiaryPages.fromInt(page.ordinal()), bookStack);
+                    EnumBestiaryPages.addPage(page, bookStack);
                     if (this.tileFurnace instanceof BlockEntityLectern entityLectern)
                         entityLectern.randomizePages(bookStack, manuscriptStack);
                 }

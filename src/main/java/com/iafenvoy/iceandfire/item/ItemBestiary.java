@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.google.common.primitives.Ints;
 import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
 import com.iafenvoy.iceandfire.screen.handler.BestiaryScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
@@ -13,6 +12,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -63,8 +65,11 @@ public class ItemBestiary extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-        if (stack.getNbt() == null)
-            stack.getOrCreateNbt().putIntArray("Pages", new int[]{EnumBestiaryPages.INTRODUCTION.ordinal()});
+        if (stack.getNbt() == null) {
+            NbtList list = new NbtList();
+            list.add(NbtString.of(EnumBestiaryPages.INTRODUCTION.getName()));
+            stack.getOrCreateNbt().put("Pages", list);
+        }
     }
 
     @Override
@@ -72,9 +77,9 @@ public class ItemBestiary extends Item {
         if (stack.getNbt() != null)
             if (InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344)) {
                 tooltip.add(Text.translatable("bestiary.contains").formatted(Formatting.GRAY));
-                final Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(Ints.asList(stack.getNbt().getIntArray("Pages")));
+                final Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(stack.getNbt().getList("Pages", NbtElement.STRING_TYPE).stream().map(NbtElement::asString).toList());
                 for (EnumBestiaryPages page : pages)
-                    tooltip.add(Text.literal(Formatting.WHITE + "-").append(Text.translatable("bestiary." + EnumBestiaryPages.values()[page.ordinal()].toString().toLowerCase(Locale.ROOT))).formatted(Formatting.GRAY));
+                    tooltip.add(Text.literal(Formatting.WHITE + "-").append(Text.translatable("bestiary." + page.getName().toLowerCase(Locale.ROOT))).formatted(Formatting.GRAY));
             } else
                 tooltip.add(Text.translatable("bestiary.hold_shift").formatted(Formatting.GRAY));
     }

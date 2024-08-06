@@ -9,6 +9,7 @@ import com.iafenvoy.iceandfire.entity.ai.HippogryphAIWander;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
+import com.iafenvoy.iceandfire.enums.EnumDragonColor;
 import com.iafenvoy.iceandfire.enums.EnumHippogryphTypes;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -42,6 +43,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -63,9 +65,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class EntityHippogryph extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, IFlyingMount, ICustomMoveController, IHasCustomizableAttributes {
     private static final int FLIGHT_CHANCE_PER_TICK = 1200;
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<String> VARIANT = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Boolean> SADDLE = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> ARMOR = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Boolean> CHESTED = DataTracker.registerData(EntityHippogryph.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -169,7 +173,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(VARIANT, 0);
+        this.dataTracker.startTracking(VARIANT, EnumHippogryphTypes.BLACK.getName());
         this.dataTracker.startTracking(ARMOR, 0);
         this.dataTracker.startTracking(SADDLE, Boolean.FALSE);
         this.dataTracker.startTracking(CHESTED, Boolean.FALSE);
@@ -380,7 +384,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Override
     public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
-        compound.putInt("Variant", this.getVariant());
+        compound.putString("Variant", this.getVariant());
         compound.putBoolean("Chested", this.isChested());
         compound.putBoolean("Saddled", this.isSaddled());
         compound.putBoolean("Hovering", this.isHovering());
@@ -412,7 +416,11 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Override
     public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
-        this.setVariant(compound.getInt("Variant"));
+        //FIXME: Compat for old version should be removed in 0.7
+        if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
+            this.setVariant(compound.getString("Variant"));
+        else
+            this.setVariant(EnumHippogryphTypes.values().get(compound.getInt("Variant")).getName());
         this.setChested(compound.getBoolean("Chested"));
         this.setSaddled(compound.getBoolean("Saddled"));
         this.setHovering(compound.getBoolean("Hovering"));
@@ -452,20 +460,20 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     }
 
-    public int getVariant() {
+    public String getVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
-    public void setVariant(int variant) {
+    public void setVariant(String variant) {
         this.dataTracker.set(VARIANT, variant);
     }
 
     public EnumHippogryphTypes getEnumVariant() {
-        return EnumHippogryphTypes.values()[this.getVariant()];
+        return EnumHippogryphTypes.getByName(this.getVariant());
     }
 
     public void setEnumVariant(EnumHippogryphTypes variant) {
-        this.setVariant(variant.ordinal());
+        this.setVariant(variant.getName());
     }
 
     public boolean isSaddled() {

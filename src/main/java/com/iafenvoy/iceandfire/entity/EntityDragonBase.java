@@ -624,7 +624,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.dataTracker.startTracking(HUNGER, 0);
         this.dataTracker.startTracking(AGE_TICKS, 0);
         this.dataTracker.startTracking(GENDER, false);
-        this.dataTracker.startTracking(VARIANT, EnumDragonColor.RED.id());
+        this.dataTracker.startTracking(VARIANT, EnumDragonColor.RED.name());
         this.dataTracker.startTracking(SLEEPING, false);
         this.dataTracker.startTracking(FIREBREATHING, false);
         this.dataTracker.startTracking(HOVERING, false);
@@ -781,7 +781,13 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.setHunger(compound.getInt("Hunger"));
         this.setAgeInTicks(compound.getInt("AgeTicks"));
         this.setGender(compound.getBoolean("Gender"));
-        this.setVariant(compound.getString("Variant"));
+        //FIXME: Compat for old version should be removed in 0.7
+        if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
+            this.setVariant(compound.getString("Variant"));
+        else {
+            List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
+            this.setVariant(colors.get(compound.getInt("Variant")).name());
+        }
         this.setInSittingPose(compound.getBoolean("Sleeping"));
         this.setTamed(compound.getBoolean("TamedDragon"));
         this.setBreathingFire(compound.getBoolean("FireBreathing"));
@@ -1612,7 +1618,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         final int age = this.getRandom().nextInt(80) + 1;
         this.growDragon(age);
         List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
-        this.setVariant(colors.get(new Random().nextInt(colors.size())).id());
+        this.setVariant(colors.get(new Random().nextInt(colors.size())).name());
         this.setInSittingPose(false);
         final double healthStep = (this.maximumHealth - this.minimumHealth) / 125;
         this.heal((Math.round(this.minimumHealth + (healthStep * age))));

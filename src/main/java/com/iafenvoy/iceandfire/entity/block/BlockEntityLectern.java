@@ -44,7 +44,7 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
         @Override
         public int get(int index) {
             EnumBestiaryPages page = BlockEntityLectern.this.selectedPages[index];
-            return page == null ? -1 : page.ordinal();
+            return page == null ? -1 : page.getId();
         }
 
         @Override

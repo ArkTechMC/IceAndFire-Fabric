@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.enums;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
 import net.minecraft.entity.EquipmentSlot;
@@ -11,8 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class EnumDragonArmorMaterial {
-    //FIXME: private
-    public static final List<EnumDragonArmorMaterial> MATERIALS = new ArrayList<>();
+    private static final List<EnumDragonArmorMaterial> MATERIALS = new ArrayList<>();
     public static final EnumDragonArmorMaterial IRON = new EnumDragonArmorMaterial("iron");
     public static final EnumDragonArmorMaterial COPPER = new EnumDragonArmorMaterial("copper");
     public static final EnumDragonArmorMaterial SILVER = new EnumDragonArmorMaterial("silver");
@@ -51,5 +51,9 @@ public class EnumDragonArmorMaterial {
         if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem)
             return armorItem.type.getTexture(slot);
         else return new Identifier("missing");
+    }
+
+    public static List<EnumDragonArmorMaterial> values() {
+        return ImmutableList.copyOf(MATERIALS);
     }
 }

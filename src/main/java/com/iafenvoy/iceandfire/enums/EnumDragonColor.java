@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.enums;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public record EnumDragonColor(String id, Formatting color, DragonType dragonType, Supplier<Item> eggItem,
+public record EnumDragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem,
                               Supplier<Item> scaleItem) {
     private static final List<EnumDragonColor> VALUES = new ArrayList<>();
     private static final Map<String, EnumDragonColor> ID_MAP = new HashMap<>();
@@ -32,14 +33,14 @@ public record EnumDragonColor(String id, Formatting color, DragonType dragonType
     public static final EnumDragonColor COPPER = new EnumDragonColor("copper", Formatting.GOLD, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_COPPER, () -> IafItems.DRAGONSCALES_COPPER);
     public static final EnumDragonColor BLACK = new EnumDragonColor("black", Formatting.DARK_GRAY, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_BLACK, () -> IafItems.DRAGONSCALES_BLACK);
 
-    public EnumDragonColor(String id, Formatting color, DragonType dragonType, Supplier<Item> eggItem, Supplier<Item> scaleItem) {
-        this.id = id;
+    public EnumDragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem, Supplier<Item> scaleItem) {
+        this.name = name;
         this.color = color;
         this.dragonType = dragonType;
         this.eggItem = eggItem;
         this.scaleItem = scaleItem;
         VALUES.add(this);
-        ID_MAP.put(id, this);
+        ID_MAP.put(name, this);
         if (!BY_DRAGON_TYPE.containsKey(dragonType)) BY_DRAGON_TYPE.put(dragonType, new ArrayList<>());
         BY_DRAGON_TYPE.get(dragonType).add(this);
     }
@@ -52,23 +53,23 @@ public record EnumDragonColor(String id, Formatting color, DragonType dragonType
         return this.scaleItem.get();
     }
 
-    public static EnumDragonColor[] values() {
-        return VALUES.toArray(EnumDragonColor[]::new);
+    public static List<EnumDragonColor> values() {
+        return ImmutableList.copyOf(VALUES);
     }
 
     public static EnumDragonColor byMetadata(int meta) {
-        EnumDragonColor i = values()[meta];
+        EnumDragonColor i = values().get(meta);
         return i == null ? RED : i;
     }
 
     public Identifier getEggTexture() {
-        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/egg_%s.png", this.dragonType.getName(), this.id));
+        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/egg_%s.png", this.dragonType.getName(), this.name));
     }
 
     @Override
     public String toString() {
         return "EnumDragonColor[" +
-                "id=" + this.id + ", " +
+                "name=" + this.name + ", " +
                 "color=" + this.color + ", " +
                 "dragonType=" + this.dragonType + ']';
     }
@@ -83,15 +84,15 @@ public record EnumDragonColor(String id, Formatting color, DragonType dragonType
     }
 
     public Identifier getBodyTexture(int stage) {
-        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/%s_%d.png", this.dragonType.getName(), this.id, stage));
+        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/%s_%d.png", this.dragonType.getName(), this.name, stage));
     }
 
     public Identifier getSleepTexture(int stage) {
-        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/%s_%d_sleeping.png", this.dragonType.getName(), this.id, stage));
+        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/%s_%d_sleeping.png", this.dragonType.getName(), this.name, stage));
     }
 
     public Identifier getEyesTexture(int stage) {
-        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/%s_%d_eyes.png", this.dragonType.getName(), this.id, stage));
+        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/%s_%d_eyes.png", this.dragonType.getName(), this.name, stage));
     }
 
     public Identifier getSkeletonTexture(int stage) {
@@ -99,7 +100,7 @@ public record EnumDragonColor(String id, Formatting color, DragonType dragonType
     }
 
     public Identifier getMaleOverlay() {
-        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/male_%s.png", this.dragonType.getName(), this.id));
+        return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/male_%s.png", this.dragonType.getName(), this.name));
     }
 
     public static EnumDragonColor getById(String id) {
@@ -107,6 +108,6 @@ public record EnumDragonColor(String id, Formatting color, DragonType dragonType
     }
 
     public static List<EnumDragonColor> getColorsByType(DragonType type) {
-        return BY_DRAGON_TYPE.getOrDefault(type, new ArrayList<>());
+        return ImmutableList.copyOf(BY_DRAGON_TYPE.getOrDefault(type, new ArrayList<>()));
     }
 }

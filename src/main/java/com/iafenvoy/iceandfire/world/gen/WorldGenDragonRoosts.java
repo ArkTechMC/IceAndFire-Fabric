@@ -238,7 +238,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
         List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(DragonType.getTypeByEntityType(this.getDragonType()));
-        dragon.setVariant(colors.get(random.nextInt(colors.size())).id());
+        dragon.setVariant(colors.get(random.nextInt(colors.size())).name());
         dragon.updatePositionAndAngles(context.getOrigin().getX() + 0.5, context.getWorld().getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, context.getOrigin()).getY() + 1.5, context.getOrigin().getZ() + 0.5, context.getRandom().nextFloat() * 360, 0);
         dragon.homePos = new HomePosition(context.getOrigin(), context.getWorld().toServerWorld());
         dragon.hasHomePosition = true;

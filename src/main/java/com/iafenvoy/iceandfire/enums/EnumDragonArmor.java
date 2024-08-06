@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.enums;
 
+import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.item.armor.IafArmorMaterial;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonArmor;
@@ -18,7 +19,7 @@ import java.util.Locale;
 import java.util.function.Supplier;
 
 public class EnumDragonArmor {
-    public static final List<EnumDragonArmor> ARMORS = new ArrayList<>();
+    private static final List<EnumDragonArmor> ARMORS = new ArrayList<>();
     public static final EnumDragonArmor RED = new EnumDragonArmor(EnumDragonColor.RED, () -> IafItems.DRAGONSCALES_RED);
     public static final EnumDragonArmor BRONZE = new EnumDragonArmor(EnumDragonColor.BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
     public static final EnumDragonArmor GREEN = new EnumDragonArmor(EnumDragonColor.GREEN, () -> IafItems.DRAGONSCALES_GREEN);
@@ -51,7 +52,7 @@ public class EnumDragonArmor {
         for (int i = 0; i < ARMORS.size(); i++) {
             EnumDragonArmor value = ARMORS.get(i);
             value.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "armor_dragon_scales" + (i + 1)), 36, new int[]{5, 7, 9, 5}, 15, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 2);
-            String sub = "armor_" + value.color.id().toLowerCase(Locale.ROOT);
+            String sub = "armor_" + value.color.name().toLowerCase(Locale.ROOT);
 
             value.helmet = IafItems.register(sub + "_helmet", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.HELMET));
             value.chestplate = IafItems.register(sub + "_chestplate", new ItemScaleArmor(value.color, value, value.armorMaterial, ArmorItem.Type.CHESTPLATE));
@@ -70,7 +71,11 @@ public class EnumDragonArmor {
 
     public static int getArmorOrdinal(ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof ItemDragonArmor armorItem)
-            return EnumDragonArmorMaterial.MATERIALS.indexOf(armorItem.type) + 1;
+            return EnumDragonArmorMaterial.values().indexOf(armorItem.type) + 1;
         return 0;
+    }
+
+    public static List<EnumDragonArmor> values(){
+        return ImmutableList.copyOf(ARMORS);
     }
 }

@@ -134,7 +134,7 @@ public class LecternScreen extends HandledScreen<LecternScreenHandler> {
         for (int i1 = 0; i1 < 3; ++i1) {
             int j1 = i + 60;
             int k1 = j1 + 20;
-            int l1 = this.handler.getPossiblePages()[i1] == null ? -1 : this.handler.getPossiblePages()[i1].ordinal();//enchantment level
+            int l1 = this.handler.getPossiblePages()[i1] == null ? -1 : this.handler.getPossiblePages()[i1].getId();//enchantment level
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             if (l1 == -1)
                 ms.drawTexture(ENCHANTMENT_TABLE_GUI_TEXTURE, j1, j + 14 + 19 * i1, 0, 185, 108, 19);

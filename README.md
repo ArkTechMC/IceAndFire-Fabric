@@ -13,7 +13,7 @@ Join our [Discord](https://discord.gg/NDzz2upqAk) if you have any questions.
 
 **All the things from original mod.**
 
-Note: Villagers and Siren have not completed yet.
+Note: Siren have not completed yet.
 
 Netherite Dragon Armor
 

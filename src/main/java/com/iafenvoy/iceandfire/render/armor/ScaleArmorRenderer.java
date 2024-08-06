@@ -29,6 +29,6 @@ public class ScaleArmorRenderer extends ArmorRendererImpl {
     @Override
     public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         EnumDragonArmor armor_type = ((ItemScaleArmor) stack.getItem()).armor_type;
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_" + armor_type.getColor().id() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_" + armor_type.getColor().name() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 }

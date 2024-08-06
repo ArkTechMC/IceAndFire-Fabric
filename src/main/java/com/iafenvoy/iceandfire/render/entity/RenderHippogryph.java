@@ -26,7 +26,7 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
 
     @Override
     public Identifier getTexture(EntityHippogryph entity) {
-        return entity.isBlinking() ? entity.getEnumVariant().TEXTURE_BLINK : entity.getEnumVariant().TEXTURE;
+        return entity.getEnumVariant().getTexture(entity.isBlinking());
     }
 
     private static class LayerHippogriffSaddle extends FeatureRenderer<EntityHippogryph, ModelHippogryph> {
