@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.pathfinding.PathNavigateFlyingCreature;
 import com.iafenvoy.iceandfire.entity.util.*;

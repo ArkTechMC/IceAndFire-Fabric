@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmorMaterial;
+import com.iafenvoy.iceandfire.enums.DragonArmorMaterial;
 import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -27,7 +27,7 @@ public class LayerDragonArmor extends FeatureRenderer<EntityDragonBase, Advanced
         for (EquipmentSlot slot : ARMOR_SLOTS) {
             ItemStack stack = dragon.getEquippedStack(slot);
             if (stack.isEmpty()) continue;
-            Identifier texture = EnumDragonArmorMaterial.getArmorTexture(stack, slot);
+            Identifier texture = DragonArmorMaterial.getArmorTexture(stack, slot);
             VertexConsumer vertexConsumer = bufferIn.getBuffer(RenderLayer.getEntityCutoutNoCull(texture));
             model.render(matrixStackIn, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         }

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityHippogryphEgg;
-import com.iafenvoy.iceandfire.enums.EnumHippogryphTypes;
+import com.iafenvoy.iceandfire.enums.HippogryphTypes;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.client.item.TooltipContext;
@@ -16,11 +16,9 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemHippogryphEgg extends Item {
@@ -28,8 +26,8 @@ public class ItemHippogryphEgg extends Item {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
     }
 
-    public static ItemStack createEggStack(EnumHippogryphTypes parent1, EnumHippogryphTypes parent2) {
-        EnumHippogryphTypes eggType = ThreadLocalRandom.current().nextBoolean() ? parent1 : parent2;
+    public static ItemStack createEggStack(HippogryphTypes parent1, HippogryphTypes parent2) {
+        HippogryphTypes eggType = ThreadLocalRandom.current().nextBoolean() ? parent1 : parent2;
         ItemStack stack = new ItemStack(IafItems.HIPPOGRYPH_EGG);
         NbtCompound tag = new NbtCompound();
         tag.putString("EggType", eggType.getName());

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.item.block.*;
 import com.iafenvoy.iceandfire.item.block.util.IWallBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -67,18 +67,18 @@ public class IafBlocks {
 
     public static final Block NEST = register("nest", BlockGeneric.builder(0.5F, 0F, BlockSoundGroup.GRAVEL, false, MapColor.DARK_GREEN, null, PistonBehavior.DESTROY, false));
 
-    public static final Block DRAGON_SCALE_RED = register("dragonscale_red", new BlockDragonScales(EnumDragonColor.RED));
-    public static final Block DRAGON_SCALE_GREEN = register("dragonscale_green", new BlockDragonScales(EnumDragonColor.GREEN));
-    public static final Block DRAGON_SCALE_BRONZE = register("dragonscale_bronze", new BlockDragonScales(EnumDragonColor.BRONZE));
-    public static final Block DRAGON_SCALE_GRAY = register("dragonscale_gray", new BlockDragonScales(EnumDragonColor.GRAY));
-    public static final Block DRAGON_SCALE_BLUE = register("dragonscale_blue", new BlockDragonScales(EnumDragonColor.BLUE));
-    public static final Block DRAGON_SCALE_WHITE = register("dragonscale_white", new BlockDragonScales(EnumDragonColor.WHITE));
-    public static final Block DRAGON_SCALE_SAPPHIRE = register("dragonscale_sapphire", new BlockDragonScales(EnumDragonColor.SAPPHIRE));
-    public static final Block DRAGON_SCALE_SILVER = register("dragonscale_silver", new BlockDragonScales(EnumDragonColor.SILVER));
-    public static final Block DRAGON_SCALE_ELECTRIC = register("dragonscale_electric", new BlockDragonScales(EnumDragonColor.ELECTRIC));
-    public static final Block DRAGON_SCALE_amethyst = register("dragonscale_amethyst", new BlockDragonScales(EnumDragonColor.AMETHYST));
-    public static final Block DRAGON_SCALE_COPPER = register("dragonscale_copper", new BlockDragonScales(EnumDragonColor.COPPER));
-    public static final Block DRAGON_SCALE_BLACK = register("dragonscale_black", new BlockDragonScales(EnumDragonColor.BLACK));
+    public static final Block DRAGON_SCALE_RED = register("dragonscale_red", new BlockDragonScales(DragonColor.RED));
+    public static final Block DRAGON_SCALE_GREEN = register("dragonscale_green", new BlockDragonScales(DragonColor.GREEN));
+    public static final Block DRAGON_SCALE_BRONZE = register("dragonscale_bronze", new BlockDragonScales(DragonColor.BRONZE));
+    public static final Block DRAGON_SCALE_GRAY = register("dragonscale_gray", new BlockDragonScales(DragonColor.GRAY));
+    public static final Block DRAGON_SCALE_BLUE = register("dragonscale_blue", new BlockDragonScales(DragonColor.BLUE));
+    public static final Block DRAGON_SCALE_WHITE = register("dragonscale_white", new BlockDragonScales(DragonColor.WHITE));
+    public static final Block DRAGON_SCALE_SAPPHIRE = register("dragonscale_sapphire", new BlockDragonScales(DragonColor.SAPPHIRE));
+    public static final Block DRAGON_SCALE_SILVER = register("dragonscale_silver", new BlockDragonScales(DragonColor.SILVER));
+    public static final Block DRAGON_SCALE_ELECTRIC = register("dragonscale_electric", new BlockDragonScales(DragonColor.ELECTRIC));
+    public static final Block DRAGON_SCALE_amethyst = register("dragonscale_amethyst", new BlockDragonScales(DragonColor.AMETHYST));
+    public static final Block DRAGON_SCALE_COPPER = register("dragonscale_copper", new BlockDragonScales(DragonColor.COPPER));
+    public static final Block DRAGON_SCALE_BLACK = register("dragonscale_black", new BlockDragonScales(DragonColor.BLACK));
 
     public static final Block DRAGON_BONE_BLOCK = register("dragon_bone_block", new BlockDragonBone());
     public static final Block DRAGON_BONE_BLOCK_WALL = register("dragon_bone_wall", new BlockDragonBoneWall(AbstractBlock.Settings.copy(IafBlocks.DRAGON_BONE_BLOCK)));

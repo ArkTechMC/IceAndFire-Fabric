@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.item.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmorMaterial;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmorPart;
+import com.iafenvoy.iceandfire.enums.DragonArmorMaterial;
+import com.iafenvoy.iceandfire.enums.DragonArmorPart;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,16 +17,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemDragonArmor extends Item {
-    public final EnumDragonArmorMaterial type;
-    public final EnumDragonArmorPart dragonSlot;
+    public final DragonArmorMaterial type;
+    public final DragonArmorPart dragonSlot;
     public String name;
     private Pattern baseName = Pattern.compile("[a-z]+_[a-z]+");
 
-    public ItemDragonArmor(EnumDragonArmorMaterial type, EnumDragonArmorPart dragonSlot) {
+    public ItemDragonArmor(DragonArmorMaterial type, DragonArmorPart dragonSlot) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
         this.type = type;
         this.dragonSlot = dragonSlot;
-        if (type == EnumDragonArmorMaterial.DRAGON_STEEL_FIRE || type == EnumDragonArmorMaterial.DRAGON_STEEL_ICE || type == EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING)
+        if (type == DragonArmorMaterial.DRAGON_STEEL_FIRE || type == DragonArmorMaterial.DRAGON_STEEL_ICE || type == DragonArmorMaterial.DRAGON_STEEL_LIGHTNING)
             this.baseName = Pattern.compile("[a-z]+_[a-z]+_[a-z]+_[a-z]+");
     }
 

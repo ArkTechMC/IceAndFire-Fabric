@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityMobSkull;
-import com.iafenvoy.iceandfire.enums.EnumSkullType;
+import com.iafenvoy.iceandfire.enums.IafSkullType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,9 +13,9 @@ import net.minecraft.util.math.Direction;
 
 public class ItemMobSkull extends Item {
 
-    private final EnumSkullType skull;
+    private final IafSkullType skull;
 
-    public ItemMobSkull(EnumSkullType skull) {
+    public ItemMobSkull(IafSkullType skull) {
         super(new Settings().maxCount(1));
         this.skull = skull;
     }

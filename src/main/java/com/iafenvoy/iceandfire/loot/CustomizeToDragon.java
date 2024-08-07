@@ -3,8 +3,7 @@ package com.iafenvoy.iceandfire.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemDragonScales;
 import com.iafenvoy.iceandfire.item.ItemDragonSkull;
@@ -32,13 +31,13 @@ public class CustomizeToDragon extends ConditionalLootFunction {
                 return stack;
             } else if (stack.getItem() instanceof ItemDragonScales) {
                 stack.setCount(dragon.getAgeInDays() / 25 + dragon.getRandom().nextInt(1 + (dragon.getAgeInDays() / 5)));
-                return new ItemStack(EnumDragonColor.getById(dragon.getVariant()).getScaleItem(), stack.getCount());
+                return new ItemStack(DragonColor.getById(dragon.getVariant()).getScaleItem(), stack.getCount());
             } else if (stack.getItem() instanceof ItemDragonEgg) {
                 if (dragon.shouldDropLoot()) {
-                    return new ItemStack(EnumDragonColor.getById(dragon.getVariant()).getEggItem(), stack.getCount());
+                    return new ItemStack(DragonColor.getById(dragon.getVariant()).getEggItem(), stack.getCount());
                 } else {
                     stack.setCount(1 + dragon.getRandom().nextInt(1 + (dragon.getAgeInDays() / 5)));
-                    return new ItemStack(EnumDragonColor.getById(dragon.getVariant()).getScaleItem(), stack.getCount());
+                    return new ItemStack(DragonColor.getById(dragon.getVariant()).getScaleItem(), stack.getCount());
                 }
             } else if (stack.getItem() instanceof ItemDragonFlesh) {
                 return new ItemStack(dragon.getFleshItem(), 1 + dragon.getRandom().nextInt(1 + (dragon.getAgeInDays() / 25)));

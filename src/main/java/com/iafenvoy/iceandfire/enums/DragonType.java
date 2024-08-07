@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.entity.util.dragon;
+package com.iafenvoy.iceandfire.enums;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;

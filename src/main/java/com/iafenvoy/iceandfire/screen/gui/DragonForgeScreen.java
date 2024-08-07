@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen.gui;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
+import com.iafenvoy.iceandfire.enums.DragonType;
 import com.iafenvoy.iceandfire.recipe.DragonForgeRecipe;
 import com.iafenvoy.iceandfire.registry.IafRecipes;
 import com.iafenvoy.iceandfire.screen.handler.DragonForgeScreenHandler;

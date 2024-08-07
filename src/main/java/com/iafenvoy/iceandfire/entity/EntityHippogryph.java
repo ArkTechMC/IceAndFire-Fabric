@@ -9,8 +9,7 @@ import com.iafenvoy.iceandfire.entity.ai.HippogryphAIWander;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
-import com.iafenvoy.iceandfire.enums.EnumHippogryphTypes;
+import com.iafenvoy.iceandfire.enums.HippogryphTypes;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
@@ -64,8 +63,6 @@ import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class EntityHippogryph extends TameableEntity implements NamedScreenHandlerFactory, ISyncMount, IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, IFlyingMount, ICustomMoveController, IHasCustomizableAttributes {
     private static final int FLIGHT_CHANCE_PER_TICK = 1200;
@@ -173,7 +170,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(VARIANT, EnumHippogryphTypes.BLACK.getName());
+        this.dataTracker.startTracking(VARIANT, HippogryphTypes.BLACK.getName());
         this.dataTracker.startTracking(ARMOR, 0);
         this.dataTracker.startTracking(SADDLE, Boolean.FALSE);
         this.dataTracker.startTracking(CHESTED, Boolean.FALSE);
@@ -236,8 +233,8 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         assert s != null;
         boolean isDev = s.equals("Alexthe666") || s.equals("Raptorfarian") || s.equals("tweakbsd");
         if (this.isTamed() && this.isOwner(player)) {
-            if (itemstack.getItem() == Items.RED_DYE && this.getEnumVariant() != EnumHippogryphTypes.ALEX && isDev) {
-                this.setEnumVariant(EnumHippogryphTypes.ALEX);
+            if (itemstack.getItem() == Items.RED_DYE && this.getEnumVariant() != HippogryphTypes.ALEX && isDev) {
+                this.setEnumVariant(HippogryphTypes.ALEX);
                 if (!player.isCreative())
                     itemstack.decrement(1);
                 this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
@@ -245,8 +242,8 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
                     this.getWorld().addParticle(ParticleTypes.CLOUD, this.getX() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getY() + (double) (this.random.nextFloat() * this.getHeight()), this.getZ() + (double) (this.random.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), 0, 0, 0);
                 return ActionResult.SUCCESS;
             }
-            if (itemstack.getItem() == Items.LIGHT_GRAY_DYE && this.getEnumVariant() != EnumHippogryphTypes.RAPTOR && isDev) {
-                this.setEnumVariant(EnumHippogryphTypes.RAPTOR);
+            if (itemstack.getItem() == Items.LIGHT_GRAY_DYE && this.getEnumVariant() != HippogryphTypes.RAPTOR && isDev) {
+                this.setEnumVariant(HippogryphTypes.RAPTOR);
                 if (!player.isCreative())
                     itemstack.decrement(1);
                 this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
@@ -280,8 +277,8 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
                 }
                 return ActionResult.SUCCESS;
             }
-            if (itemstack.getItem() == Items.GLISTERING_MELON_SLICE && this.getEnumVariant() != EnumHippogryphTypes.DODO) {
-                this.setEnumVariant(EnumHippogryphTypes.DODO);
+            if (itemstack.getItem() == Items.GLISTERING_MELON_SLICE && this.getEnumVariant() != HippogryphTypes.DODO) {
+                this.setEnumVariant(HippogryphTypes.DODO);
                 if (!player.isCreative())
                     itemstack.decrement(1);
                 this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
@@ -420,7 +417,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
             this.setVariant(compound.getString("Variant"));
         else
-            this.setVariant(EnumHippogryphTypes.values().get(compound.getInt("Variant")).getName());
+            this.setVariant(HippogryphTypes.values().get(compound.getInt("Variant")).getName());
         this.setChested(compound.getBoolean("Chested"));
         this.setSaddled(compound.getBoolean("Saddled"));
         this.setHovering(compound.getBoolean("Hovering"));
@@ -468,11 +465,11 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         this.dataTracker.set(VARIANT, variant);
     }
 
-    public EnumHippogryphTypes getEnumVariant() {
-        return EnumHippogryphTypes.getByName(this.getVariant());
+    public HippogryphTypes getEnumVariant() {
+        return HippogryphTypes.getByName(this.getVariant());
     }
 
-    public void setEnumVariant(EnumHippogryphTypes variant) {
+    public void setEnumVariant(HippogryphTypes variant) {
         this.setVariant(variant.getName());
     }
 
@@ -582,7 +579,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Override
     public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         EntityData data = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setEnumVariant(EnumHippogryphTypes.getBiomeType(worldIn.getBiome(this.getBlockPos())));
+        this.setEnumVariant(HippogryphTypes.getBiomeType(worldIn.getBiome(this.getBlockPos())));
         return data;
     }
 

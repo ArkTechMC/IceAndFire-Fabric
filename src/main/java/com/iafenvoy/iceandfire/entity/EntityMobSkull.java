@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
-import com.iafenvoy.iceandfire.enums.EnumSkullType;
+import com.iafenvoy.iceandfire.enums.IafSkullType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
@@ -92,11 +92,11 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
         this.getDataTracker().set(SKULL_ENUM, var1);
     }
 
-    public EnumSkullType getSkullType() {
-        return EnumSkullType.values()[MathHelper.clamp(this.getEnumOrdinal(), 0, EnumSkullType.values().length - 1)];
+    public IafSkullType getSkullType() {
+        return IafSkullType.values()[MathHelper.clamp(this.getEnumOrdinal(), 0, IafSkullType.values().length - 1)];
     }
 
-    public void setSkullType(EnumSkullType skullType) {
+    public void setSkullType(IafSkullType skullType) {
         this.setEnumOrdinal(skullType.ordinal());
     }
 
@@ -110,7 +110,7 @@ public class EntityMobSkull extends AnimalEntity implements IBlacklistedFromStat
         if (this.isRemoved())
             return;
         this.remove(RemovalReason.DISCARDED);
-        ItemStack stack = new ItemStack(this.getSkullType().skull_item, 1);
+        ItemStack stack = new ItemStack(this.getSkullType().getSkullItem(), 1);
         if (!this.getWorld().isClient)
             this.dropStack(stack, 0.0F);
     }

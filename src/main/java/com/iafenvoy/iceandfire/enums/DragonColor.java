@@ -3,7 +3,6 @@ package com.iafenvoy.iceandfire.enums;
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.item.Item;
 import net.minecraft.util.Formatting;
@@ -15,25 +14,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public record EnumDragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem,
-                              Supplier<Item> scaleItem) {
-    private static final List<EnumDragonColor> VALUES = new ArrayList<>();
-    private static final Map<String, EnumDragonColor> ID_MAP = new HashMap<>();
-    private static final Map<DragonType, List<EnumDragonColor>> BY_DRAGON_TYPE = new HashMap<>();
-    public static final EnumDragonColor RED = new EnumDragonColor("red", Formatting.DARK_RED, DragonType.FIRE, () -> IafItems.DRAGONEGG_RED, () -> IafItems.DRAGONSCALES_RED);
-    public static final EnumDragonColor GREEN = new EnumDragonColor("green", Formatting.DARK_GREEN, DragonType.FIRE, () -> IafItems.DRAGONEGG_GREEN, () -> IafItems.DRAGONSCALES_GREEN);
-    public static final EnumDragonColor BRONZE = new EnumDragonColor("bronze", Formatting.GOLD, DragonType.FIRE, () -> IafItems.DRAGONEGG_BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
-    public static final EnumDragonColor GRAY = new EnumDragonColor("gray", Formatting.GRAY, DragonType.FIRE, () -> IafItems.DRAGONEGG_GRAY, () -> IafItems.DRAGONSCALES_GRAY);
-    public static final EnumDragonColor BLUE = new EnumDragonColor("blue", Formatting.AQUA, DragonType.ICE, () -> IafItems.DRAGONEGG_BLUE, () -> IafItems.DRAGONSCALES_BLUE);
-    public static final EnumDragonColor WHITE = new EnumDragonColor("white", Formatting.WHITE, DragonType.ICE, () -> IafItems.DRAGONEGG_WHITE, () -> IafItems.DRAGONSCALES_WHITE);
-    public static final EnumDragonColor SAPPHIRE = new EnumDragonColor("sapphire", Formatting.BLUE, DragonType.ICE, () -> IafItems.DRAGONEGG_SAPPHIRE, () -> IafItems.DRAGONSCALES_SAPPHIRE);
-    public static final EnumDragonColor SILVER = new EnumDragonColor("silver", Formatting.DARK_GRAY, DragonType.ICE, () -> IafItems.DRAGONEGG_SILVER, () -> IafItems.DRAGONSCALES_SILVER);
-    public static final EnumDragonColor ELECTRIC = new EnumDragonColor("electric", Formatting.DARK_BLUE, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_ELECTRIC, () -> IafItems.DRAGONSCALES_ELECTRIC);
-    public static final EnumDragonColor AMETHYST = new EnumDragonColor("amethyst", Formatting.LIGHT_PURPLE, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_AMETHYST, () -> IafItems.DRAGONSCALES_AMETHYST);
-    public static final EnumDragonColor COPPER = new EnumDragonColor("copper", Formatting.GOLD, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_COPPER, () -> IafItems.DRAGONSCALES_COPPER);
-    public static final EnumDragonColor BLACK = new EnumDragonColor("black", Formatting.DARK_GRAY, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_BLACK, () -> IafItems.DRAGONSCALES_BLACK);
+public record DragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem,
+                          Supplier<Item> scaleItem) {
+    private static final List<DragonColor> VALUES = new ArrayList<>();
+    private static final Map<String, DragonColor> ID_MAP = new HashMap<>();
+    private static final Map<DragonType, List<DragonColor>> BY_DRAGON_TYPE = new HashMap<>();
+    public static final DragonColor RED = new DragonColor("red", Formatting.DARK_RED, DragonType.FIRE, () -> IafItems.DRAGONEGG_RED, () -> IafItems.DRAGONSCALES_RED);
+    public static final DragonColor GREEN = new DragonColor("green", Formatting.DARK_GREEN, DragonType.FIRE, () -> IafItems.DRAGONEGG_GREEN, () -> IafItems.DRAGONSCALES_GREEN);
+    public static final DragonColor BRONZE = new DragonColor("bronze", Formatting.GOLD, DragonType.FIRE, () -> IafItems.DRAGONEGG_BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
+    public static final DragonColor GRAY = new DragonColor("gray", Formatting.GRAY, DragonType.FIRE, () -> IafItems.DRAGONEGG_GRAY, () -> IafItems.DRAGONSCALES_GRAY);
+    public static final DragonColor BLUE = new DragonColor("blue", Formatting.AQUA, DragonType.ICE, () -> IafItems.DRAGONEGG_BLUE, () -> IafItems.DRAGONSCALES_BLUE);
+    public static final DragonColor WHITE = new DragonColor("white", Formatting.WHITE, DragonType.ICE, () -> IafItems.DRAGONEGG_WHITE, () -> IafItems.DRAGONSCALES_WHITE);
+    public static final DragonColor SAPPHIRE = new DragonColor("sapphire", Formatting.BLUE, DragonType.ICE, () -> IafItems.DRAGONEGG_SAPPHIRE, () -> IafItems.DRAGONSCALES_SAPPHIRE);
+    public static final DragonColor SILVER = new DragonColor("silver", Formatting.DARK_GRAY, DragonType.ICE, () -> IafItems.DRAGONEGG_SILVER, () -> IafItems.DRAGONSCALES_SILVER);
+    public static final DragonColor ELECTRIC = new DragonColor("electric", Formatting.DARK_BLUE, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_ELECTRIC, () -> IafItems.DRAGONSCALES_ELECTRIC);
+    public static final DragonColor AMETHYST = new DragonColor("amethyst", Formatting.LIGHT_PURPLE, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_AMETHYST, () -> IafItems.DRAGONSCALES_AMETHYST);
+    public static final DragonColor COPPER = new DragonColor("copper", Formatting.GOLD, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_COPPER, () -> IafItems.DRAGONSCALES_COPPER);
+    public static final DragonColor BLACK = new DragonColor("black", Formatting.DARK_GRAY, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_BLACK, () -> IafItems.DRAGONSCALES_BLACK);
 
-    public EnumDragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem, Supplier<Item> scaleItem) {
+    public DragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem, Supplier<Item> scaleItem) {
         this.name = name;
         this.color = color;
         this.dragonType = dragonType;
@@ -53,12 +52,12 @@ public record EnumDragonColor(String name, Formatting color, DragonType dragonTy
         return this.scaleItem.get();
     }
 
-    public static List<EnumDragonColor> values() {
+    public static List<DragonColor> values() {
         return ImmutableList.copyOf(VALUES);
     }
 
-    public static EnumDragonColor byMetadata(int meta) {
-        EnumDragonColor i = values().get(meta);
+    public static DragonColor byMetadata(int meta) {
+        DragonColor i = values().get(meta);
         return i == null ? RED : i;
     }
 
@@ -103,11 +102,11 @@ public record EnumDragonColor(String name, Formatting color, DragonType dragonTy
         return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/male_%s.png", this.dragonType.getName(), this.name));
     }
 
-    public static EnumDragonColor getById(String id) {
+    public static DragonColor getById(String id) {
         return ID_MAP.getOrDefault(id, RED);
     }
 
-    public static List<EnumDragonColor> getColorsByType(DragonType type) {
+    public static List<DragonColor> getColorsByType(DragonType type) {
         return ImmutableList.copyOf(BY_DRAGON_TYPE.getOrDefault(type, new ArrayList<>()));
     }
 }

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,10 +20,10 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ItemDragonEgg extends Item {
-    public static final Map<EnumDragonColor, Item> EGGS = new HashMap<>();
-    public final EnumDragonColor type;
+    public static final Map<DragonColor, Item> EGGS = new HashMap<>();
+    public final DragonColor type;
 
-    public ItemDragonEgg(EnumDragonColor type) {
+    public ItemDragonEgg(DragonColor type) {
         super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
         this.type = type;
         EGGS.put(type, this);

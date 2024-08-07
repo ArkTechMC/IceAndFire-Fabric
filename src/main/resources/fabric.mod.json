@@ -28,7 +28,7 @@
       "com.iafenvoy.iceandfire.compat.jade.IceAndFireJadePlugin"
     ],
     "cardinal-components-entity": [
-      "com.iafenvoy.iceandfire.data.ModComponentEntry"
+      "com.iafenvoy.iceandfire.data.component.ModComponentEntry"
     ],
     "modmenu": [
       "com.iafenvoy.iceandfire.compat.ModMenu"

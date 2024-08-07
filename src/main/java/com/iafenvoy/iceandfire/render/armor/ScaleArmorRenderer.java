@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
+import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.enums.DragonArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelFireDragonScaleArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelIceDragonScaleArmor;
@@ -28,7 +28,7 @@ public class ScaleArmorRenderer extends ArmorRendererImpl {
 
     @Override
     public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
-        EnumDragonArmor armor_type = ((ItemScaleArmor) stack.getItem()).armor_type;
+        DragonArmor armor_type = ((ItemScaleArmor) stack.getItem()).armor_type;
         return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_" + armor_type.getColor().name() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 }

@@ -86,7 +86,7 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
             fakeEntity = this.hollowEntityMap.get(entityIn.getTrappedEntityTypeString());
         RenderLayer tex = IafRenderLayers.getStoneMobRenderType(200, 200);
         if (fakeEntity instanceof EntityTroll troll)
-            tex = RenderLayer.getEntityCutout(troll.getTrollType().TEXTURE_STONE);
+            tex = RenderLayer.getEntityCutout(troll.getTrollType().getStatueTexture());
 
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(tex);
 

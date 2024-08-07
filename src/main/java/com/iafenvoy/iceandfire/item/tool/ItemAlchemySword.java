@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item.tool;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityFireDragon;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.event.ServerEvents;

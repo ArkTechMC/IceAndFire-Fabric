@@ -4,13 +4,14 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.*;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.enums.DragonArmor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.registry.IafEntities;
@@ -624,7 +625,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.dataTracker.startTracking(HUNGER, 0);
         this.dataTracker.startTracking(AGE_TICKS, 0);
         this.dataTracker.startTracking(GENDER, false);
-        this.dataTracker.startTracking(VARIANT, EnumDragonColor.RED.name());
+        this.dataTracker.startTracking(VARIANT, DragonColor.RED.name());
         this.dataTracker.startTracking(SLEEPING, false);
         this.dataTracker.startTracking(FIREBREATHING, false);
         this.dataTracker.startTracking(HOVERING, false);
@@ -785,7 +786,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
             this.setVariant(compound.getString("Variant"));
         else {
-            List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
+            List<DragonColor> colors = DragonColor.getColorsByType(this.dragonType);
             this.setVariant(colors.get(compound.getInt("Variant")).name());
         }
         this.setInSittingPose(compound.getBoolean("Sleeping"));
@@ -1048,7 +1049,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         double val = 1D;
         final EquipmentSlot[] slots = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
         for (EquipmentSlot slot : slots) {
-            switch (EnumDragonArmor.getArmorOrdinal(this.getEquippedStack(slot))) {
+            switch (DragonArmor.getArmorOrdinal(this.getEquippedStack(slot))) {
                 case 1 -> val += 2D;
                 case 2, 4 -> val += 3D;
                 case 3 -> val += 5D;
@@ -1110,7 +1111,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                             this.remove(RemovalReason.DISCARDED);
                         } else if (this.getDeathStage() == (lastDeathStage / 2) - 1 && IafCommonConfig.INSTANCE.dragon.lootHeart.getBooleanValue()) {
                             ItemStack heart = new ItemStack(this.getHeartItem(), 1);
-                            List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
+                            List<DragonColor> colors = DragonColor.getColorsByType(this.dragonType);
                             ItemStack egg = new ItemStack(colors.get(this.random.nextInt(colors.size())).getEggItem(), 1);
                             if (!this.getWorld().isClient) {
                                 this.dropStack(heart, 1);
@@ -1617,7 +1618,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.setGender(this.getRandom().nextBoolean());
         final int age = this.getRandom().nextInt(80) + 1;
         this.growDragon(age);
-        List<EnumDragonColor> colors = EnumDragonColor.getColorsByType(this.dragonType);
+        List<DragonColor> colors = DragonColor.getColorsByType(this.dragonType);
         this.setVariant(colors.get(new Random().nextInt(colors.size())).name());
         this.setInSittingPose(false);
         final double healthStep = (this.maximumHealth - this.minimumHealth) / 125;
@@ -1909,7 +1910,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
 
     public EntityDragonEgg createEgg(EntityDragonBase ageable) { // FIXME :: Unused parameter
         EntityDragonEgg dragon = new EntityDragonEgg(IafEntities.DRAGON_EGG, this.getWorld());
-        dragon.setEggType(EnumDragonColor.byMetadata(new Random().nextInt(4) + this.getStartMetaForType()));
+        dragon.setEggType(DragonColor.byMetadata(new Random().nextInt(4) + this.getStartMetaForType()));
         dragon.setPosition(MathHelper.floor(this.getX()) + 0.5, MathHelper.floor(this.getY()) + 1, MathHelper.floor(this.getZ()) + 0.5);
         return dragon;
     }

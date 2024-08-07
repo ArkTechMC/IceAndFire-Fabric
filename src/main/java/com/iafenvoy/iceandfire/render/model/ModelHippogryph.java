@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.entity.EntityHippogryph;
-import com.iafenvoy.iceandfire.enums.EnumHippogryphTypes;
+import com.iafenvoy.iceandfire.enums.HippogryphTypes;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.ModelAnimator;
@@ -697,10 +697,10 @@ public class ModelHippogryph extends ModelDragonBase<EntityHippogryph> {
 
         float speed_walk = 0.4F;
         float speed_idle = 0.05F;
-        float speed_fly = 0.35F + (entity.getEnumVariant() == EnumHippogryphTypes.DODO ? 0.2f : 0);
+        float speed_fly = 0.35F + (entity.getEnumVariant() == HippogryphTypes.DODO ? 0.2f : 0);
         float degree_walk = 0.5F;
         float degree_idle = 0.5F;
-        float degree_fly = 0.5F + (entity.getEnumVariant() == EnumHippogryphTypes.DODO ? 1f : 0);
+        float degree_fly = 0.5F + (entity.getEnumVariant() == HippogryphTypes.DODO ? 1f : 0);
         this.bob(this.Body, speed_idle, degree_idle, false, animationProgress, 1);
         this.bob(this.BackLegR1, -speed_idle, degree_idle, false, animationProgress, 1);
         this.bob(this.BackLegR1_1, -speed_idle, degree_idle, false, animationProgress, 1);

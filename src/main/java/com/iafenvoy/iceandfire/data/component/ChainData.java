@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.entity.data;
+package com.iafenvoy.iceandfire.data.component;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;

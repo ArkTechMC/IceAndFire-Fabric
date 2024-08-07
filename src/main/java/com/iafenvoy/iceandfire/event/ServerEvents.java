@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.event;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.*;
 import com.iafenvoy.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
 import com.iafenvoy.iceandfire.entity.ai.VillagerAIFearUntamed;

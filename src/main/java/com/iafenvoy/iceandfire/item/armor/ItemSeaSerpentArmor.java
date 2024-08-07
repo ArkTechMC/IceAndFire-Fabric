@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.armor;
 
-import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
+import com.iafenvoy.iceandfire.enums.SeaSerpent;
 import com.iafenvoy.uranus.object.item.CustomArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -18,9 +18,9 @@ import java.util.List;
 
 public class ItemSeaSerpentArmor extends ArmorItem implements IArmorFinder {
 
-    public final EnumSeaSerpent armor_type;
+    public final SeaSerpent armor_type;
 
-    public ItemSeaSerpentArmor(EnumSeaSerpent armorType, CustomArmorMaterial material, Type slot) {
+    public ItemSeaSerpentArmor(SeaSerpent armorType, CustomArmorMaterial material, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.armor_type = armorType;
     }

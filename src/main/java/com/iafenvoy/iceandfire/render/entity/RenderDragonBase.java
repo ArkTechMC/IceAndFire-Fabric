@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.render.entity;
 import com.google.common.collect.Maps;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonArmor;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonBanner;
 import com.iafenvoy.iceandfire.render.entity.layer.LayerDragonEyes;
@@ -57,7 +57,7 @@ public class RenderDragonBase extends MobEntityRenderer<EntityDragonBase, Advanc
         if (resourcelocation == null) {
             resourcelocation = new Identifier(IceAndFire.MOD_ID, "dragon_texture_" + baseTexture);
             List<String> tex = new ArrayList<>();
-            EnumDragonColor color = EnumDragonColor.getById(entity.getVariant());
+            DragonColor color = DragonColor.getById(entity.getVariant());
             tex.add(color.getTextureByEntity(entity).toString());
             if (entity.isMale() && !entity.isSkeletal()) tex.add(color.getMaleOverlay().toString());
             else tex.add(new Identifier(IceAndFire.MOD_ID, "textures/models/empty.png").toString());

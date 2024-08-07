@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.iceandfire.enums.TrollType;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -15,9 +15,9 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class ItemTrollWeapon extends SwordItem {
-    public EnumTroll.Weapon weapon;
+    public TrollType.ITrollWeapon weapon;
 
-    public ItemTrollWeapon(EnumTroll.Weapon weapon) {
+    public ItemTrollWeapon(TrollType.ITrollWeapon weapon) {
         super(IafItems.TROLL_WEAPON_TOOL_MATERIAL, 15, -3.5F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.weapon = weapon;
     }

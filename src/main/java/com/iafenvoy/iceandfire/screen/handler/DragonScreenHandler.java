@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen.handler;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmorPart;
+import com.iafenvoy.iceandfire.enums.DragonArmorPart;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;
 import com.iafenvoy.iceandfire.screen.slot.BannerSlot;
 import com.iafenvoy.iceandfire.screen.slot.DragonArmorSlot;
@@ -32,10 +32,10 @@ public class DragonScreenHandler extends ScreenHandler {
         dragonInventory.onOpen(playerInventory.player);
         int i = (b0 - 4) * 18;
         this.addSlot(new BannerSlot(dragonInventory, 0, 8, 54));
-        this.addSlot(new DragonArmorSlot(dragonInventory, 1, 8, 18, EnumDragonArmorPart.HEAD));
-        this.addSlot(new DragonArmorSlot(dragonInventory, 2, 8, 36, EnumDragonArmorPart.NECK));
-        this.addSlot(new DragonArmorSlot(dragonInventory, 3, 153, 18, EnumDragonArmorPart.BODY));
-        this.addSlot(new DragonArmorSlot(dragonInventory, 4, 153, 36, EnumDragonArmorPart.TAIL));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 1, 8, 18, DragonArmorPart.HEAD));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 2, 8, 36, DragonArmorPart.NECK));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 3, 153, 18, DragonArmorPart.BODY));
+        this.addSlot(new DragonArmorSlot(dragonInventory, 4, 153, 36, DragonArmorPart.TAIL));
         for (int j = 0; j < 3; ++j)
             for (int k = 0; k < 9; ++k)
                 this.addSlot(new Slot(playerInventory, k + j * 9 + 9, 8 + k * 18, 150 + j * 18 + i));

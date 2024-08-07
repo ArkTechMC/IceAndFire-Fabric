@@ -20,15 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class EnumSeaSerpent {
-    private static final List<EnumSeaSerpent> TYPES = new ArrayList<>();
-    public static final EnumSeaSerpent BLUE = new EnumSeaSerpent("blue", Formatting.BLUE);
-    public static final EnumSeaSerpent BRONZE = new EnumSeaSerpent("bronze", Formatting.GOLD);
-    public static final EnumSeaSerpent DEEPBLUE = new EnumSeaSerpent("deepblue", Formatting.DARK_BLUE);
-    public static final EnumSeaSerpent GREEN = new EnumSeaSerpent("green", Formatting.DARK_GREEN);
-    public static final EnumSeaSerpent PURPLE = new EnumSeaSerpent("purple", Formatting.DARK_PURPLE);
-    public static final EnumSeaSerpent RED = new EnumSeaSerpent("red", Formatting.DARK_RED);
-    public static final EnumSeaSerpent TEAL = new EnumSeaSerpent("teal", Formatting.AQUA);
+public class SeaSerpent {
+    private static final List<SeaSerpent> TYPES = new ArrayList<>();
+    public static final SeaSerpent BLUE = new SeaSerpent("blue", Formatting.BLUE);
+    public static final SeaSerpent BRONZE = new SeaSerpent("bronze", Formatting.GOLD);
+    public static final SeaSerpent DEEPBLUE = new SeaSerpent("deepblue", Formatting.DARK_BLUE);
+    public static final SeaSerpent GREEN = new SeaSerpent("green", Formatting.DARK_GREEN);
+    public static final SeaSerpent PURPLE = new SeaSerpent("purple", Formatting.DARK_PURPLE);
+    public static final SeaSerpent RED = new SeaSerpent("red", Formatting.DARK_RED);
+    public static final SeaSerpent TEAL = new SeaSerpent("teal", Formatting.AQUA);
 
     public final String resourceName;
     public final Formatting color;
@@ -40,18 +40,18 @@ public class EnumSeaSerpent {
     public Item boots;
     public Block scaleBlock;
 
-    public EnumSeaSerpent(String resourceName, Formatting color) {
+    public SeaSerpent(String resourceName, Formatting color) {
         this.resourceName = resourceName.toLowerCase(Locale.ROOT);
         this.color = color;
         TYPES.add(this);
     }
 
-    public static List<EnumSeaSerpent> values() {
+    public static List<SeaSerpent> values() {
         return ImmutableList.copyOf(TYPES);
     }
 
     public static void initArmors() {
-        for (EnumSeaSerpent color : EnumSeaSerpent.values()) {
+        for (SeaSerpent color : SeaSerpent.values()) {
             color.armorMaterial = new IafArmorMaterial(IdUtil.build(IceAndFire.MOD_ID, "sea_serpent_scales_") + color.resourceName, 30, new int[]{4, 8, 7, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2.5F);
             color.scaleBlock = IafBlocks.register("sea_serpent_scale_block_" + color.resourceName, new BlockSeaSerpentScales(color.resourceName, color.color));
             color.scale = IafItems.register("sea_serpent_scales_" + color.resourceName, new ItemSeaSerpentScales(color.resourceName, color.color));

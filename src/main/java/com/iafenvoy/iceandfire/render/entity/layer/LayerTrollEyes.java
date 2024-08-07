@@ -19,7 +19,7 @@ public class LayerTrollEyes extends FeatureRenderer<EntityTroll, ModelTroll> {
     @Override
     public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityTroll troll, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!EntityGorgon.isStoneMob(troll)) {
-            RenderLayer tex = RenderLayer.getEyes(troll.getTrollType().TEXTURE_EYES);
+            RenderLayer tex = RenderLayer.getEyes(troll.getTrollType().getEyesTexture());
             VertexConsumer vertexConsumer = bufferIn.getBuffer(tex);
             this.getContextModel().render(matrixStackIn, vertexConsumer, packedLightIn, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
         }

@@ -2,10 +2,11 @@ package com.iafenvoy.iceandfire.entity.util.dragon;
 
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.BlockLaunchExplosion;
+import com.iafenvoy.iceandfire.enums.DragonType;
 import com.iafenvoy.iceandfire.item.block.BlockCharedPath;
 import com.iafenvoy.iceandfire.item.block.BlockFallingReturningState;
 import com.iafenvoy.iceandfire.item.block.BlockReturningState;

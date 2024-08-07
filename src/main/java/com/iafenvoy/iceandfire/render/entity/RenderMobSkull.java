@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.render.entity;
 import com.google.common.collect.Maps;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityMobSkull;
-import com.iafenvoy.iceandfire.enums.EnumSkullType;
+import com.iafenvoy.iceandfire.enums.IafSkullType;
 import com.iafenvoy.iceandfire.render.model.*;
 import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.uranus.client.model.TabulaModel;
@@ -64,7 +64,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
         matrixStackIn.pop();
     }
 
-    private void renderForEnum(EnumSkullType skull, boolean onWall, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
+    private void renderForEnum(IafSkullType skull, boolean onWall, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderLayer.getEntityTranslucent(this.getSkullTexture(skull)));
         switch (skull) {
             case HIPPOGRYPH -> {
@@ -129,7 +129,7 @@ public class RenderMobSkull extends EntityRenderer<EntityMobSkull> {
         return this.getSkullTexture(entity.getSkullType());
     }
 
-    public Identifier getSkullTexture(EnumSkullType skull) {
+    public Identifier getSkullTexture(IafSkullType skull) {
         String s = IceAndFire.MOD_ID + ":textures/models/skulls/skull_" + skull.name().toLowerCase(Locale.ROOT) + ".png";
         Identifier resourcelocation = SKULL_TEXTURE_CACHE.get(s);
         if (resourcelocation == null) {

@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetInWater;
 import com.iafenvoy.iceandfire.entity.ai.AquaticAIGetOutOfWater;
 import com.iafenvoy.iceandfire.entity.ai.SirenAIFindWaterTarget;

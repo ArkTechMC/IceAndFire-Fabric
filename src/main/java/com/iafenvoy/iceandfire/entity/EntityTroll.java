@@ -1,13 +1,12 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.TrollAIFleeSun;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.IHumanoid;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
-import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.iceandfire.enums.TrollType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.uranus.animation.Animation;
@@ -34,6 +33,7 @@ import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
@@ -48,16 +48,12 @@ import net.minecraft.world.explosion.Explosion;
 import java.util.ArrayList;
 
 public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVillagerFear, IHumanoid, IHasCustomizableAttributes {
-
     public static final Animation ANIMATION_STRIKE_HORIZONTAL = Animation.create(20);
     public static final Animation ANIMATION_STRIKE_VERTICAL = Animation.create(20);
     public static final Animation ANIMATION_SPEAK = Animation.create(10);
     public static final Animation ANIMATION_ROAR = Animation.create(25);
-    public static final Identifier FOREST_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/troll_forest");
-    public static final Identifier FROST_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/troll_frost");
-    public static final Identifier MOUNTAIN_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/troll_mountain");
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityTroll.class, TrackedDataHandlerRegistry.INTEGER);
-    private static final TrackedData<Integer> WEAPON = DataTracker.registerData(EntityTroll.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<String> VARIANT = DataTracker.registerData(EntityTroll.class, TrackedDataHandlerRegistry.STRING);
+    private static final TrackedData<String> WEAPON = DataTracker.registerData(EntityTroll.class, TrackedDataHandlerRegistry.STRING);
     public float stoneProgress;
     private int animationTick;
     private Animation currentAnimation;
@@ -143,55 +139,63 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(VARIANT, 0);
-        this.dataTracker.startTracking(WEAPON, 0);
+        this.dataTracker.startTracking(VARIANT, TrollType.FOREST.getName());
+        this.dataTracker.startTracking(WEAPON, TrollType.BuiltinWeapon.AXE.getName());
     }
 
-    private int getVariant() {
+    private String getVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
-    private void setVariant(int variant) {
+    private void setVariant(String variant) {
         this.dataTracker.set(VARIANT, variant);
     }
 
-    public EnumTroll getTrollType() {
-        return EnumTroll.values()[this.getVariant()];
+    public TrollType getTrollType() {
+        return TrollType.getByName(this.getVariant());
     }
 
-    public void setTrollType(EnumTroll variant) {
-        this.setVariant(variant.ordinal());
+    public void setTrollType(TrollType variant) {
+        this.setVariant(variant.getName());
     }
 
-    private int getWeapon() {
+    private String getWeapon() {
         return this.dataTracker.get(WEAPON);
     }
 
-    private void setWeapon(int variant) {
+    private void setWeapon(String variant) {
         this.dataTracker.set(WEAPON, variant);
     }
 
-    public EnumTroll.Weapon getWeaponType() {
-        return EnumTroll.Weapon.values()[this.getWeapon()];
+    public TrollType.ITrollWeapon getWeaponType() {
+        return TrollType.ITrollWeapon.getByName(this.getWeapon());
     }
 
-    public void setWeaponType(EnumTroll.Weapon variant) {
-        this.setWeapon(variant.ordinal());
+    public void setWeaponType(TrollType.ITrollWeapon variant) {
+        this.setWeapon(variant.getName());
     }
 
     @Override
     public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putInt("Weapon", this.getWeapon());
+        compound.putString("Variant", this.getVariant());
+        compound.putString("Weapon", this.getWeapon());
         compound.putFloat("StoneProgress", this.stoneProgress);
     }
 
     @Override
     public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setWeapon(compound.getInt("Weapon"));
+        //FIXME: Compat for old version should be removed in 0.7
+        if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
+            this.setVariant(compound.getString("Variant"));
+        else
+            this.setVariant(TrollType.values().get(compound.getInt("Variant")).getName());
+        //FIXME: Compat for old version should be removed in 0.7
+        if (compound.get("Weapon").getType() == NbtElement.STRING_TYPE)
+            this.setWeapon(compound.getString("Weapon"));
+        else
+            this.setWeapon(TrollType.values().get(compound.getInt("Weapon")).getName());
         this.stoneProgress = compound.getFloat("StoneProgress");
         this.setConfigurableAttributes();
     }
@@ -199,8 +203,8 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     @Override
     public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setTrollType(EnumTroll.getBiomeType(this.getWorld().getBiome(this.getBlockPos())));
-        this.setWeaponType(EnumTroll.getWeaponForType(this.getTrollType()));
+        this.setTrollType(TrollType.getBiomeType(this.getWorld().getBiome(this.getBlockPos())));
+        this.setWeaponType(TrollType.getWeaponForType(this.getTrollType()));
         return spawnDataIn;
     }
 
@@ -214,11 +218,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     protected Identifier getLootTableId() {
-        return switch (this.getTrollType()) {
-            case MOUNTAIN -> MOUNTAIN_LOOT;
-            case FROST -> FROST_LOOT;
-            case FOREST -> FOREST_LOOT;
-        };
+        return this.getTrollType().getLootTable();
     }
 
     @Override
@@ -232,37 +232,37 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         if (this.deathTime == 20 && !this.getWorld().isClient) {
             if (IafCommonConfig.INSTANCE.troll.dropWeapon.getBooleanValue()) {
                 if (this.getRandom().nextInt(3) == 0) {
-                    ItemStack weaponStack = new ItemStack(this.getWeaponType().item, 1);
+                    ItemStack weaponStack = new ItemStack(this.getWeaponType().getItem(), 1);
                     weaponStack.damage(this.getRandom().nextInt(250), this.getRandom(), null);
                     this.dropItemAt(weaponStack, this.getX(), this.getY(), this.getZ());
                 } else {
                     ItemStack brokenDrop = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                     ItemStack brokenDrop2 = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
-                    if (this.getWeaponType() == EnumTroll.Weapon.AXE) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.AXE) {
                         brokenDrop = new ItemStack(Items.STICK, this.getRandom().nextInt(2) + 1);
                         brokenDrop2 = new ItemStack(Blocks.COBBLESTONE, this.getRandom().nextInt(2) + 1);
                     }
-                    if (this.getWeaponType() == EnumTroll.Weapon.COLUMN) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.COLUMN) {
                         brokenDrop = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                         brokenDrop2 = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                     }
-                    if (this.getWeaponType() == EnumTroll.Weapon.COLUMN_FOREST) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.COLUMN_FOREST) {
                         brokenDrop = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                         brokenDrop2 = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                     }
-                    if (this.getWeaponType() == EnumTroll.Weapon.COLUMN_FROST) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.COLUMN_FROST) {
                         brokenDrop = new ItemStack(Blocks.STONE_BRICKS, this.getRandom().nextInt(2) + 1);
                         brokenDrop2 = new ItemStack(Items.SNOWBALL, this.getRandom().nextInt(4) + 1);
                     }
-                    if (this.getWeaponType() == EnumTroll.Weapon.HAMMER) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.HAMMER) {
                         brokenDrop = new ItemStack(Items.BONE, this.getRandom().nextInt(2) + 1);
                         brokenDrop2 = new ItemStack(Blocks.COBBLESTONE, this.getRandom().nextInt(2) + 1);
                     }
-                    if (this.getWeaponType() == EnumTroll.Weapon.TRUNK) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.TRUNK) {
                         brokenDrop = new ItemStack(Blocks.OAK_LOG, this.getRandom().nextInt(2) + 1);
                         brokenDrop2 = new ItemStack(Blocks.OAK_LOG, this.getRandom().nextInt(2) + 1);
                     }
-                    if (this.getWeaponType() == EnumTroll.Weapon.TRUNK_FROST) {
+                    if (this.getWeaponType() == TrollType.BuiltinWeapon.TRUNK_FROST) {
                         brokenDrop = new ItemStack(Blocks.SPRUCE_LOG, this.getRandom().nextInt(4) + 1);
                         brokenDrop2 = new ItemStack(Items.SNOWBALL, this.getRandom().nextInt(4) + 1);
                     }

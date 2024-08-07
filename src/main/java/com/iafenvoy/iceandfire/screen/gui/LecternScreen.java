@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen.gui;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
+import com.iafenvoy.iceandfire.enums.BestiaryPages;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.screen.handler.LecternScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -143,7 +143,7 @@ public class LecternScreen extends HandledScreen<LecternScreenHandler> {
                 TextRenderer fontrenderer = this.client.textRenderer;
                 String s1 = "";
                 float textScale = 1.0F;
-                EnumBestiaryPages enchantment = this.handler.getPossiblePages()[i1];
+                BestiaryPages enchantment = this.handler.getPossiblePages()[i1];
                 if (enchantment != null) {
                     s1 = I18n.translate("bestiary." + enchantment.toString().toLowerCase(Locale.ROOT));//EnchantmentNameParts.getInstance().generateNewRandomName(this.fontRenderer, l1);
                     if (fontrenderer.getWidth(s1) > 80)

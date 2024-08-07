@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.registry;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.compat.delight.DelightFoodItem;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
+import com.iafenvoy.iceandfire.enums.DragonType;
 import com.iafenvoy.iceandfire.enums.*;
 import com.iafenvoy.iceandfire.item.*;
 import com.iafenvoy.iceandfire.item.armor.*;
@@ -110,30 +110,30 @@ public class IafItems {
     public static final Item FIRE_STEW = register("fire_stew", new ItemGeneric());
     public static final Item FROST_STEW = register("frost_stew", new ItemGeneric());
     public static final Item LIGHTNING_STEW = register("lightning_stew", new ItemGeneric());
-    public static final Item DRAGONEGG_RED = register("dragonegg_red", new ItemDragonEgg(EnumDragonColor.RED));
-    public static final Item DRAGONEGG_GREEN = register("dragonegg_green", new ItemDragonEgg(EnumDragonColor.GREEN));
-    public static final Item DRAGONEGG_BRONZE = register("dragonegg_bronze", new ItemDragonEgg(EnumDragonColor.BRONZE));
-    public static final Item DRAGONEGG_GRAY = register("dragonegg_gray", new ItemDragonEgg(EnumDragonColor.GRAY));
-    public static final Item DRAGONEGG_BLUE = register("dragonegg_blue", new ItemDragonEgg(EnumDragonColor.BLUE));
-    public static final Item DRAGONEGG_WHITE = register("dragonegg_white", new ItemDragonEgg(EnumDragonColor.WHITE));
-    public static final Item DRAGONEGG_SAPPHIRE = register("dragonegg_sapphire", new ItemDragonEgg(EnumDragonColor.SAPPHIRE));
-    public static final Item DRAGONEGG_SILVER = register("dragonegg_silver", new ItemDragonEgg(EnumDragonColor.SILVER));
-    public static final Item DRAGONEGG_ELECTRIC = register("dragonegg_electric", new ItemDragonEgg(EnumDragonColor.ELECTRIC));
-    public static final Item DRAGONEGG_AMETHYST = register("dragonegg_amethyst", new ItemDragonEgg(EnumDragonColor.AMETHYST));
-    public static final Item DRAGONEGG_COPPER = register("dragonegg_copper", new ItemDragonEgg(EnumDragonColor.COPPER));
-    public static final Item DRAGONEGG_BLACK = register("dragonegg_black", new ItemDragonEgg(EnumDragonColor.BLACK));
-    public static final Item DRAGONSCALES_RED = register("dragonscales_red", new ItemDragonScales(EnumDragonColor.RED));
-    public static final Item DRAGONSCALES_GREEN = register("dragonscales_green", new ItemDragonScales(EnumDragonColor.GREEN));
-    public static final Item DRAGONSCALES_BRONZE = register("dragonscales_bronze", new ItemDragonScales(EnumDragonColor.BRONZE));
-    public static final Item DRAGONSCALES_GRAY = register("dragonscales_gray", new ItemDragonScales(EnumDragonColor.GRAY));
-    public static final Item DRAGONSCALES_BLUE = register("dragonscales_blue", new ItemDragonScales(EnumDragonColor.BLUE));
-    public static final Item DRAGONSCALES_WHITE = register("dragonscales_white", new ItemDragonScales(EnumDragonColor.WHITE));
-    public static final Item DRAGONSCALES_SAPPHIRE = register("dragonscales_sapphire", new ItemDragonScales(EnumDragonColor.SAPPHIRE));
-    public static final Item DRAGONSCALES_SILVER = register("dragonscales_silver", new ItemDragonScales(EnumDragonColor.SILVER));
-    public static final Item DRAGONSCALES_ELECTRIC = register("dragonscales_electric", new ItemDragonScales(EnumDragonColor.ELECTRIC));
-    public static final Item DRAGONSCALES_AMETHYST = register("dragonscales_amethyst", new ItemDragonScales(EnumDragonColor.AMETHYST));
-    public static final Item DRAGONSCALES_COPPER = register("dragonscales_copper", new ItemDragonScales(EnumDragonColor.COPPER));
-    public static final Item DRAGONSCALES_BLACK = register("dragonscales_black", new ItemDragonScales(EnumDragonColor.BLACK));
+    public static final Item DRAGONEGG_RED = register("dragonegg_red", new ItemDragonEgg(DragonColor.RED));
+    public static final Item DRAGONEGG_GREEN = register("dragonegg_green", new ItemDragonEgg(DragonColor.GREEN));
+    public static final Item DRAGONEGG_BRONZE = register("dragonegg_bronze", new ItemDragonEgg(DragonColor.BRONZE));
+    public static final Item DRAGONEGG_GRAY = register("dragonegg_gray", new ItemDragonEgg(DragonColor.GRAY));
+    public static final Item DRAGONEGG_BLUE = register("dragonegg_blue", new ItemDragonEgg(DragonColor.BLUE));
+    public static final Item DRAGONEGG_WHITE = register("dragonegg_white", new ItemDragonEgg(DragonColor.WHITE));
+    public static final Item DRAGONEGG_SAPPHIRE = register("dragonegg_sapphire", new ItemDragonEgg(DragonColor.SAPPHIRE));
+    public static final Item DRAGONEGG_SILVER = register("dragonegg_silver", new ItemDragonEgg(DragonColor.SILVER));
+    public static final Item DRAGONEGG_ELECTRIC = register("dragonegg_electric", new ItemDragonEgg(DragonColor.ELECTRIC));
+    public static final Item DRAGONEGG_AMETHYST = register("dragonegg_amethyst", new ItemDragonEgg(DragonColor.AMETHYST));
+    public static final Item DRAGONEGG_COPPER = register("dragonegg_copper", new ItemDragonEgg(DragonColor.COPPER));
+    public static final Item DRAGONEGG_BLACK = register("dragonegg_black", new ItemDragonEgg(DragonColor.BLACK));
+    public static final Item DRAGONSCALES_RED = register("dragonscales_red", new ItemDragonScales(DragonColor.RED));
+    public static final Item DRAGONSCALES_GREEN = register("dragonscales_green", new ItemDragonScales(DragonColor.GREEN));
+    public static final Item DRAGONSCALES_BRONZE = register("dragonscales_bronze", new ItemDragonScales(DragonColor.BRONZE));
+    public static final Item DRAGONSCALES_GRAY = register("dragonscales_gray", new ItemDragonScales(DragonColor.GRAY));
+    public static final Item DRAGONSCALES_BLUE = register("dragonscales_blue", new ItemDragonScales(DragonColor.BLUE));
+    public static final Item DRAGONSCALES_WHITE = register("dragonscales_white", new ItemDragonScales(DragonColor.WHITE));
+    public static final Item DRAGONSCALES_SAPPHIRE = register("dragonscales_sapphire", new ItemDragonScales(DragonColor.SAPPHIRE));
+    public static final Item DRAGONSCALES_SILVER = register("dragonscales_silver", new ItemDragonScales(DragonColor.SILVER));
+    public static final Item DRAGONSCALES_ELECTRIC = register("dragonscales_electric", new ItemDragonScales(DragonColor.ELECTRIC));
+    public static final Item DRAGONSCALES_AMETHYST = register("dragonscales_amethyst", new ItemDragonScales(DragonColor.AMETHYST));
+    public static final Item DRAGONSCALES_COPPER = register("dragonscales_copper", new ItemDragonScales(DragonColor.COPPER));
+    public static final Item DRAGONSCALES_BLACK = register("dragonscales_black", new ItemDragonScales(DragonColor.BLACK));
     public static final Item DRAGON_BONE = register("dragonbone", new Item(new FabricItemSettings()));
     public static final Item WITHERBONE = register("witherbone", new ItemGeneric());
     public static final Item FISHING_SPEAR = register("fishing_spear", new Item(new FabricItemSettings().maxDamage(64)));
@@ -151,42 +151,42 @@ public class IafItems {
     public static final Item DRAGON_SKULL_FIRE = register("dragon_skull_fire", new ItemDragonSkull(DragonType.FIRE));
     public static final Item DRAGON_SKULL_ICE = register("dragon_skull_ice", new ItemDragonSkull(DragonType.ICE));
     public static final Item DRAGON_SKULL_LIGHTNING = register("dragon_skull_lightning", new ItemDragonSkull(DragonType.LIGHTNING));
-    public static final ItemDragonArmor DRAGONARMOR_IRON_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.IRON);
-    public static final ItemDragonArmor DRAGONARMOR_IRON_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.IRON);
-    public static final ItemDragonArmor DRAGONARMOR_IRON_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.IRON);
-    public static final ItemDragonArmor DRAGONARMOR_IRON_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.IRON);
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.COPPER);
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.COPPER);
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.COPPER);
-    public static final ItemDragonArmor DRAGONARMOR_COPPER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.COPPER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_SILVER_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.SILVER);
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.GOLD);
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.GOLD);
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.GOLD);
-    public static final ItemDragonArmor DRAGONARMOR_GOLD_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.GOLD);
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DIAMOND);
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DIAMOND);
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DIAMOND);
-    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DIAMOND);
-    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.NETHERITE);
-    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.NETHERITE);
-    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.NETHERITE);
-    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.NETHERITE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGON_STEEL_FIRE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGON_STEEL_ICE);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_HEAD = buildDragonArmor(EnumDragonArmorPart.HEAD, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_NECK = buildDragonArmor(EnumDragonArmorPart.NECK, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_BODY = buildDragonArmor(EnumDragonArmorPart.BODY, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
-    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_TAIL = buildDragonArmor(EnumDragonArmorPart.TAIL, EnumDragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_IRON_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.IRON);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_COPPER_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.COPPER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_SILVER_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.SILVER);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_GOLD_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.GOLD);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_DIAMOND_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.DIAMOND);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_NETHERITE_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.NETHERITE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_FIRE_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.DRAGON_STEEL_FIRE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_ICE_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.DRAGON_STEEL_ICE);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_HEAD = buildDragonArmor(DragonArmorPart.HEAD, DragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_NECK = buildDragonArmor(DragonArmorPart.NECK, DragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_BODY = buildDragonArmor(DragonArmorPart.BODY, DragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
+    public static final ItemDragonArmor DRAGONARMOR_DRAGONSTEEL_LIGHTNING_TAIL = buildDragonArmor(DragonArmorPart.TAIL, DragonArmorMaterial.DRAGON_STEEL_LIGHTNING);
     public static final Item DRAGON_MEAL = register("dragon_meal", new ItemGeneric());
     public static final Item SICKLY_DRAGON_MEAL = register("sickly_dragon_meal", new ItemGeneric(1));
     public static final Item CREATIVE_DRAGON_MEAL = register("creative_dragon_meal", new ItemGeneric(2));
@@ -378,10 +378,10 @@ public class IafItems {
     public static final DelightFoodItem PIXIE_DUST_MILKY_TEA = register("pixie_dust_milky_tea", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().snack().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 20 * 60 * 2), 1).build())));
 
     static {
-        EnumDragonArmor.initArmors();
-        EnumSeaSerpent.initArmors();
-        EnumSkullType.initItems();
-        EnumTroll.initArmors();
+        DragonArmor.initArmors();
+        SeaSerpent.initArmors();
+        IafSkullType.initItems();
+        TrollType.initArmors();
     }
 
     public static void init() {
@@ -422,7 +422,7 @@ public class IafItems {
         register("spawn_egg_ghost", new SpawnEggItem(IafEntities.GHOST, 0XB9EDB8, 0X73B276, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
     }
 
-    public static ItemDragonArmor buildDragonArmor(EnumDragonArmorPart type, EnumDragonArmorMaterial material) {
+    public static ItemDragonArmor buildDragonArmor(DragonArmorPart type, DragonArmorMaterial material) {
         return register(String.format("dragonarmor_%s_%s", material.getId(), type.getId()), new ItemDragonArmor(material, type));
     }
 
@@ -443,7 +443,7 @@ public class IafItems {
         IafItems.FIRE_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
         IafItems.ICE_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
         IafItems.LIGHTNING_DRAGONBONE_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGON_BONE));
-        for (EnumDragonArmor armor : EnumDragonArmor.values())
+        for (DragonArmor armor : DragonArmor.values())
             armor.armorMaterial.setRepairMaterial(Ingredient.ofItems(armor.getScaleItem()));
         IafItems.DRAGONSTEEL_FIRE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_FIRE_INGOT));
         IafItems.DRAGONSTEEL_ICE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DRAGONSTEEL_ICE_INGOT));
@@ -454,9 +454,9 @@ public class IafItems {
         IafItems.DEATHWORM_1_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DEATH_WORM_CHITIN_RED));
         IafItems.DEATHWORM_2_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DEATH_WORM_CHITIN_WHITE));
         IafItems.TROLL_WEAPON_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(Items.STONE));
-        IafItems.TROLL_MOUNTAIN_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(EnumTroll.MOUNTAIN.leather));
-        IafItems.TROLL_FOREST_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(EnumTroll.FOREST.leather));
-        IafItems.TROLL_FROST_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(EnumTroll.FROST.leather));
+        IafItems.TROLL_MOUNTAIN_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(TrollType.MOUNTAIN.leather));
+        IafItems.TROLL_FOREST_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(TrollType.FOREST.leather));
+        IafItems.TROLL_FROST_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(TrollType.FROST.leather));
         IafItems.HIPPOGRYPH_SWORD_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.HIPPOGRYPH_TALON));
         IafItems.HIPPOCAMPUS_SWORD_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.SHINY_SCALES));
         IafItems.AMPHITHERE_SWORD_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.AMPHITHERE_FEATHER));
@@ -466,7 +466,7 @@ public class IafItems {
         IafItems.MYRMEX_JUNGLE_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.MYRMEX_JUNGLE_CHITIN));
         IafItems.DREAD_SWORD_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DREAD_SHARD));
         IafItems.DREAD_KNIGHT_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DREAD_SHARD));
-        for (EnumSeaSerpent serpent : EnumSeaSerpent.values())
+        for (SeaSerpent serpent : SeaSerpent.values())
             serpent.armorMaterial.setRepairMaterial(Ingredient.ofItems(serpent.scale));
     }
 

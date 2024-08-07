@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.entity.data;
+package com.iafenvoy.iceandfire.data.component;
 
 public class NeedUpdateData {
     private boolean triggerClientUpdate;

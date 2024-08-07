@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.enums;
 
 import java.util.Locale;
 
-public enum EnumDragonArmorPart {
+public enum DragonArmorPart {
     HEAD, NECK, BODY, TAIL;
 
     public String getId() {

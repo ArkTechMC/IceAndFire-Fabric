@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.block;
 
-import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
+import com.iafenvoy.iceandfire.enums.BestiaryPages;
 import com.iafenvoy.iceandfire.item.ItemBestiary;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
@@ -33,23 +33,23 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
     private static final int[] slotsSides = new int[]{1};
     private static final int[] slotsBottom = new int[]{0};
     private static final Random RANDOM = new Random();
-    private static final ArrayList<EnumBestiaryPages> EMPTY_LIST = new ArrayList<>();
+    private static final ArrayList<BestiaryPages> EMPTY_LIST = new ArrayList<>();
     private final Random localRand = new Random();
     public float pageFlip;
     public float pageFlipPrev;
     public float pageHelp1;
     public float pageHelp2;
-    public EnumBestiaryPages[] selectedPages = new EnumBestiaryPages[3];
+    public BestiaryPages[] selectedPages = new BestiaryPages[3];
     public final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
         public int get(int index) {
-            EnumBestiaryPages page = BlockEntityLectern.this.selectedPages[index];
+            BestiaryPages page = BlockEntityLectern.this.selectedPages[index];
             return page == null ? -1 : page.getId();
         }
 
         @Override
         public void set(int index, int value) {
-            BlockEntityLectern.this.selectedPages[index] = EnumBestiaryPages.fromInt(value);
+            BlockEntityLectern.this.selectedPages[index] = BestiaryPages.fromInt(value);
         }
 
         @Override
@@ -84,8 +84,8 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
         return this.stacks.get(index);
     }
 
-    private List<EnumBestiaryPages> getPossiblePages() {
-        final List<EnumBestiaryPages> list = EnumBestiaryPages.possiblePages(this.stacks.get(0));
+    private List<BestiaryPages> getPossiblePages() {
+        final List<BestiaryPages> list = BestiaryPages.possiblePages(this.stacks.get(0));
         if (!list.isEmpty()) return list;
         return EMPTY_LIST;
     }
@@ -125,10 +125,10 @@ public class BlockEntityLectern extends LockableContainerBlockEntity implements 
             this.randomizePages(this.getStack(0), this.getStack(1));
     }
 
-    public EnumBestiaryPages[] randomizePages(ItemStack bestiary, ItemStack manuscript) {
+    public BestiaryPages[] randomizePages(ItemStack bestiary, ItemStack manuscript) {
         assert this.world != null;
         if (!this.world.isClient && bestiary.getItem() == IafItems.BESTIARY) {
-            List<EnumBestiaryPages> possibleList = this.getPossiblePages();
+            List<BestiaryPages> possibleList = this.getPossiblePages();
             this.localRand.setSeed(this.world.getTime());
             Collections.shuffle(possibleList, this.localRand);
             this.selectedPages[0] = !possibleList.isEmpty() ? possibleList.get(0) : null;

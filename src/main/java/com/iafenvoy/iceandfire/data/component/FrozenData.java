@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.entity.data;
+package com.iafenvoy.iceandfire.data.component;
 
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
 import com.iafenvoy.iceandfire.registry.IafBlocks;

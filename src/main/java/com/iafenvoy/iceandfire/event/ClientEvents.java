@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.event;
 
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.data.EntityDataComponent;
+import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.util.ICustomMoveController;
 import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
 import com.iafenvoy.iceandfire.registry.IafKeybindings;

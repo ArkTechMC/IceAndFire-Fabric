@@ -17,6 +17,6 @@ public class RenderTroll extends MobEntityRenderer<EntityTroll, ModelTroll> {
 
     @Override
     public Identifier getTexture(EntityTroll troll) {
-        return troll.getTrollType().TEXTURE;
+        return troll.getTrollType().getTexture();
     }
 }

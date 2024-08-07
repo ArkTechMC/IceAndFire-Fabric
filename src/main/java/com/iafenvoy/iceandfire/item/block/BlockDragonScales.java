@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.block;
 
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class BlockDragonScales extends Block implements IDragonProof {
-    final EnumDragonColor type;
+    final DragonColor type;
 
-    public BlockDragonScales(EnumDragonColor type) {
+    public BlockDragonScales(DragonColor type) {
         super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).dynamicBounds().strength(30F, 500).sounds(BlockSoundGroup.STONE).requiresTool());
         this.type = type;
     }

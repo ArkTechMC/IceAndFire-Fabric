@@ -2,11 +2,12 @@ package com.iafenvoy.iceandfire.enums;
 
 import com.iafenvoy.iceandfire.item.ItemMobSkull;
 import com.iafenvoy.iceandfire.registry.IafItems;
+import net.minecraft.block.SkullBlock;
 import net.minecraft.item.Item;
 
 import java.util.Locale;
 
-public enum EnumSkullType {
+public enum IafSkullType implements SkullBlock.SkullType {
     HIPPOGRYPH,
     CYCLOPS,
     COCKATRICE,
@@ -16,15 +17,19 @@ public enum EnumSkullType {
     SEASERPENT,
     HYDRA;
 
-    public final String itemResourceName;
-    public Item skull_item;
+    private final String itemResourceName;
+    private Item skullItem;
 
-    EnumSkullType() {
+    IafSkullType() {
         this.itemResourceName = this.name().toLowerCase(Locale.ROOT) + "_skull";
     }
 
     public static void initItems() {
-        for (EnumSkullType skull : EnumSkullType.values())
-            skull.skull_item = IafItems.register(skull.itemResourceName, new ItemMobSkull(skull));
+        for (IafSkullType skull : IafSkullType.values())
+            skull.skullItem = IafItems.register(skull.itemResourceName, new ItemMobSkull(skull));
+    }
+
+    public Item getSkullItem() {
+        return skullItem;
     }
 }

@@ -1,12 +1,11 @@
 package com.iafenvoy.iceandfire.screen.gui.bestiary;
 
 import com.google.common.collect.Maps;
-import com.google.common.primitives.Ints;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.EnumBestiaryPages;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
-import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
-import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.iceandfire.enums.BestiaryPages;
+import com.iafenvoy.iceandfire.enums.DragonArmor;
+import com.iafenvoy.iceandfire.enums.SeaSerpent;
+import com.iafenvoy.iceandfire.enums.TrollType;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -37,7 +36,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.iafenvoy.iceandfire.enums.EnumBestiaryPages.*;
+import static com.iafenvoy.iceandfire.enums.BestiaryPages.*;
 
 public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
     protected static final int X = 390;
@@ -46,10 +45,10 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
     private static final Identifier DRAWINGS_0 = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/drawings_0.png");
     private static final Identifier DRAWINGS_1 = new Identifier(IceAndFire.MOD_ID, "textures/gui/bestiary/drawings_1.png");
     private static final Map<String, Identifier> PICTURE_LOCATION_CACHE = Maps.newHashMap();
-    public final List<EnumBestiaryPages> allPageTypes = new ArrayList<>();
+    public final List<BestiaryPages> allPageTypes = new ArrayList<>();
     public final List<IndexPageButton> indexButtons = new ArrayList<>();
     protected final ItemStack book;
-    public EnumBestiaryPages pageType;
+    public BestiaryPages pageType;
     public ChangePageButton previousPage;
     public ChangePageButton nextPage;
     public int bookPages;
@@ -63,10 +62,10 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
         this.book = container.getBook();
         if (!this.book.isEmpty() && this.book.getItem() != null && this.book.getItem() == IafItems.BESTIARY)
             if (this.book.getNbt() != null) {
-                Set<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(this.book.getNbt().getList("Pages", NbtElement.STRING_TYPE).stream().map(NbtElement::asString).collect(Collectors.toList()));
+                Set<BestiaryPages> pages = BestiaryPages.containedPages(this.book.getNbt().getList("Pages", NbtElement.STRING_TYPE).stream().map(NbtElement::asString).collect(Collectors.toList()));
                 this.allPageTypes.addAll(pages);
                 // Make sure the pages are sorted according to the enum
-                this.allPageTypes.sort(Comparator.comparingInt(EnumBestiaryPages::getId));
+                this.allPageTypes.sort(Comparator.comparingInt(BestiaryPages::getId));
                 this.indexPagesTotal = (int) Math.ceil(pages.size() / 10D);
             }
         this.index = true;
@@ -261,10 +260,10 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
                 this.drawItemStack(ms, new ItemStack(IafItems.WITHERBONE), 112, 70, 2.5F);
 
                 int j = 18;
-                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.helmet), j += 16, 115, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.chestplate), j += 16, 115, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.leggings), j += 16, 115, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumDragonArmor.RED.boots), j + 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(DragonArmor.RED.helmet), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(DragonArmor.RED.chestplate), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(DragonArmor.RED.leggings), j += 16, 115, 1.5F);
+                this.drawItemStack(ms, new ItemStack(DragonArmor.RED.boots), j + 16, 115, 1.5F);
             }
             if (bookPages == 1) {
                 int j = 1;
@@ -599,18 +598,18 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
                 ms.getMatrices().pop();
             }
             if (bookPages == 1) {
-                int i = (player.age % (EnumTroll.Weapon.values().length * 20)) / 20;
-                this.drawItemStack(ms, new ItemStack(EnumTroll.Weapon.values()[i].item), 30, 7, 2.5F);
-                int j = (player.age % (EnumTroll.values().length * 20)) / 20;
-                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leather), 100, 30, 2.5F);
+                int i = (player.age % (TrollType.BuiltinWeapon.values().length * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(TrollType.BuiltinWeapon.values()[i].getItem()), 30, 7, 2.5F);
+                int j = (player.age % (TrollType.values().size() * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(TrollType.values().get(j).leather), 100, 30, 2.5F);
                 this.drawItemStack(ms, new ItemStack(IafItems.TROLL_TUSK), 120, 30, 2.5F);
             }
             if (bookPages == 2) {
-                int j = (player.age % (EnumTroll.values().length * 20)) / 20;
-                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].helmet), 27, 15, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].chestplate), 47, 15, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].leggings), 67, 15, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumTroll.values()[j].boots), 87, 15, 1.5F);
+                int j = (player.age % (TrollType.values().size() * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(TrollType.values().get(j).helmet), 27, 15, 1.5F);
+                this.drawItemStack(ms, new ItemStack(TrollType.values().get(j).chestplate), 47, 15, 1.5F);
+                this.drawItemStack(ms, new ItemStack(TrollType.values().get(j).leggings), 67, 15, 1.5F);
+                this.drawItemStack(ms, new ItemStack(TrollType.values().get(j).boots), 87, 15, 1.5F);
             }
         } else if (this.pageType.equals(MYRMEX)) {
             if (bookPages == 0) {
@@ -703,8 +702,8 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
             }
             if (bookPages == 1) {
                 this.drawImage(ms, DRAWINGS_1, 60, 90, 337, 0, 70, 83, 512F);
-                int j = (player.age % (EnumSeaSerpent.values().size() * 20)) / 20;
-                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).scale), 130, 40, 2.5F);
+                int j = (player.age % (SeaSerpent.values().size() * 20)) / 20;
+                this.drawItemStack(ms, new ItemStack(SeaSerpent.values().get(j).scale), 130, 40, 2.5F);
                 this.drawItemStack(ms, new ItemStack(IafItems.SERPENT_FANG), 90, 40, 2.5F);
             }
             if (bookPages == 2) {
@@ -712,14 +711,14 @@ public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
                 ms.getMatrices().scale(1.5F, 1.5F, 1F);
                 this.drawImage(ms, DRAWINGS_0, 19, 31, 389, 1, 50, 50, 512F);
                 ms.getMatrices().pop();
-                int j = (player.age % (EnumSeaSerpent.values().size() * 20)) / 20;
+                int j = (player.age % (SeaSerpent.values().size() * 20)) / 20;
                 this.drawItemStack(ms, new ItemStack(IafItems.SERPENT_FANG), 36, 32, 1.5F);
                 this.drawItemStack(ms, new ItemStack(Items.STICK), 36, 48, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).scale), 36, 66, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).helmet), 34, 125, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).chestplate), 50, 125, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).leggings), 66, 125, 1.5F);
-                this.drawItemStack(ms, new ItemStack(EnumSeaSerpent.values().get(j).boots), 82, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(SeaSerpent.values().get(j).scale), 36, 66, 1.5F);
+                this.drawItemStack(ms, new ItemStack(SeaSerpent.values().get(j).helmet), 34, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(SeaSerpent.values().get(j).chestplate), 50, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(SeaSerpent.values().get(j).leggings), 66, 125, 1.5F);
+                this.drawItemStack(ms, new ItemStack(SeaSerpent.values().get(j).boots), 82, 125, 1.5F);
                 this.drawItemStack(ms, new ItemStack(IafItems.SEA_SERPENT_ARROW), 60, 33, 2F);
             }
         }

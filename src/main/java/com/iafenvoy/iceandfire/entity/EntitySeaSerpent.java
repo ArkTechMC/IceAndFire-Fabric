@@ -4,7 +4,7 @@ import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
+import com.iafenvoy.iceandfire.enums.SeaSerpent;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.uranus.animation.Animation;
@@ -755,8 +755,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.lookAtEntity(entity, 360, 360);
     }
 
-    public EnumSeaSerpent getEnum() {
-        return EnumSeaSerpent.values().get(this.getVariant());
+    public SeaSerpent getEnum() {
+        return SeaSerpent.values().get(this.getVariant());
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.block;
 
-import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.iceandfire.enums.TrollType;
 import com.iafenvoy.iceandfire.item.tool.ItemTrollWeapon;
 import com.iafenvoy.iceandfire.render.model.ModelTrollWeapon;
 import net.minecraft.client.render.RenderLayer;
@@ -21,12 +21,12 @@ public class RenderTrollWeapon extends BuiltinModelItemRenderer {
 
     @Override
     public void render(ItemStack stack, ModelTransformationMode type, MatrixStack stackIn, VertexConsumerProvider bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        EnumTroll.Weapon weapon = EnumTroll.Weapon.AXE;
-        if (stack.getItem() instanceof ItemTrollWeapon)
-            weapon = ((ItemTrollWeapon) stack.getItem()).weapon;
+        TrollType.ITrollWeapon weapon = TrollType.BuiltinWeapon.AXE;
+        if (stack.getItem() instanceof ItemTrollWeapon trollWeapon)
+            weapon = trollWeapon.weapon;
         stackIn.push();
         stackIn.translate(0.5F, -0.75F, 0.5F);
-        MODEL.render(stackIn, bufferIn.getBuffer(RenderLayer.getEntityCutout(weapon.TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+        MODEL.render(stackIn, bufferIn.getBuffer(RenderLayer.getEntityCutout(weapon.getTexture())), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
         stackIn.pop();
     }
 }

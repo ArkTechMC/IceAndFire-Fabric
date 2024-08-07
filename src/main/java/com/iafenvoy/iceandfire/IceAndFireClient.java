@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire;
 
 import com.iafenvoy.iceandfire.config.IafClientConfig;
-import com.iafenvoy.iceandfire.enums.EnumDragonArmor;
-import com.iafenvoy.iceandfire.enums.EnumSeaSerpent;
-import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.iceandfire.enums.DragonArmor;
+import com.iafenvoy.iceandfire.enums.SeaSerpent;
+import com.iafenvoy.iceandfire.enums.TrollType;
 import com.iafenvoy.iceandfire.network.ClientNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
@@ -47,14 +47,14 @@ public class IceAndFireClient implements ClientModInitializer {
         ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_ICE_HELMET, IafItems.DRAGONSTEEL_ICE_CHESTPLATE, IafItems.DRAGONSTEEL_ICE_LEGGINGS, IafItems.DRAGONSTEEL_ICE_BOOTS);
         ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_LIGHTNING_HELMET, IafItems.DRAGONSTEEL_LIGHTNING_CHESTPLATE, IafItems.DRAGONSTEEL_LIGHTNING_LEGGINGS, IafItems.DRAGONSTEEL_LIGHTNING_BOOTS);
         ArmorRenderer.register(new SilverArmorRenderer(), IafItems.SILVER_HELMET, IafItems.SILVER_CHESTPLATE, IafItems.SILVER_LEGGINGS, IafItems.SILVER_BOOTS);
-        for (EnumDragonArmor armor : EnumDragonArmor.values())
+        for (DragonArmor armor : DragonArmor.values())
             ArmorRenderer.register(new ScaleArmorRenderer(), armor.helmet, armor.chestplate, armor.leggings, armor.boots);
-        for (EnumSeaSerpent seaSerpent : EnumSeaSerpent.values())
+        for (SeaSerpent seaSerpent : SeaSerpent.values())
             ArmorRenderer.register(new SeaSerpentArmorRenderer(), seaSerpent.helmet, seaSerpent.chestplate, seaSerpent.leggings, seaSerpent.boots);
-        for (EnumTroll troll : EnumTroll.values())
+        for (TrollType troll : TrollType.values())
             ArmorRenderer.register(new TrollArmorRenderer(), troll.helmet, troll.chestplate, troll.leggings, troll.boots);
-        for (EnumTroll.Weapon weapon : EnumTroll.Weapon.values())
-            BuiltinItemRendererRegistry.INSTANCE.register(weapon.item, new TrollWeaponRenderer());
+        for (TrollType.BuiltinWeapon weapon : TrollType.BuiltinWeapon.values())
+            BuiltinItemRendererRegistry.INSTANCE.register(weapon.getItem(), new TrollWeaponRenderer());
 
         BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_RED, new DeathwormGauntletRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_YELLOW, new DeathwormGauntletRenderer());

@@ -11,20 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class EnumDragonArmorMaterial {
-    private static final List<EnumDragonArmorMaterial> MATERIALS = new ArrayList<>();
-    public static final EnumDragonArmorMaterial IRON = new EnumDragonArmorMaterial("iron");
-    public static final EnumDragonArmorMaterial COPPER = new EnumDragonArmorMaterial("copper");
-    public static final EnumDragonArmorMaterial SILVER = new EnumDragonArmorMaterial("silver");
-    public static final EnumDragonArmorMaterial GOLD = new EnumDragonArmorMaterial("gold");
-    public static final EnumDragonArmorMaterial DIAMOND = new EnumDragonArmorMaterial("diamond");
-    public static final EnumDragonArmorMaterial NETHERITE = new EnumDragonArmorMaterial("netherite");
-    public static final EnumDragonArmorMaterial DRAGON_STEEL_FIRE = new EnumDragonArmorMaterial("dragon_steel_fire");
-    public static final EnumDragonArmorMaterial DRAGON_STEEL_ICE = new EnumDragonArmorMaterial("dragon_steel_ice");
-    public static final EnumDragonArmorMaterial DRAGON_STEEL_LIGHTNING = new EnumDragonArmorMaterial("dragon_steel_lightning");
+public class DragonArmorMaterial {
+    private static final List<DragonArmorMaterial> MATERIALS = new ArrayList<>();
+    public static final DragonArmorMaterial IRON = new DragonArmorMaterial("iron");
+    public static final DragonArmorMaterial COPPER = new DragonArmorMaterial("copper");
+    public static final DragonArmorMaterial SILVER = new DragonArmorMaterial("silver");
+    public static final DragonArmorMaterial GOLD = new DragonArmorMaterial("gold");
+    public static final DragonArmorMaterial DIAMOND = new DragonArmorMaterial("diamond");
+    public static final DragonArmorMaterial NETHERITE = new DragonArmorMaterial("netherite");
+    public static final DragonArmorMaterial DRAGON_STEEL_FIRE = new DragonArmorMaterial("dragon_steel_fire");
+    public static final DragonArmorMaterial DRAGON_STEEL_ICE = new DragonArmorMaterial("dragon_steel_ice");
+    public static final DragonArmorMaterial DRAGON_STEEL_LIGHTNING = new DragonArmorMaterial("dragon_steel_lightning");
     private final String name;
 
-    public EnumDragonArmorMaterial(String name) {
+    public DragonArmorMaterial(String name) {
         this.name = name;
         MATERIALS.add(this);
     }
@@ -53,7 +53,7 @@ public class EnumDragonArmorMaterial {
         else return new Identifier("missing");
     }
 
-    public static List<EnumDragonArmorMaterial> values() {
+    public static List<DragonArmorMaterial> values() {
         return ImmutableList.copyOf(MATERIALS);
     }
 }

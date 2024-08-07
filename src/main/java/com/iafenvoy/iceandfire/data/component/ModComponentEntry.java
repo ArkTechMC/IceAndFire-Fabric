@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.data;
+package com.iafenvoy.iceandfire.data.component;
 
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;

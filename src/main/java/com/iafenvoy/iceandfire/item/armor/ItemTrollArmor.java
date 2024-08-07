@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.armor;
 
-import com.iafenvoy.iceandfire.enums.EnumTroll;
+import com.iafenvoy.iceandfire.enums.TrollType;
 import com.iafenvoy.uranus.object.item.CustomArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EquipmentSlot;
@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class ItemTrollArmor extends ArmorItem {
-    public final EnumTroll troll;
+    public final TrollType troll;
 
-    public ItemTrollArmor(EnumTroll troll, CustomArmorMaterial material, Type slot) {
+    public ItemTrollArmor(TrollType troll, CustomArmorMaterial material, Type slot) {
         super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
         this.troll = troll;
     }
 
-    public static String getName(EnumTroll troll, EquipmentSlot slot) {
+    public static String getName(TrollType troll, EquipmentSlot slot) {
         return "%s_troll_leather_%s".formatted(troll.name().toLowerCase(Locale.ROOT), getArmorPart(slot));
     }
 
@@ -38,7 +38,7 @@ public class ItemTrollArmor extends ArmorItem {
 
     @Override
     public ArmorMaterial getMaterial() {
-        return this.troll.material;
+        return this.troll.getMaterial();
     }
 
     @Override

@@ -6,8 +6,8 @@ import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityEggInIce;
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
-import com.iafenvoy.iceandfire.entity.util.dragon.DragonType;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -73,7 +73,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     public void readCustomDataFromNbt(NbtCompound tag) {
         super.readCustomDataFromNbt(tag);
-        this.setEggType(EnumDragonColor.getById(tag.getString("Color")));
+        this.setEggType(DragonColor.getById(tag.getString("Color")));
         this.setDragonAge(tag.getInt("DragonAge"));
         String s;
 
@@ -92,7 +92,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.getDataTracker().startTracking(DRAGON_TYPE, EnumDragonColor.RED.toString());
+        this.getDataTracker().startTracking(DRAGON_TYPE, DragonColor.RED.toString());
         this.getDataTracker().startTracking(DRAGON_AGE, 0);
         this.getDataTracker().startTracking(OWNER_UNIQUE_ID, Optional.empty());
     }
@@ -105,11 +105,11 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
         this.dataTracker.set(OWNER_UNIQUE_ID, Optional.ofNullable(p_184754_1_));
     }
 
-    public EnumDragonColor getEggType() {
-        return EnumDragonColor.getById(this.getDataTracker().get(DRAGON_TYPE));
+    public DragonColor getEggType() {
+        return DragonColor.getById(this.getDataTracker().get(DRAGON_TYPE));
     }
 
-    public void setEggType(EnumDragonColor newtype) {
+    public void setEggType(DragonColor newtype) {
         this.getDataTracker().set(DRAGON_TYPE, newtype.name());
     }
 

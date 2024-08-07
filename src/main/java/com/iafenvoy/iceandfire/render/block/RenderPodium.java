@@ -1,11 +1,10 @@
 package com.iafenvoy.iceandfire.render.block;
 
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPodium;
-import com.iafenvoy.iceandfire.enums.EnumDragonColor;
+import com.iafenvoy.iceandfire.enums.DragonColor;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemMyrmexEgg;
 import com.iafenvoy.iceandfire.registry.IafItems;
-import com.iafenvoy.iceandfire.render.entity.RenderDragonEgg;
 import com.iafenvoy.iceandfire.render.entity.RenderMyrmexEgg;
 import com.iafenvoy.iceandfire.render.model.ModelDragonEgg;
 import net.minecraft.client.MinecraftClient;
@@ -15,7 +14,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 
@@ -23,7 +21,7 @@ public class RenderPodium<T extends BlockEntityPodium> implements BlockEntityRen
     public RenderPodium(BlockEntityRendererFactory.Context context) {
     }
 
-    protected static RenderLayer getEggTexture(EnumDragonColor type) {
+    protected static RenderLayer getEggTexture(DragonColor type) {
         return RenderLayer.getEntityCutout(type.getEggTexture());
     }
 
