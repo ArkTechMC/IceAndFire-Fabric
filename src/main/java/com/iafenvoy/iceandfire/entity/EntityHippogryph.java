@@ -9,7 +9,7 @@ import com.iafenvoy.iceandfire.entity.ai.HippogryphAIWander;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
-import com.iafenvoy.iceandfire.enums.HippogryphTypes;
+import com.iafenvoy.iceandfire.data.HippogryphTypes;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;

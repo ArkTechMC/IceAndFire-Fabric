@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonSkull;
-import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;

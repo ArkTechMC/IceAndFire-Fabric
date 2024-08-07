@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.item.block;
 
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForge;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeBrick;
-import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

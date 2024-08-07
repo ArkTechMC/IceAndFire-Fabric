@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonSkull;
-import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.registry.IafRenderers;
 import com.iafenvoy.uranus.client.model.TabulaModel;
 import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
@@ -25,6 +25,13 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
     public static final float[] growth_stage_3 = new float[]{7F, 12.5F};
     public static final float[] growth_stage_4 = new float[]{12.5F, 20F};
     public static final float[] growth_stage_5 = new float[]{20F, 30F};
+
+    static {
+        MODELS.put(DragonType.FIRE, IafRenderers.FIRE_DRAGON_BASE_MODEL);
+        MODELS.put(DragonType.ICE, IafRenderers.ICE_DRAGON_BASE_MODEL);
+        MODELS.put(DragonType.LIGHTNING, IafRenderers.LIGHTNING_DRAGON_BASE_MODEL);
+    }
+
     public final float[][] growth_stages;
 
     public RenderDragonSkull(EntityRendererFactory.Context context) {
@@ -40,7 +47,7 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
 
     @Override
     public void render(EntityDragonSkull entity, float entityYaw, float partialTicks, MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn) {
-        TabulaModel model=MODELS.get(DragonType.getTypeById(entity.getDragonType()));
+        TabulaModel model = MODELS.get(DragonType.getTypeById(entity.getDragonType()));
         VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderLayer.getEntityTranslucent(this.getTexture(entity)));
         matrixStackIn.push();
         matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(-180.0F));
@@ -60,7 +67,6 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
         return DragonType.getTypeById(entity.getDragonType()).getSkeletonTexture(entity.getDragonStage());
     }
 
-
     public float getRenderSize(EntityDragonSkull skull) {
         float step = (this.growth_stages[skull.getDragonStage() - 1][1] - this.growth_stages[skull.getDragonStage() - 1][0]) / 25;
         if (skull.getDragonAge() > 125)
@@ -70,11 +76,5 @@ public class RenderDragonSkull extends EntityRenderer<EntityDragonSkull> {
 
     private int getAgeFactor(EntityDragonSkull skull) {
         return (skull.getDragonStage() > 1 ? skull.getDragonAge() - (25 * (skull.getDragonStage() - 1)) : skull.getDragonAge());
-    }
-
-    static {
-        MODELS.put(DragonType.FIRE, IafRenderers.FIRE_DRAGON_BASE_MODEL);
-        MODELS.put(DragonType.ICE, IafRenderers.ICE_DRAGON_BASE_MODEL);
-        MODELS.put(DragonType.LIGHTNING, IafRenderers.LIGHTNING_DRAGON_BASE_MODEL);
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.*;
 
-public class ChainData extends NeedUpdateData{
+public class ChainData extends NeedUpdateData {
     public List<Entity> chainedTo;
 
     // These lists are only for the sync (and therefor are cleared once it happened)

@@ -6,7 +6,6 @@ import com.iafenvoy.iceandfire.entity.EntityMutlipartPart;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -35,7 +34,7 @@ public enum MultipartComponentProvider implements IEntityComponentProvider {
                 iTooltip.addAll(mob.getDisplayName().getWithStyle(Style.EMPTY.withColor(Formatting.WHITE)));
                 iTooltip.add(new HealthElement(mob.getMaxHealth(), mob.getHealth()));
                 iTooltip.add(new ArmorElement(mob.getArmor()));
-                if(mob instanceof EntityDragonBase dragon) {
+                if (mob instanceof EntityDragonBase dragon) {
                     iTooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(Text.literal(" " + dragon.getDragonStage())));
                     iTooltip.add(Text.literal(dragon.getAgeInDays() + "d"));
                     iTooltip.add(Text.literal(dragon.isMale() ? "Male" : "Female"));

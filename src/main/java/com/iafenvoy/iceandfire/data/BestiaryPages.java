@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.item.ItemBestiary;
@@ -13,9 +13,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 public final class BestiaryPages {
-    private static final List<BestiaryPages> ALL_PAGES = new ArrayList<>();
-    private static final Map<String, BestiaryPages> BY_NAME = new HashMap<>();
-
     public static final BestiaryPages INTRODUCTION = new BestiaryPages("introduction", 2);
     public static final BestiaryPages FIREDRAGON = new BestiaryPages("fire_dragon", 4);
     public static final BestiaryPages FIREDRAGONEGG = new BestiaryPages("fire_dragon_egg", 1);
@@ -42,7 +39,8 @@ public final class BestiaryPages {
     public static final BestiaryPages SEASERPENT = new BestiaryPages("sea_serpent", 2);
     public static final BestiaryPages DREAD_MOBS = new BestiaryPages("dread_mobs", 1);
     public static final BestiaryPages GHOST = new BestiaryPages("ghost", 1);
-
+    private static final List<BestiaryPages> ALL_PAGES = new ArrayList<>();
+    private static final Map<String, BestiaryPages> BY_NAME = new HashMap<>();
     private final int id;
     private final String name;
     private final int pages;
@@ -93,16 +91,20 @@ public final class BestiaryPages {
         return ALL_PAGES.get(index % length);
     }
 
+    public static List<BestiaryPages> values() {
+        return ImmutableList.copyOf(ALL_PAGES);
+    }
+
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getPagesCount() {
-        return pages;
+        return this.pages;
     }
 
     @Override
@@ -116,17 +118,13 @@ public final class BestiaryPages {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, pages);
+        return Objects.hash(this.name, this.pages);
     }
 
     @Override
     public String toString() {
         return "EnumBestiaryPages[" +
-                "name=" + name + ", " +
-                "pages=" + pages + ']';
-    }
-
-    public static List<BestiaryPages> values() {
-        return ImmutableList.copyOf(ALL_PAGES);
+                "name=" + this.name + ", " +
+                "pages=" + this.pages + ']';
     }
 }

@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire;
 
 import com.iafenvoy.iceandfire.config.IafClientConfig;
-import com.iafenvoy.iceandfire.enums.DragonArmor;
-import com.iafenvoy.iceandfire.enums.SeaSerpent;
-import com.iafenvoy.iceandfire.enums.TrollType;
+import com.iafenvoy.iceandfire.data.DragonArmor;
+import com.iafenvoy.iceandfire.data.SeaSerpent;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.network.ClientNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.render.TEISRItemRenderer;

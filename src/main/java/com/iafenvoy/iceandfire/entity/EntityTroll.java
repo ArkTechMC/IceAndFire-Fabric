@@ -6,7 +6,7 @@ import com.iafenvoy.iceandfire.entity.ai.TrollAIFleeSun;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.IHumanoid;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
-import com.iafenvoy.iceandfire.enums.TrollType;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.uranus.animation.Animation;

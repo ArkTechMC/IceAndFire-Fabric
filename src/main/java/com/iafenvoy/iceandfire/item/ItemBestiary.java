@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.enums.BestiaryPages;
+import com.iafenvoy.iceandfire.data.BestiaryPages;
 import com.iafenvoy.iceandfire.screen.handler.BestiaryScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.client.MinecraftClient;

@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.render.model;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.entity.EntityHippogryph;
-import com.iafenvoy.iceandfire.enums.HippogryphTypes;
+import com.iafenvoy.iceandfire.data.HippogryphTypes;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.ModelAnimator;

@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.render.block;
 
-import com.iafenvoy.iceandfire.enums.TrollType;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.item.tool.ItemTrollWeapon;
 import com.iafenvoy.iceandfire.render.model.ModelTrollWeapon;
 import net.minecraft.client.render.RenderLayer;

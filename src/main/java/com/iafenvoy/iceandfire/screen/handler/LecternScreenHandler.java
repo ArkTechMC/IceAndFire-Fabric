@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen.handler;
 
 import com.iafenvoy.iceandfire.entity.block.BlockEntityLectern;
-import com.iafenvoy.iceandfire.enums.BestiaryPages;
+import com.iafenvoy.iceandfire.data.BestiaryPages;
 import com.iafenvoy.iceandfire.item.ItemBestiary;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;

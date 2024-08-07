@@ -59,6 +59,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     public final float[] prevBreathProgress = new float[HEADS];
     public final int[] breathTicks = new int[HEADS];
     public final float[] headDamageTracker = new float[HEADS];
+    private final float headDamageThreshold;
     private int animationTick;
     private Animation currentAnimation;
     private EntityHydraHead[] headBoxes = new EntityHydraHead[HEADS * 9];
@@ -68,7 +69,6 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     private int prevHeadCount = -1;
     private int regrowHeadCooldown = 0;
     private boolean onlyRegrowOneHeadNotTwo = false;
-    private final float headDamageThreshold;
 
     public EntityHydra(EntityType<EntityHydra> type, World worldIn) {
         super(type, worldIn);

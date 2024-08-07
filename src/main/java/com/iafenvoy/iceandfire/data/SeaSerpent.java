@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class SeaSerpent {
-    private static final List<SeaSerpent> TYPES = new ArrayList<>();
     public static final SeaSerpent BLUE = new SeaSerpent("blue", Formatting.BLUE);
     public static final SeaSerpent BRONZE = new SeaSerpent("bronze", Formatting.GOLD);
     public static final SeaSerpent DEEPBLUE = new SeaSerpent("deepblue", Formatting.DARK_BLUE);
@@ -29,7 +28,7 @@ public class SeaSerpent {
     public static final SeaSerpent PURPLE = new SeaSerpent("purple", Formatting.DARK_PURPLE);
     public static final SeaSerpent RED = new SeaSerpent("red", Formatting.DARK_RED);
     public static final SeaSerpent TEAL = new SeaSerpent("teal", Formatting.AQUA);
-
+    private static final List<SeaSerpent> TYPES = new ArrayList<>();
     public final String resourceName;
     public final Formatting color;
     public CustomArmorMaterial armorMaterial;

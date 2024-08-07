@@ -33,7 +33,7 @@ public class ItemModHoe extends HoeItem implements DragonSteelOverrides<ItemModH
     @Override
     @Deprecated
     public Multimap<EntityAttribute, EntityAttributeModifier> bakeDragonsteel() {
-        if (this.getMaterial().getAttackDamage() != IafCommonConfig.INSTANCE.armors.dragonSteelBaseDamage.getFloatValue()|| this.dragonsteelModifiers == null) {
+        if (this.getMaterial().getAttackDamage() != IafCommonConfig.INSTANCE.armors.dragonSteelBaseDamage.getFloatValue() || this.dragonsteelModifiers == null) {
             ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
             builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 1F, EntityAttributeModifier.Operation.ADDITION));
             builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3F, EntityAttributeModifier.Operation.ADDITION));

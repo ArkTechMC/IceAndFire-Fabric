@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import java.util.Locale;
 

@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen.gui;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.BestiaryPages;
+import com.iafenvoy.iceandfire.data.BestiaryPages;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.screen.handler.LecternScreenHandler;
 import com.mojang.blaze3d.systems.RenderSystem;

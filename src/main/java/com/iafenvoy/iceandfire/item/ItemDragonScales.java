@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item;
 
-import com.iafenvoy.iceandfire.enums.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonColor;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

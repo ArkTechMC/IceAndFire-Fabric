@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.item.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.DragonArmorMaterial;
-import com.iafenvoy.iceandfire.enums.DragonArmorPart;
+import com.iafenvoy.iceandfire.data.DragonArmorMaterial;
+import com.iafenvoy.iceandfire.data.DragonArmorPart;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

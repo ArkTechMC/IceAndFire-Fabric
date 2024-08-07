@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
@@ -12,8 +12,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 public class HippogryphTypes {
-    private static final List<HippogryphTypes> TYPES = new ArrayList<>();
-    private static final Map<String, HippogryphTypes> BY_NAME =new HashMap<>();
     public static final HippogryphTypes BLACK = new HippogryphTypes("black", false, biome -> biome.isIn(IafBiomeTags.HIPPOGRYPH_BLACK));
     public static final HippogryphTypes BROWN = new HippogryphTypes("brown", false, biome -> biome.isIn(IafBiomeTags.HIPPOGRYPH_BROWN));
     public static final HippogryphTypes GRAY = new HippogryphTypes("gray", false, biome -> biome.isIn(IafBiomeTags.HIPPOGRYPH_GRAY));
@@ -24,9 +22,10 @@ public class HippogryphTypes {
     public static final HippogryphTypes RAPTOR = new HippogryphTypes("raptor", true, biome -> false);
     public static final HippogryphTypes ALEX = new HippogryphTypes("alex", true, biome -> false);
     public static final HippogryphTypes DODO = new HippogryphTypes("dodo", true, biome -> false);
-
-    private final String name;
+    private static final List<HippogryphTypes> TYPES = new ArrayList<>();
+    private static final Map<String, HippogryphTypes> BY_NAME = new HashMap<>();
     public final boolean developer;
+    private final String name;
     private final Predicate<RegistryEntry<Biome>> biomePredicate;
 
     public HippogryphTypes(String name, boolean developer, Predicate<RegistryEntry<Biome>> biomePredicate) {
@@ -34,27 +33,15 @@ public class HippogryphTypes {
         this.developer = developer;
         this.biomePredicate = biomePredicate;
         TYPES.add(this);
-        BY_NAME.put(name,this);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean allowSpawn(RegistryEntry<Biome> biome) {
-        return this.biomePredicate.test(biome);
-    }
-
-    public Identifier getTexture(boolean blink) {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/" + this.name.toLowerCase(Locale.ROOT) + (blink ? "_blink" : "") + ".png");
+        BY_NAME.put(name, this);
     }
 
     public static List<HippogryphTypes> values() {
         return ImmutableList.copyOf(TYPES);
     }
 
-    public static HippogryphTypes getByName(String name){
-        return BY_NAME.getOrDefault(name,BLACK);
+    public static HippogryphTypes getByName(String name) {
+        return BY_NAME.getOrDefault(name, BLACK);
     }
 
     public static HippogryphTypes[] getWildTypes() {
@@ -73,5 +60,17 @@ public class HippogryphTypes {
                 return GRAY;
             return types.get(ThreadLocalRandom.current().nextInt(types.size()));
         }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public boolean allowSpawn(RegistryEntry<Biome> biome) {
+        return this.biomePredicate.test(biome);
+    }
+
+    public Identifier getTexture(boolean blink) {
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/" + this.name.toLowerCase(Locale.ROOT) + (blink ? "_blink" : "") + ".png");
     }
 }

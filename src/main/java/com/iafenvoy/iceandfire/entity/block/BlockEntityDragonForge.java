@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.entity.block;
 
 import com.iafenvoy.iceandfire.data.delegate.DragonForgePropertyDelegate;
-import com.iafenvoy.iceandfire.enums.DragonType;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.item.block.BlockDragonForgeBricks;
 import com.iafenvoy.iceandfire.item.block.BlockDragonForgeCore;
 import com.iafenvoy.iceandfire.recipe.DragonForgeRecipe;

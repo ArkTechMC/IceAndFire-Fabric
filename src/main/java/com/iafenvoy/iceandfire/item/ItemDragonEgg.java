@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
-import com.iafenvoy.iceandfire.enums.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;

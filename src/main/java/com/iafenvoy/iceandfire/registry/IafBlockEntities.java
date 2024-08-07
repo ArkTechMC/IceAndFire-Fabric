@@ -20,8 +20,6 @@ public class IafBlockEntities {
     public static void init() {
     }
 
-    public static final BlockEntityType<BlockEntityEggInIce> EGG_IN_ICE = register(BlockEntityType.Builder.create(BlockEntityEggInIce::new, IafBlocks.EGG_IN_ICE), "egginice");
-
     @Environment(EnvType.CLIENT)
     public static void registerRenderers() {
         BlockEntityRendererFactories.register(IafBlockEntities.PODIUM, RenderPodium::new);
@@ -32,7 +30,9 @@ public class IafBlockEntities {
         BlockEntityRendererFactories.register(IafBlockEntities.DREAD_PORTAL, RenderDreadPortal::new);
         BlockEntityRendererFactories.register(IafBlockEntities.DREAD_SPAWNER, RenderDreadSpawner::new);
         BlockEntityRendererFactories.register(IafBlockEntities.GHOST_CHEST, RenderGhostChest::new);
-    }
+    }    public static final BlockEntityType<BlockEntityEggInIce> EGG_IN_ICE = register(BlockEntityType.Builder.create(BlockEntityEggInIce::new, IafBlocks.EGG_IN_ICE), "egginice");
+
+
 
     public static final BlockEntityType<BlockEntityPixieHouse> PIXIE_HOUSE = register(BlockEntityType.Builder.create(BlockEntityPixieHouse::new, IafBlocks.PIXIE_HOUSE_MUSHROOM_RED, IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, IafBlocks.PIXIE_HOUSE_OAK, IafBlocks.PIXIE_HOUSE_BIRCH, IafBlocks.PIXIE_HOUSE_BIRCH, IafBlocks.PIXIE_HOUSE_SPRUCE, IafBlocks.PIXIE_HOUSE_DARK_OAK), "pixie_house");
 

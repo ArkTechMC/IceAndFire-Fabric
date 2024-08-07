@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.item.block.*;
 import com.iafenvoy.iceandfire.item.block.util.IWallBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;

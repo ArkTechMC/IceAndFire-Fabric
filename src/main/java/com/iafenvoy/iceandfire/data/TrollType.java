@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
@@ -22,25 +22,24 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 public class TrollType {
-    private static final List<TrollType> TYPES = new ArrayList<>();
-    private static final Map<String, TrollType> BY_NAME = new HashMap<>();
     public static final TrollType FOREST = new TrollType("forest", IafItems.TROLL_FOREST_ARMOR_MATERIAL, biome -> biome.isIn(IafBiomeTags.FOREST_TROLL), new Identifier(IceAndFire.MOD_ID, "entities/troll_forest"), BuiltinWeapon.TRUNK, BuiltinWeapon.COLUMN_FOREST, BuiltinWeapon.AXE, BuiltinWeapon.HAMMER);
     public static final TrollType FROST = new TrollType("frost", IafItems.TROLL_FROST_ARMOR_MATERIAL, biome -> biome.isIn(IafBiomeTags.SNOWY_TROLL), new Identifier(IceAndFire.MOD_ID, "entities/troll_frost"), BuiltinWeapon.COLUMN_FROST, BuiltinWeapon.TRUNK_FROST, BuiltinWeapon.AXE, BuiltinWeapon.HAMMER);
     public static final TrollType MOUNTAIN = new TrollType("mountain", IafItems.TROLL_MOUNTAIN_ARMOR_MATERIAL, biome -> biome.isIn(IafBiomeTags.MOUNTAIN_TROLL), new Identifier(IceAndFire.MOD_ID, "entities/troll_mountain"), BuiltinWeapon.COLUMN, BuiltinWeapon.AXE, BuiltinWeapon.HAMMER);
-
-    private final String name;
-    private final CustomArmorMaterial material;
-    private final Predicate<RegistryEntry<Biome>> biomePredicate;
-    private final Identifier lootTable;
-    private final List<BuiltinWeapon> weapons;
+    private static final List<TrollType> TYPES = new ArrayList<>();
+    private static final Map<String, TrollType> BY_NAME = new HashMap<>();
     public final Item leather;
     public final Item helmet;
     public final Item chestplate;
     public final Item leggings;
     public final Item boots;
+    private final String name;
+    private final CustomArmorMaterial material;
+    private final Predicate<RegistryEntry<Biome>> biomePredicate;
+    private final Identifier lootTable;
+    private final List<BuiltinWeapon> weapons;
 
     public TrollType(String name, CustomArmorMaterial material, Predicate<RegistryEntry<Biome>> biomePredicate, Identifier lootTable, BuiltinWeapon... weapons) {
-        this.name = name.toLowerCase(Locale.ROOT);
+        this.name = name;
         this.weapons = List.of(weapons);
         this.material = material;
         this.biomePredicate = biomePredicate;
@@ -54,40 +53,11 @@ public class TrollType {
         BY_NAME.put(name, this);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Identifier getLootTable() {
-        return lootTable;
-    }
-
-    public CustomArmorMaterial getMaterial() {
-        return material;
-    }
-
-    public Identifier getTexture() {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name + ".png");
-    }
-
-    public Identifier getStatueTexture() {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name + "_stone.png");
-    }
-
-    public Identifier getEyesTexture() {
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name + "_eyes.png");
-    }
-
-    public boolean allowSpawn(RegistryEntry<Biome> biome) {
-        return this.biomePredicate.test(biome);
-    }
-
     public static TrollType getBiomeType(RegistryEntry<Biome> biome) {
         List<TrollType> types = TYPES.stream().filter(x -> x.allowSpawn(biome)).toList();
         if (types.isEmpty()) RandomHelper.randomOne(TYPES);
         return RandomHelper.randomOne(types);
     }
-
 
     public static BuiltinWeapon getWeaponForType(TrollType troll) {
         return troll.weapons.get(ThreadLocalRandom.current().nextInt(troll.weapons.size()));
@@ -109,6 +79,59 @@ public class TrollType {
 
     public static TrollType getByName(String name) {
         return BY_NAME.getOrDefault(name, TrollType.FOREST);
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Identifier getLootTable() {
+        return this.lootTable;
+    }
+
+    public CustomArmorMaterial getMaterial() {
+        return this.material;
+    }
+
+    public Identifier getTexture() {
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name + ".png");
+    }
+
+    public Identifier getStatueTexture() {
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name + "_stone.png");
+    }
+
+    public Identifier getEyesTexture() {
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/troll_" + this.name + "_eyes.png");
+    }
+
+    public boolean allowSpawn(RegistryEntry<Biome> biome) {
+        return this.biomePredicate.test(biome);
+    }
+
+    public enum BuiltinWeapon implements ITrollWeapon {
+        AXE, COLUMN, COLUMN_FOREST, COLUMN_FROST, HAMMER, TRUNK, TRUNK_FROST;
+        private final Item item;
+
+        BuiltinWeapon() {
+            this.item = IafItems.register("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), new ItemTrollWeapon(this));
+            ITrollWeapon.addWeapons(this);
+        }
+
+        @Override
+        public String getName() {
+            return this.name().toLowerCase(Locale.ROOT);
+        }
+
+        @Override
+        public Identifier getTexture() {
+            return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");
+        }
+
+        @Override
+        public Item getItem() {
+            return this.item;
+        }
     }
 
     public interface ITrollWeapon {
@@ -137,30 +160,5 @@ public class TrollType {
         Identifier getTexture();
 
         Item getItem();
-    }
-
-    public enum BuiltinWeapon implements ITrollWeapon {
-        AXE, COLUMN, COLUMN_FOREST, COLUMN_FROST, HAMMER, TRUNK, TRUNK_FROST;
-        private final Item item;
-
-        BuiltinWeapon() {
-            this.item = IafItems.register("troll_weapon_" + this.name().toLowerCase(Locale.ROOT), new ItemTrollWeapon(this));
-            ITrollWeapon.addWeapons(this);
-        }
-
-        @Override
-        public String getName() {
-            return this.name().toLowerCase(Locale.ROOT);
-        }
-
-        @Override
-        public Identifier getTexture() {
-            return new Identifier(IceAndFire.MOD_ID, "textures/models/troll/weapon/weapon_" + this.name().toLowerCase(Locale.ROOT) + ".png");
-        }
-
-        @Override
-        public Item getItem() {
-            return this.item;
-        }
     }
 }

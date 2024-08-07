@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.block;
 
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPodium;
-import com.iafenvoy.iceandfire.enums.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemMyrmexEgg;
 import com.iafenvoy.iceandfire.registry.IafItems;

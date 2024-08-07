@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.block;
 
-import com.iafenvoy.iceandfire.enums.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;

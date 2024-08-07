@@ -52,7 +52,7 @@ public class WorldGenPixieVillage extends Feature<DefaultFeatureConfig> implemen
                 if (rand.nextInt(8) == 0) {
                     Direction houseDir = rand.nextBoolean() ? buildingDirection.rotateYClockwise() : buildingDirection.rotateYCounterclockwise();
                     int houseColor = rand.nextInt(5);
-                    BlockState  houseState = switch (houseColor) {
+                    BlockState houseState = switch (houseColor) {
                         case 0 ->
                                 IafBlocks.PIXIE_HOUSE_MUSHROOM_RED.getDefaultState().with(BlockPixieHouse.FACING, houseDir.getOpposite());
                         case 1 ->

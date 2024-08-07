@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import com.iafenvoy.iceandfire.item.ItemMobSkull;
 import com.iafenvoy.iceandfire.registry.IafItems;
@@ -30,6 +30,6 @@ public enum IafSkullType implements SkullBlock.SkullType {
     }
 
     public Item getSkullItem() {
-        return skullItem;
+        return this.skullItem;
     }
 }

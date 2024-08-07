@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item;
 
 import com.iafenvoy.iceandfire.entity.EntityHippogryphEgg;
-import com.iafenvoy.iceandfire.enums.HippogryphTypes;
+import com.iafenvoy.iceandfire.data.HippogryphTypes;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.client.item.TooltipContext;

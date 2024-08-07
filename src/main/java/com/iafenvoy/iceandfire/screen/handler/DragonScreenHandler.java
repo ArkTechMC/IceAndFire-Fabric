@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.screen.handler;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.DragonArmorPart;
+import com.iafenvoy.iceandfire.data.DragonArmorPart;
 import com.iafenvoy.iceandfire.registry.IafScreenHandlers;
 import com.iafenvoy.iceandfire.screen.slot.BannerSlot;
 import com.iafenvoy.iceandfire.screen.slot.DragonArmorSlot;

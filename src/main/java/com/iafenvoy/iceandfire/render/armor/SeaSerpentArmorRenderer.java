@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.SeaSerpent;
+import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.iceandfire.item.armor.ItemSeaSerpentArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelSeaSerpentArmor;
 import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;

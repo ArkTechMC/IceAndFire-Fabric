@@ -3,8 +3,7 @@ package com.iafenvoy.iceandfire.registry;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.compat.delight.DelightFoodItem;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.enums.DragonType;
-import com.iafenvoy.iceandfire.enums.*;
+import com.iafenvoy.iceandfire.data.*;
 import com.iafenvoy.iceandfire.item.*;
 import com.iafenvoy.iceandfire.item.armor.*;
 import com.iafenvoy.iceandfire.item.food.ItemAmbrosia;
@@ -46,24 +45,9 @@ public class IafItems {
     public static final CustomArmorMaterial TROLL_MOUNTAIN_ARMOR_MATERIAL = new IafArmorMaterial("mountain_troll", 20, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F);
     public static final CustomArmorMaterial TROLL_FOREST_ARMOR_MATERIAL = new IafArmorMaterial("forest_troll", 20, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F);
     public static final CustomArmorMaterial TROLL_FROST_ARMOR_MATERIAL = new IafArmorMaterial("frost_troll", 20, new int[]{2, 5, 7, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1F);
-    public static final CustomArmorMaterial DRAGONSTEEL_FIRE_ARMOR_MATERIAL;
-
-    static {
-        DRAGONSTEEL_FIRE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_fire", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
-    }
-
-    public static final CustomArmorMaterial DRAGONSTEEL_ICE_ARMOR_MATERIAL;
-
-    static {
-        DRAGONSTEEL_ICE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_ice", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
-    }
-
-    public static final CustomArmorMaterial DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL;
-
-    static {
-        DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_lightning", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
-    }
-
+    public static final CustomArmorMaterial DRAGONSTEEL_FIRE_ARMOR_MATERIAL= new DragonSteelArmorMaterial("dragonsteel_fire", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());;
+    public static final CustomArmorMaterial DRAGONSTEEL_ICE_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_ice", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
+    public static final CustomArmorMaterial DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL = new DragonSteelArmorMaterial("dragonsteel_lightning", (int) (0.02D * IafCommonConfig.INSTANCE.armors.dragonSteelBaseDurabilityEquipment.getIntegerValue()), new int[]{IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 6, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 3, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue(), IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmor.getIntegerValue() - 5}, 30, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, IafCommonConfig.INSTANCE.armors.dragonSteelBaseArmorToughness.getFloatValue());
     public static final CustomToolMaterial SILVER_TOOL_MATERIAL = new CustomToolMaterial("silver", 2, 460, 1.0F, 11.0F, 18);
     public static final CustomToolMaterial COPPER_TOOL_MATERIAL = new CustomToolMaterial("copper", 2, 300, 0.0F, 0.7F, 10);
     public static final CustomToolMaterial DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("dragon_bone", 3, 1660, 4.0F, 10.0F, 22);
@@ -79,7 +63,6 @@ public class IafItems {
     public static final CustomToolMaterial DREAD_SWORD_TOOL_MATERIAL = new CustomToolMaterial("dread_sword", 0, 100, 1F, 10F, 0);
     public static final CustomToolMaterial DREAD_KNIGHT_TOOL_MATERIAL = new CustomToolMaterial("dread_knight_sword", 0, 1200, 13F, 0F, 10);
     public static final CustomToolMaterial GHOST_SWORD_TOOL_MATERIAL = new CustomToolMaterial("ghost_sword", 2, 3000, 5, 10.0F, 25);
-
     public static final Item BESTIARY = register("bestiary", new ItemBestiary());
     public static final Item MANUSCRIPT = register("manuscript", new ItemGeneric());
     public static final Item SAPPHIRE_GEM = register("sapphire_gem", new ItemGeneric());
@@ -96,7 +79,6 @@ public class IafItems {
     public static final Item SILVER_PICKAXE = register("silver_pickaxe", new ItemModPickaxe(SILVER_TOOL_MATERIAL));
     public static final Item SILVER_AXE = register("silver_axe", new ItemModAxe(SILVER_TOOL_MATERIAL));
     public static final Item SILVER_HOE = register("silver_hoe", new ItemModHoe(SILVER_TOOL_MATERIAL));
-
     public static final Item COPPER_HELMET = register("armor_copper_metal_helmet", new ArmorItem(COPPER_ARMOR_MATERIAL, ArmorItem.Type.HELMET, new FabricItemSettings()));
     public static final Item COPPER_CHESTPLATE = register("armor_copper_metal_chestplate", new ArmorItem(COPPER_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
     public static final Item COPPER_LEGGINGS = register("armor_copper_metal_leggings", new ArmorItem(COPPER_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, new FabricItemSettings()));
@@ -106,7 +88,6 @@ public class IafItems {
     public static final Item COPPER_PICKAXE = register("copper_pickaxe", new ItemModPickaxe(COPPER_TOOL_MATERIAL));
     public static final Item COPPER_AXE = register("copper_axe", new ItemModAxe(COPPER_TOOL_MATERIAL));
     public static final Item COPPER_HOE = register("copper_hoe", new ItemModHoe(COPPER_TOOL_MATERIAL));
-
     public static final Item FIRE_STEW = register("fire_stew", new ItemGeneric());
     public static final Item FROST_STEW = register("frost_stew", new ItemGeneric());
     public static final Item LIGHTNING_STEW = register("lightning_stew", new ItemGeneric());
@@ -318,7 +299,6 @@ public class IafItems {
     public static final Item DRAGONSTEEL_ICE_CHESTPLATE = register("dragonsteel_ice_chestplate", new ItemDragonSteelArmor(DRAGONSTEEL_ICE_ARMOR_MATERIAL, 1, ArmorItem.Type.CHESTPLATE));
     public static final Item DRAGONSTEEL_ICE_LEGGINGS = register("dragonsteel_ice_leggings", new ItemDragonSteelArmor(DRAGONSTEEL_ICE_ARMOR_MATERIAL, 2, ArmorItem.Type.LEGGINGS));
     public static final Item DRAGONSTEEL_ICE_BOOTS = register("dragonsteel_ice_boots", new ItemDragonSteelArmor(DRAGONSTEEL_ICE_ARMOR_MATERIAL, 3, ArmorItem.Type.BOOTS));
-
     public static final Item DRAGONSTEEL_LIGHTNING_INGOT = register("dragonsteel_lightning_ingot", new ItemGeneric());
     public static final Item DRAGONSTEEL_LIGHTNING_SWORD = register("dragonsteel_lightning_sword", new ItemModSword(createMaterialWithRepairItem(DRAGONSTEEL_LIGHTNING_INGOT, "dragonsteel_tier_lightning")));
     public static final Item DRAGONSTEEL_LIGHTNING_PICKAXE = register("dragonsteel_lightning_pickaxe", new ItemModPickaxe(createMaterialWithRepairItem(DRAGONSTEEL_LIGHTNING_INGOT, "dragonsteel_tier_lightning")));
@@ -329,7 +309,6 @@ public class IafItems {
     public static final Item DRAGONSTEEL_LIGHTNING_CHESTPLATE = register("dragonsteel_lightning_chestplate", new ItemDragonSteelArmor(DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL, 1, ArmorItem.Type.CHESTPLATE));
     public static final Item DRAGONSTEEL_LIGHTNING_LEGGINGS = register("dragonsteel_lightning_leggings", new ItemDragonSteelArmor(DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL, 2, ArmorItem.Type.LEGGINGS));
     public static final Item DRAGONSTEEL_LIGHTNING_BOOTS = register("dragonsteel_lightning_boots", new ItemDragonSteelArmor(DRAGONSTEEL_LIGHTNING_ARMOR_MATERIAL, 3, ArmorItem.Type.BOOTS));
-
     public static final Item WEEZER_BLUE_ALBUM = register("weezer_blue_album", new ItemGeneric(1, true));
     public static final Item DRAGON_DEBUG_STICK = register("dragon_debug_stick", new ItemGeneric(1, true), false);
     public static final Item DREAD_SWORD = register("dread_sword", new ItemModSword(DREAD_SWORD_TOOL_MATERIAL));
@@ -350,7 +329,6 @@ public class IafItems {
     public static final Item EPIC_DRAGON_SEEKER = register("epic_dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.EPIC));
     public static final Item LEGENDARY_DRAGON_SEEKER = register("legendary_dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.LEGENDARY));
     public static final Item GODLY_DRAGON_SEEKER = register("godly_dragon_seeker", new ItemDragonSeeker(ItemDragonSeeker.SeekerType.GODLY));
-
     public static final BannerPatternItem PATTERN_FIRE = register("banner_pattern_fire", new BannerPatternItem(BannerPatternTags.FIRE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_ICE = register("banner_pattern_ice", new BannerPatternItem(BannerPatternTags.ICE_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_LIGHTNING = register("banner_pattern_lightning", new BannerPatternItem(BannerPatternTags.LIGHTNING_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
@@ -370,7 +348,6 @@ public class IafItems {
     public static final BannerPatternItem PATTERN_TROLL = register("banner_pattern_troll", new BannerPatternItem(BannerPatternTags.TROLL_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_WEEZER = register("banner_pattern_weezer", new BannerPatternItem(BannerPatternTags.WEEZER_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_DREAD = register("banner_pattern_dread", new BannerPatternItem(BannerPatternTags.DREAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
-
     public static final DelightFoodItem COOKED_RICE_WITH_FIRE_DRAGON_MEAT = register("cooked_rice_with_fire_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60 * 2), 1).build())));
     public static final DelightFoodItem COOKED_RICE_WITH_ICE_DRAGON_MEAT = register("cooked_rice_with_ice_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 60 * 2, 2), 1).build())));
     public static final DelightFoodItem COOKED_RICE_WITH_LIGHTNING_DRAGON_MEAT = register("cooked_rice_with_lightning_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 60 * 2, 2), 1).build())));

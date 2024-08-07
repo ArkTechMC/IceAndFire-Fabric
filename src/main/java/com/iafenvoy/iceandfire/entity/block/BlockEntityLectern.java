@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.entity.block;
 
-import com.iafenvoy.iceandfire.enums.BestiaryPages;
+import com.iafenvoy.iceandfire.data.BestiaryPages;
 import com.iafenvoy.iceandfire.item.ItemBestiary;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;

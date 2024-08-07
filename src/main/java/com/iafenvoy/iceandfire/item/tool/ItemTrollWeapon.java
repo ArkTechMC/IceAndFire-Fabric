@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.tool;
 
-import com.iafenvoy.iceandfire.enums.TrollType;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;

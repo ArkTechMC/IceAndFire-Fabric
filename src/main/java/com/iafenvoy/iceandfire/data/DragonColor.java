@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.enums;
+package com.iafenvoy.iceandfire.data;
 
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
@@ -16,9 +16,6 @@ import java.util.function.Supplier;
 
 public record DragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem,
                           Supplier<Item> scaleItem) {
-    private static final List<DragonColor> VALUES = new ArrayList<>();
-    private static final Map<String, DragonColor> ID_MAP = new HashMap<>();
-    private static final Map<DragonType, List<DragonColor>> BY_DRAGON_TYPE = new HashMap<>();
     public static final DragonColor RED = new DragonColor("red", Formatting.DARK_RED, DragonType.FIRE, () -> IafItems.DRAGONEGG_RED, () -> IafItems.DRAGONSCALES_RED);
     public static final DragonColor GREEN = new DragonColor("green", Formatting.DARK_GREEN, DragonType.FIRE, () -> IafItems.DRAGONEGG_GREEN, () -> IafItems.DRAGONSCALES_GREEN);
     public static final DragonColor BRONZE = new DragonColor("bronze", Formatting.GOLD, DragonType.FIRE, () -> IafItems.DRAGONEGG_BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
@@ -31,6 +28,9 @@ public record DragonColor(String name, Formatting color, DragonType dragonType, 
     public static final DragonColor AMETHYST = new DragonColor("amethyst", Formatting.LIGHT_PURPLE, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_AMETHYST, () -> IafItems.DRAGONSCALES_AMETHYST);
     public static final DragonColor COPPER = new DragonColor("copper", Formatting.GOLD, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_COPPER, () -> IafItems.DRAGONSCALES_COPPER);
     public static final DragonColor BLACK = new DragonColor("black", Formatting.DARK_GRAY, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_BLACK, () -> IafItems.DRAGONSCALES_BLACK);
+    private static final List<DragonColor> VALUES = new ArrayList<>();
+    private static final Map<String, DragonColor> ID_MAP = new HashMap<>();
+    private static final Map<DragonType, List<DragonColor>> BY_DRAGON_TYPE = new HashMap<>();
 
     public DragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem, Supplier<Item> scaleItem) {
         this.name = name;
@@ -44,14 +44,6 @@ public record DragonColor(String name, Formatting color, DragonType dragonType, 
         BY_DRAGON_TYPE.get(dragonType).add(this);
     }
 
-    public Item getEggItem() {
-        return this.eggItem.get();
-    }
-
-    public Item getScaleItem() {
-        return this.scaleItem.get();
-    }
-
     public static List<DragonColor> values() {
         return ImmutableList.copyOf(VALUES);
     }
@@ -59,6 +51,22 @@ public record DragonColor(String name, Formatting color, DragonType dragonType, 
     public static DragonColor byMetadata(int meta) {
         DragonColor i = values().get(meta);
         return i == null ? RED : i;
+    }
+
+    public static DragonColor getById(String id) {
+        return ID_MAP.getOrDefault(id, RED);
+    }
+
+    public static List<DragonColor> getColorsByType(DragonType type) {
+        return ImmutableList.copyOf(BY_DRAGON_TYPE.getOrDefault(type, new ArrayList<>()));
+    }
+
+    public Item getEggItem() {
+        return this.eggItem.get();
+    }
+
+    public Item getScaleItem() {
+        return this.scaleItem.get();
     }
 
     public Identifier getEggTexture() {
@@ -100,13 +108,5 @@ public record DragonColor(String name, Formatting color, DragonType dragonType, 
 
     public Identifier getMaleOverlay() {
         return new Identifier(IceAndFire.MOD_ID, String.format("textures/models/%sdragon/male_%s.png", this.dragonType.getName(), this.name));
-    }
-
-    public static DragonColor getById(String id) {
-        return ID_MAP.getOrDefault(id, RED);
-    }
-
-    public static List<DragonColor> getColorsByType(DragonType type) {
-        return ImmutableList.copyOf(BY_DRAGON_TYPE.getOrDefault(type, new ArrayList<>()));
     }
 }

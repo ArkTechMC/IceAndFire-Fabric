@@ -6,7 +6,6 @@ import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.ModelAnimator;
 import com.iafenvoy.uranus.client.model.basic.BasicModelPart;
-import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;

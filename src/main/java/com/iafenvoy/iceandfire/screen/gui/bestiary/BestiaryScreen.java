@@ -2,10 +2,10 @@ package com.iafenvoy.iceandfire.screen.gui.bestiary;
 
 import com.google.common.collect.Maps;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.BestiaryPages;
-import com.iafenvoy.iceandfire.enums.DragonArmor;
-import com.iafenvoy.iceandfire.enums.SeaSerpent;
-import com.iafenvoy.iceandfire.enums.TrollType;
+import com.iafenvoy.iceandfire.data.BestiaryPages;
+import com.iafenvoy.iceandfire.data.DragonArmor;
+import com.iafenvoy.iceandfire.data.SeaSerpent;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -36,7 +36,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.iafenvoy.iceandfire.enums.BestiaryPages.*;
+import static com.iafenvoy.iceandfire.data.BestiaryPages.*;
 
 public class BestiaryScreen extends HandledScreen<BestiaryScreenHandler> {
     protected static final int X = 390;

@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.DragonType;
-import com.iafenvoy.iceandfire.enums.DragonArmor;
+import com.iafenvoy.iceandfire.data.DragonArmor;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelFireDragonScaleArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelIceDragonScaleArmor;

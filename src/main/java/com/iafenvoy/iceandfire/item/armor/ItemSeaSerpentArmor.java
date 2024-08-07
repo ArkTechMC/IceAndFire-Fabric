@@ -1,6 +1,6 @@
 package com.iafenvoy.iceandfire.item.armor;
 
-import com.iafenvoy.iceandfire.enums.SeaSerpent;
+import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.uranus.object.item.CustomArmorMaterial;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;

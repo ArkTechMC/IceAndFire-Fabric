@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.armor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.enums.TrollType;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelTrollArmor;
 import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
@@ -9,8 +9,6 @@ import com.iafenvoy.uranus.client.render.armor.ArmorRendererImpl;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-
-import java.util.Locale;
 
 public class TrollArmorRenderer extends ArmorRendererImpl {
     @Override
@@ -21,6 +19,6 @@ public class TrollArmorRenderer extends ArmorRendererImpl {
     @Override
     public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         TrollType troll = ((ItemTrollArmor) stack.getItem()).troll;
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_troll_" + troll.name().toLowerCase(Locale.ROOT) + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_troll_" + troll.getName() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 }

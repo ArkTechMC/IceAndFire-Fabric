@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.entity.block;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonEgg;
 import com.iafenvoy.iceandfire.entity.EntityIceDragon;
-import com.iafenvoy.iceandfire.enums.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.block.BlockState;

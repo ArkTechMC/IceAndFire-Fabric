@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.enums.DragonArmorMaterial;
+import com.iafenvoy.iceandfire.data.DragonArmorMaterial;
 import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -14,8 +14,10 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
+
 public class LayerDragonArmor extends FeatureRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> {
-    private static final EquipmentSlot[] ARMOR_SLOTS = {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
+    private static final List<EquipmentSlot> ARMOR_SLOTS = List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET);
 
     public LayerDragonArmor(MobEntityRenderer<EntityDragonBase, AdvancedEntityModel<EntityDragonBase>> renderIn, int type) {
         super(renderIn);

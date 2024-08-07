@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.item;
 
 
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
+import com.iafenvoy.iceandfire.entity.EntityDragonPart;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -35,12 +36,9 @@ public class ItemDragonHorn extends Item {
             String id = stack.getNbt().getString("DragonHornEntityID");
             if (EntityType.get(id).isPresent()) {
                 EntityType<?> entityType = EntityType.get(id).get();
-                if (entityType == IafEntities.FIRE_DRAGON)
-                    return 1;
-                if (entityType == IafEntities.ICE_DRAGON)
-                    return 2;
-                if (entityType == IafEntities.LIGHTNING_DRAGON)
-                    return 3;
+                if (entityType == IafEntities.FIRE_DRAGON) return 1;
+                if (entityType == IafEntities.ICE_DRAGON) return 2;
+                if (entityType == IafEntities.LIGHTNING_DRAGON) return 3;
             }
         }
         return 0;
@@ -54,20 +52,23 @@ public class ItemDragonHorn extends Item {
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
         ItemStack trueStack = playerIn.getStackInHand(hand);
-        if (!playerIn.getWorld().isClient && hand == Hand.MAIN_HAND && target instanceof EntityDragonBase dragon && dragon.isOwner(playerIn) && (trueStack.getNbt() == null || trueStack.getNbt().getCompound("EntityTag").isEmpty())) {
-            NbtCompound newTag = new NbtCompound();
+        if (!playerIn.getWorld().isClient && trueStack.isOf(this) && (trueStack.getNbt() == null || trueStack.getNbt().getCompound("EntityTag").isEmpty())) {
+            //TODO: Multipart check
+            if (target instanceof EntityDragonBase dragon && dragon.isOwner(playerIn)) {
+                NbtCompound newTag = new NbtCompound();
 
-            NbtCompound entityTag = new NbtCompound();
-            target.saveNbt(entityTag);
-            newTag.put("EntityTag", entityTag);
+                NbtCompound entityTag = new NbtCompound();
+                target.saveNbt(entityTag);
+                newTag.put("EntityTag", entityTag);
 
-            newTag.putString("DragonHornEntityID", Registries.ENTITY_TYPE.getId(target.getType()).toString());
-            trueStack.setNbt(newTag);
+                newTag.putString("DragonHornEntityID", Registries.ENTITY_TYPE.getId(target.getType()).toString());
+                trueStack.setNbt(newTag);
 
-            playerIn.swingHand(hand);
-            playerIn.getWorld().playSound(playerIn, playerIn.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.NEUTRAL, 3.0F, 0.75F);
-            target.remove(Entity.RemovalReason.DISCARDED);
-            return ActionResult.SUCCESS;
+                playerIn.swingHand(hand);
+                playerIn.getWorld().playSound(playerIn, playerIn.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.NEUTRAL, 3.0F, 0.75F);
+                target.remove(Entity.RemovalReason.DISCARDED);
+                return ActionResult.SUCCESS;
+            }
         }
 
         return ActionResult.FAIL;
