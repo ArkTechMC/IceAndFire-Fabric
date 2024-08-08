@@ -16,6 +16,9 @@ import java.util.function.Supplier;
 
 public record DragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem,
                           Supplier<Item> scaleItem) {
+    private static final List<DragonColor> VALUES = new ArrayList<>();
+    private static final Map<String, DragonColor> ID_MAP = new HashMap<>();
+    private static final Map<DragonType, List<DragonColor>> BY_DRAGON_TYPE = new HashMap<>();
     public static final DragonColor RED = new DragonColor("red", Formatting.DARK_RED, DragonType.FIRE, () -> IafItems.DRAGONEGG_RED, () -> IafItems.DRAGONSCALES_RED);
     public static final DragonColor GREEN = new DragonColor("green", Formatting.DARK_GREEN, DragonType.FIRE, () -> IafItems.DRAGONEGG_GREEN, () -> IafItems.DRAGONSCALES_GREEN);
     public static final DragonColor BRONZE = new DragonColor("bronze", Formatting.GOLD, DragonType.FIRE, () -> IafItems.DRAGONEGG_BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
@@ -28,9 +31,6 @@ public record DragonColor(String name, Formatting color, DragonType dragonType, 
     public static final DragonColor AMETHYST = new DragonColor("amethyst", Formatting.LIGHT_PURPLE, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_AMETHYST, () -> IafItems.DRAGONSCALES_AMETHYST);
     public static final DragonColor COPPER = new DragonColor("copper", Formatting.GOLD, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_COPPER, () -> IafItems.DRAGONSCALES_COPPER);
     public static final DragonColor BLACK = new DragonColor("black", Formatting.DARK_GRAY, DragonType.LIGHTNING, () -> IafItems.DRAGONEGG_BLACK, () -> IafItems.DRAGONSCALES_BLACK);
-    private static final List<DragonColor> VALUES = new ArrayList<>();
-    private static final Map<String, DragonColor> ID_MAP = new HashMap<>();
-    private static final Map<DragonType, List<DragonColor>> BY_DRAGON_TYPE = new HashMap<>();
 
     public DragonColor(String name, Formatting color, DragonType dragonType, Supplier<Item> eggItem, Supplier<Item> scaleItem) {
         this.name = name;

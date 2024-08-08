@@ -15,11 +15,11 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class DragonType {
+    private static final List<DragonType> TYPES = new ArrayList<>();
+    private static final Map<String, DragonType> BY_NAME = new HashMap<>();
     public static final DragonType FIRE = new DragonType("fire", () -> IafEntities.FIRE_DRAGON, () -> IafItems.DRAGON_SKULL_FIRE, () -> IafItems.SUMMONING_CRYSTAL_FIRE);
     public static final DragonType ICE = new DragonType("ice", () -> IafEntities.ICE_DRAGON, () -> IafItems.DRAGON_SKULL_ICE, () -> IafItems.SUMMONING_CRYSTAL_ICE).setPiscivore();
     public static final DragonType LIGHTNING = new DragonType("lightning", () -> IafEntities.LIGHTNING_DRAGON, () -> IafItems.DRAGON_SKULL_LIGHTNING, () -> IafItems.SUMMONING_CRYSTAL_LIGHTNING);
-    private static final List<DragonType> TYPES = new ArrayList<>();
-    private static final Map<String, DragonType> BY_NAME = new HashMap<>();
     private final String name;
     private final Supplier<EntityType<? extends EntityDragonBase>> entityType;
     private final Supplier<Item> skullItem, crystalItem;

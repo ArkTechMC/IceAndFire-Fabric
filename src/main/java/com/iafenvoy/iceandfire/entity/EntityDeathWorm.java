@@ -79,7 +79,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     private boolean willExplode = false;
     private int ticksTillExplosion = 60;
     private Animation currentAnimation;
-    private EntityMultipartPart[] segments = new EntityMultipartPart[6];
+    private EntitySlowPart[] segments = new EntitySlowPart[7];
     private boolean isSandNavigator;
     private int growthCounter = 0;
     private PlayerEntity thrower;
@@ -172,19 +172,22 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public void onUpdateParts() {
-        this.addSegmentsToWorld();
-        // FIXME :: Unused
-//        if (isSandBelow()) {
-//            int i = Mth.floor(this.getX());
-//            int j = Mth.floor(this.getY() - 1);
-//            int k = Mth.floor(this.getZ());
-//            BlockPos blockpos = new BlockPos(i, j, k);
-//            BlockState BlockState = this.level.getBlockState(blockpos);
-//
-//            if (level.isClientSide) {
-//                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, BlockState), this.getPosX() + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.getSurface((int) Math.floor(this.getPosX()), (int) Math.floor(this.getPosY()), (int) Math.floor(this.getPosZ())) + 0.5F, this.getPosZ() + (double) (this.rand.nextFloat() * this.getWidth() * 2.0F) - (double) this.getWidth(), this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D, this.rand.nextGaussian() * 0.02D);
-//            }
-//        }
+        for (int i = 0; i < this.segments.length; i++) {
+            if (this.segments[i] != null && !this.segments[i].isRemoved()) continue;
+            this.segments[i] = new EntitySlowPart(this, (-0.8F - (i * 0.8F)), 0, 0, 0.7F, 0.7F, 1);
+            this.segments[i].copyPositionAndRotation(this);
+            this.segments[i].setParent(this);
+            this.segments[i].updateScale(this.getScaleFactor());
+            this.getWorld().spawnEntity(this.segments[i]);
+        }
+        for (EntityMultipartPart entity : this.segments)
+            EntityUtil.updatePart(entity, this);
+    }
+
+    public void updateScale(float scale) {
+        for (EntitySlowPart entity : this.segments)
+            if (entity != null && !entity.isRemoved())
+                entity.updateScale(scale);
     }
 
     @Override
@@ -192,29 +195,10 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         return this.getScaleFactor() > 3 ? 20 : 10;
     }
 
-    public void initSegments(float scale) {
-        this.segments = new EntityMultipartPart[7];
-        for (int i = 0; i < this.segments.length; i++) {
-            this.segments[i] = new EntitySlowPart(this, (-0.8F - (i * 0.8F)) * scale, 0, 0, 0.7F * scale, 0.7F * scale, 1);
-            this.segments[i].copyPositionAndRotation(this);
-            this.segments[i].setParent(this);
-            this.getWorld().spawnEntity(this.segments[i]);
-        }
-    }
-
-    private void addSegmentsToWorld() {
-        for (EntityMultipartPart entity : this.segments) {
-            EntityUtil.updatePart(entity, this);
-        }
-    }
-
     private void clearSegments() {
-        for (Entity entity : this.segments) {
-            if (entity != null) {
-                entity.kill();
-                entity.remove(RemovalReason.KILLED);
-            }
-        }
+        for (Entity entity : this.segments)
+            if (entity != null && !entity.isRemoved())
+                entity.remove(RemovalReason.DISCARDED);
     }
 
     public void setExplosive(boolean explosive, PlayerEntity thrower) {
@@ -284,6 +268,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         compound.putInt("WormAge", this.getWormAge());
         compound.putLong("WormHome", this.getWormHome().asLong());
         compound.putBoolean("WillExplode", this.willExplode);
+        this.clearSegments();
     }
 
     @Override
@@ -363,13 +348,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     public void setDeathWormScale(float scale) {
         this.dataTracker.set(SCALE, scale);
         this.updateAttributes();
-        this.clearSegments();
-        if (!this.getWorld().isClient) {
-            this.initSegments(scale * (this.getWormAge() / 5F));
-            PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(this.getId()).writeFloat(scale * (this.getWormAge() / 5F));
-            ServerHelper.sendToAll(StaticVariables.DEATH_WORM_HITBOX, buf);
-        }
+        this.updateScale(scale * (this.getWormAge() / 5F));
     }
 
     @Override
@@ -556,9 +535,6 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
                 this.ticksTillExplosion--;
             }
         }
-        if (this.age == 1) {
-            this.initSegments(this.getScaleFactor());
-        }
         if (this.isInSandStrict()) {
             this.setVelocity(this.getVelocity().add(0, 0.08D, 0));
         }
@@ -643,6 +619,8 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
         super.tick();
         this.calculateDimensions();
         this.onUpdateParts();
+        if (this.age == 1)
+            this.updateScale(this.getScaleFactor());
         if (this.attack() && this.getControllingPassenger() != null && this.getControllingPassenger() instanceof PlayerEntity) {
             LivingEntity target = DragonUtils.riderLookingAtEntity(this, this.getControllingPassenger(), 3);
             if (this.getAnimation() != ANIMATION_BITE) {

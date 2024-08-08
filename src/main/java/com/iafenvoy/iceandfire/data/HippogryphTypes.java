@@ -12,6 +12,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 public class HippogryphTypes {
+    private static final List<HippogryphTypes> TYPES = new ArrayList<>();
+    private static final Map<String, HippogryphTypes> BY_NAME = new HashMap<>();
     public static final HippogryphTypes BLACK = new HippogryphTypes("black", false, biome -> biome.isIn(IafBiomeTags.HIPPOGRYPH_BLACK));
     public static final HippogryphTypes BROWN = new HippogryphTypes("brown", false, biome -> biome.isIn(IafBiomeTags.HIPPOGRYPH_BROWN));
     public static final HippogryphTypes GRAY = new HippogryphTypes("gray", false, biome -> biome.isIn(IafBiomeTags.HIPPOGRYPH_GRAY));
@@ -22,8 +24,6 @@ public class HippogryphTypes {
     public static final HippogryphTypes RAPTOR = new HippogryphTypes("raptor", true, biome -> false);
     public static final HippogryphTypes ALEX = new HippogryphTypes("alex", true, biome -> false);
     public static final HippogryphTypes DODO = new HippogryphTypes("dodo", true, biome -> false);
-    private static final List<HippogryphTypes> TYPES = new ArrayList<>();
-    private static final Map<String, HippogryphTypes> BY_NAME = new HashMap<>();
     public final boolean developer;
     private final String name;
     private final Predicate<RegistryEntry<Biome>> biomePredicate;

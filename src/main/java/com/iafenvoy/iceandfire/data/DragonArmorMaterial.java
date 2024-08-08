@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class DragonArmorMaterial {
+    private static final List<DragonArmorMaterial> MATERIALS = new ArrayList<>();
     public static final DragonArmorMaterial IRON = new DragonArmorMaterial("iron");
     public static final DragonArmorMaterial COPPER = new DragonArmorMaterial("copper");
     public static final DragonArmorMaterial SILVER = new DragonArmorMaterial("silver");
@@ -21,7 +22,6 @@ public class DragonArmorMaterial {
     public static final DragonArmorMaterial DRAGON_STEEL_FIRE = new DragonArmorMaterial("dragon_steel_fire");
     public static final DragonArmorMaterial DRAGON_STEEL_ICE = new DragonArmorMaterial("dragon_steel_ice");
     public static final DragonArmorMaterial DRAGON_STEEL_LIGHTNING = new DragonArmorMaterial("dragon_steel_lightning");
-    private static final List<DragonArmorMaterial> MATERIALS = new ArrayList<>();
     private final String name;
 
     public DragonArmorMaterial(String name) {

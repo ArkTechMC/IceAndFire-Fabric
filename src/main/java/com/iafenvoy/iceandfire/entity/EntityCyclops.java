@@ -175,6 +175,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
         super.writeCustomDataToNbt(compound);
         compound.putBoolean("Blind", this.isBlinded());
         compound.putInt("Variant", this.getVariant());
+        this.eyeEntity.remove(RemovalReason.DISCARDED);
     }
 
     @Override
@@ -294,7 +295,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
 
         AnimationHandler.INSTANCE.updateAnimations(this);
 
-        if (this.eyeEntity == null) {
+        if (this.eyeEntity == null || this.eyeEntity.isRemoved()) {
             this.eyeEntity = new EntityCyclopsEye(this, 0.2F, 0, 7.4F, 1.2F, 0.5F, 1);
             this.eyeEntity.copyPositionAndRotation(this);
             this.getWorld().spawnEntity(this.eyeEntity);

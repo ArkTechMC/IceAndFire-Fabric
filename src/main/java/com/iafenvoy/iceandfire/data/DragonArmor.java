@@ -19,6 +19,7 @@ import java.util.Locale;
 import java.util.function.Supplier;
 
 public class DragonArmor {
+    private static final List<DragonArmor> ARMORS = new ArrayList<>();
     public static final DragonArmor RED = new DragonArmor(DragonColor.RED, () -> IafItems.DRAGONSCALES_RED);
     public static final DragonArmor BRONZE = new DragonArmor(DragonColor.BRONZE, () -> IafItems.DRAGONSCALES_BRONZE);
     public static final DragonArmor GREEN = new DragonArmor(DragonColor.GREEN, () -> IafItems.DRAGONSCALES_GREEN);
@@ -31,7 +32,6 @@ public class DragonArmor {
     public static final DragonArmor AMETHYST = new DragonArmor(DragonColor.AMETHYST, () -> IafItems.DRAGONSCALES_AMETHYST);
     public static final DragonArmor COPPER = new DragonArmor(DragonColor.COPPER, () -> IafItems.DRAGONSCALES_COPPER);
     public static final DragonArmor BLACK = new DragonArmor(DragonColor.BLACK, () -> IafItems.DRAGONSCALES_BLACK);
-    private static final List<DragonArmor> ARMORS = new ArrayList<>();
     private final DragonColor color;
     private final Supplier<Item> repairItem;
     public CustomArmorMaterial material;

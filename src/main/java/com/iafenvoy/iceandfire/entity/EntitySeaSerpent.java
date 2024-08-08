@@ -200,7 +200,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public void updateScale(float scale) {
         this.segments = new EntitySlowPart[9];
         for (int i = 0; i < this.segments.length; i++) {
-            if (this.segments[i] == null) {
+            if (this.segments[i] == null || this.segments[i].isRemoved()) {
                 if (i > 3)
                     this.segments[i] = new EntitySlowPart(this, 0.5F * (i - 3), 180, 0, 0.5F, 0.5F, 1);
                 else
@@ -344,6 +344,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         compound.putBoolean("AttackDecision", this.attackDecision);
         compound.putBoolean("Breathing", this.isBreathing());
         compound.putBoolean("Ancient", this.isAncient());
+        this.removeParts();
+        this.lastScale = 0;
     }
 
     @Override
@@ -641,7 +643,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         if (ancient) {
             this.setAncient(true);
             this.setSeaSerpentScale(6.0F + random.nextFloat() * 3.0F);
-
         } else {
             this.setSeaSerpentScale(1.5F + random.nextFloat() * 4.0F);
         }

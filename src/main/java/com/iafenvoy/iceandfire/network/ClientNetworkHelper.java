@@ -21,14 +21,6 @@ import net.minecraft.util.math.BlockPos;
 
 public class ClientNetworkHelper {
     public static void registerReceivers() {
-        ClientPlayNetworking.registerGlobalReceiver(StaticVariables.DEATH_WORM_HITBOX, (client, handler, buf, responseSender) -> {
-            PlayerEntity player = client.player;
-            if (player != null) {
-                Entity entity = player.getWorld().getEntityById(buf.readInt());
-                if (entity instanceof EntityDeathWorm deathWorm)
-                    deathWorm.initSegments(buf.readFloat());
-            }
-        });
         ClientPlayNetworking.registerGlobalReceiver(StaticVariables.DRAGON_SET_BURN_BLOCK, (client, handler, buf, responseSender) -> {
             PlayerEntity player = client.player;
             if (player != null) {

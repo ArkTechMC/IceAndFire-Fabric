@@ -261,7 +261,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.ignoreCameraFrustum = true;
         this.switchNavigator(0);
         this.randomizeAttacks();
-        this.lastScale = 8;//Ensure scale will be updated so that multipart can generate correctly
+        this.lastScale = 0;//Ensure scale will be updated so that multipart can generate correctly
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {
@@ -333,61 +333,61 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     protected abstract boolean shouldTarget(Entity entity);
 
     public void updateScale(float scale) {
-        if (this.headPart == null) {
+        if (this.headPart == null || this.headPart.isRemoved()) {
             this.headPart = new EntityDragonPart(this, 1.55F, 0, 0.6F, 0.5F, 0.35F, 1.5F);
             this.getWorld().spawnEntity(this.headPart);
         }
         this.headPart.updateScale(scale);
 
-        if (this.neckPart == null) {
+        if (this.neckPart == null || this.neckPart.isRemoved()) {
             this.neckPart = new EntityDragonPart(this, 0.85F, 0, 0.7F, 0.5F, 0.2F, 1);
             this.getWorld().spawnEntity(this.neckPart);
         }
         this.neckPart.updateScale(scale);
 
-        if (this.rightWingUpperPart == null) {
+        if (this.rightWingUpperPart == null || this.rightWingUpperPart.isRemoved()) {
             this.rightWingUpperPart = new EntityDragonPart(this, 1, 90, 0.5F, 0.85F, 0.3F, 0.5F);
             this.getWorld().spawnEntity(this.rightWingUpperPart);
         }
         this.rightWingUpperPart.updateScale(scale);
 
-        if (this.rightWingLowerPart == null) {
+        if (this.rightWingLowerPart == null || this.rightWingLowerPart.isRemoved()) {
             this.rightWingLowerPart = new EntityDragonPart(this, 1.4F, 100, 0.3F, 0.85F, 0.2F, 0.5F);
             this.getWorld().spawnEntity(this.rightWingLowerPart);
         }
         this.rightWingLowerPart.updateScale(scale);
 
-        if (this.leftWingUpperPart == null) {
+        if (this.leftWingUpperPart == null || this.leftWingUpperPart.isRemoved()) {
             this.leftWingUpperPart = new EntityDragonPart(this, 1, -90, 0.5F, 0.85F, 0.3F, 0.5F);
             this.getWorld().spawnEntity(this.leftWingUpperPart);
         }
         this.leftWingUpperPart.updateScale(scale);
 
-        if (this.leftWingLowerPart == null) {
+        if (this.leftWingLowerPart == null || this.leftWingLowerPart.isRemoved()) {
             this.leftWingLowerPart = new EntityDragonPart(this, 1.4F, -100, 0.3F, 0.85F, 0.2F, 0.5F);
             this.getWorld().spawnEntity(this.leftWingLowerPart);
         }
         this.leftWingLowerPart.updateScale(scale);
 
-        if (this.tail1Part == null) {
+        if (this.tail1Part == null || this.tail1Part.isRemoved()) {
             this.tail1Part = new EntityDragonPart(this, -0.75F, 0, 0.6F, 0.35F, 0.35F, 1);
             this.getWorld().spawnEntity(this.tail1Part);
         }
         this.tail1Part.updateScale(scale);
 
-        if (this.tail2Part == null) {
+        if (this.tail2Part == null || this.tail2Part.isRemoved()) {
             this.tail2Part = new EntityDragonPart(this, -1.15F, 0, 0.45F, 0.35F, 0.35F, 1);
             this.getWorld().spawnEntity(this.tail2Part);
         }
         this.tail2Part.updateScale(scale);
 
-        if (this.tail3Part == null) {
+        if (this.tail3Part == null || this.tail3Part.isRemoved()) {
             this.tail3Part = new EntityDragonPart(this, -1.5F, 0, 0.35F, 0.35F, 0.35F, 1);
             this.getWorld().spawnEntity(this.tail3Part);
         }
         this.tail3Part.updateScale(scale);
 
-        if (this.tail4Part == null) {
+        if (this.tail4Part == null || this.tail4Part.isRemoved()) {
             this.tail4Part = new EntityDragonPart(this, -1.95F, 0, 0.25F, 0.45F, 0.3F, 1.5F);
             this.getWorld().spawnEntity(this.tail4Part);
         }
@@ -774,6 +774,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         if (this.hasCustomName()) {
             compound.putString("CustomName", Text.Serializer.toJson(this.getCustomName()));
         }
+        this.removeParts();
+        this.lastScale = 0;
     }
 
     @Override

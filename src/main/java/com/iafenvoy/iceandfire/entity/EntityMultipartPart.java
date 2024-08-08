@@ -42,7 +42,7 @@ public abstract class EntityMultipartPart extends Entity {
         this.multipartSize = t.getDimensions();
     }
 
-    public EntityMultipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
+    protected EntityMultipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
         super(t, parent.getWorld());
         this.setParent(parent);
         this.setScaleX(sizeX);
@@ -88,7 +88,6 @@ public abstract class EntityMultipartPart extends Entity {
 
     @Override
     protected void onSwimmingStart() {
-
     }
 
     @Override
