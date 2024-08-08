@@ -57,7 +57,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.*;
 
 public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICustomCollisions, IBlacklistedFromStatues, IAnimatedEntity, IVillagerFear, IAnimalFear, IGroundMount, IHasCustomizableAttributes, ICustomMoveController {
-
     public static final Identifier TAN_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/deathworm_tan");
     public static final Identifier WHITE_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/deathworm_white");
     public static final Identifier RED_LOOT = new Identifier(IceAndFire.MOD_ID, "entities/deathworm_red");
@@ -80,7 +79,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     private boolean willExplode = false;
     private int ticksTillExplosion = 60;
     private Animation currentAnimation;
-    private EntityMutlipartPart[] segments = new EntityMutlipartPart[6];
+    private EntityMultipartPart[] segments = new EntityMultipartPart[6];
     private boolean isSandNavigator;
     private int growthCounter = 0;
     private PlayerEntity thrower;
@@ -194,7 +193,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public void initSegments(float scale) {
-        this.segments = new EntityMutlipartPart[7];
+        this.segments = new EntityMultipartPart[7];
         for (int i = 0; i < this.segments.length; i++) {
             this.segments[i] = new EntitySlowPart(this, (-0.8F - (i * 0.8F)) * scale, 0, 0, 0.7F * scale, 0.7F * scale, 1);
             this.segments[i].copyPositionAndRotation(this);
@@ -204,7 +203,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     private void addSegmentsToWorld() {
-        for (EntityMutlipartPart entity : this.segments) {
+        for (EntityMultipartPart entity : this.segments) {
             EntityUtil.updatePart(entity, this);
         }
     }

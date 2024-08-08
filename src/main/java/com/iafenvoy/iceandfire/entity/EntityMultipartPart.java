@@ -26,23 +26,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class EntityMutlipartPart extends Entity {
-    private static final TrackedData<Optional<UUID>> PARENT_UUID = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
-    private static final TrackedData<Float> SCALE_WIDTH = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.FLOAT);
-    private static final TrackedData<Float> SCALE_HEIGHT = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.FLOAT);
-    private static final TrackedData<Float> PART_YAW = DataTracker.registerData(EntityMutlipartPart.class, TrackedDataHandlerRegistry.FLOAT);
+public abstract class EntityMultipartPart extends Entity {
+    private static final TrackedData<Optional<UUID>> PARENT_UUID = DataTracker.registerData(EntityMultipartPart.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    private static final TrackedData<Float> SCALE_WIDTH = DataTracker.registerData(EntityMultipartPart.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> SCALE_HEIGHT = DataTracker.registerData(EntityMultipartPart.class, TrackedDataHandlerRegistry.FLOAT);
+    private static final TrackedData<Float> PART_YAW = DataTracker.registerData(EntityMultipartPart.class, TrackedDataHandlerRegistry.FLOAT);
     public EntityDimensions multipartSize;
     protected float radius;
     protected float angleYaw;
     protected float offsetY;
     protected float damageMultiplier;
 
-    protected EntityMutlipartPart(EntityType<?> t, World world) {
+    protected EntityMultipartPart(EntityType<?> t, World world) {
         super(t, world);
         this.multipartSize = t.getDimensions();
     }
 
-    public EntityMutlipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
+    public EntityMultipartPart(EntityType<?> t, Entity parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
         super(t, parent.getWorld());
         this.setParent(parent);
         this.setScaleX(sizeX);
@@ -78,12 +78,12 @@ public abstract class EntityMutlipartPart extends Entity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound compound) {
-
+        this.setParentId(compound.getUuid("ParentUUID"));
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound compound) {
-
+        compound.putUuid("ParentUUID", this.getParentId());
     }
 
     @Override
@@ -144,9 +144,8 @@ public abstract class EntityMutlipartPart extends Entity {
             this.calculateDimensions();
             if (parent != null && !this.getWorld().isClient) {
                 float renderYawOffset = parent.getYaw();
-                if (parent instanceof LivingEntity) {
-                    renderYawOffset = ((LivingEntity) parent).bodyYaw;
-                }
+                if (parent instanceof LivingEntity living)
+                    renderYawOffset = living.bodyYaw;
                 if (this.isSlowFollow()) {
                     this.setPosition(parent.prevX + this.radius * MathHelper.cos((float) (renderYawOffset * (Math.PI / 180.0F) + this.angleYaw)), parent.prevY + this.offsetY, parent.prevZ + this.radius * MathHelper.sin((float) (renderYawOffset * (Math.PI / 180.0F) + this.angleYaw)));
                     double d0 = parent.getX() - this.getX();
@@ -183,20 +182,12 @@ public abstract class EntityMutlipartPart extends Entity {
 
     protected float limitAngle(float sourceAngle, float targetAngle) {
         float f = MathHelper.wrapDegrees(targetAngle - sourceAngle);
-        if (f > (float) 5.0) {
-            f = (float) 5.0;
-        }
-
-        if (f < -(float) 5.0) {
-            f = -(float) 5.0;
-        }
+        if (f > 5.0F) f = 5.0F;
+        if (f < -5.0F) f = -5.0F;
 
         float f1 = sourceAngle + f;
-        if (f1 < 0.0F) {
-            f1 += 360.0F;
-        } else if (f1 > 360.0F) {
-            f1 -= 360.0F;
-        }
+        if (f1 < 0.0F) f1 += 360.0F;
+        else if (f1 > 360.0F) f1 -= 360.0F;
 
         return f1;
     }
@@ -208,11 +199,8 @@ public abstract class EntityMutlipartPart extends Entity {
 
     public Entity getParent() {
         UUID id = this.getParentId();
-
-        if (id != null && this.getWorld() instanceof ServerWorld serverLevel) {
+        if (id != null && this.getWorld() instanceof ServerWorld serverLevel)
             return serverLevel.getEntity(id);
-        }
-
         return null;
     }
 
@@ -234,7 +222,7 @@ public abstract class EntityMutlipartPart extends Entity {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().stretch(0.20000000298023224D, 0.0D, 0.20000000298023224D));
         Entity parent = this.getParent();
         if (parent != null) {
-            entities.stream().filter(entity -> entity != parent && !sharesRider(parent, entity) && !(entity instanceof EntityMutlipartPart) && entity.isPushable()).forEach(entity -> entity.pushAwayFrom(parent));
+            entities.stream().filter(entity -> entity != parent && !sharesRider(parent, entity) && !(entity instanceof EntityMultipartPart) && entity.isPushable()).forEach(entity -> entity.pushAwayFrom(parent));
         }
     }
 

@@ -4,7 +4,7 @@ import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
-public class EntityDragonPart extends EntityMutlipartPart {
+public class EntityDragonPart extends EntityMultipartPart {
     private final float baseRadius, baseOffsetY, baseSizeX, baseSizeY;
 
     public EntityDragonPart(EntityType<?> t, World world) {

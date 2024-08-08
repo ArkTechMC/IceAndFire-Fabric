@@ -4,14 +4,14 @@ import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.DragonArmor;
+import com.iafenvoy.iceandfire.data.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.*;
-import com.iafenvoy.iceandfire.data.DragonArmor;
-import com.iafenvoy.iceandfire.data.DragonColor;
-import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.registry.IafEntities;
@@ -783,7 +783,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
         this.setAgeInTicks(compound.getInt("AgeTicks"));
         this.setGender(compound.getBoolean("Gender"));
         //FIXME: Compat for old version should be removed in 0.7
-        if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
+        if (compound.contains("Variant") && compound.get("Variant").getType() == NbtElement.STRING_TYPE)
             this.setVariant(compound.getString("Variant"));
         else {
             List<DragonColor> colors = DragonColor.getColorsByType(this.dragonType);

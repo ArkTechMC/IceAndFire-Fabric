@@ -8,7 +8,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.world.World;
 
-public class EntityCyclopsEye extends EntityMutlipartPart {
+public class EntityCyclopsEye extends EntityMultipartPart {
 
     public EntityCyclopsEye(EntityType<?> t, World world) {
         super(t, world);

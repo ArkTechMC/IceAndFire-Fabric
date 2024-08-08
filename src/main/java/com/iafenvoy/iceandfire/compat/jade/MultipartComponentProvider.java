@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.compat.jade;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.entity.EntityMutlipartPart;
+import com.iafenvoy.iceandfire.entity.EntityMultipartPart;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.MobEntity;
@@ -27,14 +27,14 @@ public enum MultipartComponentProvider implements IEntityComponentProvider {
 
     @Override
     public void appendTooltip(ITooltip iTooltip, EntityAccessor entityAccessor, IPluginConfig iPluginConfig) {
-        if (entityAccessor.getEntity() instanceof EntityMutlipartPart multipart) {
+        if (entityAccessor.getEntity() instanceof EntityMultipartPart multipart) {
             Entity parent = MinecraftClient.getInstance().world.getEntityLookup().get(multipart.getParentId());
             if (parent instanceof MobEntity mob) {
                 iTooltip.clear();
                 iTooltip.addAll(mob.getDisplayName().getWithStyle(Style.EMPTY.withColor(Formatting.WHITE)));
                 iTooltip.add(new HealthElement(mob.getMaxHealth(), mob.getHealth()));
                 iTooltip.add(new ArmorElement(mob.getArmor()));
-                if (mob instanceof EntityDragonBase dragon) {
+                if(mob instanceof EntityDragonBase dragon) {
                     iTooltip.add(Text.translatable("dragon.stage").formatted(Formatting.GRAY).append(Text.literal(" " + dragon.getDragonStage())));
                     iTooltip.add(Text.literal(dragon.getAgeInDays() + "d"));
                     iTooltip.add(Text.literal(dragon.isMale() ? "Male" : "Female"));

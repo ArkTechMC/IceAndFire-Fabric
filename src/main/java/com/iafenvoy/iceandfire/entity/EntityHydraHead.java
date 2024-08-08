@@ -7,7 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.world.World;
 
-public class EntityHydraHead extends EntityMutlipartPart {
+public class EntityHydraHead extends EntityMultipartPart {
     public int headIndex;
     public EntityHydra hydra;
     private boolean neck;

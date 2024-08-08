@@ -11,6 +11,7 @@ import com.iafenvoy.iceandfire.entity.util.IAnimalFear;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.item.ItemChain;
+import com.iafenvoy.iceandfire.item.ItemDragonHorn;
 import com.iafenvoy.iceandfire.item.armor.ItemDragonSteelArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemScaleArmor;
 import com.iafenvoy.iceandfire.item.armor.ItemTrollArmor;
@@ -214,7 +215,7 @@ public class ServerEvents {
                 }
             }
         }
-        if (entity instanceof EntityMutlipartPart mutlipartPart) {
+        if (entity instanceof EntityMultipartPart mutlipartPart) {
             Entity parent = mutlipartPart.getParent();
             try {
                 //If the attacked entity is the parent itself parent will be null and also doesn't have to be attacked
@@ -304,6 +305,13 @@ public class ServerEvents {
                     entity.dropItem(IafItems.CHAIN, 1);
                 return ActionResult.SUCCESS;
             }
+        }
+        // Handle multipart
+        if (entity instanceof EntityMultipartPart multipart) {
+            multipart.interact(player, hand);
+            // Handle some dragon items
+            if (player.getStackInHand(hand).getItem() instanceof ItemDragonHorn horn && multipart.getParent() instanceof LivingEntity living)
+                horn.useOnEntity(player.getStackInHand(hand), player, living, hand);
         }
         return ActionResult.PASS;
     }

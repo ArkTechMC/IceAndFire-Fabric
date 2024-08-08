@@ -7,7 +7,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
 
-public class EntitySlowPart extends EntityMutlipartPart {
+public class EntitySlowPart extends EntityMultipartPart {
     private final float baseRadius, baseOffsetY, baseSizeX, baseSizeY;
 
     public EntitySlowPart(EntityType<?> t, World world) {

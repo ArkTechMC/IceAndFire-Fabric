@@ -54,7 +54,7 @@ public class ItemSeaSerpentArmor extends ArmorItem implements IArmorFinder {
 
     @Override
     public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-        tooltip.add(Text.translatable("sea_serpent." + this.armor_type.resourceName).formatted(this.armor_type.color));
+        tooltip.add(Text.translatable("sea_serpent." + this.armor_type.getName()).formatted(this.armor_type.getColor()));
         tooltip.add(Text.translatable("item.iceandfire.sea_serpent_armor.desc_0").formatted(Formatting.GRAY));
         tooltip.add(Text.translatable("item.iceandfire.sea_serpent_armor.desc_1").formatted(Formatting.GRAY));
     }

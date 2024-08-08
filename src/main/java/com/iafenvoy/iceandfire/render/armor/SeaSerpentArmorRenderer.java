@@ -19,6 +19,6 @@ public class SeaSerpentArmorRenderer extends ArmorRendererImpl {
     @Override
     public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         SeaSerpent armor_type = ((ItemSeaSerpentArmor) stack.getItem()).armor_type;
-        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_tide_" + armor_type.resourceName + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
+        return new Identifier(IceAndFire.MOD_ID, "textures/models/armor/armor_tide_" + armor_type.getName() + (slot == EquipmentSlot.LEGS ? "_legs.png" : ".png"));
     }
 }

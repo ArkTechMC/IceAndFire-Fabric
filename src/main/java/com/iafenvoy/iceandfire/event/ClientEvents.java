@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.event;
 
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
+import com.iafenvoy.iceandfire.entity.EntityMultipartPart;
 import com.iafenvoy.iceandfire.entity.util.ICustomMoveController;
 import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
 import com.iafenvoy.iceandfire.registry.IafKeybindings;
@@ -18,10 +19,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ClientEvents {
-//    public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
+    //    public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
 //        PlayerEntity player = MinecraftClient.getInstance().player;
 //        if (player.getVehicle() != null) {
 //            if (player.getVehicle() instanceof EntityDragonBase) {
@@ -40,6 +46,11 @@ public class ClientEvents {
 //            }
 //        }
 //    }
+    public static ActionResult onEntityInteract(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
+        // Hook multipart
+        if(entity instanceof EntityMultipartPart) return ActionResult.SUCCESS;
+        return ActionResult.PASS;
+    }
 
     public static void onLivingUpdate(LivingEntity entity) {
         MinecraftClient mc = MinecraftClient.getInstance();

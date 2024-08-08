@@ -187,12 +187,12 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
         //FIXME: Compat for old version should be removed in 0.7
-        if (compound.get("Variant").getType() == NbtElement.STRING_TYPE)
+        if (compound.contains("Variant") && compound.get("Variant").getType() == NbtElement.STRING_TYPE)
             this.setVariant(compound.getString("Variant"));
         else
             this.setVariant(TrollType.values().get(compound.getInt("Variant")).getName());
         //FIXME: Compat for old version should be removed in 0.7
-        if (compound.get("Weapon").getType() == NbtElement.STRING_TYPE)
+        if (compound.contains("Weapon") && compound.get("Weapon").getType() == NbtElement.STRING_TYPE)
             this.setWeapon(compound.getString("Weapon"));
         else
             this.setWeapon(TrollType.values().get(compound.getInt("Weapon")).getName());

@@ -4,6 +4,7 @@ import com.iafenvoy.iceandfire.config.IafClientConfig;
 import com.iafenvoy.iceandfire.data.DragonArmor;
 import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.iceandfire.data.TrollType;
+import com.iafenvoy.iceandfire.event.ClientEvents;
 import com.iafenvoy.iceandfire.network.ClientNetworkHelper;
 import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
@@ -22,6 +23,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 
 @Environment(EnvType.CLIENT)
 public class IceAndFireClient implements ClientModInitializer {
@@ -69,6 +71,8 @@ public class IceAndFireClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, new TEISRItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.DREAD_PORTAL, new TEISRItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.GHOST_CHEST, new TEISRItemRenderer());
+
+        UseEntityCallback.EVENT.register(ClientEvents::onEntityInteract);
 
         ClientNetworkHelper.registerReceivers();
     }

@@ -1,15 +1,16 @@
 package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.iceandfire.entity.ai.*;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
-import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.uranus.animation.Animation;
 import com.iafenvoy.uranus.animation.AnimationHandler;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
+import com.iafenvoy.uranus.util.RandomHelper;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -35,6 +36,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
@@ -56,7 +58,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public static final Animation ANIMATION_SPEAK = Animation.create(15);
     public static final Animation ANIMATION_ROAR = Animation.create(40);
     public static final int TIME_BETWEEN_ROARS = 300;
-    private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<String> VARIANT = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.STRING);
     private static final TrackedData<Float> SCALE = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.FLOAT);
     private static final TrackedData<Boolean> JUMPING = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> BREATHING = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -148,7 +150,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.goalSelector.add(3, new SeaSerpentAIJump(this, 4));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.targetSelector.add(1, (new RevengeGoal(this, EntityMutlipartPart.class)).setGroupRevenge());
+        this.targetSelector.add(1, (new RevengeGoal(this, EntityMultipartPart.class)).setGroupRevenge());
         this.targetSelector.add(2, new FlyingAITarget(this, LivingEntity.class, 150, false, false, NOT_SEA_SERPENT_IN_WATER));
         this.targetSelector.add(3, new FlyingAITarget(this, PlayerEntity.class, 0, false, false, NOT_SEA_SERPENT));
     }
@@ -161,7 +163,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public void tickCramming() {
         List<Entity> entities = this.getWorld().getOtherEntities(this, this.getBoundingBox().stretch(0.20000000298023224D, 0.0D, 0.20000000298023224D));
-        entities.stream().filter(entity -> !(entity instanceof EntityMutlipartPart) && entity.isPushable()).forEach(entity -> entity.pushAwayFrom(this));
+        entities.stream().filter(entity -> !(entity instanceof EntityMultipartPart) && entity.isPushable()).forEach(entity -> entity.pushAwayFrom(this));
     }
 
     private void switchNavigator(boolean onLand) {
@@ -210,14 +212,14 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public void onUpdateParts() {
-        for (EntityMutlipartPart entity : this.segments) {
+        for (EntityMultipartPart entity : this.segments) {
             entity.copyPositionAndRotation(this);
             EntityUtil.updatePart(entity, this);
         }
     }
 
     private void removeParts() {
-        for (EntityMutlipartPart entity : this.segments)
+        for (EntityMultipartPart entity : this.segments)
             if (entity != null)
                 entity.remove(RemovalReason.DISCARDED);
     }
@@ -324,7 +326,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     protected void initDataTracker() {
         super.initDataTracker();
-        this.dataTracker.startTracking(VARIANT, 0);
+        this.dataTracker.startTracking(VARIANT, SeaSerpent.BLUE.getName());
         this.dataTracker.startTracking(SCALE, 0F);
         this.dataTracker.startTracking(JUMPING, false);
         this.dataTracker.startTracking(BREATHING, false);
@@ -334,7 +336,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public void writeCustomDataToNbt(NbtCompound compound) {
         super.writeCustomDataToNbt(compound);
-        compound.putInt("Variant", this.getVariant());
+        compound.putString("Variant", this.getVariant());
         compound.putInt("TicksSinceRoar", this.ticksSinceRoar);
         compound.putInt("JumpCooldown", this.jumpCooldown);
         compound.putFloat("Scale", this.getSeaSerpentScale());
@@ -347,7 +349,10 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public void readCustomDataFromNbt(NbtCompound compound) {
         super.readCustomDataFromNbt(compound);
-        this.setVariant(compound.getInt("Variant"));
+        if (compound.contains("Variant") && compound.get("Variant").getType() == NbtElement.STRING_TYPE)
+            this.setVariant(compound.getString("Variant"));
+        else
+            this.setVariant(SeaSerpent.values().get(compound.getInt("Variant")).getName());
         this.ticksSinceRoar = compound.getInt("TicksSinceRoar");
         this.jumpCooldown = compound.getInt("JumpCooldown");
         this.setSeaSerpentScale(compound.getFloat("Scale"));
@@ -378,11 +383,11 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.dataTracker.set(SCALE, scale);
     }
 
-    public int getVariant() {
+    public String getVariant() {
         return this.dataTracker.get(VARIANT);
     }
 
-    public void setVariant(int variant) {
+    public void setVariant(String variant) {
         this.dataTracker.set(VARIANT, variant);
     }
 
@@ -617,7 +622,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     @Override
     public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setVariant(this.getRandom().nextInt(7));
+        this.setVariant(RandomHelper.randomOne(SeaSerpent.values()).getName());
         boolean ancient = this.getRandom().nextInt(16) == 1;
         if (ancient) {
             this.setAncient(true);
@@ -631,7 +636,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public void onWorldSpawn(Random random) {
-        this.setVariant(random.nextInt(7));
+        this.setVariant(RandomHelper.randomOne(SeaSerpent.values()).getName());
         boolean ancient = random.nextInt(15) == 1;
         if (ancient) {
             this.setAncient(true);
@@ -756,7 +761,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public SeaSerpent getEnum() {
-        return SeaSerpent.values().get(this.getVariant());
+        return SeaSerpent.getByName(this.getVariant());
     }
 
     @Override

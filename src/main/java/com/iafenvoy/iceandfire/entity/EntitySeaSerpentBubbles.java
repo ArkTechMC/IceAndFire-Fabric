@@ -88,7 +88,7 @@ public class EntitySeaSerpentBubbles extends AbstractFireballEntity implements I
 
     @Override
     protected boolean canHit(Entity entityIn) {
-        return super.canHit(entityIn) && !(entityIn instanceof EntityMutlipartPart) && !(entityIn instanceof EntitySeaSerpentBubbles);
+        return super.canHit(entityIn) && !(entityIn instanceof EntityMultipartPart) && !(entityIn instanceof EntitySeaSerpentBubbles);
     }
 
 
