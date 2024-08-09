@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.network;
 
 import com.iafenvoy.iceandfire.StaticVariables;
-import com.iafenvoy.iceandfire.entity.EntityDeathWorm;
+import com.iafenvoy.iceandfire.config.IafClientConfig;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityJar;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityPixieHouse;
@@ -10,6 +10,7 @@ import com.iafenvoy.iceandfire.entity.util.ISyncMount;
 import com.iafenvoy.uranus.network.PacketBufferUtils;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.option.Perspective;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +21,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 public class ClientNetworkHelper {
+    private static Perspective prev = Perspective.FIRST_PERSON;
+
     public static void registerReceivers() {
         ClientPlayNetworking.registerGlobalReceiver(StaticVariables.DRAGON_SET_BURN_BLOCK, (client, handler, buf, responseSender) -> {
             PlayerEntity player = client.player;
@@ -49,10 +52,20 @@ public class ClientNetworkHelper {
                     if (tamable.isOwner(player) && tamable.distanceTo(player) < 14) {
                         if (ride) {
                             if (baby) tamable.startRiding(player, true);
-                            else player.startRiding(tamable, true);
+                            else {
+                                player.startRiding(tamable, true);
+                                if (IafClientConfig.INSTANCE.dragonAuto3rdPerson.getBooleanValue()) {
+                                    prev = client.options.getPerspective();
+                                    client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
+                                }
+                            }
                         } else {
                             if (baby) tamable.stopRiding();
-                            else player.stopRiding();
+                            else {
+                                player.stopRiding();
+                                if (IafClientConfig.INSTANCE.dragonAuto3rdPerson.getBooleanValue())
+                                    client.options.setPerspective(prev);
+                            }
                         }
                     }
                 }

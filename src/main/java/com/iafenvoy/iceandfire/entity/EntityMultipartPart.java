@@ -78,12 +78,10 @@ public abstract class EntityMultipartPart extends Entity {
 
     @Override
     protected void readCustomDataFromNbt(NbtCompound compound) {
-        this.setParentId(compound.getUuid("ParentUUID"));
     }
 
     @Override
     protected void writeCustomDataToNbt(NbtCompound compound) {
-        compound.putUuid("ParentUUID", this.getParentId());
     }
 
     @Override
