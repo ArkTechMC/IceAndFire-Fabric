@@ -107,6 +107,7 @@ public class IafCommonConfig extends AutoInitConfigContainer {
         public ConfigBoolean explosiveBreath = new ConfigBoolean("iceandfire.dragon.explosiveBreath", false);
         public ConfigBoolean chunkLoadSummonCrystal = new ConfigBoolean("iceandfire.dragon.chunkLoadSummonCrystal", true);
         public ConfigDouble dragonFlightSpeedMod = new ConfigDouble("iceandfire.dragon.dragonFlightSpeedMod", 1, 0.0001, 5);
+        public ConfigInteger maxTamedDragonAge = new ConfigInteger("iceandfire.dragon.maxTamedDragonAge", 128, 0, 128);
 
         public ConfigBoolean lootSkull = new ConfigBoolean("iceandfire.dragon.loot.skull", true);
         public ConfigBoolean lootHeart = new ConfigBoolean("iceandfire.dragon.loot.heart", true);

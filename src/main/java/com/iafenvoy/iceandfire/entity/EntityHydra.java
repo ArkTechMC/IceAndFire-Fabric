@@ -69,10 +69,11 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
     private int prevHeadCount = -1;
     private int regrowHeadCooldown = 0;
     private boolean onlyRegrowOneHeadNotTwo = false;
+    private boolean multipartLoaded;
 
     public EntityHydra(EntityType<EntityHydra> type, World worldIn) {
         super(type, worldIn);
-        this.resetParts();
+        this.multipartLoaded = false;
         this.headDamageThreshold = Math.max(5, (float) IafCommonConfig.INSTANCE.hydra.maxHealth.getDoubleValue() * 0.08F);
     }
 
@@ -225,13 +226,14 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
             this.getWorld().spawnEntity(this.headBoxes[i]);
             this.getWorld().spawnEntity(this.headBoxes[HEADS + i]);
         }
+        this.multipartLoaded = true;
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if (this.prevHeadCount != this.getHeadCount())
+        if (!this.multipartLoaded || this.prevHeadCount != this.getHeadCount())
             this.resetParts();
 
         float partY = 1.0F - this.limbAnimator.getSpeed() * 0.5F;
@@ -261,6 +263,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         for (Entity entity : this.headBoxes)
             if (entity != null)
                 entity.remove(RemovalReason.DISCARDED);
+        this.multipartLoaded = false;
     }
 
     @Override
@@ -294,6 +297,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         compound.putInt("SeveredHead", this.getSeveredHead());
         for (int i = 0; i < HEADS; i++)
             compound.putFloat("HeadDamage" + i, this.headDamageTracker[i]);
+        this.clearParts();
     }
 
     @Override

@@ -887,8 +887,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void updateAttributes() {
-        double age = 125F;
-        if (this.getAgeInDays() <= 125) age = this.getAgeInDays();
+        double age = Math.min(this.getAgeInDays(), 125);
         final double healthStep = (this.maximumHealth - this.minimumHealth) / 125F;
         final double attackStep = (this.maximumDamage - this.minimumDamage) / 125F;
         final double speedStep = (this.maximumSpeed - this.minimumSpeed) / 125F;
@@ -923,7 +922,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public int getAgeInDays() {
-        return MathHelper.clamp(this.dataTracker.get(AGE_TICKS) / 24000, 0, 128);
+        return MathHelper.clamp(this.dataTracker.get(AGE_TICKS) / 24000, 0, this.isTamed() ? IafCommonConfig.INSTANCE.dragon.maxTamedDragonAge.getIntegerValue() : 128);
     }
 
     public void setAgeInDays(int age) {
@@ -1226,7 +1225,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         return ActionResult.SUCCESS;
                     }
                     final Item stackItem = stack.getItem();
-                    if (stackItem == IafItems.DRAGON_MEAL && this.getAgeInDays() < 128) {
+                    if (stackItem == IafItems.DRAGON_MEAL && this.getAgeInDays() < (this.isTamed() ? IafCommonConfig.INSTANCE.dragon.maxTamedDragonAge.getIntegerValue() : 128)) {
                         this.growDragon(1);
                         this.setHunger(this.getHunger() + 20);
                         this.heal(Math.min(this.getHealth(), (int) (this.getMaxHealth() / 2)));
@@ -1601,7 +1600,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public boolean isTeen() {
-        return this.getDragonStage() < 4 && this.getDragonStage() > 2;
+        return this.getDragonStage() == 3;
     }
 
     @Override

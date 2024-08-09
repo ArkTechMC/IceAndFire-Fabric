@@ -1394,6 +1394,7 @@
   "iceandfire.dragon.maxPathingNodes": "Max Pathing Nodes",
   "iceandfire.dragon.villagersFear": "Villagers Fear",
   "iceandfire.dragon.animalsFear": "Animals Fear",
+  "iceandfire.dragon.maxTamedDragonAge": "Max Tamed Dragon Age (Days)",
   "iceandfire.category.hippogryphs": "Hippogryphs",
   "iceandfire.hippogryphs.spawn": "Can Spawn",
   "iceandfire.hippogryphs.spawnWeight": "Spawn Weight",

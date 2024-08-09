@@ -1388,6 +1388,7 @@
   "iceandfire.dragon.maxPathingNodes": "最大寻路节点",
   "iceandfire.dragon.villagersFear": "村民躲避龙",
   "iceandfire.dragon.animalsFear": "动物躲避龙",
+  "iceandfire.dragon.maxTamedDragonAge": "已驯服龙最大年龄（天）",
   "iceandfire.category.hippogryphs": "骏鹰",
   "iceandfire.hippogryphs.spawn": "允许生成",
   "iceandfire.hippogryphs.spawnWeight": "生成权重",
