@@ -2,8 +2,9 @@ Quando combinar um diamante, uma
 pérola do fim com uma esmeralda ou 
 safira, é criado um cristal de 
 invocação.
-<item><iceandfire:summoning_crystal_fire 0 15 22 1.25>
-<item><iceandfire:summoning_crystal_ice 0 45 22 1.25>
+<item><iceandfire:summoning_crystal_fire 0 10 19 1.25>
+<item><iceandfire:summoning_crystal_ice 0 30 19 1.25>
+<item><iceandfire:summoning_crystal_lightning 0 50 19 1.25>
 
 
 

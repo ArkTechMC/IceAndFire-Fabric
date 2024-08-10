@@ -5,7 +5,7 @@
 
 
 
-<image><drawings_firedragon_attacks.png 40 100 290 124 186 69 0.7>
+<image><drawings_icedragon_attacks.png 40 100 290 124 186 69 0.7>
 
 
 
@@ -16,7 +16,7 @@
 
 
 
-<image><drawings_firedragon_attacks.png 80 220 330 20 117 77 0.7>
+<image><drawings_icedragon_attacks.png 80 220 335 20 117 77 0.7>
 
 
 

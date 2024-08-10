@@ -226,9 +226,9 @@ public abstract class EntityMultipartPart extends Entity {
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
         Entity parent = this.getParent();
-        if (this.getWorld().isClient && parent != null) {
+        if (this.getWorld().isClient && this.getParentId() != null) {
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(parent.getId()).writeFloat(0);
+            buf.writeUuid(this.getParentId()).writeFloat(0);
             ClientPlayNetworking.send(StaticVariables.MULTIPART_INTERACT, buf);
         }
         return parent != null ? parent.interact(player, hand) : ActionResult.PASS;
@@ -237,9 +237,9 @@ public abstract class EntityMultipartPart extends Entity {
     @Override
     public boolean damage(DamageSource source, float damage) {
         Entity parent = this.getParent();
-        if (this.getWorld().isClient && source.getAttacker() instanceof PlayerEntity && parent != null) {
+        if (this.getWorld().isClient && this.getParentId() != null && source.getAttacker() instanceof PlayerEntity) {
             PacketByteBuf buf = PacketByteBufs.create();
-            buf.writeInt(parent.getId()).writeFloat(damage * this.damageMultiplier);
+            buf.writeUuid(this.getParentId()).writeFloat(damage * this.damageMultiplier);
             ClientPlayNetworking.send(StaticVariables.MULTIPART_INTERACT, buf);
         }
         return parent != null && parent.damage(source, damage * this.damageMultiplier);

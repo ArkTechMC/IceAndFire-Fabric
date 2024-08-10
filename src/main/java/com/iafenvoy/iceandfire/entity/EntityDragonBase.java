@@ -1082,55 +1082,8 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     @Override
     public ActionResult interactAt(PlayerEntity player, Vec3d vec, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        int lastDeathStage = Math.min(this.getAgeInDays() / 5, 25);
         if (stack.getItem() == IafItems.DRAGON_DEBUG_STICK) {
             this.logic.debug();
-            return ActionResult.SUCCESS;
-        }
-        if (this.isModelDead() && this.getDeathStage() < lastDeathStage && player.canModifyBlocks()) {
-            if (!this.getWorld().isClient && !stack.isEmpty() && stack.getItem() != null && stack.getItem() == Items.GLASS_BOTTLE && this.getDeathStage() < lastDeathStage / 2 && IafCommonConfig.INSTANCE.dragon.lootBlood.getBooleanValue()) {
-                if (!player.isCreative()) {
-                    stack.decrement(1);
-                }
-                this.setDeathStage(this.getDeathStage() + 1);
-                player.getInventory().insertStack(new ItemStack(this.getBloodItem(), 1));
-                return ActionResult.SUCCESS;
-            } else {
-                if (!this.getWorld().isClient && stack.isEmpty()) {
-                    if (IafCommonConfig.INSTANCE.dragon.lootSkull.getBooleanValue()) {
-                        if (this.getDeathStage() >= lastDeathStage - 1) {
-                            ItemStack skull = this.getSkull().copy();
-                            skull.setNbt(new NbtCompound());
-                            assert skull.getNbt() != null;
-                            skull.getNbt().putInt("Stage", this.getDragonStage());
-                            skull.getNbt().putInt("DragonType", 0);
-                            skull.getNbt().putInt("DragonAge", this.getAgeInDays());
-                            this.setDeathStage(this.getDeathStage() + 1);
-                            if (!this.getWorld().isClient) {
-                                this.dropStack(skull, 1);
-                            }
-                            this.remove(RemovalReason.DISCARDED);
-                        } else if (this.getDeathStage() == (lastDeathStage / 2) - 1 && IafCommonConfig.INSTANCE.dragon.lootHeart.getBooleanValue()) {
-                            ItemStack heart = new ItemStack(this.getHeartItem(), 1);
-                            List<DragonColor> colors = DragonColor.getColorsByType(this.dragonType);
-                            ItemStack egg = new ItemStack(colors.get(this.random.nextInt(colors.size())).getEggItem(), 1);
-                            if (!this.getWorld().isClient) {
-                                this.dropStack(heart, 1);
-                                if (!this.isMale() && this.getDragonStage() > 3) {
-                                    this.dropStack(egg, 1);
-                                }
-                            }
-                            this.setDeathStage(this.getDeathStage() + 1);
-                        } else {
-                            this.setDeathStage(this.getDeathStage() + 1);
-                            ItemStack drop = this.getRandomDrop();
-                            if (!drop.isEmpty() && !this.getWorld().isClient) {
-                                this.dropStack(drop, 1);
-                            }
-                        }
-                    }
-                }
-            }
             return ActionResult.SUCCESS;
         }
         return super.interactAt(player, vec, hand);
@@ -1140,6 +1093,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         // Interaction usually means right-click but the relevant item is often in the main hand
         ItemStack stack = player.getMainHandStack();
+        int lastDeathStage = Math.min(this.getAgeInDays() / 5, 25);
 
         if (stack == ItemStack.EMPTY) {
             stack = player.getStackInHand(hand);
@@ -1282,6 +1236,51 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                     }
                 }
             }
+        } else if (this.getDeathStage() < lastDeathStage && player.canModifyBlocks()) {
+            if (!this.getWorld().isClient && !stack.isEmpty() && stack.getItem() != null && stack.getItem() == Items.GLASS_BOTTLE && this.getDeathStage() < lastDeathStage / 2 && IafCommonConfig.INSTANCE.dragon.lootBlood.getBooleanValue()) {
+                if (!player.isCreative()) {
+                    stack.decrement(1);
+                }
+                this.setDeathStage(this.getDeathStage() + 1);
+                player.getInventory().insertStack(new ItemStack(this.getBloodItem(), 1));
+                return ActionResult.SUCCESS;
+            } else {
+                if (!this.getWorld().isClient && stack.isEmpty()) {
+                    if (IafCommonConfig.INSTANCE.dragon.lootSkull.getBooleanValue()) {
+                        if (this.getDeathStage() >= lastDeathStage - 1) {
+                            ItemStack skull = this.getSkull().copy();
+                            skull.setNbt(new NbtCompound());
+                            assert skull.getNbt() != null;
+                            skull.getNbt().putInt("Stage", this.getDragonStage());
+                            skull.getNbt().putInt("DragonType", 0);
+                            skull.getNbt().putInt("DragonAge", this.getAgeInDays());
+                            this.setDeathStage(this.getDeathStage() + 1);
+                            if (!this.getWorld().isClient) {
+                                this.dropStack(skull, 1);
+                            }
+                            this.remove(RemovalReason.DISCARDED);
+                        } else if (this.getDeathStage() == (lastDeathStage / 2) - 1 && IafCommonConfig.INSTANCE.dragon.lootHeart.getBooleanValue()) {
+                            ItemStack heart = new ItemStack(this.getHeartItem(), 1);
+                            List<DragonColor> colors = DragonColor.getColorsByType(this.dragonType);
+                            ItemStack egg = new ItemStack(colors.get(this.random.nextInt(colors.size())).getEggItem(), 1);
+                            if (!this.getWorld().isClient) {
+                                this.dropStack(heart, 1);
+                                if (!this.isMale() && this.getDragonStage() > 3) {
+                                    this.dropStack(egg, 1);
+                                }
+                            }
+                            this.setDeathStage(this.getDeathStage() + 1);
+                        } else {
+                            this.setDeathStage(this.getDeathStage() + 1);
+                            ItemStack drop = this.getRandomDrop();
+                            if (!drop.isEmpty() && !this.getWorld().isClient) {
+                                this.dropStack(drop, 1);
+                            }
+                        }
+                    }
+                }
+            }
+            return ActionResult.SUCCESS;
         }
         return super.interactMob(player, hand);
 

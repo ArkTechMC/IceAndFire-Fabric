@@ -11,8 +11,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.UUID;
 
 public class ServerNetworkHelper {
     public static void registerReceivers() {
@@ -61,19 +64,20 @@ public class ServerNetworkHelper {
             }
         });
         ServerPlayNetworking.registerGlobalReceiver(StaticVariables.MULTIPART_INTERACT, (server, player, handler, buf, responseSender) -> {
-            int creatureID = buf.readInt();
+            UUID creatureID = buf.readUuid();
             float dmg = buf.readFloat();
-
-            if (player != null) {
-                Entity entity = player.getWorld().getEntityById(creatureID);
-                if (entity instanceof LivingEntity livingEntity) {
-                    double dist = player.distanceTo(livingEntity);
-                    if (dist < 100) {
-                        if (dmg > 0F) livingEntity.damage(player.getWorld().damageSources.mobAttack(player), dmg);
-                        else livingEntity.interact(player, Hand.MAIN_HAND);
+            server.execute(()->{
+                if (player != null && player.getWorld() instanceof ServerWorld serverWorld) {
+                    Entity entity = serverWorld.getEntity(creatureID);
+                    if (entity instanceof LivingEntity livingEntity) {
+                        double dist = player.distanceTo(livingEntity);
+                        if (dist < 100) {
+                            if (dmg > 0F) livingEntity.damage(player.getWorld().damageSources.mobAttack(player), dmg);
+                            else livingEntity.interact(player, Hand.MAIN_HAND);
+                        }
                     }
                 }
-            }
+            });
         });
         ServerPlayNetworking.registerGlobalReceiver(StaticVariables.PLAYER_HIT_MULTIPART, (server, player, handler, buf, responseSender) -> {
             if (player != null) {

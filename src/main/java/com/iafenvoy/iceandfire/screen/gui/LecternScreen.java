@@ -145,7 +145,7 @@ public class LecternScreen extends HandledScreen<LecternScreenHandler> {
                 float textScale = 1.0F;
                 BestiaryPages enchantment = this.handler.getPossiblePages()[i1];
                 if (enchantment != null) {
-                    s1 = I18n.translate("bestiary." + enchantment.toString().toLowerCase(Locale.ROOT));//EnchantmentNameParts.getInstance().generateNewRandomName(this.fontRenderer, l1);
+                    s1 = I18n.translate("bestiary." + enchantment.getName());//EnchantmentNameParts.getInstance().generateNewRandomName(this.fontRenderer, l1);
                     if (fontrenderer.getWidth(s1) > 80)
                         textScale = 1.0F - (fontrenderer.getWidth(s1) - 80) * 0.01F;
                 }

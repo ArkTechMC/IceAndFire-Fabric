@@ -2,8 +2,9 @@ Al combinarla con un diamante, una
 perla de ender y una esmeralda o
 zafiro, se puede crear un cristal.
 
-<item><iceandfire:summoning_crystal_fire 0 15 22 1.25>
-<item><iceandfire:summoning_crystal_ice 0 45 22 1.25>
+<item><iceandfire:summoning_crystal_fire 0 10 19 1.25>
+<item><iceandfire:summoning_crystal_ice 0 30 19 1.25>
+<item><iceandfire:summoning_crystal_lightning 0 50 19 1.25>
 
 
 
