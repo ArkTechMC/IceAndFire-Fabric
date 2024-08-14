@@ -47,7 +47,7 @@
     "fabricloader": "*",
     "fabric": "*",
     "minecraft": "1.20.1",
-    "jupiter": ">=0.3.2",
-    "uranus": ">=1.5"
+    "jupiter": ">=0.5",
+    "uranus": ">=1.6.1"
   }
 }
