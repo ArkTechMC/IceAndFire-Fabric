@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "equipment",
+  "pattern": [
+    "SSS",
+    "S S",
+    "H H"
+  ],
   "key": {
-    "#": {
+    "S": {
       "item": "iceandfire:sea_serpent_scales_blue"
+    },
+    "H": {
+      "item": "iceandfire:shiny_scales"
     }
   },
-  "pattern": [
-    "###",
-    "# #",
-    "# #"
-  ],
   "result": {
     "item": "iceandfire:tide_blue_leggings"
-  },
-  "show_notification": true
+  }
 }

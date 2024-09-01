@@ -258,7 +258,7 @@ public class IafCommonConfig extends AutoInitConfigContainer {
         public ConfigDouble spawnChance = new ConfigDouble("iceandfire.seaSerpent.spawnChance", 1.0 / 250, 0, 1);
         public ConfigBoolean griefing = new ConfigBoolean("iceandfire.seaSerpent.griefing", true);
         public ConfigDouble baseHealth = new ConfigDouble("iceandfire.seaSerpent.baseHealth", 20, 0, 50);
-        public ConfigDouble attackDamage = new ConfigDouble("iceandfire.seaSerpent.baseHealth", 4, 0, 10);
+        public ConfigDouble attackDamage = new ConfigDouble("iceandfire.seaSerpent.attackDamage", 4, 0, 10);
 
         public SeaSerpentConfig() {
             super("seaSerpent", "iceandfire.category.seaSerpent");

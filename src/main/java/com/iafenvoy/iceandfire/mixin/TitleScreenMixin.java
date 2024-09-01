@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(TitleScreen.class)
+@Mixin(value = TitleScreen.class, priority = 900)
 public abstract class TitleScreenMixin extends Screen {
     @Shadow
     @Nullable

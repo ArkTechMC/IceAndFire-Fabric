@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "equipment",
+  "pattern": [
+    "H H",
+    "SSS",
+    "S S"
+  ],
   "key": {
-    "#": {
+    "S": {
       "item": "iceandfire:sea_serpent_scales_bronze"
+    },
+    "H": {
+      "item": "iceandfire:shiny_scales"
     }
   },
-  "pattern": [
-    "###",
-    "# #"
-  ],
   "result": {
     "item": "iceandfire:tide_bronze_helmet"
-  },
-  "show_notification": true
+  }
 }
