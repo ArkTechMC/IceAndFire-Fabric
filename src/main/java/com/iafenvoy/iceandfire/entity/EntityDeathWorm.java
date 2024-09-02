@@ -15,6 +15,7 @@ import com.iafenvoy.uranus.animation.Animation;
 import com.iafenvoy.uranus.animation.AnimationHandler;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.object.entity.collision.ICustomCollisions;
+import com.iafenvoy.uranus.util.RandomHelper;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
@@ -342,7 +343,12 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public float getDeathwormScale() {
-        return this.dataTracker.get(SCALE);
+        float scale = this.dataTracker.get(SCALE);
+        if (scale == 0) {
+            scale = (float) RandomHelper.nextDouble(1, 7);
+            this.setDeathWormScale(scale);
+        }
+        return scale;
     }
 
     public void setDeathWormScale(float scale) {

@@ -378,7 +378,12 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public float getSeaSerpentScale() {
-        return this.dataTracker.get(SCALE);
+        float scale = this.dataTracker.get(SCALE);
+        if (scale == 0) {
+            scale = (float) RandomHelper.nextDouble(1, 5);
+            this.setSeaSerpentScale(scale);
+        }
+        return scale;
     }
 
     private void setSeaSerpentScale(float scale) {
