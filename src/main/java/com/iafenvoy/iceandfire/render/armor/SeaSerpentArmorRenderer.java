@@ -5,7 +5,6 @@ import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.iceandfire.item.armor.ItemSeaSerpentArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelSeaSerpentArmor;
 import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
-import com.iafenvoy.uranus.client.render.armor.ArmorRendererImpl;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;

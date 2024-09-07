@@ -4,7 +4,6 @@ import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.render.model.armor.ModelDeathWormArmor;
 import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
-import com.iafenvoy.uranus.client.render.armor.ArmorRendererImpl;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;

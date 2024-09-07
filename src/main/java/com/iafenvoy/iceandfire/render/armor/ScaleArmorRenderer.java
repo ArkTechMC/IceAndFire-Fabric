@@ -8,7 +8,6 @@ import com.iafenvoy.iceandfire.render.model.armor.ModelFireDragonScaleArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelIceDragonScaleArmor;
 import com.iafenvoy.iceandfire.render.model.armor.ModelLightningDragonScaleArmor;
 import com.iafenvoy.uranus.client.render.armor.ArmorModelBase;
-import com.iafenvoy.uranus.client.render.armor.ArmorRendererImpl;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
