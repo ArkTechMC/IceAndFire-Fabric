@@ -22,14 +22,13 @@ public class IafItemTags {
     public static final TagKey<Item> TEMPT_DRAGON = createKey("tempt_dragon");
     public static final TagKey<Item> TEMPT_HIPPOCAMPUS = createKey("tempt_hippocampus");
     public static final TagKey<Item> TEMPT_HIPPOGRYPH = createKey("tempt_hippogryph");
-    private final static String INGOTS_PATH = CommonTags.Items.INGOTS.id().getPath();
-    public static final TagKey<Item> INGOTS_SILVER = createForgeKey(INGOTS_PATH + "/silver");
+    public static final TagKey<Item> INGOTS_SILVER = createForgeKey("ingots/silver");
 
     private static TagKey<Item> createKey(final String name) {
         return TagKey.of(RegistryKeys.ITEM, new Identifier(IceAndFire.MOD_ID, name));
     }
 
     private static TagKey<Item> createForgeKey(final String name) {
-        return TagKey.of(RegistryKeys.ITEM, new Identifier("forge", name));
+        return TagKey.of(RegistryKeys.ITEM, new Identifier("c", name));
     }
 }

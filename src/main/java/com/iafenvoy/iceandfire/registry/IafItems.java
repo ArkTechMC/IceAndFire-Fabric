@@ -348,6 +348,7 @@ public class IafItems {
     public static final BannerPatternItem PATTERN_TROLL = register("banner_pattern_troll", new BannerPatternItem(BannerPatternTags.TROLL_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_WEEZER = register("banner_pattern_weezer", new BannerPatternItem(BannerPatternTags.WEEZER_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
     public static final BannerPatternItem PATTERN_DREAD = register("banner_pattern_dread", new BannerPatternItem(BannerPatternTags.DREAD_BANNER_PATTERN, new FabricItemSettings().maxCount(1)));
+
     public static final DelightFoodItem COOKED_RICE_WITH_FIRE_DRAGON_MEAT = register("cooked_rice_with_fire_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60 * 2), 1).build())));
     public static final DelightFoodItem COOKED_RICE_WITH_ICE_DRAGON_MEAT = register("cooked_rice_with_ice_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20 * 60 * 2, 2), 1).build())));
     public static final DelightFoodItem COOKED_RICE_WITH_LIGHTNING_DRAGON_MEAT = register("cooked_rice_with_lightning_dragon_meat", new DelightFoodItem(new Item.Settings().maxCount(1).food(new FoodComponent.Builder().meat().hunger(4).saturationModifier(0.6f).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20 * 5), 1).statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 60 * 2, 2), 1).build())));
@@ -413,6 +414,8 @@ public class IafItems {
     }
 
     public static void setRepairMaterials() {
+        COPPER_ARMOR_MATERIAL.setRepairMaterial(Ingredient.ofItems(Items.COPPER_INGOT));
+        COPPER_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(Items.COPPER_INGOT));
         IafItems.BLINDFOLD_ARMOR_MATERIAL.setRepairMaterial(Ingredient.fromTag(CommonTags.Items.STRING));
         IafItems.SILVER_ARMOR_MATERIAL.setRepairMaterial(Ingredient.fromTag(IafItemTags.INGOTS_SILVER));
         IafItems.SILVER_TOOL_MATERIAL.setRepairMaterial(Ingredient.fromTag(IafItemTags.INGOTS_SILVER));
