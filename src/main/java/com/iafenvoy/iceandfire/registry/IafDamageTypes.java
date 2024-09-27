@@ -52,7 +52,7 @@ public class IafDamageTypes {
         return new CustomIndirectEntityDamageSource(holder, source, indirectEntityIn);
     }
 
-    static class CustomEntityDamageSource extends DamageSource {
+    public static class CustomEntityDamageSource extends DamageSource {
         public CustomEntityDamageSource(RegistryEntry<DamageType> damageTypeIn, Entity damageSourceEntityIn) {
             super(damageTypeIn, damageSourceEntityIn);
         }
@@ -68,7 +68,7 @@ public class IafDamageTypes {
         }
     }
 
-    static class CustomIndirectEntityDamageSource extends DamageSource {
+    public static class CustomIndirectEntityDamageSource extends DamageSource {
         public CustomIndirectEntityDamageSource(RegistryEntry<DamageType> damageTypeIn, Entity source, Entity indirectEntityIn) {
             super(damageTypeIn, source, indirectEntityIn);
         }

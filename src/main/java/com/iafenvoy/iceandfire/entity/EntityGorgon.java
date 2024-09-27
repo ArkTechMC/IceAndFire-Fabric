@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.iafenvoy.iceandfire.entity.util.*;
@@ -117,8 +116,8 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
         });
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) Entity::isAlive));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) || (entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone())));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, false, false, LivingEntity::isAlive));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> entity instanceof LivingEntity && DragonUtils.isAlive(entity) || (entity instanceof IBlacklistedFromStatues blacklisted && blacklisted.canBeTurnedToStone())));
         this.goalSelector.remove(this.aiMelee);
     }
 
@@ -130,14 +129,12 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
 
     @Override
     public boolean tryAttack(Entity entityIn) {
-        boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget().hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) this.getTarget()).canBeTurnedToStone();
+        boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget().hasStatusEffect(StatusEffects.BLINDNESS) || this.getTarget() != null && this.getTarget() instanceof IBlacklistedFromStatues blacklisted && !blacklisted.canBeTurnedToStone();
         if (blindness && this.deathTime == 0) {
-            if (this.getAnimation() != ANIMATION_HIT) {
+            if (this.getAnimation() != ANIMATION_HIT)
                 this.setAnimation(ANIMATION_HIT);
-            }
-            if (entityIn instanceof LivingEntity) {
-                ((LivingEntity) entityIn).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 2, false, true));
-            }
+            if (entityIn instanceof LivingEntity living)
+                living.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 2, false, true));
         }
         return super.tryAttack(entityIn);
     }
@@ -227,21 +224,17 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
                             if (this.playerStatueCooldown == 0) {
                                 EntityStoneStatue statue = EntityStoneStatue.buildStatueEntity(attackTarget);
                                 statue.updatePositionAndAngles(attackTarget.getX(), attackTarget.getY(), attackTarget.getZ(), attackTarget.getYaw(), attackTarget.getPitch());
-                                if (!this.getWorld().isClient) {
+                                if (!this.getWorld().isClient)
                                     this.getWorld().spawnEntity(statue);
-                                }
                                 statue.setYaw(attackTarget.getYaw());
                                 statue.setYaw(attackTarget.getYaw());
                                 statue.headYaw = attackTarget.getYaw();
                                 statue.bodyYaw = attackTarget.getYaw();
                                 statue.prevBodyYaw = attackTarget.getYaw();
                                 this.playerStatueCooldown = 40;
-                                if (attackTarget instanceof PlayerEntity) {
-
+                                if (attackTarget instanceof PlayerEntity)
                                     attackTarget.damage(IafDamageTypes.causeGorgonDamage(this), Integer.MAX_VALUE);
-                                } else {
-                                    attackTarget.remove(RemovalReason.KILLED);
-                                }
+                                else attackTarget.remove(RemovalReason.KILLED);
                                 this.setTarget(null);
 
                             }
