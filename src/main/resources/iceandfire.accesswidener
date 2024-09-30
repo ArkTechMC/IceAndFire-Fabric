@@ -31,3 +31,4 @@ accessible method net/minecraft/client/render/model/json/ModelTransformation$Des
 accessible field net/minecraft/client/gui/screen/Screen drawables Ljava/util/List;
 accessible field net/minecraft/world/poi/PointOfInterestTypes POI_STATES_TO_TYPE Ljava/util/Map;
 accessible method net/minecraft/client/world/ClientWorld getEntityLookup ()Lnet/minecraft/world/entity/EntityLookup;
+accessible method net/minecraft/client/render/GameRenderer loadPostProcessor (Lnet/minecraft/util/Identifier;)V

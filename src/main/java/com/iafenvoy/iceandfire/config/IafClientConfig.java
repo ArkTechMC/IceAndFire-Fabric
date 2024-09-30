@@ -17,6 +17,7 @@ public class IafClientConfig extends FileConfigContainer {
     public static final int CURRENT_VERSION = 0;
     public final ConfigBoolean customMainMenu = new ConfigBoolean("iceandfire.customMainMenu", true);
     public final ConfigBoolean dragonAuto3rdPerson = new ConfigBoolean("iceandfire.dragonAuto3rdPerson", false);
+    public ConfigBoolean sirenShader = new ConfigBoolean("iceandfire.siren.shader", true);
 
     public IafClientConfig() {
         super(new Identifier("config.iceandfire.client"), "screen.iceandfire.client.title", "./config/iceandfire/iaf-client.json");
@@ -26,7 +27,8 @@ public class IafClientConfig extends FileConfigContainer {
     public void init() {
         this.createTab("client", "iceandfire.client")
                 .addConfig(this.customMainMenu)
-                .addConfig(this.dragonAuto3rdPerson);
+                .addConfig(this.dragonAuto3rdPerson)
+                .addConfig(this.sirenShader);
     }
 
     @Override

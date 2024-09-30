@@ -1,11 +1,13 @@
 package com.iafenvoy.iceandfire.event;
 
 import com.iafenvoy.iceandfire.StaticVariables;
+import com.iafenvoy.iceandfire.config.IafClientConfig;
 import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityMultipartPart;
 import com.iafenvoy.iceandfire.entity.util.ICustomMoveController;
 import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
 import com.iafenvoy.iceandfire.registry.IafKeybindings;
+import com.iafenvoy.iceandfire.registry.IafParticles;
 import com.iafenvoy.iceandfire.render.block.RenderFrozenState;
 import com.iafenvoy.iceandfire.render.entity.RenderChain;
 import net.fabricmc.api.EnvType;
@@ -13,6 +15,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -21,12 +24,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class ClientEvents {
+    private static final Identifier SIREN_SHADER = new Identifier("iceandfire", "shaders/post/siren.json");
+
     //    public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
 //        PlayerEntity player = MinecraftClient.getInstance().player;
 //        if (player.getVehicle() != null) {
@@ -48,7 +54,7 @@ public class ClientEvents {
 //    }
     public static ActionResult onEntityInteract(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         // Hook multipart
-        if(entity instanceof EntityMultipartPart) return ActionResult.SUCCESS;
+        if (entity instanceof EntityMultipartPart) return ActionResult.SUCCESS;
         return ActionResult.PASS;
     }
 
@@ -67,21 +73,36 @@ public class ClientEvents {
                 }
             }
         }
-        if (entity instanceof PlayerEntity player && player.getWorld().isClient && player.getVehicle() instanceof ICustomMoveController) {
-            Entity vehicle = player.getVehicle();
-            ICustomMoveController moveController = (Entity & ICustomMoveController) player.getVehicle();
-            byte previousState = moveController.getControlState();
-            moveController.up(mc.options.jumpKey.isPressed());
-            moveController.down(IafKeybindings.dragon_down.isPressed());
-            moveController.attack(IafKeybindings.dragon_strike.isPressed());
-            moveController.dismount(mc.options.sneakKey.isPressed());
-            moveController.strike(IafKeybindings.dragon_fireAttack.isPressed());
-            byte controlState = moveController.getControlState();
-            if (controlState != previousState) {
-                PacketByteBuf buf = PacketByteBufs.create();
-                buf.writeInt(vehicle.getId()).writeByte(controlState);
-                buf.writeBlockPos(vehicle.getBlockPos());
-                ClientPlayNetworking.send(StaticVariables.DRAGON_CONTROL, buf);
+        if (entity instanceof PlayerEntity player && player.getWorld().isClient ) {
+            if(player.getVehicle() instanceof ICustomMoveController controller){
+                Entity vehicle = player.getVehicle();
+                byte previousState = controller.getControlState();
+                controller.up(mc.options.jumpKey.isPressed());
+                controller.down(IafKeybindings.dragon_down.isPressed());
+                controller.attack(IafKeybindings.dragon_strike.isPressed());
+                controller.dismount(mc.options.sneakKey.isPressed());
+                controller.strike(IafKeybindings.dragon_fireAttack.isPressed());
+                byte controlState = controller.getControlState();
+                if (controlState != previousState) {
+                    PacketByteBuf buf = PacketByteBufs.create();
+                    buf.writeInt(vehicle.getId()).writeByte(controlState);
+                    buf.writeBlockPos(vehicle.getBlockPos());
+                    ClientPlayNetworking.send(StaticVariables.DRAGON_CONTROL, buf);
+                }
+            }
+            GameRenderer renderer = MinecraftClient.getInstance().gameRenderer;
+            EntityDataComponent data = EntityDataComponent.get(player);
+            if (IafClientConfig.INSTANCE.sirenShader.getBooleanValue() && data.sirenData.charmedBy == null && renderer.getPostProcessor() != null)
+                if (SIREN_SHADER.toString().equals(renderer.getPostProcessor().getName()))
+                    renderer.disablePostProcessor();
+            if (data.sirenData.charmedBy == null) return;
+            if (IafClientConfig.INSTANCE.sirenShader.getBooleanValue() && !data.sirenData.isCharmed && renderer.getPostProcessor() != null && SIREN_SHADER.toString().equals(renderer.getPostProcessor().getName()))
+                renderer.disablePostProcessor();
+            if (data.sirenData.isCharmed) {
+                if (entity.getRandom().nextInt(40) == 0)
+                    entity.getWorld().addParticle(IafParticles.SIREN_APPEARANCE, player.getX(), player.getY(), player.getZ(), data.sirenData.charmedBy.getHairColor(), 0, 0);
+                if (IafClientConfig.INSTANCE.sirenShader.getBooleanValue() && renderer.getPostProcessor() == null)
+                    renderer.loadPostProcessor(SIREN_SHADER);
             }
         }
     }

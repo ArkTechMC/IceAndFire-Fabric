@@ -154,7 +154,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
     public static class SirenConfig extends AutoInitConfigCategoryBase {
         public ConfigDouble spawnChance = new ConfigDouble("iceandfire.siren.spawnChance", 1.0 / 400, 0, 1);
         public ConfigDouble maxHealth = new ConfigDouble("iceandfire.siren.maxHealth", 50, 1, Integer.MAX_VALUE);
-//        public ConfigBoolean shader = new ConfigBoolean("iceandfire.siren.shader", true);
         public ConfigInteger maxSingTime = new ConfigInteger("iceandfire.siren.maxSingTime", 12000, 0, Integer.MAX_VALUE);
         public ConfigInteger timeBetweenSongs = new ConfigInteger("iceandfire.siren.timeBetweenSongs", 2000, 0, Integer.MAX_VALUE);
 

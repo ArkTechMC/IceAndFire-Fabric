@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public class IafStructure extends Structure {
-
     protected final RegistryEntry<StructurePool> startPool;
     protected final Optional<Identifier> startJigsawName;
     protected final int size;
