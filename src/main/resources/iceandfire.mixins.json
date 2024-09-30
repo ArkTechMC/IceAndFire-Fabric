@@ -13,6 +13,7 @@
     "WorldGenRegionMixin"
   ],
   "client": [
+    "GameRendererMixin",
     "LivingEntityRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",

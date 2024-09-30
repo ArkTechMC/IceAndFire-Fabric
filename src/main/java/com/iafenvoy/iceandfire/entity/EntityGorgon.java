@@ -212,7 +212,7 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
 
 
         if (attackTarget != null && isEntityLookingAt(this, attackTarget, 0.4) && isEntityLookingAt(attackTarget, this, 0.4) && !isBlindfolded(attackTarget)) {
-            boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) attackTarget).canBeTurnedToStone();
+            boolean blindness = this.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget.hasStatusEffect(StatusEffects.BLINDNESS) || attackTarget instanceof IBlacklistedFromStatues blacklisted && !blacklisted.canBeTurnedToStone();
             if (!blindness && this.deathTime == 0) {
                 if (this.getAnimation() != ANIMATION_SCARE) {
                     this.playSound(IafSounds.GORGON_ATTACK, 1, 1);
@@ -236,7 +236,6 @@ public class EntityGorgon extends HostileEntity implements IAnimatedEntity, IVil
                                     attackTarget.damage(IafDamageTypes.causeGorgonDamage(this), Integer.MAX_VALUE);
                                 else attackTarget.remove(RemovalReason.KILLED);
                                 this.setTarget(null);
-
                             }
                         }
                     }

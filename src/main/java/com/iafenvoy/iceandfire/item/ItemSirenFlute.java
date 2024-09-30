@@ -72,7 +72,7 @@ public class ItemSirenFlute extends Item {
             EntityDataComponent data = EntityDataComponent.get(livingEntity);
             data.miscData.setLoveTicks(10 * 20);
             itemStackIn.damage(2, player, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
-//            player.getItemCooldownManager().set(itemStackIn.getItem(), 45 * 20);
+            player.getItemCooldownManager().set(itemStackIn.getItem(), 45 * 20);
         }
 
         player.playSound(IafSounds.SIREN_SONG, 1, 1);

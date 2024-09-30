@@ -57,7 +57,6 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
         statue.setTrappedEntityWidth(parent.getWidth());
         statue.setTrappedHeight(parent.getHeight());
         statue.setTrappedScale(parent.getScaleFactor());
-
         return statue;
     }
 
@@ -67,7 +66,6 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
 
     @Override
     public void baseTick() {
-
     }
 
     @Override

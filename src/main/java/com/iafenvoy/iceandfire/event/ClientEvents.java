@@ -3,6 +3,7 @@ package com.iafenvoy.iceandfire.event;
 import com.iafenvoy.iceandfire.StaticVariables;
 import com.iafenvoy.iceandfire.config.IafClientConfig;
 import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
+import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityMultipartPart;
 import com.iafenvoy.iceandfire.entity.util.ICustomMoveController;
 import com.iafenvoy.iceandfire.particle.CockatriceBeamRender;
@@ -15,6 +16,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.Perspective;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -32,26 +35,25 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public class ClientEvents {
     private static final Identifier SIREN_SHADER = new Identifier("iceandfire", "shaders/post/siren.json");
+    public static int currentView = 0;
 
-    //    public static boolean onCameraSetup(CameraSetupCallback.CameraInfo info) {
-//        PlayerEntity player = MinecraftClient.getInstance().player;
-//        if (player.getVehicle() != null) {
-//            if (player.getVehicle() instanceof EntityDragonBase) {
-//                int currentView = IceAndFire.PROXY.getDragon3rdPersonView();
-//                float scale = ((EntityDragonBase) player.getVehicle()).getRenderSize() / 3;
-//                if (MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_BACK ||
-//                        MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_FRONT) {
-//                    if (currentView == 1) {
-//                        info.camera.move(-info.camera.getMaxZoom(scale * 1.2F), 0F, 0);
-//                    } else if (currentView == 2) {
-//                        info.camera.move(-info.camera.getMaxZoom(scale * 3F), 0F, 0);
-//                    } else if (currentView == 3) {
-//                        info.camera.move(-info.camera.getMaxZoom(scale * 5F), 0F, 0);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public static void onCameraSetup(Camera camera) {
+        PlayerEntity player = MinecraftClient.getInstance().player;
+        if (player != null && player.getVehicle() instanceof EntityDragonBase) {
+            float scale = ((EntityDragonBase) player.getVehicle()).getRenderSize() / 3;
+            if (MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_BACK ||
+                    MinecraftClient.getInstance().options.getPerspective() == Perspective.THIRD_PERSON_FRONT) {
+                if (currentView == 1) {
+                    camera.moveBy(-camera.clipToSpace(scale * 1.2F), 0F, 0);
+                } else if (currentView == 2) {
+                    camera.moveBy(-camera.clipToSpace(scale * 3F), 0F, 0);
+                } else if (currentView == 3) {
+                    camera.moveBy(-camera.clipToSpace(scale * 5F), 0F, 0);
+                }
+            }
+        }
+    }
+
     public static ActionResult onEntityInteract(PlayerEntity player, World world, Hand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         // Hook multipart
         if (entity instanceof EntityMultipartPart) return ActionResult.SUCCESS;
@@ -73,8 +75,8 @@ public class ClientEvents {
                 }
             }
         }
-        if (entity instanceof PlayerEntity player && player.getWorld().isClient ) {
-            if(player.getVehicle() instanceof ICustomMoveController controller){
+        if (entity instanceof PlayerEntity player && player.getWorld().isClient) {
+            if (player.getVehicle() instanceof ICustomMoveController controller) {
                 Entity vehicle = player.getVehicle();
                 byte previousState = controller.getControlState();
                 controller.up(mc.options.jumpKey.isPressed());

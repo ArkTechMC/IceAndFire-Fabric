@@ -2812,8 +2812,12 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             case CHEST -> this.dragonInventory.setStack(2, stack);
             case LEGS -> this.dragonInventory.setStack(3, stack);
             case FEET -> this.dragonInventory.setStack(4, stack);
-            default -> super.getEquippedStack(slotIn);
+            default -> {
+                super.getEquippedStack(slotIn);
+                return;
+            }
         }
+        this.dragonInventory.markDirty();
     }
 
     public SoundEvent getBabyFireSound() {
