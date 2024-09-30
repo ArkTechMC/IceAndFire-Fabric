@@ -33,6 +33,8 @@ public class MiscData extends NeedUpdateData {
 
             if (this.loveTicks == 0) {
                 this.triggerUpdate();
+                if (entity instanceof MobEntity mob)
+                    mob.getNavigation().recalculatePath();
                 return;
             }
 
@@ -41,6 +43,7 @@ public class MiscData extends NeedUpdateData {
                 mob.setAttacker(null);
                 mob.setTarget(null);
                 mob.setAttacking(false);
+                mob.getNavigation().stop();
             }
 
             this.createLoveParticles(entity);

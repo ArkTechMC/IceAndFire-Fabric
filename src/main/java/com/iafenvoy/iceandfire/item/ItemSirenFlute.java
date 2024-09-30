@@ -42,8 +42,8 @@ public class ItemSirenFlute extends Item {
 
         Entity pointedEntity = null;
         List<Entity> list = player.getWorld().getOtherEntities(player, player.getBoundingBox().stretch(Vector3d1.x * dist, Vector3d1.y * dist, Vector3d1.z * dist).expand(1.0D, 1.0D, 1.0D), entity -> {
-            boolean blindness = entity instanceof LivingEntity && ((LivingEntity) entity).hasStatusEffect(StatusEffects.BLINDNESS) || (entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entity).canBeTurnedToStone());
-            return entity != null && entity.canHit() && !blindness && (entity instanceof PlayerEntity || (entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity)));
+            boolean blindness = entity instanceof LivingEntity living && living.hasStatusEffect(StatusEffects.BLINDNESS) || entity instanceof IBlacklistedFromStatues blacklisted && !blacklisted.canBeTurnedToStone();
+            return entity != null && entity.canHit() && !blindness && (entity instanceof PlayerEntity || entity instanceof LivingEntity living && DragonUtils.isAlive(living));
         });
 
         double d2 = dist;
@@ -58,21 +58,21 @@ public class ItemSirenFlute extends Item {
                 }
             } else if (raytraceresult.isPresent()) {
                 double d3 = Vector3d.distanceTo(raytraceresult.get());
-                if (d3 < d2 || d2 == 0.0D) {
+                if (d3 < d2 || d2 == 0.0D)
                     if (entity1.getRootVehicle() == player.getRootVehicle()) {
                         if (d2 == 0.0D) pointedEntity = entity1;
                     } else {
                         pointedEntity = entity1;
                         d2 = d3;
                     }
-                }
             }
         }
 
         if (pointedEntity instanceof LivingEntity livingEntity) {
             EntityDataComponent data = EntityDataComponent.get(livingEntity);
-            data.miscData.setLoveTicks(600);
+            data.miscData.setLoveTicks(10 * 20);
             itemStackIn.damage(2, player, entity -> entity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+//            player.getItemCooldownManager().set(itemStackIn.getItem(), 45 * 20);
         }
 
         player.playSound(IafSounds.SIREN_SONG, 1, 1);
