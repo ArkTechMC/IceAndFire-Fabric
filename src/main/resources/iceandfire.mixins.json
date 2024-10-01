@@ -8,9 +8,9 @@
     "LivingEntityMixin",
     "MinecraftServerMixin",
     "MobEntityMixin",
-    "NoLakesInStructuresMixin",
+    "LakeFeatureMixin",
     "PlacedFeaturesMixin",
-    "WorldGenRegionMixin"
+    "ChunkRegionMixin"
   ],
   "client": [
     "GameRendererMixin",

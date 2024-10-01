@@ -18,7 +18,7 @@ import java.util.List;
 
 // Based on code from TelepathicGrunts RepurposedStructures
 @Mixin(LakeFeature.class)
-public class NoLakesInStructuresMixin {
+public class LakeFeatureMixin {
     @Inject(method = "generate", at = @At(value = "HEAD"), cancellable = true)
     private void iaf_noLakesInMausoleum(FeatureContext<SingleStateFeatureConfig> context, CallbackInfoReturnable<Boolean> cir) {
         if (!(context.getWorld() instanceof ChunkRegion))
