@@ -13,13 +13,17 @@ Join our [Discord](https://discord.gg/NDzz2upqAk) if you have any questions.
 
 **All the things from original mod.**
 
-Note: Siren have not completed yet.
-
 Netherite Dragon Armor
 
 (Planned) Complete Dread Land
 
 ## FAQ
+
+#### Other Minecraft Version?
+
+This mod is planned to port to the later Minecraft version after bugs resolved and some rewrite complete.
+
+Backport will not do, but anyone can port it.
 
 #### I cannot find config file
 
