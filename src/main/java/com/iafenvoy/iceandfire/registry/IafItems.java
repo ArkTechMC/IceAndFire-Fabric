@@ -369,35 +369,35 @@ public final class IafItems {
 
     public static void registerItems() {
         //spawn Eggs
-        register("spawn_egg_fire_dragon", new SpawnEggItem(IafEntities.FIRE_DRAGON, 0X340000, 0XA52929, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_ice_dragon", new SpawnEggItem(IafEntities.ICE_DRAGON, 0XB5DDFB, 0X7EBAF0, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_lightning_dragon", new SpawnEggItem(IafEntities.LIGHTNING_DRAGON, 0X422367, 0X725691, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_hippogryph", new SpawnEggItem(IafEntities.HIPPOGRYPH, 0XD8D8D8, 0XD1B55D, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_gorgon", new SpawnEggItem(IafEntities.GORGON, 0XD0D99F, 0X684530, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_pixie", new SpawnEggItem(IafEntities.PIXIE, 0XFF7F89, 0XE2CCE2, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_cyclops", new SpawnEggItem(IafEntities.CYCLOPS, 0XB0826E, 0X3A1F0F, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_siren", new SpawnEggItem(IafEntities.SIREN, 0X8EE6CA, 0XF2DFC8, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_hippocampus", new SpawnEggItem(IafEntities.HIPPOCAMPUS, 0X4491C7, 0X4FC56B, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_death_worm", new SpawnEggItem(IafEntities.DEATH_WORM, 0XD1CDA3, 0X423A3A, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_cockatrice", new SpawnEggItem(IafEntities.COCKATRICE, 0X8F5005, 0X4F5A23, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_stymphalian_bird", new SpawnEggItem(IafEntities.STYMPHALIAN_BIRD, 0X744F37, 0X9E6C4B, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_troll", new SpawnEggItem(IafEntities.TROLL, 0X3D413D, 0X58433A, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_myrmex_worker", new SpawnEggItem(IafEntities.MYRMEX_WORKER, 0XA16026, 0X594520, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_myrmex_soldier", new SpawnEggItem(IafEntities.MYRMEX_SOLDIER, 0XA16026, 0X7D622D, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_myrmex_sentinel", new SpawnEggItem(IafEntities.MYRMEX_SENTINEL, 0XA16026, 0XA27F3A, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_myrmex_royal", new SpawnEggItem(IafEntities.MYRMEX_ROYAL, 0XA16026, 0XC79B48, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_myrmex_queen", new SpawnEggItem(IafEntities.MYRMEX_QUEEN, 0XA16026, 0XECB855, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_amphithere", new SpawnEggItem(IafEntities.AMPHITHERE, 0X597535, 0X00AA98, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_sea_serpent", new SpawnEggItem(IafEntities.SEA_SERPENT, 0X008299, 0XC5E6E7, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_dread_thrall", new SpawnEggItem(IafEntities.DREAD_THRALL, 0XE0E6E6, 0X00FFFF, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_dread_ghoul", new SpawnEggItem(IafEntities.DREAD_GHOUL, 0XE0E6E6, 0X7B838A, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_dread_beast", new SpawnEggItem(IafEntities.DREAD_BEAST, 0XE0E6E6, 0X38373C, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_dread_scuttler", new SpawnEggItem(IafEntities.DREAD_SCUTTLER, 0XE0E6E6, 0X4D5667, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_lich", new SpawnEggItem(IafEntities.DREAD_LICH, 0XE0E6E6, 0X274860, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_dread_knight", new SpawnEggItem(IafEntities.DREAD_KNIGHT, 0XE0E6E6, 0X4A6C6E, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_dread_horse", new SpawnEggItem(IafEntities.DREAD_HORSE, 0XE0E6E6, 0XACACAC, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_hydra", new SpawnEggItem(IafEntities.HYDRA, 0X8B8B78, 0X2E372B, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
-        register("spawn_egg_ghost", new SpawnEggItem(IafEntities.GHOST, 0XB9EDB8, 0X73B276, new Item.Settings()/*.tab(IceAndFire.TAB_ITEMS)*/));
+        register("spawn_egg_fire_dragon", new SpawnEggItem(IafEntities.FIRE_DRAGON, 0X340000, 0XA52929, new Item.Settings()));
+        register("spawn_egg_ice_dragon", new SpawnEggItem(IafEntities.ICE_DRAGON, 0XB5DDFB, 0X7EBAF0, new Item.Settings()));
+        register("spawn_egg_lightning_dragon", new SpawnEggItem(IafEntities.LIGHTNING_DRAGON, 0X422367, 0X725691, new Item.Settings()));
+        register("spawn_egg_hippogryph", new SpawnEggItem(IafEntities.HIPPOGRYPH, 0XD8D8D8, 0XD1B55D, new Item.Settings()));
+        register("spawn_egg_gorgon", new SpawnEggItem(IafEntities.GORGON, 0XD0D99F, 0X684530, new Item.Settings()));
+        register("spawn_egg_pixie", new SpawnEggItem(IafEntities.PIXIE, 0XFF7F89, 0XE2CCE2, new Item.Settings()));
+        register("spawn_egg_cyclops", new SpawnEggItem(IafEntities.CYCLOPS, 0XB0826E, 0X3A1F0F, new Item.Settings()));
+        register("spawn_egg_siren", new SpawnEggItem(IafEntities.SIREN, 0X8EE6CA, 0XF2DFC8, new Item.Settings()));
+        register("spawn_egg_hippocampus", new SpawnEggItem(IafEntities.HIPPOCAMPUS, 0X4491C7, 0X4FC56B, new Item.Settings()));
+        register("spawn_egg_death_worm", new SpawnEggItem(IafEntities.DEATH_WORM, 0XD1CDA3, 0X423A3A, new Item.Settings()));
+        register("spawn_egg_cockatrice", new SpawnEggItem(IafEntities.COCKATRICE, 0X8F5005, 0X4F5A23, new Item.Settings()));
+        register("spawn_egg_stymphalian_bird", new SpawnEggItem(IafEntities.STYMPHALIAN_BIRD, 0X744F37, 0X9E6C4B, new Item.Settings()));
+        register("spawn_egg_troll", new SpawnEggItem(IafEntities.TROLL, 0X3D413D, 0X58433A, new Item.Settings()));
+        register("spawn_egg_myrmex_worker", new SpawnEggItem(IafEntities.MYRMEX_WORKER, 0XA16026, 0X594520, new Item.Settings()));
+        register("spawn_egg_myrmex_soldier", new SpawnEggItem(IafEntities.MYRMEX_SOLDIER, 0XA16026, 0X7D622D, new Item.Settings()));
+        register("spawn_egg_myrmex_sentinel", new SpawnEggItem(IafEntities.MYRMEX_SENTINEL, 0XA16026, 0XA27F3A, new Item.Settings()));
+        register("spawn_egg_myrmex_royal", new SpawnEggItem(IafEntities.MYRMEX_ROYAL, 0XA16026, 0XC79B48, new Item.Settings()));
+        register("spawn_egg_myrmex_queen", new SpawnEggItem(IafEntities.MYRMEX_QUEEN, 0XA16026, 0XECB855, new Item.Settings()));
+        register("spawn_egg_amphithere", new SpawnEggItem(IafEntities.AMPHITHERE, 0X597535, 0X00AA98, new Item.Settings()));
+        register("spawn_egg_sea_serpent", new SpawnEggItem(IafEntities.SEA_SERPENT, 0X008299, 0XC5E6E7, new Item.Settings()));
+        register("spawn_egg_dread_thrall", new SpawnEggItem(IafEntities.DREAD_THRALL, 0XE0E6E6, 0X00FFFF, new Item.Settings()));
+        register("spawn_egg_dread_ghoul", new SpawnEggItem(IafEntities.DREAD_GHOUL, 0XE0E6E6, 0X7B838A, new Item.Settings()));
+        register("spawn_egg_dread_beast", new SpawnEggItem(IafEntities.DREAD_BEAST, 0XE0E6E6, 0X38373C, new Item.Settings()));
+        register("spawn_egg_dread_scuttler", new SpawnEggItem(IafEntities.DREAD_SCUTTLER, 0XE0E6E6, 0X4D5667, new Item.Settings()));
+        register("spawn_egg_lich", new SpawnEggItem(IafEntities.DREAD_LICH, 0XE0E6E6, 0X274860, new Item.Settings()));
+        register("spawn_egg_dread_knight", new SpawnEggItem(IafEntities.DREAD_KNIGHT, 0XE0E6E6, 0X4A6C6E, new Item.Settings()));
+        register("spawn_egg_dread_horse", new SpawnEggItem(IafEntities.DREAD_HORSE, 0XE0E6E6, 0XACACAC, new Item.Settings()));
+        register("spawn_egg_hydra", new SpawnEggItem(IafEntities.HYDRA, 0X8B8B78, 0X2E372B, new Item.Settings()));
+        register("spawn_egg_ghost", new SpawnEggItem(IafEntities.GHOST, 0XB9EDB8, 0X73B276, new Item.Settings()));
     }
 
     public static ItemDragonArmor buildDragonArmor(DragonArmorPart type, DragonArmorMaterial material) {

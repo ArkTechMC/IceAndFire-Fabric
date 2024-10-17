@@ -21,7 +21,7 @@ public class ItemSeaSerpentArmor extends ArmorItem implements IArmorFinder {
     public final SeaSerpent armor_type;
 
     public ItemSeaSerpentArmor(SeaSerpent armorType, CustomArmorMaterial material, Type slot) {
-        super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(material, slot, new Settings());
         this.armor_type = armorType;
     }
 

@@ -29,7 +29,7 @@ public class ItemCockatriceScepter extends Item {
     private int specialWeaponDmg;
 
     public ItemCockatriceScepter() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(700));
+        super(new Settings().maxDamage(700));
     }
 
     @Override

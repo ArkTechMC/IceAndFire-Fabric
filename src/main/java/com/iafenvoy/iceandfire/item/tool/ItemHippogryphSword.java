@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ItemHippogryphSword extends SwordItem {
     public ItemHippogryphSword() {
-        super(IafItems.HIPPOGRYPH_SWORD_TOOL_MATERIAL, 3, -2.4F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(IafItems.HIPPOGRYPH_SWORD_TOOL_MATERIAL, 3, -2.4F, new Settings());
     }
 
     @Override

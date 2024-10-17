@@ -19,7 +19,7 @@ public class ItemMyrmexSwarm extends Item {
     private final boolean jungle;
 
     public ItemMyrmexSwarm(boolean jungle) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
         this.jungle = jungle;
     }
 

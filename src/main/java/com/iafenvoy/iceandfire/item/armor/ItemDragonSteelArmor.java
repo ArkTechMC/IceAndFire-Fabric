@@ -23,7 +23,7 @@ public class ItemDragonSteelArmor extends ArmorItem implements IProtectAgainstDr
     private Multimap<EntityAttribute, EntityAttributeModifier> attributeModifierMultimap;
 
     public ItemDragonSteelArmor(ArmorMaterial material, int renderIndex, Type slot) {
-        super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(material, slot, new Settings());
         this.material = material;
         this.attributeModifierMultimap = this.createAttributeMap();
     }

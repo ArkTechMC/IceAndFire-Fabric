@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ItemStymphalianFeatherBundle extends Item {
     public ItemStymphalianFeatherBundle() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
     }
 
     @Override

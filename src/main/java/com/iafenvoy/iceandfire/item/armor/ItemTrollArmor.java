@@ -17,7 +17,7 @@ public class ItemTrollArmor extends ArmorItem {
     public final TrollType troll;
 
     public ItemTrollArmor(TrollType troll, CustomArmorMaterial material, Type slot) {
-        super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(material, slot, new Settings());
         this.troll = troll;
     }
 

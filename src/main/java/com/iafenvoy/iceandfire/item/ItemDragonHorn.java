@@ -28,7 +28,7 @@ import java.util.List;
 
 public class ItemDragonHorn extends Item {
     public ItemDragonHorn() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
     }
 
     public static int getDragonType(ItemStack stack) {

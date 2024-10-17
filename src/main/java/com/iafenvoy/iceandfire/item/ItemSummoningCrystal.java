@@ -28,7 +28,7 @@ import java.util.UUID;
 
 public class ItemSummoningCrystal extends Item {
     public ItemSummoningCrystal() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
     }
 
     public static boolean hasDragon(ItemStack stack) {

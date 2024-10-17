@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ItemAlchemySword extends SwordItem {
     public ItemAlchemySword(ToolMaterial toolmaterial) {
-        super(toolmaterial, 3, -2.4F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(toolmaterial, 3, -2.4F, new Settings());
     }
 
     @Override

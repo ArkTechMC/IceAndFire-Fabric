@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ItemStymphalianDagger extends SwordItem {
     public ItemStymphalianDagger() {
-        super(IafItems.STYMHALIAN_SWORD_TOOL_MATERIAL, 3, -1.0F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(IafItems.STYMHALIAN_SWORD_TOOL_MATERIAL, 3, -1.0F, new Settings());
     }
 
     @Override

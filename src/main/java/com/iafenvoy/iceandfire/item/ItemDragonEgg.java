@@ -24,7 +24,7 @@ public class ItemDragonEgg extends Item {
     public final DragonColor type;
 
     public ItemDragonEgg(DragonColor type) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
         this.type = type;
         EGGS.put(type, this);
     }

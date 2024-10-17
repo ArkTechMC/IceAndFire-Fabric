@@ -23,7 +23,7 @@ public class ItemDeathwormGauntlet extends Item {
     private int specialDamage = 0;
 
     public ItemDeathwormGauntlet() {
-        super(new Settings().maxDamage(500)/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings().maxDamage(500));
     }
 
     @Override

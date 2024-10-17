@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ItemStymphalianArrow extends ArrowItem {
     public ItemStymphalianArrow() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
     }
 
     @Override

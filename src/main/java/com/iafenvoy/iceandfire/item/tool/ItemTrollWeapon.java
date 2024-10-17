@@ -18,7 +18,7 @@ public class ItemTrollWeapon extends SwordItem {
     public TrollType.ITrollWeapon weapon;
 
     public ItemTrollWeapon(TrollType.ITrollWeapon weapon) {
-        super(IafItems.TROLL_WEAPON_TOOL_MATERIAL, 15, -3.5F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(IafItems.TROLL_WEAPON_TOOL_MATERIAL, 15, -3.5F, new Settings());
         this.weapon = weapon;
     }
 

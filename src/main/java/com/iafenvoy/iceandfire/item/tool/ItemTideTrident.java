@@ -29,7 +29,7 @@ import java.util.List;
 
 public class ItemTideTrident extends TridentItem {
     public ItemTideTrident() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(400));
+        super(new Settings().maxDamage(400));
     }
 
     @Override

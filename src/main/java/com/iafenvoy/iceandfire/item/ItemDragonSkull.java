@@ -23,7 +23,7 @@ public class ItemDragonSkull extends Item {
     private final DragonType dragonType;
 
     public ItemDragonSkull(DragonType dragonType) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
         this.dragonType = dragonType;
     }
 

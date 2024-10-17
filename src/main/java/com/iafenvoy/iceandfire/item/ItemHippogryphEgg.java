@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemHippogryphEgg extends Item {
     public ItemHippogryphEgg() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
     }
 
     public static ItemStack createEggStack(HippogryphTypes parent1, HippogryphTypes parent2) {

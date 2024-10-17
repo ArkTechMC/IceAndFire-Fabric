@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public class ItemGorgonHead extends Item {
     public ItemGorgonHead() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(1));
+        super(new Settings().maxDamage(1));
     }
 
     @Override

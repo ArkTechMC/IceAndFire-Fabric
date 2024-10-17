@@ -25,7 +25,7 @@ public class ItemChain extends Item {
     private final boolean sticky;
 
     public ItemChain(boolean sticky) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
         this.sticky = sticky;
     }
 

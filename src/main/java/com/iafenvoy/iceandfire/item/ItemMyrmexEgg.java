@@ -19,7 +19,7 @@ public class ItemMyrmexEgg extends Item {
     private final boolean isJungle;
 
     public ItemMyrmexEgg(boolean isJungle) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
         this.isJungle = isJungle;
     }
 

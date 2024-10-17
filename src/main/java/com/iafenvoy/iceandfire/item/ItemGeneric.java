@@ -14,11 +14,11 @@ public class ItemGeneric extends Item {
     int description = 0;
 
     public ItemGeneric() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
     }
 
     public ItemGeneric(int textLength) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
         this.description = textLength;
     }
 
@@ -28,7 +28,7 @@ public class ItemGeneric extends Item {
     }
 
     public ItemGeneric(int textLength, int stacksize) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(stacksize));
+        super(new Settings().maxCount(stacksize));
         this.description = textLength;
     }
 

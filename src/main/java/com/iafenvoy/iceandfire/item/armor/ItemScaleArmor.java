@@ -18,7 +18,7 @@ public class ItemScaleArmor extends ArmorItem implements IProtectAgainstDragonIt
     public final DragonColor eggType;
 
     public ItemScaleArmor(DragonColor eggType, DragonArmor armorType, CustomArmorMaterial material, Type slot) {
-        super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(material, slot, new Settings());
         this.armor_type = armorType;
         this.eggType = eggType;
     }

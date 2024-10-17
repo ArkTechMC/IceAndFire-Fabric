@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ItemModArmor extends ArmorItem implements IArmorTextureProvider {
     public ItemModArmor(ArmorMaterial material, Type slot) {
-        super(material, slot, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(material, slot, new Settings());
     }
 
     @Override

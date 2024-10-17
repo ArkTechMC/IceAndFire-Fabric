@@ -14,7 +14,7 @@ public class ItemDragonScales extends Item {
     final DragonColor type;
 
     public ItemDragonScales(DragonColor type) {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
         this.type = type;
     }
 

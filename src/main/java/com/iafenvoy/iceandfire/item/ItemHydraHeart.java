@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ItemHydraHeart extends Item {
     public ItemHydraHeart() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxCount(1));
+        super(new Settings().maxCount(1));
     }
 
     @Override

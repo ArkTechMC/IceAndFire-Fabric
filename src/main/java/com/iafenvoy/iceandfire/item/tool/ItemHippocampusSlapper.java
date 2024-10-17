@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ItemHippocampusSlapper extends SwordItem {
     public ItemHippocampusSlapper() {
-        super(IafItems.HIPPOCAMPUS_SWORD_TOOL_MATERIAL, 3, -2.4F, new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(IafItems.HIPPOCAMPUS_SWORD_TOOL_MATERIAL, 3, -2.4F, new Settings());
     }
 
     @Override

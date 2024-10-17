@@ -26,7 +26,7 @@ import java.util.Optional;
 
 public class ItemSirenFlute extends Item {
     public ItemSirenFlute() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(200));
+        super(new Settings().maxDamage(200));
     }
 
     @Override

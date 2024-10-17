@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ItemCyclopsEye extends Item {
     public ItemCyclopsEye() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/.maxDamage(500));
+        super(new Settings().maxDamage(500));
     }
 
     @Override

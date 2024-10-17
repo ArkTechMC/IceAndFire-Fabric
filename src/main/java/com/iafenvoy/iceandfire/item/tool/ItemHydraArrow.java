@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ItemHydraArrow extends ArrowItem {
     public ItemHydraArrow() {
-        super(new Settings()/*.tab(IceAndFire.TAB_ITEMS)*/);
+        super(new Settings());
     }
 
     @Override
