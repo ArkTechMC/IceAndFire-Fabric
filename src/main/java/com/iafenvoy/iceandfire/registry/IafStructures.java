@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.structure.Structure;
 
-public class IafStructures {
+public final class IafStructures {
     public static final RegistryKey<Structure> GRAVEYARD = registerKey("graveyard");
     public static final RegistryKey<Structure> MAUSOLEUM = registerKey("mausoleum");
     public static final RegistryKey<Structure> GORGON_TEMPLE = registerKey("gorgon_temple");

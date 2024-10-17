@@ -12,7 +12,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
-public class IafBlockEntities {
+public final class IafBlockEntities {
     private static <T extends BlockEntity> BlockEntityType<T> register(BlockEntityType.Builder<T> builder, String entityName) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, entityName), builder.build(null));
     }

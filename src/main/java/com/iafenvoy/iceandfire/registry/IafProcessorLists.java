@@ -20,7 +20,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class IafProcessorLists {
+public final class IafProcessorLists {
     public static final RegistryKey<StructureProcessorList> GRAVEYARD_PROCESSORS = createKey("graveyard_processors");
     public static final RegistryKey<StructureProcessorList> MAUSOLEUM_PROCESSORS = createKey("mausoleum_processors");
     public static final RegistryKey<StructureProcessorList> GORGON_TEMPLE_PROCESSORS = createKey("gorgon_temple_processors");

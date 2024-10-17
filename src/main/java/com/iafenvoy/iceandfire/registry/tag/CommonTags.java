@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class CommonTags {
+public final class CommonTags {
     public static class Blocks {
         public static final TagKey<Block> COBBLESTONE = tag("cobblestone");
         public static final TagKey<Block> GRAVEL = tag("gravel");

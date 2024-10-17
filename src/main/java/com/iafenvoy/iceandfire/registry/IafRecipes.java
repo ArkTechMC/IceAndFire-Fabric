@@ -13,7 +13,7 @@ import net.minecraft.recipe.RecipeType;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 
-public class IafRecipes {
+public final class IafRecipes {
     public static final RecipeType<DragonForgeRecipe> DRAGON_FORGE_TYPE = RecipeType.register("dragonforge");
 
     public static void registerDispenser() {

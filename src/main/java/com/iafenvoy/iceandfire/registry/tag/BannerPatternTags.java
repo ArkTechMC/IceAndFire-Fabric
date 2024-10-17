@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class BannerPatternTags {
+public final class BannerPatternTags {
     public static final TagKey<BannerPattern> FIRE_BANNER_PATTERN = create("pattern_item/fire");
     public static final TagKey<BannerPattern> ICE_BANNER_PATTERN = create("pattern_item/ice");
     public static final TagKey<BannerPattern> LIGHTNING_BANNER_PATTERN = create("pattern_item/lightning");

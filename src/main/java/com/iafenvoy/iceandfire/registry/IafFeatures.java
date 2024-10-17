@@ -23,7 +23,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
-public class IafFeatures {
+public final class IafFeatures {
     public static final Feature<DefaultFeatureConfig> FIRE_DRAGON_ROOST = register("fire_dragon_roost", new WorldGenFireDragonRoosts(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> ICE_DRAGON_ROOST = register("ice_dragon_roost", new WorldGenIceDragonRoosts(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> LIGHTNING_DRAGON_ROOST = register("lightning_dragon_roost", new WorldGenLightningDragonRoosts(DefaultFeatureConfig.CODEC));

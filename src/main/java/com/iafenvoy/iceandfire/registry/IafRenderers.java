@@ -20,7 +20,7 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import java.io.IOException;
 
 @Environment(EnvType.CLIENT)
-public class IafRenderers {
+public final class IafRenderers {
     public static final TabulaModel SEA_SERPENT_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/seaserpent/seaserpent_base", new SeaSerpentTabulaModelAnimator());
     public static final TabulaModel FIRE_DRAGON_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/firedragon/firedragon_ground", new FireDragonTabulaModelAnimator());
     public static final TabulaModel ICE_DRAGON_BASE_MODEL = getOrNull("/assets/iceandfire/models/tabula/icedragon/icedragon_ground", new IceDragonTabulaModelAnimator());

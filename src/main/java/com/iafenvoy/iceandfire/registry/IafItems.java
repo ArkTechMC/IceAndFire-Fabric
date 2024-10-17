@@ -31,7 +31,7 @@ import net.minecraft.util.Identifier;
 import static com.iafenvoy.iceandfire.item.tool.DragonSteelToolMaterial.createMaterialWithRepairItem;
 
 @SuppressWarnings("unused")
-public class IafItems {
+public final class IafItems {
     public static final CustomArmorMaterial SILVER_ARMOR_MATERIAL = new IafArmorMaterial("silver", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0);
     public static final CustomArmorMaterial COPPER_ARMOR_MATERIAL = new IafArmorMaterial("copper", 10, new int[]{1, 3, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
     public static final CustomArmorMaterial BLINDFOLD_ARMOR_MATERIAL = new IafArmorMaterial("blindfold", 5, new int[]{1, 1, 1, 1}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);

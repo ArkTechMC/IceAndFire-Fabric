@@ -11,7 +11,7 @@ import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.Identifier;
 
-public class IafProcessors {
+public final class IafProcessors {
     public static final StructureProcessorType<DreadRuinProcessor> DREADRUINPROCESSOR = registerProcessor("dread_mausoleum_processor", () -> DreadRuinProcessor.CODEC);
     public static final StructureProcessorType<GorgonTempleProcessor> GORGONTEMPLEPROCESSOR = registerProcessor("gorgon_temple_processor", () -> GorgonTempleProcessor.CODEC);
     public static final StructureProcessorType<GraveyardProcessor> GRAVEYARDPROCESSOR = registerProcessor("graveyard_processor", () -> GraveyardProcessor.CODEC);

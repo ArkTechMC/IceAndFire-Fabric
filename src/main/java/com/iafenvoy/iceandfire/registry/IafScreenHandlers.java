@@ -13,7 +13,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
-public class IafScreenHandlers {
+public final class IafScreenHandlers {
     public static final ScreenHandlerType<DragonScreenHandler> DRAGON_SCREEN = register("dragon", new ScreenHandlerType<>(DragonScreenHandler::new, FeatureFlags.VANILLA_FEATURES));
     public static final ScreenHandlerType<HippogryphScreenHandler> HIPPOGRYPH_SCREEN = register("hippogryph", new ScreenHandlerType<>(HippogryphScreenHandler::new, FeatureFlags.VANILLA_FEATURES));
     public static final ScreenHandlerType<HippocampusScreenHandler> HIPPOCAMPUS_SCREEN = register("hippocampus", new ScreenHandlerType<>(HippocampusScreenHandler::new, FeatureFlags.VANILLA_FEATURES));

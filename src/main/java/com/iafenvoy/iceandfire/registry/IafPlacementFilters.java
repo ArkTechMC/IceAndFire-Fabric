@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import net.minecraft.world.gen.placementmodifier.PlacementModifierType;
 
-public class IafPlacementFilters {
+public final class IafPlacementFilters {
     public static final PlacementModifierType<CustomBiomeFilter> CUSTOM_BIOME_FILTER = register("biome_extended", () -> CustomBiomeFilter.CODEC);
 
     private static <T extends PlacementModifier> PlacementModifierType<T> register(String name, PlacementModifierType<T> type) {

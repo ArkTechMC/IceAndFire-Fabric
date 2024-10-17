@@ -20,7 +20,7 @@ public class BlockDreadStoneFace extends HorizontalFacingBlock implements IDread
     public static final BooleanProperty PLAYER_PLACED = BooleanProperty.of("player_placed");
 
     public BlockDreadStoneFace() {
-        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).sounds(BlockSoundGroup.STONE).strength(-1F, 10000F));
+        super(Settings.create().mapColor(MapColor.STONE_GRAY).instrument(Instrument.BASEDRUM).sounds(BlockSoundGroup.STONE).strength(-1.0F, 3600000.0F));
         this.setDefaultState(this.getStateManager().getDefaultState().with(FACING, Direction.NORTH).with(PLAYER_PLACED, Boolean.FALSE));
     }
 

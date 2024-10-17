@@ -974,17 +974,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         }
     }
 
-    public void refreshInventory() {
-        //This isn't needed (anymore) since it's already being handled by minecraft
-        if (!this.getWorld().isClient) {
-            ItemStack saddle = this.hippogryphInventory.getStack(0);
-            ItemStack chest = this.hippogryphInventory.getStack(1);
-            this.setSaddled(saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
-            this.setChested(chest.getItem() == Blocks.CHEST.asItem() && !chest.isEmpty());
-            this.setArmor(getIntFromArmor(this.hippogryphInventory.getStack(2)));
-        }
-    }
-
     protected void switchNavigator(boolean onLand) {
         if (onLand) {
             this.moveControl = new MoveControl(this);
@@ -1072,6 +1061,6 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new HippogryphScreenHandler(syncId, this.hippogryphInventory, playerInventory, this, new EntityPropertyDelegate(this.getId()));
+        return new HippogryphScreenHandler(syncId, this.hippogryphInventory, playerInventory, new EntityPropertyDelegate(this.getId()));
     }
 }

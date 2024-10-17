@@ -14,7 +14,7 @@ import net.minecraft.util.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IafItemGroups {
+public final class IafItemGroups {
     public static final List<Block> TAB_BLOCKS_LIST = new ArrayList<>();
     public static final List<Item> TAB_ITEMS_LIST = new ArrayList<>();
     public static final ItemGroup TAB_BLOCKS = register("blocks", FabricItemGroup.builder()

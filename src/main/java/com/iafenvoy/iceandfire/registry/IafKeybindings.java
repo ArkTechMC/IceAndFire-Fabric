@@ -7,7 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
-public class IafKeybindings {
+public final class IafKeybindings {
     public static KeyBinding dragon_fireAttack = new KeyBinding("key.dragon_fireAttack", GLFW.GLFW_KEY_R, "key.categories.gameplay");
     public static KeyBinding dragon_strike = new KeyBinding("key.dragon_strike", GLFW.GLFW_KEY_G, "key.categories.gameplay");
     public static KeyBinding dragon_down = new KeyBinding("key.dragon_down", GLFW.GLFW_KEY_X, "key.categories.gameplay");

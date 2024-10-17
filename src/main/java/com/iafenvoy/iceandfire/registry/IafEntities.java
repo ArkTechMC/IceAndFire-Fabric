@@ -13,7 +13,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 
-public class IafEntities {
+public final class IafEntities {
     public static final EntityType<EntityDragonPart> DRAGON_MULTIPART = register("dragon_multipart", build(EntityDragonPart::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
     public static final EntityType<EntitySlowPart> SLOW_MULTIPART = register("multipart", build(EntitySlowPart::new, SpawnGroup.MISC, true, 0.5F, 0.5F));
     public static final EntityType<EntityHydraHead> HYDRA_MULTIPART = register("hydra_multipart", build(EntityHydraHead::new, SpawnGroup.MISC, true, 0.5F, 0.5F));

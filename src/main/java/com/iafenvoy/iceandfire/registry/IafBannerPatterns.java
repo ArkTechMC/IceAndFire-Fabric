@@ -7,7 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 @SuppressWarnings("unused")
-public class IafBannerPatterns {
+public final class IafBannerPatterns {
     public static final BannerPattern PATTERN_FIRE = register("fire", new BannerPattern("iaf_fire"));
     public static final BannerPattern PATTERN_ICE = register("ice", new BannerPattern("iaf_ice"));
     public static final BannerPattern PATTERN_LIGHTNING = register("lightning", new BannerPattern("iaf_lightning"));

@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class IafEntityTags {
+public final class IafEntityTags {
     public static final TagKey<EntityType<?>> IMMUNE_TO_GORGON_STONE = createKey();
     public static final TagKey<EntityType<?>> CHICKENS = TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, "chickens"));
     public static final TagKey<EntityType<?>> FEAR_DRAGONS = TagKey.of(RegistryKeys.ENTITY_TYPE, new Identifier(IceAndFire.MOD_ID, "fear_dragons"));

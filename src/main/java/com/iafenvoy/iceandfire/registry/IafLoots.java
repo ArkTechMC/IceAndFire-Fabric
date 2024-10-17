@@ -11,8 +11,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonSerializer;
 
-public class IafLoots {
-
+public final class IafLoots {
     public static LootFunctionType CUSTOMIZE_TO_DRAGON;
     public static LootFunctionType CUSTOMIZE_TO_SERPENT;
 

@@ -11,7 +11,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.VillagerProfession;
 
-public class IafTrades {
+public final class IafTrades {
     public static final ProfessionHolder SCRIBE = ProfessionRegistry.register(new Identifier(IceAndFire.MOD_ID, "scribe"), SoundEvents.ENTITY_VILLAGER_WORK_LIBRARIAN, IafBlocks.LECTERN);
 
     public static void init() {

@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 
-public class IafParticles {
+public final class IafParticles {
     //Fire
     public static final DefaultParticleType DRAGON_FLAME_1 = register("dragon_flame_1", FabricParticleTypes.simple(true));
     public static final DefaultParticleType DRAGON_FLAME_2 = register("dragon_flame_2", FabricParticleTypes.simple(true));

@@ -6,7 +6,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
-public class IafItemTags {
+public final class IafItemTags {
     public static final TagKey<Item> DRAGON_ARROWS = createKey("dragon_arrows");
     public static final TagKey<Item> DRAGON_BLOODS = createKey("dragon_bloods");
     public static final TagKey<Item> DRAGON_HEARTS = createKey("dragon_hearts");

@@ -11,7 +11,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class IafDamageTypes {
+public final class IafDamageTypes {
     public static final RegistryKey<DamageType> GORGON_DMG_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(IceAndFire.MOD_ID, "gorgon"));
     public static final RegistryKey<DamageType> DRAGON_FIRE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(IceAndFire.MOD_ID, "dragon_fire"));
     public static final RegistryKey<DamageType> DRAGON_ICE_TYPE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(IceAndFire.MOD_ID, "dragon_ice"));

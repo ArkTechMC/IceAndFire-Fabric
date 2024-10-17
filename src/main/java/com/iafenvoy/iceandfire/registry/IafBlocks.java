@@ -21,7 +21,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 @SuppressWarnings("unused")
-public class IafBlocks {
+public final class IafBlocks {
     public static final BlockSoundGroup SOUND_TYPE_GOLD = new BlockSoundGroup(1.0F, 1.0F, IafSounds.GOLD_PILE_BREAK, IafSounds.GOLD_PILE_STEP, IafSounds.GOLD_PILE_BREAK, IafSounds.GOLD_PILE_STEP, IafSounds.GOLD_PILE_STEP);
     public static final Block LECTERN = register("lectern", new BlockLectern());
     public static final Block PODIUM_OAK = register("podium_oak", new BlockPodium());
@@ -122,13 +122,13 @@ public class IafBlocks {
     public static final Block DRAGONSTEEL_FIRE_BLOCK = register("dragonsteel_fire_block", BlockGeneric.builder(10.0F, 1000.0F, BlockSoundGroup.METAL, MapColor.IRON_GRAY, null, null, false));
     public static final Block DRAGONSTEEL_ICE_BLOCK = register("dragonsteel_ice_block", BlockGeneric.builder(10.0F, 1000.0F, BlockSoundGroup.METAL, MapColor.IRON_GRAY, null, null, false));
     public static final Block DRAGONSTEEL_LIGHTNING_BLOCK = register("dragonsteel_lightning_block", BlockGeneric.builder(10.0F, 1000.0F, BlockSoundGroup.METAL, MapColor.IRON_GRAY, null, null, false));
-    public static final BlockDreadBase DREAD_STONE = register("dread_stone", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
-    public static final BlockDreadBase DREAD_STONE_BRICKS = register("dread_stone_bricks", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
-    public static final Block DREAD_STONE_BRICKS_STAIRS = register("dread_stone_stairs", new StairsBlock(DREAD_STONE_BRICKS.getDefaultState(), AbstractBlock.Settings.create().strength(20F)));
-    public static final BlockDreadBase DREAD_STONE_BRICKS_CHISELED = register("dread_stone_bricks_chiseled", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
-    public static final BlockDreadBase DREAD_STONE_BRICKS_CRACKED = register("dread_stone_bricks_cracked", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
-    public static final BlockDreadBase DREAD_STONE_BRICKS_MOSSY = register("dread_stone_bricks_mossy", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
-    public static final BlockDreadBase DREAD_STONE_TILE = register("dread_stone_tile", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final BlockDreadBase DREAD_STONE = register("dread_stone", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final BlockDreadBase DREAD_STONE_BRICKS = register("dread_stone_bricks", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final Block DREAD_STONE_BRICKS_STAIRS = register("dread_stone_stairs", new StairsBlock(DREAD_STONE_BRICKS.getDefaultState(), AbstractBlock.Settings.create().strength(-1.0F,3600000.0F)));
+    public static final BlockDreadBase DREAD_STONE_BRICKS_CHISELED = register("dread_stone_bricks_chiseled", BlockDreadBase.builder(-1.0F,3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final BlockDreadBase DREAD_STONE_BRICKS_CRACKED = register("dread_stone_bricks_cracked", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final BlockDreadBase DREAD_STONE_BRICKS_MOSSY = register("dread_stone_bricks_mossy", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final BlockDreadBase DREAD_STONE_TILE = register("dread_stone_tile", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final Block DREAD_STONE_FACE = register("dread_stone_face", new BlockDreadStoneFace());
     public static final BlockDreadTorchWall DREAD_TORCH_WALL = registerWallTorch("dread_torch_wall", new BlockDreadTorchWall());
     public static final TorchBlock DREAD_TORCH = registerWallBlock("dread_torch", new BlockDreadTorch());

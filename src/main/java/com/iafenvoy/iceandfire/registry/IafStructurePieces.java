@@ -15,7 +15,7 @@ import net.minecraft.structure.pool.StructurePools;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
 
-public class IafStructurePieces {
+public final class IafStructurePieces {
     public static final RegistryKey<StructurePool> GRAVEYARD_START = createKey("graveyard/start_pool");
     public static final RegistryKey<StructurePool> MAUSOLEUM_START = createKey("mausoleum/start_pool");
     public static final RegistryKey<StructurePool> GORGON_TEMPLE_START = createKey("gorgon_temple/start_pool");
