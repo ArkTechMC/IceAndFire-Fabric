@@ -45,7 +45,6 @@ import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBlacklistedFromStatues, IVillagerFear, IHumanoid, IHasCustomizableAttributes {
-
     private static final TrackedData<Boolean> BLINDED = DataTracker.registerData(EntityCyclops.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> VARIANT = DataTracker.registerData(EntityCyclops.class, TrackedDataHandlerRegistry.INTEGER);
     public static Animation ANIMATION_STOMP;
@@ -301,9 +300,8 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             this.eyeEntity.copyPositionAndRotation(this);
             this.getWorld().spawnEntity(this.eyeEntity);
         }
-
-        EntityUtil.updatePart(this.eyeEntity, this);
-
+        if (!this.isRemoved())
+            EntityUtil.updatePart(this.eyeEntity, this);
         this.breakBlock();
     }
 

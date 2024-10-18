@@ -173,6 +173,7 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     }
 
     public void onUpdateParts() {
+        if (this.isRemoved()) return;
         for (int i = 0; i < this.segments.length; i++) {
             if (this.segments[i] != null && !this.segments[i].isRemoved()) continue;
             this.segments[i] = new EntitySlowPart(this, (-0.8F - (i * 0.8F)), 0, 0, 0.7F, 0.7F, 1);

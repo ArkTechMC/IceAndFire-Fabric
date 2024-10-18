@@ -53,7 +53,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, IMultipartEntity, IVillagerFear, IAnimalFear, IHasCustomizableAttributes {
-
     public static final Animation ANIMATION_BITE = Animation.create(15);
     public static final Animation ANIMATION_SPEAK = Animation.create(15);
     public static final Animation ANIMATION_ROAR = Animation.create(40);
@@ -212,6 +211,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public void onUpdateParts() {
+        if (this.isRemoved()) return;
         for (EntityMultipartPart entity : this.segments) {
             entity.copyPositionAndRotation(this);
             EntityUtil.updatePart(entity, this);

@@ -438,6 +438,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     }
 
     public void updateParts() {
+        if (this.isRemoved()) return;
         this.headPart.copyPositionAndRotation(this);
         this.neckPart.copyPositionAndRotation(this);
         this.rightWingUpperPart.copyPositionAndRotation(this);
