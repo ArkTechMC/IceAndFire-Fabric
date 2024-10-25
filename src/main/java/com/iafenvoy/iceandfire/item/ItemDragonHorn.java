@@ -1,8 +1,6 @@
 package com.iafenvoy.iceandfire.item;
 
-
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.entity.EntityDragonPart;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
@@ -95,7 +93,7 @@ public class ItemDragonHorn extends Item {
                 }
 
                 assert entity != null;
-                entity.updatePositionAndAngles(context.getBlockPos().getX() + 0.5D, (context.getBlockPos().getY() + 1), context.getBlockPos().getZ() + 0.5D, 180 + (context.getHorizontalPlayerFacing()).asRotation(), 0.0F);
+                entity.updatePositionAndAngles(context.getBlockPos().getX() + 0.5D, context.getBlockPos().getY() + 1, context.getBlockPos().getZ() + 0.5D, 180 + (context.getHorizontalPlayerFacing()).asRotation(), 0.0F);
                 if (world.spawnEntity(entity)) {
                     NbtCompound tag = stack.getNbt();
                     tag.remove("DragonHornEntityID");

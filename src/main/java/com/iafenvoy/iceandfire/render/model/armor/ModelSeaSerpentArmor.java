@@ -16,6 +16,7 @@ public class ModelSeaSerpentArmor extends ArmorModelBase {
         ModelData modelData = BipedEntityModel.getModelData(deformation, offset);
         ModelPartData root = modelData.getRoot();
 
+        root.addChild("head", ModelPartBuilder.create().uv(32, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, deformation), ModelTransform.pivot(0.0F, 0.0F + offset, 0.0F));
         root.getChild("head").addChild("headFin", ModelPartBuilder.create().uv(0, 32).cuboid(-0.5F, -8.4F, -7.9F, 1, 16, 14), ModelTransform.of(-3.5F, -8.8F, 3.5F, 3.141592653589793F, -0.5235987755982988F, 0.0F));
         root.getChild("head").addChild("headFin2", ModelPartBuilder.create().uv(0, 32).mirrored().cuboid(-0.5F, -8.4F, -7.9F, 1, 16, 14), ModelTransform.of(3.5F, -8.8F, 3.5F, 3.141592653589793F, 0.5235987755982988F, 0.0F));
 
