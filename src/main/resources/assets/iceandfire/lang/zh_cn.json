@@ -206,6 +206,7 @@
   "item.iceandfire.iron_hippogryph_armor": "锻铁骏鹰铠",
   "item.iceandfire.gold_hippogryph_armor": "黄金骏鹰铠",
   "item.iceandfire.diamond_hippogryph_armor": "钻石骏鹰铠",
+  "item.iceandfire.netherite_hippogryph_armor": "下界合金骏鹰铠",
   "item.iceandfire.gorgon_head": "蛇发女妖首级",
   "item.iceandfire.stone_statue": "石像",
   "item.iceandfire.blindfold": "眼罩",
@@ -1535,6 +1536,5 @@
   "iceandfire.dragon.movedWronglyFix.comment": "未使用",
   "iceandfire.bird.dataTagDrops.comment": "未使用",
   "iceandfire.worldgen.villagerHouseWeight.comment": "未使用",
-  "iceandfire.misc.allowAttributeOverriding.comment": "未使用",
-  "iceandfire.dragonAuto3rdPerson.comment": "未使用"
+  "iceandfire.misc.allowAttributeOverriding.comment": "未使用"
 }

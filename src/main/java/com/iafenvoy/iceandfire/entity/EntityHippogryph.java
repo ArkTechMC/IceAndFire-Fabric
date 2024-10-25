@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.HippogryphTypes;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAIMate;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAITarget;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAITargetItems;
@@ -9,7 +10,6 @@ import com.iafenvoy.iceandfire.entity.ai.HippogryphAIWander;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IDragonFlute;
-import com.iafenvoy.iceandfire.data.HippogryphTypes;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafItemTags;
@@ -20,7 +20,6 @@ import com.iafenvoy.uranus.animation.IAnimatedEntity;
 import com.iafenvoy.uranus.data.EntityPropertyDelegate;
 import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.control.MoveControl;
@@ -111,12 +110,11 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
     }
 
     public static int getIntFromArmor(ItemStack stack) {
-        if (!stack.isEmpty() && stack.getItem() == IafItems.IRON_HIPPOGRYPH_ARMOR)
-            return 1;
-        if (!stack.isEmpty() && stack.getItem() == IafItems.GOLD_HIPPOGRYPH_ARMOR)
-            return 2;
-        if (!stack.isEmpty() && stack.getItem() == IafItems.DIAMOND_HIPPOGRYPH_ARMOR)
-            return 3;
+        if (stack.isEmpty()) return 0;
+        if (stack.getItem() == IafItems.IRON_HIPPOGRYPH_ARMOR) return 1;
+        if (stack.getItem() == IafItems.GOLD_HIPPOGRYPH_ARMOR) return 2;
+        if (stack.getItem() == IafItems.DIAMOND_HIPPOGRYPH_ARMOR) return 3;
+        if (stack.getItem() == IafItems.NETHERITE_HIPPOGRYPH_ARMOR) return 4;
         return 0;
     }
 
@@ -618,7 +616,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playAmbientSound();
@@ -626,7 +624,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     protected void playHurtSound(DamageSource source) {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playHurtSound(source);

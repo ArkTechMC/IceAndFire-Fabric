@@ -36,6 +36,13 @@ public class HippogryphScreenHandler extends ScreenHandler {
             }
 
             @Override
+            public void markDirty() {
+                super.markDirty();
+                if (HippogryphScreenHandler.this.hippogryph != null)
+                    HippogryphScreenHandler.this.hippogryph.setSaddled(this.hasStack() && this.getStack().isOf(Items.SADDLE));
+            }
+
+            @Override
             public boolean isEnabled() {
                 return true;
             }
@@ -67,6 +74,13 @@ public class HippogryphScreenHandler extends ScreenHandler {
             @Override
             public int getMaxItemCount() {
                 return 1;
+            }
+
+            @Override
+            public void markDirty() {
+                super.markDirty();
+                if (HippogryphScreenHandler.this.hippogryph != null)
+                    HippogryphScreenHandler.this.hippogryph.setArmor(this.hasStack() ? EntityHippogryph.getIntFromArmor(this.getStack()) : 0);
             }
 
             @Override

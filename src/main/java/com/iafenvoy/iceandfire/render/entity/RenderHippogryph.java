@@ -33,9 +33,10 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
         private final RenderLayer SADDLE_TEXTURE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/saddle.png"));
         private final RenderLayer BRIDLE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/bridle.png"));
         private final RenderLayer CHEST = RenderLayer.getEntityTranslucent(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/chest.png"));
-        private final RenderLayer TEXTURE_DIAMOND = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_diamond.png"));
-        private final RenderLayer TEXTURE_GOLD = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_gold.png"));
         private final RenderLayer TEXTURE_IRON = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_iron.png"));
+        private final RenderLayer TEXTURE_GOLD = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_gold.png"));
+        private final RenderLayer TEXTURE_DIAMOND = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_diamond.png"));
+        private final RenderLayer TEXTURE_NETHERITE = RenderLayer.getEntityNoOutline(new Identifier(IceAndFire.MOD_ID, "textures/models/hippogryph/armor_netherite.png"));
 
         public LayerHippogriffSaddle(RenderHippogryph renderer) {
             super(renderer);
@@ -48,6 +49,7 @@ public class RenderHippogryph extends MobEntityRenderer<EntityHippogryph, ModelH
                     case 1 -> this.TEXTURE_IRON;
                     case 2 -> this.TEXTURE_GOLD;
                     case 3 -> this.TEXTURE_DIAMOND;
+                    case 4 -> this.TEXTURE_NETHERITE;
                     default -> null;
                 };
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(type);

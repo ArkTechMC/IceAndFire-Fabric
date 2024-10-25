@@ -190,6 +190,7 @@ public final class IafItems {
     public static final Item IRON_HIPPOGRYPH_ARMOR = register("iron_hippogryph_armor", new ItemGeneric(0, 1));
     public static final Item GOLD_HIPPOGRYPH_ARMOR = register("gold_hippogryph_armor", new ItemGeneric(0, 1));
     public static final Item DIAMOND_HIPPOGRYPH_ARMOR = register("diamond_hippogryph_armor", new ItemGeneric(0, 1));
+    public static final Item NETHERITE_HIPPOGRYPH_ARMOR = register("netherite_hippogryph_armor", new ItemGeneric(0, 1));
     public static final Item HIPPOGRYPH_TALON = register("hippogryph_talon", new ItemGeneric(1));
     public static final Item HIPPOGRYPH_SWORD = register("hippogryph_sword", new ItemHippogryphSword());
     public static final Item GORGON_HEAD = register("gorgon_head", new ItemGorgonHead());

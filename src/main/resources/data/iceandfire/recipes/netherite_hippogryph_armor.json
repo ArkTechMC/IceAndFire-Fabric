@@ -4,13 +4,13 @@
     "item": "minecraft:netherite_upgrade_smithing_template"
   },
   "base": {
-    "item": "iceandfire:dragonarmor_diamond_neck"
+    "item": "iceandfire:diamond_hippogryph_armor"
   },
   "addition": {
-    "item": "minecraft:netherite_block"
+    "item": "minecraft:netherite_ingot"
   },
   "result": {
-    "item": "iceandfire:dragonarmor_netherite_neck"
+    "item": "iceandfire:netherite_hippogryph_armor"
   },
   "show_notification": true
 }

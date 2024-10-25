@@ -1,16 +1,14 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "key": {
-    "#": {
-      "item": "minecraft:netherite_block"
-    }
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
   },
-  "pattern": [
-    "   ",
-    " ##",
-    "###"
-  ],
+  "base": {
+    "item": "iceandfire:dragonarmor_diamond_head"
+  },
+  "addition": {
+    "item": "minecraft:netherite_block"
+  },
   "result": {
     "item": "iceandfire:dragonarmor_netherite_head"
   },
