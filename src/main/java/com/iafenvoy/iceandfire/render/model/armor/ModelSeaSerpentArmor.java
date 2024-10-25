@@ -23,6 +23,8 @@ public class ModelSeaSerpentArmor extends ArmorModelBase {
         root.getChild("right_arm").addChild("armFinR", ModelPartBuilder.create().uv(30, 32).cuboid(-0.5F, -5.4F, -6.0F, 1, 7, 5), ModelTransform.of(-1.5F, 4.0F, -0.4F, 3.141592653589793F, -1.3089969389957472F, -0.003490658503988659F));
         root.getChild("left_arm").addChild("armFinL", ModelPartBuilder.create().uv(30, 32).mirrored().cuboid(-0.5F, -5.4F, -6.0F, 1, 7, 5), ModelTransform.of(1.5F, 4.0F, -0.4F, 3.141592653589793F, 1.3089969389957472F, 0.0F));
 
+        root.addChild("right_leg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(-1.9F, 12.0F + offset, 0.0F));
+        root.addChild("left_leg", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(1.9F, 12.0F + offset, 0.0F));
         root.getChild("right_leg").addChild("legFinR", ModelPartBuilder.create().uv(45, 31).cuboid(-0.5F, -5.4F, -6.0F, 1, 7, 6), ModelTransform.of(-1.5F, 5.2F, 1.6F, 3.141592653589793F, -1.3089969389957472F, 0.0F));
         root.getChild("left_leg").addChild("legFinL", ModelPartBuilder.create().uv(45, 31).mirrored().cuboid(-0.5F, -5.4F, -6.0F, 1, 7, 6), ModelTransform.of(1.5F, 5.2F, 1.6F, 3.141592653589793F, 1.3089969389957472F, 0.0F));
 
