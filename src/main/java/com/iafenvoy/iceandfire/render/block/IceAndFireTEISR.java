@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public class IceAndFireTEISR extends BuiltinModelItemRenderer {
-    private final RenderPixieHouse PIXIE_HOUSE_RENDERER;
+    private final RenderPixieHouse<?> PIXIE_HOUSE_RENDERER;
     private final BlockEntityRenderDispatcher blockEntityRenderDispatcher;
     private final BlockEntityGhostChest chest = new BlockEntityGhostChest(BlockPos.ORIGIN, IafBlocks.GHOST_CHEST.getDefaultState());
     private final BlockEntityDreadPortal portal = new BlockEntityDreadPortal(BlockPos.ORIGIN, IafBlocks.DREAD_PORTAL.getDefaultState());
@@ -28,7 +28,7 @@ public class IceAndFireTEISR extends BuiltinModelItemRenderer {
     public IceAndFireTEISR(BlockEntityRenderDispatcher dispatcher, EntityModelLoader modelSet) {
         super(dispatcher, modelSet);
         this.blockEntityRenderDispatcher = dispatcher;
-        this.PIXIE_HOUSE_RENDERER = new RenderPixieHouse(null);
+        this.PIXIE_HOUSE_RENDERER = new RenderPixieHouse<>(null);
     }
 
     @Override

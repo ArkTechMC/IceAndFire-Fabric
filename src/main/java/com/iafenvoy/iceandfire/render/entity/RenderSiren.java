@@ -22,9 +22,9 @@ public class RenderSiren extends MobEntityRenderer<EntitySiren, ModelSiren> {
 
     public static Identifier getSirenOverlayTexture(int siren) {
         return switch (siren) {
-            default -> TEXTURE_0;
             case 1 -> TEXTURE_1;
             case 2 -> TEXTURE_2;
+            default -> TEXTURE_0;
         };
     }
 
@@ -37,9 +37,9 @@ public class RenderSiren extends MobEntityRenderer<EntitySiren, ModelSiren> {
     @Override
     public Identifier getTexture(EntitySiren siren) {
         return switch (siren.getHairColor()) {
-            default -> siren.isAgressive() ? TEXTURE_0_AGGRESSIVE : TEXTURE_0;
             case 1 -> siren.isAgressive() ? TEXTURE_1_AGGRESSIVE : TEXTURE_1;
             case 2 -> siren.isAgressive() ? TEXTURE_2_AGGRESSIVE : TEXTURE_2;
+            default -> siren.isAgressive() ? TEXTURE_0_AGGRESSIVE : TEXTURE_0;
         };
     }
 }

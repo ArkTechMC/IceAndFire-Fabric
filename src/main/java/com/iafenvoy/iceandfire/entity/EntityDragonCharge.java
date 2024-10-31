@@ -90,12 +90,10 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
                 if (entity == null || entity != shootingEntity && shootingEntity instanceof EntityDragonBase) {
                     assert shootingEntity instanceof EntityDragonBase;
                     EntityDragonBase dragon = (EntityDragonBase) shootingEntity;
-                    if (shootingEntity != null && entity instanceof TameableEntity && ((EntityDragonBase) shootingEntity).isOwner(((EntityDragonBase) shootingEntity).getOwner())) {
+                    if (entity instanceof TameableEntity && ((EntityDragonBase) shootingEntity).isOwner(((EntityDragonBase) shootingEntity).getOwner())) {
                         return;
                     }
-                    if (dragon != null) {
-                        dragon.randomizeAttacks();
-                    }
+                    dragon.randomizeAttacks();
                     this.remove(RemovalReason.DISCARDED);
                 }
                 if (entity != null && !entity.isPartOf(shootingEntity)) {
@@ -103,7 +101,7 @@ public abstract class EntityDragonCharge extends AbstractFireballEntity implemen
                         return;
                     }
                     if (shootingEntity instanceof EntityDragonBase shootingDragon) {
-                        float damageAmount = this.getDamage() * ((EntityDragonBase) shootingEntity).getDragonStage();
+                        float damageAmount = this.getDamage() * shootingDragon.getDragonStage();
 
                         Entity cause = shootingDragon.getRidingPlayer() != null ? shootingDragon.getRidingPlayer() : shootingDragon;
                         DamageSource source = this.causeDamage(cause);

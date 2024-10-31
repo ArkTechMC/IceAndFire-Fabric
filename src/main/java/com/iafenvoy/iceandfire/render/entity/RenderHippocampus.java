@@ -42,12 +42,12 @@ public class RenderHippocampus extends MobEntityRenderer<EntityHippocampus, Mode
     @Override
     public Identifier getTexture(EntityHippocampus entity) {
         return switch (entity.getVariant()) {
-            default -> entity.isBlinking() ? VARIANT_0_BLINK : VARIANT_0;
             case 1 -> entity.isBlinking() ? VARIANT_1_BLINK : VARIANT_1;
             case 2 -> entity.isBlinking() ? VARIANT_2_BLINK : VARIANT_2;
             case 3 -> entity.isBlinking() ? VARIANT_3_BLINK : VARIANT_3;
             case 4 -> entity.isBlinking() ? VARIANT_4_BLINK : VARIANT_4;
             case 5 -> entity.isBlinking() ? VARIANT_5_BLINK : VARIANT_5;
+            default -> entity.isBlinking() ? VARIANT_0_BLINK : VARIANT_0;
         };
     }
 

@@ -50,10 +50,10 @@ public class RenderLectern<T extends BlockEntityLectern> implements BlockEntityR
 
     private float getRotation(BlockEntityLectern lectern) {
         return switch (lectern.getCachedState().get(BlockLectern.FACING)) {
-            default -> 180;
             case EAST -> 90;
             case WEST -> -90;
             case SOUTH -> 0;
+            default -> 180;
         };
     }
 }

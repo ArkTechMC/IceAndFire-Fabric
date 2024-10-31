@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.ai.GhostAICharge;
 import com.iafenvoy.iceandfire.entity.ai.GhostPathNavigator;
@@ -189,8 +188,8 @@ public class EntityGhost extends HostileEntity implements IAnimatedEntity, IVill
         });
         this.goalSelector.add(6, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, PlayerEntity.class, 10, false, false, (Predicate<Entity>) Entity::isAlive));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, false, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && DragonUtils.isVillager(entity)));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, false, false, Entity::isAlive));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, LivingEntity.class, 10, false, false, entity -> DragonUtils.isAlive(entity) && DragonUtils.isVillager(entity)));
     }
 
     @Override

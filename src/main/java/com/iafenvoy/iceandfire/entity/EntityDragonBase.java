@@ -1826,15 +1826,15 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     public void updateRiding(Entity riding) {
         if (riding != null && riding.hasPassenger(this) && riding instanceof PlayerEntity player) {
             final int i = riding.getPassengerList().indexOf(this);
-            final float radius = (i == 2 ? -0.2F : 0.5F) + (((PlayerEntity) riding).isFallFlying() ? 2 : 0);
-            final float angle = (0.01745329251F * ((PlayerEntity) riding).bodyYaw) + (i == 1 ? 90 : i == 0 ? -90 : 0);
+            final float radius = (i == 2 ? -0.2F : 0.5F) + (player.isFallFlying() ? 2 : 0);
+            final float angle = (0.01745329251F * player.bodyYaw) + (i == 1 ? 90 : i == 0 ? -90 : 0);
             final double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
             final double extraZ = radius * MathHelper.cos(angle);
             final double extraY = (riding.isSneaking() ? 1.2D : 1.4D) + (i == 2 ? 0.4D : 0D);
             this.headYaw = player.headYaw;
             this.setYaw(this.headYaw);
             this.setPosition(riding.getX() + extraX, riding.getY() + extraY, riding.getZ() + extraZ);
-            if ((this.getControlState() == 1 << 4 || ((PlayerEntity) riding).isFallFlying()) && !riding.hasVehicle()) {
+            if ((this.getControlState() == 1 << 4 || player.isFallFlying()) && !riding.hasVehicle()) {
                 this.stopRiding();
                 if (this.getWorld().isClient) {
                     PacketByteBuf buf = PacketByteBufs.create();
@@ -1874,7 +1874,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     @Override
     public void playAmbientSound() {
         if (!this.isSleeping() && !this.isModelDead() && !this.getWorld().isClient) {
-            if (this.getAnimation() == this.NO_ANIMATION) {
+            if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
                 this.setAnimation(ANIMATION_SPEAK);
             }
             super.playAmbientSound();
@@ -1884,7 +1884,7 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
     @Override
     protected void playHurtSound(DamageSource source) {
         if (!this.isModelDead()) {
-            if (this.getAnimation() == this.NO_ANIMATION && !this.getWorld().isClient) {
+            if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION && !this.getWorld().isClient) {
                 this.setAnimation(ANIMATION_SPEAK);
             }
             super.playHurtSound(source);

@@ -64,20 +64,20 @@ public class RenderPixieHouse<T extends BlockEntityPixieHouse> implements BlockE
             //GL11.glRotatef(MathHelper.clampAngle(entity.ticksExisted * 3), 0, 1, 0);
             RenderLayer type =
                     switch (entity.pixieType) {
-                        default -> RenderJar.TEXTURE_0;
                         case 1 -> RenderJar.TEXTURE_1;
                         case 2 -> RenderJar.TEXTURE_2;
                         case 3 -> RenderJar.TEXTURE_3;
                         case 4 -> RenderJar.TEXTURE_4;
                         case 5 -> RenderJar.TEXTURE_5;
+                        default -> RenderJar.TEXTURE_0;
                     };
             RenderLayer type2 = switch (entity.pixieType) {
-                default -> RenderJar.TEXTURE_0_GLO;
                 case 1 -> RenderJar.TEXTURE_1_GLO;
                 case 2 -> RenderJar.TEXTURE_2_GLO;
                 case 3 -> RenderJar.TEXTURE_3_GLO;
                 case 4 -> RenderJar.TEXTURE_4_GLO;
                 case 5 -> RenderJar.TEXTURE_5_GLO;
+                default -> RenderJar.TEXTURE_0_GLO;
             };
             matrixStackIn.push();
             MODEL_PIXIE.animateInHouse(entity);

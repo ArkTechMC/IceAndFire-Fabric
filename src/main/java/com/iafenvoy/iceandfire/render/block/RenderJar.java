@@ -44,18 +44,18 @@ public class RenderJar<T extends BlockEntityJar> implements BlockEntityRenderer<
             matrixStackIn.multiply(RotationAxis.POSITIVE_X.rotationDegrees(180.0F));
             matrixStackIn.push();
             RenderLayer type = switch (meta) {
-                default -> TEXTURE_0;
                 case 1 -> TEXTURE_1;
                 case 2 -> TEXTURE_2;
                 case 3 -> TEXTURE_3;
                 case 4 -> TEXTURE_4;
+                default -> TEXTURE_0;
             };
             RenderLayer typeGlow = switch (meta) {
-                default -> TEXTURE_0_GLO;
                 case 1 -> TEXTURE_1_GLO;
                 case 2 -> TEXTURE_2_GLO;
                 case 3 -> TEXTURE_3_GLO;
                 case 4 -> TEXTURE_4_GLO;
+                default -> TEXTURE_0_GLO;
             };
             VertexConsumer buffer = bufferIn.getBuffer(type);
             if (entity.getWorld() != null) {

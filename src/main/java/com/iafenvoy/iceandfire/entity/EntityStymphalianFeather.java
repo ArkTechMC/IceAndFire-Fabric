@@ -46,17 +46,14 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHit) {
         Entity shootingEntity = this.getOwner();
-        if (shootingEntity instanceof EntityStymphalianBird && entityHit.getEntity() != null && entityHit.getEntity() instanceof EntityStymphalianBird) {
-        } else {
+        if (!(shootingEntity instanceof EntityStymphalianBird) || entityHit.getEntity() == null || !(entityHit.getEntity() instanceof EntityStymphalianBird)) {
             super.onEntityHit(entityHit);
             if (entityHit.getEntity() != null && entityHit.getEntity() instanceof EntityStymphalianBird LivingEntity) {
                 LivingEntity.setStuckArrowCount(LivingEntity.getStuckArrowCount() - 1);
                 ItemStack itemstack1 = LivingEntity.isUsingItem() ? LivingEntity.getActiveItem() : ItemStack.EMPTY;
-                if (itemstack1.getItem() instanceof ShieldItem) {
+                if (itemstack1.getItem() instanceof ShieldItem)
                     this.damageShield(LivingEntity);
-                }
             }
-
         }
     }
 

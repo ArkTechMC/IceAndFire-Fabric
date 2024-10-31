@@ -162,7 +162,7 @@ public class EntityMyrmexSwarmer extends EntityMyrmexRoyal {
     }
 
     public UUID getSummonerUUID() {
-        return (UUID) ((Optional) this.dataTracker.get(SUMMONER_ID)).orElse(null);
+        return this.dataTracker.get(SUMMONER_ID).orElse(null);
     }
 
     public int getTicksAlive() {

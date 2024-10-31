@@ -61,11 +61,11 @@ public class DreadRuinProcessor extends StructureProcessor {
     }
 
     @Override
-    protected StructureProcessorType getType() {
+    protected StructureProcessorType<?> getType() {
         return IafProcessors.DREADRUINPROCESSOR;
     }
 
-    private EntityType getRandomMobForMobSpawner(Random random) {
+    private EntityType<?> getRandomMobForMobSpawner(Random random) {
         float rand = random.nextFloat();
         if (rand < 0.3D) {
             return IafEntities.DREAD_THRALL;

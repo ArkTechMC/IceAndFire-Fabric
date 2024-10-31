@@ -42,7 +42,7 @@ public class MyrmexAIAttackMelee extends Goal {
         else if (!this.myrmex.canMove())
             return false;
         else {
-            PathResult attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, this.speedTowardsTarget);
+            PathResult<?> attackPath = ((AdvancedPathNavigate) this.myrmex.getNavigation()).moveToLivingEntity(LivingEntity, this.speedTowardsTarget);
             if (attackPath != null)
                 return true;
             else

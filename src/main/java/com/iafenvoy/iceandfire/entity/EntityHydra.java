@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.util.*;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
@@ -102,7 +101,7 @@ public class EntityHydra extends HostileEntity implements IAnimatedEntity, IMult
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal(this, LivingEntity.class, 10, true, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity) && !(entity instanceof Monster) || entity instanceof IBlacklistedFromStatues && ((IBlacklistedFromStatues) entity).canBeTurnedToStone()));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, false, entity -> DragonUtils.isAlive(entity) && !(entity instanceof Monster) || entity instanceof IBlacklistedFromStatues blacklisted && blacklisted.canBeTurnedToStone()));
     }
 
     @Override

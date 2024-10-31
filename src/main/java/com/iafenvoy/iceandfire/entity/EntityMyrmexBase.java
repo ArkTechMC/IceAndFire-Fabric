@@ -755,9 +755,6 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         return IafSounds.MYRMEX_IDLE;
     }
 
-    public void playCelebrateSound() {
-    }
-
     protected void resetCustomer() {
         this.setCustomer(null);
     }
@@ -765,7 +762,6 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     public SimpleInventory getVillagerInventory() {
         return this.villagerInventory;
     }
-
 
     @Override
     public ItemStack tryEquip(ItemStack stack) {
@@ -862,7 +858,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     //if the path created couldn't reach the destination or if the entity isn't close enough to the targetBlock
-    public boolean pathReachesTarget(PathResult path, BlockPos target, double distanceSquared) {
+    public boolean pathReachesTarget(PathResult<?> path, BlockPos target, double distanceSquared) {
         return !path.failedToReachDestination()
                 && (this.isCloseEnoughToTarget(target, distanceSquared) || this.getNavigation().getCurrentPath() == null || !this.getNavigation().getCurrentPath().isFinished());
     }

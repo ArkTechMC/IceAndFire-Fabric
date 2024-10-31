@@ -19,12 +19,12 @@ public class LayerPixieGlow extends FeatureRenderer<EntityPixie, ModelPixie> {
     @Override
     public void render(MatrixStack matrixStackIn, VertexConsumerProvider bufferIn, int packedLightIn, EntityPixie pixie, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         Identifier texture = switch (pixie.getColor()) {
-            default -> RenderPixie.TEXTURE_0;
             case 1 -> RenderPixie.TEXTURE_1;
             case 2 -> RenderPixie.TEXTURE_2;
             case 3 -> RenderPixie.TEXTURE_3;
             case 4 -> RenderPixie.TEXTURE_4;
             case 5 -> RenderPixie.TEXTURE_5;
+            default -> RenderPixie.TEXTURE_0;
         };
         RenderLayer eyes = RenderLayer.getEyes(texture);
         VertexConsumer vertexConsumer = bufferIn.getBuffer(eyes);

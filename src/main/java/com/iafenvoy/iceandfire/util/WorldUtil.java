@@ -191,33 +191,14 @@ public class WorldUtil {
         return !world.getLevelProperties().getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING) || world.getDifficulty().equals(Difficulty.PEACEFUL);
     }
 
-    /**
-     * Returns a dimensions max height
-     *
-     * @param dimensionType
-     * @return
-     */
     public static int getDimensionMaxHeight(final DimensionType dimensionType) {
         return dimensionType.logicalHeight() + dimensionType.minY();
     }
 
-    /**
-     * Returns a dimension min height
-     *
-     * @param dimensionType
-     * @return
-     */
     public static int getDimensionMinHeight(final DimensionType dimensionType) {
         return dimensionType.minY();
     }
 
-    /**
-     * Check if a given block y is within world bounds
-     *
-     * @param yBlock
-     * @param world
-     * @return
-     */
     public static boolean isInWorldHeight(final int yBlock, final World world) {
         final DimensionType dimensionType = world.getDimension();
         return yBlock > getDimensionMinHeight(dimensionType) && yBlock < getDimensionMaxHeight(dimensionType);

@@ -45,11 +45,6 @@ public class DreadLichAIStrife extends Goal {
     }
 
     @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
     public void stop() {
         super.stop();
         this.seeTime = 0;

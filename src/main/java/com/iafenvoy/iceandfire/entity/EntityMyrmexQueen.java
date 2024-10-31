@@ -246,9 +246,6 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, LivingEntity.class, 10, true, true, (Predicate<LivingEntity>) entity -> entity != null && !EntityMyrmexBase.haveSameHive(EntityMyrmexQueen.this, entity) && DragonUtils.isAlive(entity) && !(entity instanceof Monster)));
     }
 
-    public void fall(float distance, float damageMultiplier) {
-    }
-
     @Override
     public boolean isInHive() {
         if (this.getHive() != null) {

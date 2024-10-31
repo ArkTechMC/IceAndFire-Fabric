@@ -30,9 +30,9 @@ public class RenderHydra extends MobEntityRenderer<EntityHydra, ModelHydraBody> 
     @Override
     public Identifier getTexture(EntityHydra gorgon) {
         return switch (gorgon.getVariant()) {
-            default -> TEXUTURE_0;
             case 1 -> TEXUTURE_1;
             case 2 -> TEXUTURE_2;
+            default -> TEXUTURE_0;
         };
     }
 }

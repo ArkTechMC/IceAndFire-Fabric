@@ -347,16 +347,6 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
         if (this.getAnimation() == ANIMATION_STRIKE_HORIZONTAL && this.getTarget() != null && this.squaredDistanceTo(this.getTarget()) < 4D && this.getAnimationTick() == 10 && this.deathTime <= 0) {
             LivingEntity target = this.getTarget();
             target.damage(this.getWorld().getDamageSources().mobAttack(this), (float) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue());
-            float f1 = 0.5F;
-            float f2 = target.forwardSpeed;
-            float f3 = 0.6F;
-            float f4 = MathHelper.sqrt(f2 * f2 + f3 * f3);
-
-            if (f4 < 1.0F) {
-                f4 = 1.0F;
-            }
-
-            f4 = f1 / f4;
             float f5 = MathHelper.sin(this.getYaw() * 0.017453292F);
             float f6 = MathHelper.cos(this.getYaw() * 0.017453292F);
             // float f7 = f2 * f6 - f3 * f5;
@@ -394,7 +384,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playAmbientSound();
@@ -402,7 +392,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     protected void playHurtSound(DamageSource source) {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playHurtSound(source);

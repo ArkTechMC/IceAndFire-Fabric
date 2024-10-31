@@ -218,6 +218,6 @@ public abstract class WorldGenDragonCave extends Feature<DefaultFeatureConfig> i
         return "dragon_cave";
     }
 
-    private record SphereInfo(int radius, BlockPos pos) {
+    public record SphereInfo(int radius, BlockPos pos) {
     }
 }

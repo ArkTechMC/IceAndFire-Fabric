@@ -31,11 +31,11 @@ public class ItemMyrmexEgg extends Item {
         if (tag != null)
             eggOrdinal = tag.getInt("EggOrdinal");
         caste = switch (eggOrdinal) {
-            default -> "worker";
             case 1 -> "soldier";
             case 2 -> "royal";
             case 3 -> "sentinel";
             case 4 -> "queen";
+            default -> "worker";
         };
         if (eggOrdinal == 4)
             tooltip.add(Text.translatable("myrmex.caste_" + caste + ".name").formatted(Formatting.LIGHT_PURPLE));

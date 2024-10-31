@@ -58,11 +58,6 @@ public class LecternScreenHandler extends ScreenHandler {
         return this.propertyDelegate.get(i);
     }
 
-    @Override
-    public void sendContentUpdates() {
-        super.sendContentUpdates();
-    }
-
     public void onUpdate() {
         this.possiblePagesInt[0] = this.getPageField(0);
         this.possiblePagesInt[1] = this.getPageField(1);

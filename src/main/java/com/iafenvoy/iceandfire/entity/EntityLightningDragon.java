@@ -102,10 +102,10 @@ public class EntityLightningDragon extends EntityDragonBase {
     @Override
     public String getVariantName(int variant) {
         return switch (variant) {
-            default -> "electric_";
             case 1 -> "amethyst_";
             case 2 -> "copper_";
             case 3 -> "black_";
+            default -> "electric_";
         };
     }
 

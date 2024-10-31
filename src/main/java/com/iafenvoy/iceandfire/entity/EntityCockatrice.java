@@ -128,7 +128,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         this.targetSelector.add(2, new TrackOwnerAttackerGoal(this));
         this.targetSelector.add(3, new AttackWithOwnerGoal(this));
         this.targetSelector.add(4, new RevengeGoal(this));
-        this.targetSelector.add(5, new CockatriceAITarget(this, LivingEntity.class, true, (Predicate<Entity>) entity -> {
+        this.targetSelector.add(5, new CockatriceAITarget<>(this, LivingEntity.class, true, entity -> {
             if (entity instanceof PlayerEntity player) return !player.isCreative() && !entity.isSpectator();
             else
                 return (entity instanceof Monster) && EntityCockatrice.this.isTamed() && !(entity instanceof CreeperEntity) && !(entity instanceof ZombifiedPiglinEntity) && !(entity instanceof EndermanEntity) || entity.getType().isIn(IafEntityTags.COCKATRICE_TARGETS) && (!entity.getType().isIn(IafEntityTags.CHICKENS));
@@ -337,9 +337,6 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
         super.setSwimming(sitting);
         if (!this.getWorld().isClient)
             this.isSitting = sitting;
-    }
-
-    public void fall(float distance, float damageMultiplier) {
     }
 
     @Override
@@ -605,14 +602,14 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION)
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION)
             this.setAnimation(ANIMATION_SPEAK);
         super.playAmbientSound();
     }
 
     @Override
     protected void playHurtSound(DamageSource source) {
-        if (this.getAnimation() == this.NO_ANIMATION)
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION)
             this.setAnimation(ANIMATION_SPEAK);
         super.playHurtSound(source);
     }

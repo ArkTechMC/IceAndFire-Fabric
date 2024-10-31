@@ -73,8 +73,8 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
-        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, DragonUtils::canHostilesTarget));
+        this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) DragonUtils::canHostilesTarget));
     }
 
     @Override

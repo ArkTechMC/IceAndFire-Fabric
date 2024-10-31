@@ -234,16 +234,6 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
     }
 
     @Override
-    public int getLegArmorVariant() {
-        return 0;
-    }
-
-    @Override
-    public void setLegArmorVariant(int variant) {
-
-    }
-
-    @Override
     public Animation[] getAnimations() {
         return new Animation[]{ANIMATION_SPAWN};
     }

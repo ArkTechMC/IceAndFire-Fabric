@@ -73,7 +73,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.add(7, new LookAroundGoal(this));
         this.targetSelector.add(1, new RevengeGoal(this, IDreadMob.class));
-        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) entity -> DragonUtils.canHostilesTarget(entity)));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (Predicate<LivingEntity>) DragonUtils::canHostilesTarget));
         this.targetSelector.add(3, new DreadAITargetNonDread(this, LivingEntity.class, false, (Predicate<LivingEntity>) entity -> entity instanceof LivingEntity && DragonUtils.canHostilesTarget(entity)));
     }
 
@@ -149,9 +149,6 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     @Override
     public boolean isClimbing() {
         return this.isBesideClimbableBlock();
-    }
-
-    public void setInWeb() {
     }
 
     @Override

@@ -109,8 +109,8 @@ public class EntitySiren extends HostileEntity implements IAnimatedEntity, IVill
         this.goalSelector.add(3, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F, 1.0F));
         this.targetSelector.add(1, new RevengeGoal(this));
-        this.targetSelector.add(4, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, false, (Predicate<PlayerEntity>) entity -> EntitySiren.this.isAgressive() && !(entity.isCreative() || entity.isSpectator())));
-        this.targetSelector.add(4, new ActiveTargetGoal(this, MerchantEntity.class, 10, true, false, (Predicate<MerchantEntity>) entity -> EntitySiren.this.isAgressive()));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, entity -> entity instanceof PlayerEntity player && EntitySiren.this.isAgressive() && !(player.isCreative() || player.isSpectator())));
+        this.targetSelector.add(4, new ActiveTargetGoal<>(this, MerchantEntity.class, 10, true, false, entity -> EntitySiren.this.isAgressive()));
     }
 
     @Override

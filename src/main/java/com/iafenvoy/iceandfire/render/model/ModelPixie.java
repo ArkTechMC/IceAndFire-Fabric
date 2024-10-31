@@ -176,10 +176,6 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
         //this.Left_Leg.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 1.0F * f1 * 0.5F / 1;
         //this.Right_Leg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1 * 0.5F / 1;
 
-        float f12 = 0;//f1;
-        if (f12 > Math.toRadians(20)) {
-        }
-
         this.Right_Arm.rotateAngleX -= ((float) Math.PI / 5F);
         this.Left_Arm.rotateAngleX -= ((float) Math.PI / 5F);
         this.Right_Leg.rotateAngleX = -1.4137167F;
@@ -223,10 +219,6 @@ public class ModelPixie extends ModelDragonBase<EntityPixie> {
         AdvancedModelBox[] RIGHT_WINGS = new AdvancedModelBox[]{this.Right_Wing, this.Right_Wing2};
         //this.Left_Leg.rotateAngleX = MathHelper.cos(f * 0.6662F + (float)Math.PI) * 1.0F * f1 * 0.5F / 1;
         //this.Right_Leg.rotateAngleX = MathHelper.cos(f * 0.6662F) * 1.0F * f1 * 0.5F / 1;
-
-        float f12 = 0;//f1;
-        if (f12 > Math.toRadians(20)) {
-        }
         if (sitting) {
             this.Right_Arm.rotateAngleX -= ((float) Math.PI / 5F);
             this.Left_Arm.rotateAngleX -= ((float) Math.PI / 5F);

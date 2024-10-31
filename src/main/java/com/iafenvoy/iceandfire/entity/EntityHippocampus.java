@@ -528,14 +528,14 @@ public class EntityHippocampus extends TameableEntity implements NamedScreenHand
 
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION)
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION)
             this.setAnimation(ANIMATION_SPEAK);
         super.playAmbientSound();
     }
 
     @Override
     protected void playHurtSound(DamageSource source) {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playHurtSound(source);

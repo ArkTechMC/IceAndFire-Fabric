@@ -36,12 +36,12 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
     @Override
     public Identifier getTexture(EntityPixie pixie) {
         return switch (pixie.getColor()) {
-            default -> TEXTURE_0;
             case 1 -> TEXTURE_1;
             case 2 -> TEXTURE_2;
             case 3 -> TEXTURE_3;
             case 4 -> TEXTURE_4;
             case 5 -> TEXTURE_5;
+            default -> TEXTURE_0;
         };
     }
 }

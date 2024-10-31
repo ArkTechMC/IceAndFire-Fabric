@@ -82,10 +82,10 @@ public class EntityIceDragon extends EntityDragonBase {
     @Override
     public String getVariantName(int variant) {
         return switch (variant) {
-            default -> "blue_";
             case 1 -> "white_";
             case 2 -> "sapphire_";
             case 3 -> "silver_";
+            default -> "blue_";
         };
     }
 

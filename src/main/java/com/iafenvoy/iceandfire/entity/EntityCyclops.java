@@ -127,7 +127,7 @@ public class EntityCyclops extends HostileEntity implements IAnimatedEntity, IBl
             return !entity.getType().isIn(IafEntityTags.SHEEP);
         }));
 
-        this.targetSelector.add(2, new ActiveTargetGoal(this, PlayerEntity.class, 10, true, true, (Predicate<PlayerEntity>) entity -> entity != null && !(entity.isCreative() || entity.isSpectator())));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, true, entity -> entity instanceof PlayerEntity player && !(player.isCreative() || player.isSpectator())));
         this.targetSelector.add(3, new CyclopsAITargetSheepPlayers<>(this, PlayerEntity.class, true));
     }
 

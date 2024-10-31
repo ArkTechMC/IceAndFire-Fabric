@@ -29,7 +29,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     }
 
     public static Entity necromancyEntity(LivingEntity entity) {
-        Entity lichSummoned = null;
+        Entity lichSummoned;
         if (entity.getGroup() == EntityGroup.ARTHROPOD) {
             lichSummoned = new EntityDreadScuttler(IafEntities.DREAD_SCUTTLER, entity.getWorld());
             float readInScale = (entity.getWidth() / 1.5F);
@@ -120,7 +120,7 @@ public class EntityDreadMob extends HostileEntity implements IDreadMob {
     }
 
     public UUID getCommanderId() {
-        return (UUID) ((Optional) this.dataTracker.get(COMMANDER_UNIQUE_ID)).orElse(null);
+        return this.dataTracker.get(COMMANDER_UNIQUE_ID).orElse(null);
     }
 
     public void setCommanderId(UUID uuid) {

@@ -50,7 +50,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, IMultipartEntity, IVillagerFear, IAnimalFear, IHasCustomizableAttributes {
     public static final Animation ANIMATION_BITE = Animation.create(15);
@@ -62,8 +61,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     private static final TrackedData<Boolean> JUMPING = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> BREATHING = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> ANCIENT = DataTracker.registerData(EntitySeaSerpent.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private static final Predicate<Entity> NOT_SEA_SERPENT = entity -> entity instanceof LivingEntity && !(entity instanceof EntitySeaSerpent) && DragonUtils.isAlive((LivingEntity) entity);
-    private static final Predicate<Entity> NOT_SEA_SERPENT_IN_WATER = entity -> entity instanceof LivingEntity && !(entity instanceof EntitySeaSerpent) && DragonUtils.isAlive((LivingEntity) entity) && entity.isInsideWaterOrBubbleColumn();
     private final float[] tailYaw = new float[5];
     private final float[] prevTailYaw = new float[5];
     private final float[] tailPitch = new float[5];
@@ -149,9 +146,9 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         this.goalSelector.add(3, new SeaSerpentAIJump(this, 4));
         this.goalSelector.add(4, new LookAroundGoal(this));
         this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.targetSelector.add(1, (new RevengeGoal(this, EntityMultipartPart.class)).setGroupRevenge());
-        this.targetSelector.add(2, new FlyingAITarget(this, LivingEntity.class, 150, false, false, NOT_SEA_SERPENT_IN_WATER));
-        this.targetSelector.add(3, new FlyingAITarget(this, PlayerEntity.class, 0, false, false, NOT_SEA_SERPENT));
+        this.targetSelector.add(1, new RevengeGoal(this, EntityMultipartPart.class).setGroupRevenge());
+        this.targetSelector.add(2, new FlyingAITarget<>(this, LivingEntity.class, 150, false, false, entity1 -> !(entity1 instanceof EntitySeaSerpent) && DragonUtils.isAlive(entity1) && entity1.isInsideWaterOrBubbleColumn()));
+        this.targetSelector.add(3, new FlyingAITarget<>(this, PlayerEntity.class, 0, false, false, entity -> !(entity instanceof EntitySeaSerpent) && DragonUtils.isAlive(entity)));
     }
 
     @Override
@@ -539,7 +536,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     private void doSplashDamage() {
         double getWidth = 2D * this.getSeaSerpentScale();
-        List<Entity> list = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(getWidth, getWidth * 0.5D, getWidth), NOT_SEA_SERPENT);
+        List<Entity> list = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(getWidth, getWidth * 0.5D, getWidth), entity -> entity instanceof LivingEntity living && !(entity instanceof EntitySeaSerpent) && DragonUtils.isAlive(living));
         for (Entity entity : list) {
             if (entity instanceof LivingEntity && DragonUtils.isAlive((LivingEntity) entity)) {
                 entity.damage(this.getWorld().getDamageSources().mobAttack(this), ((int) this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).getValue()));
@@ -701,7 +698,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playAmbientSound();
@@ -709,7 +706,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     @Override
     protected void playHurtSound(DamageSource source) {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playHurtSound(source);

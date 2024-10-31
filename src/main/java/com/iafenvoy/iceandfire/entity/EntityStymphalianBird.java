@@ -169,11 +169,6 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
         super.onDeath(cause);
     }
 
-    @Override
-    protected void updatePostDeath() {
-        super.updatePostDeath();
-    }
-
     public UUID getVictorId() {
         return this.dataTracker.get(VICTOR_ENTITY).orElse(null);
     }
@@ -397,12 +392,9 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
         return speed;
     }
 
-    public void fall(float distance, float damageMultiplier) {
-    }
-
     @Override
     public void playAmbientSound() {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playAmbientSound();
@@ -410,7 +402,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
 
     @Override
     protected void playHurtSound(DamageSource source) {
-        if (this.getAnimation() == this.NO_ANIMATION) {
+        if (this.getAnimation() == IAnimatedEntity.NO_ANIMATION) {
             this.setAnimation(ANIMATION_SPEAK);
         }
         super.playHurtSound(source);

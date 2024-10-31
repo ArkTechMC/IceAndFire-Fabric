@@ -53,11 +53,6 @@ public class EntityGhostSword extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-    }
-
-    @Override
     public void tick() {
         super.tick();
         this.noClip = true;

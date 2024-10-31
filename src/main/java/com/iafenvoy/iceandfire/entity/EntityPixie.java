@@ -237,9 +237,6 @@ public class EntityPixie extends TameableEntity {
     public void flipAI(boolean flee) {
     }
 
-    public void fall(float distance, float damageMultiplier) {
-    }
-
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));

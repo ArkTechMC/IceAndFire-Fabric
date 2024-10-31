@@ -71,12 +71,12 @@ public class EntityDeathWorm extends TameableEntity implements ISyncMount, ICust
     public ChainBuffer tail_buffer;
     public float jumpProgress;
     public float prevJumpProgress;
-    public DeathwormAITargetItems targetItemsGoal;
+    public DeathwormAITargetItems<?> targetItemsGoal;
     private int animationTick;
     private boolean willExplode = false;
     private int ticksTillExplosion = 60;
     private Animation currentAnimation;
-    private EntitySlowPart[] segments = new EntitySlowPart[7];
+    private final EntitySlowPart[] segments = new EntitySlowPart[7];
     private boolean isSandNavigator;
     private int growthCounter = 0;
     private PlayerEntity thrower;

@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.entity;
 
-import com.google.common.base.Predicate;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.HippogryphTypes;
 import com.iafenvoy.iceandfire.entity.ai.HippogryphAIMate;
@@ -161,8 +160,8 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         this.targetSelector.add(2, new AttackWithOwnerGoal(this));
         this.targetSelector.add(3, new RevengeGoal(this));
         this.targetSelector.add(4, new HippogryphAITargetItems<>(this, false));
-        this.targetSelector.add(5, new HippogryphAITarget(this, LivingEntity.class, false, (Predicate<Entity>) entity -> entity instanceof LivingEntity && !(entity instanceof AbstractHorseEntity) && DragonUtils.isAlive((LivingEntity) entity)));
-        this.targetSelector.add(5, new HippogryphAITarget(this, PlayerEntity.class, 350, false, (Predicate<PlayerEntity>) entity -> !entity.isCreative()));
+        this.targetSelector.add(5, new HippogryphAITarget<>(this, LivingEntity.class, false, entity -> !(entity instanceof AbstractHorseEntity) && DragonUtils.isAlive(entity)));
+        this.targetSelector.add(5, new HippogryphAITarget<>(this, PlayerEntity.class, 350, false, entity -> entity instanceof PlayerEntity player && !player.isCreative()));
     }
 
     @Override

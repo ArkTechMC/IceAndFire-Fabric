@@ -9,7 +9,7 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
 
 public final class IafRenderLayers extends RenderLayer {
-    protected static final Transparency GHOST_TRANSPARANCY = new Transparency("translucent_ghost_transparency", () -> {
+    private static final Transparency GHOST_TRANSPARANCY = new Transparency("translucent_ghost_transparency", () -> {
         RenderSystem.enableBlend();
         RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
     }, () -> {

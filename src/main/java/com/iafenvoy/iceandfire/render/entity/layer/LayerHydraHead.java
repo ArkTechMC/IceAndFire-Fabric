@@ -71,9 +71,9 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
 
     public static Identifier getHeadTexture(EntityHydra gorgon) {
         return switch (gorgon.getVariant()) {
-            default -> RenderHydra.TEXUTURE_0;
             case 1 -> RenderHydra.TEXUTURE_1;
             case 2 -> RenderHydra.TEXUTURE_2;
+            default -> RenderHydra.TEXUTURE_0;
         };
     }
 
@@ -105,9 +105,9 @@ public class LayerHydraHead extends FeatureRenderer<EntityHydra, ModelHydraBody>
     @Override
     public Identifier getTexture(EntityHydra gorgon) {
         return switch (gorgon.getVariant()) {
-            default -> RenderHydra.TEXUTURE_0;
             case 1 -> RenderHydra.TEXUTURE_1;
             case 2 -> RenderHydra.TEXUTURE_2;
+            default -> RenderHydra.TEXUTURE_0;
         };
     }
 }

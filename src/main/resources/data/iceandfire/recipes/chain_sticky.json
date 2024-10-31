@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "tag": "minecraft:slimeball"
+      "item": "minecraft:slimeball"
     },
     {
       "item": "iceandfire:chain"

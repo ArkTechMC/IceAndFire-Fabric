@@ -56,11 +56,6 @@ public class EntityDreadLichSkull extends PersistentProjectileEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-    }
-
-    @Override
     public void tick() {
         float sqrt = MathHelper.sqrt((float) (this.getVelocity().x * this.getVelocity().x + this.getVelocity().z * this.getVelocity().z));
         boolean flag = true;
