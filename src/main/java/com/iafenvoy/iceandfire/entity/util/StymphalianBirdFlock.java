@@ -33,7 +33,7 @@ public class StymphalianBirdFlock {
     }
 
     public static StymphalianBirdFlock getNearbyFlock(EntityStymphalianBird bird) {
-        float d0 = IafCommonConfig.INSTANCE.stymphalianBird.flockLength.getIntegerValue();
+        float d0 = IafCommonConfig.INSTANCE.stymphalianBird.flockLength.getValue();
         List<Entity> list = bird.getWorld().getOtherEntities(bird, (new Box(bird.getX(), bird.getY(), bird.getZ(), bird.getX() + 1.0D, bird.getY() + 1.0D, bird.getZ() + 1.0D)).expand(d0, 10.0D, d0), EntityStymphalianBird.STYMPHALIAN_PREDICATE);
         if (!list.isEmpty())
             for (Entity entity : list)

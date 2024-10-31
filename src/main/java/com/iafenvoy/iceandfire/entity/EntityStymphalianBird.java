@@ -70,9 +70,9 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getDoubleValue() * 2D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getValue() * 2D)
                 //FOLLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafCommonConfig.INSTANCE.stymphalianBird.targetSearchLength.getIntegerValue()))
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafCommonConfig.INSTANCE.stymphalianBird.targetSearchLength.getValue()))
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 4.0D);
     }
@@ -434,7 +434,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
     @Override
     public EntityData initialize(ServerWorldAccess worldIn, LocalDifficulty difficultyIn, SpawnReason reason, EntityData spawnDataIn, NbtCompound dataTag) {
         spawnDataIn = super.initialize(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.stymphalianBird.targetSearchLength.getIntegerValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(IafCommonConfig.INSTANCE.stymphalianBird.targetSearchLength.getValue());
         return spawnDataIn;
     }
 
@@ -496,7 +496,7 @@ public class EntityStymphalianBird extends HostileEntity implements IAnimatedEnt
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return IafCommonConfig.INSTANCE.stymphalianBird.attackAnimals.getBooleanValue();
+        return IafCommonConfig.INSTANCE.stymphalianBird.attackAnimals.getValue();
     }
 
     @Override

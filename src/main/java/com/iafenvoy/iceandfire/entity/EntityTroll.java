@@ -2,11 +2,11 @@ package com.iafenvoy.iceandfire.entity;
 
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.entity.ai.TrollAIFleeSun;
 import com.iafenvoy.iceandfire.entity.util.IHasCustomizableAttributes;
 import com.iafenvoy.iceandfire.entity.util.IHumanoid;
 import com.iafenvoy.iceandfire.entity.util.IVillagerFear;
-import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.uranus.animation.Animation;
@@ -70,11 +70,11 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.troll.maxHealth.getDoubleValue())
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.troll.maxHealth.getValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.35D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.troll.attackDamage.getDoubleValue())
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.troll.attackDamage.getValue())
                 //KNOCKBACK RESIST
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
                 //ARMOR
@@ -83,8 +83,8 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.troll.maxHealth.getDoubleValue());
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.troll.attackDamage.getDoubleValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.troll.maxHealth.getValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.troll.attackDamage.getValue());
     }
 
     private void setAvoidSun(boolean day) {
@@ -230,7 +230,7 @@ public class EntityTroll extends HostileEntity implements IAnimatedEntity, IVill
     protected void updatePostDeath() {
         super.updatePostDeath();
         if (this.deathTime == 20 && !this.getWorld().isClient) {
-            if (IafCommonConfig.INSTANCE.troll.dropWeapon.getBooleanValue()) {
+            if (IafCommonConfig.INSTANCE.troll.dropWeapon.getValue()) {
                 if (this.getRandom().nextInt(3) == 0) {
                     ItemStack weaponStack = new ItemStack(this.getWeaponType().getItem(), 1);
                     weaponStack.damage(this.getRandom().nextInt(250), this.getRandom(), null);

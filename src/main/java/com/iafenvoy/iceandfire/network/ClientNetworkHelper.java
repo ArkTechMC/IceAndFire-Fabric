@@ -54,7 +54,7 @@ public class ClientNetworkHelper {
                             if (baby) tamable.startRiding(player, true);
                             else {
                                 player.startRiding(tamable, true);
-                                if (IafClientConfig.INSTANCE.dragonAuto3rdPerson.getBooleanValue()) {
+                                if (IafClientConfig.INSTANCE.dragonAuto3rdPerson.getValue()) {
                                     prev = client.options.getPerspective();
                                     client.options.setPerspective(Perspective.THIRD_PERSON_BACK);
                                 }
@@ -63,7 +63,7 @@ public class ClientNetworkHelper {
                             if (baby) tamable.stopRiding();
                             else {
                                 player.stopRiding();
-                                if (IafClientConfig.INSTANCE.dragonAuto3rdPerson.getBooleanValue())
+                                if (IafClientConfig.INSTANCE.dragonAuto3rdPerson.getValue())
                                     client.options.setPerspective(prev);
                             }
                         }

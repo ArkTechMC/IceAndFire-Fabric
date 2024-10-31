@@ -2,8 +2,9 @@ package com.iafenvoy.iceandfire.config;
 
 import com.google.gson.JsonObject;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.jupiter.config.FileConfigContainer;
-import com.iafenvoy.jupiter.malilib.config.options.ConfigBoolean;
+import com.iafenvoy.jupiter.config.container.FileConfigContainer;
+import com.iafenvoy.jupiter.config.entry.BooleanEntry;
+import com.iafenvoy.jupiter.interfaces.IConfigEntry;
 import net.minecraft.util.Identifier;
 import org.apache.commons.io.FileUtils;
 
@@ -15,9 +16,9 @@ import java.util.Date;
 public class IafClientConfig extends FileConfigContainer {
     public static final IafClientConfig INSTANCE = new IafClientConfig();
     public static final int CURRENT_VERSION = 0;
-    public final ConfigBoolean customMainMenu = new ConfigBoolean("iceandfire.customMainMenu", true);
-    public final ConfigBoolean dragonAuto3rdPerson = new ConfigBoolean("iceandfire.dragonAuto3rdPerson", false);
-    public ConfigBoolean sirenShader = new ConfigBoolean("iceandfire.siren.shader", true);
+    public final IConfigEntry<Boolean> customMainMenu = new BooleanEntry("iceandfire.customMainMenu", true);
+    public final IConfigEntry<Boolean> dragonAuto3rdPerson = new BooleanEntry("iceandfire.dragonAuto3rdPerson", false);
+    public IConfigEntry<Boolean> sirenShader = new BooleanEntry("iceandfire.siren.shader", true);
 
     public IafClientConfig() {
         super(new Identifier("config.iceandfire.client"), "screen.iceandfire.client.title", "./config/iceandfire/iaf-client.json");
@@ -26,13 +27,14 @@ public class IafClientConfig extends FileConfigContainer {
     @Override
     public void init() {
         this.createTab("client", "iceandfire.client")
-                .addConfig(this.customMainMenu)
-                .addConfig(this.dragonAuto3rdPerson)
-                .addConfig(this.sirenShader);
+                .add(this.customMainMenu)
+                .add(this.dragonAuto3rdPerson)
+                .add(this.sirenShader);
     }
 
     @Override
     protected boolean shouldLoad(JsonObject obj) {
+        if (!obj.has("version")) return true;
         int version = obj.get("version").getAsInt();
         if (version != CURRENT_VERSION) {
             try {
@@ -41,9 +43,9 @@ public class IafClientConfig extends FileConfigContainer {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            IceAndFire.LOGGER.info("Wrong config version {} for mod {}! Automatically use version {} and backup old one.", version, IceAndFire.MOD_NAME, CURRENT_VERSION);
+            IceAndFire.LOGGER.info("Wrong client config version {} for mod {}! Automatically use version {} and backup old one.", version, IceAndFire.MOD_NAME, CURRENT_VERSION);
             return false;
-        } else IceAndFire.LOGGER.info("{} config version match.", IceAndFire.MOD_NAME);
+        } else IceAndFire.LOGGER.info("{} client config version match.", IceAndFire.MOD_NAME);
         return true;
     }
 

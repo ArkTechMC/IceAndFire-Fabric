@@ -94,16 +94,16 @@ public class ClientEvents {
             }
             GameRenderer renderer = MinecraftClient.getInstance().gameRenderer;
             EntityDataComponent data = EntityDataComponent.get(player);
-            if (IafClientConfig.INSTANCE.sirenShader.getBooleanValue() && data.sirenData.charmedBy == null && renderer.getPostProcessor() != null)
+            if (IafClientConfig.INSTANCE.sirenShader.getValue() && data.sirenData.charmedBy == null && renderer.getPostProcessor() != null)
                 if (SIREN_SHADER.toString().equals(renderer.getPostProcessor().getName()))
                     renderer.disablePostProcessor();
             if (data.sirenData.charmedBy == null) return;
-            if (IafClientConfig.INSTANCE.sirenShader.getBooleanValue() && !data.sirenData.isCharmed && renderer.getPostProcessor() != null && SIREN_SHADER.toString().equals(renderer.getPostProcessor().getName()))
+            if (IafClientConfig.INSTANCE.sirenShader.getValue() && !data.sirenData.isCharmed && renderer.getPostProcessor() != null && SIREN_SHADER.toString().equals(renderer.getPostProcessor().getName()))
                 renderer.disablePostProcessor();
             if (data.sirenData.isCharmed) {
                 if (entity.getRandom().nextInt(40) == 0)
                     entity.getWorld().addParticle(IafParticles.SIREN_APPEARANCE, player.getX(), player.getY(), player.getZ(), data.sirenData.charmedBy.getHairColor(), 0, 0);
-                if (IafClientConfig.INSTANCE.sirenShader.getBooleanValue() && renderer.getPostProcessor() == null)
+                if (IafClientConfig.INSTANCE.sirenShader.getValue() && renderer.getPostProcessor() == null)
                     renderer.loadPostProcessor(SIREN_SHADER);
             }
         }

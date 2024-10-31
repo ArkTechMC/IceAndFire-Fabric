@@ -150,12 +150,12 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.amphithere.maxHealth.getDoubleValue())
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.amphithere.maxHealth.getValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.amphithere.attackDamage.getDoubleValue())
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafCommonConfig.INSTANCE.amphithere.flightSpeed.getDoubleValue())
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.amphithere.attackDamage.getValue())
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafCommonConfig.INSTANCE.amphithere.flightSpeed.getValue())
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
@@ -363,7 +363,7 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
         if (this.getUntamedRider() == null)
             this.ridingTime = 0;
         if (!this.isTamed()) {
-            if (this.ridingTime > IafCommonConfig.INSTANCE.amphithere.tameTime.getIntegerValue() && this.getUntamedRider() != null && this.getUntamedRider() instanceof PlayerEntity) {
+            if (this.ridingTime > IafCommonConfig.INSTANCE.amphithere.tameTime.getValue() && this.getUntamedRider() != null && this.getUntamedRider() instanceof PlayerEntity) {
                 this.getWorld().sendEntityStatus(this, (byte) 45);
                 this.setOwner((PlayerEntity) this.getUntamedRider());
                 if (this.getTarget() == this.getUntamedRider())
@@ -514,9 +514,9 @@ public class EntityAmphithere extends TameableEntity implements ISyncMount, IAni
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.amphithere.maxHealth.getDoubleValue());
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.amphithere.attackDamage.getDoubleValue());
-        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafCommonConfig.INSTANCE.amphithere.flightSpeed.getDoubleValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.amphithere.maxHealth.getValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.amphithere.attackDamage.getValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafCommonConfig.INSTANCE.amphithere.flightSpeed.getValue());
     }
 
     @Override

@@ -3,11 +3,11 @@ package com.iafenvoy.iceandfire.entity;
 import com.google.common.collect.ImmutableList;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.DragonColor;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityEggInIce;
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
-import com.iafenvoy.iceandfire.data.DragonColor;
-import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -162,7 +162,7 @@ public class EntityDragonEgg extends LivingEntity implements IBlacklistedFromSta
             }
         }
 
-        if (this.getDragonAge() > IafCommonConfig.INSTANCE.dragon.eggBornTime.getIntegerValue()) {
+        if (this.getDragonAge() > IafCommonConfig.INSTANCE.dragon.eggBornTime.getValue()) {
             this.getWorld().setBlockState(this.getBlockPos(), Blocks.AIR.getDefaultState());
             EntityDragonBase dragon = dragonType.getEntity().create(this.getWorld());
 

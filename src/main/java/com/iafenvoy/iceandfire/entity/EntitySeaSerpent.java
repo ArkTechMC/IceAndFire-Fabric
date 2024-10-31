@@ -113,13 +113,13 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.seaSerpent.baseHealth.getDoubleValue())
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.seaSerpent.baseHealth.getValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15D)
                 //ATTACK
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0D)
                 //FALLOW RANGE
-                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafCommonConfig.INSTANCE.dragon.targetSearchLength.getIntegerValue()))
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, Math.min(2048, IafCommonConfig.INSTANCE.dragon.targetSearchLength.getValue()))
                 //ARMOR
                 .add(EntityAttributes.GENERIC_ARMOR, 3.0D);
     }
@@ -191,8 +191,8 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.seaSerpent.baseHealth.getDoubleValue());
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafCommonConfig.INSTANCE.dragon.targetSearchLength.getIntegerValue()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.seaSerpent.baseHealth.getValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafCommonConfig.INSTANCE.dragon.targetSearchLength.getValue()));
         this.updateAttributes();
     }
 
@@ -367,9 +367,9 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
 
     private void updateAttributes() {
         this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).setBaseValue(Math.min(0.25D, 0.15D * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafCommonConfig.INSTANCE.seaSerpent.attackDamage.getDoubleValue() * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafCommonConfig.INSTANCE.seaSerpent.baseHealth.getDoubleValue() * this.getSeaSerpentScale() * this.getAncientModifier()));
-        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafCommonConfig.INSTANCE.dragon.targetSearchLength.getIntegerValue()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(Math.max(4, IafCommonConfig.INSTANCE.seaSerpent.attackDamage.getValue() * this.getSeaSerpentScale() * this.getAncientModifier()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(Math.max(10, IafCommonConfig.INSTANCE.seaSerpent.baseHealth.getValue() * this.getSeaSerpentScale() * this.getAncientModifier()));
+        this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE).setBaseValue(Math.min(2048, IafCommonConfig.INSTANCE.dragon.targetSearchLength.getValue()));
         this.heal(30F * this.getSeaSerpentScale());
     }
 
@@ -611,7 +611,7 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
     }
 
     public void breakBlock() {
-        if (IafCommonConfig.INSTANCE.seaSerpent.griefing.getBooleanValue())
+        if (IafCommonConfig.INSTANCE.seaSerpent.griefing.getValue())
             for (int a = (int) Math.round(this.getBoundingBox().minX) - 2; a <= (int) Math.round(this.getBoundingBox().maxX) + 2; a++)
                 for (int b = (int) Math.round(this.getBoundingBox().minY) - 1; (b <= (int) Math.round(this.getBoundingBox().maxY) + 2) && (b <= 127); b++)
                     for (int c = (int) Math.round(this.getBoundingBox().minZ) - 2; c <= (int) Math.round(this.getBoundingBox().maxZ) + 2; c++) {

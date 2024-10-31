@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.entity;
 
+import com.iafenvoy.iceandfire.data.IafSkullType;
 import com.iafenvoy.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.iafenvoy.iceandfire.entity.util.IDeadMob;
-import com.iafenvoy.iceandfire.data.IafSkullType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;

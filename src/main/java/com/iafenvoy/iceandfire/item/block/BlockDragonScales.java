@@ -12,7 +12,6 @@ import net.minecraft.text.Text;
 import net.minecraft.world.BlockView;
 
 import java.util.List;
-import java.util.Locale;
 
 public class BlockDragonScales extends Block implements IDragonProof {
     final DragonColor type;

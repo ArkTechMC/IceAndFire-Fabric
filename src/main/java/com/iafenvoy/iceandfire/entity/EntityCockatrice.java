@@ -89,7 +89,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return MobEntity.createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.cockatrice.maxHealth.getDoubleValue())
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.cockatrice.maxHealth.getValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4D)
                 //ATTACK
@@ -102,7 +102,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.cockatrice.maxHealth.getDoubleValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(IafCommonConfig.INSTANCE.cockatrice.maxHealth.getValue());
     }
 
     @Override
@@ -562,7 +562,7 @@ public class EntityCockatrice extends TameableEntity implements IAnimatedEntity,
 
     private int getFriendsCount(LivingEntity attackTarget) {
         if (this.getTarget() == null) return 0;
-        float dist = IafCommonConfig.INSTANCE.cockatrice.chickenSearchLength.getIntegerValue();
+        float dist = IafCommonConfig.INSTANCE.cockatrice.chickenSearchLength.getValue();
         List<EntityCockatrice> list = this.getWorld().getNonSpectatingEntities(EntityCockatrice.class, this.getBoundingBox().stretch(dist, dist, dist));
         int i = 0;
         for (EntityCockatrice cockatrice : list)

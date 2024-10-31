@@ -25,7 +25,7 @@ public class WorldGenSirenIsland extends Feature<DefaultFeatureConfig> implement
 
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
-        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.siren.spawnChance.getDoubleValue(), context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), false)) {
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.siren.spawnChance.getValue(), context.getWorld(), context.getRandom(), context.getOrigin(), this.getId(), false)) {
             return false;
         }
 

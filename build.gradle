@@ -37,6 +37,9 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
     flatDir {
         dir "./flatLib"
     }
@@ -54,14 +57,14 @@ dependencies {
     modImplementation(include("com.iafenvoy:fabric-trade-api:0.1.2"))
 
     // Uranus
-    modImplementation "curse.maven:uranus-1010827:5699484"
+    modImplementation "maven.modrinth:uranus:MSGUcQEI"
 
     // CCA
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}"))
     modImplementation(include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}"))
 
     // Jupiter
-    modImplementation "curse.maven:jupiter-1072905:5685082"
+    modImplementation "maven.modrinth:jupiter:LHn5oRyY"
 
     // Optional dependencies
     // ModMenu

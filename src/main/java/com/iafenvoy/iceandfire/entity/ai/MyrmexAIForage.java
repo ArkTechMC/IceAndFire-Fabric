@@ -180,8 +180,8 @@ public class MyrmexAIForage extends Goal {
         this.wanderRadius *= 2;
         // this.myrmex.setWaitTicks(80+new Random().nextInt(40));
         // Set target as random position inside wanderRadius
-        if (this.wanderRadius >= IafCommonConfig.INSTANCE.myrmex.maximumWanderRadius.getIntegerValue()) {
-            this.wanderRadius = IafCommonConfig.INSTANCE.myrmex.maximumWanderRadius.getIntegerValue();
+        if (this.wanderRadius >= IafCommonConfig.INSTANCE.myrmex.maximumWanderRadius.getValue()) {
+            this.wanderRadius = IafCommonConfig.INSTANCE.myrmex.maximumWanderRadius.getValue();
             this.myrmex.setWaitTicks(80 + ThreadLocalRandom.current().nextInt(40));
             // Keep track of how many times the myrmex has potentially not found a path to a
             // target

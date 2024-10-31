@@ -142,15 +142,15 @@ public final class IafEntities {
     }
 
     public static void addSpawners() {
-        if (IafCommonConfig.INSTANCE.hippogryphs.spawn.getBooleanValue())
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafCommonConfig.INSTANCE.hippogryphs.spawnWeight.getIntegerValue(), 1, 1);
-        if (IafCommonConfig.INSTANCE.lich.spawn.getBooleanValue())
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafCommonConfig.INSTANCE.lich.spawnWeight.getIntegerValue(), 1, 1);
-        if (IafCommonConfig.INSTANCE.cockatrice.spawn.getBooleanValue())
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafCommonConfig.INSTANCE.cockatrice.spawnWeight.getIntegerValue(), 1, 2);
-        if (IafCommonConfig.INSTANCE.amphithere.spawn.getBooleanValue())
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafCommonConfig.INSTANCE.amphithere.spawnWeight.getIntegerValue(), 1, 3);
-        if (IafCommonConfig.INSTANCE.troll.spawn.getBooleanValue())
-            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafCommonConfig.INSTANCE.troll.spawnWeight.getIntegerValue(), 1, 3);
+        if (IafCommonConfig.INSTANCE.hippogryphs.spawn.getValue())
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.HIPPOGRYPH), SpawnGroup.CREATURE, IafEntities.HIPPOGRYPH, IafCommonConfig.INSTANCE.hippogryphs.spawnWeight.getValue(), 1, 1);
+        if (IafCommonConfig.INSTANCE.lich.spawn.getValue())
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.MAUSOLEUM), SpawnGroup.MONSTER, IafEntities.DREAD_LICH, IafCommonConfig.INSTANCE.lich.spawnWeight.getValue(), 1, 1);
+        if (IafCommonConfig.INSTANCE.cockatrice.spawn.getValue())
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.COCKATRICE), SpawnGroup.CREATURE, IafEntities.COCKATRICE, IafCommonConfig.INSTANCE.cockatrice.spawnWeight.getValue(), 1, 2);
+        if (IafCommonConfig.INSTANCE.amphithere.spawn.getValue())
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.AMPHITHERE), SpawnGroup.CREATURE, IafEntities.AMPHITHERE, IafCommonConfig.INSTANCE.amphithere.spawnWeight.getValue(), 1, 3);
+        if (IafCommonConfig.INSTANCE.troll.spawn.getValue())
+            BiomeModifications.addSpawn(context -> context.hasTag(IafBiomeTags.TROLL), SpawnGroup.MONSTER, IafEntities.TROLL, IafCommonConfig.INSTANCE.troll.spawnWeight.getValue(), 1, 3);
     }
 }

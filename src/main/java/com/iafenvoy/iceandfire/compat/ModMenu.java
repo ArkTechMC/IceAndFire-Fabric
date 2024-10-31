@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.compat;
 
 import com.iafenvoy.iceandfire.config.IafClientConfig;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.jupiter.screen.ConfigSelectScreen;
+import com.iafenvoy.jupiter.render.screen.ConfigSelectScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;

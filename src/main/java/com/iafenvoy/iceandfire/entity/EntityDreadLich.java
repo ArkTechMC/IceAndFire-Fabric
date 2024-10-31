@@ -64,7 +64,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         BlockPos blockpos = pos.down();
         if (reason == SpawnReason.SPAWNER) return true;
         if (!worldIn.getBlockState(blockpos).allowsSpawning(worldIn, blockpos, typeIn)) return false;
-        return randomIn.nextDouble() < IafCommonConfig.INSTANCE.lich.spawnChance.getDoubleValue();
+        return randomIn.nextDouble() < IafCommonConfig.INSTANCE.lich.spawnChance.getValue();
     }
 
     public static DefaultAttributeContainer.Builder bakeAttributes() {

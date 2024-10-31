@@ -65,7 +65,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getDoubleValue() * 3.5D)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getValue() * 3.5D)
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 128.0D)
                 //ARMOR
@@ -170,7 +170,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                 }
             }
         }
-        if (!this.getWorld().isClient && this.eggTicks > IafCommonConfig.INSTANCE.myrmex.pregnantTicks.getIntegerValue() && this.getHive() == null || !this.getWorld().isClient && this.getHive() != null && this.getHive().repopulate() && this.eggTicks > IafCommonConfig.INSTANCE.myrmex.pregnantTicks.getIntegerValue()) {
+        if (!this.getWorld().isClient && this.eggTicks > IafCommonConfig.INSTANCE.myrmex.pregnantTicks.getValue() && this.getHive() == null || !this.getWorld().isClient && this.getHive() != null && this.getHive().repopulate() && this.eggTicks > IafCommonConfig.INSTANCE.myrmex.pregnantTicks.getValue()) {
             float radius = -5.25F;
             float angle = (0.01745329251F * this.bodyYaw);
             double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
@@ -267,7 +267,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getDoubleValue() * 3.5D);
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getValue() * 3.5D);
     }
 
     @Override

@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.render.entity;
 
 import com.google.common.collect.Maps;
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.entity.EntityMobSkull;
 import com.iafenvoy.iceandfire.data.IafSkullType;
+import com.iafenvoy.iceandfire.entity.EntityMobSkull;
 import com.iafenvoy.iceandfire.render.model.*;
 import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.uranus.client.model.TabulaModel;

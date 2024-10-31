@@ -223,7 +223,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
         }
         if (this.getGrowthStage() < 2) {
             this.growthTicks++;
-            if (this.growthTicks == IafCommonConfig.INSTANCE.myrmex.larvaTicks.getIntegerValue()) {
+            if (this.growthTicks == IafCommonConfig.INSTANCE.myrmex.larvaTicks.getValue()) {
                 this.setGrowthStage(this.getGrowthStage() + 1);
                 this.growthTicks = 0;
             }
@@ -884,7 +884,7 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
 
     @Override
     public int maxSearchNodes() {
-        return IafCommonConfig.INSTANCE.dragon.maxPathingNodes.getIntegerValue();
+        return IafCommonConfig.INSTANCE.dragon.maxPathingNodes.getValue();
     }
 
     @Override

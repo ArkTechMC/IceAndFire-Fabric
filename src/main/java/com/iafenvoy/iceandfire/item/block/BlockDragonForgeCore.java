@@ -1,7 +1,7 @@
 package com.iafenvoy.iceandfire.item.block;
 
-import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForge;
 import com.iafenvoy.iceandfire.data.DragonType;
+import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForge;
 import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.item.block.util.INoTab;
 import com.iafenvoy.iceandfire.registry.IafBlockEntities;

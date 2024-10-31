@@ -34,7 +34,7 @@ public class ItemDragonSeeker extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (world.isClient) return super.use(world, user, hand);
-        if (!IafCommonConfig.INSTANCE.misc.enableDragonSeeker.getBooleanValue()) {
+        if (!IafCommonConfig.INSTANCE.misc.enableDragonSeeker.getValue()) {
             user.sendMessage(Text.translatable("text.iceandfire.not_enable"), false);
             return super.use(world, user, hand);
         }

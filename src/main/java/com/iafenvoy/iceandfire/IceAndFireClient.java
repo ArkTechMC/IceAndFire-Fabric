@@ -17,7 +17,7 @@ import com.iafenvoy.iceandfire.render.model.util.DragonAnimationsLibrary;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonModelTypes;
 import com.iafenvoy.iceandfire.render.model.util.EnumDragonPoses;
 import com.iafenvoy.iceandfire.render.model.util.EnumSeaSerpentAnimations;
-import com.iafenvoy.jupiter.malilib.config.ConfigManager;
+import com.iafenvoy.jupiter.ConfigManager;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

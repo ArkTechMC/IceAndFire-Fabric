@@ -3,10 +3,10 @@ package com.iafenvoy.iceandfire.entity;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonAttacks;
 import com.iafenvoy.iceandfire.entity.util.dragon.IafDragonDestructionManager;
-import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
@@ -54,7 +54,7 @@ public class EntityLightningDragon extends EntityDragonBase {
     }
 
     public EntityLightningDragon(EntityType<?> t, World worldIn) {
-        super(t, worldIn, DragonType.LIGHTNING, 1, 1 + IafCommonConfig.INSTANCE.dragon.attackDamage.getIntegerValue(), IafCommonConfig.INSTANCE.dragon.maxHealth.getDoubleValue() * 0.04, IafCommonConfig.INSTANCE.dragon.maxHealth.getDoubleValue(), 0.15F, 0.4F);
+        super(t, worldIn, DragonType.LIGHTNING, 1, 1 + IafCommonConfig.INSTANCE.dragon.attackDamage.getValue(), IafCommonConfig.INSTANCE.dragon.maxHealth.getValue() * 0.04, IafCommonConfig.INSTANCE.dragon.maxHealth.getValue(), 0.15F, 0.4F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         ANIMATION_SPEAK = Animation.create(20);

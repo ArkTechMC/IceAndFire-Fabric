@@ -57,7 +57,7 @@ public final class IafFeatures {
     public static boolean isFarEnoughFromSpawn(final WorldAccess level, final BlockPos position) {
         WorldProperties spawnPoint = level.getLevelProperties();
         BlockPos spawnRelative = new BlockPos(spawnPoint.getSpawnX(), position.getY(), spawnPoint.getSpawnY());
-        return !spawnRelative.isWithinDistance(position, IafCommonConfig.INSTANCE.worldGen.dangerousDistanceLimit.getFloatValue());
+        return !spawnRelative.isWithinDistance(position, IafCommonConfig.INSTANCE.worldGen.dangerousDistanceLimit.getValue().floatValue());
     }
 
     public static boolean isFarEnoughFromDangerousGen(final ServerWorldAccess level, final BlockPos position, final String id) {

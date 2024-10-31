@@ -2,11 +2,11 @@ package com.iafenvoy.iceandfire.entity.util.dragon;
 
 import com.iafenvoy.iceandfire.api.IafEvents;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.data.component.EntityDataComponent;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityDragonForgeInput;
 import com.iafenvoy.iceandfire.entity.util.BlockLaunchExplosion;
-import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.item.block.BlockCharedPath;
 import com.iafenvoy.iceandfire.item.block.BlockFallingReturningState;
 import com.iafenvoy.iceandfire.item.block.BlockReturningState;
@@ -38,13 +38,13 @@ public class IafDragonDestructionManager {
 
         if (dragon.dragonType == DragonType.FIRE) {
             statusDuration = 5 + dragon.getDragonStage() * 5;
-            damageScale = IafCommonConfig.INSTANCE.dragon.attackDamageFire.getFloatValue();
+            damageScale = IafCommonConfig.INSTANCE.dragon.attackDamageFire.getValue().floatValue();
         } else if (dragon.dragonType == DragonType.ICE) {
             statusDuration = 50 * dragon.getDragonStage();
-            damageScale = IafCommonConfig.INSTANCE.dragon.attackDamageIce.getFloatValue();
+            damageScale = IafCommonConfig.INSTANCE.dragon.attackDamageIce.getValue().floatValue();
         } else if (dragon.dragonType == DragonType.LIGHTNING) {
             statusDuration = 3;
-            damageScale = IafCommonConfig.INSTANCE.dragon.attackDamageLightning.getFloatValue();
+            damageScale = IafCommonConfig.INSTANCE.dragon.attackDamageLightning.getValue().floatValue();
         } else return;
 
         double damageRadius = 3.5;
@@ -172,7 +172,7 @@ public class IafDragonDestructionManager {
             }
         });
 
-        if (IafCommonConfig.INSTANCE.dragon.explosiveBreath.getBooleanValue())
+        if (IafCommonConfig.INSTANCE.dragon.explosiveBreath.getValue())
             causeExplosion(level, center, dragon, damageSource, dragon.getDragonStage());
     }
 

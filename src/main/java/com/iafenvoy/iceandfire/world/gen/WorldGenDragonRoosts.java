@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.world.gen;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
-import com.iafenvoy.iceandfire.entity.EntityDragonBase;
-import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.data.DragonType;
+import com.iafenvoy.iceandfire.entity.EntityDragonBase;
+import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.util.WorldUtil;
 import com.iafenvoy.iceandfire.world.IafWorldData;
@@ -50,7 +50,7 @@ public abstract class WorldGenDragonRoosts extends Feature<DefaultFeatureConfig>
     @Override
     public boolean generate(final FeatureContext<DefaultFeatureConfig> context) {
         Random random = context.getRandom();
-        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.dragon.generateRoostChance.getDoubleValue(), context.getWorld(), random, context.getOrigin(), this.getId(), true)) {
+        if (!WorldUtil.canGenerate(IafCommonConfig.INSTANCE.dragon.generateRoostChance.getValue(), context.getWorld(), random, context.getOrigin(), this.getId(), true)) {
             return false;
         }
 

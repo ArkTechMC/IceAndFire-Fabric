@@ -122,14 +122,14 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
-                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafCommonConfig.INSTANCE.hippogryphs.fightSpeedMod.getDoubleValue())
+                .add(EntityAttributes.GENERIC_FLYING_SPEED, IafCommonConfig.INSTANCE.hippogryphs.fightSpeedMod.getValue())
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5.0D)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32.0D);
     }
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafCommonConfig.INSTANCE.hippogryphs.fightSpeedMod.getDoubleValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_FLYING_SPEED).setBaseValue(IafCommonConfig.INSTANCE.hippogryphs.fightSpeedMod.getValue());
     }
 
     protected boolean isOverAir() {
@@ -536,7 +536,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
 
     @Override
     public double getFlightSpeedModifier() {
-        return IafCommonConfig.INSTANCE.hippogryphs.fightSpeedMod.getDoubleValue() * 0.9F;
+        return IafCommonConfig.INSTANCE.hippogryphs.fightSpeedMod.getValue() * 0.9F;
     }
 
     @Override
@@ -826,7 +826,7 @@ public class EntityHippogryph extends TameableEntity implements NamedScreenHandl
             this.setVelocity(this.getVelocity().add(0, up, 0));
         }
         if ((flying || hovering) && this.age % 20 == 0 && this.isOverAir()) {
-            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafCommonConfig.INSTANCE.dragon.flapNoiseDistance.getIntegerValue() / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
+            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_FLAP, this.getSoundVolume() * ((float) IafCommonConfig.INSTANCE.dragon.flapNoiseDistance.getValue() / 2), 0.6F + this.random.nextFloat() * 0.6F * this.getSoundPitch());
         }
         if (this.isOnGround() && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
             this.setFlying(false);

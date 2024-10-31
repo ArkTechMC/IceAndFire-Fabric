@@ -1,8 +1,8 @@
 package com.iafenvoy.iceandfire.render.entity.layer;
 
+import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.EntityDreadQueen;
-import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.uranus.client.model.AdvancedEntityModel;
 import com.iafenvoy.uranus.client.model.AdvancedModelBox;
 import com.iafenvoy.uranus.client.model.TabulaModel;

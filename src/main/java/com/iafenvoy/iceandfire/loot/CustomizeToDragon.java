@@ -2,8 +2,8 @@ package com.iafenvoy.iceandfire.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.data.DragonColor;
+import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.item.ItemDragonEgg;
 import com.iafenvoy.iceandfire.item.ItemDragonScales;
 import com.iafenvoy.iceandfire.item.ItemDragonSkull;

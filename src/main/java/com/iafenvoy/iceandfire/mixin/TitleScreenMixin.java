@@ -38,7 +38,7 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(method = "init", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
-        if (!IafClientConfig.INSTANCE.customMainMenu.getBooleanValue()) return;
+        if (!IafClientConfig.INSTANCE.customMainMenu.getValue()) return;
         SplashTextRenderer renderer = TitleScreenRenderManager.getSplash();
         if (renderer != null)
             this.splashText = renderer;
@@ -46,18 +46,18 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(method = "tick", at = @At("RETURN"))
     private void onTick(CallbackInfo ci) {
-        if (!IafClientConfig.INSTANCE.customMainMenu.getBooleanValue()) return;
+        if (!IafClientConfig.INSTANCE.customMainMenu.getValue()) return;
         TitleScreenRenderManager.tick();
     }
 
     @WrapWithCondition(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"))
     private boolean cancelOriginalRender(RotatingCubeMapRenderer instance, float delta, float alpha) {
-        return !IafClientConfig.INSTANCE.customMainMenu.getBooleanValue();
+        return !IafClientConfig.INSTANCE.customMainMenu.getValue();
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/RotatingCubeMapRenderer;render(FF)V"))
     private void onRenderBackground(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (!IafClientConfig.INSTANCE.customMainMenu.getBooleanValue()) return;
+        if (!IafClientConfig.INSTANCE.customMainMenu.getValue()) return;
         TitleScreenRenderManager.renderBackground(context, this.width, this.height);
         float f = this.doBackgroundFade ? (float) (Util.getMeasuringTimeMs() - this.backgroundFadeStart) / 1000.0F : 1.0F;
         float g = this.doBackgroundFade ? MathHelper.clamp(f - 1.0F, 0.0F, 1.0F) : 1.0F;

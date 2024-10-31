@@ -20,7 +20,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RotationAxis;
 import org.joml.Matrix4f;
 
-import java.util.Locale;
 import java.util.Random;
 
 public class LecternScreen extends HandledScreen<LecternScreenHandler> {

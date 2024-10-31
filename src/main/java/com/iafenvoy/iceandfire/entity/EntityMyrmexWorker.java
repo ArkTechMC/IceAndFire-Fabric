@@ -50,7 +50,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getDoubleValue())
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getValue())
                 //FOLLOW RANGE
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 32D)
                 //ARMOR
@@ -59,7 +59,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public void setConfigurableAttributes() {
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getDoubleValue());
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE).setBaseValue(IafCommonConfig.INSTANCE.myrmex.baseAttackDamage.getValue());
     }
 
     @Override
@@ -191,7 +191,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     public boolean shouldEnterHive() {
         if (this.holdingSomething()) return true;
         if (this.getWorld().isDay()) return false;
-        return !IafCommonConfig.INSTANCE.myrmex.hiveIgnoreDaytime.getBooleanValue();
+        return !IafCommonConfig.INSTANCE.myrmex.hiveIgnoreDaytime.getValue();
     }
 
     @Override

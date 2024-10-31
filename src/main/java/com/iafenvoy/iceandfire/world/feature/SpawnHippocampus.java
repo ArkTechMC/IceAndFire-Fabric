@@ -27,7 +27,7 @@ public class SpawnHippocampus extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
         BlockPos oceanPos = worldIn.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, position.add(8, 0, 8));
 
-        if (rand.nextDouble() < IafCommonConfig.INSTANCE.hippocampus.spawnChance.getDoubleValue()) {
+        if (rand.nextDouble() < IafCommonConfig.INSTANCE.hippocampus.spawnChance.getValue()) {
             for (int i = 0; i < rand.nextInt(5); i++) {
                 BlockPos pos = oceanPos.add(rand.nextInt(10) - 5, rand.nextInt(30), rand.nextInt(10) - 5);
                 if (worldIn.getFluidState(pos).getFluid() == Fluids.WATER) {

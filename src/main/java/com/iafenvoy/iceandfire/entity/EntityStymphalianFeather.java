@@ -19,15 +19,15 @@ public class EntityStymphalianFeather extends PersistentProjectileEntity {
 
     public EntityStymphalianFeather(EntityType<? extends PersistentProjectileEntity> t, World worldIn, LivingEntity shooter) {
         super(t, shooter, worldIn);
-        this.setDamage(IafCommonConfig.INSTANCE.stymphalianBird.featherAttackDamage.getDoubleValue());
+        this.setDamage(IafCommonConfig.INSTANCE.stymphalianBird.featherAttackDamage.getValue());
     }
 
     @Override
     public void remove(RemovalReason reason) {
         super.remove(reason);
-        if (IafCommonConfig.INSTANCE.stymphalianBird.featherDropChance.getDoubleValue() > 0) {
+        if (IafCommonConfig.INSTANCE.stymphalianBird.featherDropChance.getValue() > 0) {
             if (this.getWorld().isClient) {
-                if (this.random.nextDouble() < IafCommonConfig.INSTANCE.stymphalianBird.featherDropChance.getDoubleValue()) {
+                if (this.random.nextDouble() < IafCommonConfig.INSTANCE.stymphalianBird.featherDropChance.getValue()) {
                     this.dropStack(this.asItemStack(), 0.1F);
                 }
             }

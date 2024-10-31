@@ -69,13 +69,13 @@ public interface DragonSteelOverrides<T extends ToolItem> {
                 target.damage(attacker.getWorld().getDamageSources().generic(), this.getAttackDamage(item) + 5.0F);
         }
         if (this.isDragonSteelFire(item.getMaterial())) {
-            if (IafCommonConfig.INSTANCE.armors.dragonFireAbility.getBooleanValue()) {
+            if (IafCommonConfig.INSTANCE.armors.dragonFireAbility.getValue()) {
                 target.setOnFireFor(15);
                 target.takeKnockback(1F, attacker.getX() - target.getX(), attacker.getZ() - target.getZ());
             }
         }
         if (this.isDragonSteelIce(item.getMaterial())) {
-            if (IafCommonConfig.INSTANCE.armors.dragonIceAbility.getBooleanValue()) {
+            if (IafCommonConfig.INSTANCE.armors.dragonIceAbility.getValue()) {
                 EntityDataComponent data = EntityDataComponent.get(target);
                 data.frozenData.setFrozen(target, 300);
                 target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 2));
@@ -83,7 +83,7 @@ public interface DragonSteelOverrides<T extends ToolItem> {
             }
         }
         if (this.isDragonSteelLightning(item.getMaterial())) {
-            if (IafCommonConfig.INSTANCE.armors.dragonLightningAbility.getBooleanValue()) {
+            if (IafCommonConfig.INSTANCE.armors.dragonLightningAbility.getValue()) {
                 boolean flag = true;
                 if (attacker instanceof PlayerEntity)
                     if (attacker.handSwingProgress > 0.2)
@@ -108,15 +108,15 @@ public interface DragonSteelOverrides<T extends ToolItem> {
         if (tier == IafItems.MYRMEX_CHITIN_TOOL_MATERIAL)
             tooltip.add(Text.translatable("myrmextools.hurt").formatted(Formatting.GREEN));
         if (this.isDragonSteelFire(tier)) {
-            if (IafCommonConfig.INSTANCE.armors.dragonFireAbility.getBooleanValue())
+            if (IafCommonConfig.INSTANCE.armors.dragonFireAbility.getValue())
                 tooltip.add(Text.translatable("dragon_sword_fire.hurt2").formatted(Formatting.DARK_RED));
         }
         if (this.isDragonSteelIce(tier)) {
-            if (IafCommonConfig.INSTANCE.armors.dragonIceAbility.getBooleanValue())
+            if (IafCommonConfig.INSTANCE.armors.dragonIceAbility.getValue())
                 tooltip.add(Text.translatable("dragon_sword_ice.hurt2").formatted(Formatting.AQUA));
         }
         if (this.isDragonSteelLightning(tier)) {
-            if (IafCommonConfig.INSTANCE.armors.dragonLightningAbility.getBooleanValue())
+            if (IafCommonConfig.INSTANCE.armors.dragonLightningAbility.getValue())
                 tooltip.add(Text.translatable("dragon_sword_lightning.hurt2").formatted(Formatting.DARK_PURPLE));
         }
     }

@@ -38,7 +38,7 @@ public class EntityDreadQueen extends EntityDreadMob implements IAnimatedEntity,
     public static DefaultAttributeContainer.Builder bakeAttributes() {
         return createMobAttributes()
                 //HEALTH
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.misc.dreadQueenMaxHealth.getDoubleValue())
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, IafCommonConfig.INSTANCE.misc.dreadQueenMaxHealth.getValue())
                 //SPEED
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3D)
                 //ATTACK
