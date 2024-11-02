@@ -14,7 +14,7 @@ import net.minecraft.world.gen.structure.StructureType;
 import java.util.Optional;
 import java.util.Set;
 
-public class IafStructure extends Structure {
+public abstract class IafStructure extends Structure {
     protected final RegistryEntry<StructurePool> startPool;
     protected final Optional<Identifier> startJigsawName;
     protected final int size;
@@ -46,15 +46,4 @@ public class IafStructure extends Structure {
                 return true;
         return false;
     }
-
-    @Override
-    protected Optional<StructurePosition> getStructurePosition(Context pContext) {
-        return Optional.empty();
-    }
-
-    @Override
-    public StructureType<?> getType() {
-        return null;
-    }
-
 }

@@ -47,6 +47,7 @@ public class IceAndFire implements ModInitializer {
         IafBlockEntities.init();
         IafBannerPatterns.init();
         IafPlacementFilters.init();
+        IafStructurePieces.init();
         IafStructureTypes.init();
         IafStructures.init();
         IafScreenHandlers.init();

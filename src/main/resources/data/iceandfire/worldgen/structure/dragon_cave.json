@@ -1,0 +1,6 @@
+{
+  "type": "iceandfire:dragon_cave",
+  "biomes": "#iceandfire:structure_gen/fire",
+  "spawn_overrides": {},
+  "step": "underground_structures"
+}
