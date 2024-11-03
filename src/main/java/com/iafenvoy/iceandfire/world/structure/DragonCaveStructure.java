@@ -1,23 +1,15 @@
 package com.iafenvoy.iceandfire.world.structure;
 
 import com.google.common.collect.Lists;
-import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
-import com.iafenvoy.iceandfire.registry.IafBlocks;
-import com.iafenvoy.iceandfire.registry.IafEntities;
-import com.iafenvoy.iceandfire.registry.IafStructurePieces;
-import com.iafenvoy.iceandfire.registry.IafStructureTypes;
 import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
 import com.iafenvoy.iceandfire.world.gen.WorldGenCaveStalactites;
-import com.iafenvoy.iceandfire.world.gen.WorldGenDragonCave;
 import com.iafenvoy.uranus.util.ShapeBuilder;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
@@ -29,6 +21,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.structure.StructureContext;
 import net.minecraft.structure.StructurePiece;
+import net.minecraft.structure.StructurePieceType;
 import net.minecraft.structure.StructurePiecesCollector;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -43,15 +36,12 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.structure.Structure;
-import net.minecraft.world.gen.structure.StructureType;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DragonCaveStructure extends Structure {
-    public static final Codec<DragonCaveStructure> ENTRY_CODEC = RecordCodecBuilder.<DragonCaveStructure>mapCodec(instance ->
-            instance.group(configCodecBuilder(instance)).apply(instance, DragonCaveStructure::new)).codec();
+public abstract class DragonCaveStructure extends Structure {
     private static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
     protected boolean male;
 
@@ -73,41 +63,31 @@ public class DragonCaveStructure extends Structure {
         List<StructurePiece> list = Lists.newArrayList();
         int r = context.random().nextInt(30);
         long seed = context.random().nextLong();
-        for (int i = -2; i <= 2; i++)
-            for (int j = -2; j <= 2; j++)
-                list.add(new DragonCavePiece(0, new BlockBox(pos.getX() + i * 16, pos.getY(), pos.getZ() + j * 16,
-                        pos.getX() + i * 16, pos.getY(), pos.getZ() + j * 16), this.male, new BlockPos(i * 16, 0, j * 16), 20 - r, seed));
+        for (int i = -1; i <= 1; i++)
+            for (int j = -1; j <= 1; j++)
+                list.add(this.createPiece(0, new BlockBox(pos.getX() + i * 32, pos.getY(), pos.getZ() + j * 32, pos.getX() + i * 32, pos.getY(), pos.getZ() + j * 32), this.male, new BlockPos(i * 32, 0, j * 32), 20 - r, seed));
         Objects.requireNonNull(collector);
         list.forEach(collector::addPiece);
     }
 
-    @Override
-    public StructureType<?> getType() {
-        return IafStructureTypes.DRAGON_CAVE;
-    }
+    protected abstract DragonCavePiece createPiece(int length, BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed);
 
-    public static class DragonCavePiece extends StructurePiece {
-        public static final Identifier DRAGON_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/fire_dragon_female_cave");
-        public static final Identifier DRAGON_MALE_CHEST = new Identifier(IceAndFire.MOD_ID, "chest/fire_dragon_male_cave");
-        public static final BlockState PALETTE_BLOCK1 = IafBlocks.CHARRED_STONE.getDefaultState();
-        public static final BlockState PALETTE_BLOCK2 = IafBlocks.CHARRED_COBBLESTONE.getDefaultState();
-        public static final WorldGenCaveStalactites CEILING_DECO = new WorldGenCaveStalactites(IafBlocks.CHARRED_STONE, 3);
-        public static final BlockState TREASURE_PILE = IafBlocks.GOLD_PILE.getDefaultState();
+    protected abstract static class DragonCavePiece extends StructurePiece {
         private final boolean male;
         private final BlockPos offset;
         private final int y;
         private final long seed;
 
-        protected DragonCavePiece(int length, BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed) {
-            super(IafStructurePieces.DRAGON_CAVE, length, boundingBox);
+        protected DragonCavePiece(StructurePieceType type, int length, BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed) {
+            super(type, length, boundingBox);
             this.male = male;
             this.offset = offset;
             this.y = y;
             this.seed = seed;
         }
 
-        public DragonCavePiece(StructureContext structureContext, NbtCompound nbt) {
-            super(IafStructurePieces.DRAGON_CAVE, nbt);
+        public DragonCavePiece(StructurePieceType type, NbtCompound nbt) {
+            super(type, nbt);
             this.male = nbt.getBoolean("male");
             this.offset = BlockPos.fromLong(nbt.getLong("offset"));
             this.y = nbt.getInt("down");
@@ -124,24 +104,7 @@ public class DragonCaveStructure extends Structure {
 
         @Override
         public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pivot) {
-//            BlockPos position = pivot.add(this.offset);
-//            if (random.nextDouble() >= IafCommonConfig.INSTANCE.dragon.generateDenChance.getValue() || !IafFeatures.isFarEnoughFromSpawn(world, position) || !IafFeatures.isFarEnoughFromDangerousGen(world, position, this.getId(), this.getFeatureType()))
-//                return;
-
-            int j = 40;
-            // Update the position, so it doesn't go above the ocean floor
-//            for (int k = 0; k < 20; ++k)
-//                for (int l = 0; l < 20; ++l)
-//                    j = Math.min(j, world.getTopY(Heightmap.Type.OCEAN_FLOOR_WG, position.getX() + k, position.getZ() + l));
-
-            // Offset the position randomly
             random = new CheckedRandom(this.seed);
-            j -= 20;
-            j -= this.y;
-
-            // If the cave generation point is too low
-            if (j < world.getBottomY() + 20)
-                return;
             // Center the position at the "middle" of the chunk
             BlockPos position = new BlockPos((chunkPos.x << 4) + 8, this.y, (chunkPos.z << 4) + 8).subtract(this.offset);
             int dragonAge = 75 + random.nextInt(50);
@@ -153,14 +116,14 @@ public class DragonCaveStructure extends Structure {
             }
         }
 
-        private boolean isIn(ChunkPos chunkPos, BlockPos blockPos) {
-            return chunkPos.getStartX() <= blockPos.getX() && blockPos.getX() <= chunkPos.getEndX() &&
-                    chunkPos.getStartZ() <= blockPos.getZ() && blockPos.getZ() <= chunkPos.getEndZ();
+        private boolean isOutOfRange(ChunkPos chunkPos, BlockPos blockPos) {
+            return chunkPos.getStartX() - 16 > blockPos.getX() || blockPos.getX() > chunkPos.getEndX() + 16 ||
+                    chunkPos.getStartZ() - 16 > blockPos.getZ() || blockPos.getZ() > chunkPos.getEndZ() + 16;
         }
 
         public void generateCave(WorldAccess worldIn, int radius, int amount, BlockPos center, Random rand) {
-            List<WorldGenDragonCave.SphereInfo> sphereList = new ArrayList<>();
-            sphereList.add(new WorldGenDragonCave.SphereInfo(radius, center.toImmutable()));
+            List<SphereInfo> sphereList = new ArrayList<>();
+            sphereList.add(new SphereInfo(radius, center.toImmutable()));
             Stream<BlockPos> sphereBlocks = ShapeBuilder.start().getAllInCutOffSphereMutable(radius, radius / 2, center).toStream(false);
             Stream<BlockPos> hollowBlocks = ShapeBuilder.start().getAllInRandomlyDistributedRangeYCutOffSphereMutable(radius - 2, (int) ((radius - 2) * 0.75), (radius - 2) / 2, rand, center).toStream(false);
             //Get shells
@@ -171,15 +134,16 @@ public class DragonCaveStructure extends Structure {
                 BlockPos centerOffset = center.offset(direction, radius - 2);
                 sphereBlocks = Stream.concat(sphereBlocks, ShapeBuilder.start().getAllInCutOffSphereMutable(r, r, centerOffset).toStream(false));
                 hollowBlocks = Stream.concat(hollowBlocks, ShapeBuilder.start().getAllInRandomlyDistributedRangeYCutOffSphereMutable(r - 2, (int) ((r - 2) * 0.75), (r - 2) / 2, rand, centerOffset).toStream(false));
-                sphereList.add(new WorldGenDragonCave.SphereInfo(r, centerOffset));
+                sphereList.add(new SphereInfo(r, centerOffset));
             }
             Set<BlockPos> shellBlocksSet = sphereBlocks.map(BlockPos::toImmutable).collect(Collectors.toSet());
             Set<BlockPos> hollowBlocksSet = hollowBlocks.map(BlockPos::toImmutable).collect(Collectors.toSet());
             shellBlocksSet.removeAll(hollowBlocksSet);
 
+            //Remove blocks that is not belong to this piece
             ChunkPos chunkPos = new ChunkPos(center.add(this.offset));
-            shellBlocksSet.removeIf(x -> !this.isIn(chunkPos, x));
-            hollowBlocksSet.removeIf(x -> !this.isIn(chunkPos, x));
+            shellBlocksSet.removeIf(x -> this.isOutOfRange(chunkPos, x));
+            hollowBlocksSet.removeIf(x -> this.isOutOfRange(chunkPos, x));
 
             //setBlocks
             this.createShell(worldIn, rand, shellBlocksSet);
@@ -194,7 +158,7 @@ public class DragonCaveStructure extends Structure {
             List<Block> rareOres = this.getBlockList(IafBlockTags.DRAGON_CAVE_RARE_ORES);
             List<Block> uncommonOres = this.getBlockList(IafBlockTags.DRAGON_CAVE_UNCOMMON_ORES);
             List<Block> commonOres = this.getBlockList(IafBlockTags.DRAGON_CAVE_COMMON_ORES);
-            List<Block> dragonTypeOres = this.getBlockList(IafBlockTags.FIRE_DRAGON_CAVE_ORES);//TODO
+            List<Block> dragonTypeOres = this.getBlockList(this.getOreTag());
             positions.forEach(blockPos -> {
                 if (!(worldIn.getBlockState(blockPos).getBlock() instanceof BlockWithEntity) && worldIn.getBlockState(blockPos).getHardness(worldIn, blockPos) >= 0) {
                     boolean doOres = rand.nextDouble() < IafCommonConfig.INSTANCE.dragon.generateOreRatio.getValue();
@@ -214,9 +178,9 @@ public class DragonCaveStructure extends Structure {
                         if (toPlace != null)
                             worldIn.setBlockState(blockPos, toPlace.getDefaultState(), Block.NOTIFY_LISTENERS);
                         else
-                            worldIn.setBlockState(blockPos, rand.nextBoolean() ? PALETTE_BLOCK1 : PALETTE_BLOCK2, Block.NOTIFY_LISTENERS);
+                            worldIn.setBlockState(blockPos, this.getPaletteBlock(rand), Block.NOTIFY_LISTENERS);
                     } else
-                        worldIn.setBlockState(blockPos, rand.nextBoolean() ? PALETTE_BLOCK1 : PALETTE_BLOCK2, Block.NOTIFY_LISTENERS);
+                        worldIn.setBlockState(blockPos, this.getPaletteBlock(rand), Block.NOTIFY_LISTENERS);
                 }
             });
         }
@@ -232,12 +196,12 @@ public class DragonCaveStructure extends Structure {
             });
         }
 
-        public void decorateCave(WorldAccess worldIn, Random rand, Set<BlockPos> positions, List<WorldGenDragonCave.SphereInfo> spheres, BlockPos center) {
-            for (WorldGenDragonCave.SphereInfo sphere : spheres) {
+        public void decorateCave(WorldAccess worldIn, Random rand, Set<BlockPos> positions, List<SphereInfo> spheres, BlockPos center) {
+            for (SphereInfo sphere : spheres) {
                 BlockPos pos = sphere.pos();
                 int radius = sphere.radius();
                 for (int i = 0; i < 15 + rand.nextInt(10); i++)
-                    CEILING_DECO.generate(worldIn, rand, pos.up(radius / 2 - 1).add(rand.nextInt(radius) - radius / 2, 0, rand.nextInt(radius) - radius / 2));
+                    this.getCeilingDecoration().generate(worldIn, rand, pos.up(radius / 2 - 1).add(rand.nextInt(radius) - radius / 2, 0, rand.nextInt(radius) - radius / 2));
             }
 
             positions.forEach(blockPos -> {
@@ -254,20 +218,16 @@ public class DragonCaveStructure extends Structure {
                 int chance = rand.nextInt(99) + 1;
                 if (chance < 60) {
                     boolean generateGold = rand.nextDouble() < IafCommonConfig.INSTANCE.dragon.generateDenGoldChance.getValue() * (this.male ? 1 : 2);
-                    world.setBlockState(pos, generateGold ? TREASURE_PILE.with(BlockGoldPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
+                    world.setBlockState(pos, generateGold ? this.getTreasurePile().with(BlockGoldPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
                 } else if (chance == 61) {
                     world.setBlockState(pos, Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, HORIZONTALS[rand.nextInt(3)]), Block.NOTIFY_LISTENERS);
                     if (world.getBlockState(pos).getBlock() instanceof ChestBlock) {
                         BlockEntity blockEntity = world.getBlockEntity(pos);
                         if (blockEntity instanceof ChestBlockEntity chestBlockEntity)
-                            chestBlockEntity.setLootTable(this.male ? DRAGON_MALE_CHEST : DRAGON_CHEST, rand.nextLong());
+                            chestBlockEntity.setLootTable(this.getChestTable(this.male), rand.nextLong());
                     }
                 }
             }
-        }
-
-        protected EntityType<? extends EntityDragonBase> getDragonType() {
-            return IafEntities.FIRE_DRAGON;
         }
 
         private EntityDragonBase createDragon(final StructureWorldAccess worldGen, final Random random, final BlockPos position, int dragonAge) {
@@ -285,5 +245,20 @@ public class DragonCaveStructure extends Structure {
             dragon.setHunger(50);
             return dragon;
         }
+
+        protected abstract TagKey<Block> getOreTag();
+
+        protected abstract WorldGenCaveStalactites getCeilingDecoration();
+
+        protected abstract BlockState getTreasurePile();
+
+        protected abstract BlockState getPaletteBlock(Random random);
+
+        protected abstract Identifier getChestTable(boolean male);
+
+        protected abstract EntityType<? extends EntityDragonBase> getDragonType();
+    }
+
+    public record SphereInfo(int radius, BlockPos pos) {
     }
 }

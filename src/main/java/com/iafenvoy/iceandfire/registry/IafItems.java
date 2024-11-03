@@ -53,7 +53,7 @@ public final class IafItems {
     public static final CustomToolMaterial DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("dragon_bone", 3, 1660, 4.0F, 10.0F, 22);
     public static final CustomToolMaterial FIRE_DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("fire_dragon_bone", 3, 2000, 5.5F, 10F, 22);
     public static final CustomToolMaterial ICE_DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("ice_dragon_bone", 3, 2000, 5.5F, 10F, 22);
-    public static final CustomToolMaterial LIGHTNING_DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("lightening_dragon_bone", 3, 2000, 5.5F, 10F, 22);
+    public static final CustomToolMaterial LIGHTNING_DRAGONBONE_TOOL_MATERIAL = new CustomToolMaterial("lightning_dragon_bone", 3, 2000, 5.5F, 10F, 22);
     public static final CustomToolMaterial TROLL_WEAPON_TOOL_MATERIAL = new CustomToolMaterial("troll_weapon", 2, 300, 1F, 10F, 1);
     public static final CustomToolMaterial MYRMEX_CHITIN_TOOL_MATERIAL = new CustomToolMaterial("myrmex_chitin", 3, 600, 1.0F, 6.0F, 8);
     public static final CustomToolMaterial HIPPOGRYPH_SWORD_TOOL_MATERIAL = new CustomToolMaterial("hippogryph_sword", 2, 500, 2.5F, 10F, 10);

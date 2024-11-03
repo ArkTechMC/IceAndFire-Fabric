@@ -12,7 +12,7 @@ public final class IafBiomeTags {
     public static final TagKey<Biome> NO_GRAVEYARD = createKey("structure_gen/no_graveyard");
     public static final TagKey<Biome> FIRE = createKey("structure_gen/fire");
     public static final TagKey<Biome> ICE = createKey("structure_gen/ice");
-    public static final TagKey<Biome> LIGHTENING = createKey("structure_gen/lightening");
+    public static final TagKey<Biome> LIGHTNING = createKey("structure_gen/lightning");
     public static final TagKey<Biome> CYCLOPS_CAVE = createKey("structure_gen/cyclops_cave");
     public static final TagKey<Biome> HYDRA_CAVE = createKey("structure_gen/hydra_cave");
     public static final TagKey<Biome> PIXIE_VILLAGE = createKey("structure_gen/pixie_village");

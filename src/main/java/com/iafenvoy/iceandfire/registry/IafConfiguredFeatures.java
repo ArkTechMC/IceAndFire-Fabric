@@ -19,9 +19,6 @@ public final class IafConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> FIRE_DRAGON_ROOST = registerKey("fire_dragon_roost");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ICE_DRAGON_ROOST = registerKey("ice_dragon_roost");
     public static final RegistryKey<ConfiguredFeature<?, ?>> LIGHTNING_DRAGON_ROOST = registerKey("lightning_dragon_roost");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> FIRE_DRAGON_CAVE = registerKey("fire_dragon_cave");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> ICE_DRAGON_CAVE = registerKey("ice_dragon_cave");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> LIGHTNING_DRAGON_CAVE = registerKey("lightning_dragon_cave");
     //TODO: Should be a structure
     public static final RegistryKey<ConfiguredFeature<?, ?>> CYCLOPS_CAVE = registerKey("cyclops_cave");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PIXIE_VILLAGE = registerKey("pixie_village");
@@ -54,9 +51,6 @@ public final class IafConfiguredFeatures {
         context.register(FIRE_DRAGON_ROOST, new ConfiguredFeature<>(IafFeatures.FIRE_DRAGON_ROOST, FeatureConfig.DEFAULT));
         context.register(ICE_DRAGON_ROOST, new ConfiguredFeature<>(IafFeatures.ICE_DRAGON_ROOST, FeatureConfig.DEFAULT));
         context.register(LIGHTNING_DRAGON_ROOST, new ConfiguredFeature<>(IafFeatures.LIGHTNING_DRAGON_ROOST, FeatureConfig.DEFAULT));
-        context.register(FIRE_DRAGON_CAVE, new ConfiguredFeature<>(IafFeatures.FIRE_DRAGON_CAVE, FeatureConfig.DEFAULT));
-        context.register(ICE_DRAGON_CAVE, new ConfiguredFeature<>(IafFeatures.ICE_DRAGON_CAVE, FeatureConfig.DEFAULT));
-        context.register(LIGHTNING_DRAGON_CAVE, new ConfiguredFeature<>(IafFeatures.LIGHTNING_DRAGON_CAVE, FeatureConfig.DEFAULT));
         context.register(CYCLOPS_CAVE, new ConfiguredFeature<>(IafFeatures.CYCLOPS_CAVE, FeatureConfig.DEFAULT));
         context.register(PIXIE_VILLAGE, new ConfiguredFeature<>(IafFeatures.PIXIE_VILLAGE, FeatureConfig.DEFAULT));
         context.register(SIREN_ISLAND, new ConfiguredFeature<>(IafFeatures.SIREN_ISLAND, FeatureConfig.DEFAULT));

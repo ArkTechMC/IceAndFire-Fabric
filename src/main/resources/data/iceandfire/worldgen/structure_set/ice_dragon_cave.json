@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 14032493,
+    "separation": 6,
+    "spacing": 10
+  },
+  "structures": [
+    {
+      "structure": "iceandfire:ice_dragon_cave",
+      "weight": 10
+    }
+  ]
+}

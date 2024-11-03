@@ -1,7 +1,6 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.world.CustomBiomeFilter;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -19,9 +18,6 @@ public final class IafPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PLACED_FIRE_DRAGON_ROOST = registerKey("fire_dragon_roost");
     public static final RegistryKey<PlacedFeature> PLACED_ICE_DRAGON_ROOST = registerKey("ice_dragon_roost");
     public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_DRAGON_ROOST = registerKey("lightning_dragon_roost");
-    public static final RegistryKey<PlacedFeature> PLACED_FIRE_DRAGON_CAVE = registerKey("fire_dragon_cave");
-    public static final RegistryKey<PlacedFeature> PLACED_ICE_DRAGON_CAVE = registerKey("ice_dragon_cave");
-    public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_DRAGON_CAVE = registerKey("lightning_dragon_cave");
     public static final RegistryKey<PlacedFeature> PLACED_CYCLOPS_CAVE = registerKey("cyclops_cave");
     public static final RegistryKey<PlacedFeature> PLACED_PIXIE_VILLAGE = registerKey("pixie_village");
     public static final RegistryKey<PlacedFeature> PLACED_SIREN_ISLAND = registerKey("siren_island");
@@ -80,9 +76,6 @@ public final class IafPlacedFeatures {
         context.register(PLACED_SILVER_ORE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SILVER_ORE), commonOrePlacement(16, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-16), YOffset.fixed(112)))));
         //TODO: Maybe copper emerald ore?
         context.register(PLACED_SAPPHIRE_ORE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SAPPHIRE_ORE), commonOrePlacement(4, HeightRangePlacementModifier.trapezoid(YOffset.fixed(-16), YOffset.fixed(112)))));
-        context.register(PLACED_FIRE_DRAGON_CAVE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.FIRE_DRAGON_CAVE), List.of(CustomBiomeFilter.biome())));
-        context.register(PLACED_ICE_DRAGON_CAVE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.ICE_DRAGON_CAVE), List.of(CustomBiomeFilter.biome())));
-        context.register(PLACED_LIGHTNING_DRAGON_CAVE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.LIGHTNING_DRAGON_CAVE), List.of(CustomBiomeFilter.biome())));
     }
 
     public static RegistryKey<PlacedFeature> registerKey(String name) {

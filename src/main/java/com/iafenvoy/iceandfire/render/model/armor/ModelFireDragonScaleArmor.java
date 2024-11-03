@@ -18,6 +18,8 @@ public class ModelFireDragonScaleArmor extends ArmorModelBase {
         ModelData modelData = BipedEntityModel.getModelData(deformation, offset);
         ModelPartData root = modelData.getRoot();
 
+        root.addChild("right_leg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(-1.9F, 12.0F + offset, 0.0F));
+        root.addChild("left_leg", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(1.9F, 12.0F + offset, 0.0F));
         root.getChild("right_leg").addChild("RightLegSpike3", ModelPartBuilder.create().uv(0, 34).cuboid(-0.5F, 0.0F, 0.0F, 1, 3, 1), ModelTransform.of(-0.8F, 0.0F, -0.8F, -1.2217304763960306F, 1.2217304763960306F, -0.17453292519943295F));
         root.getChild("right_leg").addChild("RightLegSpike2", ModelPartBuilder.create().uv(0, 34).cuboid(-0.5F, 0.0F, 0.0F, 1, 3, 1), ModelTransform.of(-0.7F, 3.6F, -0.4F, -1.4114477660878142F, 0.0F, 0.0F));
         root.getChild("right_leg").addChild("RightLegSpike", ModelPartBuilder.create().uv(0, 34).cuboid(-0.5F, 0.0F, 0.0F, 1, 3, 1), ModelTransform.of(0.0F, 5.0F, 0.4F, -1.4114477660878142F, 0.0F, 0.0F));

@@ -16,6 +16,9 @@ public class ModelDeathWormArmor extends ArmorModelBase {
         ModelData modelData = BipedEntityModel.getModelData(deformation, offset);
         ModelPartData root = modelData.getRoot();
 
+        root.addChild("right_leg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(-1.9F, 12.0F + offset, 0.0F));
+        root.addChild("left_leg", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(1.9F, 12.0F + offset, 0.0F));
+
         root.getChild("right_arm").addChild("spineR1", ModelPartBuilder.create().uv(32, 40).cuboid(-0.5F, -1.7F, -0.5F, 1, 3, 1), ModelTransform.of(-1.0F, -2.7F, 0.0F, -0.4914847173616032F, 0.0F, 0.0F));
         root.getChild("left_arm").addChild("spineL1", ModelPartBuilder.create().uv(32, 40).cuboid(-0.5F, -1.7F, -0.5F, 1, 3, 1), ModelTransform.of(1.0F, -2.7F, 0.0F, -0.4914847173616032F, 0.0F, 0.0F));
 

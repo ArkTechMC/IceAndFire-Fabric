@@ -27,9 +27,6 @@ public final class IafFeatures {
     public static final Feature<DefaultFeatureConfig> FIRE_DRAGON_ROOST = register("fire_dragon_roost", new WorldGenFireDragonRoosts(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> ICE_DRAGON_ROOST = register("ice_dragon_roost", new WorldGenIceDragonRoosts(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> LIGHTNING_DRAGON_ROOST = register("lightning_dragon_roost", new WorldGenLightningDragonRoosts(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> FIRE_DRAGON_CAVE = register("fire_dragon_cave", new WorldGenFireDragonCave(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> ICE_DRAGON_CAVE = register("ice_dragon_cave", new WorldGenIceDragonCave(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> LIGHTNING_DRAGON_CAVE = register("lightning_dragon_cave", new WorldGenLightningDragonCave(DefaultFeatureConfig.CODEC));
     //TODO: Should be a structure
     public static final Feature<DefaultFeatureConfig> CYCLOPS_CAVE = register("cyclops_cave", new WorldGenCyclopsCave(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> PIXIE_VILLAGE = register("pixie_village", new WorldGenPixieVillage(DefaultFeatureConfig.CODEC));
@@ -72,16 +69,13 @@ public final class IafFeatures {
     public static void addFeatures() {
         addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
         addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_FROST_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
-        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
+        addFeatureToBiome(IafBiomeTags.LIGHTNING, IafPlacedFeatures.PLACED_LIGHTNING_LILY, GenerationStep.Feature.VEGETAL_DECORATION);
         addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_ICE_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_FIRE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_ICE_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_CAVE, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.LIGHTNING, IafPlacedFeatures.PLACED_LIGHTNING_DRAGON_ROOST, GenerationStep.Feature.SURFACE_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.FIRE, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_F, GenerationStep.Feature.SURFACE_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.ICE, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_I, GenerationStep.Feature.SURFACE_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.LIGHTENING, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_L, GenerationStep.Feature.SURFACE_STRUCTURES);
+        addFeatureToBiome(IafBiomeTags.LIGHTNING, IafPlacedFeatures.PLACED_SPAWN_DRAGON_SKELETON_L, GenerationStep.Feature.SURFACE_STRUCTURES);
 
         addFeatureToBiome(IafBiomeTags.SILVER_ORE, IafPlacedFeatures.PLACED_SILVER_ORE, GenerationStep.Feature.UNDERGROUND_ORES);
         addFeatureToBiome(IafBiomeTags.SAPPHIRE_ORE, IafPlacedFeatures.PLACED_SAPPHIRE_ORE, GenerationStep.Feature.UNDERGROUND_ORES);

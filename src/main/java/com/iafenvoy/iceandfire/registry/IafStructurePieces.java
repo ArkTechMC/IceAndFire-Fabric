@@ -1,23 +1,18 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.google.common.collect.ImmutableList;
-import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.world.structure.DragonCaveStructure;
-import com.iafenvoy.uranus.object.IdUtil;
-import com.mojang.datafixers.util.Pair;
-import net.minecraft.registry.*;
-import net.minecraft.registry.entry.RegistryEntry;
+import com.iafenvoy.iceandfire.world.structure.FireDragonCaveStructure;
+import com.iafenvoy.iceandfire.world.structure.IceDragonCaveStructure;
+import com.iafenvoy.iceandfire.world.structure.LightningDragonCaveStructure;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.structure.StructurePieceType;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.structure.pool.StructurePools;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.util.Identifier;
 
 import java.util.Locale;
 
 public final class IafStructurePieces {
-    public static final StructurePieceType DRAGON_CAVE = register(DragonCaveStructure.DragonCavePiece::new, "dragon_cave");
+    public static final StructurePieceType FIRE_DRAGON_CAVE = register(FireDragonCaveStructure.FireDragonCavePiece::new, "fire_dragon_cave");
+    public static final StructurePieceType ICE_DRAGON_CAVE = register(IceDragonCaveStructure.IceDragonCavePiece::new, "ice_dragon_cave");
+    public static final StructurePieceType LIGHTNING_DRAGON_CAVE = register(LightningDragonCaveStructure.LightningDragonCavePiece::new, "lightning_dragon_cave");
 
     private static StructurePieceType register(StructurePieceType type, String id) {
         return Registry.register(Registries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);

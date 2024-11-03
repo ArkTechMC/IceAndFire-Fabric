@@ -31,6 +31,8 @@ public class ModelDragonSteelIceArmor extends ArmorModelBase {
         root.getChild("right_arm").addChild("sleeveRight", ModelPartBuilder.create().uv(36, 33).cuboid(-4.5F, -2.1F, -2.4F, 5, 4, 5), ModelTransform.of(0.3F, -0.3F, 0.0F, 0.0F, 0.0F, -0.12217304763960307F));
         root.getChild("left_arm").addChild("sleeveLeft", ModelPartBuilder.create().uv(36, 33).mirrored().cuboid(-0.5F, -2.1F, -2.4F, 5, 4, 5), ModelTransform.of(-0.7F, -0.3F, 0.0F, 0.0F, 0.0F, 0.12217304763960307F));
 
+        root.addChild("right_leg", ModelPartBuilder.create().uv(0, 16).cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(-1.9F, 12.0F + offset, 0.0F));
+        root.addChild("left_leg", ModelPartBuilder.create().uv(0, 16).mirrored().cuboid(-2.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, deformation), ModelTransform.pivot(1.9F, 12.0F + offset, 0.0F));
         root.getChild("right_leg").addChild("robeLowerRight", ModelPartBuilder.create().uv(4, 51).mirrored().cuboid(-2.1F, 0.0F, -2.5F, 4, 7, 5), ModelTransform.pivot(0.0F, -0.2F, 0.0F));
         root.getChild("left_leg").addChild("robeLowerLeft", ModelPartBuilder.create().uv(4, 51).cuboid(-1.9F, 0.0F, -2.5F, 4, 7, 5), ModelTransform.pivot(0.0F, -0.2F, 0.0F));
 
