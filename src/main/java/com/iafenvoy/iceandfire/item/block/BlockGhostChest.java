@@ -8,6 +8,8 @@ import net.minecraft.block.MapColor;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.enums.Instrument;
+import net.minecraft.item.ItemStack;
+import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.Stats;
@@ -16,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.BlockView;
+
+import java.util.List;
 
 public class BlockGhostChest extends ChestBlock {
     public BlockGhostChest() {
@@ -40,6 +44,11 @@ public class BlockGhostChest extends ChestBlock {
     @Override
     public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
         return MathHelper.clamp(ChestBlockEntity.getPlayersLookingInChestCount(blockAccess, pos), 0, 15);
+    }
+
+    @Override
+    public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
+        return super.getDroppedStacks(state, builder);
     }
 
     @Override

@@ -12,11 +12,11 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockEntityGhostChest extends ChestBlockEntity {
-
     public BlockEntityGhostChest(BlockPos pos, BlockState state) {
         super(IafBlockEntities.GHOST_CHEST, pos, state);
     }
@@ -50,5 +50,11 @@ public class BlockEntityGhostChest extends ChestBlockEntity {
     protected void onViewerCountUpdate(World level, BlockPos pos, BlockState state, int p_155336_, int p_155337_) {
         super.onViewerCountUpdate(level, pos, state, p_155336_, p_155337_);
         level.updateNeighborsAlways(pos.down(), state.getBlock());
+    }
+
+    @Override
+    public void checkLootInteraction(@Nullable PlayerEntity player) {
+        if (player == null) return;
+        super.checkLootInteraction(player);
     }
 }
