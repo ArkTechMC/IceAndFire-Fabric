@@ -7,7 +7,6 @@ import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
-import com.iafenvoy.iceandfire.world.gen.WorldGenCaveStalactites;
 import com.iafenvoy.uranus.util.ShapeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -252,5 +251,28 @@ public abstract class DragonCaveStructure extends Structure {
     }
 
     public record SphereInfo(int radius, BlockPos pos) {
+    }
+
+    protected static class WorldGenCaveStalactites {
+        private final Block block;
+        private final int maxHeight;
+
+        public WorldGenCaveStalactites(Block block, int maxHeight) {
+            this.block = block;
+            this.maxHeight = maxHeight;
+        }
+
+        public void generate(WorldAccess worldIn, Random rand, BlockPos position) {
+            int height = this.maxHeight + rand.nextInt(3);
+            for (int i = 0; i < height; i++) {
+                if (i < height / 2) {
+                    worldIn.setBlockState(position.down(i).north(), this.block.getDefaultState(), 2);
+                    worldIn.setBlockState(position.down(i).east(), this.block.getDefaultState(), 2);
+                    worldIn.setBlockState(position.down(i).south(), this.block.getDefaultState(), 2);
+                    worldIn.setBlockState(position.down(i).west(), this.block.getDefaultState(), 2);
+                }
+                worldIn.setBlockState(position.down(i), this.block.getDefaultState(), 2);
+            }
+        }
     }
 }

@@ -32,8 +32,8 @@ public class IceDragonRoostStructure extends DragonRoostStructure {
     }
 
     @Override
-    protected DragonRoostPiece createPiece(int length, BlockBox boundingBox, boolean isMale) {
-        return new IceDragonRoostPiece(length, boundingBox, IafBlocks.SILVER_PILE, isMale);
+    protected DragonRoostPiece createPiece(BlockBox boundingBox, boolean isMale) {
+        return new IceDragonRoostPiece(0, boundingBox, IafBlocks.SILVER_PILE, isMale);
     }
 
     @Override

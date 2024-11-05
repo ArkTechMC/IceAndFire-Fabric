@@ -5,8 +5,6 @@ import com.iafenvoy.iceandfire.data.DragonType;
 import com.iafenvoy.iceandfire.entity.EntityDragonBase;
 import com.iafenvoy.iceandfire.entity.util.HomePosition;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
-import com.iafenvoy.iceandfire.world.gen.WorldGenRoostArch;
-import com.iafenvoy.iceandfire.world.gen.WorldGenRoostBoulder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
@@ -22,6 +20,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.structure.Structure;
@@ -39,10 +38,10 @@ public abstract class DragonRoostStructure extends Structure {
     protected Optional<StructurePosition> getStructurePosition(Context context) {
         BlockRotation blockRotation = BlockRotation.random(context.random());
         BlockPos blockPos = this.getShiftedPos(context, blockRotation);
-        return Optional.of(new StructurePosition(blockPos, collector -> collector.addPiece(this.createPiece(0, new BlockBox(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX(), blockPos.getY(), blockPos.getZ()), context.random().nextBoolean()))));
+        return Optional.of(new StructurePosition(blockPos, collector -> collector.addPiece(this.createPiece(new BlockBox(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX(), blockPos.getY(), blockPos.getZ()), context.random().nextBoolean()))));
     }
 
-    protected abstract DragonRoostPiece createPiece(int length, BlockBox boundingBox, boolean isMale);
+    protected abstract DragonRoostPiece createPiece(BlockBox boundingBox, boolean isMale);
 
     protected static abstract class DragonRoostPiece extends StructurePiece {
         protected static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
@@ -135,36 +134,78 @@ public abstract class DragonRoostStructure extends Structure {
                     }
 
                     this.handleCustomGeneration(world, origin, random, position, distance);
-
-                    if (distance > 0.5 && random.nextInt(1000) == 0) {
-                        // FIXME
-                        new WorldGenRoostBoulder(this.transform(Blocks.COBBLESTONE).getBlock(), random.nextInt(3), true).generate(world, random, this.getSurfacePosition(world, position));
-                    }
-
-                    if (distance < 0.3 && random.nextInt(isMale ? 200 : 300) == 0) {
+                    if (distance > 0.5 && random.nextInt(1000) == 0)
+                        this.generateBoulder(world, random, this.getSurfacePosition(world, position), this.transform(Blocks.COBBLESTONE).getBlock(), random.nextInt(3), true);
+                    if (distance < 0.3 && random.nextInt(isMale ? 200 : 300) == 0)
                         this.generateTreasurePile(world, random, position);
-                    }
 
                     if (distance < 0.3D && random.nextInt(isMale ? 500 : 700) == 0) {
-                        // TODO :: Using non-world-generation since that one does not seem to keep track of blcks we remove / place ourselves (maybe due to Block.UPDATE_CLIENTS usage?)
                         BlockPos surfacePosition = world.getTopPosition(Heightmap.Type.WORLD_SURFACE, position);
                         boolean wasPlaced = world.setBlockState(surfacePosition, Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, HORIZONTALS[random.nextInt(3)]), Block.NOTIFY_LISTENERS);
 
                         if (wasPlaced) {
                             BlockEntity blockEntity = world.getBlockEntity(surfacePosition);
-
-                            if (blockEntity instanceof ChestBlockEntity chest) {
+                            if (blockEntity instanceof ChestBlockEntity chest)
                                 chest.setLootTable(this.getRoostLootTable(), random.nextLong());
-                            }
                         }
                     }
-
-                    if (random.nextInt(5000) == 0) {
-                        // FIXME
-                        new WorldGenRoostArch(this.transform(Blocks.COBBLESTONE).getBlock()).generate(world, random, this.getSurfacePosition(world, position));
-                    }
+                    if (random.nextInt(5000) == 0)
+                        this.generateArch(world, random, this.getSurfacePosition(world, position), this.transform(Blocks.COBBLESTONE).getBlock());
                 }
             });
+        }
+
+        public void generateBoulder(WorldAccess worldIn, Random rand, BlockPos position, Block block, int startRadius, boolean replaceAir) {
+            while (true) {
+                if (position.getY() > 3) {
+                    if (worldIn.isAir(position.down())) {
+                        position = position.down();
+                        continue;
+                    }
+                    Block b = worldIn.getBlockState(position.down()).getBlock();
+                    if (b != Blocks.GRASS && b != Blocks.DIRT && b != Blocks.STONE) {
+                        position = position.down();
+                        continue;
+                    }
+                }
+                if (position.getY() <= 3)
+                    break;
+
+                for (int i = 0; startRadius >= 0 && i < 3; ++i) {
+                    int j = startRadius + rand.nextInt(2);
+                    int k = startRadius + rand.nextInt(2);
+                    int l = startRadius + rand.nextInt(2);
+                    float f = (float) (j + k + l) * 0.333F + 0.5F;
+                    for (BlockPos blockpos : BlockPos.stream(position.add(-j, -k, -l), position.add(j, k, l)).map(BlockPos::toImmutable).collect(Collectors.toSet()))
+                        if (blockpos.getSquaredDistance(position) <= (double) (f * f) && (replaceAir || worldIn.getBlockState(blockpos).isOpaque()))
+                            worldIn.setBlockState(blockpos, block.getDefaultState(), 2);
+                    position = position.add(-(startRadius + 1) + rand.nextInt(2 + startRadius * 2), -rand.nextInt(2), -(startRadius + 1) + rand.nextInt(2 + startRadius * 2));
+                }
+                break;
+            }
+        }
+
+        private void generateArch(WorldAccess worldIn, Random rand, BlockPos position, Block block) {
+            int height = 3 + rand.nextInt(3);
+            int width = Math.min(3, height - 2);
+            Direction direction = HORIZONTALS[rand.nextInt(HORIZONTALS.length - 1)];
+            boolean diagonal = rand.nextBoolean();
+            for (int i = 0; i < height; i++)
+                worldIn.setBlockState(position.up(i), block.getDefaultState(), 2);
+            BlockPos offsetPos = position;
+            int placedWidths = 0;
+            for (int i = 0; i < width; i++) {
+                offsetPos = position.up(height).offset(direction, i);
+                if (diagonal)
+                    offsetPos = position.up(height).offset(direction, i).offset(direction.rotateYClockwise(), i);
+                if (placedWidths < width - 1 || rand.nextBoolean())
+                    worldIn.setBlockState(offsetPos, block.getDefaultState(), 2);
+                placedWidths++;
+            }
+            while (worldIn.isAir(offsetPos.down()) && offsetPos.getY() > 0) {
+                worldIn.setBlockState(offsetPos.down(), block.getDefaultState(), 2);
+                offsetPos = offsetPos.down();
+            }
         }
 
         private void hollowOut(StructureWorldAccess world, BlockPos origin, int radius) {
@@ -201,7 +242,6 @@ public abstract class DragonRoostStructure extends Structure {
                     if (world.isAir(position.up()))
                         world.setBlockState(position, this.transform(Blocks.GRASS), Block.NOTIFY_LISTENERS);
                     else
-                        // TODO :: Usually not much / anything of this survives the next generation steps
                         world.setBlockState(position, this.transform(Blocks.DIRT), Block.NOTIFY_LISTENERS);
                 }
             });

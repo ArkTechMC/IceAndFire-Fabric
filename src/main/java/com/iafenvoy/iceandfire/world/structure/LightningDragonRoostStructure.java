@@ -7,8 +7,6 @@ import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafStructurePieces;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
 import com.iafenvoy.iceandfire.registry.tag.CommonTags;
-import com.iafenvoy.iceandfire.world.gen.WorldGenRoostSpike;
-import com.iafenvoy.iceandfire.world.gen.WorldGenRoostSpire;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
@@ -21,9 +19,13 @@ import net.minecraft.structure.StructureContext;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.structure.StructureType;
+
+import java.util.stream.Collectors;
 
 public class LightningDragonRoostStructure extends DragonRoostStructure {
     public static final Codec<LightningDragonRoostStructure> CODEC = RecordCodecBuilder.<LightningDragonRoostStructure>mapCodec(instance ->
@@ -34,8 +36,8 @@ public class LightningDragonRoostStructure extends DragonRoostStructure {
     }
 
     @Override
-    protected DragonRoostPiece createPiece(int length, BlockBox boundingBox, boolean isMale) {
-        return new LightningDragonRoostPiece(length, boundingBox, IafBlocks.COPPER_PILE, isMale);
+    protected DragonRoostPiece createPiece(BlockBox boundingBox, boolean isMale) {
+        return new LightningDragonRoostPiece(0, boundingBox, IafBlocks.COPPER_PILE, isMale);
     }
 
     @Override
@@ -89,10 +91,53 @@ public class LightningDragonRoostStructure extends DragonRoostStructure {
 
         @Override
         protected void handleCustomGeneration(StructureWorldAccess world, BlockPos origin, Random random, BlockPos position, double distance) {
-            if (distance > 0.05D && random.nextInt(800) == 0)// FIXME
-                new WorldGenRoostSpire().generate(world, random, this.getSurfacePosition(world, position));
-            if (distance > 0.05D && random.nextInt(1000) == 0)// FIXME
-                new WorldGenRoostSpike(HORIZONTALS[random.nextInt(3)]).generate(world, random, this.getSurfacePosition(world, position));
+            if (distance > 0.05D && random.nextInt(800) == 0)
+                this.generateSpire(world, random, this.getSurfacePosition(world, position));
+            if (distance > 0.05D && random.nextInt(1000) == 0)
+                this.generateSpike(world, random, this.getSurfacePosition(world, position), HORIZONTALS[random.nextInt(3)]);
+        }
+
+        private void generateSpike(WorldAccess worldIn, Random rand, BlockPos position, Direction direction) {
+            int radius = 5;
+            for (int i = 0; i < 5; i++) {
+                int j = Math.max(0, radius - (int) (i * 1.75F));
+                int l = radius - i;
+                int k = Math.max(0, radius - (int) (i * 1.5F));
+                float f = (float) (j + l) * 0.333F + 0.5F;
+                BlockPos up = position.up().offset(direction, i);
+                int xOrZero = direction.getAxis() == Direction.Axis.Z ? j : 0;
+                int zOrZero = direction.getAxis() == Direction.Axis.Z ? 0 : k;
+                for (BlockPos blockpos : BlockPos.stream(up.add(-xOrZero, -l, -zOrZero), up.add(xOrZero, l, zOrZero)).map(BlockPos::toImmutable).collect(Collectors.toSet())) {
+                    if (blockpos.getSquaredDistance(position) <= (double) (f * f)) {
+                        int height = Math.max(blockpos.getY() - up.getY(), 0);
+                        if (i == 0) {
+                            if (rand.nextFloat() < height * 0.3F)
+                                worldIn.setBlockState(blockpos, IafBlocks.CRACKLED_STONE.getDefaultState(), 2);
+                        } else worldIn.setBlockState(blockpos, IafBlocks.CRACKLED_STONE.getDefaultState(), 2);
+                    }
+                }
+            }
+        }
+
+        private void generateSpire(WorldAccess worldIn, Random rand, BlockPos position) {
+            int height = 5 + rand.nextInt(5);
+            Direction bumpDirection = Direction.NORTH;
+            for (int i = 0; i < height; i++) {
+                worldIn.setBlockState(position.up(i), IafBlocks.CRACKLED_STONE.getDefaultState(), 2);
+                if (rand.nextBoolean()) {
+                    bumpDirection = bumpDirection.rotateYClockwise();
+                }
+                int offset = 1;
+                if (i < 4) {
+                    worldIn.setBlockState(position.up(i).north(), IafBlocks.CRACKLED_GRAVEL.getDefaultState(), 2);
+                    worldIn.setBlockState(position.up(i).south(), IafBlocks.CRACKLED_GRAVEL.getDefaultState(), 2);
+                    worldIn.setBlockState(position.up(i).east(), IafBlocks.CRACKLED_GRAVEL.getDefaultState(), 2);
+                    worldIn.setBlockState(position.up(i).west(), IafBlocks.CRACKLED_GRAVEL.getDefaultState(), 2);
+                    offset = 2;
+                }
+                if (i < height - 2)
+                    worldIn.setBlockState(position.up(i).offset(bumpDirection, offset), IafBlocks.CRACKLED_COBBLESTONE.getDefaultState(), 2);
+            }
         }
     }
 }
