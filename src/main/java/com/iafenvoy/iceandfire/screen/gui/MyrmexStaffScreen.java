@@ -8,7 +8,7 @@ import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.screen.gui.bestiary.ChangePageButton;
 import com.iafenvoy.iceandfire.screen.handler.MyrmexStaffScreenHandler;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -29,7 +29,7 @@ import java.util.List;
 public class MyrmexStaffScreen extends HandledScreen<MyrmexStaffScreenHandler> {
     private static final Identifier JUNGLE_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_jungle.png");
     private static final Identifier DESERT_TEXTURE = new Identifier(IceAndFire.MOD_ID, "textures/gui/myrmex_staff_desert.png");
-    private static final WorldGenMyrmexHive.RoomType[] ROOMS = {WorldGenMyrmexHive.RoomType.FOOD, WorldGenMyrmexHive.RoomType.NURSERY, WorldGenMyrmexHive.RoomType.EMPTY};
+    private static final MyrmexHiveStructure.RoomType[] ROOMS = {MyrmexHiveStructure.RoomType.FOOD, MyrmexHiveStructure.RoomType.NURSERY, MyrmexHiveStructure.RoomType.EMPTY};
     private static final int ROOMS_PER_PAGE = 5;
     private final List<Room> allRoomPos = Lists.newArrayList();
     private final List<MyrmexDeleteButton> allRoomButtonPos = Lists.newArrayList();
@@ -87,10 +87,10 @@ public class MyrmexStaffScreen extends HandledScreen<MyrmexStaffScreenHandler> {
         this.allRoomPos.clear();
         MyrmexHive hive = MyrmexWorldData.get(MinecraftClient.getInstance().world).getHiveFromUUID(this.handler.getTargetId());
 
-        for (WorldGenMyrmexHive.RoomType type : ROOMS) {
+        for (MyrmexHiveStructure.RoomType type : ROOMS) {
             List<BlockPos> roomPos = hive.getRooms(type);
             for (BlockPos pos : roomPos) {
-                String name = type == WorldGenMyrmexHive.RoomType.FOOD ? "food" : type == WorldGenMyrmexHive.RoomType.NURSERY ? "nursery" : "misc";
+                String name = type == MyrmexHiveStructure.RoomType.FOOD ? "food" : type == MyrmexHiveStructure.RoomType.NURSERY ? "nursery" : "misc";
                 this.allRoomPos.add(new Room(pos, name));
                 //this.buttonList.add(new MyrmexDeleteButton(buttons, i + x_translate, j + y_translate + (-1 + buttons) * 22, pos, I18n.format("myrmex.message.delete")));
             }

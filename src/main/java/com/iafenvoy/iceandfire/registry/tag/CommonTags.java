@@ -21,7 +21,6 @@ public final class CommonTags {
     public static class Items {
         public static final TagKey<Item> COBBLESTONE = tag("cobblestone");
         public static final TagKey<Item> GRAVEL = tag("gravel");
-        public static final TagKey<Item> INGOTS = tag("ingots");
         public static final TagKey<Item> SAND = tag("sand");
         public static final TagKey<Item> STONE = tag("stone");
         public static final TagKey<Item> STRING = tag("string");

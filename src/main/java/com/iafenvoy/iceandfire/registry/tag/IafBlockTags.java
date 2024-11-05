@@ -7,9 +7,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public final class IafBlockTags {
-    public static final TagKey<Block> CHARRED_BLOCKS = createKey("charred_blocks");
-    public static final TagKey<Block> FROZEN_BLOCKS = createKey("frozen_blocks");
-    public static final TagKey<Block> CRACKLED_BLOCKS = createKey("crackled_blocks");
     public static final TagKey<Block> DRAGON_ENVIRONMENT_BLOCKS = createKey("dragon_environment_blocks");
 
     public static final TagKey<Block> DRAGON_CAVE_RARE_ORES = createKey("dragon_cave_rare_ores");

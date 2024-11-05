@@ -29,8 +29,6 @@ public final class IafFeatures {
     public static final Feature<DefaultFeatureConfig> PIXIE_VILLAGE = register("pixie_village", new WorldGenPixieVillage(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SIREN_ISLAND = register("siren_island", new WorldGenSirenIsland(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> HYDRA_CAVE = register("hydra_cave", new WorldGenHydraCave(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> MYRMEX_HIVE_DESERT = register("myrmex_hive_desert", new WorldGenMyrmexHive(false, false, DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> MYRMEX_HIVE_JUNGLE = register("myrmex_hive_jungle", new WorldGenMyrmexHive(false, true, DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SPAWN_DEATH_WORM = register("spawn_death_worm", new SpawnDeathWorm(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SPAWN_DRAGON_SKELETON_L = register("spawn_dragon_skeleton_lightning", new SpawnDragonSkeleton(IafEntities.LIGHTNING_DRAGON, DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SPAWN_DRAGON_SKELETON_F = register("spawn_dragon_skeleton_fire", new SpawnDragonSkeleton(IafEntities.FIRE_DRAGON, DefaultFeatureConfig.CODEC));
@@ -77,8 +75,6 @@ public final class IafFeatures {
         addFeatureToBiome(IafBiomeTags.CYCLOPS_CAVE, IafPlacedFeatures.PLACED_CYCLOPS_CAVE, GenerationStep.Feature.SURFACE_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.PIXIE_VILLAGE, IafPlacedFeatures.PLACED_PIXIE_VILLAGE, GenerationStep.Feature.SURFACE_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.HYDRA_CAVE, IafPlacedFeatures.PLACED_HYDRA_CAVE, GenerationStep.Feature.SURFACE_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.MYRMEX_HIVE_DESERT, IafPlacedFeatures.PLACED_MYRMEX_HIVE_DESERT, GenerationStep.Feature.SURFACE_STRUCTURES);
-        addFeatureToBiome(IafBiomeTags.MYRMEX_HIVE_JUNGLE, IafPlacedFeatures.PLACED_MYRMEX_HIVE_JUNGLE, GenerationStep.Feature.SURFACE_STRUCTURES);
         addFeatureToBiome(IafBiomeTags.SIREN_ISLAND, IafPlacedFeatures.PLACED_SIREN_ISLAND, GenerationStep.Feature.SURFACE_STRUCTURES);
 
         addFeatureToBiome(IafBiomeTags.DEATHWORM, IafPlacedFeatures.PLACED_SPAWN_DEATH_WORM, GenerationStep.Feature.SURFACE_STRUCTURES);

@@ -11,7 +11,7 @@ import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import com.iafenvoy.uranus.animation.Animation;
 import com.iafenvoy.uranus.animation.AnimationHandler;
 import com.iafenvoy.uranus.animation.IAnimatedEntity;
@@ -569,11 +569,11 @@ public abstract class EntityMyrmexBase extends AnimalEntity implements IAnimated
     }
 
     public boolean isInNursery() {
-        if (this.getHive() != null && this.getHive().getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && this.getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos()) != null) {
+        if (this.getHive() != null && this.getHive().getRooms(MyrmexHiveStructure.RoomType.NURSERY).isEmpty() && this.getHive().getRandomRoom(MyrmexHiveStructure.RoomType.NURSERY, this.getRandom(), this.getBlockPos()) != null) {
             return false;
         }
         if (this.getHive() != null) {
-            BlockPos nursery = this.getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos());
+            BlockPos nursery = this.getHive().getRandomRoom(MyrmexHiveStructure.RoomType.NURSERY, this.getRandom(), this.getBlockPos());
             return Math.sqrt(this.squaredDistanceTo(nursery.getX(), nursery.getY(), nursery.getZ())) < 45;
         }
         return false;

@@ -18,6 +18,7 @@ public final class IafStructureTypes {
     public static final StructureType<FireDragonCaveStructure> FIRE_DRAGON_CAVE = registerType("fire_dragon_cave", () -> FireDragonCaveStructure.CODEC);
     public static final StructureType<IceDragonCaveStructure> ICE_DRAGON_CAVE = registerType("ice_dragon_cave", () -> IceDragonCaveStructure.CODEC);
     public static final StructureType<LightningDragonCaveStructure> LIGHTNING_DRAGON_CAVE = registerType("lightning_dragon_cave", () -> LightningDragonCaveStructure.CODEC);
+    public static final StructureType<MyrmexHiveStructure> MYRMEX_HIVE = registerType("myrmex_hive", () -> MyrmexHiveStructure.CODEC);
 
     private static <P extends Structure> StructureType<P> registerType(String name, StructureType<P> factory) {
         return Registry.register(Registries.STRUCTURE_TYPE, new Identifier(IceAndFire.MOD_ID, name), factory);

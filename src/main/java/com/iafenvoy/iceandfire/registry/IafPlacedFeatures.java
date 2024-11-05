@@ -19,8 +19,6 @@ public final class IafPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PLACED_PIXIE_VILLAGE = registerKey("pixie_village");
     public static final RegistryKey<PlacedFeature> PLACED_SIREN_ISLAND = registerKey("siren_island");
     public static final RegistryKey<PlacedFeature> PLACED_HYDRA_CAVE = registerKey("hydra_cave");
-    public static final RegistryKey<PlacedFeature> PLACED_MYRMEX_HIVE_DESERT = registerKey("myrmex_hive_desert");
-    public static final RegistryKey<PlacedFeature> PLACED_MYRMEX_HIVE_JUNGLE = registerKey("myrmex_hive_jungle");
     public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DEATH_WORM = registerKey("spawn_death_worm");
     public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_L = registerKey("spawn_dragon_skeleton_lightning");
     public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_F = registerKey("spawn_dragon_skeleton_fire");
@@ -50,8 +48,6 @@ public final class IafPlacedFeatures {
         context.register(PLACED_PIXIE_VILLAGE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.PIXIE_VILLAGE), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_SIREN_ISLAND, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SIREN_ISLAND), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_HYDRA_CAVE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.HYDRA_CAVE), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
-        context.register(PLACED_MYRMEX_HIVE_DESERT, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.MYRMEX_HIVE_DESERT), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
-        context.register(PLACED_MYRMEX_HIVE_JUNGLE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.MYRMEX_HIVE_JUNGLE), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_SPAWN_DEATH_WORM, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SPAWN_DEATH_WORM), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_SPAWN_DRAGON_SKELETON_L, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SPAWN_DRAGON_SKELETON_L), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_SPAWN_DRAGON_SKELETON_F, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SPAWN_DRAGON_SKELETON_F), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));

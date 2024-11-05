@@ -21,8 +21,6 @@ public final class IafConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PIXIE_VILLAGE = registerKey("pixie_village");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SIREN_ISLAND = registerKey("siren_island");
     public static final RegistryKey<ConfiguredFeature<?, ?>> HYDRA_CAVE = registerKey("hydra_cave");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> MYRMEX_HIVE_DESERT = registerKey("myrmex_hive_desert");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> MYRMEX_HIVE_JUNGLE = registerKey("myrmex_hive_jungle");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPAWN_DEATH_WORM = registerKey("spawn_death_worm");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPAWN_DRAGON_SKELETON_L = registerKey("spawn_dragon_skeleton_lightning");
     public static final RegistryKey<ConfiguredFeature<?, ?>> SPAWN_DRAGON_SKELETON_F = registerKey("spawn_dragon_skeleton_fire");
@@ -49,8 +47,6 @@ public final class IafConfiguredFeatures {
         context.register(PIXIE_VILLAGE, new ConfiguredFeature<>(IafFeatures.PIXIE_VILLAGE, FeatureConfig.DEFAULT));
         context.register(SIREN_ISLAND, new ConfiguredFeature<>(IafFeatures.SIREN_ISLAND, FeatureConfig.DEFAULT));
         context.register(HYDRA_CAVE, new ConfiguredFeature<>(IafFeatures.HYDRA_CAVE, FeatureConfig.DEFAULT));
-        context.register(MYRMEX_HIVE_DESERT, new ConfiguredFeature<>(IafFeatures.MYRMEX_HIVE_DESERT, FeatureConfig.DEFAULT));
-        context.register(MYRMEX_HIVE_JUNGLE, new ConfiguredFeature<>(IafFeatures.MYRMEX_HIVE_JUNGLE, FeatureConfig.DEFAULT));
         context.register(SPAWN_DEATH_WORM, new ConfiguredFeature<>(IafFeatures.SPAWN_DEATH_WORM, FeatureConfig.DEFAULT));
         context.register(SPAWN_DRAGON_SKELETON_L, new ConfiguredFeature<>(IafFeatures.SPAWN_DRAGON_SKELETON_L, FeatureConfig.DEFAULT));
         context.register(SPAWN_DRAGON_SKELETON_F, new ConfiguredFeature<>(IafFeatures.SPAWN_DRAGON_SKELETON_F, FeatureConfig.DEFAULT));

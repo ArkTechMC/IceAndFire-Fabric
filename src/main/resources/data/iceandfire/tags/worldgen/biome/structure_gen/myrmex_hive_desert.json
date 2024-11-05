@@ -2,15 +2,12 @@
   "replace": false,
   "values": [
     "minecraft:desert",
-    "minecraft:jungle",
     "minecraft:sparse_jungle",
     "minecraft:savanna",
     "minecraft:savanna_plateau",
     "minecraft:stony_peaks",
-    "minecraft:warm_ocean",
     "minecraft:windswept_savanna",
     "minecraft:bamboo_jungle",
-    "minecraft:mangrove_swamp",
-    "minecraft:beach"
+    "minecraft:mangrove_swamp"
   ]
 }

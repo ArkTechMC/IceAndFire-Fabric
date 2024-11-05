@@ -9,7 +9,7 @@ import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.entity.util.MyrmexTrades;
 import com.iafenvoy.iceandfire.entity.util.dragon.DragonUtils;
 import com.iafenvoy.iceandfire.registry.IafEntities;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import com.iafenvoy.uranus.animation.Animation;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -39,7 +39,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.village.TradeOffers;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 
 public class EntityMyrmexQueen extends EntityMyrmexBase {
 
@@ -149,14 +148,13 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
                 int down = Math.max(15, this.getBlockPos().getY() - 20 + this.getRandom().nextInt(10));
                 BlockPos genPos = new BlockPos(this.getBlockX(), down, this.getBlockZ());
                 if (!IafEvents.ON_GRIEF_BREAK_BLOCK.invoker().onBreakBlock(this, genPos.getX(), genPos.getY(), genPos.getZ())) {
-                    WorldGenMyrmexHive hiveGen = new WorldGenMyrmexHive(true, this.isJungle(), DefaultFeatureConfig.CODEC);
-                    if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld) {
-                        hiveGen.placeSmallGen((ServerWorld) this.getWorld(), this.getRandom(), genPos);
+                    if (!this.getWorld().isClient && this.getWorld() instanceof ServerWorld serverWorld) {
+                        MyrmexHiveStructure.MyrmexHivePiece piece = MyrmexHiveStructure.placeSmallGen(true, serverWorld, this.getRandom(), genPos);
+                        this.setHive(piece.hive);
                     }
                     this.setMadeHome(true);
                     this.refreshPositionAndAngles(genPos.getX(), down, genPos.getZ(), 0, 0);
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 30));
-                    this.setHive(hiveGen.hive);
                     for (int i = 0; i < 3; i++) {
                         EntityMyrmexWorker worker = new EntityMyrmexWorker(IafEntities.MYRMEX_WORKER, this.getWorld());
                         worker.copyPositionAndRotation(this);

@@ -5,10 +5,6 @@
     "minecraft:mangrove_swamp",
     "#minecraft:is_jungle",
     "#minecraft:is_badlands",
-    "#minecraft:is_savanna",
-    {
-      "required": false,
-      "id": "#c:climate_wet"
-    }
+    "#minecraft:is_savanna"
   ]
 }

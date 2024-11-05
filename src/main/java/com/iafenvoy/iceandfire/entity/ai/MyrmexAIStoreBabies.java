@@ -2,7 +2,7 @@ package com.iafenvoy.iceandfire.entity.ai;
 
 import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +25,7 @@ public class MyrmexAIStoreBabies extends Goal {
         MyrmexHive village = this.myrmex.getHive();
         if (village == null) return false;
         else {
-            this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRandom(), this.myrmex.getBlockPos())).up();
+            this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(MyrmexHiveStructure.RoomType.NURSERY, this.myrmex.getRandom(), this.myrmex.getBlockPos())).up();
             return true;
         }
     }

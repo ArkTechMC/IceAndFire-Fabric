@@ -9,7 +9,7 @@ import com.iafenvoy.iceandfire.registry.IafEntities;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.registry.IafSounds;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -229,11 +229,11 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
 
     public boolean isInNursery() {
         MyrmexHive hive = MyrmexWorldData.get(this.getWorld()).getNearestHive(this.getBlockPos(), 100);
-        if (hive != null && hive.getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && hive.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos()) != null) {
+        if (hive != null && hive.getRooms(MyrmexHiveStructure.RoomType.NURSERY).isEmpty() && hive.getRandomRoom(MyrmexHiveStructure.RoomType.NURSERY, this.getRandom(), this.getBlockPos()) != null) {
             return false;
         }
         if (hive != null) {
-            BlockPos nursery = hive.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRandom(), this.getBlockPos());
+            BlockPos nursery = hive.getRandomRoom(MyrmexHiveStructure.RoomType.NURSERY, this.getRandom(), this.getBlockPos());
             return this.squaredDistanceTo(nursery.getX(), nursery.getY(), nursery.getZ()) < 2025;
         }
         return false;

@@ -5,7 +5,7 @@ import com.iafenvoy.iceandfire.entity.EntityMyrmexWorker;
 import com.iafenvoy.iceandfire.entity.block.BlockEntityMyrmexCocoon;
 import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.item.block.BlockMyrmexCocoon;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.PathFindingStatus;
 import com.iafenvoy.uranus.object.entity.pathfinding.raycoms.PathResult;
@@ -49,7 +49,7 @@ public class MyrmexAIStoreItems extends Goal {
         this.first = true;
         this.mainRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getCenter());
 
-        this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(WorldGenMyrmexHive.RoomType.FOOD, this.myrmex.getRandom(), this.myrmex.getBlockPos()));
+        this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), village.getRandomRoom(MyrmexHiveStructure.RoomType.FOOD, this.myrmex.getRandom(), this.myrmex.getBlockPos()));
         this.nextCocoon = this.getNearbyCocoon(this.nextRoom);
         if (this.nextCocoon == null)
             this.myrmex.setWaitTicks(20 + ThreadLocalRandom.current().nextInt(40));

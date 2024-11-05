@@ -7,7 +7,7 @@ import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexBase;
 import com.iafenvoy.iceandfire.entity.EntityMyrmexQueen;
 import com.iafenvoy.iceandfire.registry.IafEntities;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -417,27 +417,27 @@ public class MyrmexHive {
         compound.put("Players", nbttaglist1);
     }
 
-    public void addRoom(BlockPos center, WorldGenMyrmexHive.RoomType roomType) {
-        if (roomType == WorldGenMyrmexHive.RoomType.FOOD && !this.foodRooms.contains(center))
+    public void addRoom(BlockPos center, MyrmexHiveStructure.RoomType roomType) {
+        if (roomType == MyrmexHiveStructure.RoomType.FOOD && !this.foodRooms.contains(center))
             this.foodRooms.add(center);
-        else if (roomType == WorldGenMyrmexHive.RoomType.NURSERY && !this.babyRooms.contains(center))
+        else if (roomType == MyrmexHiveStructure.RoomType.NURSERY && !this.babyRooms.contains(center))
             this.babyRooms.add(center);
         else if (!this.miscRooms.contains(center) && !this.miscRooms.contains(center))
             this.miscRooms.add(center);
         this.allRooms.add(center);
     }
 
-    public void addRoomWithMessage(PlayerEntity player, BlockPos center, WorldGenMyrmexHive.RoomType roomType) {
+    public void addRoomWithMessage(PlayerEntity player, BlockPos center, MyrmexHiveStructure.RoomType roomType) {
         List<BlockPos> allCurrentRooms = new ArrayList<>(this.getAllRooms());
         allCurrentRooms.addAll(this.getEntrances().keySet());
         allCurrentRooms.addAll(this.getEntranceBottoms().keySet());
-        if (roomType == WorldGenMyrmexHive.RoomType.FOOD) {
+        if (roomType == MyrmexHiveStructure.RoomType.FOOD) {
             if (!this.foodRooms.contains(center) && !allCurrentRooms.contains(center)) {
                 this.foodRooms.add(center);
                 player.sendMessage(Text.translatable("myrmex.message.added_food_room", center.getX(), center.getY(), center.getZ()), false);
             } else
                 player.sendMessage(Text.translatable("myrmex.message.dupe_room", center.getX(), center.getY(), center.getZ()), false);
-        } else if (roomType == WorldGenMyrmexHive.RoomType.NURSERY) {
+        } else if (roomType == MyrmexHiveStructure.RoomType.NURSERY) {
             if (!this.babyRooms.contains(center) && !allCurrentRooms.contains(center)) {
                 this.babyRooms.add(center);
                 player.sendMessage(Text.translatable("myrmex.message.added_nursery_room", center.getX(), center.getY(), center.getZ()), false);
@@ -471,10 +471,10 @@ public class MyrmexHive {
         }
     }
 
-    public List<BlockPos> getRooms(WorldGenMyrmexHive.RoomType roomType) {
-        if (roomType == WorldGenMyrmexHive.RoomType.FOOD)
+    public List<BlockPos> getRooms(MyrmexHiveStructure.RoomType roomType) {
+        if (roomType == MyrmexHiveStructure.RoomType.FOOD)
             return this.foodRooms;
-        else if (roomType == WorldGenMyrmexHive.RoomType.NURSERY)
+        else if (roomType == MyrmexHiveStructure.RoomType.NURSERY)
             return this.babyRooms;
         else
             return this.miscRooms;
@@ -494,7 +494,7 @@ public class MyrmexHive {
         return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(Math.max(rooms.size() - 1, 1)));
     }
 
-    public BlockPos getRandomRoom(WorldGenMyrmexHive.RoomType roomType, Random random, BlockPos returnPos) {
+    public BlockPos getRandomRoom(MyrmexHiveStructure.RoomType roomType, Random random, BlockPos returnPos) {
         List<BlockPos> rooms = this.getRooms(roomType);
         return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(Math.max(rooms.size() - 1, 1)));
     }

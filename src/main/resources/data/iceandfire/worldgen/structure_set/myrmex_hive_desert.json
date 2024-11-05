@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 14200531,
+    "separation": 12,
+    "spacing": 24
+  },
+  "structures": [
+    {
+      "structure": "iceandfire:myrmex_hive_desert",
+      "weight": 1
+    }
+  ]
+}

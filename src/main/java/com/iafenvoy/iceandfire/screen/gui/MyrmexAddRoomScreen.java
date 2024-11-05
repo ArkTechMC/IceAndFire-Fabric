@@ -5,7 +5,7 @@ import com.iafenvoy.iceandfire.entity.util.MyrmexHive;
 import com.iafenvoy.iceandfire.registry.IafItems;
 import com.iafenvoy.iceandfire.screen.handler.MyrmexAddRoomScreenHandler;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
-import com.iafenvoy.iceandfire.world.gen.WorldGenMyrmexHive;
+import com.iafenvoy.iceandfire.world.structure.MyrmexHiveStructure;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -39,11 +39,11 @@ public class MyrmexAddRoomScreen extends HandledScreen<MyrmexAddRoomScreenHandle
         if (hive != null) {
             PlayerEntity player = MinecraftClient.getInstance().player;
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_food"), (widget) -> {
-                hive.addRoomWithMessage(player, this.handler.getInteractPos(), WorldGenMyrmexHive.RoomType.FOOD);
+                hive.addRoomWithMessage(player, this.handler.getInteractPos(), MyrmexHiveStructure.RoomType.FOOD);
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 35).size(150, 20).build());
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_nursery"), (widget) -> {
-                hive.addRoomWithMessage(player, this.handler.getInteractPos(), WorldGenMyrmexHive.RoomType.NURSERY);
+                hive.addRoomWithMessage(player, this.handler.getInteractPos(), MyrmexHiveStructure.RoomType.NURSERY);
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 60).size(150, 20).build());
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_enterance_surface"), (widget) -> {
@@ -55,7 +55,7 @@ public class MyrmexAddRoomScreen extends HandledScreen<MyrmexAddRoomScreenHandle
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 110).size(150, 20).build());
             this.addSelectableChild(ButtonWidget.builder(Text.translatable("myrmex.message.establishroom_misc"), (widget) -> {
-                hive.addRoomWithMessage(player, this.handler.getInteractPos(), WorldGenMyrmexHive.RoomType.EMPTY);
+                hive.addRoomWithMessage(player, this.handler.getInteractPos(), MyrmexHiveStructure.RoomType.EMPTY);
                 MinecraftClient.getInstance().setScreen(null);
             }).position(i + 50, j + 135).size(150, 20).build());
         }
