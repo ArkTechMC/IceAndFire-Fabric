@@ -2,6 +2,7 @@ package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.particle.*;
+import com.iafenvoy.iceandfire.render.block.*;
 import com.iafenvoy.iceandfire.render.entity.*;
 import com.iafenvoy.iceandfire.render.model.*;
 import com.iafenvoy.iceandfire.render.model.animator.FireDragonTabulaModelAnimator;
@@ -15,6 +16,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 
 import java.io.IOException;
@@ -35,7 +37,7 @@ public final class IafRenderers {
         return null;
     }
 
-    public static void registerRenderers() {
+    public static void registerEntityRenderers() {
         EntityRendererRegistry.register(IafEntities.FIRE_DRAGON, x -> new RenderDragonBase(x, FIRE_DRAGON_BASE_MODEL, 0));
         EntityRendererRegistry.register(IafEntities.ICE_DRAGON, manager -> new RenderDragonBase(manager, ICE_DRAGON_BASE_MODEL, 1));
         EntityRendererRegistry.register(IafEntities.LIGHTNING_DRAGON, manager -> new RenderLightningDragon(manager, LIGHTNING_DRAGON_BASE_MODEL, 2));
@@ -95,6 +97,17 @@ public final class IafRenderers {
         EntityRendererRegistry.register(IafEntities.HYDRA_MULTIPART, RenderNothing::new);
         EntityRendererRegistry.register(IafEntities.GHOST, RenderGhost::new);
         EntityRendererRegistry.register(IafEntities.GHOST_SWORD, RenderGhostSword::new);
+    }
+
+    public static void registerBlockEntityRenderers() {
+        BlockEntityRendererFactories.register(IafBlockEntities.PODIUM, RenderPodium::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.IAF_LECTERN, RenderLectern::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.EGG_IN_ICE, RenderEggInIce::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.PIXIE_HOUSE, RenderPixieHouse::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.PIXIE_JAR, RenderJar::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.DREAD_PORTAL, RenderDreadPortal::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.DREAD_SPAWNER, RenderDreadSpawner::new);
+        BlockEntityRendererFactories.register(IafBlockEntities.GHOST_CHEST, RenderGhostChest::new);
     }
 
     public static void registerParticleRenderers() {

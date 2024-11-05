@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.world.structure;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
-import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -19,7 +18,7 @@ import java.util.Optional;
 
 public class GorgonTempleStructure extends IafStructure {
 
-    public static final Codec<GorgonTempleStructure> ENTRY_CODEC = RecordCodecBuilder.<GorgonTempleStructure>mapCodec(instance ->
+    public static final Codec<GorgonTempleStructure> CODEC = RecordCodecBuilder.<GorgonTempleStructure>mapCodec(instance ->
             instance.group(configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     Identifier.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -39,10 +38,6 @@ public class GorgonTempleStructure extends IafStructure {
             return Optional.empty();
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
-
-        if (!this.biomeIsIn(pContext, IafBiomeTags.GORGON_TEMPLE, blockpos))
-            return Optional.empty();
-
         return StructurePoolBasedGenerator.generate(
                 pContext, // Used for JigsawPlacement to get all the proper behaviors done.
                 this.startPool, // The starting pool to use to create the structure layout from

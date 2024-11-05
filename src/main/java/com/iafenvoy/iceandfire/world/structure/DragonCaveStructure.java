@@ -1,6 +1,5 @@
 package com.iafenvoy.iceandfire.world.structure;
 
-import com.google.common.collect.Lists;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.data.DragonType;
@@ -43,7 +42,6 @@ import java.util.stream.Stream;
 
 public abstract class DragonCaveStructure extends Structure {
     private static final Direction[] HORIZONTALS = new Direction[]{Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST};
-    protected boolean male;
 
     protected DragonCaveStructure(Config config) {
         super(config);
@@ -51,26 +49,20 @@ public abstract class DragonCaveStructure extends Structure {
 
     @Override
     protected Optional<StructurePosition> getStructurePosition(Context context) {
-        this.male = context.random().nextBoolean();
         BlockRotation blockRotation = BlockRotation.random(context.random());
         BlockPos blockPos = this.getShiftedPos(context, blockRotation);
-        return blockPos.getY() >= 60 ? Optional.empty() : Optional.of(new Structure.StructurePosition(blockPos, (collector) -> {
-            this.addPieces(collector, blockPos, blockRotation, context);
-        }));
+        return Optional.of(new StructurePosition(blockPos, collector -> this.addPieces(collector, blockPos, context, context.random().nextBoolean())));
     }
 
-    private void addPieces(StructurePiecesCollector collector, BlockPos pos, BlockRotation rotation, Structure.Context context) {
-        List<StructurePiece> list = Lists.newArrayList();
+    private void addPieces(StructurePiecesCollector collector, BlockPos pos, Structure.Context context, boolean male) {
         int r = context.random().nextInt(30);
         long seed = context.random().nextLong();
         for (int i = -1; i <= 1; i++)
             for (int j = -1; j <= 1; j++)
-                list.add(this.createPiece(0, new BlockBox(pos.getX() + i * 32, pos.getY(), pos.getZ() + j * 32, pos.getX() + i * 32, pos.getY(), pos.getZ() + j * 32), this.male, new BlockPos(i * 32, 0, j * 32), 20 - r, seed));
-        Objects.requireNonNull(collector);
-        list.forEach(collector::addPiece);
+                collector.addPiece(this.createPiece(new BlockBox(pos.getX() + i * 32, pos.getY(), pos.getZ() + j * 32, pos.getX() + i * 32, pos.getY(), pos.getZ() + j * 32), male, new BlockPos(i * 32, 0, j * 32), 20 - r, seed));
     }
 
-    protected abstract DragonCavePiece createPiece(int length, BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed);
+    protected abstract DragonCavePiece createPiece(BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed);
 
     protected abstract static class DragonCavePiece extends StructurePiece {
         private final boolean male;

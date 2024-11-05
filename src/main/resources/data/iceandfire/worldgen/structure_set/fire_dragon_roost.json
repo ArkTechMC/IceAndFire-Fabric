@@ -1,13 +1,13 @@
 {
   "placement": {
     "type": "minecraft:random_spread",
-    "salt": 14032493,
-    "separation": 12,
-    "spacing": 16
+    "salt": 3747893,
+    "separation": 8,
+    "spacing": 14
   },
   "structures": [
     {
-      "structure": "iceandfire:ice_dragon_cave",
+      "structure": "iceandfire:fire_dragon_roost",
       "weight": 1
     }
   ]

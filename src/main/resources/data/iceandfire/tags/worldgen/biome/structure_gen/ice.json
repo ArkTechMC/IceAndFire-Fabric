@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:taiga",
     "minecraft:frozen_ocean",
     "minecraft:frozen_river",
     "minecraft:snowy_plains",
@@ -12,8 +11,6 @@
     "minecraft:snowy_slopes",
     "minecraft:jagged_peaks",
     "minecraft:frozen_peaks",
-    "minecraft:cold_ocean",
-    "minecraft:deep_cold_ocean",
     "minecraft:deep_frozen_ocean",
     "minecraft:ice_spikes",
     {

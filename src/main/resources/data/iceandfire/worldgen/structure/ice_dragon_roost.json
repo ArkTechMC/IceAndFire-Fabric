@@ -1,0 +1,7 @@
+{
+  "type": "iceandfire:ice_dragon_roost",
+  "biomes": "#iceandfire:structure_gen/ice",
+  "spawn_overrides": {},
+  "step": "surface_structures",
+  "terrain_adaptation": "beard_thin"
+}

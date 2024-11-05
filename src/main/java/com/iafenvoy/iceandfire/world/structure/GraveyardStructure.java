@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.world.structure;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
-import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -17,7 +16,7 @@ import net.minecraft.world.gen.structure.StructureType;
 import java.util.Optional;
 
 public class GraveyardStructure extends IafStructure {
-    public static final Codec<GraveyardStructure> ENTRY_CODEC = RecordCodecBuilder.<GraveyardStructure>mapCodec(instance ->
+    public static final Codec<GraveyardStructure> CODEC = RecordCodecBuilder.<GraveyardStructure>mapCodec(instance ->
             instance.group(GraveyardStructure.configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     Identifier.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -35,12 +34,7 @@ public class GraveyardStructure extends IafStructure {
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
         if (!IafCommonConfig.INSTANCE.ghost.generateGraveyards.getValue())
             return Optional.empty();
-
         BlockPos blockpos = pContext.chunkPos().getCenterAtY(1);
-
-        if (this.biomeIsIn(pContext, IafBiomeTags.NO_GRAVEYARD, blockpos))//this is reversed
-            return Optional.empty();
-
         return StructurePoolBasedGenerator.generate(
                 pContext, // Used for JigsawPlacement to get all the proper behaviors done.
                 this.startPool, // The starting pool to use to create the structure layout from

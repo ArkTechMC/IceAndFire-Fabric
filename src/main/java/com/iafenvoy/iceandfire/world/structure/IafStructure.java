@@ -37,13 +37,4 @@ public abstract class IafStructure extends Structure {
         this.projectStartToHeightmap = projectStartToHeightmap;
         this.maxDistanceFromCenter = maxDistanceFromCenter;
     }
-
-
-    protected boolean biomeIsIn(Context pContext, TagKey<Biome> biomeTagKey, BlockPos blockPos) {
-        Set<RegistryEntry<Biome>> biomes = pContext.chunkGenerator().getBiomeSource().getBiomesInArea(blockPos.getX(), blockPos.getY(), blockPos.getZ(), this.maxDistanceFromCenter, pContext.noiseConfig().getMultiNoiseSampler());
-        for (RegistryEntry<Biome> biome : biomes)
-            if (biome.isIn(biomeTagKey))
-                return true;
-        return false;
-    }
 }

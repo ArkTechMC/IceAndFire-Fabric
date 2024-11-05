@@ -34,8 +34,8 @@ public class IceAndFireClient implements ClientModInitializer {
         IafScreenHandlers.registerGui();
         EnumSeaSerpentAnimations.initializeSerpentModels();
         DragonAnimationsLibrary.register(EnumDragonPoses.values(), EnumDragonModelTypes.values());
-        IafRenderers.registerRenderers();
-        IafBlockEntities.registerRenderers();
+        IafRenderers.registerEntityRenderers();
+        IafRenderers.registerBlockEntityRenderers();
         IafBlocks.registerRenderLayers();
         IafItems.registerModelPredicates();
         IafKeybindings.init();

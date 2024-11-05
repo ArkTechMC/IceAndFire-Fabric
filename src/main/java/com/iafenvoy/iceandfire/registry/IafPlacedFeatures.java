@@ -15,9 +15,6 @@ import net.minecraft.world.gen.placementmodifier.*;
 import java.util.List;
 
 public final class IafPlacedFeatures {
-    public static final RegistryKey<PlacedFeature> PLACED_FIRE_DRAGON_ROOST = registerKey("fire_dragon_roost");
-    public static final RegistryKey<PlacedFeature> PLACED_ICE_DRAGON_ROOST = registerKey("ice_dragon_roost");
-    public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_DRAGON_ROOST = registerKey("lightning_dragon_roost");
     public static final RegistryKey<PlacedFeature> PLACED_CYCLOPS_CAVE = registerKey("cyclops_cave");
     public static final RegistryKey<PlacedFeature> PLACED_PIXIE_VILLAGE = registerKey("pixie_village");
     public static final RegistryKey<PlacedFeature> PLACED_SIREN_ISLAND = registerKey("siren_island");
@@ -49,9 +46,6 @@ public final class IafPlacedFeatures {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> features = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
         // Surface
-        context.register(PLACED_FIRE_DRAGON_ROOST, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.FIRE_DRAGON_ROOST), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
-        context.register(PLACED_ICE_DRAGON_ROOST, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.ICE_DRAGON_ROOST), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
-        context.register(PLACED_LIGHTNING_DRAGON_ROOST, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.LIGHTNING_DRAGON_ROOST), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_CYCLOPS_CAVE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.CYCLOPS_CAVE), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_PIXIE_VILLAGE, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.PIXIE_VILLAGE), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));
         context.register(PLACED_SIREN_ISLAND, new PlacedFeature(features.getOrThrow(IafConfiguredFeatures.SIREN_ISLAND), List.of(PlacedFeatures.WORLD_SURFACE_WG_HEIGHTMAP, BiomePlacementModifier.of())));

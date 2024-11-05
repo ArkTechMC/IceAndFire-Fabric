@@ -76,7 +76,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
 
         public IConfigEntry<Boolean> generateSkeletons = new BooleanEntry("iceandfire.dragon.generate.skeletons", true);
         public IConfigEntry<Double> generateSkeletonChance = new DoubleEntry("iceandfire.dragon.generate.skeletonChance", 1.0 / 300, 0, 1);
-        public IConfigEntry<Double> generateDenChance = new DoubleEntry("iceandfire.dragon.generate.denChance", 1.0 / 260, 0, 1);
         public IConfigEntry<Double> generateRoostChance = new DoubleEntry("iceandfire.dragon.generate.roostChance", 1.0 / 480, 0, 1);
         public IConfigEntry<Double> generateDenGoldChance = new DoubleEntry("iceandfire.dragon.generate.denGoldAmount", 1.0 / 4, 0, 1);
         public IConfigEntry<Double> generateOreRatio = new DoubleEntry("iceandfire.dragon.generate.oreRatio", 1.0 / 45, 0, 1);

@@ -23,7 +23,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.gen.structure.StructureType;
 
 public class LightningDragonCaveStructure extends DragonCaveStructure {
-    public static final Codec<LightningDragonCaveStructure> ENTRY_CODEC = RecordCodecBuilder.<LightningDragonCaveStructure>mapCodec(instance ->
+    public static final Codec<LightningDragonCaveStructure> CODEC = RecordCodecBuilder.<LightningDragonCaveStructure>mapCodec(instance ->
             instance.group(configCodecBuilder(instance)).apply(instance, LightningDragonCaveStructure::new)).codec();
 
     protected LightningDragonCaveStructure(Config config) {
@@ -31,8 +31,8 @@ public class LightningDragonCaveStructure extends DragonCaveStructure {
     }
 
     @Override
-    protected DragonCavePiece createPiece(int length, BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed) {
-        return new LightningDragonCavePiece(length, boundingBox, male, offset, y, seed);
+    protected DragonCavePiece createPiece(BlockBox boundingBox, boolean male, BlockPos offset, int y, long seed) {
+        return new LightningDragonCavePiece(0, boundingBox, male, offset, y, seed);
     }
 
     @Override

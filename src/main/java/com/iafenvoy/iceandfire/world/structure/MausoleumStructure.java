@@ -2,7 +2,6 @@ package com.iafenvoy.iceandfire.world.structure;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.IafStructureTypes;
-import com.iafenvoy.iceandfire.registry.tag.IafBiomeTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -18,7 +17,7 @@ import net.minecraft.world.gen.structure.StructureType;
 import java.util.Optional;
 
 public class MausoleumStructure extends IafStructure {
-    public static final Codec<MausoleumStructure> ENTRY_CODEC = RecordCodecBuilder.<MausoleumStructure>mapCodec(instance ->
+    public static final Codec<MausoleumStructure> CODEC = RecordCodecBuilder.<MausoleumStructure>mapCodec(instance ->
             instance.group(configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),
                     Identifier.CODEC.optionalFieldOf("start_jigsaw_name").forGetter(structure -> structure.startJigsawName),
@@ -36,13 +35,8 @@ public class MausoleumStructure extends IafStructure {
     protected Optional<StructurePosition> getStructurePosition(Context pContext) {
         if (!IafCommonConfig.INSTANCE.worldGen.generateMausoleums.getValue())
             return Optional.empty();
-
         ChunkPos pos = pContext.chunkPos();
         BlockPos blockpos = pos.getCenterAtY(1);
-
-        if (!this.biomeIsIn(pContext, IafBiomeTags.MAUSOLEUM, blockpos))
-            return Optional.empty();
-
         return StructurePoolBasedGenerator.generate(
                 pContext, // Used for JigsawPlacement to get all the proper behaviors done.
                 this.startPool, // The starting pool to use to create the structure layout from
