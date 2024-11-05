@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 7407930,
+    "separation": 6,
+    "spacing": 10
+  },
+  "structures": [
+    {
+      "structure": "iceandfire:cyclops_cave",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 7407930,
+    "separation": 8,
+    "spacing": 12
+  },
+  "structures": [
+    {
+      "structure": "iceandfire:pixie_village",
+      "weight": 1
+    }
+  ]
+}

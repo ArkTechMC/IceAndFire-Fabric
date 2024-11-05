@@ -15,6 +15,10 @@ public final class IafStructurePieces {
     public static final StructurePieceType ICE_DRAGON_CAVE = register(IceDragonCaveStructure.IceDragonCavePiece::new, "ice_dragon_cave");
     public static final StructurePieceType LIGHTNING_DRAGON_CAVE = register(LightningDragonCaveStructure.LightningDragonCavePiece::new, "lightning_dragon_cave");
     public static final StructurePieceType MYRMEX_HIVE = register(MyrmexHiveStructure.MyrmexHivePiece::new, "myrmex_hive");
+    public static final StructurePieceType CYCLOPS_CAVE = register(CyclopsCaveStructure.CyclopsCavePiece::new, "cyclops_cave");
+    public static final StructurePieceType HYDRA_CAVE = register(HydraCaveStructure.HydraCavePiece::new, "hydra_cave");
+    public static final StructurePieceType SIREN_ISLAND = register(SirenIslandStructure.SirenIslandPiece::new, "siren_island");
+    public static final StructurePieceType PIXIE_VILLAGE = register(PixieVillageStructure.PixieVillagePiece::new, "pixie_village");
 
     private static StructurePieceType register(StructurePieceType type, String id) {
         return Registry.register(Registries.STRUCTURE_PIECE, id.toLowerCase(Locale.ROOT), type);

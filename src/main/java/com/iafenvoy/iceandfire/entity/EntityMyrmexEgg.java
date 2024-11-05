@@ -34,13 +34,12 @@ import net.minecraft.world.World;
 import java.util.UUID;
 
 public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromStatues, IDeadMob {
-
     private static final TrackedData<Boolean> MYRMEX_TYPE = DataTracker.registerData(EntityMyrmexEgg.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Integer> MYRMEX_AGE = DataTracker.registerData(EntityMyrmexEgg.class, TrackedDataHandlerRegistry.INTEGER);
     private static final TrackedData<Integer> MYRMEX_CASTE = DataTracker.registerData(EntityMyrmexEgg.class, TrackedDataHandlerRegistry.INTEGER);
     public UUID hiveUUID;
 
-    public EntityMyrmexEgg(EntityType t, World worldIn) {
+    public EntityMyrmexEgg(EntityType<? extends EntityMyrmexEgg> t, World worldIn) {
         super(t, worldIn);
     }
 
