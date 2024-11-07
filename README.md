@@ -13,7 +13,7 @@ Join our [Discord](https://discord.gg/NDzz2upqAk) if you have any questions.
 
 **All the things from original mod.**
 
-Netherite Dragon Armor
+Netherite Related things.
 
 (Planned) Complete Dread Land
 
@@ -39,3 +39,5 @@ Change biome tags by using datapacks.
 **Please DO NOT report any issue to the original mod!**
 
 Place `Dread Lands Portal` will crash (Can only be fixed with chunk editor / nbt explorer)
+
+Myrmex cave may be cut. (I try my best to fix that)
