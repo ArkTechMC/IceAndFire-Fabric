@@ -92,7 +92,7 @@ public class DragonAITargetItems<T extends ItemEntity> extends TrackTargetGoal {
             final int hunger = FoodUtils.getFoodPoints(this.targetEntity.getStack(), true, this.isIce);
             final EntityDragonBase dragon = ((EntityDragonBase) this.mob);
             dragon.setHunger(Math.min(100, dragon.getHunger() + hunger));
-            dragon.eatFoodBonus(this.targetEntity.getStack());
+            this.targetEntity.getStack();
             this.mob.setHealth(Math.min(this.mob.getMaxHealth(), (int) (this.mob.getHealth() + FoodUtils.getFoodPoints(this.targetEntity.getStack(), true, this.isIce))));
             if (EntityDragonBase.ANIMATION_EAT != null)
                 dragon.setAnimation(EntityDragonBase.ANIMATION_EAT);

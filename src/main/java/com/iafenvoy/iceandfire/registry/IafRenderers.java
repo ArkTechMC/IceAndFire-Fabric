@@ -1,9 +1,18 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
+import com.iafenvoy.iceandfire.data.DragonArmor;
+import com.iafenvoy.iceandfire.data.SeaSerpent;
+import com.iafenvoy.iceandfire.data.TrollType;
 import com.iafenvoy.iceandfire.particle.*;
+import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
+import com.iafenvoy.iceandfire.render.TideTridentRenderer;
+import com.iafenvoy.iceandfire.render.TrollWeaponRenderer;
+import com.iafenvoy.iceandfire.render.armor.*;
 import com.iafenvoy.iceandfire.render.block.*;
 import com.iafenvoy.iceandfire.render.entity.*;
+import com.iafenvoy.iceandfire.render.item.DeathwormGauntletRenderer;
+import com.iafenvoy.iceandfire.render.item.GorgonHeadRenderer;
 import com.iafenvoy.iceandfire.render.model.*;
 import com.iafenvoy.iceandfire.render.model.animator.FireDragonTabulaModelAnimator;
 import com.iafenvoy.iceandfire.render.model.animator.IceDragonTabulaModelAnimator;
@@ -15,6 +24,8 @@ import com.iafenvoy.uranus.client.model.util.TabulaModelHandlerHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
@@ -133,5 +144,40 @@ public final class IafRenderers {
         ParticleFactoryRegistry.getInstance().register(IafParticles.SERPENT_BUBBLE, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSerpentBubble(world, x, y, z, velocityX, velocityY, velocityZ, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.SIREN_APPEARANCE, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSirenAppearance(world, x, y, z, 1));
         ParticleFactoryRegistry.getInstance().register(IafParticles.SIREN_MUSIC, (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> new ParticleSirenMusic(world, x, y, z, velocityX, velocityY, velocityZ));
+    }
+
+    public static void registerArmorRenderers(){
+        ArmorRenderer.register(new CopperArmorRenderer(), IafItems.COPPER_HELMET, IafItems.COPPER_CHESTPLATE, IafItems.COPPER_LEGGINGS, IafItems.COPPER_BOOTS);
+        ArmorRenderer.register(new DeathWormArmorRenderer(), IafItems.DEATHWORM_WHITE_HELMET, IafItems.DEATHWORM_WHITE_CHESTPLATE, IafItems.DEATHWORM_WHITE_LEGGINGS, IafItems.DEATHWORM_WHITE_BOOTS);
+        ArmorRenderer.register(new DeathWormArmorRenderer(), IafItems.DEATHWORM_YELLOW_HELMET, IafItems.DEATHWORM_YELLOW_CHESTPLATE, IafItems.DEATHWORM_YELLOW_LEGGINGS, IafItems.DEATHWORM_YELLOW_BOOTS);
+        ArmorRenderer.register(new DeathWormArmorRenderer(), IafItems.DEATHWORM_RED_HELMET, IafItems.DEATHWORM_RED_CHESTPLATE, IafItems.DEATHWORM_RED_LEGGINGS, IafItems.DEATHWORM_RED_BOOTS);
+        ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_FIRE_HELMET, IafItems.DRAGONSTEEL_FIRE_CHESTPLATE, IafItems.DRAGONSTEEL_FIRE_LEGGINGS, IafItems.DRAGONSTEEL_FIRE_BOOTS);
+        ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_ICE_HELMET, IafItems.DRAGONSTEEL_ICE_CHESTPLATE, IafItems.DRAGONSTEEL_ICE_LEGGINGS, IafItems.DRAGONSTEEL_ICE_BOOTS);
+        ArmorRenderer.register(new DragonSteelArmorRenderer(), IafItems.DRAGONSTEEL_LIGHTNING_HELMET, IafItems.DRAGONSTEEL_LIGHTNING_CHESTPLATE, IafItems.DRAGONSTEEL_LIGHTNING_LEGGINGS, IafItems.DRAGONSTEEL_LIGHTNING_BOOTS);
+        ArmorRenderer.register(new SilverArmorRenderer(), IafItems.SILVER_HELMET, IafItems.SILVER_CHESTPLATE, IafItems.SILVER_LEGGINGS, IafItems.SILVER_BOOTS);
+        for (DragonArmor armor : DragonArmor.values())
+            ArmorRenderer.register(new ScaleArmorRenderer(), armor.helmet, armor.chestplate, armor.leggings, armor.boots);
+        for (SeaSerpent seaSerpent : SeaSerpent.values())
+            ArmorRenderer.register(new SeaSerpentArmorRenderer(), seaSerpent.helmet, seaSerpent.chestplate, seaSerpent.leggings, seaSerpent.boots);
+        for (TrollType troll : TrollType.values())
+            ArmorRenderer.register(new TrollArmorRenderer(), troll.helmet, troll.chestplate, troll.leggings, troll.boots);
+    }
+
+    public static void registerItemRenderers(){
+        BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_RED, new DeathwormGauntletRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_YELLOW, new DeathwormGauntletRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafItems.DEATHWORM_GAUNTLET_WHITE, new DeathwormGauntletRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafItems.GORGON_HEAD, new GorgonHeadRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafItems.TIDE_TRIDENT, new TideTridentRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_BIRCH, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_OAK, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_DARK_OAK, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_SPRUCE, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_MUSHROOM_RED, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.DREAD_PORTAL, new TEISRItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.GHOST_CHEST, new TEISRItemRenderer());
+        for (TrollType.BuiltinWeapon weapon : TrollType.BuiltinWeapon.values())
+            BuiltinItemRendererRegistry.INSTANCE.register(weapon.getItem(), new TrollWeaponRenderer());
     }
 }

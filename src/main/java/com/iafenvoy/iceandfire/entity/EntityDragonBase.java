@@ -1114,7 +1114,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                 this.spawnItemCrackParticles(stack.getItem());
                 this.spawnItemCrackParticles(Items.BONE);
                 this.spawnItemCrackParticles(Items.BONE_MEAL);
-                this.eatFoodBonus(stack);
                 if (!player.isCreative())
                     stack.decrement(1);
                 return ActionResult.SUCCESS;
@@ -1174,7 +1173,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         this.setHealth(Math.min(this.getMaxHealth(), (int) (this.getHealth() + ((float) itemFoodAmount / 10))));
                         this.playSound(SoundEvents.ENTITY_GENERIC_EAT, this.getSoundVolume(), this.getSoundPitch());
                         this.spawnItemCrackParticles(stack.getItem());
-                        this.eatFoodBonus(stack);
                         if (!player.isCreative())
                             stack.decrement(1);
                         return ActionResult.SUCCESS;
@@ -1188,7 +1186,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         this.spawnItemCrackParticles(stackItem);
                         this.spawnItemCrackParticles(Items.BONE);
                         this.spawnItemCrackParticles(Items.BONE_MEAL);
-                        this.eatFoodBonus(stack);
                         if (!player.isCreative())
                             stack.decrement(1);
                         return ActionResult.SUCCESS;
@@ -1202,7 +1199,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
                         this.spawnItemCrackParticles(Items.POISONOUS_POTATO);
                         this.spawnItemCrackParticles(Items.POISONOUS_POTATO);
                         this.setAgingDisabled(true);
-                        this.eatFoodBonus(stack);
                         if (!player.isCreative())
                             stack.decrement(1);
                         return ActionResult.SUCCESS;
@@ -1322,10 +1318,6 @@ public abstract class EntityDragonBase extends TameableEntity implements NamedSc
             return itemstack;
         }
         return ItemStack.EMPTY;
-    }
-
-    public void eatFoodBonus(ItemStack stack) {
-        // FIXME :: ?
     }
 
     @Override

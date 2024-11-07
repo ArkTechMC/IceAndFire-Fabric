@@ -74,7 +74,6 @@ public class PixieAISteal extends Goal {
                 ItemStack randomItem = this.temptingPlayer.getInventory().getStack(slot);
                 this.temptedEntity.setStackInHand(Hand.MAIN_HAND, randomItem);
                 this.temptingPlayer.getInventory().removeStack(slot);
-                this.temptedEntity.flipAI(true);
                 this.temptedEntity.playSound(IafSounds.PIXIE_TAUNT, 1F, 1F);
 
                 for (EntityPixie pixie : this.temptingPlayer.getWorld().getNonSpectatingEntities(EntityPixie.class, this.temptedEntity.getBoundingBox().expand(40)))
@@ -83,7 +82,6 @@ public class PixieAISteal extends Goal {
                     this.temptingPlayer.addStatusEffect(new StatusEffectInstance(this.temptedEntity.negativePotions[this.temptedEntity.getColor()], 100));
             } else {
                 //If the pixie couldn't steal anything
-                this.temptedEntity.flipAI(true);
                 this.delayTemptCounter = 10 * 20;
             }
         } else

@@ -71,16 +71,16 @@ public class RenderStoneStatue extends EntityRenderer<EntityStoneStatue> {
         }
         if (model == null) return;
 
-        Entity fakeEntity = null;
+        Entity fakeEntity;
         if (this.hollowEntityMap.get(entityIn.getTrappedEntityTypeString()) == null) {
-            Entity build = entityIn.getTrappedEntityType().create(MinecraftClient.getInstance().world);
-            if (build != null) {
+            fakeEntity = entityIn.getTrappedEntityType().create(MinecraftClient.getInstance().world);
+            if (fakeEntity != null) {
                 try {
-                    build.readNbt(entityIn.getTrappedTag());
+                    fakeEntity.readNbt(entityIn.getTrappedTag());
                 } catch (Exception e) {
                     IceAndFire.LOGGER.warn("Mob {} could not build statue NBT", entityIn.getTrappedEntityTypeString());
                 }
-                fakeEntity = this.hollowEntityMap.putIfAbsent(entityIn.getTrappedEntityTypeString(), build);
+                this.hollowEntityMap.putIfAbsent(entityIn.getTrappedEntityTypeString(), fakeEntity);
             }
         } else
             fakeEntity = this.hollowEntityMap.get(entityIn.getTrappedEntityTypeString());

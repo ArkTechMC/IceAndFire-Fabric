@@ -218,9 +218,6 @@ public class EntityMyrmexEgg extends LivingEntity implements IBlacklistedFromSta
         return false;
     }
 
-    public void onPlayerPlace(PlayerEntity player) {
-    }
-
     @Override
     public boolean isMobDead() {
         return true;

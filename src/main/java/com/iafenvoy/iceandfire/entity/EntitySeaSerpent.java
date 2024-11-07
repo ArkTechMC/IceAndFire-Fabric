@@ -802,9 +802,6 @@ public class EntitySeaSerpent extends AnimalEntity implements IAnimatedEntity, I
         return 1000;
     }
 
-    public void onJumpHit(LivingEntity target) {
-    }
-
     public boolean shouldUseJumpAttack(LivingEntity attackTarget) {
         return !attackTarget.isTouchingWater() || this.isPreyAtSurface();
     }

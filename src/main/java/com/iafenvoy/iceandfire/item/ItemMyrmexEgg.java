@@ -56,7 +56,7 @@ public class ItemMyrmexEgg extends Item {
         egg.setJungle(this.isJungle);
         egg.setMyrmexCaste(eggOrdinal);
         egg.refreshPositionAndAngles(offset.getX() + 0.5, offset.getY(), offset.getZ() + 0.5, 0, 0);
-        egg.onPlayerPlace(context.getPlayer());
+        context.getPlayer();
         if (itemstack.hasCustomName())
             egg.setCustomName(itemstack.getName());
         if (!context.getWorld().isClient)

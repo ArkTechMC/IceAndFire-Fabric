@@ -80,8 +80,7 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
     }
 
     public EntityType<?> getTrappedEntityType() {
-        String str = this.getTrappedEntityTypeString();
-        return EntityType.get(str).orElse(EntityType.PIG);
+        return EntityType.get(this.getTrappedEntityTypeString()).orElse(EntityType.PIG);
     }
 
     public String getTrappedEntityTypeString() {
