@@ -4,11 +4,12 @@
   "package": "com.iafenvoy.iceandfire.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ChunkRegionMixin",
+    "LakeFeatureMixin",
     "LivingEntityMixin",
     "MinecraftServerMixin",
     "MobEntityMixin",
-    "LakeFeatureMixin",
-    "ChunkRegionMixin"
+    "PointOfInterestTypesAccessor"
   ],
   "client": [
     "GameRendererMixin",

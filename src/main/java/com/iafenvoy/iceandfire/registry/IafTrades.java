@@ -1,9 +1,9 @@
 package com.iafenvoy.iceandfire.registry;
 
-import com.iafenvoy.fabric.trade.villager.offer.TradeOfferHelper;
-import com.iafenvoy.fabric.trade.villager.offer.factory.BuyWithPrice;
-import com.iafenvoy.fabric.trade.villager.profession.ProfessionHolder;
-import com.iafenvoy.fabric.trade.villager.profession.ProfessionRegistry;
+import com.iafenvoy.iceandfire.util.trade.offer.TradeOfferHelper;
+import com.iafenvoy.iceandfire.util.trade.offer.factory.BuyWithPrice;
+import com.iafenvoy.iceandfire.util.trade.profession.ProfessionHolder;
+import com.iafenvoy.iceandfire.util.trade.profession.ProfessionRegistry;
 import com.iafenvoy.iceandfire.IceAndFire;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -19,7 +19,6 @@ public final class IafTrades {
     }
 
     public static void addScribeTrades() {
-        assert SCRIBE != null;
         VillagerProfession profession = SCRIBE.profession();
         final float emeraldForItemsMultiplier = 0.05F; //Values taken from VillagerTrades.java
         final float itemForEmeraldMultiplier = 0.05F;

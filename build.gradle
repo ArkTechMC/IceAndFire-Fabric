@@ -40,9 +40,6 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
-    flatDir {
-        dir "./flatLib"
-    }
 }
 
 dependencies {
@@ -53,8 +50,6 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-    modImplementation(include("com.iafenvoy:fabric-trade-api:0.1.2"))
 
     // Uranus
     modImplementation "maven.modrinth:uranus:MSGUcQEI"

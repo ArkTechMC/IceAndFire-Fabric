@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class IafCommonConfig extends AutoInitConfigContainer {
     public static final IafCommonConfig INSTANCE = new IafCommonConfig();
-    public static final int CURRENT_VERSION = 1;
+    public static final int CURRENT_VERSION = 2;
     public static final String backupPath = "./config/iceandfire/";
 
     public DragonConfig dragon = new DragonConfig();
@@ -73,10 +73,9 @@ public class IafCommonConfig extends AutoInitConfigContainer {
         public IConfigEntry<Integer> maxPathingNodes = new IntegerEntry("iceandfire.dragon.maxPathingNodes", 5000, 0, Integer.MAX_VALUE);
         public IConfigEntry<Boolean> villagersFear = new BooleanEntry("iceandfire.dragon.villagersFear", true);
         public IConfigEntry<Boolean> animalsFear = new BooleanEntry("iceandfire.dragon.animalsFear", true);
-
+        
         public IConfigEntry<Boolean> generateSkeletons = new BooleanEntry("iceandfire.dragon.generate.skeletons", true);
         public IConfigEntry<Double> generateSkeletonChance = new DoubleEntry("iceandfire.dragon.generate.skeletonChance", 1.0 / 300, 0, 1);
-        public IConfigEntry<Double> generateRoostChance = new DoubleEntry("iceandfire.dragon.generate.roostChance", 1.0 / 480, 0, 1);
         public IConfigEntry<Double> generateDenGoldChance = new DoubleEntry("iceandfire.dragon.generate.denGoldAmount", 1.0 / 4, 0, 1);
         public IConfigEntry<Double> generateOreRatio = new DoubleEntry("iceandfire.dragon.generate.oreRatio", 1.0 / 45, 0, 1);
 
@@ -124,7 +123,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
     }
 
     public static class PixieConfig extends AutoInitConfigCategoryBase {
-        public IConfigEntry<Double> spawnChance = new DoubleEntry("iceandfire.pixie.spawnChance", 1.0 / 60, 0, 1);
         public IConfigEntry<Integer> size = new IntegerEntry("iceandfire.pixie.size", 5, 0, 100);
         public IConfigEntry<Boolean> stealItems = new BooleanEntry("iceandfire.pixie.stealItems", true);
 
@@ -135,7 +133,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
 
     public static class CyclopsConfig extends AutoInitConfigCategoryBase {
         public IConfigEntry<Double> spawnWanderingChance = new DoubleEntry("iceandfire.cyclops.spawnWanderingChance", 1.0 / 900, 0, 1);
-        public IConfigEntry<Double> spawnCaveChance = new DoubleEntry("iceandfire.cyclops.spawnCaveChance", 1.0 / 170, 0, 1);
         public IConfigEntry<Integer> sheepSearchLength = new IntegerEntry("iceandfire.cyclops.sheepSearchLength", 17, 0, 1024);
         public IConfigEntry<Double> maxHealth = new DoubleEntry("iceandfire.cyclops.maxHealth", 150, 1, Integer.MAX_VALUE);
         public IConfigEntry<Double> attackDamage = new DoubleEntry("iceandfire.cyclops.attackDamage", 15, 0, Integer.MAX_VALUE);
@@ -148,7 +145,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
     }
 
     public static class SirenConfig extends AutoInitConfigCategoryBase {
-        public IConfigEntry<Double> spawnChance = new DoubleEntry("iceandfire.siren.spawnChance", 1.0 / 400, 0, 1);
         public IConfigEntry<Double> maxHealth = new DoubleEntry("iceandfire.siren.maxHealth", 50, 1, Integer.MAX_VALUE);
         public IConfigEntry<Integer> maxSingTime = new IntegerEntry("iceandfire.siren.maxSingTime", 12000, 0, Integer.MAX_VALUE);
         public IConfigEntry<Integer> timeBetweenSongs = new IntegerEntry("iceandfire.siren.timeBetweenSongs", 2000, 0, Integer.MAX_VALUE);
@@ -222,7 +218,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
         public IConfigEntry<Integer> pregnantTicks = new IntegerEntry("iceandfire.myrmex.pregnantTicks", 2500, 0, Integer.MAX_VALUE);
         public IConfigEntry<Integer> eggTicks = new IntegerEntry("iceandfire.myrmex.eggTicks", 3000, 0, Integer.MAX_VALUE);
         public IConfigEntry<Integer> larvaTicks = new IntegerEntry("iceandfire.myrmex.larvaTicks", 35000, 0, Integer.MAX_VALUE);
-        public IConfigEntry<Double> colonyGenChance = new DoubleEntry("iceandfire.myrmex.colonyGenChance", 1.0 / 50, 0, 1);
         public IConfigEntry<Integer> colonySize = new IntegerEntry("iceandfire.myrmex.colonySize", 80, 0, 400);
         public IConfigEntry<Integer> maximumWanderRadius = new IntegerEntry("iceandfire.myrmex.maximumWanderRadius", 50, 0, 400);
         public IConfigEntry<Boolean> hiveIgnoreDaytime = new BooleanEntry("iceandfire.myrmex.hiveIgnoreDaytime", false);
@@ -270,7 +265,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
 
     public static class HydraConfig extends AutoInitConfigCategoryBase {
         public IConfigEntry<Double> maxHealth = new DoubleEntry("iceandfire.hydra.maxHealth", 250, 1, Integer.MAX_VALUE);
-        public IConfigEntry<Double> spawnChance = new DoubleEntry("iceandfire.hydra.spawnChance", 1.0 / 120, 0, 1);
 
         public HydraConfig() {
             super("hydra", "iceandfire.category.hydra");
@@ -287,7 +281,6 @@ public class IafCommonConfig extends AutoInitConfigContainer {
     }
 
     public static class GhostConfig extends AutoInitConfigCategoryBase {
-        public IConfigEntry<Boolean> generateGraveyards = new BooleanEntry("iceandfire.ghost.generateGraveyards", true);
         public IConfigEntry<Double> maxHealth = new DoubleEntry("iceandfire.ghost.maxHealth", 30, 1, Integer.MAX_VALUE);
         public IConfigEntry<Double> attackDamage = new DoubleEntry("iceandfire.ghost.attackDamage", 3, 0, Integer.MAX_VALUE);
         public IConfigEntry<Boolean> fromPlayerDeaths = new BooleanEntry("iceandfire.ghost.fromPlayerDeaths", true);
