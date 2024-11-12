@@ -7,6 +7,7 @@ import com.iafenvoy.iceandfire.registry.IafEntities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -15,6 +16,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Arm;
 import net.minecraft.world.World;
 
@@ -175,6 +178,17 @@ public class EntityStoneStatue extends LivingEntity implements IBlacklistedFromS
             this.calculateDimensions();
             this.setPosition(prevX, this.getY(), prevZ);
         }
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if (source.isIn(DamageTypeTags.IS_PROJECTILE) && amount > 0) {
+            if (this.getWorld() instanceof ServerWorld serverWorld && this.getTrappedEntityType().create(serverWorld) instanceof LivingEntity livingEntity)
+                ExperienceOrbEntity.spawn(serverWorld, this.getPos(), livingEntity.getXpToDrop());
+            this.remove(RemovalReason.KILLED);
+            return true;
+        }
+        return super.damage(source, amount);
     }
 
     @Override

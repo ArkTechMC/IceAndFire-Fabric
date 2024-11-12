@@ -211,9 +211,10 @@ public class ServerEvents {
 
                         statue.remove(Entity.RemovalReason.KILLED);
                     }
-                    return ActionResult.PASS;
+                    return ActionResult.SUCCESS;
                 }
             }
+            return ActionResult.CONSUME;
         }
         if (entity instanceof EntityMultipartPart mutlipartPart) {
             Entity parent = mutlipartPart.getParent();
