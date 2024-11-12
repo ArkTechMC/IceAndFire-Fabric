@@ -47,6 +47,7 @@ public class HydraCaveStructure extends Structure {
     protected Optional<StructurePosition> getStructurePosition(Context context) {
         BlockRotation blockRotation = BlockRotation.random(context.random());
         BlockPos blockPos = this.getShiftedPos(context, blockRotation);
+        if (!GenerationConstant.isFarEnoughFromSpawn(blockPos)) return Optional.empty();
         return Optional.of(new StructurePosition(blockPos, collector -> collector.addPiece(new HydraCavePiece(0, new BlockBox(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX(), blockPos.getY(), blockPos.getZ())))));
     }
 

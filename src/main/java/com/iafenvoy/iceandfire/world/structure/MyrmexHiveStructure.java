@@ -7,10 +7,7 @@ import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
 import com.iafenvoy.iceandfire.item.block.BlockMyrmexBiolight;
 import com.iafenvoy.iceandfire.item.block.BlockMyrmexConnectedResin;
 import com.iafenvoy.iceandfire.item.block.BlockMyrmexResin;
-import com.iafenvoy.iceandfire.registry.IafBlocks;
-import com.iafenvoy.iceandfire.registry.IafEntities;
-import com.iafenvoy.iceandfire.registry.IafStructurePieces;
-import com.iafenvoy.iceandfire.registry.IafStructureTypes;
+import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.util.RestrictWorldAccess;
 import com.iafenvoy.iceandfire.world.GenerationConstant;
 import com.iafenvoy.iceandfire.world.MyrmexWorldData;
@@ -61,6 +58,7 @@ public class MyrmexHiveStructure extends Structure {
     protected Optional<StructurePosition> getStructurePosition(Context context) {
         BlockRotation blockRotation = BlockRotation.random(context.random());
         BlockPos blockPos = this.getShiftedPos(context, blockRotation);
+        if (!GenerationConstant.isFarEnoughFromSpawn(blockPos)) return Optional.empty();
         return Optional.of(new StructurePosition(blockPos, collector -> this.addPieces(collector, blockPos, context)));
     }
 

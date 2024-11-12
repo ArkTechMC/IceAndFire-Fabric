@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.world.gen.processor;
+package com.iafenvoy.iceandfire.world.processor;
 
 import com.iafenvoy.iceandfire.registry.IafBlocks;
 import net.minecraft.block.BlockState;

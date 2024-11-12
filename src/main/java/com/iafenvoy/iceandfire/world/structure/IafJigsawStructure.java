@@ -9,7 +9,7 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.Optional;
 
-public abstract class IafStructure extends Structure {
+public abstract class IafJigsawStructure extends Structure {
     protected final RegistryEntry<StructurePool> startPool;
     protected final Optional<Identifier> startJigsawName;
     protected final int size;
@@ -17,13 +17,13 @@ public abstract class IafStructure extends Structure {
     protected final Optional<Heightmap.Type> projectStartToHeightmap;
     protected final int maxDistanceFromCenter;
 
-    public IafStructure(Config config,
-                        RegistryEntry<StructurePool> startPool,
-                        Optional<Identifier> startJigsawName,
-                        int size,
-                        HeightProvider startHeight,
-                        Optional<Heightmap.Type> projectStartToHeightmap,
-                        int maxDistanceFromCenter) {
+    public IafJigsawStructure(Config config,
+                              RegistryEntry<StructurePool> startPool,
+                              Optional<Identifier> startJigsawName,
+                              int size,
+                              HeightProvider startHeight,
+                              Optional<Heightmap.Type> projectStartToHeightmap,
+                              int maxDistanceFromCenter) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;

@@ -16,7 +16,7 @@ import net.minecraft.world.gen.structure.StructureType;
 
 import java.util.Optional;
 
-public class MausoleumStructure extends IafStructure {
+public class MausoleumStructure extends IafJigsawStructure {
     public static final Codec<MausoleumStructure> CODEC = RecordCodecBuilder.<MausoleumStructure>mapCodec(instance ->
             instance.group(configCodecBuilder(instance),
                     StructurePool.REGISTRY_CODEC.fieldOf("start_pool").forGetter(structure -> structure.startPool),

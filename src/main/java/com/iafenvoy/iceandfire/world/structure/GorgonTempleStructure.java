@@ -16,7 +16,7 @@ import net.minecraft.world.gen.structure.StructureType;
 
 import java.util.Optional;
 
-public class GorgonTempleStructure extends IafStructure {
+public class GorgonTempleStructure extends IafJigsawStructure {
 
     public static final Codec<GorgonTempleStructure> CODEC = RecordCodecBuilder.<GorgonTempleStructure>mapCodec(instance ->
             instance.group(configCodecBuilder(instance),

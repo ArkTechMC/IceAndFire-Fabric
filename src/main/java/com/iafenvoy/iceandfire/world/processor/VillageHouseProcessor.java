@@ -1,4 +1,4 @@
-package com.iafenvoy.iceandfire.world.gen.processor;
+package com.iafenvoy.iceandfire.world.processor;
 
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.registry.IafProcessors;

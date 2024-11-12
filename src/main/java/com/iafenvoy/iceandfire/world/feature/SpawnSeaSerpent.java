@@ -3,7 +3,7 @@ package com.iafenvoy.iceandfire.world.feature;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.entity.EntitySeaSerpent;
 import com.iafenvoy.iceandfire.registry.IafEntities;
-import com.iafenvoy.iceandfire.registry.IafFeatures;
+import com.iafenvoy.iceandfire.world.GenerationConstant;
 import com.mojang.serialization.Codec;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
@@ -28,7 +28,7 @@ public class SpawnSeaSerpent extends Feature<DefaultFeatureConfig> {
         position = worldIn.getTopPosition(Heightmap.Type.WORLD_SURFACE_WG, position.add(8, 0, 8));
         BlockPos oceanPos = worldIn.getTopPosition(Heightmap.Type.OCEAN_FLOOR_WG, position.add(8, 0, 8));
 
-        if (IafFeatures.isFarEnoughFromSpawn(worldIn, position)) {
+        if (GenerationConstant.isFarEnoughFromSpawn(position)) {
             if (rand.nextDouble() < IafCommonConfig.INSTANCE.seaSerpent.spawnChance.getValue()) {
                 BlockPos pos = oceanPos.add(rand.nextInt(10) - 5, rand.nextInt(30), rand.nextInt(10) - 5);
                 if (worldIn.getFluidState(pos).getFluid() == Fluids.WATER) {

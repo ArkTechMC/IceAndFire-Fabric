@@ -3,10 +3,7 @@ package com.iafenvoy.iceandfire.world.structure;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.entity.EntityCyclops;
 import com.iafenvoy.iceandfire.item.block.BlockGoldPile;
-import com.iafenvoy.iceandfire.registry.IafBlocks;
-import com.iafenvoy.iceandfire.registry.IafEntities;
-import com.iafenvoy.iceandfire.registry.IafStructurePieces;
-import com.iafenvoy.iceandfire.registry.IafStructureTypes;
+import com.iafenvoy.iceandfire.registry.*;
 import com.iafenvoy.iceandfire.world.GenerationConstant;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -49,6 +46,7 @@ public class CyclopsCaveStructure extends Structure {
     protected Optional<StructurePosition> getStructurePosition(Context context) {
         BlockRotation blockRotation = BlockRotation.random(context.random());
         BlockPos blockPos = this.getShiftedPos(context, blockRotation);
+        if (!GenerationConstant.isFarEnoughFromSpawn(blockPos)) return Optional.empty();
         return Optional.of(new StructurePosition(blockPos, collector -> collector.addPiece(new CyclopsCavePiece(0, new BlockBox(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX(), blockPos.getY(), blockPos.getZ())))));
     }
 

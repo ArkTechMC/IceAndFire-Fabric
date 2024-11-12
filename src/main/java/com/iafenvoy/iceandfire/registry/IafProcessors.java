@@ -1,10 +1,10 @@
 package com.iafenvoy.iceandfire.registry;
 
 import com.iafenvoy.iceandfire.IceAndFire;
-import com.iafenvoy.iceandfire.world.gen.processor.DreadRuinProcessor;
-import com.iafenvoy.iceandfire.world.gen.processor.GorgonTempleProcessor;
-import com.iafenvoy.iceandfire.world.gen.processor.GraveyardProcessor;
-import com.iafenvoy.iceandfire.world.gen.processor.VillageHouseProcessor;
+import com.iafenvoy.iceandfire.world.processor.DreadRuinProcessor;
+import com.iafenvoy.iceandfire.world.processor.GorgonTempleProcessor;
+import com.iafenvoy.iceandfire.world.processor.GraveyardProcessor;
+import com.iafenvoy.iceandfire.world.processor.VillageHouseProcessor;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.structure.processor.StructureProcessor;
