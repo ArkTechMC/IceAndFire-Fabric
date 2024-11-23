@@ -12,10 +12,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.world.gen.feature.*;
 
 @SuppressWarnings("unused")
 public final class IafFeatures {
@@ -32,21 +29,28 @@ public final class IafFeatures {
         return Registry.register(Registries.FEATURE, new Identifier(IceAndFire.MOD_ID, name), feature);
     }
 
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DEATH_WORM = key("spawn_death_worm");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_L = key("spawn_dragon_skeleton_lightning");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_F = key("spawn_dragon_skeleton_fire");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_I = key("spawn_dragon_skeleton_ice");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_HIPPOCAMPUS = key("spawn_hippocampus");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_SEA_SERPENT = key("spawn_sea_serpent");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_STYMPHALIAN_BIRD = key("spawn_stymphalian_bird");
-    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_WANDERING_CYCLOPS = key("spawn_wandering_cyclops");
-    public static final RegistryKey<PlacedFeature> PLACED_SILVER_ORE = key("silver_ore");
-    public static final RegistryKey<PlacedFeature> PLACED_SAPPHIRE_ORE = key("sapphire_ore");
-    public static final RegistryKey<PlacedFeature> PLACED_FIRE_LILY = key("fire_lily");
-    public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_LILY = key("lightning_lily");
-    public static final RegistryKey<PlacedFeature> PLACED_FROST_LILY = key("frost_lily");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DREADWOOD = configuredFeature("dreadwood");
+    public static final RegistryKey<ConfiguredFeature<?, ?>> DREADWOOD_LARGE = configuredFeature("dreadwood_large");
 
-    public static RegistryKey<PlacedFeature> key(String name) {
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DEATH_WORM = placeFeature("spawn_death_worm");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_L = placeFeature("spawn_dragon_skeleton_lightning");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_F = placeFeature("spawn_dragon_skeleton_fire");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_DRAGON_SKELETON_I = placeFeature("spawn_dragon_skeleton_ice");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_HIPPOCAMPUS = placeFeature("spawn_hippocampus");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_SEA_SERPENT = placeFeature("spawn_sea_serpent");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_STYMPHALIAN_BIRD = placeFeature("spawn_stymphalian_bird");
+    public static final RegistryKey<PlacedFeature> PLACED_SPAWN_WANDERING_CYCLOPS = placeFeature("spawn_wandering_cyclops");
+    public static final RegistryKey<PlacedFeature> PLACED_SILVER_ORE = placeFeature("silver_ore");
+    public static final RegistryKey<PlacedFeature> PLACED_SAPPHIRE_ORE = placeFeature("sapphire_ore");
+    public static final RegistryKey<PlacedFeature> PLACED_FIRE_LILY = placeFeature("fire_lily");
+    public static final RegistryKey<PlacedFeature> PLACED_LIGHTNING_LILY = placeFeature("lightning_lily");
+    public static final RegistryKey<PlacedFeature> PLACED_FROST_LILY = placeFeature("frost_lily");
+
+    public static RegistryKey<ConfiguredFeature<?, ?>> configuredFeature(String name) {
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(IceAndFire.MOD_ID, name));
+    }
+
+    public static RegistryKey<PlacedFeature> placeFeature(String name) {
         return RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(IceAndFire.MOD_ID, name));
     }
 

@@ -3,13 +3,12 @@ package com.iafenvoy.iceandfire.registry;
 import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.data.DragonColor;
 import com.iafenvoy.iceandfire.item.block.*;
+import com.iafenvoy.iceandfire.item.block.DreadwoodSaplingBlock;
 import com.iafenvoy.iceandfire.item.block.util.IWallBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Instrument;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.VerticallyAttachableBlockItem;
@@ -124,8 +123,8 @@ public final class IafBlocks {
     public static final Block DRAGONSTEEL_LIGHTNING_BLOCK = register("dragonsteel_lightning_block", BlockGeneric.builder(10.0F, 1000.0F, BlockSoundGroup.METAL, MapColor.IRON_GRAY, null, null, false));
     public static final BlockDreadBase DREAD_STONE = register("dread_stone", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final BlockDreadBase DREAD_STONE_BRICKS = register("dread_stone_bricks", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
-    public static final Block DREAD_STONE_BRICKS_STAIRS = register("dread_stone_stairs", new StairsBlock(DREAD_STONE_BRICKS.getDefaultState(), AbstractBlock.Settings.create().strength(-1.0F,3600000.0F)));
-    public static final BlockDreadBase DREAD_STONE_BRICKS_CHISELED = register("dread_stone_bricks_chiseled", BlockDreadBase.builder(-1.0F,3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
+    public static final Block DREAD_STONE_BRICKS_STAIRS = register("dread_stone_stairs", new StairsBlock(DREAD_STONE_BRICKS.getDefaultState(), AbstractBlock.Settings.create().strength(-1.0F, 3600000.0F)));
+    public static final BlockDreadBase DREAD_STONE_BRICKS_CHISELED = register("dread_stone_bricks_chiseled", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final BlockDreadBase DREAD_STONE_BRICKS_CRACKED = register("dread_stone_bricks_cracked", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final BlockDreadBase DREAD_STONE_BRICKS_MOSSY = register("dread_stone_bricks_mossy", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
     public static final BlockDreadBase DREAD_STONE_TILE = register("dread_stone_tile", BlockDreadBase.builder(-1.0F, 3600000.0F, BlockSoundGroup.STONE, MapColor.STONE_GRAY, null, false));
@@ -135,6 +134,8 @@ public final class IafBlocks {
     public static final Block DREAD_STONE_BRICKS_SLAB = register("dread_stone_slab", new SlabBlock(AbstractBlock.Settings.create().mapColor(MapColor.STONE_GRAY).strength(10F, 10000F)));
     public static final Block DREADWOOD_LOG = register("dreadwood_log", new BlockDreadWoodLog());
     public static final BlockDreadBase DREADWOOD_PLANKS = register("dreadwood_planks", BlockDreadBase.builder(-1.0F, 100000.0F, BlockSoundGroup.WOOD, MapColor.OAK_TAN, Instrument.BASS, true));
+    public static final Block DREADWOOD_LEAVES = register("dreadwood_leaves", Blocks.createLeavesBlock(BlockSoundGroup.GRASS));
+    public static final Block DREADWOOD_SAPLING = register("dreadwood_sapling", new DreadwoodSaplingBlock());
     public static final Block DREADWOOD_PLANKS_LOCK = register("dreadwood_planks_lock", new BlockDreadWoodLock());
     public static final Block DREAD_PORTAL = register("dread_portal", new BlockDreadPortal());
     public static final Block DREAD_SPAWNER = register("dread_spawner", new BlockDreadSpawner());
@@ -160,46 +161,5 @@ public final class IafBlocks {
     }
 
     public static void init() {
-    }
-
-    public static void registerRenderLayers() {
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.GOLD_PILE, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.SILVER_PILE, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.LECTERN, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_OAK, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_BIRCH, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_SPRUCE, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_JUNGLE, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_ACACIA, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_DARK_OAK, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.FIRE_LILY, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.FROST_LILY, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.LIGHTNING_LILY, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DRAGON_ICE_SPIKES, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_DESERT_RESIN_BLOCK, RenderLayer.getTranslucent());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_DESERT_RESIN_GLASS, RenderLayer.getTranslucent());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_JUNGLE_RESIN_BLOCK, RenderLayer.getTranslucent());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_JUNGLE_RESIN_GLASS, RenderLayer.getTranslucent());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_DESERT_BIOLIGHT, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_JUNGLE_BIOLIGHT, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_STONE_FACE, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_TORCH, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.BURNT_TORCH, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.EGG_IN_ICE, RenderLayer.getTranslucent());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_EMPTY, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_0, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_1, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_2, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_3, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_4, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_MUSHROOM_RED, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_OAK, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_BIRCH, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_SPRUCE, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_DARK_OAK, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_SPAWNER, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_TORCH_WALL, RenderLayer.getCutout());
-        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.BURNT_TORCH_WALL, RenderLayer.getCutout());
     }
 }

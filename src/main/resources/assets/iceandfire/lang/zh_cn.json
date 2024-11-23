@@ -1536,5 +1536,8 @@
   "iceandfire.dragon.movedWronglyFix.comment": "未使用",
   "iceandfire.bird.dataTagDrops.comment": "未使用",
   "iceandfire.worldgen.villagerHouseWeight.comment": "未使用",
-  "iceandfire.misc.allowAttributeOverriding.comment": "未使用"
+  "iceandfire.misc.allowAttributeOverriding.comment": "未使用",
+
+  "block.iceandfire.dreadwood_leaves": "悚木树叶",
+  "block.iceandfire.dreadwood_sapling": "悚木树苗"
 }

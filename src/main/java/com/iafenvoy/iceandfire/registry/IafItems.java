@@ -18,7 +18,6 @@ import com.iafenvoy.uranus.object.item.CustomArmorMaterial;
 import com.iafenvoy.uranus.object.item.CustomToolMaterial;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
@@ -449,16 +448,5 @@ public final class IafItems {
         IafItems.DREAD_KNIGHT_TOOL_MATERIAL.setRepairMaterial(Ingredient.ofItems(IafItems.DREAD_SHARD));
         for (SeaSerpent serpent : SeaSerpent.values())
             serpent.armorMaterial.setRepairMaterial(Ingredient.ofItems(serpent.scale));
-    }
-
-    public static void registerModelPredicates() {
-        ModelPredicateProviderRegistry.register(IafItems.DRAGON_BOW, new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1 : 0);
-        ModelPredicateProviderRegistry.register(IafItems.DRAGON_BOW, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity == null ? 0 : livingEntity.getActiveItem() != itemStack ? 0 : (float) (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20);
-
-        ModelPredicateProviderRegistry.register(IafItems.DRAGON_HORN, new Identifier("iceorfire"), (stack, level, entity, p) -> ItemDragonHorn.getDragonType(stack) * 0.25F);
-        ModelPredicateProviderRegistry.register(IafItems.SUMMONING_CRYSTAL_FIRE, new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
-        ModelPredicateProviderRegistry.register(IafItems.SUMMONING_CRYSTAL_ICE, new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
-        ModelPredicateProviderRegistry.register(IafItems.SUMMONING_CRYSTAL_LIGHTNING, new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
-        ModelPredicateProviderRegistry.register(IafItems.TIDE_TRIDENT, new Identifier("throwing"), (stack, level, entity, p) -> entity != null && entity.isUsingItem() && entity.getMainHandStack() == stack ? 1.0F : 0.0F);
     }
 }

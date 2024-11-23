@@ -4,6 +4,8 @@ import com.iafenvoy.iceandfire.IceAndFire;
 import com.iafenvoy.iceandfire.data.DragonArmor;
 import com.iafenvoy.iceandfire.data.SeaSerpent;
 import com.iafenvoy.iceandfire.data.TrollType;
+import com.iafenvoy.iceandfire.item.ItemDragonHorn;
+import com.iafenvoy.iceandfire.item.ItemSummoningCrystal;
 import com.iafenvoy.iceandfire.particle.*;
 import com.iafenvoy.iceandfire.render.TEISRItemRenderer;
 import com.iafenvoy.iceandfire.render.TideTridentRenderer;
@@ -27,8 +29,12 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.impl.blockrenderlayer.BlockRenderLayerMapImpl;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.util.Identifier;
 
 import java.io.IOException;
 
@@ -179,5 +185,59 @@ public final class IafRenderers {
         BuiltinItemRendererRegistry.INSTANCE.register(IafBlocks.GHOST_CHEST, new TEISRItemRenderer());
         for (TrollType.BuiltinWeapon weapon : TrollType.BuiltinWeapon.values())
             BuiltinItemRendererRegistry.INSTANCE.register(weapon.getItem(), new TrollWeaponRenderer());
+    }
+
+    public static void registerRenderLayers() {
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.GOLD_PILE, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.SILVER_PILE, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.LECTERN, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_OAK, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_BIRCH, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_SPRUCE, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_JUNGLE, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_ACACIA, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PODIUM_DARK_OAK, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.FIRE_LILY, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.FROST_LILY, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.LIGHTNING_LILY, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DRAGON_ICE_SPIKES, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_DESERT_RESIN_BLOCK, RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_DESERT_RESIN_GLASS, RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_JUNGLE_RESIN_BLOCK, RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_JUNGLE_RESIN_GLASS, RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_DESERT_BIOLIGHT, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.MYRMEX_JUNGLE_BIOLIGHT, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_STONE_FACE, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_TORCH, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.BURNT_TORCH, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.EGG_IN_ICE, RenderLayer.getTranslucent());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_EMPTY, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_0, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_1, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_2, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_3, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.JAR_PIXIE_4, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_MUSHROOM_BROWN, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_MUSHROOM_RED, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_OAK, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_BIRCH, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_SPRUCE, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.PIXIE_HOUSE_DARK_OAK, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_SPAWNER, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREAD_TORCH_WALL, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.BURNT_TORCH_WALL, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREADWOOD_LEAVES, RenderLayer.getCutout());
+        BlockRenderLayerMapImpl.INSTANCE.putBlock(IafBlocks.DREADWOOD_SAPLING, RenderLayer.getCutout());
+    }
+
+    public static void registerModelPredicates() {
+        ModelPredicateProviderRegistry.register(IafItems.DRAGON_BOW, new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1 : 0);
+        ModelPredicateProviderRegistry.register(IafItems.DRAGON_BOW, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> livingEntity == null ? 0 : livingEntity.getActiveItem() != itemStack ? 0 : (float) (itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20);
+
+        ModelPredicateProviderRegistry.register(IafItems.DRAGON_HORN, new Identifier("iceorfire"), (stack, level, entity, p) -> ItemDragonHorn.getDragonType(stack) * 0.25F);
+        ModelPredicateProviderRegistry.register(IafItems.SUMMONING_CRYSTAL_FIRE, new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(IafItems.SUMMONING_CRYSTAL_ICE, new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(IafItems.SUMMONING_CRYSTAL_LIGHTNING, new Identifier("has_dragon"), (stack, level, entity, p) -> ItemSummoningCrystal.hasDragon(stack) ? 1.0F : 0.0F);
+        ModelPredicateProviderRegistry.register(IafItems.TIDE_TRIDENT, new Identifier("throwing"), (stack, level, entity, p) -> entity != null && entity.isUsingItem() && entity.getMainHandStack() == stack ? 1.0F : 0.0F);
     }
 }

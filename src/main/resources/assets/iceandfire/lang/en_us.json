@@ -1539,5 +1539,8 @@
   "iceandfire.dragon.movedWronglyFix.comment": "Unused",
   "iceandfire.bird.dataTagDrops.comment": "Unused",
   "iceandfire.worldgen.villagerHouseWeight.comment": "Unused",
-  "iceandfire.misc.allowAttributeOverriding.comment": "Unused"
+  "iceandfire.misc.allowAttributeOverriding.comment": "Unused",
+
+  "block.iceandfire.dreadwood_leaves": "Dreadwood Leaves",
+  "block.iceandfire.dreadwood_sapling": "Dreadwood Sapling"
 }
