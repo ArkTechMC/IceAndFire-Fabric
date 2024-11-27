@@ -7,6 +7,8 @@
     "fog_color": 12638463,
     "water_color": 4020182,
     "water_fog_color": 329011,
+    "foliage_color": 8355711,
+    "grass_color": 8355711,
     "mood_sound": {
       "sound": "minecraft:ambient.cave",
       "tick_delay": 6000,
@@ -70,49 +72,31 @@
     "misc": [],
     "monster": [
       {
-        "type": "minecraft:spider",
+        "type": "iceandfire:dread_thrall",
         "weight": 100,
         "minCount": 4,
         "maxCount": 4
       },
       {
-        "type": "minecraft:zombie",
-        "weight": 95,
+        "type": "iceandfire:dread_ghoul",
+        "weight": 100,
         "minCount": 4,
         "maxCount": 4
       },
       {
-        "type": "minecraft:zombie_villager",
+        "type": "iceandfire:dread_beast",
+        "weight": 100,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "iceandfire:dread_lich",
         "weight": 5,
         "minCount": 1,
         "maxCount": 1
       },
       {
-        "type": "minecraft:skeleton",
-        "weight": 100,
-        "minCount": 4,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:creeper",
-        "weight": 100,
-        "minCount": 4,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:slime",
-        "weight": 100,
-        "minCount": 4,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:enderman",
-        "weight": 10,
-        "minCount": 1,
-        "maxCount": 4
-      },
-      {
-        "type": "minecraft:witch",
+        "type": "iceandfire:dread_knight",
         "weight": 5,
         "minCount": 1,
         "maxCount": 1
@@ -143,13 +127,8 @@
       "minecraft:lake_lava_underground",
       "minecraft:lake_lava_surface"
     ],
-    [
-      "minecraft:amethyst_geode"
-    ],
-    [
-      "minecraft:monster_room",
-      "minecraft:monster_room_deep"
-    ],
+    [],
+    [],
     [],
     [],
     [
@@ -189,16 +168,10 @@
     ],
     [
       "minecraft:glow_lichen",
-      "minecraft:patch_large_fern",
+      "iceandfire:frost_lily",
       "iceandfire:dreadwood",
       "iceandfire:dreadwood_large",
-      "minecraft:flower_default",
-      "minecraft:patch_grass_taiga_2",
-      "minecraft:brown_mushroom_taiga",
-      "minecraft:red_mushroom_taiga",
-      "minecraft:patch_sugar_cane",
-      "minecraft:patch_pumpkin",
-      "minecraft:patch_berry_rare"
+      "minecraft:patch_grass_taiga_2"
     ],
     [
       "minecraft:freeze_top_layer"

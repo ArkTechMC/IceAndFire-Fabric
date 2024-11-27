@@ -32,14 +32,6 @@ public class BlockGeneric extends Block {
         return new BlockGeneric(props);
     }
 
-    public boolean isOpaqueCube(BlockState state) {
-        return this != IafBlocks.DRAGON_ICE;
-    }
-
-    public boolean isFullCube(BlockState state) {
-        return this != IafBlocks.DRAGON_ICE;
-    }
-
     @Deprecated
     public boolean canEntitySpawn(BlockState state, Entity entity) {
         return entity instanceof EntityDreadMob || !DragonUtils.isDreadBlock(state);

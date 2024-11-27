@@ -13,6 +13,7 @@
   ],
   "client": [
     "GameRendererMixin",
+    "InGameHudMixin",
     "LivingEntityRendererMixin",
     "MinecraftClientMixin",
     "PlayerEntityRendererMixin",

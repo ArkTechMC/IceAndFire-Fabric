@@ -45,7 +45,6 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.*;
 
 public class EntityPixie extends TameableEntity {
-
     public static final float[][] PARTICLE_RGB = new float[][]{new float[]{1F, 0.752F, 0.792F}, new float[]{0.831F, 0.662F, 1F}, new float[]{0.513F, 0.843F, 1F}, new float[]{0.654F, 0.909F, 0.615F}, new float[]{0.996F, 0.788F, 0.407F}};
     public static final int STEAL_COOLDOWN = 3000;
     private static final TrackedData<Integer> COLOR = DataTracker.registerData(EntityPixie.class, TrackedDataHandlerRegistry.INTEGER);

@@ -1542,5 +1542,6 @@
   "iceandfire.misc.allowAttributeOverriding.comment": "Unused",
 
   "block.iceandfire.dreadwood_leaves": "Dreadwood Leaves",
-  "block.iceandfire.dreadwood_sapling": "Dreadwood Sapling"
+  "block.iceandfire.dreadwood_sapling": "Dreadwood Sapling",
+  "biome.iceandfire.dread_forest": "Dread Forest"
 }

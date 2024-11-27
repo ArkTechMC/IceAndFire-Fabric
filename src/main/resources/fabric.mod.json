@@ -36,7 +36,8 @@
   },
   "custom": {
     "cardinal-components": [
-      "iceandfire:entity_data"
+      "iceandfire:entity_data",
+      "iceandfire:portal_data"
     ]
   },
   "mixins": [

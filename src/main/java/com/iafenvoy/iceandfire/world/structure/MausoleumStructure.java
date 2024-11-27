@@ -55,5 +55,4 @@ public class MausoleumStructure extends IafJigsawStructure {
     public StructureType<?> getType() {
         return IafStructureTypes.MAUSOLEUM;
     }
-
 }

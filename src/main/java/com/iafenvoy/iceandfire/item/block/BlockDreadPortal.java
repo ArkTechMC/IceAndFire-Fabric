@@ -10,54 +10,50 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
 
     public BlockDreadPortal() {
-        super(Settings.create().mapColor(MapColor.CLEAR).pistonBehavior(PistonBehavior.BLOCK).dynamicBounds().strength(-1, 100000).luminance((state) -> 1).ticksRandomly());
+        super(Settings.create().mapColor(MapColor.CLEAR).pistonBehavior(PistonBehavior.BLOCK).nonOpaque().dynamicBounds().strength(-1, 100000).luminance((state) -> 1).ticksRandomly());
     }
 
     @Override
     public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-     /* if(entity.dimension != IafConfig.dreadlandsDimensionId){
-            MiscEntityProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(entity, MiscEntityProperties.class);
-            if (properties != null) {
-                properties.lastEnteredDreadPortalX = pos.getX();
-                properties.lastEnteredDreadPortalY = pos.getY();
-                properties.lastEnteredDreadPortalZ = pos.getZ();
-            }
-        }
-        if ((!entity.isBeingRidden()) && (entity.getPassengers().isEmpty()) && (entity instanceof PlayerEntityMP)) {
-            CriteriaTriggers.ENTER_BLOCK.trigger((PlayerEntityMP) entity, world.getBlockState(pos));
-            PlayerEntityMP thePlayer = (PlayerEntityMP) entity;
-            if (thePlayer.timeUntilPortal > 0) {
-                thePlayer.timeUntilPortal = 10;
-            } else if (thePlayer.dimension != IafConfig.dreadlandsDimensionId) {
-                thePlayer.timeUntilPortal = 10;
-                thePlayer.changeDimension(IafConfig.dreadlandsDimensionId, new TeleporterDreadLands(thePlayer.server.getWorld(IafConfig.dreadlandsDimensionId), false));
-            } else {
-                MiscEntityProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(thePlayer, MiscEntityProperties.class);
-                BlockPos setPos = BlockPos.ORIGIN;
-                if (properties != null) {
-                    setPos = new BlockPos(properties.lastEnteredDreadPortalX, properties.lastEnteredDreadPortalY, properties.lastEnteredDreadPortalZ);
-                }
-                thePlayer.timeUntilPortal = 10;
-                thePlayer.changeDimension( 0, new TeleporterDreadLands(thePlayer.server.getWorld(0), true));
-                thePlayer.setPositionAndRotation(setPos.getX(), setPos.getY() + 0.5D, setPos.getZ(), 0, 0);
-
-            }
-        }*/
+//        if (!entity.getWorld().getRegistryKey().getValue().equals(new Identifier(IceAndFire.MOD_ID, "dread_land"))) {
+//            MiscEntityProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(entity, MiscEntityProperties.class);
+//            if (properties != null) {
+//                properties.lastEnteredDreadPortalX = pos.getX();
+//                properties.lastEnteredDreadPortalY = pos.getY();
+//                properties.lastEnteredDreadPortalZ = pos.getZ();
+//            }
+//        }
+//        if ((!entity.isBeingRidden()) && (entity.getPassengers().isEmpty()) && (entity instanceof PlayerEntityMP)) {
+//            CriteriaTriggers.ENTER_BLOCK.trigger((PlayerEntityMP) entity, world.getBlockState(pos));
+//            PlayerEntityMP thePlayer = (PlayerEntityMP) entity;
+//            if (thePlayer.timeUntilPortal > 0) {
+//                thePlayer.timeUntilPortal = 10;
+//            } else if (thePlayer.dimension != IafConfig.dreadlandsDimensionId) {
+//                thePlayer.timeUntilPortal = 10;
+//                thePlayer.changeDimension(IafConfig.dreadlandsDimensionId, new TeleporterDreadLands(thePlayer.server.getWorld(IafConfig.dreadlandsDimensionId), false));
+//            } else {
+//                MiscEntityProperties properties = EntityPropertiesHandler.INSTANCE.getProperties(thePlayer, MiscEntityProperties.class);
+//                BlockPos setPos = BlockPos.ORIGIN;
+//                if (properties != null) {
+//                    setPos = new BlockPos(properties.lastEnteredDreadPortalX, properties.lastEnteredDreadPortalY, properties.lastEnteredDreadPortalZ);
+//                }
+//                thePlayer.timeUntilPortal = 10;
+//                thePlayer.changeDimension(0, new TeleporterDreadLands(thePlayer.server.getWorld(0), true));
+//                thePlayer.setPositionAndRotation(setPos.getX(), setPos.getY() + 0.5D, setPos.getZ(), 0, 0);
+//
+//            }
+//        }
     }
 
     public void updateTick(World world, BlockPos pos, BlockState state, Random rand) {
@@ -97,12 +93,9 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
         }
     }
 
-    public boolean isOpaqueCube(BlockState state) {
-        return false;
-    }
-
-    public boolean isFullCube(BlockState state) {
-        return false;
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.cuboid(0, 0, 0, 0, 0, 0);
     }
 
     @Override
@@ -118,11 +111,5 @@ public class BlockDreadPortal extends BlockWithEntity implements IDreadBlock {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new BlockEntityDreadPortal(pos, state);
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
-        super.appendTooltip(stack, world, tooltip, options);
-        tooltip.add(Text.literal("Do not use this or your game will crash!"));
     }
 }

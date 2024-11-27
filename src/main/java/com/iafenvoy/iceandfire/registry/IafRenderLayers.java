@@ -1,5 +1,6 @@
 package com.iafenvoy.iceandfire.registry;
 
+import com.iafenvoy.iceandfire.render.RenderVariables;
 import com.iafenvoy.iceandfire.render.block.RenderDreadPortal;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -17,7 +18,7 @@ public final class IafRenderLayers extends RenderLayer {
         RenderSystem.defaultBlendFunc();
     });
     private static final Identifier STONE_TEXTURE = new Identifier("textures/block/stone.png");
-    private static final RenderLayer DREADLANDS_PORTAL = of("dreadlands_portal", VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.QUADS, 256, false, false, MultiPhaseParameters.builder().texture(Textures.create().add(RenderDreadPortal.DREAD_PORTAL_BACKGROUND, false, false).add(RenderDreadPortal.DREAD_PORTAL, false, false).build()).build(false));
+    private static final ShaderProgram DREAD_PORTAL_PROGRAM = new ShaderProgram(() -> RenderVariables.DREAD_PORTAL_PROGRAM);
 
     public IafRenderLayers(String nameIn, VertexFormat formatIn, VertexFormat.DrawMode drawModeIn, int bufferSizeIn, boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn) {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
@@ -34,7 +35,7 @@ public final class IafRenderLayers extends RenderLayer {
     }
 
     public static RenderLayer getDreadlandsPortal() {
-        return DREADLANDS_PORTAL;
+        return of("dreadlands_portal", VertexFormats.POSITION_COLOR, VertexFormat.DrawMode.QUADS, 256, false, false, MultiPhaseParameters.builder().program(DREAD_PORTAL_PROGRAM).texture(Textures.create().add(RenderDreadPortal.DREAD_PORTAL_BACKGROUND, false, false).add(RenderDreadPortal.DREAD_PORTAL, false, false).build()).build(false));
     }
 
     public static RenderLayer getStoneMobRenderType(float x, float y) {

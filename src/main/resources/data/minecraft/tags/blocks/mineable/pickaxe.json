@@ -59,6 +59,15 @@
     "iceandfire:dragonsteel_fire_block",
     "iceandfire:dragonsteel_ice_block",
     "iceandfire:dragonsteel_lightning_block",
-    "iceandfire:deepslate_silver_ore"
+    "iceandfire:deepslate_silver_ore",
+    "iceandfire:dread_stone",
+    "iceandfire:dread_stone_bricks",
+    "iceandfire:dread_stone_face",
+    "iceandfire:dread_stone_slab",
+    "iceandfire:dread_stone_stairs",
+    "iceandfire:dread_stone_bricks_chiseled",
+    "iceandfire:dread_stone_bricks_cracked",
+    "iceandfire:dread_stone_bricks_mossy",
+    "iceandfire:dread_stone_tile"
   ]
 }

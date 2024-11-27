@@ -1539,5 +1539,6 @@
   "iceandfire.misc.allowAttributeOverriding.comment": "未使用",
 
   "block.iceandfire.dreadwood_leaves": "悚木树叶",
-  "block.iceandfire.dreadwood_sapling": "悚木树苗"
+  "block.iceandfire.dreadwood_sapling": "悚木树苗",
+  "biome.iceandfire.dread_forest": "悚林"
 }

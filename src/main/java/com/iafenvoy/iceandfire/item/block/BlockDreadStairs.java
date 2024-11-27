@@ -4,16 +4,16 @@ import com.iafenvoy.iceandfire.item.block.util.IDragonProof;
 import com.iafenvoy.iceandfire.item.block.util.IDreadBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 
-public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDreadBlock {
-    public BlockDreadBase(boolean plank) {
-        super(Settings.copy(plank ? Blocks.OAK_PLANKS : Blocks.STONE));
-        this.setDefaultState(this.getStateManager().getDefaultState().with(UNBREAKABLE, false));
+public class BlockDreadStairs extends StairsBlock implements IDragonProof, IDreadBlock {
+    public BlockDreadStairs(BlockState baseBlockState, Settings settings) {
+        super(baseBlockState, settings);
+        this.setDefaultState(this.getDefaultState().with(UNBREAKABLE, false));
     }
 
     @Override

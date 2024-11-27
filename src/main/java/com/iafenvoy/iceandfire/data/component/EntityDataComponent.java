@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, CommonTickingComponent {
-    protected static final ComponentKey<EntityDataComponent> ENTITY_DATA_COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);
+    protected static final ComponentKey<EntityDataComponent> COMPONENT = ComponentRegistryV3.INSTANCE.getOrCreate(new Identifier(IceAndFire.MOD_ID, "entity_data"), EntityDataComponent.class);
 
     public final FrozenData frozenData = new FrozenData();
     public final ChainData chainData = new ChainData();
@@ -26,7 +26,7 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
     }
 
     public static EntityDataComponent get(LivingEntity entity) {
-        return ENTITY_DATA_COMPONENT.get(entity);
+        return COMPONENT.get(entity);
     }
 
     @Override
@@ -56,6 +56,6 @@ public class EntityDataComponent implements ComponentV3, AutoSyncedComponent, Co
         this.miscData.tickMisc(this.entity);
         boolean needUpdate = this.frozenData.doesClientNeedUpdate() || this.chainData.doesClientNeedUpdate() || this.sirenData.doesClientNeedUpdate() || this.miscData.doesClientNeedUpdate();
         if (needUpdate)
-            ENTITY_DATA_COMPONENT.sync(this.entity);
+            COMPONENT.sync(this.entity);
     }
 }
