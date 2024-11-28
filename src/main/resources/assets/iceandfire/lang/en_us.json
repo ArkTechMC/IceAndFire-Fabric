@@ -1543,5 +1543,6 @@
 
   "block.iceandfire.dreadwood_leaves": "Dreadwood Leaves",
   "block.iceandfire.dreadwood_sapling": "Dreadwood Sapling",
-  "biome.iceandfire.dread_forest": "Dread Forest"
+  "biome.iceandfire.dread_forest": "Dread Forest",
+  "biome.iceandfire.dread_plain": "Dread Plain"
 }

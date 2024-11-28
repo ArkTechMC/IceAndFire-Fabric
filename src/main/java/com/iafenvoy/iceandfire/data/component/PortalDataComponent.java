@@ -8,6 +8,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import dev.onyxstudios.cca.api.v3.component.tick.CommonTickingComponent;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.MinecraftServer;
@@ -16,6 +17,7 @@ import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 
 public class PortalDataComponent implements ComponentV3, AutoSyncedComponent, CommonTickingComponent {
@@ -35,17 +37,14 @@ public class PortalDataComponent implements ComponentV3, AutoSyncedComponent, Co
         if (!this.teleported && this.teleportTick == 0 && world instanceof ServerWorld serverWorld) {
             this.teleported = true;
             MinecraftServer server = serverWorld.getServer();
-            Vec3d pos = this.player.getPos();
-            if (world.getRegistryKey().getValue().equals(IafWorld.DREAD_LAND.getValue())) {
-                this.player.moveToWorld(server.getWorld(World.OVERWORLD));
-                this.player.setPosition(pos);
-            } else {
+            if (world.getRegistryKey().getValue().equals(IafWorld.DREAD_LAND.getValue()))
+                FabricDimensions.teleport(this.player, server.getWorld(World.OVERWORLD), new TeleportTarget(this.player.getPos(), Vec3d.ZERO, this.player.headYaw, this.player.getPitch()));
+            else {
                 ServerWorld dreadLand = server.getWorld(IafWorld.DREAD_LAND);
                 if (dreadLand == null) return;
-                this.player.moveToWorld(dreadLand);
-                this.player.setPosition(pos);
+                FabricDimensions.teleport(this.player, dreadLand, new TeleportTarget(this.player.getPos(), Vec3d.ZERO, this.player.headYaw, this.player.getPitch()));
                 if (!dreadLand.getBlockState(this.player.getBlockPos()).isOf(IafBlocks.DREAD_PORTAL))
-                    server.getStructureTemplateManager().getTemplate(new Identifier(IceAndFire.MOD_ID, "dread_exit_portal")).ifPresent(structureTemplate -> structureTemplate.place(dreadLand, this.player.getBlockPos(), new BlockPos(-2, -1, -2), new StructurePlacementData(), dreadLand.random, 2));
+                    server.getStructureTemplateManager().getTemplate(new Identifier(IceAndFire.MOD_ID, "dread_exit_portal")).ifPresent(structureTemplate -> structureTemplate.place(dreadLand, this.player.getBlockPos().subtract(new BlockPos(2, 1, 2)), BlockPos.ORIGIN, new StructurePlacementData(), dreadLand.random, 2));
             }
         }
         if (world.getBlockState(this.player.getBlockPos()).isOf(IafBlocks.DREAD_PORTAL)) {

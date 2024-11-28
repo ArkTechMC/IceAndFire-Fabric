@@ -67,6 +67,18 @@
           }
         },
         {
+          "biome": "iceandfire:dread_plain",
+          "parameters": {
+            "temperature": -1,
+            "humidity": -0.5,
+            "continentalness": 0.4,
+            "erosion": 0.5,
+            "weirdness": -0.1,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
           "biome": "iceandfire:dread_forest",
           "parameters": {
             "temperature": -1,
