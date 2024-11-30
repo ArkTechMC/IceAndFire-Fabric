@@ -1,5 +1,7 @@
 # Ice And Fire for Fabric
 
+**This mod has been ported to Architectury, [Check Out](https://github.com/IAFEnvoy/IceAndFire-CE)**
+
 ### Welcome to the mysterious world.
 
 This is the unofficial version of [Ice And Fire](https://github.com/AlexModGuy/Ice_And_Fire) for fabric.
